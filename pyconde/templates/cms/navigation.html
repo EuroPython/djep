@@ -1,0 +1,10 @@
+{% load menu_tags %}
+<nav>
+    <div class="box" id="navigation">
+        <ul>
+            {% for child in children %}
+                <li><a class="{% if child.selected or child.ancestor %}current{% endif %}" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a></li>
+            {% endfor %}
+        </ul>
+    </div>
+</nav>

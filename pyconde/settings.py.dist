@@ -1,0 +1,20 @@
+from conf.global_settings import *
+
+DEBUG = TEMPLATE_DEBUG = THUMBNAIL_DEBUG = False
+
+EMAIL_HOST = 'localhost'
+EMAIL_PORT = 2525
+
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(PROJECT_ROOT, 'local_database.db'),
+        'USER': '',
+        'PASSWORD': '',
+        'HOST': '',
+        'PORT': '',
+    }
+}
+
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'site_media')
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'deployed_static_media')

@@ -1,0 +1,8 @@
+{% extends "cms/base.html" %}
+{% load cms_tags %}
+
+{% block placeholders %}
+    {% block apphook %}
+        {% placeholder content %}
+    {% endblock %}
+{% endblock %}
