@@ -80,6 +80,7 @@ INSTALLED_APPS = (
     'cms.plugins.twitter',
     'cms.plugins.text',
     'cmsplugin_filer_image',
+    'cmsplugin_news',
 
     'pyconde.accounts',
 )
