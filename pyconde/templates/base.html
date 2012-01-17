@@ -111,12 +111,14 @@
                     </aside>-->
                 </div>
                 <div class="grid_8"><!-- Content -->
+                    {% block contentwrapper %}
                     <article>
                         <div class="box post">
                             {% block content %}
                             {% endblock %}
                         </div>
                     </article>
+                    {% endblock %}
                 </div>
             </div>
         </section>
