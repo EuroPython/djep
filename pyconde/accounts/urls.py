@@ -1,6 +1,6 @@
 from django.conf.urls.defaults import patterns, url
 
-urlpatterns = patterns('accounts.views',
+urlpatterns = patterns('pyconde.accounts.views',
     url(r'^$', 'profile_change', name='accounts_profile_change'),
     url(r'^email/$', 'email_change', name='accounts_email_change'),
     url(r'^email/requested/$', 'email_change_requested',

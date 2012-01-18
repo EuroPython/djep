@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
 
-from accounts.models import EmailVerification
+from .models import EmailVerification
 
 
 class EmailVerificationAdmin(admin.ModelAdmin):

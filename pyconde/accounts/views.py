@@ -3,8 +3,8 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render, redirect
 
-from accounts.forms import ProfileForm, ChangeEmailForm
-from accounts.models import EmailVerification
+from .forms import ProfileForm, ChangeEmailForm
+from .models import EmailVerification
 
 
 @login_required
