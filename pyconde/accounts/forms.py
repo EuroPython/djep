@@ -8,7 +8,7 @@ from django.template.loader import render_to_string
 
 from userprofiles.forms import RegistrationForm
 
-from accounts.models import Profile, EmailVerification
+from .models import Profile, EmailVerification
 
 
 class ProfileRegistrationForm(RegistrationForm):

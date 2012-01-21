@@ -559,3 +559,14 @@ table.schedule tr:nth-child(2n+2) {
 	margin: 20px 10px;
 }
 }
+
+.pagination .next, .pagination .prev {
+    width: 48%;
+}
+.pagination .next {
+    float: right;
+    text-align: right;
+}
+.pagination .prev {
+    float: left;
+}
