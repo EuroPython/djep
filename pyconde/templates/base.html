@@ -1,4 +1,4 @@
-{% load sekizai_tags menu_tags compress cms_tags %}
+{% load sekizai_tags menu_tags compress %}
 <!doctype html>
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if lt IE 7]><html lang="de" class="no-js ie6"><![endif]-->
@@ -94,7 +94,8 @@
             <div class="col12 clearfix" id="content">
                 <div class="grid_4"><!-- Sidebar -->
                     {% show_menu 0 1 1 1 "cms/navigation.html" %}
-                    {% placeholder "sidebar" %}
+                    {% block sidebar %}
+                    {% endblock %}
                     <!--
                     <aside>
                         <div class="tbox">
