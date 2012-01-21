@@ -1,7 +1,11 @@
 {% extends "cms/base.html" %}
 {% load cms_tags %}
 
-{% block placeholders %}
+{% block sidebar %}
+    {% placeholder "sidebar" inherit %}
+{% endblock %}
+
+{% block content %}
     {% block apphook %}
         {% placeholder content %}
     {% endblock %}
