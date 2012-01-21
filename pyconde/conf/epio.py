@@ -19,5 +19,6 @@ EMAIL_HOST_USER = 'outmail@de.pycon.org'
 EMAIL_HOST_PASSWORD = 'fboesrzbgose57bh'
 EMAIL_PORT = 587
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT, '..', 'data', 'static')
-MEDIA_ROOT = os.path.join(PROJECT_ROOT, '..', 'data', 'media')
+
+STATIC_ROOT = os.path.join(PROJECT_ROOT, '..', '..', 'data', 'static')
+MEDIA_ROOT = os.path.join(PROJECT_ROOT, '..', '..', 'data', 'media')

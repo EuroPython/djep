@@ -17,8 +17,8 @@
     <meta property="og:title" content="PyCon DE 2012 - 2. Deutsche Python-Konferenz" />
     <meta property="og:site_name" content="PyCon DE 2012" />
     <meta property="og:type" content="website" />
-    <meta property="og:url" content="http://{{ SITE_DOMAIN }}/" />
-    <meta property="og:image" content="http://{{ SITE_DOMAIN }}{{ STATIC_URL }}images/logo-facebook.jpg" />
+    <meta property="og:url" content="http://{{ request.get_host }}/" />
+    <meta property="og:image" content="http://{{ request.get_host }}{{ STATIC_URL }}images/logo-facebook.jpg" />
     <meta property="og:description" content="Die deutschsprachige Python-Konferenz PyCon DE findet vom 29.10. bis 03.11.2012 zum zweiten Mal in Leipzig statt." />
 
     <link rel="shortcut icon" href="{{ STATIC_URL }}images/favicon.ico">
