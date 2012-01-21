@@ -1,0 +1,14 @@
+PIL
+Django==1.3.1
+South==0.7.3
+django-sekizai==0.5
+django-mptt==0.5.1
+django-classy-tags==0.3.4.1
+python-dateutil==1.5
+easy-thumbnails==1.0-alpha-21
+-e git+https://github.com/stefanfoulis/django-filer.git@70d67da3d459d1e4ec82fbfa1d11438a4d75aef3#egg=django-filer
+-e git+https://github.com/stefanfoulis/cmsplugin-filer.git@ab90eebac725bdf30146c0927b7e1f88dbea4050#egg=cmsplugin-filer
+-e git+git://github.com/stephrdev/django-userprofiles.git#egg=django-userprofiles
+-e git+https://bitbucket.org/zerok/cmsplugin-news#egg=cmsplugin-news
+django-compressor==1.1.2
+django-cms==2.2

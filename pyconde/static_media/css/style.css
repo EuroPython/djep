@@ -1,0 +1,572 @@
+/* 2011 PyCon Leipzig*/
+/* colors */
+/*
+#CED9D9 bg CMYK 5,0,0,15 (shades: #B6BFBF, #8E99A6)
+#990000 red CMYK 0,100,100,40
+#153559 dark blue CMYK 76,41,0,65
+#304359 1. shades blue CMYK 46,25,0,12
+#5A7CA6 2. shades blue CMYK 46,25,0,35
+#79A8E0 3. shades blue CMYK 46,25,0,65
+#337FD9 python logo blue CMYK 80,50,15,0 #3d73a6 #175AA5
+#FFCC33 python logo yellow CMYK 0,20,80,0 ,yellow bg nav #E8CB23
+#90A617 green CMYK 13,0,86,35
+
+#323232 font base color
+*/
+
+/* 
+  HTML5 ✰ Boilerplate 
+  
+  style.css contains a reset, font normalization and some base styles.
+  
+  credit is left where credit is due.
+  much inspiration was taken from these projects:
+    yui.yahooapis.com/2.8.1/build/base/base.css
+    camendesign.com/design/
+    praegnanz.de/weblog/htmlcssjs-kickstart
+*/
+
+/* 
+  html5doctor.com Reset Stylesheet (Eric Meyer's Reset Reloaded + HTML5 baseline)
+  v1.4 2009-07-27 | Authors: Eric Meyer & Richard Clark
+  html5doctor.com/html-5-reset-stylesheet/
+*/
+
+html, div, span, object, iframe,
+h1, h2, h3, h4, h5, h6, p, blockquote, pre,
+abbr, address, cite, code,
+del, dfn, em, img, ins, kbd, q, samp,
+small, strong, sub, sup, var,
+b, i,
+dl, dt, dd, ol, ul, li,
+fieldset, form, label, legend,
+table, caption, tbody, tfoot, thead, tr, th, td,
+article, aside, canvas, details, figcaption, figure, 
+footer, header, hgroup, menu, nav, section, summary,
+time, mark, audio, video {
+  margin:0;
+  padding:0;
+  border:0;
+  outline:0;
+  font-size:100%;
+  vertical-align:baseline;
+  background:transparent;
+}                  
+body {
+	margin:0;
+  	padding:0;
+  	border:0;
+  	outline:0;
+  	font-size:100%;
+  	vertical-align:baseline;
+  	background-color:#CED9D9;
+	background-image:url('../images/bg-1614a.jpg');
+	background-repeat:no-repeat;
+	background-attachment:fixed;
+}
+article, aside, details, figcaption, figure,
+footer, header, hgroup, menu, nav, section { 
+    display:block;
+}
+
+nav ul, nav ol { list-style:none; }
+
+blockquote, q { quotes:none; }
+
+blockquote:before, blockquote:after,
+q:before, q:after { content:''; content:none; }
+
+a { margin:0; padding:0; font-size:100%; vertical-align:baseline; background:transparent; }
+
+ins { background-color:#ff9; color:#000; text-decoration:none; }
+
+mark { background-color:#ff9; color:#000; font-style:italic; font-weight:bold; }
+
+del { text-decoration: line-through; }
+
+abbr[title], dfn[title] { border-bottom:1px dotted; cursor:help; }
+
+/* tables still need cellspacing="0" in the markup */
+table { border-collapse:collapse; border-spacing:0; }
+
+hr { display:block; height:1px; border:0; border-top:1px solid #ccc; margin:1em 0; padding:0; }
+
+input, select { vertical-align:middle; }
+
+/* END RESET CSS */
+
+
+/* fonts.css from the YUI Library: developer.yahoo.com/yui/
+   Refer to developer.yahoo.com/yui/3/cssfonts/ for font sizing percentages
+
+  There are three custom edits:
+   * remove arial, helvetica from explicit font stack
+   * we normalize monospace styles ourselves
+   * table font-size is reset in the HTML5 reset above so there is no need to repeat
+*/
+body { font:13px/1.231 sans-serif; *font-size:small; } /* hack retained to preserve specificity */
+
+select, input, textarea, button { font:99% sans-serif; }
+
+/* normalize monospace sizing 
+ * en.wikipedia.org/wiki/MediaWiki_talk:Common.css/Archive_11#Teletype_style_fix_for_Chrome
+ */
+pre, code, kbd, samp { font-family: monospace, sans-serif; }
+ 
+
+/* 
+ * minimal base styles 
+ */
+
+
+body, select, input, textarea { 
+  color: #323232; 
+  font-family: "Lucida Sans", Verdana, Helvetica, sans-serif;
+}
+
+/* Headers (h1,h2,etc) have no default font-size or margin,
+   you'll want to define those yourself. */ 
+h1,h2,h3,h4,h5,h6 { font-weight: bold; }
+
+h1, h2, h3, h4 {font-size: 14px;text-transform: uppercase;font-family: "Arial Black",Arial,sans-serif;color: #000; clear: both;}
+h2, h3, h4 {margin-top: 1em;}
+
+
+h1 a, h2 a, h3 a, h4 a {text-decoration:none;}
+
+/* always force a scrollbar in non-IE */ 
+html { overflow-y: scroll; }
+
+p { line-height: 140%; padding-bottom: 0.3em;}
+ 
+/* Accessible focus treatment: people.opera.com/patrickl/experiments/keyboard/test */
+a:hover, a:active { outline: none; }
+
+a, a:active, a:visited { color: #111; }
+a:hover { color: #3d73a6; }
+
+
+ul, ol { margin-left: 1.8em; }
+ol { list-style-type: decimal; }
+
+/* Remove margins for navigation lists */
+nav ul, nav li { margin: 0; } 
+
+small { font-size: 85%; }
+strong, th { font-weight: bold; }
+
+td, td img { vertical-align: top; text-align: center;}
+td.left {text-align: left;}
+
+sub { vertical-align: sub; font-size: smaller; }
+sup { vertical-align: super; font-size: smaller; }
+
+pre { 
+  padding: 15px; 
+  
+  /* www.pathf.com/blogs/2008/05/formatting-quoted-code-in-blog-posts-css21-white-space-pre-wrap/ */
+  white-space: pre; /* CSS2 */
+  white-space: pre-wrap; /* CSS 2.1 */
+  white-space: pre-line; /* CSS 3 (and 2.1 as well, actually) */
+  word-wrap: break-word; /* IE */
+}
+ 
+textarea { overflow: auto; } /* thnx ivannikolic! www.sitepoint.com/blogs/2010/08/20/ie-remove-textarea-scrollbars/ */
+
+textarea#id_content { width: 570px; }
+
+.ie6 legend, .ie7 legend { margin-left: -7px; } /* thnx ivannikolic! */
+
+/* align checkboxes, radios, text inputs with their label
+   by: Thierry Koblentz tjkdesign.com/ez-css/css/base.css  */
+input[type="radio"] { vertical-align: text-bottom; }
+input[type="checkbox"] { vertical-align: bottom; }
+.ie7 input[type="checkbox"] { vertical-align: baseline; }
+.ie6 input { vertical-align: text-bottom; }
+
+/* hand cursor on clickable input elements */
+label { 
+    cursor: pointer; 
+    display: block;
+    width: 135px;
+    float: left;
+}
+
+input[type=button], input[type=submit], button { 
+    float: right;
+    background-color: #E8CB23;
+    color: white;
+    cursor: pointer;
+    display: block;
+    font-family: 'Arial black', Arial, sans-serif;
+    font-size: 14px;
+    padding: 3px 5px;
+    border: none;
+    text-decoration: none;
+    text-transform: uppercase;
+    vertical-align: baseline;
+}
+    
+ 
+/* webkit browsers add a 2px margin outside the chrome of form elements */  
+button, input, select, textarea { margin: 0; }
+
+.ctrlHolder { margin: 10px 0; }
+
+/* colors for form validity */
+input:valid, textarea:valid   {  }
+input:invalid, textarea:invalid { 
+      border-radius: 1px;
+    -moz-box-shadow: 0px 0px 5px red; 
+ -webkit-box-shadow: 0px 0px 5px red; 
+         box-shadow: 0px 0px 5px red;
+}
+.no-boxshadow input:invalid, 
+.no-boxshadow textarea:invalid { background-color: #f0dddd; }
+
+
+/* These selection declarations have to be separate.
+   No text-shadow: twitter.com/miketaylr/status/12228805301 
+   Also: hot pink. */
+::-moz-selection{ background: #FF5E99; color:#fff; text-shadow: none; }
+::selection { background:#FF5E99; color:#fff; text-shadow: none; } 
+
+/*  j.mp/webkit-tap-highlight-color */
+a:link { -webkit-tap-highlight-color: #FF5E99; } 
+
+/* make buttons play nice in IE:    
+   www.viget.com/inspire/styling-the-button-element-in-internet-explorer/ */
+button {  width: auto; overflow: visible; }
+ 
+/* bicubic resizing for non-native sized IMG: 
+   code.flickr.com/blog/2008/11/12/on-ui-quality-the-little-things-client-side-image-resizing/ */
+.ie7 img { -ms-interpolation-mode: bicubic; }
+
+
+
+/* 
+ * Non-semantic helper classes 
+ */
+
+/* for image replacement */
+.ir { display: block; text-indent: -999em; overflow: hidden; background-repeat: no-repeat; text-align: left; direction: ltr; }
+
+/* Hide for both screenreaders and browsers
+   css-discuss.incutio.com/wiki/Screenreader_Visibility */
+.hidden { display: none; visibility: hidden; } 
+
+/* Hide only visually, but have it available for screenreaders 
+   www.webaim.org/techniques/css/invisiblecontent/  &  j.mp/visuallyhidden  */
+.visuallyhidden { position: absolute !important;    
+  clip: rect(1px 1px 1px 1px); /* IE6, IE7 */
+  clip: rect(1px, 1px, 1px, 1px); }
+
+/* Hide visually and from screenreaders, but maintain layout */
+.invisible { visibility: hidden; }
+
+/* >> The Magnificent CLEARFIX: Updated to prevent margin-collapsing on child elements << j.mp/bestclearfix */
+.clearfix:before, .clearfix:after {
+  content: "\0020"; display: block; height: 0; visibility: hidden;	
+} 
+
+.clearfix:after { clear: both; }
+/* Fix clearfix: blueprintcss.lighthouseapp.com/projects/15318/tickets/5-extra-margin-padding-bottom-of-page */
+.clearfix { zoom: 1; }
+
+
+ /* Primary Styles
+    Author: Stefania Trabucchi info@trabucchi.de
+ */
+#portal-wrapper{position:relative;z-index:3;margin:0}
+.grid_1,.grid_2,.grid_3,.grid_4,.grid_5,.grid_6,.grid_7,.grid_8,.grid_9,.grid_10,.grid_11,.grid_12{display:inline;float:left;position:relative;margin-left:5px;margin-right:5px}
+.col12 .grid_1{width:68px}
+.col12 .grid_2{width:146px}
+.col12 .grid_3{width:224px}
+.col12 .grid_4{width:302px}
+.col12 .grid_5{width:380px}
+.col12 .grid_6{width:458px}
+.col12 .grid_7{width:536px}
+.col12 .grid_8{width:614px}
+.col12 .grid_9{width:692px}
+.col12 .grid_10{width:770px}
+.col12 .grid_11{width:848px}
+.col12 .grid_12{width:926px}
+
+.col12{margin-left:auto;margin-right:auto;width:936px}
+
+/* Errors */
+.errorField {
+    color: red;
+    margin: 1.5em 0 0.5em 0;
+}
+.errorlist {
+    color: red;
+    list-style-type: none;
+}
+#errorMsg {
+    color: red;
+}
+
+/* Header */
+#header{font-size:12px;margin-bottom:10px;background:url(../images/opacity.png) repeat-x top left;}
+#header a{font-weight:bold}
+.alpha{margin-left:0}
+.omega{margin-right:0}
+
+#pyconlogo h1 a{display:block; height:200px; margin:0px 10px; text-indent: -2000px; overflow:hidden; background:url(../images/logo.png) no-repeat}
+#pyconlogo_print{display:none}
+
+#siteaction a{text-transform:uppercase;text-decoration:none;color:#fff;padding:0 2px;}
+#siteaction a:hover{color:#000;background-color:#fff;text-decoration:none}
+#siteaction{margin-top:20px;text-align:right;color:#fff;z-index:100;}
+#siteaction span{margin-right:8px}
+#siteaction span a{font-size:10px}
+a.plain{padding:0}
+a.plain:hover{background-color:transparent}
+#messages {background-color:#fff;padding:5px 0px;margin-bottom:10px}
+
+/* Callout */
+.callout, .callout a {
+    color: #ffdd00;
+    text-transform: uppercase;
+    font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+    text-align: right;
+    text-decoration: none;
+    font-weight: normal;
+}
+.callout {
+    padding-top: 85px;
+    padding-right: 30px;
+    -webkit-transform: rotate(-5deg); 
+    -moz-transform: rotate(-5deg);
+}
+
+/* Navi */
+#content #navigation{padding:0 10px 10px 10px}
+#navigation ul{font-family:"Arial Black",Arial,sans-serif;text-transform:uppercase;font-size:14px}
+#navigation li{border-bottom:1px dotted #323232;padding:5px 0}
+#navigation li a{text-decoration:none;color:#175AA5;display:block;letter-spacing:0.03em;background:url(../images/arrowt.gif) no-repeat right center;padding:3px}
+#navigation a:hover, #navigation a.current{background-color:#E8CB23;color:#fff;background-image:none}
+#navigation #subnav a{background-image:none}
+#navigation #subnav{border:none}
+#navigation #subnav li{width:135px;border:none}
+#navigation #subnav li a{text-align:center;padding:3px;color:#fff;background-color:#000}
+#navigation #subnav li a:hover, #navigation #subnav li a.current{background-color:#175AA5}
+
+/* Startseite */
+#content .box, #content .fbox, #content .vbox, #content .vbox2{background-color:#fff;padding:5px 10px;padding-bottom:20px;margin-bottom:10px}
+#content .fbox h2, #content .vbox h2, #content .vbox2 h2{margin-bottom:0}
+#content .fbox h2 a, #content .fbox h3 a, #content .vbox h2 a, #content .vbox2 h2 a, #content .vbox h3 a, #content .vbox2 h3 a{color:#000}
+#content .fbox .grid_1{width:90px}
+#content .fbox .grid_2{width:180px}
+#content .vbox .alpha, #content .vbox .omega{width:292px}
+#content .tbox{background-color:#fff;margin-bottom:10px}
+#content .post p{font-size:13px;margin-bottom:0.4em}
+#content h1{font-size:20px}
+#content h2{font-size:18px}
+#content h3{font-size:16px}
+.entry a, .more a, a.more-link, a.comment-reply-link{text-decoration:none;color:#000;padding:0 2px}
+.entry ul {list-style-type: none;margin: 0;padding: 0 0 0.3em;}
+.entry ul li{line-height: 125%;}
+.entry ul li {background: url("../images/pfeil.gif") no-repeat scroll 0px 6px transparent;padding:0 0 5px 8px;display:block;}
+.entry p a{text-transform:none;color:#000;text-decoration:underline;font-weight:bold;}
+.entry p a:hover{color:#175AA5;text-decoration:none;}  
+#content .more a, #content a.more-link, #content a.comment-reply-link {background: url("../images/pfeil.gif") no-repeat scroll 1px 5px transparent;font-size: 11px;font-weight: bold;padding-left: 8px;}
+
+.dates ul {list-style-type: none;margin:0;padding:0 0 0.3em 0;}
+.dates ul li{line-height: 125%;padding: 8px 15px 0 0;font-size: 13px;}
+.dates li a, .pynews li a {background: url("../images/pfeil.gif") no-repeat scroll 0px 6px transparent;padding-left:8px;display:block;}
+.dates li span, .pynews li .date {background-image:none;color:#175AA5; padding:0 !important}
+
+#content .tbox{background-color:#fff;margin-bottom:10px}
+#content .tbox h2{padding:6px 10px;margin:0}
+#content .box h2, #content .box h3{padding:6px 0;margin:0}
+#content .pynews ul {list-style-type: none;margin:0;padding:0 0 0.3em 0;}
+#content .pynews ul li{font-size:13px;line-height:125%;padding:8px 10px 1px 10px}
+#content .pynews ul li a {background: url("../images/pfeil.gif") no-repeat scroll 0px 6px transparent;padding-left:8px;display:block;}
+
+#content .pynews ul li .text a{font-size:13px;font-weight:bold;text-transform:none}
+#content .pynews ul li .date a{color:#175AA5;font-weight:normal;text-decoration:none;text-transform:none;}
+#content .pynews ul li p {display:inline;}
+#content .tbox p.more{font-size:10px;padding:7px 10px 12px 10px;font-weight:bold;}
+#content .box.model{padding: 10px;}
+#content .sponsoren {width: 280px;}
+
+.blog-date {display:block;font-size:11px;text-transform:uppercase;font-weight:bold;border-bottom:1px dotted #fff;padding-bottom:5px;margin-left: -1px;}
+
+.photo {float: left; padding-right: 20px;}
+
+/* tickets */
+
+table#ticketprices {
+    width: 500px;
+    margin: 20px 0;
+}
+
+/* schedule*/
+table.schedule {
+	margin-bottom: 15px;
+	border-spacing: 0;
+	color:#000;
+	empty-cells:hide;
+}
+
+table.schedule th {
+	text-align: left;
+	color: #FFF;
+	border:none !important;
+	background: #175AA5;
+	padding: 3px;
+}
+table.schedule tr {
+border-top:1px dotted #323232;
+}
+table.schedule tr.pause {
+background:#FFCC33 !important;
+font-weight:bold;
+}
+table.schedule td.timetable {
+	white-space: nowrap;
+	font-weight:bold;
+}
+table.schedule td {
+	padding-top: 4px;
+	padding-right: 3px;
+	padding-bottom: 4px;
+	padding-left: 3px;
+	text-align: left;
+}
+table.schedule td a {
+	color:#175AA5;
+}
+table.schedule td a:hover {
+	color:#3d73a6;
+}
+table.schedule caption {
+	text-align: left;
+	margin-bottom: 5px;
+	font-size: 140%;
+	color: #000;
+}
+table.schedule tr:nth-child(2n+2) {
+	background: #d1deed;
+}
+
+#content ul.timeboard {
+	padding: 0;
+	list-style: none;
+	list-style-image: none;
+	margin: 0;
+	overflow: hidden;
+}
+
+#content ul.timeboard li{
+	padding: 0;
+	list-style: none;
+	list-style-image: none;
+	float: left;
+	margin: 0;
+	color: #000;
+}
+
+#content ul.timeboard li time{
+	display: block;
+	margin-top: 5px;
+	padding-left: 10px;
+}
+
+/* form */
+.pyconform {width: 600px; float:left;margin:10px 0 0 0}
+.pyconform p {margin-bottom: 0.3em}
+.pyconform span{float: right; text-align:right; width: 600px; margin-bottom:5px;}
+.pyconregister span {width:auto; margin:0 15px 0 0; color:#323232}
+	
+.pyconform .label, .box .label {color: #000; width:250px; float:left}
+.pyconform .labelMouse, .box .labelMouse {color: #E8CB23; float:left}
+.pyconform .form {width: 300px; float:left; margin-top:0.3em}
+* html .pyconform .form {width:300px; float:left; margin-top:0.2em}
+.pyconform .textarea {width: 580px; float:left; margin-top: 0.3em} /* need to float the label details*/
+
+.pyconform input {border:1px solid #000;background:#ECECEC;color:#3B3B3B;width:270px;padding:4px; float:left}
+.pyconform textarea {border:1px solid #000;background:#ECECEC;color:#3B3B3B;width:570px;padding:4px; float:left}
+.pyconform input:focus, #pyconform textarea:focus {background:#E8CB23;color:#000;}
+.pyconform button {cursor: pointer;background:#E8CB23;color:#fff;letter-spacing:0.03em;font-family:"Arial Black",Arial,sans-serif;text-transform:uppercase;font-size:14px;padding:3px 14px;border:none;font-weight:bold;float:right;margin-right:18px}
+.pyconform button:hover {background:#cccccc;cursor:pointer;}
+
+/* footer */
+#footer{background:#111}
+#footer, #footer a{text-transform:uppercase;font-weight:bold;color:#fff;font-size:10px;text-decoration:none}
+
+#footer .sitemap .boxf {width: 283px;background: none;padding: 0;float: left;height: 120px;margin: 10px 12px;}
+#footer .sitemap .boxf .first {margin-left:0 !important;}
+#footer .sitemap .boxf ul {padding: 0;margin: 0 0 16px 0;list-style-type:none;}
+#footer .sitemap .boxf li {display: inline;padding: 0px;margin: 0px;}
+#footer .sitemap .boxf ul li a{display: block;color: #444;text-decoration: none;margin: 0px;padding: 2px 0 0 10px;}
+#footer .sitemap .boxf ul li a:hover {color: #fff;}
+#footer .sitemap .boxf p {padding: 5px 0px 5px 10px;}
+#footer .noTransform {text-transform: none;}
+#footer .noTransform a {text-transform: none;}
+
+/*
+ * Media queries for responsive design
+ * These follow after primary styles so they will successfully override. 
+ */
+
+@media all and (orientation:portrait) { 
+  /* Style adjustments for portrait mode goes here */
+  
+}
+
+@media all and (orientation:landscape) { 
+  /* Style adjustments for landscape mode goes here */
+  
+}
+
+/* Grade-A Mobile Browsers (Opera Mobile, iPhone Safari, Android Chrome)  
+   Consider this: www.cloudfour.com/css-media-query-for-mobile-is-fools-gold/ */
+@media screen and (max-device-width: 480px) {
+  
+  
+  /* Uncomment if you don't want iOS and WinMobile to mobile-optimize the text for you
+     j.mp/textsizeadjust 
+  html { -webkit-text-size-adjust:none; -ms-text-size-adjust:none; } */
+}
+
+/* 
+ * print styles
+ * inlined to avoid required HTTP connection www.phpied.com/delay-loading-your-print-css/ 
+ */
+@media print {
+  * { background: transparent !important; color: #444 !important; text-shadow: none !important; }
+  a, a:visited { color: #444 !important; text-decoration: underline; }
+  a:after { content: " (" attr(href) ")"; } 
+  abbr:after { content: " (" attr(title) ")"; }
+  .ir a:after { content: ""; }  /* Don't show links for images */
+  pre, blockquote { border: 1px solid #999; page-break-inside: avoid; }
+  thead { display: table-header-group; } /* css-discuss.incutio.com/wiki/Printing_Tables */ 
+  tr, img { page-break-inside: avoid; }
+  @page { margin: 0.5cm; }
+  p, h2, h3 { orphans: 3; widows: 3; }
+  h2, h3{ page-break-after: avoid; }
+
+#pyconlogo  {
+	display: none;
+}
+#pyconlogo_print {
+	display: block;
+	width: 345px;
+	height: 45px;
+	margin: 20px 10px;
+}
+}
+
+.pagination .next, .pagination .prev {
+    width: 48%;
+}
+.pagination .next {
+    float: right;
+    text-align: right;
+}
+.pagination .prev {
+    float: left;
+}

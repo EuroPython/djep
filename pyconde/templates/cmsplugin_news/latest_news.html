@@ -1,0 +1,40 @@
+{% load i18n %}
+{% if placeholder == 'sidebar' %}
+<aside><div class="tbox">
+    <h2>{% trans "News" %}</h2>
+    <div class="pynews">
+        {% if latest %}
+            <ul>
+            {% for news in latest %}
+                <li>
+                <span class="date">{{ news.pub_date|date:"DATE_FORMAT" }}</span>
+                <span class="headline"><a href="{{ news.get_absolute_url }}">{{ news.title }}</a></span>
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p class="empty">{% trans "No news yet" %}</p>
+        {% endif %}
+        <p class="more"><a href="{% url news_archive_index %}">Alle News lesen</a></a>
+    </div>
+</aside>
+{% else %}
+<div class="cmsplugin-news">
+    <h2>{% trans "Latest news" %}</h2>
+    <div class="content">
+        {% if latest %}
+            <ul>
+            {% for news in latest %}
+                <li>
+                <a href="{{ news.get_absolute_url }}">{{ news.title }}</a>
+                <span class="pub_date">{{ news.pub_date|date:"DATE_FORMAT" }}</span>
+                </li>
+            {% endfor %}
+            </ul>
+        {% else %}
+            <p class="empty">{% trans "No news yet" %}</p>
+        {% endif %}
+        <a href="{% url news_archive_index %}">{% trans "Archive" %}</a>
+    </div>
+</div>
+{% endif %}

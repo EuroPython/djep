@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block title %}{% trans "News" %}{% endblock %}
+{% block contentwrapper %}
+<div class="box post"><h1>{% trans "News" %}</h1></div>
+
+{% if not object_list %}
+    <div class="box"><p class="empty">{% trans "No news posted yet." %}</p></div>
+{% else %}
+    {% for item in object_list %}
+    <article class="box post teaser">
+        <h2><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h2>
+        <span class="blog-date">{{ item.pub_date|date:"DATE_FORMAT" }}</span>
+        {% if item.excerpt %}<div class="teaser">{{ item.excerpt|safe }}</div>{% endif %}
+        {% if item.content %}<p><a class="post-link" href="{{ item.get_absolute_url }}">Weiter lesen...</a></p>{% endif %}
+    </article>
+    {% endfor %}
+{% endif %}
+{% if is_paginated %}
+<div class="box post pagination">
+    {% if page_obj.has_previous %}
+    <a class="prev" href="?page={{ page_obj.previous_page_number }}">&larr; Vorherige Seite</a>
+    {% endif %}
+    {% if page_obj.has_next %}
+    <a class="next" href="?page={{ page_obj.next_page_number }}">Nächste Seite &rarr;</a>
+    {% endif %}
+</div>
+{% endif %}
+{% endblock %}
