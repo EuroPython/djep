@@ -566,3 +566,17 @@ table.schedule tr:nth-child(2n+2) {
 }
 }
 
+/**
+ * Additions
+ */
+.pagination .next, .pagination .prev {
+    width: 48%;
+}
+.pagination .next {
+    float: right;
+    text-align: right;
+}
+.pagination .prev {
+    float: left;
+}
+#content .pynews .empty {padding-left: 10px; }
