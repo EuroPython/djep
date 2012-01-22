@@ -159,3 +159,6 @@ WYM_TOOLS = ",\n".join([
     "{'name': 'InsertTable', 'title': 'Table', 'css': 'wym_tools_table'}",
     "{'name': 'Preview', 'title': 'Preview', 'css': 'wym_tools_preview'}",
 ])
+
+CMSPLUGIN_NEWS_FEED_TITLE = u'PyCon DE 2012-News'
+CMSPLUGIN_NEWS_FEED_DESCRIPTION = u'Neuigkeiten rund um die PyCon DE 2012 in Leipzig'

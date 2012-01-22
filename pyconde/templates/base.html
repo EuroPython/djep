@@ -20,11 +20,12 @@
     <meta property="og:url" content="http://{{ request.get_host }}/" />
     <meta property="og:image" content="http://{{ request.get_host }}{{ STATIC_URL }}images/logo-facebook.jpg" />
     <meta property="og:description" content="Die deutschsprachige Python-Konferenz PyCon DE findet vom 29.10. bis 03.11.2012 zum zweiten Mal in Leipzig statt." />
+    <link rel="alternate" href="/news/feed/" type="application/atom+xml" title="PyCon DE 2012-News" />
 
     <link rel="shortcut icon" href="{{ STATIC_URL }}images/favicon.ico">
 
     {% compress css %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/style-2012.css">
     {% endcompress %}
     {% render_block "css" %}
 
@@ -47,7 +48,7 @@
                 <div class="grid_8 alpha" id="pyconlogo">
                     <h1><a href="/"></a></h1>
                 </div>
-                <img width="1" height="1" src="{{ STATIC_URL }}images/logo.png" id="pyconlogo_print">
+                <img width="1" height="1" src="{{ STATIC_URL }}images/logo-2012.png" id="pyconlogo_print">
                 <div class="grid_4 omega" id="siteaction">
                     <span>
                         <a href="/impressum/">Kontakt</a> |
@@ -67,6 +68,7 @@
                         {% endif %}
                     </span>
                 </div>
+                <div class="header-data"><img width="" height="" src="{{ STATIC_URL }}images/leipzig-2012.png"></div>
                 <div class="callout">
                     <!-- Placeholder for callout box -->
                 </div>
