@@ -72,6 +72,9 @@ INSTALLED_APPS = (
     'menus',
     'sekizai',
     'userprofiles',
+    'userprofiles.contrib.accountverification',
+    'userprofiles.contrib.emailverification',
+    'userprofiles.contrib.profiles',
 
     'cms.plugins.inherit',
     'cms.plugins.googlemap',
@@ -115,6 +118,7 @@ USERPROFILES_USE_PROFILE = True
 USERPROFILES_INLINE_PROFILE_ADMIN = True
 USERPROFILES_USE_PROFILE_VIEW = False
 USERPROFILES_REGISTRATION_FORM = 'pyconde.accounts.forms.ProfileRegistrationForm'
+USERPROFILES_EMAIL_VERIFICATION_DONE_URL = 'userprofiles_profile_change'
 
 AUTH_PROFILE_MODULE = 'accounts.Profile'
 

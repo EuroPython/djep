@@ -53,14 +53,14 @@
                     <span>
                         <a href="/impressum/">Kontakt</a> |
                         {% if request.user.is_authenticated %}
-                            <a href="{% url accounts_profile_change %}">{{ user.username }}</a> (<a href="{% url auth_logout %}?next={{ request.path }}">Abmelden</a>)
+                            <a href="{% url userprofiles_profile %}">{{ user.username }}</a> (<a href="{% url auth_logout %}?next={{ request.path }}">Abmelden</a>)
                             {% if request.user.is_staff %}
                                 | <a href="{% url admin:index %}" target="_blank">Admin</a>
                             {% endif %}
                             </span>
                             <br/>
                             <span>
-                                <a href="{% url accounts_profile_change %}">Profil ändern</a>
+                                <a href="{% url userprofiles_profile_change %}">Profil ändern</a>
                                 | <a href="{% url auth_password_change %}">Passwort ändern</a>
                         {% else %}
                             <a href="{% url auth_login %}?next={{ request.path }}">Anmelden</a>
