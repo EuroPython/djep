@@ -13,6 +13,7 @@ urlpatterns = patterns('',
     #        'query_string': True,
     #        'url': 'http://2011.de.pycon.org/2011/%(path)s'}),
     (r'^admin/', include(admin.site.urls)),
+    url(r'^accounts/', include('pyconde.accounts.urls')),
     url(r'^accounts/', include('userprofiles.urls')),
     url(r'^', include('cms.urls')),
 )

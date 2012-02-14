@@ -574,27 +574,3 @@ table.schedule tr:nth-child(2n+2) {
 }
 }
 
-/**
- * Additions
- */
-.pagination .next, .pagination .prev {
-    width: 48%;
-}
-.pagination .next {
-    float: right;
-    text-align: right;
-}
-.pagination .prev {
-    float: left;
-}
-#content .pynews .empty {padding-left: 10px; }
-body {
-    background-color: #5b575b;
-    background-image: url(../images/base-bg.jpg);
-    background-repeat: no-repeat;
-    background-attachment: fixed;
-    -webkit-background-size: cover;
-    -moz-background-size: cover;
-    -o-background-size: cover;
-    background-size: cover;
-}

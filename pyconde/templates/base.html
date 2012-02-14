@@ -26,6 +26,8 @@
 
     {% compress css %}
     <link rel="stylesheet" href="{{ STATIC_URL }}css/style-2012.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
+    <link rel="stylesheet" href="{{ STATIC_URL }}css/custom.css">
     {% endcompress %}
     {% render_block "css" %}
 
@@ -37,7 +39,7 @@
 
     {% block extra_head %}{% endblock %}
 </head>
-<body>
+<body class="{% block bodycls %}{% endblock %}">
     {% block abovepage %}
     {% endblock %}
 
