@@ -1,5 +1,7 @@
 from conf.global_settings import *
 
+SECRET_KEY = ''
+
 DEBUG = TEMPLATE_DEBUG = THUMBNAIL_DEBUG = False
 
 EMAIL_HOST = 'localhost'
@@ -17,4 +19,3 @@ DATABASES = {
 }
 
 MEDIA_ROOT = os.path.join(PROJECT_ROOT, 'site_media')
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'deployed_static_media')

@@ -6,8 +6,6 @@ PROJECT_ROOT = os.path.abspath(
     os.path.join(os.path.dirname(os.path.abspath(__file__)), '..'))
 PROJECT_NAME = os.path.split(PROJECT_ROOT)[-1]
 
-SECRET_KEY = 'fanio4gb5eoibhzphbp69e54tbsreougbbbeosx2bu5teu5h'
-
 DEBUG = TEMPLATE_DEBUG = False
 
 ADMINS = (
@@ -38,6 +36,8 @@ LANGUAGES = (
 MEDIA_URL = '/site_media/'
 STATIC_URL = '/static_media/'
 ADMIN_MEDIA_PREFIX = '/static_media/admin/'
+
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'deployed_static_media')
 
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static_media'),
