@@ -5,7 +5,7 @@
 <div class="box post"><h1>{% trans "News" %}</h1></div>
 
 {% if not object_list %}
-    <div class="box"><p class="empty">{% trans "No news posted yet." %}</p></div>
+    <div class="box"><p class="empty">{% trans "No news yet" %}</p></div>
 {% else %}
     {% for item in object_list %}
     <article class="box post teaser">

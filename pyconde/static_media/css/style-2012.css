@@ -317,7 +317,15 @@ button {  width: auto; overflow: visible; }
 .alpha{margin-left:0}
 .omega{margin-right:0}
 
-#pyconlogo h1 a{display:block; height:200px; margin:0; text-indent: -2000px; overflow:hidden; background:url(../images/logo-2012.png) no-repeat}
+#pyconlogo h1 a{display:block; height:200px; margin:0; text-indent: -2000px; overflow:hidden; 
+    background-attachment: scroll;
+    background-repeat: no-repeat;
+    background-clip: border-box;
+    background-color: transparent;
+    background-image: url("../images/logo-2012.png");
+    background-origin: padding-box;
+    background-position: 5% 50%;
+}
 #pyconlogo_print{display:none}
 
 #siteaction a{text-transform:uppercase;text-decoration:none;color:#fff;padding:0 2px;}
@@ -325,7 +333,7 @@ button {  width: auto; overflow: visible; }
 #siteaction{margin-top:20px;text-align:right;color:#fff;z-index:100;}
 #siteaction span{margin-right:8px}
 #siteaction span a{font-size:10px}
-.header-data {position:relative; top:80px;float:right;padding:0 10px 0 0;}
+.header-data {position:relative; top:26px;float:right;padding:0 10px 0 0;}
 a.plain{padding:0}
 a.plain:hover{background-color:transparent}
 #messages {background-color:#fff;padding:5px 0px;margin-bottom:10px}
@@ -566,3 +574,27 @@ table.schedule tr:nth-child(2n+2) {
 }
 }
 
+/**
+ * Additions
+ */
+.pagination .next, .pagination .prev {
+    width: 48%;
+}
+.pagination .next {
+    float: right;
+    text-align: right;
+}
+.pagination .prev {
+    float: left;
+}
+#content .pynews .empty {padding-left: 10px; }
+body {
+    background-color: #5b575b;
+    background-image: url(../images/base-bg.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}

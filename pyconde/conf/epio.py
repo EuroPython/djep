@@ -14,10 +14,10 @@ DATABASES = {
     },
 }
 
-EMAIL_HOST = 'office.jaekel-it.de'
-EMAIL_HOST_USER = 'outmail@de.pycon.org'
-EMAIL_HOST_PASSWORD = 'fboesrzbgose57bh'
-EMAIL_PORT = 587
+#EMAIL_HOST = 'office.jaekel-it.de'
+#EMAIL_HOST_USER = 'outmail@de.pycon.org'
+#EMAIL_HOST_PASSWORD = ''
+#EMAIL_PORT = 587
 
 
 STATIC_ROOT = os.path.join(PROJECT_ROOT, '..', '..', 'data', 'static')
