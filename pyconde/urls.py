@@ -5,7 +5,6 @@ from django.contrib import admin
 
 
 admin.autodiscover()
-handler500 = 'pyconde.helpers.views.server_error'
 
 
 urlpatterns = patterns('',

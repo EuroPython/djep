@@ -37,8 +37,6 @@ MEDIA_URL = '/site_media/'
 STATIC_URL = '/static_media/'
 ADMIN_MEDIA_PREFIX = '/static_media/admin/'
 
-STATIC_ROOT = os.path.join(PROJECT_ROOT, 'deployed_static_media')
-
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static_media'),
 )

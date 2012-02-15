@@ -1,5 +1,4 @@
 pyconde/site_media/
 pyconde/deployed_static_media/
 pyconde/settings.py
-pyconde/conf/epio.py
 setup.py.bak
