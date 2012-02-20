@@ -1,0 +1,45 @@
+
+/**
+ * Additions
+ */
+.pagination .next, .pagination .prev {
+    width: 48%;
+}
+.pagination .next {
+    float: right;
+    text-align: right;
+}
+.pagination .prev {
+    float: left;
+}
+#content .pynews .empty {padding-left: 10px; }
+body {
+    background-color: #5b575b;
+    background-image: url(../images/base-bg.jpg);
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+.grid_8 h1 + form {
+    margin-top: 20px;
+}
+
+.form-actions:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
+}
+body.login .form-actions {
+    padding-left: 20px;
+}
+body.login .form-actions ul {
+    float: left;
+    width: 50%;
+}
+

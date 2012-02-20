@@ -61,6 +61,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.staticfiles',
+    'crispy_forms',
     'south',
     'easy_thumbnails',
     'filer',
@@ -116,6 +117,7 @@ USERPROFILES_USE_PROFILE = True
 USERPROFILES_INLINE_PROFILE_ADMIN = True
 USERPROFILES_USE_PROFILE_VIEW = False
 USERPROFILES_REGISTRATION_FORM = 'pyconde.accounts.forms.ProfileRegistrationForm'
+USERPROFILES_PROFILE_FORM = 'pyconde.accounts.forms.ProfileForm'
 USERPROFILES_EMAIL_VERIFICATION_DONE_URL = 'userprofiles_profile_change'
 
 AUTH_PROFILE_MODULE = 'accounts.Profile'
