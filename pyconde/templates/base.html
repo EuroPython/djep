@@ -122,26 +122,35 @@
         <div class="col12 clearfix">
             <div class="grid_12" id="footer">
                 {% block footer %}
-                <div class="sitemap">
-                    <div class="boxf first">
-                        <ul>
-                            <li><a href="/impressum/">Impressum</a></li>
-                            <li><a href="http://twitter.com/pyconde" rel="external">Twitter</a></li>
-                            <li><a href="http://www.youtube.com/user/PyConDE" rel="external">PyCon DE auf YouTube</a></li>
-                        </ul>
-                    </div>
-                    <div class="boxf second">
-                    </div>
-                    <div class="boxf last">
-                        <ul class="noTransform">
-                            <li><a href="http://www.python.org/" title="Python Programming Language - Official Website" rel="external">Python Programming Language</a></li>
-                            <li><a href="http://python-verband.org/" title="Python Software Verband" rel="external">Python Software Verband e.V.</a></li>
-                            <li><a href="http://www.python.de/" title="Python.de" rel="external">Python.de</a></li>
-                            <li><a href="http://www.europython.eu/" title="EuroPython - the official European conference about the Python programming language" rel="external">EuroPython</a></li>
-                        </ul>
-                        <p class="noTransform">&copy; 2012 PyCon DE</p>
-                    </div>
-                </div>
+                <section id="footer-supportpages">
+                    <h1>Sitemap</h1>
+                    <ul>
+                        <li><a href="/impressum/">Impressum</a></li>
+                    </ul>
+                </section>
+                <section id="footer-social">
+                    <h1>Hier sind wird noch</h1>
+                    <ul>
+                        <li><a class="twitter" href="http://twitter.com/pyconde" rel="external"><span>Folge uns auf Twitter</span></a></li>
+                        <li><a class="youtube" href="http://www.youtube.com/user/PyConDE" rel="external"><span>PyCon DE-Videos auf YouTube</span></a></li>
+                        <li><a class="flickr" href="http://www.flickr.com/groups/pycon-de/" rel="external"><span>Fotos zur Konferenz auf Flickr</span></a></li>
+                        <li><a class="lanyrd" href="http://lanyrd.com/2012/pyconde/" rel="external"><span>Und natürlich auch auf Lanyrd</span></a></li>
+                    </ul>
+                </section>
+                <section id="footer-contact">
+                    <h1>Kontakt</h1>
+                    <p>Falls du fragen zur Konferenz oder allgemein zu deinem Aufenthalt hast, so kannst du uns über
+                        folgende Wege erreichen:</p>
+                    <dl>
+                        <dt>E-Mail:</dt>
+                        <dd><a href="mailto:info@de.pycon.org">info@de.pycon.org</a>
+                    </dl>
+                    <dl>
+                        <dt>IRC</dt>
+                        <dd><a href="irc://irc.freenode.net/pyconde">#pyconde</a>
+                    </dl>
+                </section>
+                <p id="credits">&copy; 2012 PyCon DE<br />Social icons by <a href="http://paulrobertlloyd.com/2009/06/social_media_icons/">Paul Robert Lloyd</a></p>
                 {% endblock %}
             </div>
         </div>
