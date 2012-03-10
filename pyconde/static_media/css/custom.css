@@ -128,3 +128,109 @@ body.login .form-actions ul {
     text-align: center;
     padding-top: 2em;
 }
+
+/**
+ * Header navigation
+ */
+#portal-wrapper > header {
+    margin-top: 50px;
+}
+#primary-nav-container {
+    background: rgba(0,0,0,0.6);
+    position: fixed;
+    z-index: 200;
+    top: 0;
+    left: 0;
+    width: 100%;
+}
+#primary-nav-container:hover {
+    background: #000;
+}
+#primary-nav {
+    width: 926px;
+    margin: auto;
+    color: #FFF;
+    height: 26px;
+}
+#primary-nav:after {
+    clear: both;
+    content: ".";
+    visibility: hidden;
+    height: 0px;
+}
+#primary-nav > nav {
+    width: 70%;
+    float: left;
+}
+#primary-nav nav ul {
+    width: 100%;
+    overflow: hidden;
+}
+#primary-nav nav ul li {
+    float: left;
+}
+#primary-nav nav a {
+    display: block;
+    padding: 5px 8px;
+}
+#primary-nav a {
+    color: #FFF;
+    text-decoration: none;
+    font-weight: bold;
+}
+#primary-nav a:hover, #primary-nav a.current {
+    color: #FFCC33;
+}
+#accountbox {
+    float: right;
+    height: 26px;
+    width: 30%;
+    text-align: right;
+    position: relative;
+}
+#account-actions {
+    z-index: 101;
+    display: none;
+    position: absolute;
+    top: 26px;
+    left: 0px;
+    width: 277px;
+    background: rgba(0,0,0,0.6);
+}
+#account-actions ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+#account-actions:hover {
+    display: block;
+}
+#accountbox:hover #account-actions {
+    display: block;
+}
+body.logged-out #accountbox {
+    padding: 5px 0;
+    height: 21px;
+}
+#accountbox a.myaccount {
+    display: block;
+    padding: 5px 0;
+}
+#account-actions a {
+    display: block;
+    padding: 5px;
+    border-top: 1px dotted #666;
+}
+#account-actions a:hover {
+    background: #000;
+}
+#account-actions ul li:first-child a {
+    border-top: none;
+}
+
+/* Even if there is no sidebar on the left side, make sure that the main
+ * content stays on the right side.
+ */
+#content .grid_8 {
+    float: right;
+}
