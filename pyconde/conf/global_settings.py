@@ -85,6 +85,7 @@ INSTALLED_APPS = (
     'cmsplugin_news',
 
     'pyconde.accounts',
+    'pyconde.attendees',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -167,3 +168,6 @@ WYM_TOOLS = ",\n".join([
 
 CMSPLUGIN_NEWS_FEED_TITLE = u'PyCon DE 2012-News'
 CMSPLUGIN_NEWS_FEED_DESCRIPTION = u'Neuigkeiten rund um die PyCon DE 2012 in Leipzig'
+
+ATTENDEES_CUSTOMER_NUMBER_START = 20000
+ATTENDEES_PRODUCT_NUMBER_START = 1000

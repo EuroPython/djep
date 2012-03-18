@@ -1,0 +1,35 @@
+Hallo {{ purchase.first_name }} {{ purchase.last_name }},
+
+Sie habe folgende Tickets für die PyCon DE 2012 gekauft:
+--------------------------------------------------------
+{% for ticket in purchase.ticket_set.all %}- {{ ticket.ticket_type.name }} ({{ ticket.first_name }} {{ ticket.last_name }}), {{ ticket.ticket_type.fee|floatformat:2 }} EUR
+{% endfor %}
+--------------------------------------------------------
+Gesamtpreis: {{ purchase.payment_total|floatformat:2 }} EUR
+========================================================
+
+Rechnungsadresse:
+{{ purchase.company_name }}
+{{ purchase.first_name }} {{ purchase.last_name }}
+{{ purchase.street }}
+{{ purchase.zip_code }} {{ purchase.city }}
+{{ purchase.country }}
+
+{% if purchase.comments %}Kommentar:
+{{ purchase.comments}}{% endif %}
+
+Sie werden innerhalb der nächsten zwei Wochen eine Rechnung über die von Ihnen erworbenen Tickets sowie die nötigen Zahlungsinformationen erhalten.
+
+Falls es Probleme mit der Bezahlung gibt, können Sie uns auf folgenden Wegen erreichen:
+
+* info@de.pycon.org
+* #pyconde Channel auf irc.freenode.net (IRC)
+* @pyconde (Twitter)
+
+
+Vielen Dank!
+
+Das PyCon DE Team
+
+--
+{% include "attendees/mail_signature.txt" %}
