@@ -41,6 +41,10 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static_media'),
 )
 
+FIXTURE_DIRS = (
+    os.path.join(PROJECT_ROOT, 'fixtures'),
+)
+
 STATICFILES_FINDERS += (
     'pyconde.helpers.static.AppMediaDirectoriesFinder',
     'compressor.finders.CompressorFinder',
@@ -84,7 +88,11 @@ INSTALLED_APPS = (
     'cmsplugin_filer_image',
     'cmsplugin_news',
 
+    # Symposion apps
     'pyconde.conference',
+    'pyconde.speakers',
+
+    # Custom apps
     'pyconde.accounts',
 )
 
