@@ -1,10 +1,13 @@
 import datetime
 
 from django.db import models
+from django.db.models import Q
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 
 from timezones.fields import TimeZoneField
+
+from .. import south_rules
 
 
 CONFERENCE_CACHE = {}
@@ -45,6 +48,15 @@ class Conference(models.Model):
         verbose_name_plural = _("conferences")
 
 
+class CurrentConferenceManager(models.Manager):
+    """
+    A simple filter that filters instances of the current class by the
+    foreign key "conference" being the current conference.
+    """
+    def get_query_set(self):
+        return super(CurrentConferenceManager, self).get_query_set().filter(conference=current_conference())
+
+
 class Section(models.Model):
     """
     a section of the conference such as "Tutorials", "Workshops",
@@ -59,6 +71,9 @@ class Section(models.Model):
     # when the section runs
     start_date = models.DateField(_("start date"), null=True, blank=True)
     end_date = models.DateField(_("end date"), null=True, blank=True)
+
+    objects = models.Manager()
+    current_objects = CurrentConferenceManager()
     
     def __unicode__(self):
         return self.name
@@ -92,6 +107,9 @@ class AudienceLevel(models.Model):
     slug = models.SlugField(_("slug"))
     level = models.IntegerField(_("level"), blank=True, null=True)
 
+    objects = models.Manager()
+    current_objects = CurrentConferenceManager()
+
     class Meta(object):
         verbose_name = _("audience level")
         verbose_name_plural = _("audience levels")
@@ -112,12 +130,24 @@ class SessionDuration(models.Model):
     slug = models.SlugField(_("slug"))
     minutes = models.IntegerField(_("minutes"))
 
+    objects = models.Manager()
+    current_objects = CurrentConferenceManager()
+
     class Meta(object):
         verbose_name = _("session duration")
         verbose_name_plural = _("session durations")
 
     def __unicode__(self):
         return u"%s (%d min.)" % (self.label, self.minutes)
+
+
+class ActiveSessionKindManager(CurrentConferenceManager):
+    def filter_open_kinds(self):
+        now = datetime.datetime.utcnow()
+        return self.get_query_set().filter(
+            Q(closed=False)
+            | Q(Q(closed=None) & Q(start_date__lt=now) & Q(end_date__gte=now))
+            )
 
 
 class SessionKind(models.Model):
@@ -128,12 +158,15 @@ class SessionKind(models.Model):
     start_date = models.DateTimeField(blank=True, null=True)
     end_date = models.DateTimeField(blank=True, null=True)
 
+    objects = models.Manager()
+    current_objects = ActiveSessionKindManager()
+
     class Meta(object):
         verbose_name = _("session kind")
         verbose_name_plural = _("session kinds")
 
     def __unicode__(self):
-        return u"%s (%s)" % (self.name, self.conference)
+        return self.name
 
     def clean(self):
         """

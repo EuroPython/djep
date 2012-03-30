@@ -65,6 +65,7 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.staticfiles',
+    'django.contrib.markup',
     'crispy_forms',
     'south',
     'easy_thumbnails',
@@ -91,6 +92,7 @@ INSTALLED_APPS = (
     # Symposion apps
     'pyconde.conference',
     'pyconde.speakers',
+    'pyconde.proposals',
 
     # Custom apps
     'pyconde.accounts',
@@ -111,6 +113,7 @@ MIDDLEWARE_CLASSES = (
 TEMPLATE_CONTEXT_PROCESSORS += (
     'django.core.context_processors.request',
     'sekizai.context_processors.sekizai',
+    'pyconde.conference.context_processors.current_conference',
 )
 
 TEMPLATE_DIRS = (
