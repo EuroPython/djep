@@ -60,6 +60,8 @@
                                 | <a href="{% url admin:index %}" target="_blank">Admin</a>
                             {% endif %}
                             </span>
+                            <br />
+                            <span><a href="{% url my_proposals %}">Meine Einreichungen</a></span>
                             <br/>
                             <span>
                                 <a href="{% url userprofiles_profile_change %}">Profil ändern</a>
@@ -83,13 +85,11 @@
         {% if messages %}
         <div class="col12 clearfix">
             <div class="grid_12" id="messages">
-                <ul>
-                    {% for message in messages %}
-                    <li id="message_{{ forloop.counter }}"{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-                        {{ message }}
-                    </li>
-                    {% endfor %}
-                </ul>
+                {% for message in messages %}
+                <div id="message_{{ forloop.counter }}"{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
+                    {{ message }}
+                </div>
+                {% endfor %}
             </div>
         </div>
         {% endif %}
@@ -139,7 +139,7 @@
                             <li><a href="http://www.python.de/" title="Python.de" rel="external">Python.de</a></li>
                             <li><a href="http://www.europython.eu/" title="EuroPython - the official European conference about the Python programming language" rel="external">EuroPython</a></li>
                         </ul>
-                        <p class="noTransform">&copy; 2012 PyCon DE</p>
+                        <p class="noTransform">&copy; 2012 PyCon DE<br /><a href="http://glyphicons.com/">glyphicons</a> via <a href="http://twitter.github.com/bootstrap/">bootstrap</a></p>
                     </div>
                 </div>
                 {% endblock %}

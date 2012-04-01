@@ -3,12 +3,11 @@
 # This file is distributed under the same license as the PACKAGE package.
 # FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-02-19 02:07+0100\n"
+"POT-Creation-Date: 2012-03-31 16:26+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,24 +36,355 @@ msgstr "Anmelden"
 #: accounts/forms.py:59 templates/userprofiles/password_reset.html:4
 #: templates/userprofiles/password_reset.html:7
 msgid "Reset password"
-msgstr ""
+msgstr "Passwort zurücksetzen"
 
 #: accounts/forms.py:70 templates/userprofiles/password_change.html:4
 #: templates/userprofiles/password_change.html:7
 msgid "Change password"
-msgstr ""
+msgstr "Passwort ändern"
 
 #: accounts/forms.py:80
 msgid "Change"
 msgstr "Ändern"
 
-#: accounts/models.py:9
+#: accounts/models.py:11
 msgid "short info"
 msgstr "Steckbrief"
 
 #: conf/global_settings.py:32
 msgid "German"
 msgstr "Deutsch"
+
+#: conference/models.py:19 proposals/models.py:21
+msgid "title"
+msgstr "Titel"
+
+#: conference/models.py:22 conference/models.py:70
+msgid "start date"
+msgstr "Start"
+
+#: conference/models.py:23 conference/models.py:71
+msgid "end date"
+msgstr "Ende"
+
+#: conference/models.py:26
+msgid "timezone"
+msgstr "Zeitzone"
+
+#: conference/models.py:45 conference/models.py:65 conference/models.py:103
+#: conference/models.py:126 conference/models.py:152
+msgid "conference"
+msgstr "Konferenz"
+
+#: conference/models.py:46
+msgid "conferences"
+msgstr "Konferenzen"
+
+#: conference/models.py:67 conference/models.py:104 conference/models.py:153
+msgid "name"
+msgstr "Name"
+
+#: conference/models.py:80
+msgid "section"
+msgstr "Abschnitt"
+
+#: conference/models.py:81
+msgid "sections"
+msgstr "Abschnitte"
+
+#: conference/models.py:105 conference/models.py:128 conference/models.py:154
+msgid "slug"
+msgstr "Slug"
+
+#: conference/models.py:106
+msgid "level"
+msgstr "Stufe"
+
+#: conference/models.py:112 proposals/models.py:36
+msgid "audience level"
+msgstr "Zielgruppe"
+
+#: conference/models.py:113
+msgid "audience levels"
+msgstr "Zielgruppen"
+
+#: conference/models.py:127
+msgid "label"
+msgstr ""
+
+#: conference/models.py:129
+msgid "minutes"
+msgstr "Minuten"
+
+#: conference/models.py:135
+msgid "session duration"
+msgstr "Sessiondauer"
+
+#: conference/models.py:136
+msgid "session durations"
+msgstr "Sessiondauer"
+
+#: conference/models.py:163
+msgid "session kind"
+msgstr "Session-Art"
+
+#: conference/models.py:164
+msgid "session kinds"
+msgstr "Session-Arten"
+
+#: conference/models.py:176
+msgid ""
+"You have to specify a start and end date if you leave the 'closed' status "
+"undetermined"
+msgstr ""
+"Sie müssen ein Start- und Enddatum angeben, wenn sie den 'geschlossen'-"
+"Status nicht setzen."
+
+#: conference/models.py:178
+msgid "The end date has to be after the start date"
+msgstr "Das Ende muss nach dem Anfang sein"
+
+#: proposals/cms_app.py:10
+msgid "Proposals app"
+msgstr ""
+
+#: proposals/forms.py:14
+msgid "Agree to terms"
+msgstr "Bedingungen zustimmen"
+
+#: proposals/forms.py:15
+msgid ""
+"All sessions have to take place according to a set of rules listed below. In "
+"order to submit your session proposal you have to agree to these terms."
+msgstr ""
+
+#: proposals/forms.py:34 proposals/forms.py:35
+msgid "This field supports Markdown syntax."
+msgstr "Dieses Feld unterstützt Markdown."
+
+#: proposals/forms.py:40
+msgid "General"
+msgstr "Allgemeines"
+
+#: proposals/forms.py:46
+msgid "Details"
+msgstr "Details"
+
+#: proposals/forms.py:47
+msgid "Submit proposal"
+msgstr "Vortrag einreichen"
+
+#: proposals/forms.py:54
+msgid "The selected session kind doesn't accept any proposals anymore."
+msgstr ""
+"Für die ausgewähle Session-Art können leider keine neuen Vorträge mehr "
+"eingereicht werden."
+
+#: proposals/forms.py:60
+msgid "Please select a valid audience level."
+msgstr "Bitte wählen Sie eine gültige Teilnehmerstufe aus."
+
+#: proposals/forms.py:66
+msgid "Please select a valid duration."
+msgstr "Bitte wählen Sie eine gültige Vortragsdauer aus."
+
+#: proposals/forms.py:72
+msgid "Please select a valid session kind."
+msgstr "Bitte wählen Sie eine gültige Session-Art aus."
+
+#: proposals/menu.py:10
+msgid "Proposals menu"
+msgstr ""
+
+#: proposals/menu.py:16 templates/proposals/proposal_list_mine.html:3
+#: templates/proposals/proposal_list_mine.html:5
+msgid "My proposals"
+msgstr "Meine Session-Vorschläge"
+
+#: proposals/menu.py:19
+msgid "Submit"
+msgstr "Einreichen"
+
+#: proposals/models.py:22
+msgid "description"
+msgstr "Beschreibung"
+
+#: proposals/models.py:23
+msgid "abstract"
+msgstr "Abstract"
+
+#: proposals/models.py:25
+msgid "speaker"
+msgstr "Vortragende(r)"
+
+#: proposals/models.py:28
+msgid "additional speakers"
+msgstr "Weitere Vortragende"
+
+#: proposals/models.py:29
+msgid "submission date"
+msgstr "Einreichungsdatum"
+
+#: proposals/models.py:31
+msgid "modification date"
+msgstr "Änderungsdatum"
+
+#: proposals/models.py:34
+msgid "kind"
+msgstr "Art"
+
+#: proposals/models.py:38
+msgid "duration"
+msgstr "Dauer"
+
+#: proposals/models.py:41
+msgid "proposal"
+msgstr "Session-Vorschlag"
+
+#: proposals/models.py:42
+msgid "proposals"
+msgstr "Session-Vorschläge"
+
+#: proposals/models.py:48
+msgid ""
+"The duration has to be associated with the same conference as the proposal"
+msgstr ""
+
+#: proposals/views.py:127
+msgid ""
+"You can no longer edit this proposal because the submission period has "
+"already ended."
+msgstr ""
+
+#: proposals/views.py:130
+msgid ""
+"You have to be the primary speaker mentioned in the proposal in order to "
+"edit it."
+msgstr ""
+
+#: proposals/views.py:187
+msgid ""
+"You can no longer cancel this proposal because the submission period has "
+"already ended."
+msgstr ""
+
+#: proposals/views.py:190
+msgid ""
+"You have to be the primary speaker mentioned in the proposal in order to "
+"cancel it."
+msgstr ""
+
+#: proposals/views.py:196
+msgid "Proposal has been removed"
+msgstr "Vorschlag wurde entfernt"
+
+#: proposals/views.py:212
+msgid ""
+"You can no longer leave this proposal because the submission period has "
+"already ended."
+msgstr ""
+"Sie können diese Einreichung nicht mehr verlassen, da die Einreichungsfrist "
+"bereits verstrichen ist."
+
+#: proposals/views.py:215
+msgid "Only secondary speakers can leave a proposal"
+msgstr "Nur Mitvortragende können eine Einreichung verlassen."
+
+#: proposals/views.py:221
+msgid "You were successfully removed as secondary speaker."
+msgstr "Sie wurden erfolgreich als Mitvortragende(r) entfernt."
+
+#: proposals/templates/proposals/closed.html:4
+msgid "Sorry, but we currently don't accept any proposals."
+msgstr ""
+"Zum jetzigen Zeitpunkt können leider keine Vorträge eingereicht werden."
+
+#: proposals/templates/proposals/proposal_cancel_confirm.html:4
+#: templates/proposals/proposal_cancel_confirm.html:4
+msgid "Do you really want to cancel this proposal?"
+msgstr "Möchten Sie diesen Session-Vorschlag zurückziehen?"
+
+#: proposals/templates/proposals/proposal_cancel_confirm.html:5
+#: proposals/templates/proposals/proposal_leave_confirm.html:5
+#: templates/confirm.html:9
+msgid "Yes"
+msgstr "Ja"
+
+#: proposals/templates/proposals/proposal_detail.html:5
+msgid "Proposal:"
+msgstr "Session-Vorschlag:"
+
+#: proposals/templates/proposals/proposal_detail.html:8
+#: templates/proposals/proposal_detail.html:9
+#, python-format
+msgid ""
+"\n"
+"<a class=\"speaker user\" href=\"%(speaker_url)s\">%(speaker)s</a> submitted "
+"this proposal at <span class=\"submission-date\">%(submission_date)s</"
+"span>.\n"
+msgstr ""
+"\n"
+"<a class=\"speaker user\" href=\"%(speaker_url)s\">%(speaker)s</a> hat "
+"diesen Vortrag am <span class=\"submission-date\">%(submission_date)s</span> "
+"eingereicht.\n"
+
+#: proposals/templates/proposals/proposal_detail.html:16
+#: proposals/templates/proposals/proposal_list_mine.html:37
+#: templates/proposals/proposal_detail.html:17
+#: templates/proposals/proposal_list_mine.html:40
+msgid "Leave"
+msgstr "Teilnahme zurückziehen"
+
+#: proposals/templates/proposals/proposal_detail.html:19
+#: proposals/templates/proposals/proposal_list_mine.html:15
+#: templates/proposals/proposal_detail.html:20
+#: templates/proposals/proposal_list_mine.html:17
+msgid "Edit"
+msgstr "Ändern"
+
+#: proposals/templates/proposals/proposal_detail.html:22
+#: templates/proposals/proposal_detail.html:23
+msgid "Delete"
+msgstr "Löschen"
+
+#: proposals/templates/proposals/proposal_form.html:7
+msgid "Create"
+msgstr "Anlegen"
+
+#: proposals/templates/proposals/proposal_form.html:8
+#: proposals/templates/proposals/proposal_list_mine.html:16
+#: templates/confirm.html:10 templates/proposals/proposal_list_mine.html:18
+msgid "Cancel"
+msgstr "Zurückziehen"
+
+#: proposals/templates/proposals/proposal_leave_confirm.html:4
+#: templates/proposals/proposal_leave_confirm.html:4
+msgid "Do you really want to leave this proposal?"
+msgstr "Möchten sie wirklich Ihre Teilnahme zurückziehen?"
+
+#: proposals/templates/proposals/proposal_list_mine.html:4
+msgid "Your proposals"
+msgstr "Ihre Session-Vorschläge"
+
+#: proposals/templates/proposals/proposal_list_mine.html:7
+#: templates/proposals/proposal_list_mine.html:8
+msgid "... as primary speaker"
+msgstr "... als Sprecher"
+
+#: proposals/templates/proposals/proposal_list_mine.html:24
+#: templates/proposals/proposal_list_mine.html:26
+msgid "You haven't created any proposals yet."
+msgstr "Sie haben noch keine Vorträge eingereicht."
+
+#: proposals/templates/proposals/proposal_list_mine.html:29
+#: templates/proposals/proposal_list_mine.html:31
+msgid "Participations"
+msgstr "Session-Teilnahmen"
+
+#: proposals/templates/proposals/proposal_list_mine.html:46
+#: templates/proposals/proposal_list_mine.html:49
+msgid "Submit a session proposal "
+msgstr "Reichen Sie einen Vortrag ein"
 
 #: templates/cmsplugin_news/latest_news.html:4
 #: templates/cmsplugin_news/news_archive.html:3
@@ -77,11 +407,25 @@ msgstr ""
 msgid "Archive"
 msgstr "Archiv"
 
+#: templates/proposals/proposal_detail.html:3
+#: templates/proposals/proposal_detail.html:6
+#, fuzzy
+msgid "Proposal"
+msgstr "Session-Vorschlag"
+
+#: templates/proposals/proposal_form.html:3
+#: templates/proposals/proposal_form.html:5
+msgid "Submit a proposal"
+msgstr "Vortrag einreichen"
+
 #: templates/userprofiles/login.html:4 templates/userprofiles/login.html:8
 msgid "Login"
-msgstr ""
+msgstr "Anmelden"
 
 #: templates/userprofiles/registration.html:4
 #: templates/userprofiles/registration.html:7
 msgid "Registration"
 msgstr "Registrierung"
+
+#~ msgid "Kind"
+#~ msgstr "Art"
