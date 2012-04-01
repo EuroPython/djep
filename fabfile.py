@@ -3,9 +3,10 @@ from fabric.api import *
 from os.path import join
 
 
-env.hosts = ['pyconde00.gocept.net',]
+env.hosts = ['pyconde00.gocept.net', ]
 env.srv_user = 'pyconde'
-env.root = '/srv/pyconde/env_pyconde_2012'
+if not env.get('root'):
+    env.root = '/srv/pyconde/env_pyconde_2012'
 
 env.proj_name = 'pyconde'
 env.www_root = join(env.root, 'htdocs')
@@ -16,64 +17,87 @@ env.pip_files = (
 env.manage_py = join(env.proj_root, env.proj_name, 'manage.py')
 
 
+@task
+def test_env():
+    print env
+
+
+@task
 def test_id():
     srv_run('id')
+
 
 def srv_run(cmd):
     return sudo(cmd, user=env.srv_user)
 
-def srv_open_shell(cmd):
+
+def srv_open_shellfa(cmd):
     return open_shell('sudo -u %s -s -- %s' % (env.srv_user, cmd))
+
 
 def ve_python(cmd):
     return srv_run('%s %s' % (join(env.root, 'bin', 'python'), cmd))
 
+
 def manage_py(cmd):
     return ve_python('%s %s' % (join(env.proj_root, env.proj_name, 'manage.py'), cmd))
+
 
 def supervisorctl(cmd):
     return srv_run('%s %s' % (join(env.root, 'bin', 'supervisorctl'), cmd))
 
+
+@task
 def upgrade():
     update_proj()
-
     update_requirements()
-
     syncdb()
     migrate()
-
     build_static_files()
-
     restart_worker()
 
+
+@task
 def update():
     update_proj()
-
     syncdb()
     migrate()
-
     restart_worker()
 
+
+@task
 def syncdb():
     manage_py('syncdb --noinput')
 
+
+@task
 def migrate():
     manage_py('migrate')
 
+
+@task
 def update_requirements():
     pip = join(env.root, 'bin', 'pip')
     for reqfile in env.pip_files:
         srv_run('%s install --use-mirrors -E %s -r %s' % (pip, env.root, reqfile))
 
+
+@task
 def update_proj():
     srv_run('cd %s; git pull' % env.proj_root)
 
+
+@task
 def build_static_files():
     manage_py('collectstatic --noinput -v1')
 
+
+@task
 def restart_worker():
     return supervisorctl('restart pyconde')
 
+
+@task
 def djshell():
     return srv_open_shell('%s %s shell' % (
         join(env.root, 'bin', 'python'),
