@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from timezones.fields import TimeZoneField
 
-from .. import south_rules
+from pyconde import south_rules
 
 
 CONFERENCE_CACHE = {}
