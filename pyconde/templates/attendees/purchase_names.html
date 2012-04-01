@@ -1,0 +1,88 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}Tickets für Konferenz und Tutorials{% endblock %}
+
+{% block extra_head %}
+    <style type="text/css">
+        .form-horizontal fieldset.attendees label { width: 220px; }
+        .form-horizontal fieldset.attendees div.controls { margin-left: 260px; }
+        .form-horizontal fieldset.attendees input { width: 140px; }
+        .form-horizontal fieldset.vouchers label { width: 370px; }
+        .form-horizontal fieldset.vouchers div.controls { margin-left: 410px; }
+        .form-horizontal fieldset.vouchers input { width: 140px; }
+        .form-horizontal fieldset div.headerlabel span { display: inline-block; width: 150px; }
+        .form-horizontal fieldset div.headerlabel { margin-bottom: 4px; font-weight: bold; }
+    </style>
+{% endblock %}
+
+{% block content %}
+    <h1>Tickets für Konferenz und Tutorials</h1>
+
+    <form class="form-horizontal" method="post">
+        {% csrf_token %}
+        <fieldset class="attendees">
+            <legend>Teilnehmer</legend>
+            <p style="padding-top:10px">Zur korrekten Zuordnung der Konferenz- und Tutorial-Tickets benötigen wir die vollen Namen der Pesonen, die die Tickets in anspruch nehmen werden. Bitte gebe die Namen und die untenstehenden Felder ein.</p>
+            {% for name_form in name_forms %}
+                {% if forloop.first %}
+                    <div class="clearfix control-group headerlabel">
+                        <div class="controls">
+                            <span class="headerlabel">{{ name_form.first_name.label }}</span>
+                            <span class="headerlabel">{{ name_form.last_name.label }}</span>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="clearfix control-group{% if name_form.errors %} error{% endif %}">
+                    <label for="{{ name_form.first_name.id }}" class="requiredField">
+                        {{ forloop.counter }}. {{ name_form.instance.ticket_type.name }} <span class="asteriskField">*</span>
+                    </label>
+                    <div class="controls">
+                        {{ name_form.first_name }}
+                        {{ name_form.last_name }}
+                        {% for error in name_form.first_name.errors %}
+                            <span class="help-inline"><strong>{{ error }}</strong></span>
+                        {% endfor %}
+                        {% for error in name_form.last_name.errors %}
+                            <span class="help-inline"><strong>{{ error }}</strong></span>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </fieldset>
+        {% if voucher_forms %}
+        <fieldset class="vouchers">
+            <p style="padding-top:10px">Ermäßigte Tickets werden gegen Vorlage von Studentenausweis, Ausbildungsbescheinigung o.ä. ausgegeben. Bitte eine Kopie des Dokuments an <a href="mailto:info@de.pycon.org">info@de.pycon.org</a> schicken, um den nötigen Coupon zum Kauf eines ermäßigten Tickets zu erhalten.</p>
+            <legend>Coupons</legend>
+            {% if double_vouchers %}
+                <div class="clearfix control-group error">
+                    <span class="help-inline"><strong>Es wurde ein Coupon mehrfach verwendet.</strong></span>
+                </div>
+            {% endif %}
+            {% for voucher_form in voucher_forms %}
+                {% if forloop.first %}
+                    <div class="clearfix control-group headerlabel">
+                        <div class="controls">
+                            <span class="headerlabel">{{ voucher_form.voucher.label }}</span>
+                        </div>
+                    </div>
+                {% endif %}
+                <div class="clearfix control-group{% if voucher_form.errors %} error{% endif %}">
+                    <label for="{{ voucher_form.code.id }}" class="requiredField">
+                        {{ forloop.counter }}. {{ voucher_form.instance.ticket_type.name }} <span class="asteriskField">*</span>
+                    </label>
+                    <div class="controls">
+                        {{ voucher_form.code }}
+                        {% for error in voucher_form.code.errors %}
+                            <span class="help-inline"><strong>{{ error }}</strong></span>
+                        {% endfor %}
+                    </div>
+                </div>
+            {% endfor %}
+        </fieldset>
+        {% endif %}
+        <div class="form-actions">
+            <input type="submit" name="submit" value="Weiter zur Bestellübersicht" class="submit" id="submit-id-submit">
+        </div>
+    </form>
+{% endblock %}

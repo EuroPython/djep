@@ -1,0 +1,19 @@
+Hallo {{ purchase.first_name }} {{ purchase.last_name }},
+
+die Zahlung der folgenden Ticketkäufe für die PyCon DE 2012 ist bei uns eingegangen:
+{% for ticket in purchase.ticket_set.all %}
+- {{ ticket.ticket_type.name }} ({{ ticket.first_name }} {{ ticket.last_name }}){% endfor %}
+
+Falls es Fragen gibt kannst du uns auf folgenden Wegen erreichen:
+
+* info@de.pycon.org
+* #pyconde Channel auf irc.freenode.net (IRC)
+* @pyconde (Twitter)
+
+
+Vielen Dank!
+
+Das PyCon DE Team
+
+--
+{% include "attendees/mail_signature.txt" %}

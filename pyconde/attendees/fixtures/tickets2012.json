@@ -1,0 +1,114 @@
+[
+    {
+        "pk": 1, 
+        "model": "attendees.tickettype", 
+        "fields": {
+            "fee": 300.0, 
+            "name": "Business-Ticket", 
+            "date_valid_from": "2012-03-01 12:00:00", 
+            "max_purchases": 0, 
+            "is_active": true, 
+            "tutorial_ticket": false, 
+            "date_valid_to": "2012-08-31 23:59:00", 
+            "product_number": 1000, 
+            "remarks": "Fr\u00fchbucher", 
+            "voucher_needed": false
+        }
+    }, 
+    {
+        "pk": 2, 
+        "model": "attendees.tickettype", 
+        "fields": {
+            "fee": 150.0, 
+            "name": "Standard-Ticket", 
+            "date_valid_from": "2012-03-01 12:00:00", 
+            "max_purchases": 0, 
+            "is_active": true, 
+            "tutorial_ticket": false, 
+            "date_valid_to": "2012-08-31 23:59:00", 
+            "product_number": 1001, 
+            "remarks": "Fr\u00fchbucher", 
+            "voucher_needed": false
+        }
+    }, 
+    {
+        "pk": 3, 
+        "model": "attendees.tickettype", 
+        "fields": {
+            "fee": 70.0, 
+            "name": "Erm\u00e4\u00dfigtes Ticket", 
+            "date_valid_from": "2012-03-01 12:00:00", 
+            "max_purchases": 30, 
+            "is_active": true, 
+            "tutorial_ticket": false, 
+            "date_valid_to": "2012-08-31 23:59:00", 
+            "product_number": 1002, 
+            "remarks": "Fr\u00fchbucher", 
+            "voucher_needed": true
+        }
+    }, 
+    {
+        "pk": 4, 
+        "model": "attendees.tickettype", 
+        "fields": {
+            "fee": 400.0, 
+            "name": "Business-Ticket", 
+            "date_valid_from": "2012-09-01 00:00:00", 
+            "max_purchases": 0, 
+            "is_active": true, 
+            "tutorial_ticket": false, 
+            "date_valid_to": "2012-11-01 23:59:00", 
+            "product_number": 1003, 
+            "remarks": "", 
+            "voucher_needed": false
+        }
+    }, 
+    {
+        "pk": 5, 
+        "model": "attendees.tickettype", 
+        "fields": {
+            "fee": 200.0, 
+            "name": "Standard-Ticket", 
+            "date_valid_from": "2012-09-01 00:00:00", 
+            "max_purchases": 0, 
+            "is_active": true, 
+            "tutorial_ticket": false, 
+            "date_valid_to": "2012-11-01 23:59:00", 
+            "product_number": 1004, 
+            "remarks": "", 
+            "voucher_needed": false
+        }
+    }, 
+    {
+        "pk": 6, 
+        "model": "attendees.tickettype", 
+        "fields": {
+            "fee": 105.0, 
+            "name": "Erm\u00e4\u00dfigtes Ticket", 
+            "date_valid_from": "2012-09-01 00:00:00", 
+            "max_purchases": 15, 
+            "is_active": true, 
+            "tutorial_ticket": false, 
+            "date_valid_to": "2012-11-01 23:59:00", 
+            "product_number": 1005, 
+            "remarks": "", 
+            "voucher_needed": true
+        }
+    }, 
+    {
+        "pk": 7, 
+        "model": "attendees.tickettype", 
+        "fields": {
+            "fee": 100.0, 
+            "name": "Tutorial: Beispiel", 
+            "date_valid_from": "2012-03-01 12:00:00", 
+            "max_purchases": 20, 
+            "is_active": true, 
+            "tutorial_ticket": true, 
+            "date_valid_to": "2012-11-01 23:59:00", 
+            "product_number": 1006, 
+            "remarks": "", 
+            "voucher_needed": false
+        }
+    }
+]
