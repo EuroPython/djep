@@ -1,0 +1,14 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% block body %}
+<div class="rfconfirmation">
+    <p class="question">{% block question %}{% endblock %}</p>
+    <form method="POST">
+        {% csrf_token %}
+        <div class="form-actions">
+            <button type="submit" class="btn btn-primary"><i class="icon-white icon-ok-circle"></i> {% trans "Yes" %}</button>
+            <a class="btn" href="{{ next }}"><i class="icon-ban-circle"></i> {% trans "Cancel" %}</a>
+        </div>
+    </form>
+</div>
+{% endblock %}

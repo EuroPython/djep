@@ -42,6 +42,25 @@ body.login .form-actions ul {
     float: left;
     width: 50%;
 }
+#messages {
+    background: transparent;
+    margin-bottom: 0;
+}
+.alert {
+    margin-bottom: 10px;
+}
+a.btn {
+    text-decoration: none;
+}
+table .actions {
+    text-align: right;
+}
+table.proposals td {
+    line-height: 28px;
+}
+table.proposals td.actions {
+    line-height: 18px;
+}
 
 /**
  * Footer styling
@@ -233,4 +252,28 @@ body.logged-out #accountbox {
  */
 #content .grid_8 {
     float: right;
+}
+
+article.proposal .actions {
+    text-align: right;
+}
+article.proposal .description, article.proposal .abstract {
+    margin-bottom: 2em;
+    padding: 5px;
+    border: 1px solid transparent;
+} 
+article.proposal .description {
+    margin-top: 10px;
+    padding: 5px;
+    border: 1px solid #DDD;
+    background: #EAEAEA;
+}
+textarea {
+    width: 300px;
+}
+#content .rfconfirmation p.question {
+    font-size: 150%;
+}
+input[type=submit], button[type=submit] {
+    float: none;
 }

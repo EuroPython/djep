@@ -54,6 +54,7 @@
                         <ul>
                             <li><a href="{% url userprofiles_profile_change %}">Profil ändern</a></li>
                             <li><a href="{% url auth_password_change %}">Passwort ändern</a></li>
+                            <li><a href="{% url my_proposals %}">Meine Einreichungen</a></li>
                             {% if request.user.is_staff %}
                             <li><a href="{% url admin:index %}" target="_blank">Admin</a></li>
                             {% endif %}
@@ -96,13 +97,11 @@
         {% if messages %}
         <div class="col12 clearfix">
             <div class="grid_12" id="messages">
-                <ul>
-                    {% for message in messages %}
-                    <li id="message_{{ forloop.counter }}"{% if message.tags %} class="{{ message.tags }}"{% endif %}>
-                        {{ message }}
-                    </li>
-                    {% endfor %}
-                </ul>
+                {% for message in messages %}
+                <div id="message_{{ forloop.counter }}"{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
+                    {{ message }}
+                </div>
+                {% endfor %}
             </div>
         </div>
         {% endif %}
@@ -163,7 +162,9 @@
                         <dd><a href="irc://irc.freenode.net/pyconde">#pyconde</a>
                     </dl>
                 </section>
-                <p id="credits">&copy; 2012 PyCon DE<br />Social icons by <a href="http://paulrobertlloyd.com/2009/06/social_media_icons/">Paul Robert Lloyd</a></p>
+                <p id="credits">&copy; 2012 PyCon DE
+                    <br />Social icons by <a href="http://paulrobertlloyd.com/2009/06/social_media_icons/">Paul Robert Lloyd</a>
+                    <br /><a href="http://glyphicons.com/">glyphicons</a> via <a href="http://twitter.github.com/bootstrap/">bootstrap</a></p>
                 {% endblock %}
             </div>
         </div>
