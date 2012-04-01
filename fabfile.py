@@ -2,12 +2,10 @@
 from fabric.api import *
 from os.path import join
 
-
+if not env.get('branch'):
+    abort("Please select a config file (staging.ini | live.ini)")
 env.hosts = ['pyconde00.gocept.net', ]
 env.srv_user = 'pyconde'
-if not env.get('root'):
-    env.root = '/srv/pyconde/env_pyconde_2012'
-
 env.proj_name = 'pyconde'
 env.www_root = join(env.root, 'htdocs')
 env.proj_root = join(env.root, 'pycon_de_website')
@@ -84,7 +82,9 @@ def update_requirements():
 
 @task
 def update_proj():
-    srv_run('cd %s; git pull' % env.proj_root)
+    with cd(env.proj_root):
+        srv_run('git pull')
+        srv_run('git checkout -f %s' % env.branch)
 
 
 @task
