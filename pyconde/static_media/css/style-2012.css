@@ -2,6 +2,7 @@
 /* colors */
 /*
 #6c9900 green 2012
+#306998 blue 2012
 
 #CED9D9 bg CMYK 5,0,0,15 (shades: #B6BFBF, #8E99A6)
 #990000 red CMYK 0,100,100,40
@@ -62,7 +63,7 @@ body {
   	outline:0;
   	font-size:100%;
   	vertical-align:baseline;
-  	background-color:#6c9900;
+  	background-color:#306998;
 	/*background-image:url('../images/bg-1614a.jpg');*/
 	/*background-image:url('../images/bg-pycon-de.jpg');*/
 	/*background-repeat:no-repeat;*/
@@ -358,13 +359,13 @@ a.plain:hover{background-color:transparent}
 #content #navigation{padding:0 10px 10px 10px}
 #navigation ul{font-family:"Arial Black",Arial,sans-serif;text-transform:uppercase;font-size:14px}
 #navigation li{border-bottom:1px dotted #323232;padding:5px 0}
-#navigation li a{text-decoration:none;color:#6c9900;display:block;letter-spacing:0.03em;background:url(../images/arrowt.gif) no-repeat right center;padding:3px}
+#navigation li a{text-decoration:none;color:#306998;display:block;letter-spacing:0.03em;background:url(../images/arrowt.gif) no-repeat right center;padding:3px}
 #navigation a:hover, #navigation a.current{background-color:#E8CB23;color:#fff;background-image:none}
 #navigation #subnav a{background-image:none}
 #navigation #subnav{border:none}
 #navigation #subnav li{width:135px;border:none}
 #navigation #subnav li a{text-align:center;padding:3px;color:#fff;background-color:#000}
-#navigation #subnav li a:hover, #navigation #subnav li a.current{background-color:#6c9900}
+#navigation #subnav li a:hover, #navigation #subnav li a.current{background-color:#306998}
 
 /* Startseite */
 #content .box, #content .fbox, #content .vbox, #content .vbox2{background-color:#fff;padding:5px 10px;margin-bottom:10px}
@@ -384,13 +385,13 @@ a.plain:hover{background-color:transparent}
 .entry ul li{line-height: 125%;}
 .entry ul li {background: url("../images/pfeil.gif") no-repeat scroll 0px 6px transparent;padding:0 0 5px 8px;display:block;}
 .entry p a{text-transform:none;color:#000;text-decoration:underline;font-weight:bold;}
-.entry p a:hover{color:#6c9900;text-decoration:none;}  
+.entry p a:hover{color:#306998;text-decoration:none;}  
 #content .more a, #content a.more-link, #content a.comment-reply-link {background: url("../images/pfeil.gif") no-repeat scroll 1px 5px transparent;font-size: 11px;font-weight: bold;padding-left: 8px;}
 
 .dates ul {list-style-type: none;margin:0;padding:0 0 0.3em 0;}
 .dates ul li{line-height: 125%;padding: 8px 15px 0 0;font-size: 13px;}
 .dates li a, .pynews li a {background: url("../images/pfeil.gif") no-repeat scroll 0px 6px transparent;padding-left:8px;display:block;}
-.dates li span, .pynews li .date {background-image:none;color:#6c9900; padding:0 !important}
+.dates li span, .pynews li .date {background-image:none;color:#306998; padding:0 !important}
 
 #content .tbox{background-color:#fff;margin-bottom:10px}
 #content .tbox h2{padding:6px 10px;margin:0}
@@ -400,7 +401,7 @@ a.plain:hover{background-color:transparent}
 #content .pynews ul li a {background: url("../images/pfeil.gif") no-repeat scroll 0px 6px transparent;padding-left:8px;display:block;}
 
 #content .pynews ul li .text a{font-size:13px;font-weight:bold;text-transform:none}
-#content .pynews ul li .date a{color:#6c9900;font-weight:normal;text-decoration:none;text-transform:none;}
+#content .pynews ul li .date a{color:#306998;font-weight:normal;text-decoration:none;text-transform:none;}
 #content .pynews ul li p {display:inline;}
 #content .tbox p.more{font-size:10px;padding:7px 10px 12px 10px;font-weight:bold;}
 #content .box.model{padding: 10px;}
@@ -429,7 +430,7 @@ table.schedule th {
 	text-align: left;
 	color: #FFF;
 	border:none !important;
-	background: #6c9900;
+	background: #306998;
 	padding: 3px;
 }
 table.schedule tr {
@@ -451,7 +452,7 @@ table.schedule td {
 	text-align: left;
 }
 table.schedule td a {
-	color:#6c9900;
+	color:#306998;
 }
 table.schedule td a:hover {
 	color:#3d73a6;
