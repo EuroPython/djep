@@ -3,6 +3,7 @@
 /*
 #6c9900 green 2012
 #306998 blue 2012
+#9C1006 red 2012
 
 #CED9D9 bg CMYK 5,0,0,15 (shades: #B6BFBF, #8E99A6)
 #990000 red CMYK 0,100,100,40
@@ -575,3 +576,55 @@ table.schedule tr:nth-child(2n+2) {
 }
 }
 
+
+
+.header-data{position:relative;top:-15px;left:65px;float:right;padding:0}
+.news-header {border-bottom:1px solid #484848;height:40px}
+.news-header h2 { font-size: 15px;padding: 10px;text-transform: uppercase;color:#515151}
+.header-claim {color: #9C1006;float:right;font-size:16px}
+#news-top ul {margin-left:0;}
+#news-top ul li { list-style-image: none;list-style-position: outside;list-style-type: none;}
+#news-top ul li a {display:block;text-decoration:none}
+#news-top .date {
+    background: transparent url("../images/trennen.gif") right 4px no-repeat;
+    float: left;
+    height: 46px;
+    padding: 5px 0 0 0;
+    width: 65px;
+}
+#news-top .date .month {
+    color: #9C1006;
+    font-size: 10px;
+    font-weight: bold;
+    margin: 0;
+    text-align: center;
+}
+#news-top .date .day {
+    color: #9C1006;
+    font-size: 30px;
+    font-weight: bold;
+    margin: -8px 0 0 0;
+    text-align: center;
+}
+#news-top a:hover .date .day {
+    color: #515151;
+}
+#news-top .description {
+    color: #3E3E3E;
+    margin: 0 0 0 87px;
+    padding: 7px 20px 5px 0;
+}
+.ie7 #news-top .description {
+    padding-top: 16px;
+}
+#news-top a:hover .description {
+    color: #9C1006;
+}
+#news-top .description .table {
+    display: table;
+    height: 41px;
+}
+#news-top .description .table-cell {
+    display: table-cell;
+    vertical-align: middle;
+}

@@ -198,7 +198,7 @@ table.proposals td.actions {
     font-weight: bold;
 }
 #primary-nav a:hover, #primary-nav a.current {
-    color: #FFCC33;
+    color: #9C1006;
 }
 #accountbox {
     float: right;
@@ -276,4 +276,19 @@ textarea {
 }
 input[type=submit], button[type=submit] {
     float: none;
+}
+
+
+#header {
+    background: #FFF;
+    background: rgba(255, 255, 255, 0.75);
+    position: relative;
+    min-height: 300px;
+}
+.header-data {
+    position: absolute;
+    right: 90px;
+    width: 393px;
+    height: 298px;
+    left: auto;
 }

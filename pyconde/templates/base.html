@@ -70,23 +70,44 @@
     <header>
         <div class="col12 clearfix">
             <div class="grid_12" id="header">
-                <div class="grid_8 alpha" id="pyconlogo">
-                    <h1><a href="/">PyCON DE 2012</a></h1>
-                </div>
-                <img width="1" height="1" src="{{ STATIC_URL }}images/logo-2012.png" id="pyconlogo_print" alt="" />
-                <div class="grid_4 omega" id="siteaction">
-                    <span>
-                        <a href="/impressum/">Kontakt</a>
-                        {% if request.user.is_authenticated %}
-                            {% if request.user.is_staff %}
-                                | <a href="{% url admin:index %}" target="_blank">Admin</a>
-                            {% endif %}
-                        {% endif %}
-                    </span>
-                </div>
-                <div class="header-data"><img src="{{ STATIC_URL }}images/leipzig-2012.png" alt="Leipzig - 29.10-03.11.2012" /></div>
-                <div class="callout">
-                    <!-- Placeholder for callout box -->
+                <div class="header-data"><h1><img src="{{ STATIC_URL }}/images/logo-pycon.png" alt="Leipzig - 29.10-03.11.2012" width="393" height="298"></h1></div>
+                <div class="grid_5 alpha" id="news-top">
+                    <div class="content">
+                        <div class="news-header">
+                            <h2>Termine</h2>
+                        </div>
+                        <ul>
+                            <li>
+                            <a href="">
+                                <div class="date">
+                                    <p class="month">Mai</p>
+                                    <p class="day">01</p>
+                                </div>
+                                <p class="description"><span class="table"><span class="table-cell">Call for Papers ist gestartet und läuft bis zum 31.05.2012</span></span></p>
+                            </a>
+                            </li> 
+                            <li>
+                            <a href="">
+                                <div class="date">
+                                    <p class="month">August</p>
+                                    <p class="day">01</p>
+                                </div>
+                                <p class="description"><span class="table"><span class="table-cell">Call for Tutorials läuft bis zum 31.05.2012</span></span></p>
+                            </a>
+                            </li> 
+                            <li>
+                            <a href="">
+                                <div class="date">
+                                    <p class="month">Oktober</p>
+                                    <p class="day">20</p>
+                                </div>
+                                <p class="description"><span class="table"><span class="table-cell">Barcamps und Sprint. Infos hier.</span></span></p>
+                            </a>
+                            </li> 
+                            
+                        </ul> 
+ 
+                    </div>
                 </div>
             </div>
         </div>
