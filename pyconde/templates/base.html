@@ -1,4 +1,4 @@
-{% load sekizai_tags menu_tags compress %}
+{% load sekizai_tags menu_tags compress event_tags %}
 <!doctype html>
 <!-- paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
 <!--[if lt IE 7]><html lang="de" class="no-js ie6"><![endif]-->
@@ -76,37 +76,7 @@
                         <div class="news-header">
                             <h2>Termine</h2>
                         </div>
-                        <ul>
-                            <li>
-                            <a href="">
-                                <div class="date">
-                                    <p class="month">Mai</p>
-                                    <p class="day">01</p>
-                                </div>
-                                <p class="description"><span class="table"><span class="table-cell">Call for Papers ist gestartet und läuft bis zum 31.05.2012</span></span></p>
-                            </a>
-                            </li> 
-                            <li>
-                            <a href="">
-                                <div class="date">
-                                    <p class="month">August</p>
-                                    <p class="day">01</p>
-                                </div>
-                                <p class="description"><span class="table"><span class="table-cell">Call for Tutorials läuft bis zum 31.05.2012</span></span></p>
-                            </a>
-                            </li> 
-                            <li>
-                            <a href="">
-                                <div class="date">
-                                    <p class="month">Oktober</p>
-                                    <p class="day">20</p>
-                                </div>
-                                <p class="description"><span class="table"><span class="table-cell">Barcamps und Sprint. Infos hier.</span></span></p>
-                            </a>
-                            </li> 
-                            
-                        </ul> 
- 
+                        {% list_events 3 %}
                     </div>
                 </div>
             </div>

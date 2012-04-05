@@ -97,6 +97,7 @@ INSTALLED_APPS = (
     # Custom apps
     'pyconde.accounts',
     'pyconde.attendees',
+    'pyconde.events',
 )
 
 MIDDLEWARE_CLASSES = (

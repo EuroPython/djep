@@ -592,19 +592,21 @@ table.schedule tr:nth-child(2n+2) {
     padding: 5px 0 0 0;
     width: 65px;
 }
-#news-top .date .month {
+#news-top .date .month, #news-top .date .day {
+    display: block;
     color: #9C1006;
-    font-size: 10px;
     font-weight: bold;
-    margin: 0;
     text-align: center;
+    line-height: 140%;
+    padding-bottom: 0.3em;
+}
+#news-top .date .month {
+    font-size: 10px;
+    margin: 0;
 }
 #news-top .date .day {
-    color: #9C1006;
     font-size: 30px;
-    font-weight: bold;
     margin: -8px 0 0 0;
-    text-align: center;
 }
 #news-top a:hover .date .day {
     color: #515151;
@@ -612,7 +614,11 @@ table.schedule tr:nth-child(2n+2) {
 #news-top .description {
     color: #3E3E3E;
     margin: 0 0 0 87px;
-    padding: 7px 20px 5px 0;
+    padding: 7px 20px 23px 0;
+    height: 41px;
+    display: table;
+    line-height: 140%;
+    width: 273px;
 }
 .ie7 #news-top .description {
     padding-top: 16px;
@@ -620,11 +626,14 @@ table.schedule tr:nth-child(2n+2) {
 #news-top a:hover .description {
     color: #9C1006;
 }
-#news-top .description .table {
-    display: table;
-    height: 41px;
-}
-#news-top .description .table-cell {
+#news-top .description span {
     display: table-cell;
     vertical-align: middle;
+}
+#news-top .empty {
+    display: block;
+    text-align: center;
+    font-weight: bold;
+    color: #3E3E3E;
+    margin: 2em 0;
 }

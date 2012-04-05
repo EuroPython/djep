@@ -1,0 +1,18 @@
+{% load i18n %}
+{% if events %}
+<ul>
+{% for event in events %}
+    <li>
+        <a href="{% if event.link %}{{ event.link }}{% else %}#{% endif %}">
+            <div class="date">
+                <span class="month">{{ event.date|date:"N" }}</span>
+                <span class="day">{{ event.date|date:"d" }}</span>
+            </div>
+            <span class="description"><span>{{ event.title }}</span></span>
+        </a>
+    </li>
+{% endfor %}
+</ul>
+{% else %}
+<p class="empty">{% trans "No upcoming events" %}</p>
+{% endif %}
