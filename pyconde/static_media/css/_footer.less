@@ -1,0 +1,99 @@
+/**
+ * Footer styling
+ */
+#footer {
+    overflow: hidden;
+    min-height: 220px;
+    background: linear-gradient(top, #333 100px, rgba(0, 0, 0, 0) 220px);
+    background: -webkit-linear-gradient(top, #333 100px, rgba(0, 0, 0, 0) 220px);
+    background: -moz-linear-gradient(top, #333 100px, rgba(0, 0, 0, 0) 220px);
+    &, a{
+        text-transform:uppercase;
+        font-weight:bold;
+        color:#fff;
+        font-size:10px;
+        text-decoration:none
+    }
+
+    section {
+        opacity: 0.7;
+        float: left;
+        width: 23%;
+        padding: 2% 5%;
+
+        > h1 {
+            color: #FFF;
+            padding-bottom: 5px;        
+        }
+
+        &:hover {
+            opacity: 1;
+        }
+        p {
+            text-transform: none;
+            margin-bottom: 1em;
+        }
+    }
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+    li {
+        padding: 5px 0;
+        border-bottom: 1px dashed #EFEFEF;
+
+        a {
+            display: block;
+        }
+    }
+    dl {
+        width: 100%;
+        overflow: hidden;
+    }
+    dd, dt {
+        padding: 3px 0;
+    }
+    dt {
+        font-weight: bold;
+        float: left;
+        width: 40%;        
+    }
+    dd {
+        float: right;
+        width: 60%;
+
+        a {
+            font-weight: normal;
+        }
+    }
+}
+#footer-social {
+    li {
+        border-bottom: none;
+    }
+    a {
+        padding-left: 24px;
+        background-repeat: no-repeat;
+        background-position: 0% 50%;
+        line-height: 16px;
+        &.twitter {
+            background-image: url(../images/twitter-16x16.png);
+        }
+        &.youtube {
+            background-image: url(../images/youtube-16x16.png);
+        }
+        &.flickr {
+            background-image: url(../images/flickr-16x16.png);
+        }
+        &.lanyrd {
+            background-image: url(../images/lanyrd-16x16.png);
+        }
+    }
+}
+#credits {
+    clear: both;
+    width: 100%;
+    text-align: center;
+    padding-top: 2em;
+}

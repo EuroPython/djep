@@ -23,12 +23,17 @@
     <link rel="alternate" href="/news/feed/" type="application/atom+xml" title="PyCon DE 2012-News" />
 
     <link rel="shortcut icon" href="{{ STATIC_URL }}images/favicon.ico">
-
+    
+    {% if debug %}
+        <link rel="stylesheet/less" href="{{ STATIC_URL }}css/style.less" />
+        <script type="text/javascript" src="{{ STATIC_URL }}js/less-1.3.0.min.js"></script>
+    {% endif %}
     {% compress css %}
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/style-2012.css">
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/bootstrap.css">
-    <link rel="stylesheet" href="{{ STATIC_URL }}css/custom.css">
+        {% if not debug %}
+        <link rel="stylesheet" type="text/less" href="{{ STATIC_URL }}css/style.less" />
+        {% endif %}
     {% endcompress %}
+
     {% render_block "css" %}
 
     {% compress js %}

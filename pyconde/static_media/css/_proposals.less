@@ -1,0 +1,34 @@
+#proposals {
+    .all() {
+        #proposals > .article();
+        #proposals > .listing();
+    }
+    .article(@description-border: 1px solid #DDD, @description-background: #EAEAEA) {
+        article.proposal {
+            .actions {
+                text-align: right;
+            }
+
+            .description, .abstract {
+                margin-bottom: 2em;
+                padding: 5px;
+                border: 1px solid transparent;
+            } 
+            .description {
+                margin-top: 10px;
+                padding: 5px;
+                border: @description-border;
+                background: @description-background;
+            }
+        }
+    }
+
+    .listing() {
+        table.proposals td {
+            line-height: 28px;
+        }
+        table.proposals td.actions {
+            line-height: 18px;
+        }
+    }
+}

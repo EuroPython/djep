@@ -7,6 +7,7 @@ PROJECT_ROOT = os.path.abspath(
 PROJECT_NAME = os.path.split(PROJECT_ROOT)[-1]
 
 DEBUG = TEMPLATE_DEBUG = False
+INTERNAL_IPS = ('127.0.0.1',)
 
 ADMINS = (
     ('Markus Zapke-Gruendemann', 'markus@de.pycon.org'),
@@ -53,6 +54,10 @@ STATICFILES_FINDERS += (
 COMPRESS_CSS_FILTERS = (
     'compressor.filters.css_default.CssAbsoluteFilter',
     'compressor.filters.cssmin.CSSMinFilter',
+)
+
+COMPRESS_PRECOMPILERS = (
+   ('text/less', 'lessc -x {infile} {outfile}'),
 )
 
 ROOT_URLCONF = '%s.urls' % PROJECT_NAME
@@ -113,6 +118,7 @@ MIDDLEWARE_CLASSES = (
 )
 
 TEMPLATE_CONTEXT_PROCESSORS += (
+    'django.core.context_processors.debug',
     'django.core.context_processors.request',
     'sekizai.context_processors.sekizai',
     'pyconde.conference.context_processors.current_conference',

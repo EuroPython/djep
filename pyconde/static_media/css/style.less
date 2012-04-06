@@ -1,0 +1,53 @@
+/* 2012 PyCon Leipzig*/
+/* colors */
+/*
+
+#CED9D9 bg CMYK 5,0,0,15 (shades: #B6BFBF, #8E99A6)
+#990000 red CMYK 0,100,100,40
+#153559 dark blue CMYK 76,41,0,65
+#304359 1. shades blue CMYK 46,25,0,12
+#5A7CA6 2. shades blue CMYK 46,25,0,35
+#79A8E0 3. shades blue CMYK 46,25,0,65
+#337FD9 python logo blue CMYK 80,50,15,0 #3d73a6 #175AA5
+#FFCC33 python logo yellow CMYK 0,20,80,0 ,yellow bg nav #E8CB23
+#90A617 green CMYK 13,0,86,35
+
+#323232 font base color
+
+*/
+
+ /* Primary Styles
+    Author: Stefania Trabucchi info@trabucchi.de
+ */
+
+@green: #6c9900;
+@blue: #306998; 
+@red: #9C1006;
+@yellow: #FFCC33;
+
+@border-color: #DDD;
+
+@import "_reset";
+
+@import "bootstrap/less/variables";
+// Bootstrap config
+@btnPrimaryBackground: @yellow;
+@btnPrimaryBackgroundHighlight: darken(@yellow, 5);
+@import "bootstrap/less/mixins";
+@import "bootstrap/less/forms";
+@import "bootstrap/less/buttons";
+@import "bootstrap/less/sprites";
+@import "bootstrap/less/tables";
+
+@import "_grid";
+@import "_base";
+@import "_pagination";
+@import "_header";
+@import "_footer";
+@import "_primary-nav";
+@import "_content";
+@import "_proposals";
+@import "_news";
+@import "_schedule";
+@import "_print";
+#proposals > .all();
