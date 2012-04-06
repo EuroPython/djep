@@ -26,6 +26,7 @@
 @yellow: #FFCC33;
 
 @border-color: #DDD;
+@base-img-url: '/static_media/images';
 
 @import "_reset";
 
@@ -33,6 +34,8 @@
 // Bootstrap config
 @btnPrimaryBackground: @yellow;
 @btnPrimaryBackgroundHighlight: darken(@yellow, 5);
+@iconSpritePath: "@{base-img-url}/glyphicons-halflings.png";
+@iconWhiteSpritePath: "@{base-img-url}/glyphicons-halflings-white.png";
 @import "bootstrap/less/mixins";
 @import "bootstrap/less/forms";
 @import "bootstrap/less/buttons";
@@ -46,6 +49,7 @@
 @import "_footer";
 @import "_primary-nav";
 @import "_content";
+@import "_login";
 @import "_proposals";
 @import "_news";
 @import "_schedule";

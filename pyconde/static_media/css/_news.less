@@ -1,12 +1,43 @@
-.blog-date {display:block;font-size:11px;text-transform:uppercase;font-weight:bold;border-bottom:1px dotted #fff;padding-bottom:5px;margin-left: -1px;}
-#content .pynews ul {list-style-type: none;margin:0;padding:0 0 0.3em 0;}
-#content .pynews ul li{font-size:13px;line-height:125%;padding:8px 10px 1px 10px}
-#content .pynews ul li a {background: url("../images/pfeil.gif") no-repeat scroll 0px 6px transparent;padding-left:8px;display:block;}
-
-#content .pynews ul li .text a{font-size:13px;font-weight:bold;text-transform:none}
-#content .pynews ul li .date a{color:#306998;font-weight:normal;text-decoration:none;text-transform:none;}
-#content .pynews ul li p {display:inline;}
-
-#content .pynews .empty {
-    padding-left: 10px; 
+.blog-date {
+    display:block;
+    font-size:11px;
+    text-transform:uppercase;
+    font-weight:bold;
+    border-bottom:1px dotted #fff;
+    padding-bottom:5px;
+    margin-left: -1px;
+}
+#content .pynews {
+    ul {
+        list-style-type: none;
+        margin:0;
+        padding:0 0 0.3em 0;
+    }
+    li {
+        font-size:13px;
+        line-height:125%;
+        padding:8px 10px 1px 10px;
+        a {
+            background: url("@{base-img-url}/pfeil.gif") no-repeat scroll 0px 6px transparent;
+            padding-left:8px;
+            display:block;
+        }
+        .text a {
+            font-size:13px;
+            font-weight:bold;
+            text-transform:none
+        }
+        .date a {
+            color:#306998;
+            font-weight:normal;
+            text-decoration:none;
+            text-transform:none;
+        }
+        p {
+            display:inline;
+        }
+    }
+    .empty {
+        padding-left: 10px;     
+    }
 }

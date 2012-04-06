@@ -89,7 +89,7 @@ def update_proj():
 
 @task
 def build_static_files():
-    manage_py('collectstatic --noinput -v1')
+    manage_py('collectstatic --noinput -v1 -i bootstrap -i \'*.less\'')
 
 
 @task
