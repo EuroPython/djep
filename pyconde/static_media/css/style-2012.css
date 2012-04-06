@@ -584,7 +584,10 @@ table.schedule tr:nth-child(2n+2) {
 .header-claim {color: #9C1006;float:right;font-size:16px}
 #news-top ul {margin-left:0;}
 #news-top ul li { list-style-image: none;list-style-position: outside;list-style-type: none;}
-#news-top ul li a {display:block;text-decoration:none}
+#news-top ul li a {display:block;text-decoration:none;
+    width:100%;
+    overflow: hidden;
+}
 #news-top .date {
     background: transparent url("../images/trennen.gif") right 4px no-repeat;
     float: left;
@@ -628,6 +631,7 @@ table.schedule tr:nth-child(2n+2) {
 }
 #news-top .description span {
     display: table-cell;
+    height: 41px;
     vertical-align: middle;
 }
 #news-top .empty {
