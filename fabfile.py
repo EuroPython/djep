@@ -85,6 +85,8 @@ def update_proj():
     with cd(env.proj_root):
         srv_run('git pull')
         srv_run('git checkout -f %s' % env.branch)
+        srv_run('git submodule init')
+        srv_run('git submodule update')
 
 
 @task
