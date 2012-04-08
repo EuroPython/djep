@@ -11,51 +11,61 @@
     top: 0;
     left: 0;
     width: 100%;
+    &:hover {
+        background: #000;
+    }
 }
-#primary-nav-container:hover {
-    background: #000;
-}
+
 #primary-nav {
     width: 926px;
     margin: auto;
     color: #FFF;
     height: 26px;
+    &:after {
+        clear: both;
+        content: ".";
+        visibility: hidden;
+        height: 0px;    
+    }
+    a {
+        color: #FFF;
+        text-decoration: none;
+        font-weight: bold;
+        &:hover, &.current {
+            color: #9C1006;
+        }  
+    }
+    > nav {
+        width: 70%;
+        float: left;
+        ul {
+            width: 100%;
+            overflow: hidden;
+        }
+        li {
+            float: left;
+        }
+        a {
+            display: block;
+            padding: 5px 8px;
+        }
+    }
 }
-#primary-nav:after {
-    clear: both;
-    content: ".";
-    visibility: hidden;
-    height: 0px;
-}
-#primary-nav > nav {
-    width: 70%;
-    float: left;
-}
-#primary-nav nav ul {
-    width: 100%;
-    overflow: hidden;
-}
-#primary-nav nav ul li {
-    float: left;
-}
-#primary-nav nav a {
-    display: block;
-    padding: 5px 8px;
-}
-#primary-nav a {
-    color: #FFF;
-    text-decoration: none;
-    font-weight: bold;
-}
-#primary-nav a:hover, #primary-nav a.current {
-    color: #9C1006;
-}
+
 #accountbox {
     float: right;
     height: 26px;
     width: 30%;
     text-align: right;
     position: relative;
+    body.logged-out & {
+        padding: 5px 0px;
+        height: 21px;
+    }
+    a.myaccount {
+        display: block;
+        padding: 5px 10px;
+    }
 }
 #account-actions {
     z-index: 101;
@@ -65,34 +75,23 @@
     left: 0px;
     width: 277px;
     background: rgba(0,0,0,0.6);
-}
-#account-actions ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-}
-#account-actions:hover {
-    display: block;
-}
-#accountbox:hover #account-actions {
-    display: block;
-}
-body.logged-out #accountbox {
-    padding: 5px 0px;
-    height: 21px;
-}
-#accountbox a.myaccount {
-    display: block;
-    padding: 5px 10px;
-}
-#account-actions a {
-    display: block;
-    padding: 5px 10px;
-    border-top: 1px dotted #666;
-}
-#account-actions a:hover {
-    background: #000;
-}
-#account-actions ul li:first-child a {
-    border-top: none;
+    &:hover, #accountbox:hover & {
+        display: block;
+    }
+    ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        li:first-child a {
+            border-top: none;
+        }
+    }
+    a {
+        display: block;
+        padding: 5px 10px;
+        border-top: 1px dotted #666;
+        &:hover {
+            background: #000;
+        }
+    }
 }
