@@ -34,8 +34,8 @@ class ProposalSubmissionForm(forms.ModelForm):
             queryset=conference_models.AudienceLevel.current_objects.all())
         self.fields['duration'] = forms.ModelChoiceField(label=_("duration"),
             queryset=conference_models.SessionDuration.current_objects.all())
-        self.fields['description'].help_text = _("This field supports Markdown syntax.")
-        self.fields['abstract'].help_text = _("This field supports Markdown syntax.")
+        self.fields['description'].help_text = _('This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> syntax.')
+        self.fields['abstract'].help_text = _('This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> syntax.')
 
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
