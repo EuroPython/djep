@@ -24,7 +24,7 @@ class ProfileRegistrationForm(RegistrationForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
                 account_fields, profile_fields,
-                ButtonHolder(Submit('submit', _('Create account')))
+                ButtonHolder(Submit('submit', _('Create account'), css_class='btn-primary'))
                 )
 
     def save_profile(self, new_user, *args, **kwargs):
@@ -44,7 +44,7 @@ class AuthenticationForm(auth_forms.AuthenticationForm):
                 ButtonHolder(
                     HTML('<ul><li><a href="{0}">Noch kein Konto?</a></li><li><a href="{1}">Passwort vergessen?</a></li></ul>'.format(
                         reverse('userprofiles_registration'), reverse('auth_password_reset'))),
-                    Submit('login', _('Log in'))
+                    Submit('login', _('Log in'), css_class='btn-primary')
                 )
             )
 
@@ -56,7 +56,7 @@ class PasswordResetForm(auth_forms.PasswordResetForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
                 Div(Field('email', autofocus="autofocus")),
-                ButtonHolder(Submit('reset', _('Reset password')))
+                ButtonHolder(Submit('reset', _('Reset password'), css_class='btn-primary'))
             )
 
 
@@ -67,7 +67,7 @@ class PasswordChangeForm(auth_forms.PasswordChangeForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
                 Div(Field('old_password', autofocus="autofocus"), 'new_password1', 'new_password2'),
-                ButtonHolder(Submit('save', _('Change password')))
+                ButtonHolder(Submit('save', _('Change password'), css_class='btn-primary'))
             )
 
 
@@ -77,6 +77,6 @@ class ProfileForm(BaseProfileForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
                 Div(Field('first_name', autofocus="autofocus"), 'last_name', 'short_info'),
-                ButtonHolder(Submit('save', _('Change')))
+                ButtonHolder(Submit('save', _('Change'), css_class='btn-primary'))
             )
 

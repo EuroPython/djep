@@ -26,7 +26,7 @@ class PurchaseForm(forms.ModelForm):
             Fieldset(_('Invoice address'), 'first_name', 'last_name',
                 'company_name', 'email', 'street', 'zip_code', 'city',
                 'country', 'vat_id', 'comments'),
-            ButtonHolder(Submit('submit', _('Purchase tickets')))
+            ButtonHolder(Submit('submit', _('Purchase tickets'), css_class='btn-primary'))
         )
 
     def save(self, *args, **kwargs):
