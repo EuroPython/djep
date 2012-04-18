@@ -85,7 +85,7 @@ class PermissionCheckedUpdateView(generic_views.UpdateView, NextRedirectMixin):
         next = self.get_next_redirect()
         if next:
             return next
-        return super(SubmitProposalView, self).get_success_url()
+        return super(PermissionCheckedUpdateView, self).get_success_url()
 
     def get_context_data(self, *args, **kwargs):
         ctx = super(PermissionCheckedUpdateView, self).get_context_data(*args, **kwargs)
@@ -166,7 +166,7 @@ class AbstractProposalAction(generic_views.DetailView, NextRedirectMixin):
         next = self.get_next_redirect()
         if next:
             return next
-        return reverse('my_proposals')
+        return reverse('view_proposal', kwargs={'pk': self.object.pk})
 
 
 class CancelProposalView(AbstractProposalAction):
@@ -195,6 +195,12 @@ class CancelProposalView(AbstractProposalAction):
         self.object.delete()
         messages.success(self.request, _("Proposal has been removed"))
         return None
+
+    def get_post_action_url(self):
+        next = self.get_next_redirect()
+        if next:
+            return next
+        return reverse('my_proposals')
 
 
 class LeaveProposalView(CancelProposalView):
