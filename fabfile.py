@@ -106,3 +106,8 @@ def djshell():
     return srv_open_shell('%s %s shell' % (
         join(env.root, 'bin', 'python'),
         join(env.proj_root, env.proj_name, 'manage.py')))
+
+
+@task
+def loaddata(fixture):
+    manage_py('loaddata {0}'.format(fixture))
