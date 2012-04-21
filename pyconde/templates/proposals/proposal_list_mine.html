@@ -7,12 +7,20 @@
     <section>
         <h2>{% trans "... as primary speaker" %}</h2>
         <table class="proposals table table-striped">
-            <thead></thead>
+            <thead>
+                <tr>
+                    <th>{% trans "Title" %}</th>
+                    <th>{% trans "Kind" %}</th>
+                    <th>{% trans "Track" %}</th>
+                    <th></th>
+                </tr>
+            </thead>
             <tbody>
                 {% for proposal in proposals %}
                     <tr>
                         <td><a href="{{ proposal.get_absolute_url }}">{{ proposal.title }}</a></td>
                         <td>{{ proposal.kind.name }}</td>
+                        <td>{{ proposal.track.name }}</td>
                         <td class="actions">
                             <a class="btn" href="{% url edit_proposal proposal.pk %}?next={% url my_proposals %}"><i class="icon-edit"></i> {% trans "Edit" %}</a>
                             <a class="btn" href="{% url cancel_proposal proposal.pk %}?next={% url my_proposals %}"><i class="icon-remove"></i> {% trans "Cancel" %}</a>
@@ -30,12 +38,20 @@
     <section>
         <h2>{% trans "Participations" %}</h2>
         <table class="proposals table table-striped">
-            <thead></thead>
+            <thead>
+                <tr>
+                    <th>{% trans "Title" %}</th>
+                    <th>{% trans "Kind" %}</th>
+                    <th>{% trans "Track" %}</th>
+                    <th></th>
+                </tr>
+            </thead>
             <tbody>
                 {% for proposal in proposal_participations %}
                     <tr>
                         <td><a href="{{ proposal.get_absolute_url }}">{{ proposal.title }}</a></td>
                         <td>{{ proposal.kind.name }}</td>
+                        <td>{{ proposal.track.name }}</td>
                         <td class="actions">
                             <a class="btn icon-remove" href="{% url leave_proposal proposal.pk %}?next={% url my_proposals %}">{% trans "Leave" %}</a>
                         </td>

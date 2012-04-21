@@ -39,6 +39,7 @@
     {% compress js %}
     <script src="{{ STATIC_URL }}js/modernizr-2.0.6.js"></script>
     <script src="{{ STATIC_URL }}js/jquery-1.7.1.min.js"></script>
+    <script src="{{ STATIC_URL }}js/main.js"></script>
     {% endcompress %}
     {% render_block "js" %}
 
@@ -166,6 +167,7 @@
         </div>
     </footer>
     </div>
+    <script type="text/javascript">pyconde.init();</script>
     <!--[if lt IE 7 ]>
         <script src="{{ STATIC_URL }}js/libs/dd_belatedpng.js"></script>
         <script>DD_belatedPNG.fix('img, .png_bg'); //fix any <img> or .png_bg background-images</script>

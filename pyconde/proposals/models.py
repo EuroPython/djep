@@ -36,6 +36,8 @@ class Proposal(models.Model):
         verbose_name=_("audience level"))
     duration = models.ForeignKey("conference.SessionDuration",
         verbose_name=_("duration"))
+    track = models.ForeignKey("conference.Track",
+        verbose_name=_("track"), blank=True, null=True)
 
     class Meta(object):
         verbose_name = _("proposal")

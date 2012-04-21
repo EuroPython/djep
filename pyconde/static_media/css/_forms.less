@@ -5,11 +5,11 @@
     clear: both;
     visibility: hidden;
 }
-
+/*
 input[type=submit], button[type=submit] {
     float: none;
 }
-
+*/
 
 textarea {
     width: 300px;
@@ -26,4 +26,21 @@ textarea {
 }
 #errorMsg {
     color: red;
+}
+
+.help-block.extended {
+    > .trigger {
+        cursor: pointer;
+        display: block;
+        margin-bottom: 5px;
+        &:hover {
+            color: @yellow;
+        }
+    }
+    > .body {
+        padding: 10px;
+        border: 1px dotted #cecece;
+        background: #FAFAFA;
+        font-size: 90%;
+    }
 }

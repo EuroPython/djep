@@ -1,8 +1,10 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.template.loader import render_to_string
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Fieldset, Submit, Field
+from pyconde.forms import ExtendedHelpField
 
 from conference.models import current_conference
 from conference import models as conference_models
@@ -24,16 +26,20 @@ class ProposalSubmissionForm(forms.ModelForm):
             "additional_speakers",
             "audience_level",
             "duration",
+            "track",
         ]
 
     def __init__(self, *args, **kwargs):
         super(ProposalSubmissionForm, self).__init__(*args, **kwargs)
+        tracks = conference_models.Track.current_objects.all()
         self.fields['kind'] = forms.ModelChoiceField(label=_("kind"),
             queryset=conference_models.SessionKind.current_objects.filter_open_kinds())
         self.fields['audience_level'] = forms.ModelChoiceField(label=_("audience level"),
             queryset=conference_models.AudienceLevel.current_objects.all())
         self.fields['duration'] = forms.ModelChoiceField(label=_("duration"),
             queryset=conference_models.SessionDuration.current_objects.all())
+        self.fields['track'] = forms.ModelChoiceField(label=_("Track"), required=True, initial=None,
+            queryset=tracks)
         self.fields['description'].help_text = _('This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> syntax.')
         self.fields['abstract'].help_text = _('This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> syntax.')
 
@@ -46,7 +52,7 @@ class ProposalSubmissionForm(forms.ModelForm):
                 Field('description'),
                 Field('abstract'),
                 'agree_to_terms'),
-            Fieldset(_('Details'), 'duration', 'audience_level', 'additional_speakers'),
+            Fieldset(_('Details'), ExtendedHelpField('track', render_to_string('proposals/tracks-help.html', {'tracks': tracks})), 'duration', 'audience_level', 'additional_speakers'),
             ButtonHolder(Submit('submit', _('Submit proposal'), css_class="btn-primary"))
             )
 

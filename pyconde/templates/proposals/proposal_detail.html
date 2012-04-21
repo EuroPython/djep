@@ -3,7 +3,7 @@
 {% block title %}{% trans "Proposal" %}: {{ proposal.title }}{% endblock %}
 {% block body %}
 <article class="proposal">
-<h1>{% trans "Proposal" %}: {{ proposal.title }}</h1>
+<h1>{% trans "Proposal" %}: {{ proposal.title }}{% if proposal.track %} ({{ proposal.track.name }}){% endif %}</h1>
 
 <div class="meta">
 {% blocktrans with speaker_url=proposal.speaker.get_absolute_url speaker=proposal.speaker submission_date=proposal.submission_date|date:"DATE_FORMAT" %}

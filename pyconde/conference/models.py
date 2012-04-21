@@ -189,6 +189,26 @@ class SessionKind(models.Model):
         return not self.closed
 
 
+class Track(models.Model):
+    conference = models.ForeignKey(Conference, verbose_name=_("conference"))
+    name = models.CharField(_("name"), max_length=100)
+    slug = models.SlugField(_("slug"))
+    description = models.TextField(_("description"), blank=True, null=True)
+    visible = models.BooleanField(_("visible"), default=True)
+    order = models.IntegerField(_("order"), default=0)
+
+    objects = models.Manager()
+    current_objects = CurrentConferenceManager()
+
+    class Meta(object):
+        verbose_name = _("track")
+        verbose_name_plural = _("tracks")
+        ordering = ['order']
+
+    def __unicode__(self):
+        return self.name
+
+
 def current_conference():
     from django.conf import settings
     try:
