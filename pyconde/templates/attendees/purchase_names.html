@@ -23,7 +23,7 @@
         {% csrf_token %}
         <fieldset class="attendees">
             <legend>Teilnehmer</legend>
-            <p style="padding-top:10px">Zur korrekten Zuordnung der Konferenz- und Tutorial-Tickets benötigen wir die vollen Namen der Pesonen, die die Tickets in anspruch nehmen werden. Bitte gebe die Namen und die untenstehenden Felder ein.</p>
+            <p style="padding-top:10px">Zur korrekten Zuordnung der Konferenz- und Tutorial-Tickets benötigen wir die vollen Namen der Pesonen, die die Tickets in anspruch nehmen werden. Bitte gib die Namen und die untenstehenden Felder ein.</p>
             {% for name_form in name_forms %}
                 {% if forloop.first %}
                     <div class="clearfix control-group headerlabel">
