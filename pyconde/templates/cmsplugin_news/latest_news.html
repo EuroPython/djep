@@ -1,6 +1,6 @@
 {% load i18n %}
 {% if placeholder == 'sidebar' %}
-<aside><div class="tbox">
+<div class="tbox news-plugin">
     <h2>{% trans "News" %}</h2>
     <div class="pynews">
         {% if latest %}
@@ -18,7 +18,6 @@
         <p class="more"><a href="{% url news_archive_index %}">Alle News lesen</a></p>
     </div>
 </div>
-</aside>
 {% else %}
 <div class="cmsplugin-news">
     <h2>{% trans "Latest news" %}</h2>

@@ -17,4 +17,22 @@ aside {
             font-style: italic;
         }
     }
+    .plugin_link {
+        display: block;
+        text-align: center;
+        margin-bottom: 10px;
+        a {
+            #gradient > .vertical(@yellow, darken(@yellow, 10));
+            .border-radius(5px);
+            padding: 10px;
+            font-size: 115%;
+            display: block;
+            color: white;
+            font-weight: bold;
+            text-decoration: none;
+            &:hover {
+                background: @yellow;
+            }
+        }
+    }
 }
