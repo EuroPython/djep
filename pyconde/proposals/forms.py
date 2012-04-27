@@ -27,6 +27,7 @@ class ProposalSubmissionForm(forms.ModelForm):
             "audience_level",
             "duration",
             "track",
+            "tags",
         ]
 
     def __init__(self, *args, **kwargs):
@@ -52,7 +53,7 @@ class ProposalSubmissionForm(forms.ModelForm):
                 Field('description'),
                 Field('abstract'),
                 'agree_to_terms'),
-            Fieldset(_('Details'), ExtendedHelpField('track', render_to_string('proposals/tracks-help.html', {'tracks': tracks})), 'duration', 'audience_level', 'additional_speakers'),
+            Fieldset(_('Details'), ExtendedHelpField('track', render_to_string('proposals/tracks-help.html', {'tracks': tracks})), 'tags', 'duration', 'audience_level', 'additional_speakers'),
             ButtonHolder(Submit('submit', _('Submit proposal'), css_class="btn-primary"))
             )
 

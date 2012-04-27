@@ -5,6 +5,10 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django import forms
 
+from conference.models import CurrentConferenceManager
+
+from pyconde.tagging import TaggableManager
+
 
 class Proposal(models.Model):
     """
@@ -12,9 +16,6 @@ class Proposal(models.Model):
     and during the review process. It has one mandatory speaker and possible
     additional speakers as well as a certain kind (tutorial, session, ...),
     audience level and proposed duration.
-
-    TODO: Add tags to proposal which will then be copied over to the actual
-          session.
     """
     conference = models.ForeignKey("conference.Conference",
         verbose_name="conference")
@@ -38,6 +39,9 @@ class Proposal(models.Model):
         verbose_name=_("duration"))
     track = models.ForeignKey("conference.Track",
         verbose_name=_("track"), blank=True, null=True)
+    tags = TaggableManager(blank=True)
+
+    objects = CurrentConferenceManager()
 
     class Meta(object):
         verbose_name = _("proposal")

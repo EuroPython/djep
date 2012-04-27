@@ -84,6 +84,7 @@ INSTALLED_APPS = (
     'userprofiles.contrib.accountverification',
     'userprofiles.contrib.emailverification',
     'userprofiles.contrib.profiles',
+    'taggit',
 
     'cms.plugins.inherit',
     'cms.plugins.googlemap',

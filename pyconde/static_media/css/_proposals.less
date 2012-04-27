@@ -4,7 +4,7 @@
         #proposals > .listing();
     }
     .article(@description-border: 1px solid #DDD, @description-background: #EAEAEA) {
-        article.proposal {
+        #content article.proposal {
             .actions {
                 text-align: right;
             }
@@ -19,6 +19,16 @@
                 padding: 5px;
                 border: @description-border;
                 background: @description-background;
+            }
+            .meta dl {
+                margin-top: 5px;
+                dt, dd {
+                    display: inline-block;
+                    padding-left: 0;
+                }
+                dt {
+                    margin-right: 1em;
+                }
             }
         }
     }

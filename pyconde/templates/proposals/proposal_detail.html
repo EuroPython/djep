@@ -9,6 +9,13 @@
 {% blocktrans with speaker_url=proposal.speaker.get_absolute_url speaker=proposal.speaker submission_date=proposal.submission_date|date:"DATE_FORMAT" %}
 <a class="speaker user" href="{{ speaker_url }}">{{ speaker }}</a> submitted this proposal at <span class="submission-date">{{ submission_date }}</span>.
 {% endblocktrans %}
+{% if proposal.tags %}
+<dl class="tags"><dt>{% trans "Tags" %}:</dt><dd>
+    {% for tag in proposal.tags.all %}
+    <span class="tag">{{ tag.name }}</span>{% if not forloop.last %},  {% endif %}
+    {% endfor %}
+</dd></dl>
+{% endif %}
 </div>
 
 <div class="actions">
