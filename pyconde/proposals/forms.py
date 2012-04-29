@@ -10,6 +10,7 @@ from conference.models import current_conference
 from conference import models as conference_models
 
 from . import models
+from . import settings
 
 
 class ProposalSubmissionForm(forms.ModelForm):
@@ -32,6 +33,8 @@ class ProposalSubmissionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ProposalSubmissionForm, self).__init__(*args, **kwargs)
+        if not settings.SUPPORT_ADDITIONAL_SPEAKERS:
+            del self.fields['additional_speakers']
         tracks = conference_models.Track.current_objects.all()
         self.fields['kind'] = forms.ModelChoiceField(label=_("kind"),
             queryset=conference_models.SessionKind.current_objects.filter_open_kinds())
