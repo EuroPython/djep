@@ -1,0 +1,7 @@
+{% extends "proposals/proposal_form.html" %}
+{% load i18n crispy_forms_tags %}
+{% block title %}{% trans "Submit a proposal" %}{% endblock %}
+{% block body %}
+<h1>{% trans "Submit a tutorial" %}</h1>
+{% crispy form %}
+{% endblock %}

@@ -3,6 +3,7 @@ import urlparse
 from django.views import generic as generic_views
 from django.http import HttpResponseRedirect
 from django.utils.translation import ugettext_lazy as _
+from django.utils.importlib import import_module
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.template.response import TemplateResponse
@@ -11,6 +12,7 @@ from conference.models import current_conference, SessionKind
 
 from . import forms
 from . import models
+from . import settings
 
 
 class NextRedirectMixin(object):
@@ -29,19 +31,74 @@ class NextRedirectMixin(object):
         return None
 
 
-class SubmitProposalView(generic_views.CreateView, NextRedirectMixin):
+class TypedProposalFormMixin(object):
+    """
+    This mixin overrides the original get_form_class method in order to replace
+    the default form with a type-specific form based on the type provided
+    as view argument or already associated with the object to be processed.
+    """
+    def get_form_class(self):
+        if settings.UNIFIED_SUBMISSION_FORM:
+            return forms.ProposalSubmissionForm
+        type_slug = None
+        if getattr(self, 'object') and isinstance(self.object, models.Proposal):
+            type_slug = self.object.kind.slug
+        elif 'type' in self.kwargs:
+            type_slug = self.kwargs['type']
+        if type_slug:
+            self.proposal_kind = SessionKind.current_objects.get(slug=type_slug)
+            formcls_path = settings.TYPED_SUBMISSION_FORMS.get(type_slug)
+            if formcls_path:
+                mod_name, cls_name = formcls_path.rsplit('.', 1)
+                mod = import_module(mod_name)
+                form_cls = getattr(mod, cls_name)
+                if form_cls:
+                    return form_cls
+        return forms.TypedSubmissionForm
+
+    def get_form(self, form_class):
+        form = super(TypedProposalFormMixin, self).get_form(form_class)
+        if hasattr(self, 'proposal_kind'):
+            setattr(form, 'kind_instance', self.proposal_kind)
+        return form
+
+    def get_template_names(self):
+        """
+        Also look for a template with the name proposals/%(type)s_proposal_form.html
+        """
+        proposed_names = super(TypedProposalFormMixin, self).get_template_names()
+        if hasattr(self, 'proposal_kind'):
+            base_name = proposed_names[0]
+            base_dir, name = base_name.rsplit('/')
+            proposed_names.insert(0, "proposals/{0}_proposal_form.html".format(self.proposal_kind.slug))
+        return proposed_names
+
+
+class SubmitProposalView(TypedProposalFormMixin, generic_views.CreateView, NextRedirectMixin):
     """
     Once registered a user can submit a proposal for the conference for a
     specific kind. This is only possible while the selected SessionKind
     accepts submissions.
     """
-    form_class = forms.ProposalSubmissionForm
     model = models.Proposal
 
-    def get(self, request, *args, **kwargs):
+    def dispatch(self, request, *args, **kwargs):
         if not len(SessionKind.current_objects.filter_open_kinds()):
             return TemplateResponse(request=request, template='proposals/closed.html', context={})
-        return super(SubmitProposalView, self).get(request, *args, **kwargs)
+        if not settings.UNIFIED_SUBMISSION_FORM and 'type' not in kwargs:
+            # If unified submission is disabled and no type has been specified
+            # we have to show dummy page to tell the user what session kinds
+            # now accept proposals
+            session_kinds = []
+            open_session_kinds = []
+            for kind in SessionKind.current_objects.all():
+                if kind.accepts_proposals():
+                    open_session_kinds.append(kind)
+                session_kinds.append(kind)
+            if not open_session_kinds:
+                return TemplateResponse(request=request, template='proposals/closed.html', context={})
+            return TemplateResponse(request=request, template='proposals/submission_intro.html', context={'session_kinds': session_kinds, 'open_kinds': open_session_kinds})
+        return super(SubmitProposalView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
         next = self.get_next_redirect()
@@ -110,12 +167,11 @@ class PermissionCheckedUpdateView(generic_views.UpdateView, NextRedirectMixin):
         return super(PermissionCheckedUpdateView, self).post(request, *args, **kwargs)
 
 
-class EditProposalView(PermissionCheckedUpdateView):
+class EditProposalView(TypedProposalFormMixin, PermissionCheckedUpdateView):
     """
     The primary speaker can edit a proposal as long as the SessionKind
     still accepts proposals.
     """
-    form_class = forms.ProposalSubmissionForm
     model = models.Proposal
 
     def form_valid(self, form):
