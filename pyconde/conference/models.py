@@ -158,6 +158,9 @@ class SessionKind(models.Model):
     start_date = models.DateTimeField(blank=True, null=True)
     end_date = models.DateTimeField(blank=True, null=True)
 
+    # TODO: available_durations = models.ManyToManyField('SessionDuration', blank=True, null=True)
+    # TODO: available_tracks = models.ManyToManyField('Track', blank=True, null=True)
+
     objects = models.Manager()
     current_objects = ActiveSessionKindManager()
 

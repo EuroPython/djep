@@ -17,7 +17,35 @@ var pyconde = (function() {
         });
         return span;
     }
+
+    function hideField(field) {
+        var val = field.val();
+        var selectbox = $('select', field);
+        var required = !!($('.requiredField', field).length);
+        if (selectbox.length && required && !val) {
+            selectbox.val($('option[value!=""]', field).val());
+        }
+        field.data('oldValue', val);
+        field.fadeOut();
+    }
+
+    function restoreField(field) {
+        field.val(field.data('oldValue'));
+        field.fadeIn();
+    }
+
+    function handleKindChange($that) {
+        if ($(':selected', $that).text() === 'Tutorial') {
+            hideField($('#div_id_track'));
+            hideField($('#div_id_duration'));
+        } else {
+            restoreField($('#div_id_track'));
+            restoreField($('#div_id_duration'));
+        }
+    }
+
     function init() {
+        var body = $('body');
         $('.help-block.extended').each(function() {
             var trigger = $('> .trigger', this);
             trigger.prepend('<i class="icon-question-sign"></i>&nbsp;');
@@ -48,6 +76,11 @@ var pyconde = (function() {
                 });
                 $that.hide();
             });
+        }
+        if (body.hasClass('proposal-form')) {
+            handleKindChange($('select#id_kind').bind('change', function(evt) {
+                handleKindChange($(this));
+            }));
         }
     }
 

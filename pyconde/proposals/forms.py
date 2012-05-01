@@ -87,6 +87,15 @@ class ProposalSubmissionForm(forms.ModelForm):
         kind = cleaned_data.get('kind')
         if kind is not None and not kind.accepts_proposals():
             raise forms.ValidationError(_("The selected session kind doesn't accept any proposals anymore."))
+        if kind.slug == 'tutorial':
+            # We require some extra consideration for tutorials as here a bunch
+            # of fields are hidden in the form and should therefor be set to
+            # default values.
+            #
+            # TODO: Replace this with a generic fallback mechanism via within
+            #       the SessionKind class.
+            cleaned_data['track'] = None
+            cleaned_data['duration'] = conference_models.SessionDuration.objects.get(slug='tutorial')
         return cleaned_data
 
     def clean_audience_level(self):
