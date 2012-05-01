@@ -1,6 +1,7 @@
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.template.loader import render_to_string
+from django.core.exceptions import ValidationError
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Fieldset, Submit, Field
@@ -8,9 +9,21 @@ from pyconde.forms import ExtendedHelpField
 
 from conference.models import current_conference
 from conference import models as conference_models
+from speakers import models as speaker_models
 
 from . import models
 from . import settings
+
+
+class HiddenSpeakersMultipleChoiceField(forms.ModelMultipleChoiceField):
+    def clean(self, value):
+        """
+        Basically any speaker id is valid.
+        """
+        speakers = speaker_models.Speaker.objects.filter(pk__in=value)
+        if len(speakers) != len(value):
+            raise ValidationError(self.error_messages['invalid_choice'] % value)
+        return speakers
 
 
 class ProposalSubmissionForm(forms.ModelForm):
@@ -32,9 +45,18 @@ class ProposalSubmissionForm(forms.ModelForm):
         ]
 
     def __init__(self, *args, **kwargs):
+        print kwargs
         super(ProposalSubmissionForm, self).__init__(*args, **kwargs)
         if not settings.SUPPORT_ADDITIONAL_SPEAKERS:
             del self.fields['additional_speakers']
+        else:
+            # Only list already selected speakers or an empty queryset
+            if kwargs['instance']:
+                additional_speakers = kwargs['instance'].additional_speakers.all()
+            else:
+                additional_speakers = speaker_models.Speaker.objects.none()
+            self.fields['additional_speakers'] = HiddenSpeakersMultipleChoiceField(label=_("additional speakers"),
+                queryset=additional_speakers, required=False)
         tracks = conference_models.Track.current_objects.all()
         self.fields['kind'] = forms.ModelChoiceField(label=_("kind"),
             queryset=conference_models.SessionKind.current_objects.filter_open_kinds())
@@ -56,7 +78,7 @@ class ProposalSubmissionForm(forms.ModelForm):
                 Field('description'),
                 Field('abstract'),
                 'agree_to_terms'),
-            Fieldset(_('Details'), ExtendedHelpField('track', render_to_string('proposals/tracks-help.html', {'tracks': tracks})), 'tags', 'duration', 'audience_level', 'additional_speakers'),
+            Fieldset(_('Details'), ExtendedHelpField('track', render_to_string('proposals/tracks-help.html', {'tracks': tracks})), 'tags', 'duration', 'audience_level', Field('additional_speakers', css_class='multiselect-user')),
             ButtonHolder(Submit('submit', _('Submit proposal'), css_class="btn-primary"))
             )
 

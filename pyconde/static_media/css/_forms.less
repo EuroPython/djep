@@ -44,3 +44,42 @@ textarea {
         font-size: 90%;
     }
 }
+
+.del {
+    display: inline-block;
+    text-decoration: none;
+    margin-left: 5px;
+    padding-bottom: 2px;
+    font-weight: bold;
+}
+
+ul.ui-autocomplete {
+    background: #FFF;
+    width: 200px;
+    list-style: none;
+    border: 1px solid #cecece;
+    li {
+        a {
+            display: block;
+            padding: 3px;
+            &:hover, &.ui-state-hover {
+                background: @blue;
+                color: white;
+            }
+        }
+        border-top: 1px dotted #EFEFEF;
+        &:first-child {
+            border-top: none;
+        }
+    }
+}
+
+.ui-autocomplete-result {
+    margin-top: 5px;
+    > span {
+        margin-left: 1em;
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+}

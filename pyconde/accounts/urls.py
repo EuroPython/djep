@@ -1,6 +1,7 @@
 from django.conf.urls.defaults import patterns, url
 
 from . import forms
+from . import views
 
 
 urlpatterns = patterns('django.contrib.auth.views',
@@ -15,5 +16,6 @@ urlpatterns = patterns('django.contrib.auth.views',
             {'template_name': 'userprofiles/password_change.html',
              'password_change_form': forms.PasswordChangeForm},
             name='auth_password_change'),
+        url(r'^ajax/users$', views.AutocompleteUser.as_view()),
     )
 

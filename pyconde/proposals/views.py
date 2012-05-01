@@ -52,6 +52,7 @@ class SubmitProposalView(generic_views.CreateView, NextRedirectMixin):
     def form_valid(self, form):
         obj = form.save(commit=False)
         obj.speaker = self.request.user.speaker_profile
+        # TODO: Filter out duplications between speaker and additional speakers
         obj.conference = current_conference()
         obj.save()
         self.object = obj
@@ -116,6 +117,10 @@ class EditProposalView(PermissionCheckedUpdateView):
     """
     form_class = forms.ProposalSubmissionForm
     model = models.Proposal
+
+    def form_valid(self, form):
+        messages.success(self.request, _("Proposal successfully changed"))
+        return super(EditProposalView, self).form_valid(form)
 
     def check_permissions(self):
         """
