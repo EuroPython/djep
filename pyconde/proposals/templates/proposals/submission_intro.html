@@ -2,7 +2,9 @@
 {% load i18n %}
 {% block body %}
 <h1>{% trans "Submit a session" %}</h1>
-{% blocktrans %}
-You can submit multiple kinds of sessions. In the sidebar to the left you can find a listing of all session kinds that currently accept submissions
-{% endblocktrans %}
+<p>Sie können mehrere Arten von Vorträgen einreichen:</p>
+<ol>
+    <li>einen <a href="{% url typed_submit_proposal type='talk' %}">Vortrag</a> oder</li>
+    <li>ein <a href="{% url typed_submit_proposal type='tutorial' %}">Tutorial</a></li>
+</ol>
 {% endblock %}

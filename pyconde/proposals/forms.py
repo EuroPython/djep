@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 from django import forms
 from django.utils.translation import ugettext_lazy as _
 from django.template.loader import render_to_string
@@ -27,8 +28,8 @@ class HiddenSpeakersMultipleChoiceField(forms.ModelMultipleChoiceField):
 
 
 class ProposalSubmissionForm(forms.ModelForm):
-    agree_to_terms = forms.BooleanField(label=_("Agree to terms"),
-        help_text=_("All sessions have to take place according to a set of rules listed below. In order to submit your session proposal you have to agree to these terms."))
+    agree_to_terms = forms.BooleanField(label="Video-Aufzeichnung zustimmen",
+        help_text="Ich stimme zu, dass mein Vortrag auf Video aufgezeichnet wird.")
 
     class Meta(object):
         model = models.Proposal
@@ -170,6 +171,17 @@ class TutorialSubmissionForm(TypedSubmissionForm):
 
     def __init__(self, *args, **kwargs):
         super(TutorialSubmissionForm, self).__init__(*args, **kwargs)
+        self.fields['description'].label = "Kurzbeschreibung"
+        self.fields['description'].help_text = "< 300 Worte"
+        self.fields['abstract'].label = "Gliederung"
+        self.fields['abstract'].help_text = """Bitte stichpunktartige Angaben zum Aufbau des Tutorials mit Zeitangaben
+                                              zu den einzelnen Punkten, wobei die Summe 180 Minuten ergeben muss.
+                                              Bitte die benötigen Software-Pakete aufführen, so dass die Teilnehmer
+                                              bereits vor dem Tutorial ihre Laptops einrichten können. Bitte Anforderungen
+                                              an Versionen angeben und deren Zusammenspiel überprüfen.<br /><br /> Grundsätzlich
+                                              sollten die Tutorial-Inhalte auf allen drei gängigen
+                                              Betriebssystemen (Linux, Mac OS X und Windows) funktionieren.
+                                              Wenn nicht, bitte explizit darauf hinweisen."""
         self.helper.layout = Layout(
             Fieldset(_('General'),
                 Field('title', autofocus="autofocus"),
@@ -182,3 +194,10 @@ class TutorialSubmissionForm(TypedSubmissionForm):
 
     def customize_save(self, instance):
         instance.duration = conference_models.SessionDuration.current_objects.get(slug='tutorial')
+
+
+class TalkSubmissionForm(TypedSubmissionForm):
+    def __init__(self, *args, **kwargs):
+        super(TalkSubmissionForm, self).__init__(*args, **kwargs)
+        self.fields['duration'] = forms.ModelChoiceField(label=_("duration"),
+                queryset=conference_models.SessionDuration.current_objects.exclude(slug='tutorial').all())
