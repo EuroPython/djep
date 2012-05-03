@@ -14,6 +14,9 @@
         font-size:10px;
         text-decoration:none
     }
+    a:hover {
+        color: @yellow;
+    }
 
     section {
         opacity: 0.7;
@@ -92,9 +95,21 @@
     }
 }
 
+#footer #footer-supportpages {
+    opacity: 1.0;
+    li {
+        a {
+            color: @yellow;
+            &:hover {
+                color: #FFF;
+            }
+        }
+    }
+}
+
 #footer-contact {
     > a {
-        border-top: 1px dotted #FFF;
+        border-top: 1px dashed #FFF;
         display: block;
         margin-top: 1.5em;
         padding-top: 1.5em;
