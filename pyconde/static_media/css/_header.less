@@ -55,7 +55,28 @@
         float: left;
         height: 46px;
         padding: 5px 0 0 0;
-        width: 65px;
+        width: 125px;
+        color: @red;
+        .start-date, .end-date, .sep {
+            float: left;
+            width: 60px;
+            display: block;
+        }
+        .start-date {
+            margin-left: 32px;
+        }
+        &.as-span {
+            width: 125px;
+            .start-date, .end-date, .sep {
+                margin-left: 0;
+            }
+            .sep {
+                width: 5px;
+                font-weight: bold;
+                font-size: 200%;
+                line-height: 46px;
+            }
+        }
         .month, .day {
             display: block;
             color: #9C1006;
@@ -84,11 +105,11 @@
     .description {
         color: #3E3E3E;
         margin: 0 0 0 87px;
-        padding: 7px 20px 23px 0;
+        padding: 7px 20px 23px 10px;
         height: 41px;
         display: table;
         line-height: 140%;
-        width: 273px;
+        width: 203px;
         .ie7 & {
             padding-top: 16px;        
         }
