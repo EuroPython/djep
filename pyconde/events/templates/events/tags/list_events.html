@@ -1,6 +1,6 @@
 {% load i18n %}
 {% if events %}
-<ul>
+<ul class="{% if has_range %}with-range{% else %}without-range{% endif %}">
 {% for event in events %}
     <li>
         <a href="{% if event.link %}{{ event.link }}{% else %}#{% endif %}">
