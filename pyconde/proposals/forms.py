@@ -14,6 +14,7 @@ from speakers import models as speaker_models
 
 from . import models
 from . import settings
+from . import validators
 
 
 class HiddenSpeakersMultipleChoiceField(forms.ModelMultipleChoiceField):
@@ -51,7 +52,7 @@ class ProposalSubmissionForm(forms.ModelForm):
             del self.fields['additional_speakers']
         else:
             # Only list already selected speakers or an empty queryset
-            if kwargs['instance']:
+            if 'instance' in kwargs and kwargs['instance'] is not None:
                 additional_speakers = kwargs['instance'].additional_speakers.all()
             else:
                 additional_speakers = speaker_models.Speaker.objects.none()
@@ -72,8 +73,10 @@ class ProposalSubmissionForm(forms.ModelForm):
                 queryset=tracks)
         if 'description' in self.fields:
             self.fields['description'].help_text = _('This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> syntax.')
+            self.fields['description'].validators = [validators.MaxLengthValidator(2000)]
         if 'abstract' in self.fields:
             self.fields['abstract'].help_text = _('This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> syntax.')
+            self.fields['abstract'].validators = [validators.MaxLengthValidator(3000)]
 
         instance = kwargs.get('instance')
         if instance:
@@ -182,9 +185,11 @@ class TutorialSubmissionForm(TypedSubmissionForm):
     def __init__(self, *args, **kwargs):
         super(TutorialSubmissionForm, self).__init__(*args, **kwargs)
         self.fields['description'].label = "Kurzbeschreibung"
-        self.fields['description'].help_text = "< 300 Worte"
+        self.fields['description'].validators.append(validators.MaxWordsValidator(300))
+        self.fields['description'].help_text = """Dieses Feld unterstützt <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a>.<br />< 300 Worte"""
         self.fields['abstract'].label = "Gliederung"
-        self.fields['abstract'].help_text = """Bitte stichpunktartige Angaben zum Aufbau des Tutorials mit Zeitangaben
+        self.fields['abstract'].help_text = """Dieses Feld unterstützt <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a>.<br /><br />
+                                              Bitte stichpunktartige Angaben zum Aufbau des Tutorials mit Zeitangaben
                                               zu den einzelnen Punkten, wobei die Summe 180 Minuten ergeben muss.
                                               Bitte die benötigen Software-Pakete aufführen, so dass die Teilnehmer
                                               bereits vor dem Tutorial ihre Laptops einrichten können. Bitte Anforderungen
