@@ -34,7 +34,7 @@
         "model": "conference.sessionkind", 
         "fields": {
             "conference": 1, 
-            "name": "Talk", 
+            "name": "Vortrag", 
             "end_date": null, 
             "slug": "talk", 
             "closed": false, 
