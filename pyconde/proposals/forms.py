@@ -75,6 +75,11 @@ class ProposalSubmissionForm(forms.ModelForm):
         if 'abstract' in self.fields:
             self.fields['abstract'].help_text = _('This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> syntax.')
 
+        instance = kwargs.get('instance')
+        if instance:
+            button_text = u"Änderungen speichern"
+        else:
+            button_text = u"Vortrag einreichen"
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
@@ -85,7 +90,7 @@ class ProposalSubmissionForm(forms.ModelForm):
                 Field('abstract'),
                 'agree_to_terms'),
             Fieldset(_('Details'), ExtendedHelpField('track', render_to_string('proposals/tracks-help.html', {'tracks': tracks})), 'tags', 'duration', 'audience_level', Field('additional_speakers', css_class='multiselect-user')),
-            ButtonHolder(Submit('submit', _('Submit proposal'), css_class="btn-primary"))
+            ButtonHolder(Submit('submit', button_text, css_class="btn-primary"))
             )
 
     def clean(self):
@@ -135,6 +140,11 @@ class TypedSubmissionForm(ProposalSubmissionForm):
     def __init__(self, *args, **kwargs):
         super(TypedSubmissionForm, self).__init__(*args, **kwargs)
         tracks = conference_models.Track.current_objects.all()
+        instance = kwargs.get('instance')
+        if instance:
+            button_text = u"Änderungen speichern"
+        else:
+            button_text = u"Vortrag einreichen"
         self.helper.layout = Layout(
             Fieldset(_('General'),
                 Field('title', autofocus="autofocus"),
@@ -142,7 +152,7 @@ class TypedSubmissionForm(ProposalSubmissionForm):
                 Field('abstract'),
                 'agree_to_terms'),
             Fieldset(_('Details'), ExtendedHelpField('track', render_to_string('proposals/tracks-help.html', {'tracks': tracks})), 'tags', 'duration', 'audience_level', Field('additional_speakers', css_class='multiselect-user')),
-            ButtonHolder(Submit('submit', _('Submit proposal'), css_class="btn-primary"))
+            ButtonHolder(Submit('submit', button_text, css_class="btn-primary"))
             )
 
     def save(self, commit=True):
@@ -182,6 +192,12 @@ class TutorialSubmissionForm(TypedSubmissionForm):
                                               sollten die Tutorial-Inhalte auf allen drei gängigen
                                               Betriebssystemen (Linux, Mac OS X und Windows) funktionieren.
                                               Wenn nicht, bitte explizit darauf hinweisen."""
+
+        instance = kwargs.get('instance')
+        if instance:
+            button_text = u"Änderungen speichern"
+        else:
+            button_text = u"Tutorial einreichen"
         self.helper.layout = Layout(
             Fieldset(_('General'),
                 Field('title', autofocus="autofocus"),
@@ -189,7 +205,7 @@ class TutorialSubmissionForm(TypedSubmissionForm):
                 Field('abstract'),
                 'agree_to_terms'),
             Fieldset(_('Details'), 'tags', 'audience_level', Field('additional_speakers', css_class='multiselect-user')),
-            ButtonHolder(Submit('submit', _('Submit proposal'), css_class="btn-primary")),
+            ButtonHolder(Submit('submit', button_text, css_class="btn-primary")),
             )
 
     def customize_save(self, instance):
