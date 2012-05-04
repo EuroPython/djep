@@ -6,10 +6,17 @@ django-mptt==0.5.1
 django-classy-tags==0.3.4.1
 python-dateutil==1.5
 easy-thumbnails==1.0-alpha-21
-django-userprofiles==0.2
+django-userprofiles==0.2 #nocache
 -e git+https://github.com/stefanfoulis/django-filer.git@70d67da3d459d1e4ec82fbfa1d11438a4d75aef3#egg=django-filer
 -e git+https://github.com/stefanfoulis/cmsplugin-filer.git@ab90eebac725bdf30146c0927b7e1f88dbea4050#egg=cmsplugin-filer
--e hg+https://bitbucket.org/zerok/cmsplugin-news#egg=cmsplugin-news
+-e hg+https://bitbucket.org/zerok/cmsplugin-news@3cc0109645d3#egg=cmsplugin-news
 django-compressor==1.1.2
 BeautifulSoup==3.2.0
 django-cms==2.2
+django-crispy-forms==1.1.1
+Markdown
+django-taggit==0.9.3
+
+# Requirements for symposion
+pytz
+django-timezones

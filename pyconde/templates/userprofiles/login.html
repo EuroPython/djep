@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% load i18n crispy_forms_tags %}
+
+{% block title %}{% trans "Login" %}{% endblock %}
+
+{% block bodycls %}login{% endblock %}
+{% block content %}
+<h1>{% trans "Login" %}</h1>
+
+{% crispy form %}
+{% endblock %}

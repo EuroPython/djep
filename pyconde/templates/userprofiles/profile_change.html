@@ -1,25 +1,18 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% block title %}Profil ändern{% endblock %}
 
 {% block content %}
     <h1 class="h2">Profil ändern</h1>
 
-    <form action="." method="post">
-        {% csrf_token %}
-        <fieldset>
-            <p>
-                Deine aktuelle E-Mail-Adresse lautet <em>{{ request.user.email }}</em>,<br />
-                <a href="{% url userprofiles_email_change %}">um deine E-Mail-Adresse zu ändern, klicke bitte hier</a>.
-            </p>
-            <p>
-                Um dein Passwort zu ändern, <a href="{% url auth_password_change %}">klicke bitte hier</a>.
-            </p>
-            <br />
-            {{ form.as_p }}
-        </fieldset>
-        <fieldset class="submit-row">
-            <p><button type="submit">Ändern</button></p>
-        </fieldset>
-    </form>
+    <p>
+        Deine aktuelle E-Mail-Adresse lautet <em>{{ request.user.email }}</em>,<br />
+        <a href="{% url userprofiles_email_change %}">um deine E-Mail-Adresse zu ändern, klicke bitte hier</a>.
+    </p>
+    <p>
+        Um dein Passwort zu ändern, <a href="{% url auth_password_change %}">klicke bitte hier</a>.
+    </p>
+
+    {% crispy form %}
 {% endblock %}

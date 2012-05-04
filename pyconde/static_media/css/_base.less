@@ -1,0 +1,98 @@
+body {
+    background-color: #5b575b;
+    background-image: url("/@{base-img-url}/base-bg.jpg");
+    background-repeat: no-repeat;
+    background-attachment: fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+#messages {
+    background: transparent;
+    margin-bottom: 0;
+}
+.alert {
+    margin-bottom: 10px;
+}
+a.btn {
+    text-decoration: none;
+}
+
+.grid_8 h1 + form {
+    margin-top: 20px;
+}
+
+/* Even if there is no sidebar on the left side, make sure that the main
+ * content stays on the right side.
+ */
+#content .grid_8 {
+    float: right;
+}
+
+table .actions {
+    text-align: right;
+}
+
+#content .rfconfirmation p.question {
+    font-size: 150%;
+}
+.alpha{margin-left:0}
+.omega{margin-right:0}
+#portal-wrapper{position:relative;z-index:3;margin:0}
+
+#siteaction{
+    margin-top:20px;
+    text-align:right;
+    color:#fff;
+    z-index:100;
+    a {
+        text-transform:uppercase;
+        text-decoration:none;
+        color:#fff;
+        padding:0 2px;
+        &:hover {
+            color:#000;
+            background-color:#fff;
+            text-decoration:none;
+        }
+    }
+    span {
+        margin-right:8px;
+        a {
+            font-size:10px;
+        }
+    }
+}
+
+.header-data {position:relative; top:26px;float:right;padding:0 10px 0 0;}
+a.plain{padding:0}
+a.plain:hover{background-color:transparent}
+
+/* Callout */
+.callout, .callout a {
+    color: #ffdd00;
+    text-transform: uppercase;
+    font-family: 'Lucida Sans Unicode', 'Lucida Grande', sans-serif;
+    text-align: right;
+    text-decoration: none;
+    font-weight: normal;
+}
+.callout {
+    padding-top: 85px;
+    padding-right: 30px;
+    -webkit-transform: rotate(-5deg); 
+    -moz-transform: rotate(-5deg);
+}
+
+/* Navi */
+#content #navigation{padding:0 10px 10px 10px}
+#navigation ul{font-family:"Arial Black",Arial,sans-serif;text-transform:uppercase;font-size:14px}
+#navigation li{border-bottom:1px dotted #323232;padding:5px 0}
+#navigation li a{text-decoration:none;color:#323232;display:block;letter-spacing:0.03em;background:url("/@{base-img-url}/arrowt.gif") no-repeat right center;padding:3px}
+#navigation a:hover, #navigation a.current{background-color:@yellow;color:#fff;background-image:none}
+#navigation #subnav a{background-image:none}
+#navigation #subnav{border:none}
+#navigation #subnav li{width:135px;border:none}
+#navigation #subnav li a{text-align:center;padding:3px;color:#fff;background-color:#000}
+#navigation #subnav li a:hover, #navigation #subnav li a.current{background-color:#306998}

@@ -1,0 +1,10 @@
+{% load i18n %}
+<span class="trigger">{% trans "What track should I choose?" %}</span>
+<div class="body">
+{% for track in tracks %}
+<dl>
+    <dt>{{ track.name }} </dt>
+    <dd>{{ track.description }}</dd>
+</dl>
+{% endfor %}
+</div>

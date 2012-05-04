@@ -1,4 +1,5 @@
 {% load menu_tags %}
+{% if children %}
 <nav>
     <div class="box" id="navigation">
         <ul>
@@ -8,3 +9,5 @@
         </ul>
     </div>
 </nav>
+{% else %}
+{% endif %}

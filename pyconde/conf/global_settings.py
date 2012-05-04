@@ -7,6 +7,7 @@ PROJECT_ROOT = os.path.abspath(
 PROJECT_NAME = os.path.split(PROJECT_ROOT)[-1]
 
 DEBUG = TEMPLATE_DEBUG = False
+INTERNAL_IPS = ('127.0.0.1',)
 
 ADMINS = (
     ('Markus Zapke-Gruendemann', 'markus@de.pycon.org'),
@@ -41,6 +42,10 @@ STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static_media'),
 )
 
+FIXTURE_DIRS = (
+    os.path.join(PROJECT_ROOT, 'fixtures'),
+)
+
 STATICFILES_FINDERS += (
     'pyconde.helpers.static.AppMediaDirectoriesFinder',
     'compressor.finders.CompressorFinder',
@@ -49,6 +54,10 @@ STATICFILES_FINDERS += (
 COMPRESS_CSS_FILTERS = (
     'compressor.filters.css_default.CssAbsoluteFilter',
     'compressor.filters.cssmin.CSSMinFilter',
+)
+
+COMPRESS_PRECOMPILERS = (
+   ('text/less', 'lessc -x {infile} {outfile}'),
 )
 
 ROOT_URLCONF = '%s.urls' % PROJECT_NAME
@@ -61,6 +70,8 @@ INSTALLED_APPS = (
     'django.contrib.sessions',
     'django.contrib.sites',
     'django.contrib.staticfiles',
+    'django.contrib.markup',
+    'crispy_forms',
     'south',
     'easy_thumbnails',
     'filer',
@@ -73,6 +84,7 @@ INSTALLED_APPS = (
     'userprofiles.contrib.accountverification',
     'userprofiles.contrib.emailverification',
     'userprofiles.contrib.profiles',
+    'taggit',
 
     'cms.plugins.inherit',
     'cms.plugins.googlemap',
@@ -83,7 +95,15 @@ INSTALLED_APPS = (
     'cmsplugin_filer_image',
     'cmsplugin_news',
 
+    # Symposion apps
+    'pyconde.conference',
+    'pyconde.speakers',
+    'pyconde.proposals',
+
+    # Custom apps
     'pyconde.accounts',
+    'pyconde.attendees',
+    'pyconde.events',
 )
 
 MIDDLEWARE_CLASSES = (
@@ -99,8 +119,10 @@ MIDDLEWARE_CLASSES = (
 )
 
 TEMPLATE_CONTEXT_PROCESSORS += (
+    'django.core.context_processors.debug',
     'django.core.context_processors.request',
     'sekizai.context_processors.sekizai',
+    'pyconde.conference.context_processors.current_conference',
 )
 
 TEMPLATE_DIRS = (
@@ -116,6 +138,7 @@ USERPROFILES_USE_PROFILE = True
 USERPROFILES_INLINE_PROFILE_ADMIN = True
 USERPROFILES_USE_PROFILE_VIEW = False
 USERPROFILES_REGISTRATION_FORM = 'pyconde.accounts.forms.ProfileRegistrationForm'
+USERPROFILES_PROFILE_FORM = 'pyconde.accounts.forms.ProfileForm'
 USERPROFILES_EMAIL_VERIFICATION_DONE_URL = 'userprofiles_profile_change'
 
 AUTH_PROFILE_MODULE = 'accounts.Profile'
@@ -165,3 +188,13 @@ WYM_TOOLS = ",\n".join([
 
 CMSPLUGIN_NEWS_FEED_TITLE = u'PyCon DE 2012-News'
 CMSPLUGIN_NEWS_FEED_DESCRIPTION = u'Neuigkeiten rund um die PyCon DE 2012 in Leipzig'
+CONFERENCE_ID = 1
+
+ATTENDEES_CUSTOMER_NUMBER_START = 20000
+ATTENDEES_PRODUCT_NUMBER_START = 1000
+
+PROPOSALS_SUPPORT_ADDITIONAL_SPEAKERS = True
+PROPOSALS_TYPED_SUBMISSION_FORMS = {
+    'tutorial': 'pyconde.proposals.forms.TutorialSubmissionForm',
+    'talk': 'pyconde.proposals.forms.TalkSubmissionForm',
+}
