@@ -1,12 +1,21 @@
 {% load i18n %}
 {% if events %}
-<ul>
+<ul class="{% if has_range %}with-range{% else %}without-range{% endif %}">
 {% for event in events %}
     <li>
         <a href="{% if event.link %}{{ event.link }}{% else %}#{% endif %}">
-            <div class="date">
-                <span class="month">{{ event.date|date:"N" }}</span>
-                <span class="day">{{ event.date|date:"d" }}</span>
+            <div class="date {% if event.end_date %}as-span{% endif %}">
+                <span class="start-date">
+                    <span class="month">{{ event.date|date:"N" }}</span>
+                    <span class="day">{{ event.date|date:"d" }}</span>
+                </span>
+                {% if event.end_date %}
+                <span class="sep"><span>-</span></span>
+                <span class="end-date">
+                    <span class="month">{{ event.end_date|date:"N" }}</span>
+                    <span class="day">{{ event.end_date|date:"d" }}</span>
+                </span>
+                {% endif %}
             </div>
             <span class="description"><span>{{ event.title }}</span></span>
         </a>
