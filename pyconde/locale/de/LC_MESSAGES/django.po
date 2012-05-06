@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-01 15:31+0200\n"
+"POT-Creation-Date: 2012-05-06 21:15+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -305,6 +305,7 @@ msgstr "Zeitzone"
 
 #: conference/models.py:47 conference/models.py:67 conference/models.py:105
 #: conference/models.py:128 conference/models.py:154 conference/models.py:196
+#: sponsorship/models.py:11
 msgid "conference"
 msgstr "Konferenz"
 
@@ -313,7 +314,7 @@ msgid "conferences"
 msgstr "Konferenzen"
 
 #: conference/models.py:69 conference/models.py:106 conference/models.py:155
-#: conference/models.py:197
+#: conference/models.py:197 sponsorship/models.py:12 sponsorship/models.py:31
 msgid "name"
 msgstr "Name"
 
@@ -326,15 +327,15 @@ msgid "sections"
 msgstr "Abschnitte"
 
 #: conference/models.py:107 conference/models.py:130 conference/models.py:156
-#: conference/models.py:198
+#: conference/models.py:198 sponsorship/models.py:15
 msgid "slug"
 msgstr "Slug"
 
-#: conference/models.py:108
+#: conference/models.py:108 sponsorship/models.py:37
 msgid "level"
 msgstr "Stufe"
 
-#: conference/models.py:114 proposals/forms.py:64 proposals/models.py:37
+#: conference/models.py:114 proposals/forms.py:66 proposals/models.py:37
 msgid "audience level"
 msgstr "Zielgruppe"
 
@@ -378,7 +379,7 @@ msgstr ""
 msgid "The end date has to be after the start date"
 msgstr "Das Ende muss nach dem Anfang sein"
 
-#: conference/models.py:199 proposals/models.py:23
+#: conference/models.py:199 proposals/models.py:23 sponsorship/models.py:14
 msgid "description"
 msgstr "Beschreibung"
 
@@ -386,7 +387,7 @@ msgstr "Beschreibung"
 msgid "visible"
 msgstr "Sichtbar"
 
-#: conference/models.py:201
+#: conference/models.py:201 sponsorship/models.py:13
 msgid "order"
 msgstr "Reihenfolge"
 
@@ -412,18 +413,23 @@ msgid "Date"
 msgstr "Datum"
 
 #: events/models.py:11
+#, fuzzy
+msgid "End date"
+msgstr "Ende"
+
+#: events/models.py:12
 msgid "Link"
 msgstr ""
 
-#: events/models.py:17
+#: events/models.py:18
 msgid "event"
 msgstr "Event"
 
-#: events/models.py:18
+#: events/models.py:19
 msgid "events"
 msgstr "Events"
 
-#: events/templates/events/tags/list_events.html:17
+#: events/templates/events/tags/list_events.html:26
 msgid "No upcoming events"
 msgstr "Keine geplanten Events"
 
@@ -431,34 +437,24 @@ msgstr "Keine geplanten Events"
 msgid "Proposals app"
 msgstr ""
 
-#: proposals/forms.py:30
-msgid "Agree to terms"
-msgstr "Bedingungen zustimmen"
-
-#: proposals/forms.py:31
-msgid ""
-"All sessions have to take place according to a set of rules listed below. In "
-"order to submit your session proposal you have to agree to these terms."
-msgstr ""
-
-#: proposals/forms.py:57 proposals/models.py:29
+#: proposals/forms.py:59 proposals/models.py:29
 msgid "additional speakers"
 msgstr "Weitere Vortragende"
 
-#: proposals/forms.py:61 proposals/models.py:35
+#: proposals/forms.py:63 proposals/models.py:35
 msgid "kind"
 msgstr "Art"
 
-#: proposals/forms.py:67 proposals/models.py:39
+#: proposals/forms.py:69 proposals/forms.py:223 proposals/models.py:39
 msgid "duration"
 msgstr "Dauer"
 
-#: proposals/forms.py:70 templates/proposals/proposal_list_mine.html:14
+#: proposals/forms.py:72 templates/proposals/proposal_list_mine.html:14
 #: templates/proposals/proposal_list_mine.html:45
 msgid "Track"
 msgstr ""
 
-#: proposals/forms.py:73 proposals/forms.py:75
+#: proposals/forms.py:75 proposals/forms.py:78
 msgid ""
 "This field supports <a href=\"http://daringfireball.net/projects/markdown/"
 "syntax\" target=\"_blank\" rel=\"external\">Markdown</a> syntax."
@@ -466,33 +462,29 @@ msgstr ""
 "Dieses Feld unterstützt <a href=\"http://daringfireball.net/projects/"
 "markdown/syntax\" target=\"_blank\" rel=\"external\">Markdown</a>."
 
-#: proposals/forms.py:80 proposals/forms.py:138 proposals/forms.py:174
+#: proposals/forms.py:89 proposals/forms.py:152 proposals/forms.py:207
 msgid "General"
 msgstr "Allgemeines"
 
-#: proposals/forms.py:86 proposals/forms.py:143 proposals/forms.py:179
+#: proposals/forms.py:95 proposals/forms.py:157 proposals/forms.py:212
 msgid "Details"
 msgstr "Details"
 
-#: proposals/forms.py:87 proposals/forms.py:144 proposals/forms.py:180
-msgid "Submit proposal"
-msgstr "Vortrag einreichen"
-
-#: proposals/forms.py:94
+#: proposals/forms.py:103
 msgid "The selected session kind doesn't accept any proposals anymore."
 msgstr ""
 "Für die ausgewähle Session-Art können leider keine neuen Vorträge mehr "
 "eingereicht werden."
 
-#: proposals/forms.py:100
+#: proposals/forms.py:109
 msgid "Please select a valid audience level."
 msgstr "Bitte wählen Sie eine gültige Teilnehmerstufe aus."
 
-#: proposals/forms.py:106
+#: proposals/forms.py:115
 msgid "Please select a valid duration."
 msgstr "Bitte wählen Sie eine gültige Vortragsdauer aus."
 
-#: proposals/forms.py:112
+#: proposals/forms.py:121
 msgid "Please select a valid session kind."
 msgstr "Bitte wählen Sie eine gültige Session-Art aus."
 
@@ -510,6 +502,7 @@ msgid "Submit"
 msgstr "Einreichen"
 
 #: proposals/menu.py:30
+#, python-format
 msgid "Submit %s"
 msgstr "%s einreichen"
 
@@ -688,16 +681,49 @@ msgstr "Session-Teilnahmen"
 msgid "Submit a session proposal "
 msgstr "Reichen Sie einen Vortrag ein"
 
-#: proposals/templates/proposals/submission_intro.html:5
-msgid ""
-"\n"
-"You can submit multiple kinds of sessions. In the sidebar to the left you "
-"can find a listing of all session kinds that currently accept submissions\n"
-msgstr ""
-"\n"
-"Sie können mehrere Artene von Vorträgen einreichen. In der Sidebar auf der linken Seite "
-" finden Sie Links zu den entsprechenden Formularen."
-"\n"
+#: sponsorship/models.py:19
+msgid "sponsor level"
+msgstr "Sponsor-Stufe"
+
+#: sponsorship/models.py:20
+msgid "sponsor levels"
+msgstr "Sponsor-Stufen"
+
+#: sponsorship/models.py:32
+msgid "external URL"
+msgstr "Externe URL"
+
+#: sponsorship/models.py:33
+msgid "annotation"
+msgstr "Anmerkungen"
+
+#: sponsorship/models.py:34
+msgid "contact_name"
+msgstr "Kontakt-Name"
+
+#: sponsorship/models.py:35
+msgid "Contact e‑mail"
+msgstr "Kontakt-EMail"
+
+#: sponsorship/models.py:36
+msgid "logo"
+msgstr "Logo"
+
+#: sponsorship/models.py:38
+msgid "added"
+msgstr "Hinzugefügt"
+
+#: sponsorship/models.py:39
+msgid "active"
+msgstr "Aktiv"
+
+#: sponsorship/models.py:45
+msgid "sponsor"
+msgstr "Sponsor"
+
+#: sponsorship/models.py:46
+msgid "sponsors"
+msgstr "Sponsoren"
 
 #: templates/cms/plugins/twitter_recent_entries.html:13
 msgid "we said,"
@@ -755,7 +781,6 @@ msgstr ""
 
 #: templates/proposals/proposal_form.html:7
 #: templates/proposals/proposal_form.html:9
-#: templates/proposals/tutorial_proposal_form.html:3
 msgid "Submit a proposal"
 msgstr "Reichen Sie einen Vortrag ein"
 
@@ -768,6 +793,7 @@ msgstr "Art"
 msgid "What track should I choose?"
 msgstr "Welchen Track soll ich nehmen?"
 
+#: templates/proposals/tutorial_proposal_form.html:3
 #: templates/proposals/tutorial_proposal_form.html:5
 msgid "Submit a tutorial"
 msgstr "Reichen Sie ein Tutorial ein"
@@ -780,3 +806,19 @@ msgstr "Anmelden"
 #: templates/userprofiles/registration.html:7
 msgid "Registration"
 msgstr "Registrierung"
+
+#~ msgid "Agree to terms"
+#~ msgstr "Bedingungen zustimmen"
+
+#~ msgid "Submit proposal"
+#~ msgstr "Vortrag einreichen"
+
+#~ msgid ""
+#~ "\n"
+#~ "You can submit multiple kinds of sessions. In the sidebar to the left you "
+#~ "can find a listing of all session kinds that currently accept "
+#~ "submissions\n"
+#~ msgstr ""
+#~ "\n"
+#~ "Sie können mehrere Artene von Vorträgen einreichen. In der Sidebar auf "
+#~ "der linken Seite  finden Sie Links zu den entsprechenden Formularen.\n"
