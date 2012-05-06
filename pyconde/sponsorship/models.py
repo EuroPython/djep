@@ -12,6 +12,7 @@ class SponsorLevel(models.Model):
     name = models.CharField(_("name"), max_length=100)
     order = models.IntegerField(_("order"), default=0)
     description = models.TextField(_("description"), blank=True)
+    slug = models.SlugField(_("slug"))
     
     class Meta:
         ordering = ["conference", "order"]
