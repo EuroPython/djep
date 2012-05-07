@@ -7,7 +7,7 @@ body.with-headeraddon {
     @logoheight: 75px;
     @levelheight: 14px;
     @elpadding: 10px;
-    @topheight: 6px + @logoheight + @levelheight + 2*elpadding;
+    @topheight: 6px + @logoheight + @levelheight + 2 * @elpadding;
     width: 926px;
     height: @topheight;
     background: #FFF;
@@ -31,7 +31,7 @@ body.with-headeraddon {
         width: 780px;
     }
     li {
-        height: @logoheight + @levelheight + (2*elpadding);
+        height: @logoheight + @levelheight + ( 2 * @elpadding);
         padding: 10px;
         float:left;
         a {
@@ -58,7 +58,7 @@ body.with-headeraddon {
         position: absolute;
         top: 0;
         right: 0;
-        width: 110px;
+        width: 120px;
         height: @topheight;
         line-height: 16px;
         a {
@@ -67,8 +67,9 @@ body.with-headeraddon {
             text-decoration: none;
             background: @red;
             display: block;
-            margin-top: 28px;
+            margin-top: 30px;
             padding: 10px;
+            font-size: 12px;
         }
     }
 }
