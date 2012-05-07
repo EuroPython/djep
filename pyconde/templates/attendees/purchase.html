@@ -38,9 +38,10 @@
                 </div>
             {% endif %}
             {% for quantity_form in quantity_forms %}
-                <div id="div_{{ quantity_form.quantity.id }}" class="clearfix control-group{% if quantity_form.ticket_type.tutorial_ticket %} tutorial{% endif %}{% if quantity_form.quantity.errors %} error{% endif %}">
-                    <label for="{{ quantity_form.quantity.id }}" class="requiredField">
-                        {{ quantity_form.ticket_type }}<span class="asteriskField">*</span>
+                <div id="div_{{ quantity_form.ticket_type.id }}" style="padding-top:0px;min-height:42px" class="clearfix control-group{% if quantity_form.ticket_type.tutorial_ticket %} tutorial{% endif %}{% if quantity_form.quantity.errors %} error{% endif %}">
+                    <label for="{{ quantity_form.ticket_type.id }}" class="requiredField" style="font-weight:bold">
+                        {{ quantity_form.ticket_type }}<span class="asteriskField">*</span><br />
+                        <span style="font-size:90%;font-weight:normal">{{ quantity_form.ticket_type.remarks }}</span>
                     </label>
                     <div class="controls">
                         {{ quantity_form.quantity }}
