@@ -99,6 +99,7 @@ INSTALLED_APPS = (
     'pyconde.conference',
     'pyconde.speakers',
     'pyconde.proposals',
+    'pyconde.sponsorship',
 
     # Custom apps
     'pyconde.accounts',
