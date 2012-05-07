@@ -9,7 +9,7 @@
             <ul class="sponsors">
                 {% for sponsor in all_sponsors %}
                 <li class="{{ sponsor.level.slug }}">
-                    <a rel="external" target="_blank" href="{{ sponsor.external_url }}"><img src="{{ sponsor.logo.url }}" /></a>
+                    <a rel="external" target="_blank" title="{{ sponsor.name }}" href="{{ sponsor.external_url }}"><img alt="Logo: {{sponsor.name}}" src="{{ sponsor.logo.url }}" /></a>
                     <span class="level">{{ sponsor.level.name }}</span>
                 </li>
                 {% endfor %}

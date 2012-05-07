@@ -4,7 +4,10 @@ body.with-headeraddon {
     border-bottom: 2px solid @red;
 }
 #top-sponsors {
-    @topheight: 116px;
+    @logoheight: 75px;
+    @levelheight: 14px;
+    @elpadding: 10px;
+    @topheight: 6px + @logoheight + @levelheight + 2*elpadding;
     width: 926px;
     height: @topheight;
     background: #FFF;
@@ -28,23 +31,26 @@ body.with-headeraddon {
         width: 780px;
     }
     li {
-        width: 110px;
+        height: @logoheight + @levelheight + (2*elpadding);
         padding: 10px;
         float:left;
         a {
             display: block;
-            height: 80px;
+            height: @logoheight;
             display: table-cell;
             vertical-align: middle;
+            text-align: center;
         }
         img {
             max-width: 110px;
-            max-height: 80px;
+            max-height: @logoheight;
         }
         .level {
             display: block;
             text-align: center;
             font-weight: bold;
+            height: @levelheight;
+            line-height: @levelheight;
         }
     }
     .new {
@@ -61,7 +67,7 @@ body.with-headeraddon {
             text-decoration: none;
             background: @red;
             display: block;
-            margin-top: 32px;
+            margin-top: 28px;
             padding: 10px;
         }
     }
