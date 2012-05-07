@@ -87,10 +87,12 @@
                 </div>
             </div>
         </div>
+        {% block header_topbar %}{% endblock %}
     </header>
 
     <div class="{% block body_class %}{% endblock %}" id="main">
     {% block body_outer %}
+
         {% if messages %}
         <div class="col12 clearfix">
             <div class="grid_12" id="messages">
