@@ -87,10 +87,12 @@
                 </div>
             </div>
         </div>
+        {% block header_topbar %}{% endblock %}
     </header>
 
     <div class="{% block body_class %}{% endblock %}" id="main">
     {% block body_outer %}
+
         {% if messages %}
         <div class="col12 clearfix">
             <div class="grid_12" id="messages">
@@ -150,7 +152,7 @@
                 </section>
                 <section id="footer-contact">
                     <h1>Kontakt</h1>
-                    <p>Falls du fragen zur Konferenz oder allgemein zu deinem Aufenthalt hast, so kannst du uns über
+                    <p>Falls Sie Fragen zur Konferenz oder allgemein zu Ihrem Aufenthalt haben, können Sie uns über
                         folgende Wege erreichen:</p>
                     <dl>
                         <dt>E-Mail:</dt>

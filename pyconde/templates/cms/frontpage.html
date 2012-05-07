@@ -1,0 +1,22 @@
+{% extends "cms/default.html" %}
+{% load sponsorship_tags %}
+{% block bodycls %}frontpage with-headeraddon{% endblock %}
+{% block header_topbar %}
+        <section id="top-sponsors" class="col12 clearfix">
+            <h1>Sponsoren</h1>
+            {% sponsors as all_sponsors %}
+            {% if all_sponsors %}
+            <ul class="sponsors">
+                {% for sponsor in all_sponsors %}
+                <li class="{{ sponsor.level.slug }}">
+                    <a rel="external" target="_blank" title="{{ sponsor.name }}" href="{{ sponsor.external_url }}"><img alt="Logo: {{sponsor.name}}" src="{{ sponsor.logo.url }}" /></a>
+                    <span class="level">{{ sponsor.level.name }}</span>
+                </li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            <div class="new">
+                <a href="/sponsoren/">So werden Sie Sponsor »</a>
+            </div>
+        </section>
+{% endblock %}
