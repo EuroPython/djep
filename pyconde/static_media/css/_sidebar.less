@@ -1,29 +1,53 @@
 aside {
+    h2.twitter-title {
+        background-color: #9C1006;
+        text-align: right;
+    }
     .tweet_list {
         list-style: none;
-        margin-left: 0;
+        margin: 0 0 5px 0;
         li {
-            padding: 5px 10px;
-            margin-top: 15px;
+            padding: 5px 10px 5px 0;
             &:first-child {
                 margin-top: 0px;
             }
         }
+        li:hover {
+            background-color:#f5f5f5;
+        }
+        div.tweet_inner {
+            display: block;
+            margin-left: 58px;
+        }
         .tweet_time {
             margin-top: 5px;
             display: block;
-            text-align: right;
-            font-size: 80%;
+            text-align: left;
+            font-size: 75%;
             font-style: italic;
+            a {
+                text-decoration: none;
+            }
+        }
+        .twitter-image, .tweet_avatar img {
+            float: left;
+            display: block;
+            padding: 0 5px;
+        }
+        .tweet_odd, .tweet_even {
+            border-bottom:1px solid #E8E8E8;
+        }
+        .tweet_time a, .tweet_text a, a.tweet_hashtag {
+            color: #35AEE6 !important; /*twitter color*/
         }
     }
+
     .plugin_link {
         display: block;
-        text-align: center;
+        text-align: left;
         margin-bottom: 10px;
         a {
-            #gradient > .vertical(@yellow, darken(@yellow, 10));
-            .border-radius(5px);
+            background-color: #f0b708;
             padding: 10px;
             font-size: 115%;
             display: block;
@@ -31,7 +55,10 @@ aside {
             font-weight: bold;
             text-decoration: none;
             &:hover {
-                background: @yellow;
+                background: #ffc40d;
+            }
+            i {
+                margin: 3px 8px 0 3px;
             }
         }
     }
