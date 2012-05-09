@@ -1,8 +1,4 @@
 body.with-headeraddon {
-#header {
-    margin-bottom: 0px;
-    border-bottom: 2px solid @red;
-}
 #top-sponsors {
     @logoheight: 75px;
     @levelheight: 14px;
@@ -31,8 +27,7 @@ body.with-headeraddon {
         width: 780px;
     }
     li {
-        height: @logoheight + @levelheight + ( 2 * @elpadding);
-        padding: 10px;
+        padding:5px 16px 10px 16px;
         float:left;
         a {
             display: block;
@@ -70,6 +65,30 @@ body.with-headeraddon {
             margin-top: 30px;
             padding: 10px;
             font-size: 12px;
+        }
+    }
+    div.becomesponsor {
+        background: transparent url("../images/trenner-s.gif") left 15px no-repeat;
+        position:absolute;
+        top: 0; left: 765px;
+        width: 135px;
+        text-align: center;
+        padding: 28px 0px 0px 0px;
+        a {
+            color: #9C1006;
+            text-decoration: none;
+            line-height: 1.6em;
+        }
+        a:hover {
+            color:#515151 !important;
+        }
+        .slevel1 {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 0.5em;
+        }
+        .slevel2 {
+            font-size: 16px;
         }
     }
 }

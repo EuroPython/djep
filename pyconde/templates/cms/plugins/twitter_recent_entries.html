@@ -6,10 +6,10 @@
 jQuery(document).ready(function ($) {
     $('#twitter-container-{{ object.pk }}').tweet({
         username: '{{ object.twitter_user }}',
-        avatar_size: null,
+        avatar_size: 48,
         count: {{ object.count }},
         join_text: '',
-        template: "{text}{time}",
+        template: '{avatar}<div class="tweet_inner">{text}{time}</div>',
         auto_join_text_default: '{% trans "we said," %}',
         auto_join_text_ed: '{% trans "we" %}',
         auto_join_text_ing: '{% trans "we were" %}',
@@ -24,7 +24,7 @@ jQuery(document).ready(function ($) {
 </script>
 {% endaddtoblock %}
 <div class="tbox twitter-plugin">
-    <h2><a href="https://www.twitter.com/{{ object.twitter_user }}" class="twitter-icon">{{ object.title }}</a></h2>
+    <h2 class="twitter-title"><a href="https://www.twitter.com/{{ object.twitter_user }}" class="twitter-icon"><img alt="twitter link" src="{{ STATIC_URL }}images/twitter-logo.png"></a></h2>
     <div id="twitter-container-{{ object.pk }}"></div>
     {% if object.twitter_user %}<p><a href="https://www.twitter.com/{{ object.twitter_user }}" class="twitter-link">{{ object.link_hint }}</a></p>{% endif %}
 </div>
