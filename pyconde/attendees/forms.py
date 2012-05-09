@@ -62,11 +62,12 @@ class TicketQuantityForm(forms.Form):
             range(0, max_value+1), range(0, max_value+1))
 
     def clean_quantity(self):
-        if self.ticket_type.available_tickets < 1:
-            raise forms.ValidationError(_('Ticket sold out.'))
+        if self.cleaned_data['quantity'] > 0:
+            if self.ticket_type.available_tickets < 1:
+                raise forms.ValidationError(_('Ticket sold out.'))
 
-        if self.cleaned_data['quantity'] > self.ticket_type.available_tickets:
-            raise forms.ValidationError(_('Not enough tickets left.'))
+            if self.cleaned_data['quantity'] > self.ticket_type.available_tickets:
+                raise forms.ValidationError(_('Not enough tickets left.'))
 
         return self.cleaned_data['quantity']
 
