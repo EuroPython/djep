@@ -72,10 +72,10 @@ class ProposalSubmissionForm(forms.ModelForm):
             self.fields['track'] = forms.ModelChoiceField(label=_("Track"), required=True, initial=None,
                 queryset=tracks)
         if 'description' in self.fields:
-            self.fields['description'].help_text = _('This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> syntax.')
+            self.fields['description'].help_text = """Bis ca. 50 Worte. Erscheint im gedruckten Programm. <br />Dieses Feld unterstützt <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a>."""
             self.fields['description'].validators = [validators.MaxLengthValidator(2000)]
         if 'abstract' in self.fields:
-            self.fields['abstract'].help_text = _('This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> syntax.')
+            self.fields['abstract'].help_text = """Darstellung des Vortragsinhalts und ist die Grundlage für das Review.<br />Dieses Feld unterstützt <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a>."""
             self.fields['abstract'].validators = [validators.MaxLengthValidator(3000)]
 
         instance = kwargs.get('instance')
