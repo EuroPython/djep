@@ -48,6 +48,12 @@ complete, start the development-server on port 8000 with::
 As a final step you have to create a frontpage in the via
 http://localhost:8000/admin/cms/page/add/.
 
+Deployment
+----------
+
+live: fab -c live.ini upgrade
+staging: fab -c staging.ini upgrade
+
 Symposion
 ---------
 
