@@ -1,24 +1,32 @@
 {% extends "cms/default.html" %}
-{% load sponsorship_tags %}
+{% load i18n sekizai_tags sponsorship_tags %}
 {% block bodycls %}frontpage with-headeraddon{% endblock %}
 {% block header_topbar %}
-        <section id="top-sponsors" class="col12 clearfix">
-            {% sponsors as all_sponsors %}
-            {% if all_sponsors %}
-            <ul class="sponsors">
-                {% for sponsor in all_sponsors %}
-                <li class="{{ sponsor.level.slug }}">
-                    <a rel="external" target="_blank" title="{{ sponsor.name }}" href="{{ sponsor.external_url }}"><img alt="Logo: {{sponsor.name}}" src="{{ sponsor.logo.url }}" /></a>
-                    <span class="level">{{ sponsor.level.name }}</span>
-                </li>
-                {% endfor %}
-            </ul>
-            {% endif %}
-            <div class="becomesponsor">
-                <a href="/sponsoren/">
-                <span class="slevel2">So werden Sie</span>
-                <span class="slevel1">Sponsor</span>
-                </a>
-            </div>
-        </section>
+<section id="top-sponsors" class="col12 clearfix">
+{% sponsors as all_sponsors %}
+{% if all_sponsors %}
+<div class="slideshow">
+    <ul class="sponsors item active">
+        {% for sponsor in all_sponsors %}
+        <li class="{{ sponsor.level.slug }}">
+        <a rel="external" target="_blank" title="{{ sponsor.name }}" href="{{ sponsor.external_url }}"><img alt="Logo: {{sponsor.name}}" src="{{ sponsor.logo.url }}" /></a>
+        <span class="level">{{ sponsor.level.name }}</span>
+        </li>
+        {% if forloop.counter|divisibleby:5 and not forloop.last %}
+        </ul><ul class="sponsors item">
+        {% endif %}
+        {% endfor %}
+    </ul>
+</div>
+<script type="text/javascript">
+    $(function() { $('.slideshow').cycle({ fx: 'fade' }); });
+</script>
+{% endif %}
+<div class="becomesponsor">
+    <a href="/sponsoren/">
+        <span class="slevel2">So werden Sie</span>
+        <span class="slevel1">Sponsor</span>
+    </a>
+</div>
+</section>
 {% endblock %}
