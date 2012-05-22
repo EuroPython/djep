@@ -113,6 +113,7 @@ class SubmitProposalView(TypedProposalFormMixin, generic_views.CreateView, NextR
         obj.conference = current_conference()
         obj.save()
         self.object = obj
+        form.save_m2m()
         return HttpResponseRedirect(self.get_success_url())
 
 
@@ -175,8 +176,10 @@ class EditProposalView(TypedProposalFormMixin, PermissionCheckedUpdateView):
     model = models.Proposal
 
     def form_valid(self, form):
+        self.object = form.save()
+        form.save_m2m()
         messages.success(self.request, _("Proposal successfully changed"))
-        return super(EditProposalView, self).form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
 
     def check_permissions(self):
         """
