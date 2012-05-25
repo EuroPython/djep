@@ -3,7 +3,7 @@
 
 {% block title %}{% page_attribute page_title %}{% endblock %}
 {% block meta_description %}{% page_attribute meta_description %}{% endblock %}
-{% block meta_keywords %}{% if current_page and current_page.get_meta_keywords %}{% page_attribute meta_keywords %}{% else %}{{ block.super }}{% endif %}{% endblock %}
+{% block meta_keywords %}{% page_attribute meta_keywords %}{% endblock %}
 {% block og_title %}{% page_attribute page_title %} - {% endblock %}
 {% block og_description %}{% page_attribute meta_description %}{% endblock %}
 {% block abovepage %}
