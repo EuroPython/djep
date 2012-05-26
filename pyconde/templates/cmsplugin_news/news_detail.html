@@ -1,6 +1,9 @@
 {% extends "site_base.html" %}
 {% load i18n %}
 {% block title %}{{ object.title }} - {% trans "News" %}{% endblock %}
+{% block meta_description %}{{ object.excerpt|striptags }}{% endblock %}
+{% block og_title %}{{ object.title }} - {% endblock %}
+{% block og_description %}{{ object.excerpt|striptags }}{% endblock %}
 {% block content %}
 <h1>{{ object.title }}</h1>
 <span class="blog-date">{{ object.pub_date|date:"DATE_FORMAT" }}</span>
