@@ -77,6 +77,8 @@ class ProposalSubmissionForm(forms.ModelForm):
         if 'abstract' in self.fields:
             self.fields['abstract'].help_text = """Darstellung des Vortragsinhalts und ist die Grundlage für das Review.<br />Dieses Feld unterstützt <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a>."""
             self.fields['abstract'].validators = [validators.MaxLengthValidator(3000)]
+        if 'additional_speakers' in self.fields:
+            self.fields['additional_speakers'].help_text = """Aus Sicherheitsgründen müssen Sie in diesem Feld entweder den Vor- oder Nachnamen eines Teilnehmers eintragen, um die Autovervollständigung zu starten."""
 
         instance = kwargs.get('instance')
         if instance:
