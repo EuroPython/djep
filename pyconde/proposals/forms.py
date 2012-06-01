@@ -5,7 +5,7 @@ from django.template.loader import render_to_string
 from django.core.exceptions import ValidationError
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, ButtonHolder, Fieldset, Submit, Field
+from crispy_forms.layout import Layout, ButtonHolder, Fieldset, Submit, Field, HTML
 from pyconde.forms import ExtendedHelpField
 
 from conference.models import current_conference
@@ -29,8 +29,6 @@ class HiddenSpeakersMultipleChoiceField(forms.ModelMultipleChoiceField):
 
 
 class ProposalSubmissionForm(forms.ModelForm):
-    agree_to_terms = forms.BooleanField(label="Video-Aufzeichnung zustimmen",
-        help_text="Ich stimme zu, dass mein Vortrag auf Video aufgezeichnet wird.")
 
     class Meta(object):
         model = models.Proposal
@@ -77,6 +75,8 @@ class ProposalSubmissionForm(forms.ModelForm):
         if 'abstract' in self.fields:
             self.fields['abstract'].help_text = """Darstellung des Vortragsinhalts und ist die Grundlage für das Review.<br />Dieses Feld unterstützt <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a>."""
             self.fields['abstract'].validators = [validators.MaxLengthValidator(3000)]
+        if 'additional_speakers' in self.fields:
+            self.fields['additional_speakers'].help_text = """Aus Sicherheitsgründen müssen Sie in diesem Feld entweder den Vor- oder Nachnamen eines Teilnehmers eintragen, um die Autovervollständigung zu starten."""
 
         instance = kwargs.get('instance')
         if instance:
@@ -152,8 +152,7 @@ class TypedSubmissionForm(ProposalSubmissionForm):
             Fieldset(_('General'),
                 Field('title', autofocus="autofocus"),
                 Field('description'),
-                Field('abstract'),
-                'agree_to_terms'),
+                Field('abstract')),
             Fieldset(_('Details'), ExtendedHelpField('track', render_to_string('proposals/tracks-help.html', {'tracks': tracks})), 'tags', 'duration', 'audience_level', Field('additional_speakers', css_class='multiselect-user')),
             ButtonHolder(Submit('submit', button_text, css_class="btn-primary"))
             )
@@ -207,8 +206,7 @@ class TutorialSubmissionForm(TypedSubmissionForm):
             Fieldset(_('General'),
                 Field('title', autofocus="autofocus"),
                 Field('description'),
-                Field('abstract'),
-                'agree_to_terms'),
+                Field('abstract')),
             Fieldset(_('Details'), 'tags', 'audience_level', Field('additional_speakers', css_class='multiselect-user')),
             ButtonHolder(Submit('submit', button_text, css_class="btn-primary")),
             )
@@ -222,3 +220,4 @@ class TalkSubmissionForm(TypedSubmissionForm):
         super(TalkSubmissionForm, self).__init__(*args, **kwargs)
         self.fields['duration'] = forms.ModelChoiceField(label=_("duration"),
                 queryset=conference_models.SessionDuration.current_objects.exclude(slug='tutorial').all())
+        self.helper.layout.fields.insert(-1, Fieldset('Videoaufzeichnung', HTML(u"""<p class="control-group">Optional können Vorträge auch aufgezeichnet werden. Es liegt während der Konferenz ein Papierformular auf, durch das Sie einer solchen Aufzeichnung zustimmen können. Mehr Informationen dazu finden Sie <a href="/vortragende/">hier</a>.</p>""")))
