@@ -1,4 +1,4 @@
-Hallo {{ purchase.first_name }} {{ purchase.last_name }},
+{# This is a plaintext email #}{% autoescape off %}Hallo {{ purchase.first_name }} {{ purchase.last_name }},
 
 Sie haben folgende Tickets für die PyCon DE 2012 gekauft:
 ---------------------------------------------------------
@@ -31,5 +31,5 @@ Vielen Dank!
 
 Das PyCon DE Team
 
---
+--{% endautoescape %}
 {% include "attendees/mail_signature.txt" %}
