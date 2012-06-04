@@ -57,3 +57,6 @@ class Proposal(models.Model):
 
     def get_absolute_url(self):
         return reverse("view_proposal", kwargs=dict(pk=self.pk))
+
+    def __unicode__(self):
+        return "{0} ({1})".format(self.title, self.conference)

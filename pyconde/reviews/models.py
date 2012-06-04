@@ -15,18 +15,31 @@ RATING_CHOICES = (
     )
 
 
+class ProposalVersionManager(models.Manager):
+    def get_latest_for(self, proposal):
+        version = self.get_query_set().filter(original=proposal).order_by('pub_date')
+        if not version:
+            return None
+        return version[0]
+
+
 class ProposalVersion(models.Model):
     """
     This should act as snapshot of a proposal. This way authors can make
     updates to a proposal and reviewers can check if their review still
     applies.
     """
-    original = models.ForeignKey(proposals_models.Proposal)
+    original = models.ForeignKey(proposals_models.Proposal, related_name='versions')
     title = models.CharField(_("title"), max_length=100)
     description = models.TextField(_("description"), max_length=400)
     abstract = models.TextField(_("abstract"))
     creator = models.ForeignKey(auth_models.User)
     pub_date = models.DateTimeField(default=datetime.datetime.now)
+
+    objects = ProposalVersionManager()
+
+    def __unicode__(self):
+        return "{0} ({1})".format(self.original.title, self.pub_date)
 
 
 class Review(models.Model):
@@ -61,4 +74,4 @@ class Comment(models.Model):
     pub_date = models.DateTimeField(default=datetime.datetime.now)
     proposal = models.ForeignKey(proposals_models.Proposal,
         related_name="comments")
-    proposal_version = models.ForeignKey(ProposalVersion)
+    proposal_version = models.ForeignKey(ProposalVersion, blank=True, null=True)
