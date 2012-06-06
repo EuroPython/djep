@@ -1,10 +1,12 @@
 import datetime
 
 from django.db import models
+from django.db.models import signals
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import models as auth_models
 
 from pyconde.proposals import models as proposals_models
+from pyconde.conference import models as conference_models
 
 
 RATING_CHOICES = (
@@ -13,6 +15,37 @@ RATING_CHOICES = (
     ('+0', '+0'),
     ('+1', '+1')
     )
+
+
+class ProposalsManager(conference_models.CurrentConferenceManager):
+    """
+    A simple manager used for filtering proposals that are available
+    for review.
+    """
+    # TODO: Extend filter to only list proposals that accept reviews
+    pass
+
+
+class Proposal(proposals_models.Proposal):
+    """
+    Proxies the original proposal object in order to set different
+    defaults for things like the proposal listing.
+    """
+    class Meta(object):
+        proxy = True
+
+    objects = ProposalsManager()
+
+
+class ProposalMetaData(models.Model):
+    """
+    This model stores some metadata for proposals with regards to
+    reviews.
+    """
+    proposal = models.OneToOneField(proposals_models.Proposal, related_name='review_metadata')
+    num_comments = models.PositiveIntegerField(default=0)
+    num_reviews = models.PositiveIntegerField(default=0)
+    latest_activity_date = models.DateTimeField(null=True, blank=True)
 
 
 class ProposalVersionManager(models.Manager):
@@ -57,7 +90,10 @@ class Review(models.Model):
     pub_date = models.DateTimeField(default=datetime.datetime.now)
     proposal = models.ForeignKey(proposals_models.Proposal,
         related_name="reviews")
-    proposal_version = models.ForeignKey(ProposalVersion)
+    proposal_version = models.ForeignKey(ProposalVersion, blank=True, null=True)
+
+    class Meta(object):
+        unique_together = (('user', 'proposal'),)
 
 
 class Comment(models.Model):
@@ -75,3 +111,53 @@ class Comment(models.Model):
     proposal = models.ForeignKey(proposals_models.Proposal,
         related_name="comments")
     proposal_version = models.ForeignKey(ProposalVersion, blank=True, null=True)
+
+
+def create_proposal_metadata(sender, instance, **kwargs):
+    """
+    Checks if we have a metadata object and create it if it is missing.
+    """
+    try:
+        instance.metadata
+    except ProposalMetaData.DoesNotExist:
+        md = ProposalMetaData(proposal=instance)
+        md.save()
+
+
+def _update_proposal_metadata(proposal):
+    try:
+        md = proposal.review_metadata
+    except ProposalMetaData.DoesNotExist:
+        md = ProposalMetaData(proposal=proposal)
+    md.num_comments = proposal.comments.count()
+    md.num_reviews = proposal.reviews.count()
+
+    latest_comment_date = None
+    latest_review_date = None
+    try:
+        latest_comment_date = proposal.comments.order_by('-pub_date')[0].pub_date
+    except:
+        pass
+    try:
+        latest_review_date = proposal.reviews.order_by('-pub_date')[0].pub_date
+    except:
+        pass
+    if latest_comment_date and latest_review_date:
+        if latest_comment_date > latest_review_date:
+            md.latest_activity_date = latest_comment_date
+        else:
+            md.latest_activity_date = latest_review_date
+    elif latest_comment_date:
+        md.latest_activity_date = latest_comment_date
+    else:
+        md.latest_activity_date = latest_review_date
+    md.save()
+
+
+def update_proposal_metadata(sender, instance, **kwargs):
+    proposal = instance.proposal
+    _update_proposal_metadata(proposal)
+
+signals.post_save.connect(create_proposal_metadata, sender=proposals_models.Proposal, dispatch_uid='reviews.proposal_metadata_creation')
+signals.post_save.connect(update_proposal_metadata, sender=Comment, dispatch_uid='reviews.update_proposal_comments_count')
+signals.post_save.connect(update_proposal_metadata, sender=Review, dispatch_uid='reviews.update_proposal_reviews_count')

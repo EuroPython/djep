@@ -1,3 +1,4 @@
+# -*- encoding: utf-8 -*-
 import datetime
 
 from django.views import generic as generic_views
@@ -8,12 +9,10 @@ from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 
-from pyconde.proposals import models as proposal_models
-
 from . import models, forms, utils
 
 
-class ListProposalsView(object):
+class ListProposalsView(generic_views.TemplateView):
     """
     Lists all proposals the reviewer should be able to review, sorted by
     "priority".
@@ -23,10 +22,37 @@ class ListProposalsView(object):
 
     Access: review-team
     """
-    pass
+    template_name = 'reviews/reviewable_proposals.html'
+    order_mapping = {
+        'comments': 'review_metadata__num_comments',
+        'reviews': 'review_metadata__num_reviews',
+        'title': 'title',
+        'activity': 'review_metadata__latest_activity_date',
+    }
+
+    def get_context_data(self, **kwargs):
+        if not utils.can_review_proposal(self.request.user, None):
+            return HttpResponseForbidden()
+        proposals = models.Proposal.objects.select_related('review_metadata').order_by(self.get_order()).all()
+        my_reviews = models.Review.objects.filter(user=self.request.user).select_related('proposal')
+        reviewed_proposals = [rev.proposal for rev in my_reviews]
+        for proposal in proposals:
+            proposal.reviewed = proposal in reviewed_proposals
+        return {
+            'proposals': proposals
+        }
+
+    def get_order(self):
+        order = self.request.GET.get('order', 'reviews')
+        dir_ = ''
+        if order.startswith('-'):
+            dir_ = '-'
+            order = order[1:]
+        order = self.order_mapping.get(order, 'review_metadata__num_reviews')
+        return '{0}{1}'.format(dir_, order)
 
 
-class SubmitReviewView(object):
+class SubmitReviewView(generic_views.TemplateView):
     """
     Only reviewers should be able to submit reviews as long as the proposal
     accepts one. The review-period should perhaps coincide with closing
@@ -34,7 +60,64 @@ class SubmitReviewView(object):
 
     Access: review-team
     """
-    pass
+    # TODO: Freeze the proposal version from GET -> POST
+    template_name = 'reviews/submit_review_form.html'
+    form = None
+
+    def post(self, request, *args, **kwargs):
+        self.form = forms.ReviewForm(data=request.POST)
+        if self.form.is_valid():
+            review = self.form.save(commit=False)
+            review.proposal = self.proposal
+            review.proposal_version = self.proposal_version
+            review.user = request.user
+            review.save()
+            messages.success(request, "Bewertung gespeichert")
+            return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.proposal.pk}))
+        return self.get(request, *args, **kwargs)
+
+    def get_context_data(self, **kwargs):
+        if self.form is None:
+            self.form = forms.ReviewForm()
+        return {
+            'form': self.form
+        }
+
+    def dispatch(self, request, *args, **kwargs):
+        self.proposal = get_object_or_404(models.Proposal, pk=kwargs['pk'])
+        if models.Review.objects.filter(user=request.user, proposal=self.proposal).count():
+            messages.info(request, "Sie haben diesen Vorschlag bereits bewertet")
+            return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.proposal.pk}))
+        if not utils.can_review_proposal(request.user, self.proposal):
+            return HttpResponseForbidden()
+        self.proposal_version = models.ProposalVersion.objects.get_latest_for(self.proposal)
+        return super(SubmitReviewView, self).dispatch(request, *args, **kwargs)
+
+
+class UpdateReviewView(generic_views.UpdateView):
+    model = models.Review
+    template_name_suffix = '_update_form'
+    form_class = forms.UpdateReviewForm
+
+    def get_object(self):
+        return self.model.objects.get(user=self.request.user, proposal__pk=self.kwargs['pk'])
+
+    def form_valid(self, form):
+        messages.success(self.request, u"Änderungen gespeichert")
+        return super(UpdateReviewView, self).form_valid(form)
+
+    def get_success_url(self):
+        return reverse('reviews-proposal-details', kwargs={'pk': self.kwargs['pk']})
+
+
+class DeleteReviewView(generic_views.DeleteView):
+    model = models.Review
+
+    def get_object(self):
+        return self.model.objects.get(user=self.request.user, proposal__pk=self.kwargs['pk'])
+
+    def get_success_url(self):
+        return reverse('reviews-proposal-details', kwargs={'pk': self.kwargs['pk']})
 
 
 class SubmitCommentView(TemplateResponseMixin, generic_views.View):
@@ -67,7 +150,7 @@ class SubmitCommentView(TemplateResponseMixin, generic_views.View):
         return self.get(request, *args, **kwargs)
 
     def dispatch(self, request, *args, **kwargs):
-        self.proposal = get_object_or_404(proposal_models.Proposal, pk=kwargs['pk'])
+        self.proposal = get_object_or_404(models.Proposal, pk=kwargs['pk'])
         if not utils.can_participate_in_review(request.user, self.proposal):
             return HttpResponseForbidden()
         self.proposal_version = models.ProposalVersion.objects.get_latest_for(self.proposal)
@@ -82,7 +165,7 @@ class ProposalDetailsView(generic_views.DetailView):
     Access: author and review-team
     Template: reviews/proposal_details.html
     """
-    model = proposal_models.Proposal
+    model = models.Proposal
 
     def get_template_names(self):
         return ['reviews/proposal_details.html']
@@ -98,6 +181,11 @@ class ProposalDetailsView(generic_views.DetailView):
         data['comment_form'] = comment_form
         data['versions'] = proposal_versions
         data['timeline'] = map(self.wrap_timeline_elements, utils.merge_comments_and_versions(comments, proposal_versions))
+        data['can_review'] = utils.can_review_proposal(self.request.user, self.object)
+        try:
+            data['user_review'] = self.object.reviews.filter(user=self.request.user)[0]
+        except:
+            pass
         return data
 
     def get_object(self, queryset=None):
@@ -156,7 +244,7 @@ class UpdateProposalView(TemplateResponseMixin, generic_views.View):
         return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.object.pk}))
 
     def dispatch(self, request, *args, **kwargs):
-        self.object = get_object_or_404(proposal_models.Proposal.objects, pk=kwargs['pk'])
+        self.object = get_object_or_404(models.Proposal.objects, pk=kwargs['pk'])
         self.proposal_version = models.ProposalVersion.objects.get_latest_for(self.object)
         if not utils.is_proposal_author(request.user, self.object):
             return HttpResponseForbidden()

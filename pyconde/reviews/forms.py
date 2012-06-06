@@ -1,7 +1,9 @@
+# -*- coding: UTF-8 -*-
 from django import forms
+from django.core.urlresolvers import reverse
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, ButtonHolder, Submit
+from crispy_forms.layout import Layout, Field, ButtonHolder, Submit, HTML
 
 from . import models
 
@@ -43,3 +45,31 @@ class CommentForm(forms.ModelForm):
             Field('content'),
             ButtonHolder(Submit('comment', "Kommentar abschicken", css_class='btn btn-primary'))
             )
+
+
+class ReviewForm(forms.ModelForm):
+    class Meta(object):
+        model = models.Review
+        fields = ['rating', 'summary']
+
+    def __init__(self, *args, **kwargs):
+        super(ReviewForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.layout = Layout(
+            Field('rating'), Field('summary'),
+            ButtonHolder(Submit('save', "Review abgeben", css_class='btn-primary')))
+
+
+class UpdateReviewForm(ReviewForm):
+    def __init__(self, *args, **kwargs):
+        super(UpdateReviewForm, self).__init__(*args, **kwargs)
+        self.helper.layout = Layout(
+            Field('rating'), Field('summary'),
+            ButtonHolder(
+                HTML(u"""<a href="{0}">Löschen</a>""".format(
+                    reverse('reviews-delete-review',
+                        kwargs={'pk': kwargs.get('instance').proposal.pk}))),
+                Submit('save', "Änderungen speichern", css_class='btn-primary')
+                )
+            )
+    pass

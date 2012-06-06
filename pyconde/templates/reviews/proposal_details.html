@@ -13,7 +13,6 @@
             {{ proposal.description|markdown:"safe" }}
         {% endif %}
     </div>
-    <a href="{% url reviews-update-proposal pk=proposal.pk %}">Ändern</a>
 
     <div class="abstract">
         {% if proposal_version %}
@@ -22,6 +21,7 @@
             {{ proposal.abstract|markdown:"safe" }}
         {% endif %}
     </div>
+    <a href="{% url reviews-update-proposal pk=proposal.pk %}">Ändern</a>
     {% if timeline %}
         <ul id="timeline">
         {% for item in timeline %}
@@ -41,4 +41,17 @@
     {% endif %}
     <h2>Kommentar:</h2>
     {% crispy comment_form %}
+{% endblock %}
+{% block sidebar %}
+    {% if can_review %}
+    <div class="tbox">
+        {% if not user_review %}
+            <a href="{% url reviews-review-proposal pk=proposal.pk %}">Bewerten</a>
+        {% else %}
+            <span class="rating">{{ user_review.rating }}</span>
+            <div class="summary">{{ user_review.summary|markdown:"safe" }}</div>
+            <a href="{% url reviews-update-review pk=proposal.pk %}">Bewertung aktualisieren</a>
+        {% endif %}
+    </div>
+    {% endif %}
 {% endblock %}
