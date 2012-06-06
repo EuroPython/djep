@@ -1,0 +1,14 @@
+{% extends "reviews/base.html" %}
+{% block sidebar %}
+    <div class="box" id="review-metadata">
+        <h2>Vorschlagsinfo</h2>
+        <dl>
+            <dt>Titel:</dt>
+            <dd><a href="{% url reviews-proposal-details pk=proposal.pk %}">{{ proposal.title }}</a></dd>
+        </dl>
+        <dl>
+            <dt>Autor:</dt>
+            <dd>{{ proposal.speaker }}</dd>
+        </dl>
+    </div>
+{% endblock %}

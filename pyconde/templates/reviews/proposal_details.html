@@ -1,4 +1,4 @@
-{% extends "reviews/base.html" %}
+{% extends "reviews/proposal_base.html" %}
 {% load markup crispy_forms_tags %}
 {% block content %}
     <h1>Proposal-Details: {{ proposal.title }}</h1>
@@ -44,6 +44,7 @@
     {% crispy comment_form %}
 {% endblock %}
 {% block sidebar %}
+    {{ block.super }}
     {% if can_review %}
     <div class="tbox" id="review-box">
         {% if not user_review %}

@@ -83,7 +83,8 @@ class SubmitReviewView(generic_views.TemplateView):
         if self.form is None:
             self.form = forms.ReviewForm()
         return {
-            'form': self.form
+            'form': self.form,
+            'proposal': self.proposal,
         }
 
     def dispatch(self, request, *args, **kwargs):
@@ -108,6 +109,11 @@ class UpdateReviewView(generic_views.UpdateView):
     def form_valid(self, form):
         messages.success(self.request, u"Änderungen gespeichert")
         return super(UpdateReviewView, self).form_valid(form)
+
+    def get_context_data(self, **kwargs):
+        data = super(UpdateReviewView, self).get_context_data(**kwargs)
+        data['proposal'] = self.object.proposal
+        return data
 
     def get_success_url(self):
         return reverse('reviews-proposal-details', kwargs={'pk': self.kwargs['pk']})
@@ -215,8 +221,8 @@ class ProposalVersionListView(generic_views.ListView):
 
     def get_context_data(self, **kwargs):
         data = super(ProposalVersionListView, self).get_context_data(**kwargs)
-        print self.kwargs
         data['original'] = models.Proposal.objects.get(pk=self.kwargs['proposal_pk'])
+        data['proposal'] = data['original']
         return data
 
 
@@ -226,6 +232,11 @@ class ProposalVersionDetailsView(generic_views.DetailView):
 
     def get_object(self):
         return self.model.objects.get(pk=self.kwargs['pk'], original__pk=self.kwargs['proposal_pk'])
+
+    def get_context_data(self, **kwargs):
+        data = super(ProposalVersionDetailsView, self).get_context_data(**kwargs)
+        data.update({'proposal': data['version'].original})
+        return data
 
 
 class UpdateProposalView(TemplateResponseMixin, generic_views.View):
