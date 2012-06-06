@@ -207,6 +207,27 @@ class ProposalDetailsView(generic_views.DetailView):
         }
 
 
+class ProposalVersionListView(generic_views.ListView):
+    model = models.ProposalVersion
+
+    def get_queryset(self):
+        return self.model.objects.filter(original__pk=self.kwargs['proposal_pk'])
+
+    def get_context_data(self, **kwargs):
+        data = super(ProposalVersionListView, self).get_context_data(**kwargs)
+        print self.kwargs
+        data['original'] = models.Proposal.objects.get(pk=self.kwargs['proposal_pk'])
+        return data
+
+
+class ProposalVersionDetailsView(generic_views.DetailView):
+    model = models.ProposalVersion
+    context_object_name = 'version'
+
+    def get_object(self):
+        return self.model.objects.get(pk=self.kwargs['pk'], original__pk=self.kwargs['proposal_pk'])
+
+
 class UpdateProposalView(TemplateResponseMixin, generic_views.View):
     """
     This should create a new version of the proposal and notify all

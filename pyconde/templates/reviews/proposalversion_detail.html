@@ -1,0 +1,14 @@
+{% extends "reviews/base.html" %}
+{% load markup %}
+{% block content %}
+<article>
+    <h1>{{ version.title }}</h1>
+    <div class="description">
+        {{ version.description|markdown:"safe" }}
+    </div>
+
+    <div class="abstract">
+        {{ version.abstract|markdown:"safe" }}
+    </div>
+</article>
+{% endblock %}

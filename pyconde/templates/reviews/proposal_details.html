@@ -29,7 +29,8 @@
                 <dl>
                 {% if item.type == 'comment' %}
                     <dt>{{ item.item.pub_date }}</dt>
-                    <dd>{{ item.item.content|markdown:"safe" }}<cite>-- {{ item.item.author }}</cite></dd>
+                    <dd>{{ item.item.content|markdown:"safe" }}<cite>-- {{ item.item.author }}
+                        (basierend auf {% if item.item.proposal_version %} <a href="{% url reviews-version-details proposal_pk=proposal.pk pk=item.item.proposal_version.pk %}">Version vom {{ item.item.proposal_version.pub_date }}</a>{% else %} dem Original-Vorschlag{% endif %})</cite></dd>
                 {% else %}
                     <dt>{{ item.item.pub_date }}</dt>
                     <dd>{{ item.item.creator }} hat das Proposal aktualisiert.</dd>
