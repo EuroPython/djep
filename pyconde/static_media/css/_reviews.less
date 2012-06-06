@@ -1,0 +1,50 @@
+#content {
+    #review-box {
+        padding: 10px;
+        h2 {
+            font-size: 200%;
+            display: block;
+            text-align: left;
+            font-weight: normal !important;
+            padding: 0 0 10px 0;
+            .rating {
+                font-size: 32px;
+                font-weight: bold;
+            }
+        }
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 1em;
+        }
+    }
+    .post {
+        ul#timeline {
+            margin: 2em 0;
+            padding: 0;
+            list-style: none;
+        }
+        .timeline-item {
+            width: 98%;
+            overflow: hidden;
+            border-bottom: 1px solid #EFEFEF;
+            padding: 10px 1%;
+            margin-bottom: 2px;
+            dt {
+                float: left;
+                width: 170px;
+            }
+            dd {
+                float: left;
+                width: 400px;
+                padding-left: 10px;
+            }
+            &.timeline-item-comment {
+                background: lighten(@blue, 50);
+            }
+            &.timeline-item-version {
+                background: lighten(@yellow, 40);
+            }
+        }
+    }
+}

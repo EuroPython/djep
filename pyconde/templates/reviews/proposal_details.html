@@ -29,7 +29,7 @@
                 <dl>
                 {% if item.type == 'comment' %}
                     <dt>{{ item.item.pub_date }}</dt>
-                    <dd>{{ item.item.content|markdown:"safe" }}</dd>
+                    <dd>{{ item.item.content|markdown:"safe" }}<cite>-- {{ item.item.author }}</cite></dd>
                 {% else %}
                     <dt>{{ item.item.pub_date }}</dt>
                     <dd>{{ item.item.creator }} hat das Proposal aktualisiert.</dd>
@@ -44,11 +44,12 @@
 {% endblock %}
 {% block sidebar %}
     {% if can_review %}
-    <div class="tbox">
+    <div class="tbox" id="review-box">
         {% if not user_review %}
+            <h2>Nicht bewertet</h2>
             <a href="{% url reviews-review-proposal pk=proposal.pk %}">Bewerten</a>
         {% else %}
-            <span class="rating">{{ user_review.rating }}</span>
+            <h2>Bewertung: <span class="rating">{{ user_review.rating }}</span></h2>
             <div class="summary">{{ user_review.summary|markdown:"safe" }}</div>
             <a href="{% url reviews-update-review pk=proposal.pk %}">Bewertung aktualisieren</a>
         {% endif %}

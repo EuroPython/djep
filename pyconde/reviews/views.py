@@ -31,8 +31,6 @@ class ListProposalsView(generic_views.TemplateView):
     }
 
     def get_context_data(self, **kwargs):
-        if not utils.can_review_proposal(self.request.user, None):
-            return HttpResponseForbidden()
         proposals = models.Proposal.objects.select_related('review_metadata').order_by(self.get_order()).all()
         my_reviews = models.Review.objects.filter(user=self.request.user).select_related('proposal')
         reviewed_proposals = [rev.proposal for rev in my_reviews]
@@ -50,6 +48,11 @@ class ListProposalsView(generic_views.TemplateView):
             order = order[1:]
         order = self.order_mapping.get(order, 'review_metadata__num_reviews')
         return '{0}{1}'.format(dir_, order)
+
+    def dispatch(self, request, *args, **kwargs):
+        if not utils.can_review_proposal(request.user, None):
+            return HttpResponseForbidden()
+        return super(ListProposalsView, self).dispatch(request, *args, **kwargs)
 
 
 class SubmitReviewView(generic_views.TemplateView):
