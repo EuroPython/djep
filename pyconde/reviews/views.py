@@ -50,9 +50,8 @@ class ListProposalsView(generic_views.TemplateView):
         order = self.order_mapping.get(order, 'review_metadata__num_reviews')
         return '{0}{1}'.format(dir_, order)
 
+    @method_decorator(decorators.reviewer_required)
     def dispatch(self, request, *args, **kwargs):
-        if not utils.can_review_proposal(request.user, None):
-            return HttpResponseForbidden()
         return super(ListProposalsView, self).dispatch(request, *args, **kwargs)
 
 
@@ -71,7 +70,6 @@ class MyReviewsView(generic_views.ListView):
     @method_decorator(decorators.reviewer_required)
     def dispatch(self, request, *args, **kwargs):
         return super(MyReviewsView, self).dispatch(request, *args, **kwargs)
-
 
 
 class SubmitReviewView(generic_views.TemplateView):
@@ -106,6 +104,7 @@ class SubmitReviewView(generic_views.TemplateView):
             'proposal': self.proposal,
         }
 
+    @method_decorator(decorators.reviewer_required)
     def dispatch(self, request, *args, **kwargs):
         self.proposal = get_object_or_404(models.Proposal, pk=kwargs['pk'])
         if not self.proposal.can_be_reviewed():
@@ -114,8 +113,6 @@ class SubmitReviewView(generic_views.TemplateView):
         if models.Review.objects.filter(user=request.user, proposal=self.proposal).count():
             messages.info(request, "Sie haben diesen Vorschlag bereits bewertet")
             return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.proposal.pk}))
-        if not utils.can_review_proposal(request.user, self.proposal):
-            return HttpResponseForbidden()
         self.proposal_version = models.ProposalVersion.objects.get_latest_for(self.proposal)
         return super(SubmitReviewView, self).dispatch(request, *args, **kwargs)
 
@@ -142,6 +139,7 @@ class UpdateReviewView(generic_views.UpdateView):
     def get_success_url(self):
         return reverse('reviews-proposal-details', kwargs={'pk': self.kwargs['pk']})
 
+    @method_decorator(decorators.reviewer_required)
     def dispatch(self, request, *args, **kwargs):
         self.request = request
         self.kwargs = kwargs
@@ -226,8 +224,8 @@ class ProposalDetailsView(generic_views.DetailView):
     def get_context_data(self, **kwargs):
         comment_form = forms.CommentForm()
         comment_form.helper.form_action = reverse('reviews-submit-comment', kwargs={'pk': self.object.pk})
-        comments = self.object.comments.all()
-        proposal_versions = self.object.versions.all()
+        comments = self.object.comments.select_related('proposal_version', 'author').all()
+        proposal_versions = self.object.versions.select_related('creator').all()
         data = super(ProposalDetailsView, self).get_context_data(**kwargs)
         data['comments'] = comments
         data['proposal_version'] = models.ProposalVersion.objects.get_latest_for(self.object)
@@ -275,11 +273,15 @@ class ProposalVersionDetailsView(generic_views.DetailView):
     context_object_name = 'version'
 
     def get_object(self):
-        return self.model.objects.get(pk=self.kwargs['pk'], original__pk=self.kwargs['proposal_pk'])
+        return self.model.objects.select_related('original').get(pk=self.kwargs['pk'], original__pk=self.kwargs['proposal_pk'])
 
     def get_context_data(self, **kwargs):
         data = super(ProposalVersionDetailsView, self).get_context_data(**kwargs)
-        data.update({'proposal': data['version'].original})
+        proposal = data['version'].original
+        data.update({
+            'proposal': proposal,
+            'versions': proposal.versions.select_related('creator').all()
+        })
         return data
 
 

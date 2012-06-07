@@ -2,14 +2,8 @@
     #review-box {
         padding: 10px;
         h2 {
-            font-size: 200%;
-            display: block;
-            text-align: left;
-            font-weight: normal !important;
-            padding: 0 0 10px 0;
             .rating {
-                font-size: 32px;
-                font-weight: bold;
+                font-weight: normal;
             }
         }
         a {
@@ -17,6 +11,13 @@
             text-align: center;
             margin-top: 1em;
         }
+    }
+    #versions {
+        li.active {
+            &, a {
+                font-weight: bold;
+            }
+        }   
     }
     #review-metadata {
         dl {

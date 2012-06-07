@@ -12,3 +12,7 @@
     </div>
 </article>
 {% endblock %}
+{% block sidebar %}
+    {{ block.super }}
+    {% include "reviews/partials/versions_box.html" %}
+{% endblock %}

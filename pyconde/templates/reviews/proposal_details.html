@@ -49,8 +49,9 @@
 {% endblock %}
 {% block sidebar %}
     {{ block.super }}
+    {% include "reviews/partials/versions_box.html" %}
     {% if can_review %}
-    <div class="tbox" id="review-box">
+    <div class="box" id="review-box">
         {% if not user_review %}
             <h2>Nicht bewertet</h2>
             {% if proposal.can_be_reviewed %}

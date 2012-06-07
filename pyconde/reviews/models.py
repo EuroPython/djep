@@ -62,7 +62,7 @@ class ProposalMetaData(models.Model):
 
 class ProposalVersionManager(models.Manager):
     def get_latest_for(self, proposal):
-        version = self.get_query_set().filter(original=proposal).order_by('pub_date')
+        version = self.get_query_set().filter(original=proposal).order_by('-pub_date')
         if not version:
             return None
         return version[0]
