@@ -23,7 +23,7 @@
         {% csrf_token %}
         <fieldset class="attendees">
             <legend>Teilnehmer</legend>
-            <p style="padding-top:10px">Zur korrekten Zuordnung der Konferenz- und Tutorial-Tickets benötigen wir die vollen Namen der Pesonen, die die Tickets in anspruch nehmen werden. Bitte gib die Namen und die untenstehenden Felder ein.</p>
+            <p style="padding-top:10px">Zur korrekten Zuordnung der Konferenz- und Tutorial-Tickets benötigen wir die vollen Namen der Personen, die die Tickets in Anspruch nehmen werden. Bitte geben Sie die Namen und die untenstehenden Felder ein.</p>
             {% for name_form in name_forms %}
                 {% if forloop.first %}
                     <div class="clearfix control-group headerlabel">
@@ -82,7 +82,7 @@
         </fieldset>
         {% endif %}
         <div class="form-actions">
-            <input type="submit" name="submit" value="Weiter zur Bestellübersicht" class="submit" id="submit-id-submit">
+            <input type="submit" name="submit" value="Weiter zur Bestellübersicht" class="submit btn-primary btn" id="submit-id-submit">
         </div>
     </form>
 {% endblock %}

@@ -16,6 +16,7 @@ django-cms==2.2
 django-crispy-forms==1.1.1
 Markdown
 django-taggit==0.9.3
+django-debug-toolbar==0.9.4
 
 # Requirements for symposion
 pytz

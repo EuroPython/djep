@@ -85,6 +85,7 @@ INSTALLED_APPS = [
     'userprofiles.contrib.emailverification',
     'userprofiles.contrib.profiles',
     'taggit',
+    'debug_toolbar',
 
     'cms.plugins.inherit',
     'cms.plugins.googlemap',
@@ -118,6 +119,7 @@ MIDDLEWARE_CLASSES = [
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.user.CurrentUserMiddleware',
     #'cms.middleware.toolbar.ToolbarMiddleware',
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 TEMPLATE_CONTEXT_PROCESSORS += (
