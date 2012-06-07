@@ -65,3 +65,25 @@ def send_comment_notification(comment, notify_author=False):
         bcc=[u.email for u in get_people_to_notify(proposal, current_user)],
         body=body)
     msg.send()
+
+
+def send_proposal_update_notification(version, notify_author=False):
+    """
+    Send a version notification mail to all users related to the version's
+    proposal except for the author of the version unless notify_author=True
+    is passed.
+    """
+    proposal = version.original
+    current_user = version.creator
+    if notify_author:
+        current_user = None
+    body = render_to_string('reviews/emails/version_notification.txt', {
+        'version': version,
+        'proposal': proposal,
+        'site': Site.objects.get_current(),
+        'proposal_url': reverse('reviews-proposal-details', kwargs={'pk': proposal.pk}),
+        })
+    msg = EmailMessage(subject='[REVIEW] {0} hat {1} aktualisiert'.format(version.creator, proposal.title),
+        bcc=[u.email for u in get_people_to_notify(proposal, current_user)],
+        body=body)
+    msg.send()

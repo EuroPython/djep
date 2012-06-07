@@ -321,7 +321,7 @@ class UpdateProposalView(TemplateResponseMixin, generic_views.View):
             )
         new_version.save()
         messages.success(request, _("Proposal successfully update"))
-        # TODO: Send notification mails
+        utils.send_proposal_update_notification(new_version)
         return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.object.pk}))
 
     def dispatch(self, request, *args, **kwargs):
