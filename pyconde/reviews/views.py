@@ -196,7 +196,7 @@ class SubmitCommentView(TemplateResponseMixin, generic_views.View):
             comment.proposal_version = self.proposal_version
             comment.save()
             messages.success(request, _("Comment added"))
-            # TODO: Send notification mails
+            utils.send_comment_notification(comment)
             return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.proposal.pk}))
         return self.get(request, *args, **kwargs)
 

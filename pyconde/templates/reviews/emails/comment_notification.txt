@@ -1,0 +1,10 @@
+{{ comment.author }} hat ein neues Kommentar zum Session-Vorschlag "{{ proposal.title }}"
+angelegt:
+
+-------------------
+
+{{ comment.content }}
+
+-------------------
+
+Link: <http://{{ site.domain }}{{ proposal_url }}#comment-{{ comment.pk }}>

@@ -29,16 +29,15 @@
     {% if timeline %}
         <ul id="timeline">
         {% for item in timeline %}
-            <li class="timeline-item timeline-item-{{ item.type }}">
+            <li id="{{ item.type }}-{{ item.item.pk }}" class="timeline-item timeline-item-{{ item.type }}">
                 <dl>
-                {% if item.type == 'comment' %}
-                    <dt>{{ item.item.pub_date }}</dt>
-                    <dd>{{ item.item.content|markdown:"safe" }}<cite>-- {{ item.item.author }}
-                        (basierend auf {% if item.item.proposal_version %} <a href="{% url reviews-version-details proposal_pk=proposal.pk pk=item.item.proposal_version.pk %}">Version vom {{ item.item.proposal_version.pub_date }}</a>{% else %} dem Original-Vorschlag{% endif %})</cite></dd>
-                {% else %}
-                    <dt>{{ item.item.pub_date }}</dt>
-                    <dd>{{ item.item.creator }} hat das Proposal aktualisiert.</dd>
-                {% endif %}
+                    <dt><a href="#{{ item.type }}-{{ item.item.pk }}">{{ item.item.pub_date }}</a></dt>
+                    {% if item.type == 'comment' %}    
+                        <dd>{{ item.item.content|markdown:"safe" }}<cite>-- {{ item.item.author }}
+                            (basierend auf {% if item.item.proposal_version %} <a href="{% url reviews-version-details proposal_pk=proposal.pk pk=item.item.proposal_version.pk %}">Version vom {{ item.item.proposal_version.pub_date }}</a>{% else %} dem Original-Vorschlag{% endif %})</cite></dd>
+                    {% else %}
+                        <dd>{{ item.item.creator }} hat das Proposal aktualisiert.</dd>
+                    {% endif %}
                 </dl>
             </li>
         {% endfor %}
