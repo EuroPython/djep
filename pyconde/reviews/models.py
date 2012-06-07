@@ -124,6 +124,20 @@ class Comment(models.Model):
     proposal = models.ForeignKey(Proposal,
         related_name="comments")
     proposal_version = models.ForeignKey(ProposalVersion, blank=True, null=True)
+    deleted = models.BooleanField(default=False)
+    deleted_date = models.DateTimeField(null=True, blank=True)
+    deleted_by = models.ForeignKey(auth_models.User, null=True, related_name='deleted_comments')
+    deleted_reason = models.TextField(blank=True, null=True)
+
+    def mark_as_deleted(self, user, reason=None):
+        """
+        Sets the respective flags that mark this comment as deleted
+        without persisting these changes.
+        """
+        self.deleted = True
+        self.deleted_by = user
+        self.deleted_date = datetime.datetime.now()
+        self.deleted_reason = reason
 
 
 def create_proposal_metadata(sender, instance, **kwargs):

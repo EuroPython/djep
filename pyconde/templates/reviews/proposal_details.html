@@ -29,12 +29,21 @@
     {% if timeline %}
         <ul id="timeline">
         {% for item in timeline %}
-            <li id="{{ item.type }}-{{ item.item.pk }}" class="timeline-item timeline-item-{{ item.type }}">
+            <li id="{{ item.type }}-{{ item.item.pk }}" class="timeline-item timeline-item-{{ item.type }} {% if item.item.deleted %}deleted{% endif %}">
                 <dl>
                     <dt><a href="#{{ item.type }}-{{ item.item.pk }}">{{ item.item.pub_date }}</a></dt>
-                    {% if item.type == 'comment' %}    
-                        <dd>{{ item.item.content|markdown:"safe" }}<cite>-- {{ item.item.author }}
-                            (basierend auf {% if item.item.proposal_version %} <a href="{% url reviews-version-details proposal_pk=proposal.pk pk=item.item.proposal_version.pk %}">Version vom {{ item.item.proposal_version.pub_date }}</a>{% else %} dem Original-Vorschlag{% endif %})</cite></dd>
+                    {% if item.type == 'comment' %}
+                        {% if item.item.deleted %}
+                        <dd>Dieses Kommentar von {{ item.item.author }} wurde gelöscht.
+                            {% if item.item.author != item.item.deleted_by %}(durch {{ item.item.deleted_by }}){% endif %}</dd>
+                        {% else %}
+                        <dd><div class="content">{{ item.item.content|markdown:"safe" }}</div><cite>-- {{ item.item.author }}
+                            (basierend auf {% if item.item.proposal_version %} <a href="{% url reviews-version-details proposal_pk=proposal.pk pk=item.item.proposal_version.pk %}">Version vom {{ item.item.proposal_version.pub_date }}</a>{% else %} dem Original-Vorschlag{% endif %})</cite>
+                            {% if item.item.author == user or user.is_staff or user.is_admin %}<p class="actions">
+                                <a href="{% url reviews-delete-comment proposal_pk=proposal.pk pk=item.item.pk %}">Löschen</a>
+                            </p>{% endif %}
+                        </dd>
+                        {% endif %}
                     {% else %}
                         <dd>{{ item.item.creator }} hat das Proposal aktualisiert.</dd>
                     {% endif %}

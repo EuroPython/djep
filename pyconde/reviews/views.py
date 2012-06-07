@@ -11,7 +11,15 @@ from django.core.urlresolvers import reverse
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 
-from . import models, forms, utils, decorators
+from . import models, forms, utils, decorators, settings
+
+
+class PrepareViewMixin(object):
+    def prepare(self, request, *args, **kwargs):
+        self.request = request
+        self.args = args
+        self.kwargs = kwargs
+        self.object = self.get_object()
 
 
 class ListProposalsView(generic_views.TemplateView):
@@ -179,7 +187,7 @@ class UpdateReviewView(generic_views.UpdateView):
         return super(UpdateReviewView, self).dispatch(request, *args, **kwargs)
 
 
-class DeleteReviewView(generic_views.DeleteView):
+class DeleteReviewView(PrepareViewMixin, generic_views.DeleteView):
     model = models.Review
 
     def get_object(self):
@@ -191,9 +199,7 @@ class DeleteReviewView(generic_views.DeleteView):
         return reverse('reviews-proposal-details', kwargs={'pk': self.kwargs['pk']})
 
     def dispatch(self, request, *args, **kwargs):
-        self.request = request
-        self.kwargs = kwargs
-        self.object = self.get_object()
+        self.prepare(request, *args, **kwargs)
         if not self.object.proposal.can_be_reviewed():
             messages.error(request, u"Dieses Proposal kann nicht mehr bewertet werden.")
             return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.object.proposal.pk}))
@@ -225,7 +231,8 @@ class SubmitCommentView(TemplateResponseMixin, generic_views.View):
             comment.proposal_version = self.proposal_version
             comment.save()
             messages.success(request, _("Comment added"))
-            utils.send_comment_notification(comment)
+            if settings.ENABLE_COMMENT_NOTIFICATIONS:
+                utils.send_comment_notification(comment)
             return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.proposal.pk}))
         return self.get(request, *args, **kwargs)
 
@@ -235,6 +242,29 @@ class SubmitCommentView(TemplateResponseMixin, generic_views.View):
             return HttpResponseForbidden()
         self.proposal_version = models.ProposalVersion.objects.get_latest_for(self.proposal)
         return super(SubmitCommentView, self).dispatch(request, *args, **kwargs)
+
+
+class DeleteCommentView(PrepareViewMixin, generic_views.DeleteView):
+    model = models.Comment
+
+    def get_success_url(self):
+        return reverse('reviews-proposal-details', kwargs={'pk': self.kwargs['proposal_pk']})
+
+    def get_object(self, **kwargs):
+        if hasattr(self, 'object') and self.object:
+            return self.object
+        return self.model.objects.get(pk=self.kwargs['pk'], proposal__pk=self.kwargs['proposal_pk'])
+
+    def delete(self, *args, **kwargs):
+        self.object.mark_as_deleted(self.request.user)
+        self.object.save()
+        return HttpResponseRedirect(self.get_success_url())
+
+    def dispatch(self, request, *args, **kwargs):
+        self.prepare(request, *args, **kwargs)
+        if not (self.object.author == self.request.user or self.request.user.is_staff or self.request.user.is_superuser):
+            return HttpResponseForbidden()
+        return super(DeleteCommentView, self).dispatch(request, *args, **kwargs)
 
 
 class ProposalDetailsView(generic_views.DetailView):
@@ -359,7 +389,8 @@ class UpdateProposalView(TemplateResponseMixin, generic_views.View):
             )
         new_version.save()
         messages.success(request, _("Proposal successfully update"))
-        utils.send_proposal_update_notification(new_version)
+        if settings.ENABLE_PROPOSAL_UPDATE_NOTIFICATIONS:
+            utils.send_proposal_update_notification(new_version)
         return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.object.pk}))
 
     def dispatch(self, request, *args, **kwargs):
