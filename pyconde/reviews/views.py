@@ -24,18 +24,18 @@ class ListProposalsView(generic_views.TemplateView):
     """
     template_name = 'reviews/reviewable_proposals.html'
     order_mapping = {
-        'comments': 'review_metadata__num_comments',
-        'reviews': 'review_metadata__num_reviews',
-        'title': 'title',
-        'activity': 'review_metadata__latest_activity_date',
+        'comments': 'num_comments',
+        'reviews': 'num_reviews',
+        'title': 'proposal__title',
+        'activity': 'latest_activity_date',
     }
 
     def get_context_data(self, **kwargs):
-        proposals = models.Proposal.objects.select_related('review_metadata').order_by(self.get_order()).all()
+        proposals = models.ProposalMetaData.objects.select_related().order_by(self.get_order()).all()
         my_reviews = models.Review.objects.filter(user=self.request.user).select_related('proposal')
         reviewed_proposals = [rev.proposal for rev in my_reviews]
         for proposal in proposals:
-            proposal.reviewed = proposal in reviewed_proposals
+            proposal.reviewed = proposal.proposal in reviewed_proposals
         return {
             'proposals': proposals
         }
@@ -89,6 +89,9 @@ class SubmitReviewView(generic_views.TemplateView):
 
     def dispatch(self, request, *args, **kwargs):
         self.proposal = get_object_or_404(models.Proposal, pk=kwargs['pk'])
+        if not self.proposal.can_be_reviewed():
+            messages.error(request, u"Dieses Proposal kann nicht mehr bewertet werden.")
+            return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.proposal.pk}))
         if models.Review.objects.filter(user=request.user, proposal=self.proposal).count():
             messages.info(request, "Sie haben diesen Vorschlag bereits bewertet")
             return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.proposal.pk}))
@@ -104,6 +107,8 @@ class UpdateReviewView(generic_views.UpdateView):
     form_class = forms.UpdateReviewForm
 
     def get_object(self):
+        if hasattr(self, 'object') and self.object:
+            return self.object
         return self.model.objects.get(user=self.request.user, proposal__pk=self.kwargs['pk'])
 
     def form_valid(self, form):
@@ -118,15 +123,35 @@ class UpdateReviewView(generic_views.UpdateView):
     def get_success_url(self):
         return reverse('reviews-proposal-details', kwargs={'pk': self.kwargs['pk']})
 
+    def dispatch(self, request, *args, **kwargs):
+        self.request = request
+        self.kwargs = kwargs
+        self.object = self.get_object()
+        if not self.object.proposal.can_be_reviewed():
+            messages.error(request, u"Dieses Proposal kann nicht mehr bewertet werden.")
+            return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.object.proposal.pk}))
+        return super(UpdateReviewView, self).dispatch(request, *args, **kwargs)
+
 
 class DeleteReviewView(generic_views.DeleteView):
     model = models.Review
 
     def get_object(self):
+        if hasattr(self, 'object') and self.object:
+            return self.object
         return self.model.objects.get(user=self.request.user, proposal__pk=self.kwargs['pk'])
 
     def get_success_url(self):
         return reverse('reviews-proposal-details', kwargs={'pk': self.kwargs['pk']})
+
+    def dispatch(self, request, *args, **kwargs):
+        self.request = request
+        self.kwargs = kwargs
+        self.object = self.get_object()
+        if not self.object.proposal.can_be_reviewed():
+            messages.error(request, u"Dieses Proposal kann nicht mehr bewertet werden.")
+            return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.object.proposal.pk}))
+        return super(DeleteReviewView, self).dispatch(request, *args, **kwargs)
 
 
 class SubmitCommentView(TemplateResponseMixin, generic_views.View):
@@ -280,6 +305,9 @@ class UpdateProposalView(TemplateResponseMixin, generic_views.View):
 
     def dispatch(self, request, *args, **kwargs):
         self.object = get_object_or_404(models.Proposal.objects, pk=kwargs['pk'])
+        if not self.object.can_be_updated():
+            messages.error(request, u"Vorschläge können nicht mehr editiert werden.")
+            return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.object.pk}))
         self.proposal_version = models.ProposalVersion.objects.get_latest_for(self.object)
         if not utils.is_proposal_author(request.user, self.object):
             return HttpResponseForbidden()

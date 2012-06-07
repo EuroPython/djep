@@ -14,9 +14,9 @@
             {% for proposal in proposals %}
             <tr>
                 <td><a href="{% url reviews-proposal-details pk=proposal.pk %}">{{ proposal.title }}</a></td>
-                <td>{{ proposal.review_metadata.num_reviews }}</td>
-                <td>{{ proposal.review_metadata.num_comments }}</td>
-                <td>{{ proposal.review_metadata.latest_activity_date }}</td>
+                <td>{{ proposal.num_reviews }}</td>
+                <td>{{ proposal.num_comments }}</td>
+                <td>{{ proposal.latest_activity_date }}</td>
             </tr>
             {% endfor %}
         </tbody>

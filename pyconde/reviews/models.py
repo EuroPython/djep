@@ -36,16 +36,28 @@ class Proposal(proposals_models.Proposal):
 
     objects = ProposalsManager()
 
+    def can_be_updated(self):
+        # TODO: Add logic to determine if a proposal can still be updated.
+        return True
+
+    def can_be_reviewed(self):
+        # TODO: Add logic to determine if a proposal can be reviewed. Note that this has nothing to do with permissions.
+        return True
+
 
 class ProposalMetaData(models.Model):
     """
     This model stores some metadata for proposals with regards to
     reviews.
     """
-    proposal = models.OneToOneField(proposals_models.Proposal, related_name='review_metadata')
+    proposal = models.OneToOneField(Proposal, related_name='review_metadata')
     num_comments = models.PositiveIntegerField(default=0)
     num_reviews = models.PositiveIntegerField(default=0)
     latest_activity_date = models.DateTimeField(null=True, blank=True)
+
+    @property
+    def title(self):
+        return self.proposal.title
 
 
 class ProposalVersionManager(models.Manager):
@@ -62,7 +74,7 @@ class ProposalVersion(models.Model):
     updates to a proposal and reviewers can check if their review still
     applies.
     """
-    original = models.ForeignKey(proposals_models.Proposal, related_name='versions')
+    original = models.ForeignKey(Proposal, related_name='versions')
     title = models.CharField(_("title"), max_length=100)
     description = models.TextField(_("description"), max_length=400)
     abstract = models.TextField(_("abstract"))
@@ -88,8 +100,7 @@ class Review(models.Model):
     rating = models.CharField(choices=RATING_CHOICES, max_length=2)
     summary = models.TextField()
     pub_date = models.DateTimeField(default=datetime.datetime.now)
-    proposal = models.ForeignKey(proposals_models.Proposal,
-        related_name="reviews")
+    proposal = models.ForeignKey(Proposal, related_name="reviews")
     proposal_version = models.ForeignKey(ProposalVersion, blank=True, null=True)
 
     class Meta(object):
@@ -108,7 +119,7 @@ class Comment(models.Model):
     author = models.ForeignKey(auth_models.User)
     content = models.TextField()
     pub_date = models.DateTimeField(default=datetime.datetime.now)
-    proposal = models.ForeignKey(proposals_models.Proposal,
+    proposal = models.ForeignKey(Proposal,
         related_name="comments")
     proposal_version = models.ForeignKey(ProposalVersion, blank=True, null=True)
 

@@ -62,7 +62,7 @@ COMPRESS_PRECOMPILERS = (
 
 ROOT_URLCONF = '%s.urls' % PROJECT_NAME
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -105,9 +105,10 @@ INSTALLED_APPS = (
     'pyconde.accounts',
     'pyconde.attendees',
     'pyconde.events',
-)
+    'pyconde.reviews',
+]
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE_CLASSES = [
     'pyconde.helpers.middleware.CorrectDomainMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -117,7 +118,7 @@ MIDDLEWARE_CLASSES = (
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.user.CurrentUserMiddleware',
     #'cms.middleware.toolbar.ToolbarMiddleware',
-)
+]
 
 TEMPLATE_CONTEXT_PROCESSORS += (
     'django.core.context_processors.debug',
