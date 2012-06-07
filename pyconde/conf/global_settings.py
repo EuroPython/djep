@@ -8,6 +8,7 @@ PROJECT_NAME = os.path.split(PROJECT_ROOT)[-1]
 
 DEBUG = TEMPLATE_DEBUG = False
 INTERNAL_IPS = ('127.0.0.1',)
+DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
 
 ADMINS = (
     ('Markus Zapke-Gruendemann', 'markus@de.pycon.org'),
