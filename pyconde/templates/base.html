@@ -62,6 +62,11 @@
                             <li><a href="{% url userprofiles_profile_change %}">Profil ändern</a></li>
                             <li><a href="{% url auth_password_change %}">Passwort ändern</a></li>
                             <li><a href="{% url my_proposals %}">Meine Einreichungen</a></li>
+                            {% if is_reviewer %}
+                            <li><a href="{% url reviews-my-reviews %}">Meine Bewertungen</a></li>
+                            {% else %}
+                            <li><a href="{% url reviews-my-proposals %}">Bewertungen in Review</a></li>
+                            {% endif %}
                             {% if request.user.is_staff %}
                             <li><a href="{% url admin:index %}" target="_blank">Admin</a></li>
                             {% endif %}

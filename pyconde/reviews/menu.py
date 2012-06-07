@@ -16,7 +16,8 @@ class ReviewsMenu(CMSAttachMenu):
         if request.user.is_authenticated():
             if utils.can_review_proposal(request.user, None):
                 nodes.append(NavigationNode("Einreichungen", reverse('reviews-available-proposals'), 'reviews-available'))
-            nodes.append(NavigationNode("Meine Bewertungen", reverse('reviews-my-reviews'), 'reviews-mine'))
+                nodes.append(NavigationNode("Meine Bewertungen", reverse('reviews-my-reviews'), 'reviews-mine'))
+            nodes.append(NavigationNode("Meine Einreichungen", reverse('reviews-my-proposals'), 'reviews-my-proposals'))
         return nodes
 
 menu_pool.register_menu(ReviewsMenu)

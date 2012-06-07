@@ -127,6 +127,7 @@ TEMPLATE_CONTEXT_PROCESSORS += (
     'django.core.context_processors.request',
     'sekizai.context_processors.sekizai',
     'pyconde.conference.context_processors.current_conference',
+    'pyconde.reviews.context_processors.review_roles',
 )
 
 TEMPLATE_DIRS = (

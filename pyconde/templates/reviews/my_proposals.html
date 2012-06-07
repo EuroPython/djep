@@ -1,15 +1,13 @@
 {% extends "reviews/base.html" %}
 {% block content %}
-    <h1>{% block content_title %}Verfügbare Session-Vorschläge{% endblock %}</h1>
+    <h1>{% block content_title %}Meine Session-Vorschläge in Review{% endblock %}</h1>
     {% block description %}
-    <p>Diese Seite zeigt Ihnen alle Session-Vorschläge, die bewertet können, zusammen mit der Anzahl der
-        bereits abgegeben Bewertungen.</p>
+    <p>Hier sehen Sie alle Ihre Session-Vorschläge im Review-Kontekt.</p>
     {% endblock %}
     <table>
         <thead>
             <tr>
                 <th>Titel</th>
-                <th># Reviews</th>
                 <th># Kommentare</th>
                 <th>Letzte Aktivität</th>
             </tr>
@@ -18,9 +16,8 @@
             {% for proposal in proposals %}
             <tr>
                 <td><a href="{% url reviews-proposal-details pk=proposal.proposal.pk %}">{{ proposal.title }}</a></td>
-                <td>{{ proposal.num_reviews }}</td>
                 <td>{{ proposal.num_comments }}</td>
-                <td>{{ proposal.latest_activity_date }}</td>
+                <td>{{ proposal.latest_comment_date }}</td>
             </tr>
             {% endfor %}
         </tbody>

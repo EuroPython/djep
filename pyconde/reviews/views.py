@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
 
 from . import models, forms, utils, decorators
 
@@ -30,9 +31,10 @@ class ListProposalsView(generic_views.TemplateView):
         'title': 'proposal__title',
         'activity': 'latest_activity_date',
     }
+    default_order = 'reviews'
 
     def get_context_data(self, **kwargs):
-        proposals = models.ProposalMetaData.objects.select_related().order_by(self.get_order()).all()
+        proposals = self.get_queryset()
         my_reviews = models.Review.objects.filter(user=self.request.user).select_related('proposal')
         reviewed_proposals = [rev.proposal for rev in my_reviews]
         for proposal in proposals:
@@ -41,18 +43,45 @@ class ListProposalsView(generic_views.TemplateView):
             'proposals': proposals
         }
 
+    def get_queryset(self):
+        return models.ProposalMetaData.objects.select_related().order_by(self.get_order()).all()
+
     def get_order(self):
-        order = self.request.GET.get('order', 'reviews')
+        order = self.request.GET.get('order', self.default_order)
         dir_ = ''
         if order.startswith('-'):
             dir_ = '-'
             order = order[1:]
-        order = self.order_mapping.get(order, 'review_metadata__num_reviews')
+        fallback = self.order_mapping[self.default_order.lstrip('-')]
+        order = self.order_mapping.get(order, fallback)
         return '{0}{1}'.format(dir_, order)
 
     @method_decorator(decorators.reviewer_required)
     def dispatch(self, request, *args, **kwargs):
         return super(ListProposalsView, self).dispatch(request, *args, **kwargs)
+
+
+class ListMyProposalsView(ListProposalsView):
+    """
+    A simple view that allows a user to see the discussions going on around
+    his/her proposal.
+    """
+    template_name = 'reviews/my_proposals.html'
+    order_mapping = {
+        'comments': 'num_comments',
+        'title': 'proposal__title',
+        'activity': 'latest_comment_date',
+    }
+    default_order = '-activity'
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(ListProposalsView, self).dispatch(request, *args, **kwargs)
+
+    def get_queryset(self):
+        speaker = self.request.user.speaker_profile
+        my_proposals = models.Proposal.objects.filter(speaker=speaker) | models.Proposal.objects.filter(additional_speakers=speaker)
+        return models.ProposalMetaData.objects.select_related().filter(proposal__in=my_proposals).order_by(self.get_order()).all()
 
 
 class MyReviewsView(generic_views.ListView):
@@ -240,10 +269,19 @@ class ProposalDetailsView(generic_views.DetailView):
         return data
 
     def get_object(self, queryset=None):
-        proposal = super(ProposalDetailsView, self).get_object(queryset)
-        if utils.can_participate_in_review(self.request.user, proposal):
-            return proposal
-        return HttpResponseForbidden()
+        if hasattr(self, 'object') and self.object:
+            return self.object
+        return super(ProposalDetailsView, self).get_object(queryset)
+
+    @method_decorator(login_required)
+    def dispatch(self, request, *args, **kwargs):
+        self.request = request
+        self.args = args
+        self.kwargs = kwargs
+        self.object = self.get_object()
+        if not utils.can_participate_in_review(self.request.user, self.object):
+            return HttpResponseForbidden()
+        return super(ProposalDetailsView, self).dispatch(request, *args, **kwargs)
 
     def wrap_timeline_elements(self, item):
         type_ = 'comment'

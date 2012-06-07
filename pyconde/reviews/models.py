@@ -54,6 +54,8 @@ class ProposalMetaData(models.Model):
     num_comments = models.PositiveIntegerField(default=0)
     num_reviews = models.PositiveIntegerField(default=0)
     latest_activity_date = models.DateTimeField(null=True, blank=True)
+    latest_comment_date = models.DateTimeField(null=True, blank=True)
+    latest_review_date = models.DateTimeField(null=True, blank=True)
 
     @property
     def title(self):
@@ -162,6 +164,8 @@ def _update_proposal_metadata(proposal):
         md.latest_activity_date = latest_comment_date
     else:
         md.latest_activity_date = latest_review_date
+    md.latest_comment_date = latest_comment_date
+    md.latest_review_date = latest_review_date
     md.save()
 
 
