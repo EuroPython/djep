@@ -7,8 +7,12 @@
             <dd><a href="{% url reviews-proposal-details pk=proposal.pk %}">{{ proposal.title }}</a></dd>
         </dl>
         <dl>
-            <dt>Autor:</dt>
+            <dt>Vortragende(r):</dt>
             <dd>{{ proposal.speaker }}</dd>
+        </dl>
+        <dl>
+            <dt>Mitvortragende:</dt>
+            <dd>{{ proposal.additional_speakers.all|join:", " }}</dd>
         </dl>
     </div>
 {% endblock %}
