@@ -1,0 +1,26 @@
+{% extends "reviews/base.html" %}
+{% block content %}
+    <h1>Meine Bewertungen</h1>
+    {% if object_list %}
+    <table>
+        <thead>
+            <tr>
+                <th>Titel</th>
+                <th>Vortragende(r)</th>
+                <th>Bewertung</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for review in object_list %}
+            <tr>
+                <td><a href="{% url reviews-proposal-details pk=review.proposal.pk %}">{{ review.proposal.title }}</a></td>
+                <td>{{ review.proposal.speaker }}</td>
+                <td>{{ review.rating }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty">Sie haben noch keine Bewertung abgegeben.</p>
+    {% endif %}
+{% endblock %}

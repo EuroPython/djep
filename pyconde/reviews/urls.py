@@ -4,6 +4,7 @@ from . import views
 
 
 urlpatterns = patterns('',
+    url(r'^my/$', views.MyReviewsView.as_view(), name='reviews-my-reviews'),
     url(r'^proposals/$', views.ListProposalsView.as_view(), name='reviews-available-proposals'),
     url(r'^proposals/(?P<pk>\d+)/$', views.ProposalDetailsView.as_view(), name='reviews-proposal-details'),
     url(r'^proposals/(?P<pk>\d+)/comment/$', views.SubmitCommentView.as_view(), name='reviews-submit-comment'),

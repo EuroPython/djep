@@ -13,7 +13,7 @@
         <tbody>
             {% for proposal in proposals %}
             <tr>
-                <td><a href="{% url reviews-proposal-details pk=proposal.pk %}">{{ proposal.title }}</a></td>
+                <td><a href="{% url reviews-proposal-details pk=proposal.proposal.pk %}">{{ proposal.title }}</a></td>
                 <td>{{ proposal.num_reviews }}</td>
                 <td>{{ proposal.num_comments }}</td>
                 <td>{{ proposal.latest_activity_date }}</td>

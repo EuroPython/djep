@@ -8,8 +8,9 @@ from django.http import HttpResponseForbidden, HttpResponseRedirect
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
+from django.utils.decorators import method_decorator
 
-from . import models, forms, utils
+from . import models, forms, utils, decorators
 
 
 class ListProposalsView(generic_views.TemplateView):
@@ -53,6 +54,24 @@ class ListProposalsView(generic_views.TemplateView):
         if not utils.can_review_proposal(request.user, None):
             return HttpResponseForbidden()
         return super(ListProposalsView, self).dispatch(request, *args, **kwargs)
+
+
+class MyReviewsView(generic_views.ListView):
+    """
+    Lists all the reviews made by the current user.
+    """
+    model = models.Review
+
+    def get_queryset(self):
+        return self.model.objects.filter(user=self.request.user).select_related('proposal')
+
+    def get_template_names(self):
+        return ['reviews/my_reviews.html']
+
+    @method_decorator(decorators.reviewer_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(MyReviewsView, self).dispatch(request, *args, **kwargs)
+
 
 
 class SubmitReviewView(generic_views.TemplateView):

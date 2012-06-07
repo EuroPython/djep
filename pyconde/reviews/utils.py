@@ -1,4 +1,4 @@
-def can_review_proposal(user, proposal):
+def can_review_proposal(user, proposal=None):
     if user.has_perm('reviews.add_review'):
         return True
     return False
