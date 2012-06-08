@@ -46,12 +46,20 @@ def supervisorctl(cmd):
 
 
 @task
+def compilemessages():
+    """Compile the i18n messages."""
+    with cd(join(env.proj_root, env.proj_name)):
+        manage_py('compilemessages')
+
+
+@task
 def upgrade():
     update_proj()
     update_requirements()
     syncdb()
     migrate()
     build_static_files()
+    compilemessages()
     restart_worker()
 
 
@@ -60,6 +68,7 @@ def update():
     update_proj()
     syncdb()
     migrate()
+    compilemessages()
     restart_worker()
 
 

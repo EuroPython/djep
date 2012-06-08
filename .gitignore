@@ -3,4 +3,5 @@ pyconde/deployed_static_media/
 pyconde/settings.py
 pyconde/*.db
 setup.py.bak
+*.mo
 *.*~
