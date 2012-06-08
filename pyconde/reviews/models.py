@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models import signals
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import models as auth_models
+from django.core.urlresolvers import reverse
 
 from pyconde.proposals import models as proposal_models
 from pyconde.conference import models as conference_models
@@ -181,9 +182,12 @@ class Comment(models.Model):
         self.deleted_date = datetime.datetime.now()
         self.deleted_reason = reason
 
+    def get_absolute_url(self):
+        return reverse('reviews-proposal-details', kwargs={'pk': self.proposal.pk}) + '#comment-' + self.pk
+
     class Meta(object):
-        verbose_name = u'Kommentar'
-        verbose_name_plural = u'Kommentare'
+        verbose_name = _('comment')
+        verbose_name_plural = _('comments')
 
 
 def create_proposal_metadata(sender, instance, **kwargs):

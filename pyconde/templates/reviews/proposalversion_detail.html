@@ -1,5 +1,6 @@
 {% extends "reviews/proposal_base.html" %}
 {% load markup %}
+{% block title %}Vorschlag "{{ proposal.title }}" @ {{ version.pub_date }}{% endblock %}
 {% block content %}
 <article>
     <h1>{{ version.title }}</h1>

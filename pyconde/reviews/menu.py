@@ -1,3 +1,4 @@
+# -*- encoding: UTF-8 -*-
 from cms.menu_bases import CMSAttachMenu
 from menus.menu_pool import menu_pool
 from menus.base import NavigationNode
@@ -15,9 +16,9 @@ class ReviewsMenu(CMSAttachMenu):
         nodes = []
         if request.user.is_authenticated():
             if utils.can_review_proposal(request.user, None):
-                nodes.append(NavigationNode("Einreichungen", reverse('reviews-available-proposals'), 'reviews-available'))
-                nodes.append(NavigationNode("Meine Bewertungen", reverse('reviews-my-reviews'), 'reviews-mine'))
-            nodes.append(NavigationNode("Meine Einreichungen", reverse('reviews-my-proposals'), 'reviews-my-proposals'))
+                nodes.append(NavigationNode(u"Reviewbare Vorschläge", reverse('reviews-available-proposals'), 'reviews-available'))
+                nodes.append(NavigationNode(u"Meine Reviews", reverse('reviews-my-reviews'), 'reviews-mine'))
+            nodes.append(NavigationNode(u"Meine Vorschläge", reverse('reviews-my-proposals'), 'reviews-my-proposals'))
         return nodes
 
 menu_pool.register_menu(ReviewsMenu)

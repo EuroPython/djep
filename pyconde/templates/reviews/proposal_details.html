@@ -1,11 +1,13 @@
 {% extends "reviews/proposal_base.html" %}
 {% load markup crispy_forms_tags %}
+{% block title %}Review-Info: {{ proposal.title }}{% endblock %}
 {% block content %}
-    <h1>Proposal-Details: {{ proposal.title }}</h1>
+    <h1>Review-Info: {{ proposal.title }}</h1>
     {% if proposal_version %}
         <a href="{{ proposal.get_absolute_url }}">Zum Original</a>
     {% endif %}
     <h2>Aktuelle Version</h2>
+    <article class="proposal">
     <div class="description">
         {% if proposal_version %}
             {{ proposal_version.description|markdown:"safe" }}
@@ -21,6 +23,7 @@
             {{ proposal.abstract|markdown:"safe" }}
         {% endif %}
     </div>
+    </article>
     {% if proposal.can_be_updated %}
         <a href="{% url reviews-update-proposal pk=proposal.pk %}">Ändern</a>
     {% else %}
@@ -40,7 +43,7 @@
                         <dd><div class="content">{{ item.item.content|markdown:"safe" }}</div><cite>-- {{ item.item.author }}
                             (basierend auf {% if item.item.proposal_version %} <a href="{% url reviews-version-details proposal_pk=proposal.pk pk=item.item.proposal_version.pk %}">Version vom {{ item.item.proposal_version.pub_date }}</a>{% else %} dem Original-Vorschlag{% endif %})</cite>
                             {% if item.item.author == user or user.is_staff or user.is_admin %}<p class="actions">
-                                <a href="{% url reviews-delete-comment proposal_pk=proposal.pk pk=item.item.pk %}">Löschen</a>
+                                <a href="{% url reviews-delete-comment proposal_pk=proposal.pk pk=item.item.pk %}?next={{ request.get_full_path }}">Löschen</a>
                             </p>{% endif %}
                         </dd>
                         {% endif %}

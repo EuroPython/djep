@@ -1,8 +1,9 @@
 {% extends "reviews/base.html" %}
+{% block title %}Meine Vorschläge in Review{% endblock %}
 {% block content %}
-    <h1>{% block content_title %}Meine Session-Vorschläge in Review{% endblock %}</h1>
+    <h1>{% block content_title %}Meine Vorschläge in Review{% endblock %}</h1>
     {% block description %}
-    <p>Hier sehen Sie alle Ihre Session-Vorschläge im Review-Kontekt.</p>
+    <p>Hier sehen Sie alle Ihre Vorschläge im Review-Kontext.</p>
     {% endblock %}
     <table>
         <thead>
@@ -17,7 +18,7 @@
             <tr>
                 <td><a href="{% url reviews-proposal-details pk=proposal.proposal.pk %}">{{ proposal.title }}</a></td>
                 <td>{{ proposal.num_comments }}</td>
-                <td>{{ proposal.latest_comment_date }}</td>
+                <td>{% if proposal.latest_comment_date %}{{ proposal.latest_comment_date }}{% endif %}</td>
             </tr>
             {% endfor %}
         </tbody>

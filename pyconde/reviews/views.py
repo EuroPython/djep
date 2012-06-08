@@ -13,9 +13,14 @@ from django.contrib.auth.decorators import login_required
 from django.utils.importlib import import_module
 
 from . import models, forms, utils, decorators, settings
+from pyconde.proposals.views import NextRedirectMixin
 
 
 class PrepareViewMixin(object):
+    """
+    A simple view mixin that combines the preparation tasks
+    normally executed by dispatch into a neat helper method.
+    """
     def prepare(self, request, *args, **kwargs):
         self.request = request
         self.args = args
@@ -192,7 +197,7 @@ class UpdateReviewView(generic_views.UpdateView):
         return super(UpdateReviewView, self).dispatch(request, *args, **kwargs)
 
 
-class DeleteReviewView(PrepareViewMixin, generic_views.DeleteView):
+class DeleteReviewView(NextRedirectMixin, PrepareViewMixin, generic_views.DeleteView):
     model = models.Review
 
     def get_object(self):
@@ -201,7 +206,20 @@ class DeleteReviewView(PrepareViewMixin, generic_views.DeleteView):
         return self.model.objects.get(user=self.request.user, proposal__pk=self.kwargs['pk'])
 
     def get_success_url(self):
+        next = self.get_next_redirect()
+        if next:
+            return next
         return reverse('reviews-proposal-details', kwargs={'pk': self.kwargs['pk']})
+
+    def get_context_data(self, *args, **kwargs):
+        data = super(DeleteReviewView, self).get_context_data(*args, **kwargs)
+        data['next'] = self.get_success_url()
+        return data
+
+    def delete(self, request, *args, **kwargs):
+        resp = super(DeleteReviewView, self).delete(request, *args, **kwargs)
+        messages.success(request, u"Review wurde gelöscht")
+        return resp
 
     @method_decorator(decorators.reviews_active_required)
     def dispatch(self, request, *args, **kwargs):
@@ -251,10 +269,13 @@ class SubmitCommentView(TemplateResponseMixin, generic_views.View):
         return super(SubmitCommentView, self).dispatch(request, *args, **kwargs)
 
 
-class DeleteCommentView(PrepareViewMixin, generic_views.DeleteView):
+class DeleteCommentView(NextRedirectMixin, PrepareViewMixin, generic_views.DeleteView):
     model = models.Comment
 
     def get_success_url(self):
+        next = self.get_next_redirect()
+        if next:
+            return next
         return reverse('reviews-proposal-details', kwargs={'pk': self.kwargs['proposal_pk']})
 
     def get_object(self, **kwargs):
@@ -266,6 +287,11 @@ class DeleteCommentView(PrepareViewMixin, generic_views.DeleteView):
         self.object.mark_as_deleted(self.request.user)
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
+
+    def get_context_data(self, *args, **kwargs):
+        data = super(DeleteCommentView, self).get_context_data(*args, **kwargs)
+        data['next'] = self.get_success_url()
+        return data
 
     @method_decorator(decorators.reviews_active_required)
     def dispatch(self, request, *args, **kwargs):
@@ -447,16 +473,6 @@ class ReviewOverviewView(object):
     This view should provide the organisers with an overview of the review
     progress and should indicate how many proposals have been reviewed so far
     and their current scores.
-
-    Access: staff
-    """
-    pass
-
-
-class OpenProposalForReviewsView(object):
-    """
-    The moment a proposal is opened for reviews, a ProposalVersion is created
-    in order to act as a snapshot on which the reviewers can rely on.
 
     Access: staff
     """

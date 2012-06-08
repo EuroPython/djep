@@ -1,6 +1,7 @@
 {% extends "reviews/proposal_base.html" %}
 {% load crispy_forms_tags %}
+{% block title %}Vorschlag "{{ proposal.title }}" editieren{% endblock %}
 {% block content %}
-    <h1>Session-Vorschlag modifizieren</h1>
+    <h1>Vorschlag "{{ proposal.title }}" editieren</h1>
     {% crispy form %}
 {% endblock content %}
