@@ -127,6 +127,7 @@ TEMPLATE_CONTEXT_PROCESSORS += (
     'django.core.context_processors.request',
     'sekizai.context_processors.sekizai',
     'pyconde.conference.context_processors.current_conference',
+    'pyconde.context_processors.less_settings',
 )
 
 TEMPLATE_DIRS = (
@@ -203,3 +204,5 @@ PROPOSALS_TYPED_SUBMISSION_FORMS = {
     'tutorial': 'pyconde.proposals.forms.TutorialSubmissionForm',
     'talk': 'pyconde.proposals.forms.TalkSubmissionForm',
 }
+
+LESS_USE_DYNAMIC_IN_DEBUG = True

@@ -92,6 +92,8 @@ def update_proj():
 @task
 def build_static_files():
     with path('/srv/pyconde/local/bin', behavior="prepend"):
+        with cd(env.proj_root):
+            srv_run('lessc -x pyconde/static_media/css/style.{less,css}')
         manage_py('collectstatic --noinput -v1 -i bootstrap -i \'*.less\'')
         manage_py('compress')
 
@@ -111,3 +113,11 @@ def djshell():
 @task
 def loaddata(fixture):
     manage_py('loaddata {0}'.format(fixture))
+
+
+@task
+def build_statics():
+    with lcd('pyconde'):
+        local('lessc static_media/css/style.{less,css}')
+        local('python manage.py collectstatic --noinput -v1 -i bootstrap -i \'.*.less\'')
+        local('python manage.py compress -v0 --force')

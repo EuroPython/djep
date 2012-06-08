@@ -24,15 +24,12 @@
 
     <link rel="shortcut icon" href="{{ STATIC_URL }}images/favicon.ico">
     
-    {% if debug %}
+    {% if debug and use_dynamic_less_in_debug %}
         <link rel="stylesheet/less" href="{{ STATIC_URL }}css/style.less" />
         <script type="text/javascript" src="{{ STATIC_URL }}js/less-1.3.0.min.js"></script>
+    {% else %}
+        <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" />
     {% endif %}
-    {% compress css %}
-        {% if not debug %}
-        <link rel="stylesheet" type="text/less" href="{{ STATIC_URL }}css/style.less" />
-        {% endif %}
-    {% endcompress %}
 
     {% render_block "css" %}
 
