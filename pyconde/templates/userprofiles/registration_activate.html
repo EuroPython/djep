@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load thumbnail %}
+
+{% block title %}{% trans "Registration" %}{% endblock %}
+
+{% block bodycls %}registration-activate{% endblock %}
+
+{% block content %}
+    <h1>{% trans "Registration" %}</h1>
+
+    {% if account %}
+        {% if account.get_profile.avatar %}
+        <img src="{% thumbnail account.get_profile.avatar 100x100 %}" alt="avatar">
+        {% endif %}
+        <p>{% trans "Hi" %} {{ account.username }}!</p>
+        <p>
+            {% blocktrans %}We activated your account. You are now able to log in. Have fun!{% endblocktrans %}
+        </p>
+    {% else %}
+        <p>
+            {% blocktrans %}The submitted activation code is invalid. Activation is not possible.{% endblocktrans %}
+        </p>
+    {% endif %}
+{% endblock %}
