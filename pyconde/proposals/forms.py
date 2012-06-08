@@ -46,37 +46,8 @@ class ProposalSubmissionForm(forms.ModelForm):
 
     def __init__(self, *args, **kwargs):
         super(ProposalSubmissionForm, self).__init__(*args, **kwargs)
-        if not settings.SUPPORT_ADDITIONAL_SPEAKERS:
-            del self.fields['additional_speakers']
-        else:
-            # Only list already selected speakers or an empty queryset
-            if 'instance' in kwargs and kwargs['instance'] is not None:
-                additional_speakers = kwargs['instance'].additional_speakers.all()
-            else:
-                additional_speakers = speaker_models.Speaker.objects.none()
-            self.fields['additional_speakers'] = HiddenSpeakersMultipleChoiceField(label=_("additional speakers"),
-                queryset=additional_speakers, required=False)
         tracks = conference_models.Track.current_objects.all()
-        if 'kind' in self.fields:
-            self.fields['kind'] = forms.ModelChoiceField(label=_("kind"),
-                queryset=conference_models.SessionKind.current_objects.filter_open_kinds())
-        if 'audience_level' in self.fields:
-            self.fields['audience_level'] = forms.ModelChoiceField(label=_("audience level"),
-                queryset=conference_models.AudienceLevel.current_objects.all())
-        if 'duration' in self.fields:
-            self.fields['duration'] = forms.ModelChoiceField(label=_("duration"),
-                queryset=conference_models.SessionDuration.current_objects.all())
-        if 'track' in self.fields:
-            self.fields['track'] = forms.ModelChoiceField(label=_("Track"), required=True, initial=None,
-                queryset=tracks)
-        if 'description' in self.fields:
-            self.fields['description'].help_text = """Bis ca. 50 Worte. Erscheint im gedruckten Programm. <br />Dieses Feld unterstützt <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a>."""
-            self.fields['description'].validators = [validators.MaxLengthValidator(2000)]
-        if 'abstract' in self.fields:
-            self.fields['abstract'].help_text = """Darstellung des Vortragsinhalts und ist die Grundlage für das Review.<br />Dieses Feld unterstützt <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a>."""
-            self.fields['abstract'].validators = [validators.MaxLengthValidator(3000)]
-        if 'additional_speakers' in self.fields:
-            self.fields['additional_speakers'].help_text = """Aus Sicherheitsgründen müssen Sie in diesem Feld entweder den Vor- oder Nachnamen eines Teilnehmers eintragen, um die Autovervollständigung zu starten."""
+        self.customize_fields(form=None, tracks=tracks, instance=kwargs.get('instance', None))
 
         instance = kwargs.get('instance')
         if instance:
@@ -95,6 +66,42 @@ class ProposalSubmissionForm(forms.ModelForm):
             Fieldset(_('Details'), ExtendedHelpField('track', render_to_string('proposals/tracks-help.html', {'tracks': tracks})), 'tags', 'duration', 'audience_level', Field('additional_speakers', css_class='multiselect-user')),
             ButtonHolder(Submit('submit', button_text, css_class="btn-primary"))
             )
+
+    def customize_fields(self, instance=None, form=None, tracks=None):
+        if form is None:
+            form = self
+        if tracks is None:
+            tracks = conference_models.Track.current_objects.all()
+        if not settings.SUPPORT_ADDITIONAL_SPEAKERS:
+            del form.fields['additional_speakers']
+        else:
+            # Only list already selected speakers or an empty queryset
+            if instance is not None:
+                additional_speakers = instance.additional_speakers.all()
+            else:
+                additional_speakers = speaker_models.Speaker.objects.none()
+            form.fields['additional_speakers'] = HiddenSpeakersMultipleChoiceField(label=_("additional speakers"),
+                queryset=additional_speakers, required=False)
+        if 'kind' in self.fields:
+            form.fields['kind'] = forms.ModelChoiceField(label=_("kind"),
+                queryset=conference_models.SessionKind.current_objects.filter_open_kinds())
+        if 'audience_level' in self.fields:
+            form.fields['audience_level'] = forms.ModelChoiceField(label=_("audience level"),
+                queryset=conference_models.AudienceLevel.current_objects.all())
+        if 'duration' in self.fields:
+            form.fields['duration'] = forms.ModelChoiceField(label=_("duration"),
+                queryset=conference_models.SessionDuration.current_objects.all())
+        if 'track' in self.fields:
+            form.fields['track'] = forms.ModelChoiceField(label=_("Track"), required=True, initial=None,
+                queryset=tracks)
+        if 'description' in form.fields:
+            form.fields['description'].help_text = """Bis ca. 50 Worte. Erscheint im gedruckten Programm. <br />Dieses Feld unterstützt <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a>."""
+            form.fields['description'].validators = [validators.MaxLengthValidator(2000)]
+        if 'abstract' in self.fields:
+            form.fields['abstract'].help_text = """Darstellung des Vortragsinhalts und ist die Grundlage für das Review.<br />Dieses Feld unterstützt <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a>."""
+            form.fields['abstract'].validators = [validators.MaxLengthValidator(3000)]
+        if 'additional_speakers' in form.fields:
+            form.fields['additional_speakers'].help_text = """Aus Sicherheitsgründen müssen Sie in diesem Feld entweder den Vor- oder Nachnamen eines Teilnehmers eintragen, um die Autovervollständigung zu starten."""
 
     def clean(self):
         cleaned_data = super(ProposalSubmissionForm, self).clean()
@@ -183,20 +190,6 @@ class TutorialSubmissionForm(TypedSubmissionForm):
 
     def __init__(self, *args, **kwargs):
         super(TutorialSubmissionForm, self).__init__(*args, **kwargs)
-        self.fields['description'].label = "Kurzbeschreibung"
-        self.fields['description'].validators.append(validators.MaxWordsValidator(300))
-        self.fields['description'].help_text = """Dieses Feld unterstützt <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a>.<br />< 300 Worte"""
-        self.fields['abstract'].label = "Gliederung"
-        self.fields['abstract'].help_text = """Dieses Feld unterstützt <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a>.<br /><br />
-                                              Bitte stichpunktartige Angaben zum Aufbau des Tutorials mit Zeitangaben
-                                              zu den einzelnen Punkten, wobei die Summe 180 Minuten ergeben muss.
-                                              Bitte die benötigen Software-Pakete aufführen, so dass die Teilnehmer
-                                              bereits vor dem Tutorial ihre Laptops einrichten können. Bitte Anforderungen
-                                              an Versionen angeben und deren Zusammenspiel überprüfen.<br /><br /> Grundsätzlich
-                                              sollten die Tutorial-Inhalte auf allen drei gängigen
-                                              Betriebssystemen (Linux, Mac OS X und Windows) funktionieren.
-                                              Wenn nicht, bitte explizit darauf hinweisen."""
-
         instance = kwargs.get('instance')
         if instance:
             button_text = u"Änderungen speichern"
@@ -211,6 +204,24 @@ class TutorialSubmissionForm(TypedSubmissionForm):
             ButtonHolder(Submit('submit', button_text, css_class="btn-primary")),
             )
 
+    def customize_fields(self, instance=None, form=None, tracks=None):
+        super(TutorialSubmissionForm, self).customize_fields(instance, form, tracks)
+        if form is None:
+            form = self
+        form.fields['description'].label = "Kurzbeschreibung"
+        form.fields['description'].validators.append(validators.MaxWordsValidator(300))
+        form.fields['description'].help_text = """Dieses Feld unterstützt <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a>.<br />< 300 Worte"""
+        form.fields['abstract'].label = "Gliederung"
+        form.fields['abstract'].help_text = """Dieses Feld unterstützt <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a>.<br /><br />
+                                              Bitte stichpunktartige Angaben zum Aufbau des Tutorials mit Zeitangaben
+                                              zu den einzelnen Punkten, wobei die Summe 180 Minuten ergeben muss.
+                                              Bitte die benötigen Software-Pakete aufführen, so dass die Teilnehmer
+                                              bereits vor dem Tutorial ihre Laptops einrichten können. Bitte Anforderungen
+                                              an Versionen angeben und deren Zusammenspiel überprüfen.<br /><br /> Grundsätzlich
+                                              sollten die Tutorial-Inhalte auf allen drei gängigen
+                                              Betriebssystemen (Linux, Mac OS X und Windows) funktionieren.
+                                              Wenn nicht, bitte explizit darauf hinweisen."""
+
     def customize_save(self, instance):
         instance.duration = conference_models.SessionDuration.current_objects.get(slug='tutorial')
 
@@ -218,6 +229,11 @@ class TutorialSubmissionForm(TypedSubmissionForm):
 class TalkSubmissionForm(TypedSubmissionForm):
     def __init__(self, *args, **kwargs):
         super(TalkSubmissionForm, self).__init__(*args, **kwargs)
-        self.fields['duration'] = forms.ModelChoiceField(label=_("duration"),
-                queryset=conference_models.SessionDuration.current_objects.exclude(slug='tutorial').all())
         self.helper.layout.fields.insert(-1, Fieldset('Videoaufzeichnung', HTML(u"""<p class="control-group">Optional können Vorträge auch aufgezeichnet werden. Es liegt während der Konferenz ein Papierformular auf, durch das Sie einer solchen Aufzeichnung zustimmen können. Mehr Informationen dazu finden Sie <a href="/vortragende/">hier</a>.</p>""")))
+
+    def customize_fields(self, instance=None, form=None, tracks=None):
+        super(TalkSubmissionForm, self).customize_fields(instance, form, tracks)
+        if form is None:
+            form = self
+        form.fields['duration'] = forms.ModelChoiceField(label=_("duration"),
+                queryset=conference_models.SessionDuration.current_objects.exclude(slug='tutorial').all())

@@ -6,16 +6,18 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, ButtonHolder, Submit, HTML
 
 from . import models
+from pyconde.proposals import forms as proposal_forms
 
 
 class UpdateProposalForm(forms.Form):
-    title = forms.CharField(max_length=255)
-    description = forms.CharField(widget=forms.Textarea)
-    abstract = forms.CharField(widget=forms.Textarea)
+    title = forms.CharField(label="Titel", max_length=255)
+    description = forms.CharField(label="Beschreibung", widget=forms.Textarea)
+    abstract = forms.CharField(label="Abstract", widget=forms.Textarea)
 
     def __init__(self, *args, **kwargs):
         super(UpdateProposalForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
             Field('title', autofocus='autofocus'),
             Field('description'),
@@ -31,6 +33,18 @@ class UpdateProposalForm(forms.Form):
             'abstract': proposal.abstract
             })
         return form
+
+
+class UpdateTalkProposalForm(UpdateProposalForm):
+    def __init__(self, *args, **kwargs):
+        super(UpdateTalkProposalForm, self).__init__(*args, **kwargs)
+        proposal_forms.TalkSubmissionForm().customize_fields(form=self)
+
+
+class UpdateTutorialProposalForm(UpdateProposalForm):
+    def __init__(self, *args, **kwargs):
+        super(UpdateTutorialProposalForm, self).__init__(*args, **kwargs)
+        proposal_forms.TutorialSubmissionForm().customize_fields(form=self)
 
 
 class CommentForm(forms.ModelForm):
@@ -72,4 +86,3 @@ class UpdateReviewForm(ReviewForm):
                 Submit('save', "Änderungen speichern", css_class='btn-primary')
                 )
             )
-    pass

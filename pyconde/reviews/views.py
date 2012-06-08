@@ -10,6 +10,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.utils.importlib import import_module
 
 from . import models, forms, utils, decorators, settings
 
@@ -366,9 +367,9 @@ class UpdateProposalView(TemplateResponseMixin, generic_views.View):
     def get(self, request, *args, **kwargs):
         if self.form is None:
             if self.proposal_version:
-                self.form = forms.UpdateProposalForm.init_from_proposal(self.proposal_version)
+                self.form = self.get_form_class().init_from_proposal(self.proposal_version)
             else:
-                self.form = forms.UpdateProposalForm.init_from_proposal(self.object)
+                self.form = self.get_form_class().init_from_proposal(self.object)
         return self.render_to_response({
             'form': self.form,
             'proposal': self.object,
@@ -376,7 +377,7 @@ class UpdateProposalView(TemplateResponseMixin, generic_views.View):
             })
 
     def post(self, request, *args, **kwargs):
-        self.form = forms.UpdateProposalForm(data=request.POST)
+        self.form = self.get_form_class()(data=request.POST)
         if not self.form.is_valid():
             return self.get(request, *args, **kwargs)
         new_version = models.ProposalVersion(
@@ -402,6 +403,23 @@ class UpdateProposalView(TemplateResponseMixin, generic_views.View):
         if not utils.is_proposal_author(request.user, self.object):
             return HttpResponseForbidden()
         return super(UpdateProposalView, self).dispatch(request, *args, **kwargs)
+
+    def get_form_class(self):
+        type_slug = self.object.kind.slug
+        formcls_path = settings.PROPOSAL_UPDATE_FORMS.get(type_slug)
+        if formcls_path:
+            mod_name, cls_name = formcls_path.rsplit('.', 1)
+            mod = import_module(mod_name)
+            form_cls = getattr(mod, cls_name)
+            if form_cls:
+                return form_cls
+        return forms.UpdateProposalForm
+
+    def get_template_names(self):
+        return [
+            'reviews/update_{0}_proposal.html'.format(self.object.kind.slug),
+            self.template_name
+        ]
 
 
 class ReviewOverviewView(object):
