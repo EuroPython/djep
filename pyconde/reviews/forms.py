@@ -1,36 +1,72 @@
 # -*- coding: UTF-8 -*-
 from django import forms
 from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext_lazy as _
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, ButtonHolder, Submit, HTML
+from crispy_forms.layout import Layout, Field, ButtonHolder, Submit, HTML, Fieldset
+
+from taggit.utils import edit_string_for_tags
 
 from . import models
 from pyconde.proposals import forms as proposal_forms
+from pyconde.conference import models as conference_models
 
 
-class UpdateProposalForm(forms.Form):
-    title = forms.CharField(label="Titel", max_length=255)
-    description = forms.CharField(label="Beschreibung", widget=forms.Textarea)
-    abstract = forms.CharField(label="Abstract", widget=forms.Textarea)
+class UpdateProposalForm(forms.ModelForm):
+
+    class Meta(object):
+        model = models.ProposalVersion
+        fields = [
+            'title', 'description', 'abstract', 'duration', 'track', 'audience_level', 'tags'
+        ]
 
     def __init__(self, *args, **kwargs):
         super(UpdateProposalForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
-            Field('title', autofocus='autofocus'),
-            Field('description'),
-            Field('abstract'),
+            Fieldset(_('General'),
+                Field('title', autofocus='autofocus'),
+                Field('description'),
+                Field('abstract'),
+                ),
+            Fieldset(_('Details'),
+                Field('duration'),
+                Field('track'),
+                Field('audience_level'),
+                Field('tags'),
+                ),
             ButtonHolder(Submit('save', "Speichern", css_class="btn-primary"))
             )
 
+    def save(self, commit=True):
+        instance = super(UpdateProposalForm, self).save(False)
+        self.customize_save(instance)
+        if commit:
+            instance.save()
+        return instance
+
+    def customize_save(self, instance):
+        """
+        This is executed right after the initial save step to enforce
+        some values no matter what was previously assigned to this form.
+        """
+        pass
+
     @classmethod
     def init_from_proposal(cls, proposal):
+        # Right now this code smells a bit esp. with regards to tags
         form = cls(initial={
             'title': proposal.title,
             'description': proposal.description,
-            'abstract': proposal.abstract
+            'abstract': proposal.abstract,
+            'tags': edit_string_for_tags(proposal.tags.all()),
+            'speaker': proposal.speaker,
+            'additional_speakers': proposal.additional_speakers.all(),
+            'track': proposal.track,
+            'duration': proposal.duration,
+            'audience_level': proposal.audience_level,
             })
         return form
 
@@ -42,9 +78,28 @@ class UpdateTalkProposalForm(UpdateProposalForm):
 
 
 class UpdateTutorialProposalForm(UpdateProposalForm):
+    class Meta(object):
+        model = models.ProposalVersion
+        fields = ['title', 'description', 'abstract', 'audience_level', 'tags']
+
     def __init__(self, *args, **kwargs):
         super(UpdateTutorialProposalForm, self).__init__(*args, **kwargs)
         proposal_forms.TutorialSubmissionForm().customize_fields(form=self)
+        self.helper.layout = Layout(
+            Fieldset(_('General'),
+                Field('title', autofocus='autofocus'),
+                Field('description'),
+                Field('abstract'),
+                ),
+            Fieldset(_('Details'),
+                Field('audience_level'),
+                Field('tags'),
+                ),
+            ButtonHolder(Submit('save', "Speichern", css_class="btn-primary"))
+            )
+
+    def customize_save(self, instance):
+        instance.duration = conference_models.SessionDuration.current_objects.get(slug='tutorial')
 
 
 class CommentForm(forms.ModelForm):

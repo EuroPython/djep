@@ -10,7 +10,7 @@ from conference.models import CurrentConferenceManager
 from pyconde.tagging import TaggableManager
 
 
-class Proposal(models.Model):
+class AbstractProposal(models.Model):
     """
     A proposal represents a possible future session as it will be used before
     and during the review process. It has one mandatory speaker and possible
@@ -22,10 +22,10 @@ class Proposal(models.Model):
     title = models.CharField(_("title"), max_length=100)
     description = models.TextField(_("description"), max_length=400)
     abstract = models.TextField(_("abstract"))
-    speaker = models.ForeignKey("speakers.Speaker", related_name="proposals",
+    speaker = models.ForeignKey("speakers.Speaker", related_name="%(class)ss",
         verbose_name=_("speaker"))
     additional_speakers = models.ManyToManyField("speakers.Speaker",
-        blank=True, null=True, related_name="proposal_participations",
+        blank=True, null=True, related_name="%(class)s_participations",
         verbose_name=_("additional speakers"))
     submission_date = models.DateTimeField(_("submission date"), editable=False,
         default=datetime.datetime.utcnow)
@@ -44,11 +44,10 @@ class Proposal(models.Model):
     objects = CurrentConferenceManager()
 
     class Meta(object):
-        verbose_name = _("proposal")
-        verbose_name_plural = _("proposals")
+        abstract = True
 
     def clean(self):
-        super(Proposal, self).clean()
+        super(AbstractProposal, self).clean()
         try:
             if self.conference is not None and self.duration.conference != self.conference:
                 raise forms.ValidationError(_("The duration has to be associated with the same conference as the proposal"))
@@ -59,4 +58,13 @@ class Proposal(models.Model):
         return reverse("view_proposal", kwargs=dict(pk=self.pk))
 
     def __unicode__(self):
-        return "{0} ({1})".format(self.title, self.conference)
+        try:
+            return "{0} ({1})".format(self.title, self.conference)
+        except:
+            return self.title
+
+
+class Proposal(AbstractProposal):
+    class Meta(object):
+        verbose_name = _("proposal")
+        verbose_name_plural = _("proposals")

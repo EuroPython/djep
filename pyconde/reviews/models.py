@@ -5,7 +5,7 @@ from django.db.models import signals
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import models as auth_models
 
-from pyconde.proposals import models as proposals_models
+from pyconde.proposals import models as proposal_models
 from pyconde.conference import models as conference_models
 
 
@@ -26,7 +26,7 @@ class ProposalsManager(conference_models.CurrentConferenceManager):
     pass
 
 
-class Proposal(proposals_models.Proposal):
+class Proposal(proposal_models.Proposal):
     """
     Proxies the original proposal object in order to set different
     defaults for things like the proposal listing.
@@ -70,23 +70,24 @@ class ProposalVersionManager(models.Manager):
         return version[0]
 
 
-class ProposalVersion(models.Model):
+class ProposalVersion(proposal_models.AbstractProposal):
     """
     This should act as snapshot of a proposal. This way authors can make
     updates to a proposal and reviewers can check if their review still
     applies.
     """
-    original = models.ForeignKey(Proposal, related_name='versions')
-    title = models.CharField(_("title"), max_length=100)
-    description = models.TextField(_("description"), max_length=400)
-    abstract = models.TextField(_("abstract"))
+    original = models.ForeignKey(proposal_models.Proposal, related_name='versions')
     creator = models.ForeignKey(auth_models.User)
-    pub_date = models.DateTimeField(default=datetime.datetime.now)
+    pub_date = models.DateTimeField()
 
     objects = ProposalVersionManager()
 
     def __unicode__(self):
         return "{0} ({1})".format(self.original.title, self.pub_date)
+
+    class Meta(object):
+        verbose_name = _("proposal version")
+        verbose_name_plural = _("proposal versions")
 
 
 class Review(models.Model):
@@ -145,7 +146,7 @@ def create_proposal_metadata(sender, instance, **kwargs):
     Checks if we have a metadata object and create it if it is missing.
     """
     try:
-        instance.metadata
+        ProposalMetaData.objects.get(proposal=instance)
     except ProposalMetaData.DoesNotExist:
         md = ProposalMetaData(proposal=instance)
         md.save()
@@ -187,6 +188,6 @@ def update_proposal_metadata(sender, instance, **kwargs):
     proposal = instance.proposal
     _update_proposal_metadata(proposal)
 
-signals.post_save.connect(create_proposal_metadata, sender=proposals_models.Proposal, dispatch_uid='reviews.proposal_metadata_creation')
+signals.post_save.connect(create_proposal_metadata, sender=proposal_models.Proposal, dispatch_uid='reviews.proposal_metadata_creation')
 signals.post_save.connect(update_proposal_metadata, sender=Comment, dispatch_uid='reviews.update_proposal_comments_count')
 signals.post_save.connect(update_proposal_metadata, sender=Review, dispatch_uid='reviews.update_proposal_reviews_count')

@@ -380,15 +380,18 @@ class UpdateProposalView(TemplateResponseMixin, generic_views.View):
         self.form = self.get_form_class()(data=request.POST)
         if not self.form.is_valid():
             return self.get(request, *args, **kwargs)
-        new_version = models.ProposalVersion(
-            title=self.form.cleaned_data['title'],
-            description=self.form.cleaned_data['description'],
-            abstract=self.form.cleaned_data['abstract'],
-            pub_date=datetime.datetime.now(),
-            original=self.object,
-            creator=request.user
-            )
+        new_version = self.form.save(commit=False)
+        # Set the fields we don't want people to be able to modify right now
+        new_version.original = self.object
+        new_version.creator = request.user
+        new_version.pub_date = datetime.datetime.now()
+        new_version.conference = self.object.conference
+        new_version.kind = self.object.kind
+        new_version.speaker = self.object.speaker
+        new_version.submission_date = self.object.submission_date
         new_version.save()
+        new_version.additional_speakers = self.object.additional_speakers.all()
+        self.form.save_m2m()
         messages.success(request, _("Proposal successfully update"))
         if settings.ENABLE_PROPOSAL_UPDATE_NOTIFICATIONS:
             utils.send_proposal_update_notification(new_version)
