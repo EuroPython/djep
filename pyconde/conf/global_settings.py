@@ -8,6 +8,7 @@ PROJECT_NAME = os.path.split(PROJECT_ROOT)[-1]
 
 DEBUG = TEMPLATE_DEBUG = False
 INTERNAL_IPS = ('127.0.0.1',)
+DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
 
 ADMINS = (
     ('Markus Zapke-Gruendemann', 'markus@de.pycon.org'),
@@ -128,6 +129,7 @@ TEMPLATE_CONTEXT_PROCESSORS += (
     'sekizai.context_processors.sekizai',
     'pyconde.conference.context_processors.current_conference',
     'pyconde.reviews.context_processors.review_roles',
+    'pyconde.context_processors.less_settings',
 )
 
 TEMPLATE_DIRS = (
@@ -204,3 +206,5 @@ PROPOSALS_TYPED_SUBMISSION_FORMS = {
     'tutorial': 'pyconde.proposals.forms.TutorialSubmissionForm',
     'talk': 'pyconde.proposals.forms.TalkSubmissionForm',
 }
+
+LESS_USE_DYNAMIC_IN_DEBUG = True

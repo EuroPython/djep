@@ -5,7 +5,7 @@ SECRET_KEY = ''
 DEBUG = TEMPLATE_DEBUG = THUMBNAIL_DEBUG = True
 
 EMAIL_HOST = 'localhost'
-EMAIL_PORT = 2525
+EMAIL_PORT = 1025
 
 DATABASES = {
     'default': {
