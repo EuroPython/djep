@@ -65,6 +65,7 @@ class ListProposalsView(generic_views.TemplateView):
         order = self.order_mapping.get(order, fallback)
         return '{0}{1}'.format(dir_, order)
 
+    @method_decorator(decorators.reviews_active_required)
     @method_decorator(decorators.reviewer_required)
     def dispatch(self, request, *args, **kwargs):
         return super(ListProposalsView, self).dispatch(request, *args, **kwargs)
@@ -84,6 +85,7 @@ class ListMyProposalsView(ListProposalsView):
     default_order = '-activity'
 
     @method_decorator(login_required)
+    @method_decorator(decorators.reviews_active_required)
     def dispatch(self, request, *args, **kwargs):
         return super(ListProposalsView, self).dispatch(request, *args, **kwargs)
 
@@ -143,6 +145,7 @@ class SubmitReviewView(generic_views.TemplateView):
         }
 
     @method_decorator(decorators.reviewer_required)
+    @method_decorator(decorators.reviews_active_required)
     def dispatch(self, request, *args, **kwargs):
         self.proposal = get_object_or_404(models.Proposal, pk=kwargs['pk'])
         if not self.proposal.can_be_reviewed():
@@ -178,6 +181,7 @@ class UpdateReviewView(generic_views.UpdateView):
         return reverse('reviews-proposal-details', kwargs={'pk': self.kwargs['pk']})
 
     @method_decorator(decorators.reviewer_required)
+    @method_decorator(decorators.reviews_active_required)
     def dispatch(self, request, *args, **kwargs):
         self.request = request
         self.kwargs = kwargs
@@ -199,6 +203,7 @@ class DeleteReviewView(PrepareViewMixin, generic_views.DeleteView):
     def get_success_url(self):
         return reverse('reviews-proposal-details', kwargs={'pk': self.kwargs['pk']})
 
+    @method_decorator(decorators.reviews_active_required)
     def dispatch(self, request, *args, **kwargs):
         self.prepare(request, *args, **kwargs)
         if not self.object.proposal.can_be_reviewed():
@@ -237,6 +242,7 @@ class SubmitCommentView(TemplateResponseMixin, generic_views.View):
             return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.proposal.pk}))
         return self.get(request, *args, **kwargs)
 
+    @method_decorator(decorators.reviews_active_required)
     def dispatch(self, request, *args, **kwargs):
         self.proposal = get_object_or_404(models.Proposal, pk=kwargs['pk'])
         if not utils.can_participate_in_review(request.user, self.proposal):
@@ -261,6 +267,7 @@ class DeleteCommentView(PrepareViewMixin, generic_views.DeleteView):
         self.object.save()
         return HttpResponseRedirect(self.get_success_url())
 
+    @method_decorator(decorators.reviews_active_required)
     def dispatch(self, request, *args, **kwargs):
         self.prepare(request, *args, **kwargs)
         if not (self.object.author == self.request.user or self.request.user.is_staff or self.request.user.is_superuser):
@@ -304,6 +311,7 @@ class ProposalDetailsView(generic_views.DetailView):
             return self.object
         return super(ProposalDetailsView, self).get_object(queryset)
 
+    @method_decorator(decorators.reviews_active_required)
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         self.request = request
@@ -336,6 +344,10 @@ class ProposalVersionListView(generic_views.ListView):
         data['proposal'] = data['original']
         return data
 
+    @method_decorator(decorators.reviews_active_required)
+    def dispatch(self, *args, **kwargs):
+        return super(ProposalVersionListView, self).dispatch(*args, **kwargs)
+
 
 class ProposalVersionDetailsView(generic_views.DetailView):
     model = models.ProposalVersion
@@ -352,6 +364,10 @@ class ProposalVersionDetailsView(generic_views.DetailView):
             'versions': proposal.versions.select_related('creator').all()
         })
         return data
+
+    @method_decorator(decorators.reviews_active_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(ProposalVersionDetailsView, self).dispatch(request, *args, **kwargs)
 
 
 class UpdateProposalView(TemplateResponseMixin, generic_views.View):
@@ -397,6 +413,7 @@ class UpdateProposalView(TemplateResponseMixin, generic_views.View):
             utils.send_proposal_update_notification(new_version)
         return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.object.pk}))
 
+    @method_decorator(decorators.reviews_active_required)
     def dispatch(self, request, *args, **kwargs):
         self.object = get_object_or_404(models.Proposal.objects, pk=kwargs['pk'])
         if not self.object.can_be_updated():

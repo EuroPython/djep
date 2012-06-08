@@ -22,8 +22,21 @@ class ProposalsManager(conference_models.CurrentConferenceManager):
     A simple manager used for filtering proposals that are available
     for review.
     """
-    # TODO: Extend filter to only list proposals that accept reviews
-    pass
+    def get_query_set(self):
+        if not conference_models.current_conference().get_reviews_active():
+            return super(ProposalsManager, self).get_query_set().none()
+        return super(ProposalsManager, self).get_query_set().all()
+
+
+class ProposalMetaDataManager(models.Manager):
+    """
+    A simple manager used for filtering proposals that are available
+    for review.
+    """
+    def get_query_set(self):
+        if not conference_models.current_conference().get_reviews_active():
+            return super(ProposalMetaDataManager, self).get_query_set().none()
+        return super(ProposalMetaDataManager, self).get_query_set().all()
 
 
 class Proposal(proposal_models.Proposal):
@@ -37,12 +50,10 @@ class Proposal(proposal_models.Proposal):
     objects = ProposalsManager()
 
     def can_be_updated(self):
-        # TODO: Add logic to determine if a proposal can still be updated.
-        return True
+        return self.conference.get_reviews_active()
 
     def can_be_reviewed(self):
-        # TODO: Add logic to determine if a proposal can be reviewed. Note that this has nothing to do with permissions.
-        return True
+        return self.conference.get_reviews_active()
 
 
 class ProposalMetaData(models.Model):
@@ -56,6 +67,8 @@ class ProposalMetaData(models.Model):
     latest_activity_date = models.DateTimeField(null=True, blank=True)
     latest_comment_date = models.DateTimeField(null=True, blank=True)
     latest_review_date = models.DateTimeField(null=True, blank=True)
+
+    objects = ProposalMetaDataManager()
 
     @property
     def title(self):
