@@ -61,18 +61,31 @@ class ProposalMetaData(models.Model):
     This model stores some metadata for proposals with regards to
     reviews.
     """
-    proposal = models.OneToOneField(Proposal, related_name='review_metadata')
-    num_comments = models.PositiveIntegerField(default=0)
-    num_reviews = models.PositiveIntegerField(default=0)
-    latest_activity_date = models.DateTimeField(null=True, blank=True)
-    latest_comment_date = models.DateTimeField(null=True, blank=True)
-    latest_review_date = models.DateTimeField(null=True, blank=True)
+    proposal = models.OneToOneField(Proposal, verbose_name=_("proposal"),
+        related_name='review_metadata')
+    num_comments = models.PositiveIntegerField(
+        verbose_name=_("number of comments"),
+        default=0)
+    num_reviews = models.PositiveIntegerField(
+        verbose_name=_("number of reviews"),
+        default=0)
+    latest_activity_date = models.DateTimeField(
+        verbose_name=_("latest activity"),
+        null=True, blank=True)
+    latest_comment_date = models.DateTimeField(null=True, blank=True,
+        verbose_name=_("latest comment"))
+    latest_review_date = models.DateTimeField(null=True, blank=True,
+        verbose_name=_("latest review"))
 
     objects = ProposalMetaDataManager()
 
     @property
     def title(self):
         return self.proposal.title
+
+    class Meta(object):
+        verbose_name = _("metadata")
+        verbose_name_plural = _("metadata")
 
 
 class ProposalVersionManager(models.Manager):
@@ -89,9 +102,12 @@ class ProposalVersion(proposal_models.AbstractProposal):
     updates to a proposal and reviewers can check if their review still
     applies.
     """
-    original = models.ForeignKey(proposal_models.Proposal, related_name='versions')
-    creator = models.ForeignKey(auth_models.User)
-    pub_date = models.DateTimeField()
+    original = models.ForeignKey(proposal_models.Proposal,
+        verbose_name=_("original proposal"),
+        related_name='versions')
+    creator = models.ForeignKey(auth_models.User,
+        verbose_name=_("creator"))
+    pub_date = models.DateTimeField(verbose_name=_("publication date"))
 
     objects = ProposalVersionManager()
 
@@ -112,15 +128,21 @@ class Review(models.Model):
     been marked as closed for reviews. Neither should other reviewers be able
     to read the review before that that in order not to be influenced by it.
     """
-    user = models.ForeignKey(auth_models.User)
-    rating = models.CharField(choices=RATING_CHOICES, max_length=2)
-    summary = models.TextField()
-    pub_date = models.DateTimeField(default=datetime.datetime.now)
-    proposal = models.ForeignKey(Proposal, related_name="reviews")
-    proposal_version = models.ForeignKey(ProposalVersion, blank=True, null=True)
+    user = models.ForeignKey(auth_models.User, verbose_name=_("user"))
+    rating = models.CharField(choices=RATING_CHOICES, max_length=2,
+        verbose_name=_("rating"))
+    summary = models.TextField(verbose_name=_("summary"))
+    pub_date = models.DateTimeField(default=datetime.datetime.now,
+        verbose_name=_("publication date"))
+    proposal = models.ForeignKey(Proposal, related_name="reviews",
+        verbose_name=_("proposal"))
+    proposal_version = models.ForeignKey(ProposalVersion, blank=True, null=True,
+        verbose_name=_("proposal version"))
 
     class Meta(object):
         unique_together = (('user', 'proposal'),)
+        verbose_name = _("review")
+        verbose_name_plural = _("reviews")
 
 
 class Comment(models.Model):
@@ -132,16 +154,22 @@ class Comment(models.Model):
     Once a comment is made, everyone involved in the dicussion so far should
     receive a notification include the actual content of the comment.
     """
-    author = models.ForeignKey(auth_models.User)
-    content = models.TextField()
-    pub_date = models.DateTimeField(default=datetime.datetime.now)
-    proposal = models.ForeignKey(Proposal,
+    author = models.ForeignKey(auth_models.User, verbose_name=_("author"))
+    content = models.TextField(verbose_name=_("content"))
+    pub_date = models.DateTimeField(default=datetime.datetime.now,
+        verbose_name=_("publication date"))
+    proposal = models.ForeignKey(Proposal, verbose_name=_("proposal"),
         related_name="comments")
-    proposal_version = models.ForeignKey(ProposalVersion, blank=True, null=True)
-    deleted = models.BooleanField(default=False)
-    deleted_date = models.DateTimeField(null=True, blank=True)
-    deleted_by = models.ForeignKey(auth_models.User, null=True, related_name='deleted_comments')
-    deleted_reason = models.TextField(blank=True, null=True)
+    proposal_version = models.ForeignKey(ProposalVersion, blank=True, null=True,
+        verbose_name=_("proposal version"))
+    deleted = models.BooleanField(default=False, verbose_name=_("deleted"))
+    deleted_date = models.DateTimeField(null=True, blank=True,
+        verbose_name=_("deleted at"))
+    deleted_by = models.ForeignKey(auth_models.User, null=True,
+        verbose_name=_("deleted by"),
+        related_name='deleted_comments')
+    deleted_reason = models.TextField(blank=True, null=True,
+        verbose_name=_("deletion reason"))
 
     def mark_as_deleted(self, user, reason=None):
         """
@@ -152,6 +180,10 @@ class Comment(models.Model):
         self.deleted_by = user
         self.deleted_date = datetime.datetime.now()
         self.deleted_reason = reason
+
+    class Meta(object):
+        verbose_name = u'Kommentar'
+        verbose_name_plural = u'Kommentare'
 
 
 def create_proposal_metadata(sender, instance, **kwargs):

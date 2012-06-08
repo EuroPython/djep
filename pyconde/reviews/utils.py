@@ -1,3 +1,5 @@
+import tablib
+
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.contrib.sites.models import Site
@@ -87,3 +89,10 @@ def send_proposal_update_notification(version, notify_author=False):
         bcc=[u.email for u in get_people_to_notify(proposal, current_user)],
         body=body)
     msg.send()
+
+
+def create_reviews_export(queryset):
+    data = tablib.Dataset(headers=['Proposal-ID', 'Title', 'Review-ID', 'User-ID', 'Username', 'Rating'])
+    for review in queryset.select_related('user', 'proposal'):
+        data.append((review.proposal.pk, review.proposal.title, review.pk, review.user.pk, review.user.username, review.rating))
+    return data
