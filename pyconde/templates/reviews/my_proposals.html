@@ -8,9 +8,12 @@
     <table>
         <thead>
             <tr>
-                <th>Titel</th>
-                <th># Kommentare</th>
-                <th>Letzte Aktivität</th>
+                <th class="orderable"><a href="?order={% if order == 'title' %}-{% endif %}title">Titel</a>
+                    {% if order == "-title" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "title" %}<i class="icon-chevron-up"></i>{% endif %}</th>
+                <th class="orderable"><a href="?order={% if order == 'comments' %}-{% endif %}comments"># Kommentare</a>
+                    {% if order == "-comments" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "comments" %}<i class="icon-chevron-up"></i>{% endif %}</th>
+                <th class="orderable"><a href="?order={% if order == 'activity' %}-{% endif %}activity">Letzte Aktivität</a>
+                    {% if order == "-activity" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "activity" %}<i class="icon-chevron-up"></i>{% endif %}</th>
             </tr>
         </thead>
         <tbody>

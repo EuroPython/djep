@@ -6,9 +6,12 @@
     <table>
         <thead>
             <tr>
-                <th>Titel</th>
-                <th>Vortragende(r)</th>
-                <th>Bewertung</th>
+                <th class="orderable"><a href="?order={% if order == 'title' %}-{% endif %}title">Titel</a>
+                    {% if order == "-title" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "title" %}<i class="icon-chevron-up"></i>{% endif %}</th>
+                <th class="orderable"><a href="?order={% if order == 'speaker' %}-{% endif %}speaker">Vortragende(r)</a>
+                    {% if order == "-speaker" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "speaker" %}<i class="icon-chevron-up"></i>{% endif %}</th>
+                <th class="orderable"><a href="?order={% if order == 'rating' %}-{% endif %}rating">Bewertung</a>
+                    {% if order == "-rating" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "rating" %}<i class="icon-chevron-up"></i>{% endif %}</th>
             </tr>
         </thead>
         <tbody>

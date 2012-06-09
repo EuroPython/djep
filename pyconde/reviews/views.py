@@ -13,22 +13,11 @@ from django.contrib.auth.decorators import login_required
 from django.utils.importlib import import_module
 
 from . import models, forms, utils, decorators, settings
+from .view_mixins import OrderMappingMixin, PrepareViewMixin
 from pyconde.proposals.views import NextRedirectMixin
 
 
-class PrepareViewMixin(object):
-    """
-    A simple view mixin that combines the preparation tasks
-    normally executed by dispatch into a neat helper method.
-    """
-    def prepare(self, request, *args, **kwargs):
-        self.request = request
-        self.args = args
-        self.kwargs = kwargs
-        self.object = self.get_object()
-
-
-class ListProposalsView(generic_views.TemplateView):
+class ListProposalsView(OrderMappingMixin, generic_views.TemplateView):
     """
     Lists all proposals the reviewer should be able to review, sorted by
     "priority".
@@ -54,21 +43,12 @@ class ListProposalsView(generic_views.TemplateView):
         for proposal in proposals:
             proposal.reviewed = proposal.proposal in reviewed_proposals
         return {
-            'proposals': proposals
+            'proposals': proposals,
+            'order': self.get_request_order()
         }
 
     def get_queryset(self):
         return models.ProposalMetaData.objects.select_related().order_by(self.get_order()).all()
-
-    def get_order(self):
-        order = self.request.GET.get('order', self.default_order)
-        dir_ = ''
-        if order.startswith('-'):
-            dir_ = '-'
-            order = order[1:]
-        fallback = self.order_mapping[self.default_order.lstrip('-')]
-        order = self.order_mapping.get(order, fallback)
-        return '{0}{1}'.format(dir_, order)
 
     @method_decorator(decorators.reviews_active_required)
     @method_decorator(decorators.reviewer_required)
@@ -100,17 +80,28 @@ class ListMyProposalsView(ListProposalsView):
         return models.ProposalMetaData.objects.select_related().filter(proposal__in=my_proposals).order_by(self.get_order()).all()
 
 
-class MyReviewsView(generic_views.ListView):
+class MyReviewsView(OrderMappingMixin, generic_views.ListView):
     """
     Lists all the reviews made by the current user.
     """
     model = models.Review
+    default_order = 'title'
+    order_mapping = {
+        'title': 'proposal__title',
+        'speaker': 'proposal__speaker',
+        'rating': 'rating',
+    }
 
     def get_queryset(self):
-        return self.model.objects.filter(user=self.request.user).select_related('proposal')
+        return self.model.objects.filter(user=self.request.user).order_by(self.get_order()).select_related('proposal')
 
     def get_template_names(self):
         return ['reviews/my_reviews.html']
+
+    def get_context_data(self, *args, **kwargs):
+        data = super(MyReviewsView, self).get_context_data(*args, **kwargs)
+        data['order'] = self.get_request_order()
+        return data
 
     @method_decorator(decorators.reviewer_required)
     def dispatch(self, request, *args, **kwargs):
@@ -164,6 +155,12 @@ class SubmitReviewView(generic_views.TemplateView):
 
 
 class UpdateReviewView(generic_views.UpdateView):
+    """
+    Allows a reviewer to update his/her review as long as the review period is
+    open.
+
+    Access: author of review
+    """
     model = models.Review
     template_name_suffix = '_update_form'
     form_class = forms.UpdateReviewForm
@@ -198,6 +195,11 @@ class UpdateReviewView(generic_views.UpdateView):
 
 
 class DeleteReviewView(NextRedirectMixin, PrepareViewMixin, generic_views.DeleteView):
+    """
+    Allows the author of a review to delete it.
+
+    Access: Author of review
+    """
     model = models.Review
 
     def get_object(self):
@@ -270,6 +272,12 @@ class SubmitCommentView(TemplateResponseMixin, generic_views.View):
 
 
 class DeleteCommentView(NextRedirectMixin, PrepareViewMixin, generic_views.DeleteView):
+    """
+    Allows the author of a comment or a staff member to delete a review (i.e.
+    mark it as deleted).
+
+    Access: Author of comment and staff member
+    """
     model = models.Comment
 
     def get_success_url(self):
@@ -359,10 +367,18 @@ class ProposalDetailsView(generic_views.DetailView):
 
 
 class ProposalVersionListView(generic_views.ListView):
+    """
+    Lists all versions of a given proposal.
+
+    Access: author of proposal and reviewer
+    """
     model = models.ProposalVersion
+    proposal = None
 
     def get_queryset(self):
-        return self.model.objects.filter(original__pk=self.kwargs['proposal_pk'])
+        if self.proposal is None:
+            self.proposal = models.Proposal.objects.get(pk=self.kwargs['proposal_pk'])
+        return self.model.objects.filter(original=self.proposal)
 
     def get_context_data(self, **kwargs):
         data = super(ProposalVersionListView, self).get_context_data(**kwargs)
@@ -371,15 +387,25 @@ class ProposalVersionListView(generic_views.ListView):
         return data
 
     @method_decorator(decorators.reviews_active_required)
-    def dispatch(self, *args, **kwargs):
-        return super(ProposalVersionListView, self).dispatch(*args, **kwargs)
+    def get(self, *args, **kwargs):
+        self.object_list = self.get_queryset()
+        if not utils.can_participate_in_review(self.request.user, self.proposal):
+            return HttpResponseForbidden()
+        return super(ProposalVersionListView, self).get(*args, **kwargs)
 
 
 class ProposalVersionDetailsView(generic_views.DetailView):
+    """
+    Displays details of a specific proposal version.
+
+    Access: author of proposal and reviewer
+    """
     model = models.ProposalVersion
     context_object_name = 'version'
 
     def get_object(self):
+        if hasattr(self, 'object') and self.object:
+            return self.object
         return self.model.objects.select_related('original').get(pk=self.kwargs['pk'], original__pk=self.kwargs['proposal_pk'])
 
     def get_context_data(self, **kwargs):
@@ -392,8 +418,11 @@ class ProposalVersionDetailsView(generic_views.DetailView):
         return data
 
     @method_decorator(decorators.reviews_active_required)
-    def dispatch(self, request, *args, **kwargs):
-        return super(ProposalVersionDetailsView, self).dispatch(request, *args, **kwargs)
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        if not utils.can_participate_in_review(self.request.user, self.object.original):
+            return HttpResponseForbidden()
+        return super(ProposalVersionDetailsView, self).get(request, *args, **kwargs)
 
 
 class UpdateProposalView(TemplateResponseMixin, generic_views.View):

@@ -240,3 +240,5 @@ def update_proposal_metadata(sender, instance, **kwargs):
 signals.post_save.connect(create_proposal_metadata, sender=proposal_models.Proposal, dispatch_uid='reviews.proposal_metadata_creation')
 signals.post_save.connect(update_proposal_metadata, sender=Comment, dispatch_uid='reviews.update_proposal_comments_count')
 signals.post_save.connect(update_proposal_metadata, sender=Review, dispatch_uid='reviews.update_proposal_reviews_count')
+signals.post_delete.connect(update_proposal_metadata, sender=Comment, dispatch_uid='reviews.update_proposal_comments_count_del')
+signals.post_delete.connect(update_proposal_metadata, sender=Review, dispatch_uid='reviews.update_proposal_reviews_count_del')
