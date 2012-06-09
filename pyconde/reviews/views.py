@@ -25,7 +25,7 @@ class ListProposalsView(OrderMappingMixin, generic_views.TemplateView):
     This listing should include some filter functionality to filter proposals
     by tag, track or kind.
 
-    Access: review-team
+    Access: review-team and staff
     """
     template_name = 'reviews/reviewable_proposals.html'
     order_mapping = {
@@ -33,6 +33,7 @@ class ListProposalsView(OrderMappingMixin, generic_views.TemplateView):
         'reviews': 'num_reviews',
         'title': 'proposal__title',
         'activity': 'latest_activity_date',
+        'score': 'score',
     }
     default_order = 'reviews'
 
@@ -47,11 +48,20 @@ class ListProposalsView(OrderMappingMixin, generic_views.TemplateView):
             'order': self.get_request_order()
         }
 
+    def get_request_order(self):
+        """
+        Overrides get_request_order to prevent non-authorized users to
+        use the score ordering.
+        """
+        order = super(ListProposalsView, self).get_request_order()
+        if order.lstrip('-') == 'score' and not (self.request.user.is_staff or self.request.user.is_superuser):
+            return self.get_default_order()
+        return order
+
     def get_queryset(self):
         return models.ProposalMetaData.objects.select_related().order_by(self.get_order()).all()
 
-    @method_decorator(decorators.reviews_active_required)
-    @method_decorator(decorators.reviewer_required)
+    @method_decorator(decorators.reviewer_or_staff_required)
     def dispatch(self, request, *args, **kwargs):
         return super(ListProposalsView, self).dispatch(request, *args, **kwargs)
 
@@ -70,7 +80,6 @@ class ListMyProposalsView(ListProposalsView):
     default_order = '-activity'
 
     @method_decorator(login_required)
-    @method_decorator(decorators.reviews_active_required)
     def dispatch(self, request, *args, **kwargs):
         return super(ListProposalsView, self).dispatch(request, *args, **kwargs)
 
@@ -227,6 +236,7 @@ class DeleteReviewView(NextRedirectMixin, PrepareViewMixin, generic_views.Delete
         return resp
 
     @method_decorator(decorators.reviews_active_required)
+    @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         self.prepare(request, *args, **kwargs)
         if not self.object.proposal.can_be_reviewed():
@@ -266,6 +276,7 @@ class SubmitCommentView(TemplateResponseMixin, generic_views.View):
         return self.get(request, *args, **kwargs)
 
     @method_decorator(decorators.reviews_active_required)
+    @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         self.proposal = get_object_or_404(models.Proposal, pk=kwargs['pk'])
         if not utils.can_participate_in_review(request.user, self.proposal):
@@ -305,6 +316,7 @@ class DeleteCommentView(NextRedirectMixin, PrepareViewMixin, generic_views.Delet
         return data
 
     @method_decorator(decorators.reviews_active_required)
+    @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         self.prepare(request, *args, **kwargs)
         if not (self.object.author == self.request.user or self.request.user.is_staff or self.request.user.is_superuser):
@@ -317,7 +329,7 @@ class ProposalDetailsView(generic_views.DetailView):
     An extended version of the details view of the proposals app that
     also includes the discussion as well as the review of the current user.
 
-    Access: author and review-team
+    Access: author, review-team and staff (for easier comment moderation)
     Template: reviews/proposal_details.html
     """
     model = models.Proposal
@@ -337,6 +349,8 @@ class ProposalDetailsView(generic_views.DetailView):
         data['versions'] = proposal_versions
         data['timeline'] = map(self.wrap_timeline_elements, utils.merge_comments_and_versions(comments, proposal_versions))
         data['can_review'] = utils.can_review_proposal(self.request.user, self.object)
+        data['can_update'] = utils.is_proposal_author(self.request.user, self.object)
+        data['can_comment'] = utils.can_participate_in_review(self.request.user, self.object)
         try:
             review = self.object.reviews.get(user=self.request.user)
             data['user_review'] = review
@@ -350,14 +364,13 @@ class ProposalDetailsView(generic_views.DetailView):
             return self.object
         return super(ProposalDetailsView, self).get_object(queryset)
 
-    @method_decorator(decorators.reviews_active_required)
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         self.request = request
         self.args = args
         self.kwargs = kwargs
         self.object = self.get_object()
-        if not utils.can_participate_in_review(self.request.user, self.object):
+        if not (utils.can_participate_in_review(self.request.user, self.object) or request.user.is_staff):
             return HttpResponseForbidden()
         return super(ProposalDetailsView, self).dispatch(request, *args, **kwargs)
 
@@ -375,7 +388,7 @@ class ProposalVersionListView(generic_views.ListView):
     """
     Lists all versions of a given proposal.
 
-    Access: author of proposal and reviewer
+    Access: author of proposal and reviewer and staff
     """
     model = models.ProposalVersion
     proposal = None
@@ -394,7 +407,7 @@ class ProposalVersionListView(generic_views.ListView):
     @method_decorator(decorators.reviews_active_required)
     def get(self, *args, **kwargs):
         self.object_list = self.get_queryset()
-        if not utils.can_participate_in_review(self.request.user, self.proposal):
+        if not (utils.can_participate_in_review(self.request.user, self.proposal) or self.request.user.is_staff):
             return HttpResponseForbidden()
         return super(ProposalVersionListView, self).get(*args, **kwargs)
 
@@ -403,7 +416,7 @@ class ProposalVersionDetailsView(generic_views.DetailView):
     """
     Displays details of a specific proposal version.
 
-    Access: author of proposal and reviewer
+    Access: author of proposal and reviewer and staff
     """
     model = models.ProposalVersion
     context_object_name = 'version'
@@ -425,7 +438,7 @@ class ProposalVersionDetailsView(generic_views.DetailView):
     @method_decorator(decorators.reviews_active_required)
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
-        if not utils.can_participate_in_review(self.request.user, self.object.original):
+        if not (utils.can_participate_in_review(self.request.user, self.object.original) or request.user.is_staff):
             return HttpResponseForbidden()
         return super(ProposalVersionDetailsView, self).get(request, *args, **kwargs)
 
@@ -500,14 +513,3 @@ class UpdateProposalView(TemplateResponseMixin, generic_views.View):
             'reviews/update_{0}_proposal.html'.format(self.object.kind.slug),
             self.template_name
         ]
-
-
-class ReviewOverviewView(object):
-    """
-    This view should provide the organisers with an overview of the review
-    progress and should indicate how many proposals have been reviewed so far
-    and their current scores.
-
-    Access: staff
-    """
-    pass

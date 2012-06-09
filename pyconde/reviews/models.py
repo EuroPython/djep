@@ -9,6 +9,8 @@ from django.core.urlresolvers import reverse
 from pyconde.proposals import models as proposal_models
 from pyconde.conference import models as conference_models
 
+from . import settings
+
 
 RATING_CHOICES = (
     ('-1', '-1'),
@@ -77,6 +79,8 @@ class ProposalMetaData(models.Model):
         verbose_name=_("latest comment"))
     latest_review_date = models.DateTimeField(null=True, blank=True,
         verbose_name=_("latest review"))
+    score = models.FloatField(default=0.0, null=False, blank=False,
+        verbose_name=_("score"))
 
     objects = ProposalMetaDataManager()
 
@@ -211,12 +215,15 @@ def _update_proposal_metadata(proposal):
 
     latest_comment_date = None
     latest_review_date = None
+    score = 0.0
     try:
         latest_comment_date = proposal.comments.order_by('-pub_date')[0].pub_date
     except:
         pass
     try:
-        latest_review_date = proposal.reviews.order_by('-pub_date')[0].pub_date
+        for review in proposal.reviews.order_by('pub_date'):
+            latest_review_date = review.pub_date
+            score += settings.RATING_MAPPING[review.rating]
     except:
         pass
     if latest_comment_date and latest_review_date:
@@ -230,6 +237,7 @@ def _update_proposal_metadata(proposal):
         md.latest_activity_date = latest_review_date
     md.latest_comment_date = latest_comment_date
     md.latest_review_date = latest_review_date
+    md.score = score
     md.save()
 
 
