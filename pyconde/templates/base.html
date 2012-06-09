@@ -98,7 +98,7 @@
     <div class="{% block body_class %}{% endblock %}" id="main">
     {% block body_outer %}
 
-        {% if messages %}
+        {% if messages or review_outdated %}
         <div class="col12 clearfix">
             <div class="grid_12" id="messages">
                 {% for message in messages %}
@@ -106,6 +106,11 @@
                     {{ message }}
                 </div>
                 {% endfor %}
+                {% if review_outdated %}
+                <div id="message_outdated" class="alert alert-danger">
+                    Seit Ihrer Review wurde der Vorschlag aktualisiert.
+                </div>
+                {% endif %}
             </div>
         </div>
         {% endif %}

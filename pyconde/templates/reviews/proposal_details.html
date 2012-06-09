@@ -4,9 +4,8 @@
 {% block content %}
     <h1>Review-Info: {{ proposal.title }}</h1>
     {% if proposal_version %}
-        <a href="{{ proposal.get_absolute_url }}">Zum Original</a>
+        <p class="original_notice">Dies ist eine modizierte Fassung. <a href="{{ proposal.get_absolute_url }}">Zum Original</a>.</p>
     {% endif %}
-    <h2>Aktuelle Version</h2>
     <article class="proposal">
     <div class="description">
         {% if proposal_version %}
@@ -24,11 +23,13 @@
         {% endif %}
     </div>
     </article>
+    <div class="actions">
     {% if proposal.can_be_updated %}
-        <a href="{% url reviews-update-proposal pk=proposal.pk %}">Ändern</a>
+        <a class="btn" href="{% url reviews-update-proposal pk=proposal.pk %}"><i class="icon-edit"></i> Ändern</a>
     {% else %}
         <a href="#">Vorschläge können nicht mehr editiert werden.</a>
     {% endif %}
+    </div>
     {% if timeline %}
         <ul id="timeline">
         {% for item in timeline %}

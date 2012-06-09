@@ -171,8 +171,11 @@ class UpdateReviewView(generic_views.UpdateView):
         return self.model.objects.get(user=self.request.user, proposal__pk=self.kwargs['pk'])
 
     def form_valid(self, form):
+        obj = form.save(commit=False)
+        obj.proposal_version = models.ProposalVersion.objects.get_latest_for(self.object.proposal)
+        obj.save()
         messages.success(self.request, u"Änderungen gespeichert")
-        return super(UpdateReviewView, self).form_valid(form)
+        return HttpResponseRedirect(self.get_success_url())
 
     def get_context_data(self, **kwargs):
         data = super(UpdateReviewView, self).get_context_data(**kwargs)
@@ -335,7 +338,9 @@ class ProposalDetailsView(generic_views.DetailView):
         data['timeline'] = map(self.wrap_timeline_elements, utils.merge_comments_and_versions(comments, proposal_versions))
         data['can_review'] = utils.can_review_proposal(self.request.user, self.object)
         try:
-            data['user_review'] = self.object.reviews.filter(user=self.request.user)[0]
+            review = self.object.reviews.get(user=self.request.user)
+            data['user_review'] = review
+            data['review_outdated'] = review.proposal_version != data['proposal_version']
         except:
             pass
         return data

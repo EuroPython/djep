@@ -4,13 +4,14 @@ from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, ButtonHolder, Submit, HTML, Fieldset
+from crispy_forms.layout import Layout, Field, ButtonHolder, HTML, Fieldset
 
 from taggit.utils import edit_string_for_tags
 
 from . import models
 from pyconde.proposals import forms as proposal_forms
 from pyconde.conference import models as conference_models
+from pyconde.forms import Submit
 
 
 class UpdateProposalForm(forms.ModelForm):
@@ -133,11 +134,11 @@ class UpdateReviewForm(ReviewForm):
     def __init__(self, *args, **kwargs):
         super(UpdateReviewForm, self).__init__(*args, **kwargs)
         self.helper.layout = Layout(
-            Field('rating'), Field('summary'),
+            Field('rating', autofocus="autofocus", tabindex=1), Field('summary', tabindex=2),
             ButtonHolder(
-                HTML(u"""<a href="{0}">Löschen</a>""".format(
+                HTML(u"""<a tabindex="4" class="btn btn-danger" href="{0}"><i class="icon-white icon-remove-circle"></i> Löschen</a>""".format(
                     reverse('reviews-delete-review',
                         kwargs={'pk': kwargs.get('instance').proposal.pk}))),
-                Submit('save', "Änderungen speichern", css_class='btn-primary')
+                Submit('save', "Änderungen speichern", css_class='btn-primary', tabindex=3)
                 )
             )
