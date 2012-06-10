@@ -19,7 +19,7 @@ class UpdateProposalForm(forms.ModelForm):
     class Meta(object):
         model = models.ProposalVersion
         fields = [
-            'title', 'description', 'abstract', 'duration', 'track', 'audience_level', 'tags'
+            'title', 'description', 'abstract', 'duration', 'audience_level', 'tags'
         ]
 
     def __init__(self, *args, **kwargs):
@@ -34,7 +34,6 @@ class UpdateProposalForm(forms.ModelForm):
                 ),
             Fieldset(_('Details'),
                 Field('duration'),
-                Field('track'),
                 Field('audience_level'),
                 Field('tags'),
                 ),
@@ -142,3 +141,11 @@ class UpdateReviewForm(ReviewForm):
                 Submit('save', "Änderungen speichern", css_class='btn-primary', tabindex=3)
                 )
             )
+
+
+class ProposalFilterForm(forms.Form):
+    track = forms.ChoiceField(widget=forms.Select, required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(ProposalFilterForm, self).__init__(*args, **kwargs)
+        self.fields['track'].choices = [('', 'Track'), ('-', '----------')] + [(t.slug, t.name) for t in conference_models.Track.objects.all()]

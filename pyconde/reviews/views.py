@@ -45,7 +45,8 @@ class ListProposalsView(OrderMappingMixin, generic_views.TemplateView):
             proposal.reviewed = proposal.proposal in reviewed_proposals
         return {
             'proposals': proposals,
-            'order': self.get_request_order()
+            'order': self.get_request_order(),
+            'filter_form': self.filter_form,
         }
 
     def get_request_order(self):
@@ -59,10 +60,16 @@ class ListProposalsView(OrderMappingMixin, generic_views.TemplateView):
         return order
 
     def get_queryset(self):
-        return models.ProposalMetaData.objects.select_related().order_by(self.get_order()).all()
+        qs = models.ProposalMetaData.objects.select_related().order_by(self.get_order()).all()
+        if self.filter_form.is_valid():
+            track_slug = self.filter_form.cleaned_data['track']
+            if track_slug:
+                qs = qs.filter(proposal__track__slug=track_slug)
+        return qs
 
     @method_decorator(decorators.reviewer_or_staff_required)
     def dispatch(self, request, *args, **kwargs):
+        self.filter_form = forms.ProposalFilterForm(request.GET)
         return super(ListProposalsView, self).dispatch(request, *args, **kwargs)
 
 
