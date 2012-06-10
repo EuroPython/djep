@@ -37,7 +37,7 @@ class UpdateProposalForm(forms.ModelForm):
                 Field('audience_level'),
                 Field('tags'),
                 ),
-            ButtonHolder(Submit('save', "Speichern", css_class="btn-primary"))
+            ButtonHolder(Submit('save', _("Save"), css_class="btn-primary"))
             )
 
     def save(self, commit=True):
@@ -95,7 +95,7 @@ class UpdateTutorialProposalForm(UpdateProposalForm):
                 Field('audience_level'),
                 Field('tags'),
                 ),
-            ButtonHolder(Submit('save', "Speichern", css_class="btn-primary"))
+            ButtonHolder(Submit('save', _("Save"), css_class="btn-primary"))
             )
 
     def customize_save(self, instance):
@@ -112,7 +112,7 @@ class CommentForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Field('content'),
-            ButtonHolder(Submit('comment', "Kommentar abschicken", css_class='btn btn-primary'))
+            ButtonHolder(Submit('comment', _("Save comment"), css_class='btn btn-primary'))
             )
 
 
@@ -126,7 +126,7 @@ class ReviewForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Field('rating'), Field('summary'),
-            ButtonHolder(Submit('save', "Review abgeben", css_class='btn-primary')))
+            ButtonHolder(Submit('save', _("Save review"), css_class='btn-primary')))
 
 
 class UpdateReviewForm(ReviewForm):
@@ -135,10 +135,10 @@ class UpdateReviewForm(ReviewForm):
         self.helper.layout = Layout(
             Field('rating', autofocus="autofocus", tabindex=1), Field('summary', tabindex=2),
             ButtonHolder(
-                HTML(u"""<a tabindex="4" class="btn btn-danger" href="{0}"><i class="icon-white icon-remove-circle"></i> Löschen</a>""".format(
+                HTML(u"""<a tabindex="4" class="btn btn-danger" href="{0}"><i class="icon-white icon-remove-circle"></i> """ + _("Delete") + """</a>""".format(
                     reverse('reviews-delete-review',
                         kwargs={'pk': kwargs.get('instance').proposal.pk}))),
-                Submit('save', "Änderungen speichern", css_class='btn-primary', tabindex=3)
+                Submit('save', _("Save changes"), css_class='btn-primary', tabindex=3)
                 )
             )
 

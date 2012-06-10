@@ -4,6 +4,7 @@ from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
+from django.utils.translation import ugettext_lazy as _
 
 
 def can_review_proposal(user, proposal=None):
@@ -63,7 +64,9 @@ def send_comment_notification(comment, notify_author=False):
         'site': Site.objects.get_current(),
         'proposal_url': reverse('reviews-proposal-details', kwargs={'pk': proposal.pk}),
         })
-    msg = EmailMessage(subject='[REVIEW] {0} hat {1} kommentiert'.format(comment.author, proposal.title),
+    msg = EmailMessage(subject=_("[REVIEW] {author} commented on {title}").format({
+            'author': comment.author,
+            'title': proposal.title}),
         bcc=[u.email for u in get_people_to_notify(proposal, current_user)],
         body=body)
     msg.send()
@@ -85,7 +88,9 @@ def send_proposal_update_notification(version, notify_author=False):
         'site': Site.objects.get_current(),
         'proposal_url': reverse('reviews-proposal-details', kwargs={'pk': proposal.pk}),
         })
-    msg = EmailMessage(subject='[REVIEW] {0} hat {1} aktualisiert'.format(version.creator, proposal.title),
+    msg = EmailMessage(subject=_("[REVIEW] {author} updated {title}").format({
+            'author': version.creator,
+            'title': proposal.title}),
         bcc=[u.email for u in get_people_to_notify(proposal, current_user)],
         body=body)
     msg.send()

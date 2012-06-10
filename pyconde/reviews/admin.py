@@ -3,6 +3,7 @@ import datetime
 
 from django.contrib import admin
 from django.http import HttpResponse
+from django.utils.translation import ugettext_lazy as _
 
 from . import models
 from . import utils
@@ -10,12 +11,12 @@ from . import utils
 
 def mark_comment_as_deleted(modeladmin, request, queryset):
     queryset.update(deleted=True, deleted_date=datetime.datetime.now(), deleted_by=request.user)
-mark_comment_as_deleted.short_description = u"Kommentar(e) als gelöscht markieren"
+mark_comment_as_deleted.short_description = _("Mark comment(s) as deleted")
 
 
 def export_reviews(modeladmin, request, queryset):
     return HttpResponse(utils.create_reviews_export(queryset).csv, mimetype='text/csv')
-export_reviews.short_description = u"Als CSV exportieren"
+export_reviews.short_description = _("Export as CSV")
 
 
 admin.site.register(models.ProposalVersion,

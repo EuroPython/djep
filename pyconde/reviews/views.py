@@ -88,6 +88,7 @@ class ListMyProposalsView(ListProposalsView):
 
     @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
+        self.filter_form = forms.ProposalFilterForm(request.GET)
         return super(ListProposalsView, self).dispatch(request, *args, **kwargs)
 
     def get_queryset(self):
@@ -144,7 +145,7 @@ class SubmitReviewView(generic_views.TemplateView):
             review.proposal_version = self.proposal_version
             review.user = request.user
             review.save()
-            messages.success(request, "Bewertung gespeichert")
+            messages.success(request, _("Review has been saved"))
             return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.proposal.pk}))
         return self.get(request, *args, **kwargs)
 
@@ -161,10 +162,10 @@ class SubmitReviewView(generic_views.TemplateView):
     def dispatch(self, request, *args, **kwargs):
         self.proposal = get_object_or_404(models.Proposal, pk=kwargs['pk'])
         if not self.proposal.can_be_reviewed():
-            messages.error(request, u"Dieses Proposal kann nicht mehr bewertet werden.")
+            messages.error(request, _("This proposal can no longer be reviewed."))
             return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.proposal.pk}))
         if models.Review.objects.filter(user=request.user, proposal=self.proposal).count():
-            messages.info(request, "Sie haben diesen Vorschlag bereits bewertet")
+            messages.info(request, _("You have already reviewed this proposal"))
             return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.proposal.pk}))
         self.proposal_version = models.ProposalVersion.objects.get_latest_for(self.proposal)
         return super(SubmitReviewView, self).dispatch(request, *args, **kwargs)
@@ -190,7 +191,7 @@ class UpdateReviewView(generic_views.UpdateView):
         obj = form.save(commit=False)
         obj.proposal_version = models.ProposalVersion.objects.get_latest_for(self.object.proposal)
         obj.save()
-        messages.success(self.request, u"Änderungen gespeichert")
+        messages.success(self.request, _("Changes have been saved"))
         return HttpResponseRedirect(self.get_success_url())
 
     def get_context_data(self, **kwargs):
@@ -208,7 +209,7 @@ class UpdateReviewView(generic_views.UpdateView):
         self.kwargs = kwargs
         self.object = self.get_object()
         if not self.object.proposal.can_be_reviewed():
-            messages.error(request, u"Dieses Proposal kann nicht mehr bewertet werden.")
+            messages.error(request, _("This proposal can no longer be reviewed."))
             return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.object.proposal.pk}))
         return super(UpdateReviewView, self).dispatch(request, *args, **kwargs)
 
@@ -239,7 +240,7 @@ class DeleteReviewView(NextRedirectMixin, PrepareViewMixin, generic_views.Delete
 
     def delete(self, request, *args, **kwargs):
         resp = super(DeleteReviewView, self).delete(request, *args, **kwargs)
-        messages.success(request, u"Review wurde gelöscht")
+        messages.success(request, _("Review has been deleted"))
         return resp
 
     @method_decorator(decorators.reviews_active_required)
@@ -247,7 +248,7 @@ class DeleteReviewView(NextRedirectMixin, PrepareViewMixin, generic_views.Delete
     def dispatch(self, request, *args, **kwargs):
         self.prepare(request, *args, **kwargs)
         if not self.object.proposal.can_be_reviewed():
-            messages.error(request, u"Dieses Proposal kann nicht mehr bewertet werden.")
+            messages.error(request, _("This proposal can no longer be reviewed."))
             return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.object.proposal.pk}))
         return super(DeleteReviewView, self).dispatch(request, *args, **kwargs)
 
@@ -276,7 +277,7 @@ class SubmitCommentView(TemplateResponseMixin, generic_views.View):
             comment.proposal = self.proposal
             comment.proposal_version = self.proposal_version
             comment.save()
-            messages.success(request, _("Comment added"))
+            messages.success(request, _("Comment has been added"))
             if settings.ENABLE_COMMENT_NOTIFICATIONS:
                 utils.send_comment_notification(comment)
             return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.proposal.pk}))
@@ -488,7 +489,7 @@ class UpdateProposalView(TemplateResponseMixin, generic_views.View):
         new_version.save()
         new_version.additional_speakers = self.object.additional_speakers.all()
         self.form.save_m2m()
-        messages.success(request, _("Proposal successfully update"))
+        messages.success(request, _("Proposal has been successfully updated"))
         if settings.ENABLE_PROPOSAL_UPDATE_NOTIFICATIONS:
             utils.send_proposal_update_notification(new_version)
         return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.object.pk}))
@@ -497,7 +498,7 @@ class UpdateProposalView(TemplateResponseMixin, generic_views.View):
     def dispatch(self, request, *args, **kwargs):
         self.object = get_object_or_404(models.Proposal.objects, pk=kwargs['pk'])
         if not self.object.can_be_updated():
-            messages.error(request, u"Vorschläge können nicht mehr editiert werden.")
+            messages.error(request, _("Proposals can no longer be updated"))
             return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.object.pk}))
         self.proposal_version = models.ProposalVersion.objects.get_latest_for(self.object)
         if not utils.is_proposal_author(request.user, self.object):
