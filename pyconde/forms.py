@@ -4,6 +4,12 @@ from crispy_forms.utils import render_field
 
 class Submit(layout.Submit):
     field_classes = 'submit'
+    tabindex = None
+
+    def __init__(self, *args, **kwargs):
+        super(Submit, self).__init__(*args, **kwargs)
+        if 'tabindex' in kwargs:
+            self.tabindex = kwargs['tabindex']
 
 
 class ExtendedHelpField(layout.Field):

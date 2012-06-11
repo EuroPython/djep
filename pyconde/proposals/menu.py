@@ -24,7 +24,7 @@ class ProposalsMenu(CMSAttachMenu):
                         _("Submit"), reverse('submit_proposal'), "proposals-submit"
                         ))
             else:
-                for kind in conference_models.SessionKind.current_objects.all():
+                for kind in conference_models.SessionKind.current_objects.select_related('conference').all():
                     if kind.accepts_proposals():
                         nodes.append(NavigationNode(
                             _("Submit %s") % kind.name, reverse('typed_submit_proposal', kwargs={'type': kind.slug}), "proposals-submit-{0}".format(kind.pk)

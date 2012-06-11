@@ -1,0 +1,13 @@
+{{ version.creator }} hat "{{ proposal.title }}" aktualisiert:
+
+--------- TITEL ------------------
+{{ version.title }}
+
+--------- BESCHREIBUNG -----------
+{{ version.description }}
+
+--------- ABSTRACT ---------------
+{{ version.abstract }}
+
+
+Link: <http://{{ site.domain }}{{ proposal_url }}#version-{{ version.pk }}>

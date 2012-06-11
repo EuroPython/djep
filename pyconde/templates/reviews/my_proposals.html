@@ -1,0 +1,29 @@
+{% extends "reviews/base.html" %}
+{% block title %}Meine Vorschläge in Review{% endblock %}
+{% block content %}
+    <h1>{% block content_title %}Meine Vorschläge in Review{% endblock %}</h1>
+    {% block description %}
+    <p>Hier sehen Sie alle Ihre Vorschläge im Review-Kontext.</p>
+    {% endblock %}
+    <table>
+        <thead>
+            <tr>
+                <th class="orderable"><a href="?order={% if order == 'title' %}-{% endif %}title">Titel</a>
+                    {% if order == "-title" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "title" %}<i class="icon-chevron-up"></i>{% endif %}</th>
+                <th class="orderable"><a href="?order={% if order == 'comments' %}-{% endif %}comments">Kommentare</a>
+                    {% if order == "-comments" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "comments" %}<i class="icon-chevron-up"></i>{% endif %}</th>
+                <th class="orderable"><a href="?order={% if order == 'activity' %}-{% endif %}activity">Letzte Aktivität</a>
+                    {% if order == "-activity" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "activity" %}<i class="icon-chevron-up"></i>{% endif %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for proposal in proposals %}
+            <tr>
+                <td><a href="{% url reviews-proposal-details pk=proposal.proposal.pk %}">{{ proposal.title }}</a></td>
+                <td>{{ proposal.num_comments }}</td>
+                <td>{% if proposal.latest_comment_date %}{{ proposal.latest_comment_date }}{% endif %}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% endblock content %}

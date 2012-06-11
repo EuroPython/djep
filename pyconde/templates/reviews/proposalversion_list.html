@@ -1,0 +1,17 @@
+{% extends "reviews/proposal_base.html" %}
+{% block title %}Versionen von "{{ original.title }}"{% endblock %}
+{% block content %}
+    <h1>Versionen von {{ original.title }}</h1>
+
+    <table>
+        <tbody>
+            <tr><td colspan="2"><a href="{{ original.get_absolute_url }}">Original</a></td></tr>
+        {% for version in object_list %}
+        <tr>
+            <td><a href="{% url reviews-version-details proposal_pk=version.original.pk pk=version.pk %}">{{ version.pub_date }}</a></td>
+            <td>{{ version.creator }}</td>
+        </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+{% endblock %}

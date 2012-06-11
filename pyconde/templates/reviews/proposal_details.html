@@ -1,0 +1,89 @@
+{% extends "reviews/proposal_base.html" %}
+{% load markup crispy_forms_tags %}
+{% block title %}Review-Info: {{ proposal.title }}{% endblock %}
+{% block content %}
+    <h1>Review-Info: {{ proposal.title }}</h1>
+    {% if proposal_version %}
+        <p class="original_notice">Dies ist eine modizierte Fassung. <a href="{{ proposal.get_absolute_url }}">Zum Original</a>.</p>
+    {% endif %}
+    <article class="proposal">
+    <div class="description">
+        {% if proposal_version %}
+            {{ proposal_version.description|markdown:"safe" }}
+        {% else %}
+            {{ proposal.description|markdown:"safe" }}
+        {% endif %}
+    </div>
+
+    <div class="abstract">
+        {% if proposal_version %}
+            {{ proposal_version.abstract|markdown:"safe" }}
+        {% else %}
+            {{ proposal.abstract|markdown:"safe" }}
+        {% endif %}
+    </div>
+    </article>
+    <div class="actions">
+        {% if can_update %}
+            {% if proposal.can_be_updated %}
+                <a class="btn" href="{% url reviews-update-proposal pk=proposal.pk %}"><i class="icon-edit"></i> Ändern</a>
+            {% else %}
+                <a href="#">Vorschläge können nicht mehr editiert werden.</a>
+            {% endif %}
+        {% endif %}
+    </div>
+    {% if timeline %}
+        <ul id="timeline">
+        {% for item in timeline %}
+            <li id="{{ item.type }}-{{ item.item.pk }}" class="timeline-item timeline-item-{{ item.type }} {% if item.item.deleted %}deleted{% endif %}">
+                <dl>
+                    <dt><a href="#{{ item.type }}-{{ item.item.pk }}">{{ item.item.pub_date }}</a></dt>
+                    {% if item.type == 'comment' %}
+                        {% if item.item.deleted %}
+                        <dd>Dieses Kommentar von {{ item.item.author }} wurde gelöscht.
+                            {% if item.item.author != item.item.deleted_by %}(durch {{ item.item.deleted_by }}){% endif %}</dd>
+                        {% else %}
+                        <dd><div class="content">{{ item.item.content|markdown:"safe" }}</div><cite>-- {{ item.item.author }}
+                            (basierend auf {% if item.item.proposal_version %} <a href="{% url reviews-version-details proposal_pk=proposal.pk pk=item.item.proposal_version.pk %}">Version vom {{ item.item.proposal_version.pub_date }}</a>{% else %} dem Original-Vorschlag{% endif %})</cite>
+                            {% if item.item.author == user or user.is_staff or user.is_admin %}<p class="actions">
+                                <a href="{% url reviews-delete-comment proposal_pk=proposal.pk pk=item.item.pk %}?next={{ request.get_full_path }}">Löschen</a>
+                            </p>{% endif %}
+                        </dd>
+                        {% endif %}
+                    {% else %}
+                        <dd>{{ item.item.creator }} hat das Proposal aktualisiert.</dd>
+                    {% endif %}
+                </dl>
+            </li>
+        {% endfor %}
+        </ul>
+    {% endif %}
+    {% if can_comment %}
+    <h2>Kommentar:</h2>
+    {% crispy comment_form %}
+    {% endif %}
+{% endblock %}
+{% block sidebar %}
+    {{ block.super }}
+    {% include "reviews/partials/versions_box.html" %}
+    {% if can_review %}
+    <div class="box" id="review-box">
+        {% if not user_review %}
+            <h2>Nicht bewertet</h2>
+            {% if proposal.can_be_reviewed %}
+                <a href="{% url reviews-review-proposal pk=proposal.pk %}">Bewerten</a>
+            {% else %}
+                <a href="#">Dieser Vorschlag kann nicht mehr bewertet werden.</a>
+            {% endif %}
+        {% else %}
+            <h2>Bewertung: <span class="rating">{{ user_review.rating }}</span></h2>
+            <div class="summary">{{ user_review.summary|markdown:"safe" }}</div>
+            {% if proposal.can_be_reviewed %}
+                <a href="{% url reviews-update-review pk=proposal.pk %}">Bewertung aktualisieren</a>
+            {% else %}
+                <a href="#">Bewertungen können nicht mehr editiert werden.</a>
+            {% endif %}
+        {% endif %}
+    </div>
+    {% endif %}
+{% endblock %}

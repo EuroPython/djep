@@ -82,6 +82,13 @@ var pyconde = (function() {
                 handleKindChange($(this));
             }));
         }
+        $('form.filters').each(function() {
+            var $form = $(this);
+            $('select', $form).on('change', function() {
+                $form.submit();
+            });
+        });
+        $('.nojs').hide();
     }
 
     return {

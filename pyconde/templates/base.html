@@ -59,6 +59,13 @@
                             <li><a href="{% url userprofiles_profile_change %}">Profil ändern</a></li>
                             <li><a href="{% url auth_password_change %}">Passwort ändern</a></li>
                             <li><a href="{% url my_proposals %}">Meine Einreichungen</a></li>
+                            {% if current_conference.get_reviews_active %}
+                                {% if is_reviewer %}
+                                    <li><a href="{% url reviews-my-reviews %}">Meine Bewertungen</a></li>
+                                {% else %}
+                                    <li><a href="{% url reviews-my-proposals %}">Bewertungen in Review</a></li>
+                                {% endif %}
+                            {% endif %}
                             {% if request.user.is_staff %}
                             <li><a href="{% url admin:index %}" target="_blank">Admin</a></li>
                             {% endif %}
@@ -91,7 +98,7 @@
     <div class="{% block body_class %}{% endblock %}" id="main">
     {% block body_outer %}
 
-        {% if messages %}
+        {% if messages or review_outdated %}
         <div class="col12 clearfix">
             <div class="grid_12" id="messages">
                 {% for message in messages %}
@@ -99,6 +106,11 @@
                     {{ message }}
                 </div>
                 {% endfor %}
+                {% if review_outdated %}
+                <div id="message_outdated" class="alert alert-danger">
+                    Seit Ihrer Review wurde der Vorschlag aktualisiert.
+                </div>
+                {% endif %}
             </div>
         </div>
         {% endif %}
