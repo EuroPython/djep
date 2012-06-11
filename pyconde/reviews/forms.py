@@ -75,6 +75,9 @@ class UpdateTalkProposalForm(UpdateProposalForm):
     def __init__(self, *args, **kwargs):
         super(UpdateTalkProposalForm, self).__init__(*args, **kwargs)
         proposal_forms.TalkSubmissionForm().customize_fields(form=self)
+        # Since track is available in the original proposal form, we have
+        # to delete it here explicitly.
+        del self.fields['track']
 
 
 class UpdateTutorialProposalForm(UpdateProposalForm):
@@ -135,9 +138,10 @@ class UpdateReviewForm(ReviewForm):
         self.helper.layout = Layout(
             Field('rating', autofocus="autofocus", tabindex=1), Field('summary', tabindex=2),
             ButtonHolder(
-                HTML(u"""<a tabindex="4" class="btn btn-danger" href="{0}"><i class="icon-white icon-remove-circle"></i> """ + _("Delete") + """</a>""".format(
+                HTML(u"""<a tabindex="4" class="btn btn-danger" href="{0}"><i class="icon-white icon-remove-circle"></i> {1}</a>""".format(
                     reverse('reviews-delete-review',
-                        kwargs={'pk': kwargs.get('instance').proposal.pk}))),
+                        kwargs={'pk': kwargs.get('instance').proposal.pk}),
+                    _("Delete"))),
                 Submit('save', _("Save changes"), css_class='btn-primary', tabindex=3)
                 )
             )

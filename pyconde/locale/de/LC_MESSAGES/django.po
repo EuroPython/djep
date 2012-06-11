@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-10 22:12+0200\n"
+"POT-Creation-Date: 2012-06-11 23:29+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -472,7 +472,7 @@ msgstr "Dauer"
 msgid "Track"
 msgstr ""
 
-#: proposals/forms.py:103
+#: proposals/forms.py:110
 msgid "The selected session kind doesn't accept any proposals anymore."
 msgstr ""
 "Für die ausgewähle Session-Art können leider keine neuen Vorträge mehr "
@@ -549,7 +549,8 @@ msgid ""
 "You can no longer edit this proposal because the submission period has "
 "already ended."
 msgstr ""
-"Sie können diesen Vorschlag nicht mehr bearbeiten, da die Einreichperiode vorbei ist."
+"Sie können diesen Vorschlag nicht mehr bearbeiten, da die Einreichperiode "
+"vorbei ist."
 
 #: proposals/views.py:194
 msgid ""
@@ -643,7 +644,7 @@ msgstr "Teilnahme zurückziehen"
 msgid "Edit"
 msgstr "Ändern"
 
-#: proposals/templates/proposals/proposal_detail.html:22 reviews/forms.py:138
+#: proposals/templates/proposals/proposal_detail.html:22 reviews/forms.py:141
 #: templates/proposals/proposal_detail.html:30
 msgid "Delete"
 msgstr "Löschen"
@@ -711,7 +712,7 @@ msgstr "Kommentar abgeben"
 msgid "Save review"
 msgstr "Review speichern"
 
-#: reviews/forms.py:141
+#: reviews/forms.py:142
 msgid "Save changes"
 msgstr "Änderungen speichern"
 
@@ -828,42 +829,44 @@ msgid "comments"
 msgstr "Kommentare"
 
 #: reviews/utils.py:67
-msgid "[REVIEW] {author} commented on {title}"
-msgstr "[REVIEW] {author} hat {title} kommentiert"
+#, fuzzy, python-format
+msgid "[REVIEW] %(author)s commented on %(title)s"
+msgstr "[REVIEW] %(author)s hat %(title)s kommentiert"
 
 #: reviews/utils.py:91
-msgid "[REVIEW] {author} updated {title}"
-msgstr "[REVIEW] {author} hat {title} bearbeitet"
+#, fuzzy, python-format
+msgid "[REVIEW] %(author)s updated %(title)s"
+msgstr "[REVIEW] %(author)s hat %(title)s bearbeitet"
 
-#: reviews/views.py:147
+#: reviews/views.py:148
 msgid "Review has been saved"
 msgstr "Review wurde gespeichert"
 
-#: reviews/views.py:164 reviews/views.py:211 reviews/views.py:250
+#: reviews/views.py:165 reviews/views.py:212 reviews/views.py:251
 msgid "This proposal can no longer be reviewed."
 msgstr "Dieser Vorschlag kann nicht mehr bewertet werden."
 
-#: reviews/views.py:167
+#: reviews/views.py:168
 msgid "You have already reviewed this proposal"
 msgstr "Siwe haben diesen Vorschlag bereits bewertet"
 
-#: reviews/views.py:193
+#: reviews/views.py:194
 msgid "Changes have been saved"
 msgstr "Änderungen wurden gespeichert"
 
-#: reviews/views.py:242
+#: reviews/views.py:243
 msgid "Review has been deleted"
 msgstr "Review wurde gelöscht"
 
-#: reviews/views.py:279
+#: reviews/views.py:280
 msgid "Comment has been added"
 msgstr "Kommentar wurde hinzugefügt"
 
-#: reviews/views.py:491
+#: reviews/views.py:492
 msgid "Proposal has been successfully updated"
 msgstr "Der Vorschlag wurde erfolgreich geändert"
 
-#: reviews/views.py:500
+#: reviews/views.py:501
 msgid "Proposals can no longer be updated"
 msgstr "Vorschläge können nicht mehr aktualisiert werden"
 
@@ -1013,7 +1016,9 @@ msgstr "Ihr Account wurde aktiviert. Sie können sich nun einloggen."
 
 #: templates/userprofiles/registration_activate.html:22
 msgid "The submitted activation code is invalid. Activation is not possible."
-msgstr "Der verwendete Aktivierungsgcode ist ungültig. Eine Aktivierung ist damit nicht möglich."
+msgstr ""
+"Der verwendete Aktivierungsgcode ist ungültig. Eine Aktivierung ist damit "
+"nicht möglich."
 
 #~ msgid ""
 #~ "This field supports <a href=\"http://daringfireball.net/projects/markdown/"

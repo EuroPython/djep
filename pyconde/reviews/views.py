@@ -486,6 +486,7 @@ class UpdateProposalView(TemplateResponseMixin, generic_views.View):
         new_version.kind = self.object.kind
         new_version.speaker = self.object.speaker
         new_version.submission_date = self.object.submission_date
+        new_version.track = self.object.track
         new_version.save()
         new_version.additional_speakers = self.object.additional_speakers.all()
         self.form.save_m2m()
