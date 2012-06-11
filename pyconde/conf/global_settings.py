@@ -8,6 +8,7 @@ PROJECT_NAME = os.path.split(PROJECT_ROOT)[-1]
 
 DEBUG = TEMPLATE_DEBUG = False
 INTERNAL_IPS = ('127.0.0.1',)
+DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
 
 ADMINS = (
     ('Markus Zapke-Gruendemann', 'markus@de.pycon.org'),
@@ -62,7 +63,7 @@ COMPRESS_PRECOMPILERS = (
 
 ROOT_URLCONF = '%s.urls' % PROJECT_NAME
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -85,6 +86,7 @@ INSTALLED_APPS = (
     'userprofiles.contrib.emailverification',
     'userprofiles.contrib.profiles',
     'taggit',
+    'debug_toolbar',
 
     'cms.plugins.inherit',
     'cms.plugins.googlemap',
@@ -105,9 +107,9 @@ INSTALLED_APPS = (
     'pyconde.accounts',
     'pyconde.attendees',
     'pyconde.events',
-)
+]
 
-MIDDLEWARE_CLASSES = (
+MIDDLEWARE_CLASSES = [
     'pyconde.helpers.middleware.CorrectDomainMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
@@ -117,13 +119,15 @@ MIDDLEWARE_CLASSES = (
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.user.CurrentUserMiddleware',
     #'cms.middleware.toolbar.ToolbarMiddleware',
-)
+    'debug_toolbar.middleware.DebugToolbarMiddleware',
+]
 
 TEMPLATE_CONTEXT_PROCESSORS += (
     'django.core.context_processors.debug',
     'django.core.context_processors.request',
     'sekizai.context_processors.sekizai',
     'pyconde.conference.context_processors.current_conference',
+    'pyconde.context_processors.less_settings',
 )
 
 TEMPLATE_DIRS = (
@@ -166,7 +170,7 @@ THUMBNAIL_PROCESSORS = (
     'filer.thumbnail_processors.scale_and_crop_with_subject_location',
     'easy_thumbnails.processors.filters',
 )
-
+THUMBNAIL_SIZE = 100
 
 WYM_TOOLS = ",\n".join([
     "{'name': 'Bold', 'title': 'Strong', 'css': 'wym_tools_strong'}",
@@ -200,3 +204,5 @@ PROPOSALS_TYPED_SUBMISSION_FORMS = {
     'tutorial': 'pyconde.proposals.forms.TutorialSubmissionForm',
     'talk': 'pyconde.proposals.forms.TalkSubmissionForm',
 }
+
+LESS_USE_DYNAMIC_IN_DEBUG = True

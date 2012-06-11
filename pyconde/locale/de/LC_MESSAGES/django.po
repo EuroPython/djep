@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-05-06 21:15+0200\n"
+"POT-Creation-Date: 2012-06-08 15:55+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,48 +17,56 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: accounts/forms.py:21
+#: accounts/forms.py:25
 msgid "Account data"
 msgstr "Konto-Daten"
 
-#: accounts/forms.py:22
+#: accounts/forms.py:26
 msgid "Profile"
 msgstr "Profil"
 
-#: accounts/forms.py:27
+#: accounts/forms.py:31
 msgid "Create account"
 msgstr "Konto anlegen"
 
-#: accounts/forms.py:47
+#: accounts/forms.py:52
 msgid "Log in"
 msgstr "Anmelden"
 
-#: accounts/forms.py:59 templates/userprofiles/password_reset.html:4
+#: accounts/forms.py:64 templates/userprofiles/password_reset.html:4
 #: templates/userprofiles/password_reset.html:7
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
-#: accounts/forms.py:70 templates/userprofiles/password_change.html:4
+#: accounts/forms.py:75 templates/userprofiles/password_change.html:4
 #: templates/userprofiles/password_change.html:7
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: accounts/forms.py:80
+#: accounts/forms.py:91
 msgid "Change"
 msgstr "Ändern"
 
-#: accounts/models.py:11
+#: accounts/models.py:12
 msgid "short info"
 msgstr "Steckbrief"
 
+#: accounts/models.py:13 accounts/widgets.py:45
+msgid "avatar"
+msgstr "Profilbild"
+
+#: accounts/models.py:14
+msgid "Please upload an image with a side length of at least 300 pixels."
+msgstr "Bitte ein Bild mit einer Breite von mindestens 300 Pixeln hochladen."
+
 #: attendees/admin.py:68
 msgid "1 mail was"
-msgstr ""
+msgstr "1 E-Mail wurde"
 
 #: attendees/admin.py:70
 #, python-format
 msgid "%s mails were"
-msgstr ""
+msgstr "%s E-Mails wurden"
 
 #: attendees/admin.py:72
 #, python-format
@@ -90,20 +98,20 @@ msgstr "Tickets kaufen"
 msgid "Quantity"
 msgstr "Anzahl"
 
-#: attendees/forms.py:66
+#: attendees/forms.py:67
 msgid "Ticket sold out."
 msgstr "Tickets ausverkauft."
 
-#: attendees/forms.py:69
+#: attendees/forms.py:70
 msgid "Not enough tickets left."
 msgstr "Nicht genug Tickets mehr verfügbar."
 
-#: attendees/forms.py:97 attendees/models.py:38 attendees/models.py:42
+#: attendees/forms.py:98 attendees/models.py:38 attendees/models.py:42
 #: attendees/models.py:200
 msgid "Voucher"
 msgstr "Gutschein"
 
-#: attendees/forms.py:113
+#: attendees/forms.py:114
 msgid "Voucher verification failed."
 msgstr "Gutschein-Verifikation fehlgeschlagen."
 
@@ -283,7 +291,7 @@ msgstr ""
 msgid "Ticket successfully purchased"
 msgstr "Ticket erfolgreich gekauft"
 
-#: conf/global_settings.py:33
+#: conf/global_settings.py:34
 msgid "German"
 msgstr "Deutsch"
 
@@ -335,7 +343,7 @@ msgstr "Slug"
 msgid "level"
 msgstr "Stufe"
 
-#: conference/models.py:114 proposals/forms.py:66 proposals/models.py:37
+#: conference/models.py:114 proposals/forms.py:64 proposals/models.py:37
 msgid "audience level"
 msgstr "Zielgruppe"
 
@@ -437,36 +445,28 @@ msgstr "Keine geplanten Events"
 msgid "Proposals app"
 msgstr ""
 
-#: proposals/forms.py:59 proposals/models.py:29
+#: proposals/forms.py:57 proposals/models.py:29
 msgid "additional speakers"
 msgstr "Weitere Vortragende"
 
-#: proposals/forms.py:63 proposals/models.py:35
+#: proposals/forms.py:61 proposals/models.py:35
 msgid "kind"
 msgstr "Art"
 
-#: proposals/forms.py:69 proposals/forms.py:223 proposals/models.py:39
+#: proposals/forms.py:67 proposals/forms.py:221 proposals/models.py:39
 msgid "duration"
 msgstr "Dauer"
 
-#: proposals/forms.py:72 templates/proposals/proposal_list_mine.html:14
+#: proposals/forms.py:70 templates/proposals/proposal_list_mine.html:14
 #: templates/proposals/proposal_list_mine.html:45
 msgid "Track"
 msgstr ""
 
-#: proposals/forms.py:75 proposals/forms.py:78
-msgid ""
-"This field supports <a href=\"http://daringfireball.net/projects/markdown/"
-"syntax\" target=\"_blank\" rel=\"external\">Markdown</a> syntax."
-msgstr ""
-"Dieses Feld unterstützt <a href=\"http://daringfireball.net/projects/"
-"markdown/syntax\" target=\"_blank\" rel=\"external\">Markdown</a>."
-
-#: proposals/forms.py:89 proposals/forms.py:152 proposals/forms.py:207
+#: proposals/forms.py:89 proposals/forms.py:152 proposals/forms.py:206
 msgid "General"
 msgstr "Allgemeines"
 
-#: proposals/forms.py:95 proposals/forms.py:157 proposals/forms.py:212
+#: proposals/forms.py:95 proposals/forms.py:156 proposals/forms.py:210
 msgid "Details"
 msgstr "Details"
 
@@ -535,39 +535,39 @@ msgid ""
 "The duration has to be associated with the same conference as the proposal"
 msgstr ""
 
-#: proposals/views.py:178
+#: proposals/views.py:181
 msgid "Proposal successfully changed"
 msgstr "Änderungen gespeichert"
 
-#: proposals/views.py:188
+#: proposals/views.py:191
 msgid ""
 "You can no longer edit this proposal because the submission period has "
 "already ended."
 msgstr ""
 
-#: proposals/views.py:191
+#: proposals/views.py:194
 msgid ""
 "You have to be the primary speaker mentioned in the proposal in order to "
 "edit it."
 msgstr ""
 
-#: proposals/views.py:248
+#: proposals/views.py:251
 msgid ""
 "You can no longer cancel this proposal because the submission period has "
 "already ended."
 msgstr ""
 
-#: proposals/views.py:251
+#: proposals/views.py:254
 msgid ""
 "You have to be the primary speaker mentioned in the proposal in order to "
 "cancel it."
 msgstr ""
 
-#: proposals/views.py:257
+#: proposals/views.py:260
 msgid "Proposal has been removed"
 msgstr "Vorschlag wurde entfernt"
 
-#: proposals/views.py:279
+#: proposals/views.py:282
 msgid ""
 "You can no longer leave this proposal because the submission period has "
 "already ended."
@@ -575,11 +575,11 @@ msgstr ""
 "Sie können diese Einreichung nicht mehr verlassen, da die Einreichungsfrist "
 "bereits verstrichen ist."
 
-#: proposals/views.py:282
+#: proposals/views.py:285
 msgid "Only secondary speakers can leave a proposal"
 msgstr "Nur Mitvortragende können eine Einreichung verlassen."
 
-#: proposals/views.py:288
+#: proposals/views.py:291
 msgid "You were successfully removed as secondary speaker."
 msgstr "Sie wurden erfolgreich als Mitvortragende(r) entfernt."
 
@@ -725,6 +725,10 @@ msgstr "Sponsor"
 msgid "sponsors"
 msgstr "Sponsoren"
 
+#: templates/bootstrap/whole_uni_form.html:17
+msgid "All fields marked with <b>*</b> are required."
+msgstr "Alle mit <b>*</b> markierten Felder sind Pflichtfelder"
+
 #: templates/cms/plugins/twitter_recent_entries.html:13
 msgid "we said,"
 msgstr ""
@@ -804,8 +808,29 @@ msgstr "Anmelden"
 
 #: templates/userprofiles/registration.html:4
 #: templates/userprofiles/registration.html:7
+#: templates/userprofiles/registration_activate.html:5
+#: templates/userprofiles/registration_activate.html:10
 msgid "Registration"
 msgstr "Registrierung"
+
+#: templates/userprofiles/registration_activate.html:16
+msgid "Hi"
+msgstr "Hallo"
+
+#: templates/userprofiles/registration_activate.html:18
+msgid "We activated your account. You are now able to log in. Have fun!"
+msgstr "Ihr Account wurde aktiviert. Sie können sich nun einloggen."
+
+#: templates/userprofiles/registration_activate.html:22
+msgid "The submitted activation code is invalid. Activation is not possible."
+msgstr "Der verwendete Aktivierungsgcode ist ungültig. Eine Aktivierung ist damit nicht möglich."
+
+#~ msgid ""
+#~ "This field supports <a href=\"http://daringfireball.net/projects/markdown/"
+#~ "syntax\" target=\"_blank\" rel=\"external\">Markdown</a> syntax."
+#~ msgstr ""
+#~ "Dieses Feld unterstützt <a href=\"http://daringfireball.net/projects/"
+#~ "markdown/syntax\" target=\"_blank\" rel=\"external\">Markdown</a>."
 
 #~ msgid "Agree to terms"
 #~ msgstr "Bedingungen zustimmen"
