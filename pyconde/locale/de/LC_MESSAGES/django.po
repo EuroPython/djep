@@ -17,48 +17,56 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: accounts/forms.py:21
+#: accounts/forms.py:25
 msgid "Account data"
 msgstr "Konto-Daten"
 
-#: accounts/forms.py:22
+#: accounts/forms.py:26
 msgid "Profile"
 msgstr "Profil"
 
-#: accounts/forms.py:27
+#: accounts/forms.py:31
 msgid "Create account"
 msgstr "Konto anlegen"
 
-#: accounts/forms.py:47
+#: accounts/forms.py:52
 msgid "Log in"
 msgstr "Anmelden"
 
-#: accounts/forms.py:59 templates/userprofiles/password_reset.html:4
+#: accounts/forms.py:64 templates/userprofiles/password_reset.html:4
 #: templates/userprofiles/password_reset.html:7
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
-#: accounts/forms.py:70 templates/userprofiles/password_change.html:4
+#: accounts/forms.py:75 templates/userprofiles/password_change.html:4
 #: templates/userprofiles/password_change.html:7
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: accounts/forms.py:80
+#: accounts/forms.py:91
 msgid "Change"
 msgstr "Ändern"
 
-#: accounts/models.py:11
+#: accounts/models.py:12
 msgid "short info"
 msgstr "Steckbrief"
 
+#: accounts/models.py:13 accounts/widgets.py:45
+msgid "avatar"
+msgstr "Profilbild"
+
+#: accounts/models.py:14
+msgid "Please upload an image with a side length of at least 300 pixels."
+msgstr "Bitte ein Bild mit einer Breite von mindestens 300 Pixeln hochladen."
+
 #: attendees/admin.py:68
 msgid "1 mail was"
-msgstr ""
+msgstr "1 E-Mail wurde"
 
 #: attendees/admin.py:70
 #, python-format
 msgid "%s mails were"
-msgstr ""
+msgstr "%s E-Mails wurden"
 
 #: attendees/admin.py:72
 #, python-format
@@ -464,7 +472,7 @@ msgstr "Dauer"
 msgid "Track"
 msgstr ""
 
-#: proposals/forms.py:110
+#: proposals/forms.py:103
 msgid "The selected session kind doesn't accept any proposals anymore."
 msgstr ""
 "Für die ausgewähle Session-Art können leider keine neuen Vorträge mehr "
@@ -990,8 +998,22 @@ msgstr "Anmelden"
 
 #: templates/userprofiles/registration.html:4
 #: templates/userprofiles/registration.html:7
+#: templates/userprofiles/registration_activate.html:5
+#: templates/userprofiles/registration_activate.html:10
 msgid "Registration"
 msgstr "Registrierung"
+
+#: templates/userprofiles/registration_activate.html:16
+msgid "Hi"
+msgstr "Hallo"
+
+#: templates/userprofiles/registration_activate.html:18
+msgid "We activated your account. You are now able to log in. Have fun!"
+msgstr "Ihr Account wurde aktiviert. Sie können sich nun einloggen."
+
+#: templates/userprofiles/registration_activate.html:22
+msgid "The submitted activation code is invalid. Activation is not possible."
+msgstr "Der verwendete Aktivierungsgcode ist ungültig. Eine Aktivierung ist damit nicht möglich."
 
 #~ msgid ""
 #~ "This field supports <a href=\"http://daringfireball.net/projects/markdown/"
