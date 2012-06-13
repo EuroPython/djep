@@ -4,7 +4,7 @@ import datetime
 from django.views import generic as generic_views
 from django.views.generic.base import TemplateResponseMixin
 from django.shortcuts import get_object_or_404
-from django.http import HttpResponseForbidden, HttpResponseRedirect
+from django.http import HttpResponseRedirect
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
@@ -15,6 +15,7 @@ from django.utils.importlib import import_module
 from . import models, forms, utils, decorators, settings
 from .view_mixins import OrderMappingMixin, PrepareViewMixin
 from pyconde.proposals.views import NextRedirectMixin
+from pyconde.utils import create_403
 
 
 class ListProposalsView(OrderMappingMixin, generic_views.TemplateView):
@@ -288,7 +289,7 @@ class SubmitCommentView(TemplateResponseMixin, generic_views.View):
     def dispatch(self, request, *args, **kwargs):
         self.proposal = get_object_or_404(models.Proposal, pk=kwargs['pk'])
         if not utils.can_participate_in_review(request.user, self.proposal):
-            return HttpResponseForbidden()
+            return create_403(request)
         self.proposal_version = models.ProposalVersion.objects.get_latest_for(self.proposal)
         return super(SubmitCommentView, self).dispatch(request, *args, **kwargs)
 
@@ -328,7 +329,7 @@ class DeleteCommentView(NextRedirectMixin, PrepareViewMixin, generic_views.Delet
     def dispatch(self, request, *args, **kwargs):
         self.prepare(request, *args, **kwargs)
         if not (self.object.author == self.request.user or self.request.user.is_staff or self.request.user.is_superuser):
-            return HttpResponseForbidden()
+            return create_403(request)
         return super(DeleteCommentView, self).dispatch(request, *args, **kwargs)
 
 
@@ -379,7 +380,7 @@ class ProposalDetailsView(generic_views.DetailView):
         self.kwargs = kwargs
         self.object = self.get_object()
         if not (utils.can_participate_in_review(self.request.user, self.object) or request.user.is_staff):
-            return HttpResponseForbidden()
+            return create_403(request)
         return super(ProposalDetailsView, self).dispatch(request, *args, **kwargs)
 
     def wrap_timeline_elements(self, item):
@@ -416,7 +417,7 @@ class ProposalVersionListView(generic_views.ListView):
     def get(self, *args, **kwargs):
         self.object_list = self.get_queryset()
         if not (utils.can_participate_in_review(self.request.user, self.proposal) or self.request.user.is_staff):
-            return HttpResponseForbidden()
+            return create_403(_("You have to be the author of this proposal or a reviewer to access this page"))
         return super(ProposalVersionListView, self).get(*args, **kwargs)
 
 
@@ -447,7 +448,7 @@ class ProposalVersionDetailsView(generic_views.DetailView):
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         if not (utils.can_participate_in_review(self.request.user, self.object.original) or request.user.is_staff):
-            return HttpResponseForbidden()
+            return create_403(_("You have to be the author of this proposal or a reviewer to access this page"))
         return super(ProposalVersionDetailsView, self).get(request, *args, **kwargs)
 
 
@@ -503,7 +504,7 @@ class UpdateProposalView(TemplateResponseMixin, generic_views.View):
             return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.object.pk}))
         self.proposal_version = models.ProposalVersion.objects.get_latest_for(self.object)
         if not utils.is_proposal_author(request.user, self.object):
-            return HttpResponseForbidden()
+            return create_403(_("You have to be the author of this review to access this page"))
         return super(UpdateProposalView, self).dispatch(request, *args, **kwargs)
 
     def get_form_class(self):
