@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-13 22:40+0200\n"
+"POT-Creation-Date: 2012-06-14 19:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -708,7 +708,9 @@ msgstr "Sie müssen Reviewer sein, um auf diese Seite zugreifen zu können."
 
 #: reviews/decorators.py:25
 msgid "You have to be a reviewer or staff member to access this page."
-msgstr "Sie müssen entweder Reviewer oder Redakteur sein, um auf diese Seite zugreifen zu können."
+msgstr ""
+"Sie müssen entweder Reviewer oder Redakteur sein, um auf diese Seite "
+"zugreifen zu können."
 
 #: reviews/forms.py:40 reviews/forms.py:101
 msgid "Save"
@@ -852,43 +854,49 @@ msgstr "[REVIEW] %(author)s hat %(title)s bearbeitet"
 msgid "Review has been saved"
 msgstr "Review wurde gespeichert"
 
-#: reviews/views.py:166 reviews/views.py:213 reviews/views.py:252
+#: reviews/views.py:166 reviews/views.py:218 reviews/views.py:259
+msgid "You are not allowed to review your own proposals."
+msgstr "Sie dürfen Ihre eigenen Vorschläge nicht bewerten."
+
+#: reviews/views.py:168 reviews/views.py:215 reviews/views.py:256
 msgid "This proposal can no longer be reviewed."
 msgstr "Dieser Vorschlag kann nicht mehr bewertet werden."
 
-#: reviews/views.py:169
+#: reviews/views.py:171
 msgid "You have already reviewed this proposal"
 msgstr "Sie haben diesen Vorschlag bereits bewertet"
 
-#: reviews/views.py:195
+#: reviews/views.py:197
 msgid "Changes have been saved"
 msgstr "Änderungen wurden gespeichert"
 
-#: reviews/views.py:244
+#: reviews/views.py:248
 msgid "Review has been deleted"
 msgstr "Review wurde gelöscht"
 
-#: reviews/views.py:281
+#: reviews/views.py:287
 msgid "Comment has been added"
 msgstr "Kommentar wurde hinzugefügt"
 
-#: reviews/views.py:420 reviews/views.py:451
+#: reviews/views.py:426 reviews/views.py:457
 msgid ""
 "You have to be the author of this proposal or a reviewer to access this page"
 msgstr ""
-"Sie müssen Autor dieses Vorschlages oder Reviewer sein, um auf diese Seite zugreifen zu können."
+"Sie müssen Autor dieses Vorschlages oder Reviewer sein, um auf diese Seite "
+"zugreifen zu können."
 
-#: reviews/views.py:494
+#: reviews/views.py:500
 msgid "Proposal has been successfully updated"
 msgstr "Der Vorschlag wurde erfolgreich geändert"
 
-#: reviews/views.py:503
+#: reviews/views.py:509
 msgid "Proposals can no longer be updated"
 msgstr "Vorschläge können nicht mehr aktualisiert werden"
 
-#: reviews/views.py:507
+#: reviews/views.py:513
 msgid "You have to be the author of this review to access this page"
-msgstr "Sie müssen Autor dieser Review sein, um auf diese Seite zugreifen zu können."
+msgstr ""
+"Sie müssen Autor dieser Review sein, um auf diese Seite zugreifen zu können."
 
 #: reviews/management/commands/export_reviews.py:9
 msgid "Exports all reviews as CSV to stdout"

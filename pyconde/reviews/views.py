@@ -162,6 +162,8 @@ class SubmitReviewView(generic_views.TemplateView):
     @method_decorator(decorators.reviews_active_required)
     def dispatch(self, request, *args, **kwargs):
         self.proposal = get_object_or_404(models.Proposal, pk=kwargs['pk'])
+        if utils.is_proposal_author(request.user, self.proposal):
+            return create_403(request, _("You are not allowed to review your own proposals."))
         if not self.proposal.can_be_reviewed():
             messages.error(request, _("This proposal can no longer be reviewed."))
             return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.proposal.pk}))
@@ -212,6 +214,8 @@ class UpdateReviewView(generic_views.UpdateView):
         if not self.object.proposal.can_be_reviewed():
             messages.error(request, _("This proposal can no longer be reviewed."))
             return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.object.proposal.pk}))
+        if utils.is_proposal_author(request.user, self.object.proposal):
+            return create_403(request, _("You are not allowed to review your own proposals."))
         return super(UpdateReviewView, self).dispatch(request, *args, **kwargs)
 
 
@@ -251,6 +255,8 @@ class DeleteReviewView(NextRedirectMixin, PrepareViewMixin, generic_views.Delete
         if not self.object.proposal.can_be_reviewed():
             messages.error(request, _("This proposal can no longer be reviewed."))
             return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.object.proposal.pk}))
+        if utils.is_proposal_author(request.user, self.object.proposal):
+            return create_403(request, _("You are not allowed to review your own proposals."))
         return super(DeleteReviewView, self).dispatch(request, *args, **kwargs)
 
 
@@ -357,7 +363,7 @@ class ProposalDetailsView(generic_views.DetailView):
         data['comment_form'] = comment_form
         data['versions'] = proposal_versions
         data['timeline'] = map(self.wrap_timeline_elements, utils.merge_comments_and_versions(comments, proposal_versions))
-        data['can_review'] = utils.can_review_proposal(self.request.user, self.object)
+        data['can_review'] = utils.can_review_proposal(self.request.user, self.object) and not utils.is_proposal_author(self.request.user, self.object)
         data['can_update'] = utils.is_proposal_author(self.request.user, self.object)
         data['can_comment'] = utils.can_participate_in_review(self.request.user, self.object)
         try:
