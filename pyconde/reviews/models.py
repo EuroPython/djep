@@ -1,4 +1,5 @@
 import datetime
+import logging
 
 from django.db import models
 from django.db.models import signals
@@ -11,6 +12,7 @@ from pyconde.conference import models as conference_models
 
 from . import settings
 
+logger = logging.getLogger(__name__)
 
 RATING_CHOICES = (
     ('-1', '-1'),
@@ -79,6 +81,8 @@ class ProposalMetaData(models.Model):
         verbose_name=_("latest comment"))
     latest_review_date = models.DateTimeField(null=True, blank=True,
         verbose_name=_("latest review"))
+    latest_version_date = models.DateTimeField(null=True, blank=True,
+        verbose_name=_("latest version"))
     score = models.FloatField(default=0.0, null=False, blank=False,
         verbose_name=_("score"))
 
@@ -206,6 +210,12 @@ def create_proposal_metadata(sender, instance, **kwargs):
 
 
 def _update_proposal_metadata(proposal):
+    if isinstance(proposal, proposal_models.Proposal)  and not isinstance(proposal, Proposal):
+        # Ugly but we have to convert this instance into our proxy model here
+        # for the signal hander also to work in the admin.
+        prop = Proposal()
+        prop.__dict__ = proposal.__dict__
+        proposal = prop
     try:
         md = proposal.review_metadata
     except ProposalMetaData.DoesNotExist:
@@ -215,6 +225,13 @@ def _update_proposal_metadata(proposal):
 
     latest_comment_date = None
     latest_review_date = None
+    latest_version_date = None
+
+    try:
+        latest_review_date = ProposalVersion.objects.get_latest_for(proposal).pub_date
+    except Exception:
+        logger.debug("Failed to fetch latest version of proposal", exc_info=True)
+
     score = 0.0
     try:
         latest_comment_date = proposal.comments.order_by('-pub_date')[0].pub_date
@@ -226,27 +243,34 @@ def _update_proposal_metadata(proposal):
             score += settings.RATING_MAPPING[review.rating]
     except:
         pass
-    if latest_comment_date and latest_review_date:
-        if latest_comment_date > latest_review_date:
+    if latest_comment_date and latest_version_date:
+        if latest_comment_date > latest_version_date:
             md.latest_activity_date = latest_comment_date
         else:
-            md.latest_activity_date = latest_review_date
+            md.latest_activity_date = latest_version_date
     elif latest_comment_date:
         md.latest_activity_date = latest_comment_date
     else:
         md.latest_activity_date = latest_review_date
+
     md.latest_comment_date = latest_comment_date
     md.latest_review_date = latest_review_date
+    md.latest_version_date = latest_version_date
     md.score = score
     md.save()
 
 
 def update_proposal_metadata(sender, instance, **kwargs):
-    proposal = instance.proposal
+    if isinstance(instance, ProposalVersion):
+        proposal = instance.original
+    else:
+        proposal = instance.proposal
     _update_proposal_metadata(proposal)
 
 signals.post_save.connect(create_proposal_metadata, sender=proposal_models.Proposal, dispatch_uid='reviews.proposal_metadata_creation')
 signals.post_save.connect(update_proposal_metadata, sender=Comment, dispatch_uid='reviews.update_proposal_comments_count')
 signals.post_save.connect(update_proposal_metadata, sender=Review, dispatch_uid='reviews.update_proposal_reviews_count')
+signals.post_save.connect(update_proposal_metadata, sender=ProposalVersion, dispatch_uid='reviews.update_proposal_version_count')
 signals.post_delete.connect(update_proposal_metadata, sender=Comment, dispatch_uid='reviews.update_proposal_comments_count_del')
 signals.post_delete.connect(update_proposal_metadata, sender=Review, dispatch_uid='reviews.update_proposal_reviews_count_del')
+signals.post_delete.connect(update_proposal_metadata, sender=ProposalVersion, dispatch_uid='reviews.update_proposal_version_count_del')
