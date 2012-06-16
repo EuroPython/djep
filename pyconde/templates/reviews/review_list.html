@@ -1,0 +1,26 @@
+{% extends "reviews/base.html" %}
+{% load markup %}
+{% block bodycls %}review-overview{% endblock %}
+{% block title %}Reviews von {{ proposal.title }}{% endblock %}
+{% block content %}
+    <h1>Reviews von <a href="{% url reviews-proposal-details pk=proposal.pk %}">{{ proposal.title }}</a></h1>
+
+    {% if not object_list %}
+    <p class="empty">Dieser Vorschlag wurde bisher nicht bewertet.</p>
+    {% else %}
+    <ul>
+        {% for review in object_list %}
+        <li>
+            <span class="score">{{ review.rating }}</span>
+            <div class="summary">{{ review.summary|markdown:"safe" }}</div>
+            <cite>-- {{ review.user }} ({{ review.pub_date }})</cite>
+        </li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+{% endblock %}
+{% block sidebar %}
+    <div id="scorebox" class="box">
+        <span class="score">{{ proposal.review_metadata.score }}</span> nach {{ proposal.review_metadata.num_reviews }} Review(s)
+    </div>
+{% endblock %}

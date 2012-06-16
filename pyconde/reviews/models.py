@@ -27,10 +27,7 @@ class ProposalsManager(conference_models.CurrentConferenceManager):
     A simple manager used for filtering proposals that are available
     for review.
     """
-    def get_query_set(self):
-        if not conference_models.current_conference().get_reviews_active():
-            return super(ProposalsManager, self).get_query_set().none()
-        return super(ProposalsManager, self).get_query_set().all()
+    pass
 
 
 class ProposalMetaDataManager(models.Manager):
@@ -38,10 +35,7 @@ class ProposalMetaDataManager(models.Manager):
     A simple manager used for filtering proposals that are available
     for review.
     """
-    def get_query_set(self):
-        if not conference_models.current_conference().get_reviews_active():
-            return super(ProposalMetaDataManager, self).get_query_set().none()
-        return super(ProposalMetaDataManager, self).get_query_set().all()
+    pass
 
 
 class Proposal(proposal_models.Proposal):

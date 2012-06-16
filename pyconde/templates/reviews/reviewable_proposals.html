@@ -33,7 +33,7 @@
                 <td>{{ proposal.num_comments }}</td>
                 <td>{% if proposal.latest_activity_date %}{{ proposal.latest_activity_date }}{% endif %}</td>
                 {% if user.is_staff %}
-                <td>{{ proposal.score }}</td>
+                <td><a href="{% url reviews-proposal-reviews proposal_pk=proposal.proposal.pk %}">{{ proposal.score }}</a></td>
                 {% endif %}
             </tr>
             {% endfor %}

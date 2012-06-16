@@ -82,3 +82,36 @@ body.reviews {
         }
     }
 }
+
+body.review-overview {
+    #scorebox {
+        text-align: center;
+        .score {
+            font-size: 42px;
+        }
+    }
+    .post ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        li {
+            width: 100%;
+            overflow: hidden;
+            padding: 0;
+            margin: 0 0 4px 0;
+            background: #EFEFEF;
+            .score {
+                float: left;
+                width: 30%;
+                padding: 10px 0;
+                font-size: 32px;
+                text-align: center;
+            }
+            .summary, cite {
+                float: right;
+                width: 65%;
+                padding: 10px 0;
+            }
+        }
+    }
+}

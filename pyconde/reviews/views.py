@@ -10,12 +10,14 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.contrib.admin.views.decorators import staff_member_required
 from django.utils.importlib import import_module
 
 from . import models, forms, utils, decorators, settings
 from .view_mixins import OrderMappingMixin, PrepareViewMixin
 from pyconde.proposals.views import NextRedirectMixin
 from pyconde.utils import create_403
+from pyconde.conference.models import current_conference
 
 
 class ListProposalsView(OrderMappingMixin, generic_views.TemplateView):
@@ -365,7 +367,7 @@ class ProposalDetailsView(generic_views.DetailView):
         data['timeline'] = map(self.wrap_timeline_elements, utils.merge_comments_and_versions(comments, proposal_versions))
         data['can_review'] = utils.can_review_proposal(self.request.user, self.object) and not utils.is_proposal_author(self.request.user, self.object)
         data['can_update'] = utils.is_proposal_author(self.request.user, self.object)
-        data['can_comment'] = utils.can_participate_in_review(self.request.user, self.object)
+        data['can_comment'] = utils.can_participate_in_review(self.request.user, self.object) and current_conference().get_reviews_active()
         try:
             review = self.object.reviews.get(user=self.request.user)
             data['user_review'] = review
@@ -419,7 +421,6 @@ class ProposalVersionListView(generic_views.ListView):
         data['proposal'] = data['original']
         return data
 
-    @method_decorator(decorators.reviews_active_required)
     def get(self, *args, **kwargs):
         self.object_list = self.get_queryset()
         if not (utils.can_participate_in_review(self.request.user, self.proposal) or self.request.user.is_staff):
@@ -450,7 +451,6 @@ class ProposalVersionDetailsView(generic_views.DetailView):
         })
         return data
 
-    @method_decorator(decorators.reviews_active_required)
     def get(self, request, *args, **kwargs):
         self.object = self.get_object()
         if not (utils.can_participate_in_review(self.request.user, self.object.original) or request.user.is_staff):
@@ -529,3 +529,23 @@ class UpdateProposalView(TemplateResponseMixin, generic_views.View):
             'reviews/update_{0}_proposal.html'.format(self.object.kind.slug),
             self.template_name
         ]
+
+
+class ProposalReviewsView(generic_views.ListView):
+    """
+    Provides staff members with an overview of all reviews of a proposal and its
+    final score.
+    """
+    model = models.Review
+
+    def get_context_data(self, **kwargs):
+        data = super(ProposalReviewsView, self).get_context_data(**kwargs)
+        data['proposal'] = get_object_or_404(models.Proposal, pk=self.kwargs['proposal_pk'])
+        return data
+
+    def get_queryset(self):
+        return self.model.objects.filter(proposal__pk=self.kwargs['proposal_pk']).select_related('proposal_version').order_by('pub_date')
+
+    @method_decorator(staff_member_required)
+    def dispatch(self, request, *args, **kwargs):
+        return super(ProposalReviewsView, self).dispatch(request, *args, **kwargs)

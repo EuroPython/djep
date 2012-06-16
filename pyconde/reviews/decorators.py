@@ -1,6 +1,7 @@
 from django.http import Http404
 
 from django.utils.translation import ugettext as _
+from django.contrib import messages
 
 from pyconde.conference.models import current_conference
 from pyconde.utils import create_403
@@ -30,6 +31,8 @@ def reviewer_or_staff_required(func):
 def reviews_active_required(func):
     def _wrapper(request, *args, **kwargs):
         if not current_conference().get_reviews_active():
-            raise Http404()
+            if not request.user.is_staff:
+                raise Http404()
+            messages.warning(request, _("The review period has ended. Only staff members can see this page."))
         return func(request, *args, **kwargs)
     return _wrapper
