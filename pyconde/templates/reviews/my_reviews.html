@@ -1,0 +1,30 @@
+{% extends "reviews/base.html" %}
+{% block title %}Meine Reviews{% endblock %}
+{% block content %}
+    <h1>Meine Reviews</h1>
+    {% if object_list %}
+    <table>
+        <thead>
+            <tr>
+                <th class="orderable"><a href="?order={% if order == 'title' %}-{% endif %}title">Titel</a>
+                    {% if order == "-title" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "title" %}<i class="icon-chevron-up"></i>{% endif %}</th>
+                <th class="orderable"><a href="?order={% if order == 'speaker' %}-{% endif %}speaker">Vortragende(r)</a>
+                    {% if order == "-speaker" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "speaker" %}<i class="icon-chevron-up"></i>{% endif %}</th>
+                <th class="orderable"><a href="?order={% if order == 'rating' %}-{% endif %}rating">Bewertung</a>
+                    {% if order == "-rating" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "rating" %}<i class="icon-chevron-up"></i>{% endif %}</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for review in object_list %}
+            <tr>
+                <td><a href="{% url reviews-proposal-details pk=review.proposal.pk %}">{{ review.proposal.title }}</a></td>
+                <td>{{ review.proposal.speaker }}</td>
+                <td>{{ review.rating }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty">Sie haben noch keine Bewertung abgegeben.</p>
+    {% endif %}
+{% endblock %}

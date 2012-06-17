@@ -1,0 +1,12 @@
+{% if versions %}
+<div class="box" id="versions">
+    <h2>Versionen</h2>
+    <ul>
+        {% for v in versions %}
+        <li class="{% if v == version %}active{% endif %}">
+            <a href="{% url reviews-version-details proposal_pk=proposal.pk pk=v.pk %}">{{ v.pub_date }}</a> ({{ v.creator }})
+        </li>
+        {% endfor %}
+    </ul>
+</div>
+{% endif %}

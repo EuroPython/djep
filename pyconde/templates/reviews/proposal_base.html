@@ -1,0 +1,32 @@
+{% extends "reviews/base.html" %}
+{% block sidebar %}
+    <div class="box" id="review-metadata">
+        <h2>Vorschlagsinfo</h2>
+        <dl>
+            <dt>Titel:</dt>
+            <dd><a href="{% url reviews-proposal-details pk=proposal.pk %}">{{ proposal.title }}</a></dd>
+        </dl>
+        <dl>
+            <dt>Typ:</dt>
+            <dd>{{ proposal.kind.name }}</dd>
+        </dl>
+        <dl>
+            <dt>Vortragende(r):</dt>
+            <dd>{{ proposal.speaker }}</dd>
+        </dl>
+        <dl>
+            <dt>Mitvortragende:</dt>
+            <dd>{{ proposal.additional_speakers.all|join:", " }}</dd>
+        </dl>
+        <dl>
+            <dt>Dauer:</dt>
+            <dd>{{ proposal.duration.label }}</dd>
+        </dl>
+        {% if proposal.track %}
+        <dl>
+            <dt>Track:</dt>
+            <dd>{{ proposal.track.name }}</dd>
+        </dl>
+        {% endif %}
+    </div>
+{% endblock %}

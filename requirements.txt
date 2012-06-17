@@ -18,6 +18,9 @@ Markdown
 django-taggit==0.9.3
 django-debug-toolbar==0.9.4
 
+# tablib for export support
+tablib==0.9.11
+
 # Requirements for symposion
 pytz
 django-timezones

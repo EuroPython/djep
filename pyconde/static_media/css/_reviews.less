@@ -1,0 +1,117 @@
+#content {
+    #review-box {
+        padding: 10px;
+        h2 {
+            .rating {
+                font-weight: normal;
+            }
+        }
+        a {
+            display: block;
+            text-align: center;
+            margin-top: 1em;
+        }
+    }
+    #versions {
+        li.active {
+            &, a {
+                font-weight: bold;
+            }
+        }   
+    }
+    #review-metadata {
+        dl {
+            width: 100%;
+            overflow: hidden;
+            border-bottom: 1px dotted #EFEFEF;
+            padding: 5px 0;
+        }
+        dt {
+            float: left;
+            width: 30%;
+        }
+        dd {
+            float: right;
+            width: 65%;
+            font-weight: bold;
+            a {
+                font-weight: bold;
+            }
+        }
+    }
+    .post {
+        ul#timeline {
+            margin: 2em 0;
+            padding: 0;
+            list-style: none;
+        }
+        .timeline-item {
+            width: 98%;
+            overflow: hidden;
+            border-bottom: 1px solid #EFEFEF;
+            padding: 10px 1%;
+            margin-bottom: 2px;
+            dt {
+                float: left;
+                width: 170px;
+            }
+            dd {
+                float: left;
+                width: 400px;
+                padding-left: 10px;
+            }
+            &.timeline-item-comment {
+                background: lighten(@blue, 50);
+                &.deleted {
+                    background: #EFEFEF;
+                }
+            }
+            &.timeline-item-version {
+                background: lighten(@yellow, 40);
+            }
+        }
+    }
+}
+
+body.reviews {
+    &.listing {
+        td .track {
+            display: block;
+            font-size: 80%;
+            font-style: italic;
+        }
+    }
+}
+
+body.review-overview {
+    #scorebox {
+        text-align: center;
+        .score {
+            font-size: 42px;
+        }
+    }
+    .post ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+        li {
+            width: 100%;
+            overflow: hidden;
+            padding: 0;
+            margin: 0 0 4px 0;
+            background: #EFEFEF;
+            .score {
+                float: left;
+                width: 30%;
+                padding: 10px 0;
+                font-size: 32px;
+                text-align: center;
+            }
+            .summary, cite {
+                float: right;
+                width: 65%;
+                padding: 10px 0;
+            }
+        }
+    }
+}

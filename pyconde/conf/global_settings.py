@@ -107,6 +107,7 @@ INSTALLED_APPS = [
     'pyconde.accounts',
     'pyconde.attendees',
     'pyconde.events',
+    'pyconde.reviews',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -127,6 +128,7 @@ TEMPLATE_CONTEXT_PROCESSORS += (
     'django.core.context_processors.request',
     'sekizai.context_processors.sekizai',
     'pyconde.conference.context_processors.current_conference',
+    'pyconde.reviews.context_processors.review_roles',
     'pyconde.context_processors.less_settings',
 )
 

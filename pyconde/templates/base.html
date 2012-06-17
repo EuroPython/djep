@@ -58,7 +58,19 @@
                         <ul>
                             <li><a href="{% url userprofiles_profile_change %}">Profil ändern</a></li>
                             <li><a href="{% url auth_password_change %}">Passwort ändern</a></li>
-                            <li><a href="{% url my_proposals %}">Meine Einreichungen</a></li>
+                            {% if current_conference.get_reviews_active %}
+                                {% if is_reviewer %}
+                                    <li><a href="{% url reviews-available-proposals %}">Reviewbare Einreichungen</a></li>
+                                    <li><a href="{% url reviews-my-reviews %}">Meine Reviews</a></li>
+                                {% else %}
+                                    <li><a href="{% url reviews-my-proposals %}">Einreichungen in Review</a></li>
+                                {% endif %}
+                            {% endif %}
+                            {% if current_conference.get_reviews_active %}
+                                <li><a href="{% url reviews-my-proposals %}">Meine Einreichungen</a></li>
+                            {% else %}
+                                <li><a href="{% url my_proposals %}">Meine Einreichungen</a></li>
+                            {% endif %}
                             {% if request.user.is_staff %}
                             <li><a href="{% url admin:index %}" target="_blank">Admin</a></li>
                             {% endif %}
@@ -91,7 +103,6 @@
     <div class="{% block body_class %}{% endblock %}" id="main">
     {% block body_outer %}
 
-        {% if messages %}
         <div class="col12 clearfix">
             <div class="grid_12" id="messages">
                 {% for message in messages %}
@@ -99,13 +110,14 @@
                     {{ message }}
                 </div>
                 {% endfor %}
+                {% block top_notices %}
+                {% endblock %}
             </div>
         </div>
-        {% endif %}
 
         <section>
             <div class="col12 clearfix" id="content">
-                <div class="grid_4"><!-- Sidebar -->
+                <div class="grid_4" id="sidebar"><!-- Sidebar -->
                     {% show_menu 1 1 0 1 "cms/navigation.html" %}
                     {% block sidebar %}
                     {% endblock %}

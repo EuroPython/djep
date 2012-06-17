@@ -17,24 +17,28 @@ class Conference(models.Model):
     """
     the full conference for a specific year, e.g. US PyCon 2012.
     """
-    
+
     title = models.CharField(_("title"), max_length=100)
-    
+
     # when the conference runs
     start_date = models.DateField(_("start date"), null=True, blank=True)
     end_date = models.DateField(_("end date"), null=True, blank=True)
-    
+
     # timezone the conference is in
     timezone = TimeZoneField(_("timezone"), blank=True)
-    
+
+    reviews_start_date = models.DateTimeField(null=True, blank=True)
+    reviews_end_date = models.DateTimeField(null=True, blank=True)
+    reviews_active = models.NullBooleanField()
+
     def __unicode__(self):
         return self.title
-    
+
     def save(self, *args, **kwargs):
         super(Conference, self).save(*args, **kwargs)
         if self.id in CONFERENCE_CACHE:
             del CONFERENCE_CACHE[self.id]
-    
+
     def delete(self):
         pk = self.pk
         super(Conference, self).delete()
@@ -42,7 +46,15 @@ class Conference(models.Model):
             del CONFERENCE_CACHE[pk]
         except KeyError:
             pass
-    
+
+    def get_reviews_active(self):
+        if self.reviews_active is not None:
+            return self.reviews_active
+        now = datetime.datetime.now()
+        if self.reviews_start_date and self.reviews_end_date:
+            return self.reviews_start_date <= now <= self.reviews_end_date
+        return False
+
     class Meta(object):
         verbose_name = _("conference")
         verbose_name_plural = _("conferences")
@@ -63,21 +75,21 @@ class Section(models.Model):
     "Talks", "Expo", "Sprints", that may have its own review and
     scheduling process.
     """
-    
+
     conference = models.ForeignKey(Conference, verbose_name=_("conference"))
-    
+
     name = models.CharField(_("name"), max_length=100)
-    
+
     # when the section runs
     start_date = models.DateField(_("start date"), null=True, blank=True)
     end_date = models.DateField(_("end date"), null=True, blank=True)
 
     objects = models.Manager()
     current_objects = CurrentConferenceManager()
-    
+
     def __unicode__(self):
         return self.name
-    
+
     class Meta(object):
         verbose_name = _("section")
         verbose_name_plural = _("sections")
@@ -183,6 +195,8 @@ class SessionKind(models.Model):
                 raise forms.ValidationError(_("The end date has to be after the start date"))
 
     def accepts_proposals(self):
+        if self.conference.get_reviews_active():
+            return False
         now = datetime.datetime.utcnow()
         if self.conference.start_date is not None:
             if self.conference.start_date < now.date():
