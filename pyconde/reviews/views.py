@@ -42,7 +42,7 @@ class ListProposalsView(OrderMappingMixin, generic_views.TemplateView):
 
     def get_context_data(self, **kwargs):
         proposals = self.get_queryset()
-        my_reviews = models.Review.objects.filter(user=self.request.user).select_related('proposal', 'proposal.track')
+        my_reviews = models.Review.objects.filter(user=self.request.user).select_related('proposal', 'proposal__track')
         reviewed_proposals = [rev.proposal for rev in my_reviews]
         for proposal in proposals:
             proposal.reviewed = proposal.proposal in reviewed_proposals
@@ -63,7 +63,7 @@ class ListProposalsView(OrderMappingMixin, generic_views.TemplateView):
         return order
 
     def get_queryset(self):
-        qs = models.ProposalMetaData.objects.select_related().order_by(self.get_order()).all()
+        qs = models.ProposalMetaData.objects.select_related('proposal', 'proposal__track').order_by(self.get_order()).all()
         if self.filter_form.is_valid():
             track_slug = self.filter_form.cleaned_data['track']
             if track_slug:
