@@ -22,6 +22,8 @@ def can_participate_in_review(user, proposal):
 
 
 def is_proposal_author(user, proposal):
+    if not hasattr(user, 'speaker_profile'):
+        return False
     if user.speaker_profile == proposal.speaker or user.speaker_profile in proposal.additional_speakers.all():
         return True
     return False
