@@ -3,6 +3,8 @@ from django.http import HttpResponseForbidden
 from django.template.loader import render_to_string
 from django.template import RequestContext
 
+from django.utils.translation import ugettext as _
+
 
 def create_403(request, msg=None):
     if msg is None:
