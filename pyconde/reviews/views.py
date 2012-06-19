@@ -440,7 +440,7 @@ class ProposalVersionDetailsView(generic_views.DetailView):
     def get_object(self):
         if hasattr(self, 'object') and self.object:
             return self.object
-        return self.model.objects.select_related('original').get(pk=self.kwargs['pk'], original__pk=self.kwargs['proposal_pk'])
+        return get_object_or_404(self.model.objects.select_related('original'), pk=self.kwargs['pk'], original__pk=self.kwargs['proposal_pk'])
 
     def get_context_data(self, **kwargs):
         data = super(ProposalVersionDetailsView, self).get_context_data(**kwargs)
