@@ -115,7 +115,7 @@ class ProposalVersion(proposal_models.AbstractProposal):
     objects = ProposalVersionManager()
 
     def __unicode__(self):
-        return "{0} ({1})".format(self.original.title, self.pub_date)
+        return u"{0} ({1})".format(self.original.title, self.pub_date)
 
     class Meta(object):
         verbose_name = _("proposal version")
