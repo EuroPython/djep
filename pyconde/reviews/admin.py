@@ -4,6 +4,8 @@ import datetime
 from django.contrib import admin
 from django.http import HttpResponse
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.contrib.auth import models as auth_models
 
 from . import models
 from . import utils
@@ -30,3 +32,16 @@ admin.site.register(models.Comment,
     actions=[mark_comment_as_deleted])
 admin.site.register(models.ProposalMetaData,
     list_display=['proposal', 'num_comments', 'num_reviews', 'latest_activity_date', 'score'])
+
+
+# Add some more columns and filters to the user admin
+class UserAdmin(BaseUserAdmin):
+    list_display = list(BaseUserAdmin.list_display) + ['is_superuser', 'is_reviewer']
+
+    def is_reviewer(self, instance):
+        return utils.can_review_proposal(instance)
+    is_reviewer.boolean = True
+    is_reviewer.short_description = u'Kann bewerten'
+
+admin.site.unregister(auth_models.User)
+admin.site.register(auth_models.User, UserAdmin)

@@ -1,16 +1,28 @@
 import tablib
+import logging
 
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.contrib.sites.models import Site
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
+from django.core.cache import cache
+from django.contrib.auth import models as auth_models
+from django.db.models import Q
 
 
-def can_review_proposal(user, proposal=None):
-    if user.has_perm('reviews.add_review'):
-        return True
-    return False
+logger = logging.getLogger(__name__)
+
+
+def can_review_proposal(user, proposal=None, reset_cache=False):
+    cache_key = 'reviewer_pks'
+    reviewer_pks = cache.get(cache_key)
+    if reset_cache or reviewer_pks is None:
+        perm = auth_models.Permission.objects.get(codename='add_review')
+        reviewer_pks = set(u['pk'] for u in auth_models.User.objects.filter(Q(is_superuser=True) | Q(user_permissions=perm) | Q(groups__permissions=perm)).values('pk'))
+        cache.set(cache_key, reviewer_pks)
+        logger.debug("reviewer_pks cache has been rebuilt")
+    return user.pk in reviewer_pks
 
 
 def can_participate_in_review(user, proposal):
