@@ -17,6 +17,8 @@ logger = logging.getLogger(__name__)
 def can_review_proposal(user, proposal=None, reset_cache=False):
     cache_key = 'reviewer_pks'
     reviewer_pks = cache.get(cache_key)
+    if user.is_anonymous() or not hasattr(user, 'pk'):
+        return False
     if reset_cache or reviewer_pks is None:
         perm = auth_models.Permission.objects.get(codename='add_review')
         reviewer_pks = set(u['pk'] for u in auth_models.User.objects.filter(Q(is_superuser=True) | Q(user_permissions=perm) | Q(groups__permissions=perm)).values('pk'))
