@@ -87,6 +87,7 @@ INSTALLED_APPS = [
     'userprofiles.contrib.profiles',
     'taggit',
     'debug_toolbar',
+    'helpdesk',
 
     'cms.plugins.inherit',
     'cms.plugins.googlemap',

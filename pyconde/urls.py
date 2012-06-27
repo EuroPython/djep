@@ -16,6 +16,7 @@ urlpatterns = patterns('',
     url(r'^accounts/', include('pyconde.accounts.urls')),
     url(r'^accounts/', include('userprofiles.urls')),
     url(r'^reviews/', include('pyconde.reviews.urls')),
+    url(r'^helpdesk/', include('helpdesk.urls')),
     url(r'^', include('cms.urls')),
 )
 
