@@ -172,7 +172,7 @@ class Comment(models.Model):
     deleted = models.BooleanField(default=False, verbose_name=_("deleted"))
     deleted_date = models.DateTimeField(null=True, blank=True,
         verbose_name=_("deleted at"))
-    deleted_by = models.ForeignKey(auth_models.User, null=True,
+    deleted_by = models.ForeignKey(auth_models.User, null=True, blank=True,
         verbose_name=_("deleted by"),
         related_name='deleted_comments')
     deleted_reason = models.TextField(blank=True, null=True,
