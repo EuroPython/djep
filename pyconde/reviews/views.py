@@ -63,11 +63,14 @@ class ListProposalsView(OrderMappingMixin, generic_views.TemplateView):
         return order
 
     def get_queryset(self):
-        qs = models.ProposalMetaData.objects.select_related('proposal', 'proposal__track').order_by(self.get_order()).all()
+        qs = models.ProposalMetaData.objects.select_related('proposal', 'proposal__track', 'proposal__kind').order_by(self.get_order()).all()
         if self.filter_form.is_valid():
             track_slug = self.filter_form.cleaned_data['track']
+            kind_slug = self.filter_form.cleaned_data['kind']
             if track_slug:
                 qs = qs.filter(proposal__track__slug=track_slug)
+            if kind_slug:
+                qs = qs.filter(proposal__kind__slug=kind_slug)
         return qs
 
     @method_decorator(decorators.reviewer_or_staff_required)

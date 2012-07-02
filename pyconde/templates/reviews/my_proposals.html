@@ -18,12 +18,14 @@
         </thead>
         <tbody>
             {% for proposal in proposals %}
-            <tr>
-                <td><a href="{% url reviews-proposal-details pk=proposal.proposal.pk %}">{{ proposal.title }}</a></td>
+            <tr class="{% if proposal.proposal.kind %}kind-{{ proposal.proposal.kind.slug }}{% endif %}">
+                <td class="title"><a href="{% url reviews-proposal-details pk=proposal.proposal.pk %}">{{ proposal.title }}</a></td>
                 <td>{{ proposal.num_comments }}</td>
                 <td>{% if proposal.latest_comment_date %}{{ proposal.latest_comment_date }}{% endif %}</td>
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    <p class="legend">Tutorials werden <span class="legend kind-tutorial">so dargestellt</span>.<br />
+        Vorträge werden <span class="legend kind-talk">so dargestellt</span>.<br /></p>
 {% endblock content %}
