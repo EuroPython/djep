@@ -158,6 +158,7 @@ class SubmitReviewView(generic_views.TemplateView):
         return {
             'form': self.form,
             'proposal': self.proposal,
+            'proposal_version': self.proposal_version,
         }
 
     @method_decorator(decorators.reviewer_required)
@@ -202,6 +203,7 @@ class UpdateReviewView(generic_views.UpdateView):
     def get_context_data(self, **kwargs):
         data = super(UpdateReviewView, self).get_context_data(**kwargs)
         data['proposal'] = self.object.proposal
+        data['proposal_version'] = self.proposal_version
         return data
 
     def get_success_url(self):
@@ -419,6 +421,7 @@ class ProposalVersionListView(generic_views.ListView):
         data = super(ProposalVersionListView, self).get_context_data(**kwargs)
         data['original'] = models.Proposal.objects.get(pk=self.kwargs['proposal_pk'])
         data['proposal'] = data['original']
+        data['proposal_version'] = models.ProposalVersion.objects.get_latest_for(data['original'])
         return data
 
     def get(self, *args, **kwargs):
@@ -447,6 +450,7 @@ class ProposalVersionDetailsView(generic_views.DetailView):
         proposal = data['version'].original
         data.update({
             'proposal': proposal,
+            'proposal_version': models.ProposalVersion.objects.get_latest_for(proposal),
             'versions': proposal.versions.select_related('creator').all()
         })
         return data
@@ -541,6 +545,7 @@ class ProposalReviewsView(generic_views.ListView):
     def get_context_data(self, **kwargs):
         data = super(ProposalReviewsView, self).get_context_data(**kwargs)
         data['proposal'] = get_object_or_404(models.Proposal, pk=self.kwargs['proposal_pk'])
+        data['proposal_version'] = models.ProposalVersion.objects.get_latest_for(data['proposal'])
         return data
 
     def get_queryset(self):
