@@ -116,7 +116,7 @@ class MyReviewsView(OrderMappingMixin, generic_views.ListView):
     }
 
     def get_queryset(self):
-        return self.model.objects.filter(user=self.request.user).order_by(self.get_order()).select_related('proposal')
+        return self.model.objects.filter(user=self.request.user).order_by(self.get_order()).select_related('proposal', 'proposal__kind', 'proposal__speaker')
 
     def get_template_names(self):
         return ['reviews/my_reviews.html']
