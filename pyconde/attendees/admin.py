@@ -20,8 +20,9 @@ admin.site.register(TicketType, TicketTypeAdmin)
 
 
 class VoucherAdmin(admin.ModelAdmin):
-    list_display = ('__unicode__', 'is_used', 'date_valid')
+    list_display = ('__unicode__', 'remarks', 'is_used', 'date_valid')
     list_filter = ('is_used',)
+    search_fields = ('code', 'remarks')
 
 admin.site.register(Voucher, VoucherAdmin)
 

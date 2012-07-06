@@ -6,6 +6,7 @@ from django.db.models import signals
 from django.utils.translation import ugettext_lazy as _
 from django.contrib.auth import models as auth_models
 from django.core.urlresolvers import reverse
+from django.core.cache import cache
 
 from pyconde.proposals import models as proposal_models
 from pyconde.conference import models as conference_models
@@ -93,7 +94,10 @@ class ProposalMetaData(models.Model):
 
 class ProposalVersionManager(models.Manager):
     def get_latest_for(self, proposal):
-        version = self.get_query_set().filter(original=proposal).order_by('-pub_date')
+        version = self.get_query_set().filter(original=proposal)\
+            .order_by('-pub_date')\
+            .select_related('kind', 'duration', 'audience_level', 'track',
+                'speaker')
         if not version:
             return None
         return version[0]
@@ -168,7 +172,7 @@ class Comment(models.Model):
     deleted = models.BooleanField(default=False, verbose_name=_("deleted"))
     deleted_date = models.DateTimeField(null=True, blank=True,
         verbose_name=_("deleted at"))
-    deleted_by = models.ForeignKey(auth_models.User, null=True,
+    deleted_by = models.ForeignKey(auth_models.User, null=True, blank=True,
         verbose_name=_("deleted by"),
         related_name='deleted_comments')
     deleted_reason = models.TextField(blank=True, null=True,
@@ -261,6 +265,12 @@ def update_proposal_metadata(sender, instance, **kwargs):
         proposal = instance.proposal
     _update_proposal_metadata(proposal)
 
+
+def clear_reviewer_cache(sender, instance, **kwargs):
+    logger.debug("Clearing reviewer_pks cache")
+    cache.delete('reviewer_pks')
+
+
 signals.post_save.connect(create_proposal_metadata, sender=proposal_models.Proposal, dispatch_uid='reviews.proposal_metadata_creation')
 signals.post_save.connect(update_proposal_metadata, sender=Comment, dispatch_uid='reviews.update_proposal_comments_count')
 signals.post_save.connect(update_proposal_metadata, sender=Review, dispatch_uid='reviews.update_proposal_reviews_count')
@@ -268,3 +278,9 @@ signals.post_save.connect(update_proposal_metadata, sender=ProposalVersion, disp
 signals.post_delete.connect(update_proposal_metadata, sender=Comment, dispatch_uid='reviews.update_proposal_comments_count_del')
 signals.post_delete.connect(update_proposal_metadata, sender=Review, dispatch_uid='reviews.update_proposal_reviews_count_del')
 signals.post_delete.connect(update_proposal_metadata, sender=ProposalVersion, dispatch_uid='reviews.update_proposal_version_count_del')
+signals.post_save.connect(clear_reviewer_cache, sender=auth_models.User, dispatch_uid='reviews.clear_reviewer_cache')
+signals.post_delete.connect(clear_reviewer_cache, sender=auth_models.User, dispatch_uid='reviews.clear_reviewer_cache_del')
+signals.post_save.connect(clear_reviewer_cache, sender=auth_models.Permission, dispatch_uid='reviews.clear_reviewer_cache_perm')
+signals.post_delete.connect(clear_reviewer_cache, sender=auth_models.Permission, dispatch_uid='reviews.clear_reviewer_cache_perm_del')
+signals.post_save.connect(clear_reviewer_cache, sender=auth_models.Group, dispatch_uid='reviews.clear_reviewer_group')
+signals.post_delete.connect(clear_reviewer_cache, sender=auth_models.Group, dispatch_uid='reviews.clear_reviewer_group_del')

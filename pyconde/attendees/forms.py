@@ -109,11 +109,14 @@ class TicketVoucherForm(forms.ModelForm):
 
     def clean_code(self):
         try:
-            Voucher.objects.valid().get(code=self.cleaned_data['code'])
+            code = self.cleaned_data['code']
+            ticket = Ticket.objects.get(pk=self.instance.pk)
+            if not ticket.voucher or ticket.voucher.code != code:
+                Voucher.objects.valid().get(code=code)
         except Voucher.DoesNotExist:
             raise forms.ValidationError(_('Voucher verification failed.'))
 
-        return self.cleaned_data['code']
+        return code
 
     def save(self, *args, **kwargs):
         # Mark voucher as used.

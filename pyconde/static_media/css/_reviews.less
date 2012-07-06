@@ -65,6 +65,9 @@
                 &.deleted {
                     background: #EFEFEF;
                 }
+                blockquote {
+                    background: lighten(@blue, 60);
+                }
             }
             &.timeline-item-version {
                 background: lighten(@yellow, 40);
@@ -114,4 +117,9 @@ body.review-overview {
             }
         }
     }
+}
+
+tr.kind-tutorial td.title a,
+.legend.kind-tutorial {
+    color: darken(@yellow, 20);
 }
