@@ -226,7 +226,9 @@ def _update_proposal_metadata(proposal):
     latest_version_date = None
 
     try:
-        latest_review_date = ProposalVersion.objects.get_latest_for(proposal).pub_date
+        latest_version = ProposalVersion.objects.get_latest_for(proposal)
+        if latest_version:
+            latest_version_date = latest_version.pub_date
     except Exception:
         logger.debug("Failed to fetch latest version of proposal", exc_info=True)
 
