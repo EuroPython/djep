@@ -206,7 +206,7 @@ class UpdateReviewView(generic_views.UpdateView):
     def get_context_data(self, **kwargs):
         data = super(UpdateReviewView, self).get_context_data(**kwargs)
         data['proposal'] = self.object.proposal
-        data['proposal_version'] = self.proposal_version
+        data['proposal_version'] = models.ProposalVersion.objects.get_latest_for(self.object.proposal)
         return data
 
     def get_success_url(self):
