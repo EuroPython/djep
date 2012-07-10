@@ -1,0 +1,13 @@
+{% extends "admin/change_list.html" %}
+{% load adminmedia admin_list i18n %}
+{% block content %}
+    <div id="info" style="float: left; padding: 10px; border: 1px dotted #417690; margin: 10px 250px 10px 0px; background: #DBF2FF">
+        <p>Diese Auflistung spiegelt Proposals wieder, wie sie ursprünglich durch den Benutzer
+            gemacht wurden. Sie sollten nur in Ausnahmefällen durch einen Admin modifiziert werden.
+        </p>
+        <p>Sowohl während der Proposal- als auch während der Review-Phase hat der Benutzer die Möglichkeit, das
+            Proposal selbst zu modifizieren. Da jedoch während der Review-Phase jede Änderung protokolliert werden
+            sollte, existiert hierfür in der Reviews-App eine eigene Datenstruktur.</p>
+    </div>
+    {{ block.super }}
+{% endblock %}

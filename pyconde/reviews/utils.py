@@ -117,3 +117,30 @@ def create_reviews_export(queryset):
     for review in queryset.select_related('user', 'proposal'):
         data.append((review.proposal.pk, review.proposal.title, review.pk, review.user.pk, review.user.username, review.rating))
     return data
+
+
+def create_proposal_score_export(queryset=None):
+    """
+    By default exports all proposals with their latest title (and original
+    title), final score etc. to a tablib dataset.
+    """
+    from . import models
+    if queryset is None:
+        queryset = models.ProposalMetaData.objects\
+            .select_related('proposal', 'proposal__speaker',
+                'latest_proposalversion')\
+            .order_by('-score')
+    data = tablib.Dataset(headers=['Title', 'OriginalTitle', 'SpeakerUsername', 'SpeakerName', 'Score', 'NumReviews'])
+    for md in queryset:
+        title = md.proposal.title
+        if md.latest_proposalversion:
+            title = md.latest_proposalversion.title
+        data.append((
+            title,
+            md.proposal.title,
+            md.proposal.speaker.user.username,
+            unicode(md.proposal.speaker),
+            md.score,
+            md.num_reviews
+            ))
+    return data
