@@ -90,8 +90,8 @@ class ProposalMetaData(models.Model):
         return self.proposal.title
 
     class Meta(object):
-        verbose_name = _("metadata")
-        verbose_name_plural = _("metadata")
+        verbose_name = _("proposal metadata")
+        verbose_name_plural = _("proposal metadata")
 
 
 class ProposalVersionManager(models.Manager):

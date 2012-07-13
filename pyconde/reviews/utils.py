@@ -128,18 +128,31 @@ def create_proposal_score_export(queryset=None):
     if queryset is None:
         queryset = models.ProposalMetaData.objects\
             .select_related('proposal', 'proposal__speaker',
-                'latest_proposalversion')\
+                'latest_proposalversion', 'latest_proposalversion__track',
+                'latest_proposalversion__audience_level',
+                'latest_proposalversion__duration')\
             .order_by('-score')
-    data = tablib.Dataset(headers=['Title', 'OriginalTitle', 'SpeakerUsername', 'SpeakerName', 'Score', 'NumReviews'])
+    data = tablib.Dataset(headers=['Title', 'OriginalTitle', 'SpeakerUsername',
+        'SpeakerName', 'AudienceLevel', 'Duration', 'Track', 'Score',
+        'NumReviews'])
     for md in queryset:
         title = md.proposal.title
+        duration = md.proposal.duration
+        audience_level = md.proposal.audience_level
+        track = md.proposal.track
         if md.latest_proposalversion:
             title = md.latest_proposalversion.title
+            duration = md.latest_proposalversion.duration
+            track = md.latest_proposalversion.track
+            audience_level = md.latest_proposalversion.audience_level
         data.append((
             title,
             md.proposal.title,
             md.proposal.speaker.user.username,
-            unicode(md.proposal.speaker),
+            unicode(md.proposal.speaker) if md.proposal.speaker else "",
+            unicode(audience_level) if audience_level else "",
+            unicode(duration) if duration else "",
+            unicode(track) if track else "",
             md.score,
             md.num_reviews
             ))
