@@ -22,6 +22,7 @@ In diesem Export sind folgende Daten enthalten:
 ================ ===============================================================
 Header           Beschreibung
 ================ ===============================================================
+ID               ID des Proposals
 Title            Aktueller Titel des Proposals
 OriginalTitle    Ursprünglicher Titel wie er während der Proposal-Phase
                  eingetragen wurde

@@ -132,7 +132,7 @@ def create_proposal_score_export(queryset=None):
                 'latest_proposalversion__audience_level',
                 'latest_proposalversion__duration')\
             .order_by('-score')
-    data = tablib.Dataset(headers=['Title', 'OriginalTitle', 'SpeakerUsername',
+    data = tablib.Dataset(headers=['ID', 'Title', 'OriginalTitle', 'SpeakerUsername',
         'SpeakerName', 'AudienceLevel', 'Duration', 'Track', 'Score',
         'NumReviews'])
     for md in queryset:
@@ -146,6 +146,7 @@ def create_proposal_score_export(queryset=None):
             track = md.latest_proposalversion.track
             audience_level = md.latest_proposalversion.audience_level
         data.append((
+            md.proposal.pk,
             title,
             md.proposal.title,
             md.proposal.speaker.user.username,
