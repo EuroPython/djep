@@ -63,6 +63,8 @@ class ProposalMetaData(models.Model):
     """
     proposal = models.OneToOneField(Proposal, verbose_name=_("proposal"),
         related_name='review_metadata')
+    latest_proposalversion = models.ForeignKey("ProposalVersion",
+        verbose_name=_("latest proposal version"), null=True, blank=True)
     num_comments = models.PositiveIntegerField(
         verbose_name=_("number of comments"),
         default=0)
@@ -88,8 +90,8 @@ class ProposalMetaData(models.Model):
         return self.proposal.title
 
     class Meta(object):
-        verbose_name = _("metadata")
-        verbose_name_plural = _("metadata")
+        verbose_name = _("proposal metadata")
+        verbose_name_plural = _("proposal metadata")
 
 
 class ProposalVersionManager(models.Manager):
@@ -227,10 +229,12 @@ def _update_proposal_metadata(proposal):
 
     try:
         latest_version = ProposalVersion.objects.get_latest_for(proposal)
+        md.latest_proposalversion = latest_version
         if latest_version:
             latest_version_date = latest_version.pub_date
     except Exception:
         logger.debug("Failed to fetch latest version of proposal", exc_info=True)
+        md.latest_proposalversion = None
 
     score = 0.0
     try:
