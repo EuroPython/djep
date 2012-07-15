@@ -765,8 +765,8 @@ msgid "score"
 msgstr "Punkte"
 
 #: reviews/models.py:92 reviews/models.py:93
-msgid "metadata"
-msgstr "Metadaten"
+msgid "proposal metadata"
+msgstr "Proposal-Metadaten"
 
 #: reviews/models.py:111
 msgid "original proposal"
