@@ -202,10 +202,15 @@ def create_proposal_metadata(sender, instance, **kwargs):
     """
     Checks if we have a metadata object and create it if it is missing.
     """
+    if isinstance(instance, proposal_models.Proposal) and not isinstance(instance, Proposal):
+        prop = Proposal()
+        prop.__dict__ = instance.__dict__
+    else:
+        prop = instance
     try:
-        ProposalMetaData.objects.get(proposal=instance)
+        ProposalMetaData.objects.get(proposal=prop)
     except ProposalMetaData.DoesNotExist:
-        md = ProposalMetaData(proposal=instance)
+        md = ProposalMetaData(proposal=prop)
         md.save()
 
 
