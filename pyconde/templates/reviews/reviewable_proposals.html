@@ -7,36 +7,38 @@
     <p>Diese Seite zeigt Ihnen alle Session-Vorschläge, die bewertet können, zusammen mit der Anzahl der
         bereits abgegeben Bewertungen.</p>
     {% endblock %}
-    <form method="GET" class="filters">Filtern nach {{ filter_form.track }} <button type="submit" class="nojs">Go</button></form>
+    <form method="GET" class="filters">Filtern nach {{ filter_form.track }} oder {{ filter_form.kind }}<button type="submit" class="nojs">Go</button></form>
     <table>
         <thead>
             <tr>
-                <th class="orderable"><a href="?order={% if order == 'title' %}-{% endif %}title">Titel</a>
+                <th class="title orderable"><a href="?order={% if order == 'title' %}-{% endif %}title">Titel</a>
                     {% if order == "-title" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "title" %}<i class="icon-chevron-up"></i>{% endif %}</th>
-                <th class="orderable"><a href="?order={% if order == 'reviews' %}-{% endif %}reviews">Reviews</a>
+                <th class="reviews orderable"><a href="?order={% if order == 'reviews' %}-{% endif %}reviews">Reviews</a>
                     {% if order == "-reviews" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "reviews" %}<i class="icon-chevron-up"></i>{% endif %}</th>
-                <th class="orderable"><a href="?order={% if order == 'comments' %}-{% endif %}comments">Kommentare</a>
+                <th class="comments orderable"><a href="?order={% if order == 'comments' %}-{% endif %}comments">Kommentare</a>
                     {% if order == "-comments" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "comments" %}<i class="icon-chevron-up"></i>{% endif %}</th>
-                <th class="orderable"><a href="?order={% if order == 'activity' %}-{% endif %}activity">Letzte Aktivität</a>
+                <th class="activity orderable"><a href="?order={% if order == 'activity' %}-{% endif %}activity">Letzte Aktivität</a>
                     {% if order == "-activity" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "activity" %}<i class="icon-chevron-up"></i>{% endif %}</th>
                 {% if user.is_staff %}
-                <th class="orderable"><a href="?order={% if order == 'score' %}-{% endif %}score">Score</a>
+                <th class="score orderable"><a href="?order={% if order == 'score' %}-{% endif %}score">Score</a>
                     {% if order == "-score" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "score" %}<i class="icon-chevron-up"></i>{% endif %}</th>
                 {% endif %}
             </tr>
         </thead>
         <tbody>
             {% for proposal in proposals %}
-            <tr>
-                <td><a href="{% url reviews-proposal-details pk=proposal.proposal.pk %}">{{ proposal.title }}</a>{% if proposal.proposal.track %}<span class="track">Track: {{ proposal.proposal.track.name }}</span>{% endif %}</td>
-                <td>{{ proposal.num_reviews }}</td>
-                <td>{{ proposal.num_comments }}</td>
-                <td>{% if proposal.latest_activity_date %}{{ proposal.latest_activity_date }}{% endif %}</td>
+            <tr class="{% if proposal.proposal.kind %}kind-{{ proposal.proposal.kind.slug }}{% endif %}">
+                <td class="title"><a href="{% url reviews-proposal-details pk=proposal.proposal.pk %}">{{ proposal.title }}</a>{% if proposal.proposal.track %}<span class="track">Track: {{ proposal.proposal.track.name }}</span>{% endif %}</td>
+                <td class="reviews">{{ proposal.num_reviews }}</td>
+                <td class="comments">{{ proposal.num_comments }}</td>
+                <td class="activity">{% if proposal.latest_activity_date %}{{ proposal.latest_activity_date }}{% endif %}</td>
                 {% if user.is_staff %}
-                <td><a href="{% url reviews-proposal-reviews proposal_pk=proposal.proposal.pk %}">{{ proposal.score }}</a></td>
+                <td class="score"><a href="{% url reviews-proposal-reviews proposal_pk=proposal.proposal.pk %}">{{ proposal.score }}</a></td>
                 {% endif %}
             </tr>
             {% endfor %}
         </tbody>
     </table>
+    <p class="legend">Tutorials werden <span class="legend kind-tutorial">so dargestellt</span>.<br />
+        Vorträge werden <span class="legend kind-talk">so dargestellt</span>.<br /></p>
 {% endblock content %}

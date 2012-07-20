@@ -12,13 +12,26 @@ from . import utils
 
 
 def mark_comment_as_deleted(modeladmin, request, queryset):
-    queryset.update(deleted=True, deleted_date=datetime.datetime.now(), deleted_by=request.user)
+    queryset.update(deleted=True, deleted_date=datetime.datetime.now(),
+        deleted_by=request.user)
 mark_comment_as_deleted.short_description = _("Mark comment(s) as deleted")
 
 
 def export_reviews(modeladmin, request, queryset):
     return HttpResponse(utils.create_reviews_export(queryset).csv, mimetype='text/csv')
 export_reviews.short_description = _("Export as CSV")
+
+
+def export_reviewed_proposals(modeladmin, request, queryset):
+    return HttpResponse(utils.create_proposal_score_export(queryset).csv,
+        mimetype='text/csv')
+export_reviewed_proposals.short_description = _("Export as CSV")
+
+
+class ProposalMetaDataAdmin(admin.ModelAdmin):
+    list_display = ['proposal', 'num_comments', 'num_reviews',
+        'latest_activity_date', 'score']
+    actions = [export_reviewed_proposals]
 
 
 admin.site.register(models.ProposalVersion,
@@ -30,8 +43,7 @@ admin.site.register(models.Comment,
     list_display=['proposal', 'author', 'pub_date', 'deleted'],
     list_filter=['deleted'],
     actions=[mark_comment_as_deleted])
-admin.site.register(models.ProposalMetaData,
-    list_display=['proposal', 'num_comments', 'num_reviews', 'latest_activity_date', 'score'])
+admin.site.register(models.ProposalMetaData, ProposalMetaDataAdmin)
 
 
 # Add some more columns and filters to the user admin

@@ -149,7 +149,9 @@ class UpdateReviewForm(ReviewForm):
 
 class ProposalFilterForm(forms.Form):
     track = forms.ChoiceField(widget=forms.Select, required=False)
+    kind = forms.ChoiceField(widget=forms.Select, required=False)
 
     def __init__(self, *args, **kwargs):
         super(ProposalFilterForm, self).__init__(*args, **kwargs)
         self.fields['track'].choices = [('', 'Track'), ('-', '----------')] + [(t.slug, t.name) for t in conference_models.Track.objects.all()]
+        self.fields['kind'].choices = [('', 'Vortragsart'), ('-', '----------')] + [(t.slug, t.name) for t in conference_models.SessionKind.objects.exclude(slug='keynote').all()]

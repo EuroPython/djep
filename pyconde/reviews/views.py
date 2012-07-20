@@ -63,11 +63,14 @@ class ListProposalsView(OrderMappingMixin, generic_views.TemplateView):
         return order
 
     def get_queryset(self):
-        qs = models.ProposalMetaData.objects.select_related('proposal', 'proposal__track').order_by(self.get_order()).all()
+        qs = models.ProposalMetaData.objects.select_related('proposal', 'proposal__track', 'proposal__kind').order_by(self.get_order()).all()
         if self.filter_form.is_valid():
             track_slug = self.filter_form.cleaned_data['track']
+            kind_slug = self.filter_form.cleaned_data['kind']
             if track_slug:
                 qs = qs.filter(proposal__track__slug=track_slug)
+            if kind_slug:
+                qs = qs.filter(proposal__kind__slug=kind_slug)
         return qs
 
     @method_decorator(decorators.reviewer_or_staff_required)
@@ -113,7 +116,7 @@ class MyReviewsView(OrderMappingMixin, generic_views.ListView):
     }
 
     def get_queryset(self):
-        return self.model.objects.filter(user=self.request.user).order_by(self.get_order()).select_related('proposal')
+        return self.model.objects.filter(user=self.request.user).order_by(self.get_order()).select_related('proposal', 'proposal__kind', 'proposal__speaker')
 
     def get_template_names(self):
         return ['reviews/my_reviews.html']
@@ -158,6 +161,7 @@ class SubmitReviewView(generic_views.TemplateView):
         return {
             'form': self.form,
             'proposal': self.proposal,
+            'proposal_version': self.proposal_version,
         }
 
     @method_decorator(decorators.reviewer_required)
@@ -202,6 +206,7 @@ class UpdateReviewView(generic_views.UpdateView):
     def get_context_data(self, **kwargs):
         data = super(UpdateReviewView, self).get_context_data(**kwargs)
         data['proposal'] = self.object.proposal
+        data['proposal_version'] = models.ProposalVersion.objects.get_latest_for(self.object.proposal)
         return data
 
     def get_success_url(self):
@@ -419,6 +424,7 @@ class ProposalVersionListView(generic_views.ListView):
         data = super(ProposalVersionListView, self).get_context_data(**kwargs)
         data['original'] = models.Proposal.objects.get(pk=self.kwargs['proposal_pk'])
         data['proposal'] = data['original']
+        data['proposal_version'] = models.ProposalVersion.objects.get_latest_for(data['original'])
         return data
 
     def get(self, *args, **kwargs):
@@ -447,6 +453,7 @@ class ProposalVersionDetailsView(generic_views.DetailView):
         proposal = data['version'].original
         data.update({
             'proposal': proposal,
+            'proposal_version': models.ProposalVersion.objects.get_latest_for(proposal),
             'versions': proposal.versions.select_related('creator').all()
         })
         return data
@@ -541,6 +548,7 @@ class ProposalReviewsView(generic_views.ListView):
     def get_context_data(self, **kwargs):
         data = super(ProposalReviewsView, self).get_context_data(**kwargs)
         data['proposal'] = get_object_or_404(models.Proposal, pk=self.kwargs['proposal_pk'])
+        data['proposal_version'] = models.ProposalVersion.objects.get_latest_for(data['proposal'])
         return data
 
     def get_queryset(self):

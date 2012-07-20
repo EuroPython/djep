@@ -63,6 +63,8 @@ class ProposalMetaData(models.Model):
     """
     proposal = models.OneToOneField(Proposal, verbose_name=_("proposal"),
         related_name='review_metadata')
+    latest_proposalversion = models.ForeignKey("ProposalVersion",
+        verbose_name=_("latest proposal version"), null=True, blank=True)
     num_comments = models.PositiveIntegerField(
         verbose_name=_("number of comments"),
         default=0)
@@ -88,13 +90,16 @@ class ProposalMetaData(models.Model):
         return self.proposal.title
 
     class Meta(object):
-        verbose_name = _("metadata")
-        verbose_name_plural = _("metadata")
+        verbose_name = _("proposal metadata")
+        verbose_name_plural = _("proposal metadata")
 
 
 class ProposalVersionManager(models.Manager):
     def get_latest_for(self, proposal):
-        version = self.get_query_set().filter(original=proposal).order_by('-pub_date')
+        version = self.get_query_set().filter(original=proposal)\
+            .order_by('-pub_date')\
+            .select_related('kind', 'duration', 'audience_level', 'track',
+                'speaker')
         if not version:
             return None
         return version[0]
@@ -169,7 +174,7 @@ class Comment(models.Model):
     deleted = models.BooleanField(default=False, verbose_name=_("deleted"))
     deleted_date = models.DateTimeField(null=True, blank=True,
         verbose_name=_("deleted at"))
-    deleted_by = models.ForeignKey(auth_models.User, null=True,
+    deleted_by = models.ForeignKey(auth_models.User, null=True, blank=True,
         verbose_name=_("deleted by"),
         related_name='deleted_comments')
     deleted_reason = models.TextField(blank=True, null=True,
@@ -197,10 +202,15 @@ def create_proposal_metadata(sender, instance, **kwargs):
     """
     Checks if we have a metadata object and create it if it is missing.
     """
+    if isinstance(instance, proposal_models.Proposal) and not isinstance(instance, Proposal):
+        prop = Proposal()
+        prop.__dict__ = instance.__dict__
+    else:
+        prop = instance
     try:
-        ProposalMetaData.objects.get(proposal=instance)
+        ProposalMetaData.objects.get(proposal=prop)
     except ProposalMetaData.DoesNotExist:
-        md = ProposalMetaData(proposal=instance)
+        md = ProposalMetaData(proposal=prop)
         md.save()
 
 
@@ -223,9 +233,13 @@ def _update_proposal_metadata(proposal):
     latest_version_date = None
 
     try:
-        latest_review_date = ProposalVersion.objects.get_latest_for(proposal).pub_date
+        latest_version = ProposalVersion.objects.get_latest_for(proposal)
+        md.latest_proposalversion = latest_version
+        if latest_version:
+            latest_version_date = latest_version.pub_date
     except Exception:
         logger.debug("Failed to fetch latest version of proposal", exc_info=True)
+        md.latest_proposalversion = None
 
     score = 0.0
     try:
