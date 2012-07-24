@@ -226,6 +226,30 @@ class Track(models.Model):
         return self.name
 
 
+class Location(models.Model):
+    """
+    A location represents a place associated with some part of the conference
+    like a session room or a foyer.
+    """
+    conference = models.ForeignKey(Conference,
+        verbose_name=_("conference"))
+    name = models.CharField(_("name"), max_length=100)
+    slug = models.SlugField(_("slug"))
+    order = models.IntegerField(_("order"), default=0)
+    used_for_sessions = models.BooleanField(_("used for sessions"),
+        default=True)
+
+    objects = CurrentConferenceManager()
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta(object):
+        verbose_name = _("location")
+        verbose_name_plural = _("locations")
+        ordering = ['order']
+
+
 def current_conference():
     from django.conf import settings
     try:

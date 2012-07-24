@@ -17,3 +17,6 @@ admin.site.register(models.SessionDuration,
 admin.site.register(models.Track,
     list_display=("name", "slug", "conference", "order", "visible"),
     list_filter=("conference", "visible"))
+admin.site.register(models.Location,
+    list_display=("name", "slug", "conference", "order", "used_for_sessions"),
+    list_filter=("conference", "used_for_sessions"))
