@@ -29,6 +29,7 @@ OriginalTitle    Ursprünglicher Titel wie er während der Proposal-Phase
 SpeakerUsername  Benutzername des Vortragenden
 SpeakerName      Voller Name des Vortragenden wenn vorhanden, ansonsten
                  Benutzername
+CoSpeakers       Voller Name der Co-Speaker mit "|" getrennt
 AudienceLevel    Level
 Duration         Dauer der Session
 Track            Ausgewählter Track

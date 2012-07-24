@@ -1,6 +1,6 @@
 from django.core.management.base import BaseCommand
 
-from ... import models, utils
+from ... import utils
 
 
 class Command(BaseCommand):
