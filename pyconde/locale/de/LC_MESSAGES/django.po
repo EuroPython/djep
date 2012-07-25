@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-06-14 19:25+0200\n"
+"POT-Creation-Date: 2012-07-25 21:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -17,7 +17,7 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: utils.py:9
+#: utils.py:11
 msgid "You are not allowed to access this page."
 msgstr ""
 
@@ -63,21 +63,21 @@ msgstr "Profilbild"
 msgid "Please upload an image with a side length of at least 300 pixels."
 msgstr "Bitte ein Bild mit einer Breite von mindestens 300 Pixeln hochladen."
 
-#: attendees/admin.py:68
+#: attendees/admin.py:69
 msgid "1 mail was"
 msgstr "1 E-Mail wurde"
 
-#: attendees/admin.py:70
+#: attendees/admin.py:71
 #, python-format
 msgid "%s mails were"
 msgstr "%s E-Mails wurden"
 
-#: attendees/admin.py:72
+#: attendees/admin.py:73
 #, python-format
 msgid "%s successfully sent."
 msgstr "%s erfolgreich versandt."
 
-#: attendees/admin.py:74
+#: attendees/admin.py:75
 #, python-format
 msgid "Send confirmation for selected %(verbose_name_plural)s"
 msgstr ""
@@ -115,7 +115,7 @@ msgstr "Nicht genug Tickets mehr verfügbar."
 msgid "Voucher"
 msgstr "Gutschein"
 
-#: attendees/forms.py:114
+#: attendees/forms.py:117
 msgid "Voucher verification failed."
 msgstr "Gutschein-Verifikation fehlgeschlagen."
 
@@ -317,7 +317,7 @@ msgstr "Zeitzone"
 
 #: conference/models.py:59 conference/models.py:79 conference/models.py:117
 #: conference/models.py:140 conference/models.py:166 conference/models.py:210
-#: sponsorship/models.py:11
+#: conference/models.py:235 sponsorship/models.py:11
 msgid "conference"
 msgstr "Konferenz"
 
@@ -326,7 +326,8 @@ msgid "conferences"
 msgstr "Konferenzen"
 
 #: conference/models.py:81 conference/models.py:118 conference/models.py:167
-#: conference/models.py:211 sponsorship/models.py:12 sponsorship/models.py:31
+#: conference/models.py:211 conference/models.py:236 sponsorship/models.py:12
+#: sponsorship/models.py:31
 msgid "name"
 msgstr "Name"
 
@@ -339,7 +340,7 @@ msgid "sections"
 msgstr "Abschnitte"
 
 #: conference/models.py:119 conference/models.py:142 conference/models.py:168
-#: conference/models.py:212 sponsorship/models.py:15
+#: conference/models.py:212 conference/models.py:237 sponsorship/models.py:15
 msgid "slug"
 msgstr "Slug"
 
@@ -399,7 +400,7 @@ msgstr "Beschreibung"
 msgid "visible"
 msgstr "Sichtbar"
 
-#: conference/models.py:215 sponsorship/models.py:13
+#: conference/models.py:215 conference/models.py:238 sponsorship/models.py:13
 msgid "order"
 msgstr "Reihenfolge"
 
@@ -410,6 +411,18 @@ msgstr "Track"
 #: conference/models.py:222
 msgid "tracks"
 msgstr "Tracks"
+
+#: conference/models.py:239
+msgid "used for sessions"
+msgstr "wird für Sessions verwendet"
+
+#: conference/models.py:248 schedule/models.py:24
+msgid "location"
+msgstr "Ort"
+
+#: conference/models.py:249
+msgid "locations"
+msgstr "Orte"
 
 #: events/models.py:8
 msgid "Conference"
@@ -534,8 +547,8 @@ msgid ""
 msgstr ""
 "Die Dauer muss mit derselben Konferenz wie der Vorschlag assoziiert sein"
 
-#: proposals/models.py:69 reviews/models.py:67 reviews/models.py:143
-#: reviews/models.py:166
+#: proposals/models.py:69 reviews/models.py:64 reviews/models.py:147
+#: reviews/models.py:170 schedule/models.py:22
 msgid "proposal"
 msgstr "Session-Vorschlag"
 
@@ -690,11 +703,11 @@ msgstr "Session-Teilnahmen"
 msgid "Submit a session proposal "
 msgstr "Reichen Sie einen Vortrag ein"
 
-#: reviews/admin.py:14
+#: reviews/admin.py:17
 msgid "Mark comment(s) as deleted"
 msgstr "Kommentar(e) als gelöscht markieren"
 
-#: reviews/admin.py:19
+#: reviews/admin.py:22 reviews/admin.py:28
 msgid "Export as CSV"
 msgstr "Als CSV exportieren"
 
@@ -702,14 +715,20 @@ msgstr "Als CSV exportieren"
 msgid "Reviews app"
 msgstr "Reviews-Anwendung"
 
-#: reviews/decorators.py:17
+#: reviews/decorators.py:18
 msgid "You have to be a reviewer to access this page."
 msgstr "Sie müssen Reviewer sein, um auf diese Seite zugreifen zu können."
 
-#: reviews/decorators.py:25
+#: reviews/decorators.py:26
 msgid "You have to be a reviewer or staff member to access this page."
 msgstr ""
 "Sie müssen entweder Reviewer oder Redakteur sein, um auf diese Seite "
+"zugreifen zu können."
+
+#: reviews/decorators.py:36
+msgid "The review period has ended. Only staff members can see this page."
+msgstr ""
+"Die Review-Phase ist zu Ende. Sie müssen Redakteur sein, um auf diese Seite "
 "zugreifen zu können."
 
 #: reviews/forms.py:40 reviews/forms.py:101
@@ -740,160 +759,168 @@ msgstr "Reviewbare Vorschläge"
 msgid "My reviews"
 msgstr "Meine Reviews"
 
-#: reviews/models.py:70
+#: reviews/models.py:67
+msgid "latest proposal version"
+msgstr "aktuelle Vorschlagsversion"
+
+#: reviews/models.py:69
 msgid "number of comments"
 msgstr "Anzahl an Kommentaren"
 
-#: reviews/models.py:73
+#: reviews/models.py:72
 msgid "number of reviews"
 msgstr "Anzahl an Reviews"
 
-#: reviews/models.py:76
+#: reviews/models.py:75
 msgid "latest activity"
 msgstr "Letzte Aktivität"
 
-#: reviews/models.py:79
+#: reviews/models.py:78
 msgid "latest comment"
 msgstr "Letztes Kommentar"
 
-#: reviews/models.py:81
+#: reviews/models.py:80
 msgid "latest review"
 msgstr "Letzte Review"
 
-#: reviews/models.py:83
+#: reviews/models.py:82
+msgid "latest version"
+msgstr "Letzte Version"
+
+#: reviews/models.py:84
 msgid "score"
 msgstr "Punkte"
 
-#: reviews/models.py:92 reviews/models.py:93
+#: reviews/models.py:93 reviews/models.py:94
 msgid "proposal metadata"
 msgstr "Proposal-Metadaten"
 
-#: reviews/models.py:111
+#: reviews/models.py:115
 msgid "original proposal"
 msgstr "Originalvorschlag"
 
-#: reviews/models.py:114
+#: reviews/models.py:118
 msgid "creator"
 msgstr "Erzeuger"
 
-#: reviews/models.py:115 reviews/models.py:141 reviews/models.py:165
+#: reviews/models.py:119 reviews/models.py:145 reviews/models.py:169
 msgid "publication date"
 msgstr "Veröffentlichungsdatum"
 
-#: reviews/models.py:123 reviews/models.py:145 reviews/models.py:169
+#: reviews/models.py:127 reviews/models.py:149 reviews/models.py:173
 msgid "proposal version"
 msgstr "Vorschlagsversion"
 
-#: reviews/models.py:124
+#: reviews/models.py:128
 msgid "proposal versions"
 msgstr "Vorschlagsversionen"
 
-#: reviews/models.py:136
+#: reviews/models.py:140
 msgid "user"
 msgstr "Benutzer"
 
-#: reviews/models.py:138
+#: reviews/models.py:142
 msgid "rating"
 msgstr "Bewertung"
 
-#: reviews/models.py:139
+#: reviews/models.py:143
 msgid "summary"
 msgstr "Zusammenfassung"
 
-#: reviews/models.py:149
+#: reviews/models.py:153
 msgid "review"
 msgstr "Review"
 
-#: reviews/models.py:150
+#: reviews/models.py:154
 msgid "reviews"
 msgstr "Reviews"
 
-#: reviews/models.py:162
+#: reviews/models.py:166
 msgid "author"
 msgstr "Autor"
 
-#: reviews/models.py:163
+#: reviews/models.py:167
 msgid "content"
 msgstr "Inhalt"
 
-#: reviews/models.py:170
+#: reviews/models.py:174
 msgid "deleted"
 msgstr "Löschen"
 
-#: reviews/models.py:172
+#: reviews/models.py:176
 msgid "deleted at"
 msgstr "Gelöscht am"
 
-#: reviews/models.py:174
+#: reviews/models.py:178
 msgid "deleted by"
 msgstr "Gelöscht durch"
 
-#: reviews/models.py:177
+#: reviews/models.py:181
 msgid "deletion reason"
 msgstr "Löschbegründung"
 
-#: reviews/models.py:193
+#: reviews/models.py:197
 msgid "comment"
 msgstr "Kommentar"
 
-#: reviews/models.py:194
+#: reviews/models.py:198
 msgid "comments"
 msgstr "Kommentare"
 
-#: reviews/utils.py:67
+#: reviews/utils.py:84
 #, python-format
 msgid "[REVIEW] %(author)s commented on %(title)s"
 msgstr "[REVIEW] %(author)s hat %(title)s kommentiert"
 
-#: reviews/utils.py:91
+#: reviews/utils.py:108
 #, python-format
 msgid "[REVIEW] %(author)s updated %(title)s"
 msgstr "[REVIEW] %(author)s hat %(title)s bearbeitet"
 
-#: reviews/views.py:149
+#: reviews/views.py:154
 msgid "Review has been saved"
 msgstr "Review wurde gespeichert"
 
-#: reviews/views.py:166 reviews/views.py:218 reviews/views.py:259
+#: reviews/views.py:172 reviews/views.py:225 reviews/views.py:266
 msgid "You are not allowed to review your own proposals."
 msgstr "Sie dürfen Ihre eigenen Vorschläge nicht bewerten."
 
-#: reviews/views.py:168 reviews/views.py:215 reviews/views.py:256
+#: reviews/views.py:174 reviews/views.py:222 reviews/views.py:263
 msgid "This proposal can no longer be reviewed."
 msgstr "Dieser Vorschlag kann nicht mehr bewertet werden."
 
-#: reviews/views.py:171
+#: reviews/views.py:177
 msgid "You have already reviewed this proposal"
 msgstr "Sie haben diesen Vorschlag bereits bewertet"
 
-#: reviews/views.py:197
+#: reviews/views.py:203
 msgid "Changes have been saved"
 msgstr "Änderungen wurden gespeichert"
 
-#: reviews/views.py:248
+#: reviews/views.py:255
 msgid "Review has been deleted"
 msgstr "Review wurde gelöscht"
 
-#: reviews/views.py:287
+#: reviews/views.py:294
 msgid "Comment has been added"
 msgstr "Kommentar wurde hinzugefügt"
 
-#: reviews/views.py:426 reviews/views.py:457
+#: reviews/views.py:433 reviews/views.py:464
 msgid ""
 "You have to be the author of this proposal or a reviewer to access this page"
 msgstr ""
 "Sie müssen Autor dieses Vorschlages oder Reviewer sein, um auf diese Seite "
 "zugreifen zu können."
 
-#: reviews/views.py:500
+#: reviews/views.py:507
 msgid "Proposal has been successfully updated"
 msgstr "Der Vorschlag wurde erfolgreich geändert"
 
-#: reviews/views.py:509
+#: reviews/views.py:516
 msgid "Proposals can no longer be updated"
 msgstr "Vorschläge können nicht mehr aktualisiert werden"
 
-#: reviews/views.py:513
+#: reviews/views.py:520
 msgid "You have to be the author of this review to access this page"
 msgstr ""
 "Sie müssen Autor dieser Review sein, um auf diese Seite zugreifen zu können."
@@ -901,6 +928,44 @@ msgstr ""
 #: reviews/management/commands/export_reviews.py:9
 msgid "Exports all reviews as CSV to stdout"
 msgstr "Exportiert alle Reviews als CSV nach STDOUT"
+
+#: schedule/admin.py:36
+#, python-format
+msgid "%(counter)s proposal(s) converted to sessions"
+msgstr "%(counter)s Session-Vorschläge wurden in Sessions umgewandelt"
+
+#: schedule/admin.py:40
+#, python-format
+msgid "%(counter)s proposal(s) skipped"
+msgstr "%(counter)s Session-Vorschläge wurden übersprungen"
+
+#: schedule/admin.py:43
+msgid "convert to sessions"
+msgstr "Auswahl in Sessions umwandeln"
+
+#: schedule/admin.py:58 schedule/admin.py:68
+msgid "is scheduled"
+msgstr "Hat Session"
+
+#: schedule/cms_app.py:8
+msgid "Schedule app"
+msgstr ""
+
+#: schedule/models.py:18
+msgid "start time"
+msgstr "Start"
+
+#: schedule/models.py:19
+msgid "end time"
+msgstr "Ende"
+
+#: schedule/models.py:63
+msgid "session"
+msgstr "Session"
+
+#: schedule/models.py:64
+msgid "sessions"
+msgstr "Sessions"
 
 #: sponsorship/models.py:19
 msgid "sponsor level"
@@ -977,6 +1042,12 @@ msgstr ""
 #: templates/cmsplugin_news/latest_news.html:4
 #: templates/cmsplugin_news/news_archive.html:3
 #: templates/cmsplugin_news/news_archive.html:5
+#: templates/cmsplugin_news/news_archive_day.html:3
+#: templates/cmsplugin_news/news_archive_day.html:5
+#: templates/cmsplugin_news/news_archive_month.html:3
+#: templates/cmsplugin_news/news_archive_month.html:5
+#: templates/cmsplugin_news/news_archive_year.html:3
+#: templates/cmsplugin_news/news_archive_year.html:5
 #: templates/cmsplugin_news/news_detail.html:3
 msgid "News"
 msgstr ""
@@ -984,6 +1055,9 @@ msgstr ""
 #: templates/cmsplugin_news/latest_news.html:16
 #: templates/cmsplugin_news/latest_news.html:35
 #: templates/cmsplugin_news/news_archive.html:8
+#: templates/cmsplugin_news/news_archive_day.html:8
+#: templates/cmsplugin_news/news_archive_month.html:8
+#: templates/cmsplugin_news/news_archive_year.html:8
 msgid "No news yet"
 msgstr "Keine News vorhanden"
 

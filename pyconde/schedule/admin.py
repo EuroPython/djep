@@ -40,6 +40,7 @@ def schedule_multiple_proposals(modeladmin, request, queryset):
         messages.warning(request, _("%(counter)s proposal(s) skipped") % {
         'counter': skipped
         })
+schedule_multiple_proposals.short_description = _("convert to sessions")
 
 
 class SessionAdmin(admin.ModelAdmin):
