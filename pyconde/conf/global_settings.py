@@ -158,6 +158,7 @@ LOGOUT_REDIRECT_URL = '/'
 CMS_TEMPLATES = (
     ('cms/default.html', 'Default template'),
     ('cms/frontpage.html', 'Frontpage template'),
+    ('cms/page_templates/fullpage.html', 'Full page width (schedule, ...)'),
 )
 
 CMS_LANGUAGE_FALLBACK = False

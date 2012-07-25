@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
+from django.core.urlresolvers import reverse
 
 from ..proposals import models as proposal_models
 from ..reviews import models as review_models
@@ -54,6 +55,9 @@ class Session(proposal_models.AbstractProposal):
                     continue
                 setattr(self, field.name, getattr(pv, field.name))
             self.tags = pv.tags
+
+    def get_absolute_url(self):
+        return reverse('session', kwargs={'session_pk': self.pk})
 
     class Meta(object):
         verbose_name = _('session')

@@ -108,6 +108,17 @@ def build_static_files():
 
 
 @task
+def build_statics():
+    """
+    Compiles files locally.
+    """
+    with lcd('pyconde'):
+        local('lessc -x static_media/css/style.{less,css}')
+        local('python manage.py collectstatic --noinput -v1 -i bootstrap -i \'*.less\'')
+        local('python manage.py compress --force')
+
+
+@task
 def restart_worker():
     """
     Restarts the gunicorn workers managed by supervisord.
