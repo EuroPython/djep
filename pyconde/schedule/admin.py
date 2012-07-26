@@ -31,7 +31,7 @@ def schedule_multiple_proposals(modeladmin, request, queryset):
         if proposal.pk in proposal_pks:
             skipped += 1
             continue
-        models.Session.init_from_proposal(proposal).save()
+        models.Session.create_from_proposal(proposal)
         counter += 1
     messages.success(request, _("%(counter)s proposal(s) converted to sessions") % {
         'counter': counter

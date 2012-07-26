@@ -1,3 +1,5 @@
+import logging
+
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
@@ -5,6 +7,9 @@ from django.core.urlresolvers import reverse
 from ..proposals import models as proposal_models
 from ..reviews import models as review_models
 from ..conference import models as conference_models
+
+
+LOG = logging.getLogger(__name__)
 
 
 class Session(proposal_models.AbstractProposal):
@@ -24,9 +29,9 @@ class Session(proposal_models.AbstractProposal):
         verbose_name=_("location"), blank=True, null=True)
 
     @classmethod
-    def init_from_proposal(cls, proposal):
+    def create_from_proposal(cls, proposal):
         """
-        Creates an unsaved instance of a session based on the data available
+        Creates an saved instance of a session based on the data available
         in a given proposal.
         """
         obj = cls()
@@ -39,22 +44,28 @@ class Session(proposal_models.AbstractProposal):
         version into the current object.
         """
         assert isinstance(proposal, proposal_models.AbstractProposal)
+        LOG.debug("Importing proposal data into session")
         for field in proposal._meta.fields:
             if field.primary_key:
                 continue
             setattr(self, field.name, getattr(proposal, field.name))
-        self.tags = proposal.tags
         self.proposal = proposal
+        self.save()
+        self.tags.add(*[t.name for t in proposal.tags.all()])
+        self.additional_speakers = proposal.additional_speakers.all()
 
         # Also check if there was an update to that proposal and update the
         # provided values if necessary.
         pv = review_models.ProposalVersion.objects.get_latest_for(proposal)
         if pv:
+            LOG.debug("Applying proposal version data")
             for field in proposal._meta.fields:
                 if field.primary_key:
                     continue
                 setattr(self, field.name, getattr(pv, field.name))
-            self.tags = pv.tags
+            self.tags.add(*[t.name for t in pv.tags.all()])
+            self.additional_speakers = pv.additional_speakers.all()
+        self.save()
 
     def get_absolute_url(self):
         return reverse('session', kwargs={'session_pk': self.pk})
