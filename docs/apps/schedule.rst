@@ -41,3 +41,13 @@ umgewandelt.
 
 Die hier erwähnte Funktionalität steht zusätztlich auch im Bereich der
 Proposal-Metadaten zur Verfügung.
+
+
+Exports
+-------
+
+======= ====== ================================================================================================
+Name    Format Felder
+======= ====== ================================================================================================
+Einfach CSV    ID, ProposalID, Title, SpeakerUsername, SpeakerName, CoSpeakers, AudienceLevel, Duration, Track
+======= ====== ================================================================================================

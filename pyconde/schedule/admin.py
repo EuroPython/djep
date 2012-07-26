@@ -1,6 +1,7 @@
 from django.contrib import admin
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
+from django.http import HttpResponse
 
 from ..proposals import models as proposal_models
 from ..proposals import admin as proposal_admin
@@ -43,9 +44,16 @@ def schedule_multiple_proposals(modeladmin, request, queryset):
 schedule_multiple_proposals.short_description = _("convert to sessions")
 
 
+def create_simple_session_export(modeladmin, request, queryset):
+    return HttpResponse(utils.create_simple_export(queryset).csv,
+        mimetype='text/csv')
+create_simple_session_export.short_description = _("create simple export")
+
+
 class SessionAdmin(admin.ModelAdmin):
     list_display = ("title", "kind", "conference", "duration", "speaker", "track", "location")
     list_filter = ("conference", "kind", "duration", "track", "location")
+    actions = [create_simple_session_export]
 
 
 class ProposalAdmin(proposal_admin.ProposalAdmin):

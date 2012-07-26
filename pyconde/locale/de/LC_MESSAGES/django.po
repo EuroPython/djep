@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-07-25 21:59+0200\n"
+"POT-Creation-Date: 2012-07-26 13:01+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -416,7 +416,7 @@ msgstr "Tracks"
 msgid "used for sessions"
 msgstr "wird für Sessions verwendet"
 
-#: conference/models.py:248 schedule/models.py:24
+#: conference/models.py:248 schedule/models.py:29
 msgid "location"
 msgstr "Ort"
 
@@ -548,7 +548,7 @@ msgstr ""
 "Die Dauer muss mit derselben Konferenz wie der Vorschlag assoziiert sein"
 
 #: proposals/models.py:69 reviews/models.py:64 reviews/models.py:147
-#: reviews/models.py:170 schedule/models.py:22
+#: reviews/models.py:170 schedule/models.py:27
 msgid "proposal"
 msgstr "Session-Vorschlag"
 
@@ -929,21 +929,25 @@ msgstr ""
 msgid "Exports all reviews as CSV to stdout"
 msgstr "Exportiert alle Reviews als CSV nach STDOUT"
 
-#: schedule/admin.py:36
+#: schedule/admin.py:37
 #, python-format
 msgid "%(counter)s proposal(s) converted to sessions"
 msgstr "%(counter)s Session-Vorschläge wurden in Sessions umgewandelt"
 
-#: schedule/admin.py:40
+#: schedule/admin.py:41
 #, python-format
 msgid "%(counter)s proposal(s) skipped"
 msgstr "%(counter)s Session-Vorschläge wurden übersprungen"
 
-#: schedule/admin.py:43
+#: schedule/admin.py:44
 msgid "convert to sessions"
 msgstr "Auswahl in Sessions umwandeln"
 
-#: schedule/admin.py:58 schedule/admin.py:68
+#: schedule/admin.py:50
+msgid "create simple export"
+msgstr "Auswahl als CSV exportieren"
+
+#: schedule/admin.py:66 schedule/admin.py:76
 msgid "is scheduled"
 msgstr "Hat Session"
 
@@ -951,19 +955,19 @@ msgstr "Hat Session"
 msgid "Schedule app"
 msgstr ""
 
-#: schedule/models.py:18
+#: schedule/models.py:23
 msgid "start time"
 msgstr "Start"
 
-#: schedule/models.py:19
+#: schedule/models.py:24
 msgid "end time"
 msgstr "Ende"
 
-#: schedule/models.py:63
+#: schedule/models.py:74
 msgid "session"
 msgstr "Session"
 
-#: schedule/models.py:64
+#: schedule/models.py:75
 msgid "sessions"
 msgstr "Sessions"
 
