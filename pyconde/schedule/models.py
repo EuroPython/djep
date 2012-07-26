@@ -23,6 +23,7 @@ class Session(proposal_models.AbstractProposal):
     start = models.DateTimeField(_("start time"), blank=True, null=True)
     end = models.DateTimeField(_("end time"), blank=True, null=True)
     proposal = models.ForeignKey(proposal_models.Proposal,
+        blank=True, null=True,
         related_name='session',
         verbose_name=_("proposal"))
     location = models.ForeignKey(conference_models.Location,
