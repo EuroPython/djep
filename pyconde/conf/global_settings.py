@@ -87,6 +87,7 @@ INSTALLED_APPS = [
     'userprofiles.contrib.profiles',
     'taggit',
     'debug_toolbar',
+    'helpdesk',
 
     'cms.plugins.inherit',
     'cms.plugins.googlemap',
@@ -108,6 +109,7 @@ INSTALLED_APPS = [
     'pyconde.attendees',
     'pyconde.events',
     'pyconde.reviews',
+    'pyconde.schedule',
 ]
 
 MIDDLEWARE_CLASSES = [
@@ -156,6 +158,7 @@ LOGOUT_REDIRECT_URL = '/'
 CMS_TEMPLATES = (
     ('cms/default.html', 'Default template'),
     ('cms/frontpage.html', 'Frontpage template'),
+    ('cms/page_templates/fullpage.html', 'Full page width (schedule, ...)'),
 )
 
 CMS_LANGUAGE_FALLBACK = False
@@ -208,3 +211,15 @@ PROPOSALS_TYPED_SUBMISSION_FORMS = {
 }
 
 LESS_USE_DYNAMIC_IN_DEBUG = True
+
+# Django Helpdesk stuff
+#
+#   Configuration is done in admin, 
+#   but these placeholders are required in order to make it work
+
+QUEUE_EMAIL_BOX_TYPE = None
+QUEUE_EMAIL_BOX_HOST = None
+QUEUE_EMAIL_BOX_USER = None
+QUEUE_EMAIL_BOX_SSL = None
+QUEUE_EMAIL_BOX_PASSWORD = None
+

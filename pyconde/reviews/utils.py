@@ -1,5 +1,6 @@
 import tablib
 import logging
+from tablib.compat import csv, StringIO
 
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
@@ -125,6 +126,14 @@ def create_proposal_score_export(queryset=None):
     title), final score etc. to a tablib dataset.
     """
     from . import models
+
+    def _format_cospeaker(s):
+        """
+        Format the speaker's name for secondary speaker export and removes
+        our separator characters to avoid confusion.
+        """
+        return unicode(s).replace("|", " ")
+
     if queryset is None:
         queryset = models.ProposalMetaData.objects\
             .select_related('proposal', 'proposal__speaker',
@@ -133,24 +142,29 @@ def create_proposal_score_export(queryset=None):
                 'latest_proposalversion__duration')\
             .order_by('-score')
     data = tablib.Dataset(headers=['ID', 'Title', 'OriginalTitle', 'SpeakerUsername',
-        'SpeakerName', 'AudienceLevel', 'Duration', 'Track', 'Score',
+        'SpeakerName', 'CoSpeakers', 'AudienceLevel', 'Duration', 'Track', 'Score',
         'NumReviews'])
     for md in queryset:
         title = md.proposal.title
         duration = md.proposal.duration
         audience_level = md.proposal.audience_level
         track = md.proposal.track
+        cospeakers = []
         if md.latest_proposalversion:
             title = md.latest_proposalversion.title
             duration = md.latest_proposalversion.duration
             track = md.latest_proposalversion.track
             audience_level = md.latest_proposalversion.audience_level
+            cospeakers = [_format_cospeaker(s) for s in md.latest_proposalversion.additional_speakers.all()]
+        else:
+            cospeakers = [_format_cospeaker(s) for s in md.proposal.additional_speakers.all()]
         data.append((
             md.proposal.pk,
             title,
             md.proposal.title,
             md.proposal.speaker.user.username,
             unicode(md.proposal.speaker) if md.proposal.speaker else "",
+            u"|".join(cospeakers),
             unicode(audience_level) if audience_level else "",
             unicode(duration) if duration else "",
             unicode(track) if track else "",

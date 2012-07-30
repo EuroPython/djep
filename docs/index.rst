@@ -20,6 +20,7 @@ jeweils einen Einstiegspunkt darstellen:
    apps/conference
    apps/proposals
    apps/reviews
+   apps/schedule
 
 Index und Tabellen
 ==================
