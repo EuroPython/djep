@@ -22,6 +22,8 @@ class Session(proposal_models.AbstractProposal):
     """
     start = models.DateTimeField(_("start time"), blank=True, null=True)
     end = models.DateTimeField(_("end time"), blank=True, null=True)
+    section = models.ForeignKey(conference_models.Section, blank=True,
+        null=True, verbose_name=u"section", related_name='sessions')
     proposal = models.ForeignKey(proposal_models.Proposal,
         blank=True, null=True,
         related_name='session',
@@ -74,3 +76,26 @@ class Session(proposal_models.AbstractProposal):
     class Meta(object):
         verbose_name = _('session')
         verbose_name_plural = _('sessions')
+
+
+class SideEvent(models.Model):
+    """
+    Side events are either social events or things like breaks and info events
+    that take place during the conference days but are not sessions.
+    """
+    name = models.CharField(max_length=255)
+    description = models.TextField(blank=True, null=True)
+    start = models.DateTimeField()
+    end = models.DateTimeField()
+    section = models.ForeignKey(conference_models.Section, blank=True,
+        null=True, verbose_name=u"section", related_name='side_events')
+    location = models.ForeignKey(conference_models.Location, blank=True,
+        null=True)
+    is_global = models.BooleanField(default=False)
+    conference = models.ForeignKey(conference_models.Conference,
+        verbose_name=_("conference"))
+
+    objects = conference_models.CurrentConferenceManager()
+
+    def __unicode__(self):
+        return self.name

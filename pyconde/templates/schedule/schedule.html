@@ -1,0 +1,33 @@
+{% extends "base.html" %}
+{% block content %}
+{% for section, grid in schedule.items %}
+<h2>{{ section.name }}</h2>
+{% for day in grid.1 %}
+<h3>{{ day.day|date }}</h3>
+<table>
+    <thead>
+        <tr>
+            <th>Zeit</th>
+            {% for loc in grid.0 %}
+            <th>{{ loc.name }}</th>
+            {% endfor %}
+        </tr>
+    </thead>
+    <tbody>
+        {% for row in day.rows %}
+        <tr>
+            <td>{{ row.date|time }}</td>
+            {% for evt in row.events %}
+                {% if evt.event.is_global %}
+                <td rowspan="{{ evt.rowspan }}" colspan="2">{{ evt.event }}</td>
+                {% else %}
+                <td rowspan="{{ evt.rowspan }}">{{ evt.event }}</td>
+                {% endif %}
+            {% endfor %}
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+{% endfor %}
+{% endfor %}
+{% endblock %}

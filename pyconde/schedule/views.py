@@ -5,6 +5,17 @@ from django.template.response import TemplateResponse
 from ..proposals import models as proposal_models
 
 from . import models
+from . import utils
+
+
+def view_schedule(request):
+    return TemplateResponse(
+        request=request,
+        context={
+            'schedule': utils.create_schedule()
+            },
+        template='schedule/schedule.html'
+        )
 
 
 def session_by_proposal(request, proposal_pk):
