@@ -38,7 +38,7 @@ def create_simple_export(queryset):
         cospeakers = [_format_cospeaker(s) for s in session.additional_speakers.all()]
         data.append((
             session.pk,
-            session.proposal.pk,
+            session.proposal.pk if session.proposal else "",
             session.title,
             session.speaker.user.username,
             unicode(session.speaker) if session.speaker else "",
