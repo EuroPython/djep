@@ -57,7 +57,7 @@ class SessionAdmin(admin.ModelAdmin):
 
 
 class SideEventAdmin(admin.ModelAdmin):
-    list_display = ['name', 'conference', 'location']
+    list_display = ['name', 'start', 'end', 'conference', 'location']
     list_filter = ['conference', 'location']
 
 

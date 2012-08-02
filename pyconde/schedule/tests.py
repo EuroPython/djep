@@ -41,3 +41,26 @@ class ScheduleGeneratorTests(unittest.TestCase):
         start = dt(2012, 6, 1, 9, 0)
         end = dt(2012, 6, 1, 10, 30)
         self.assertEquals(3, len(utils._create_base_grid(start, end, 30)))
+
+    def test_strip_rows(self):
+        e1 = utils.GridCell(None, 2)
+        e1.end = dt(2012, 6, 1, 10, 30)
+        rows = [
+            utils.GridRow(dt(2012, 6, 1, 9, 0), dt(2012, 6, 1, 9, 30), []),
+            utils.GridRow(dt(2012, 6, 1, 9, 30), dt(2012, 6, 1, 10, 0), [e1]),
+            utils.GridRow(dt(2012, 6, 1, 10, 0), dt(2012, 6, 1, 10, 30), []),
+            utils.GridRow(dt(2012, 6, 1, 10, 30), dt(2012, 6, 1, 11, 00), []),
+        ]
+        result = utils._strip_empty_rows(rows)
+        self.assertEquals(2, len(result))
+        self.assertEquals(rows[1:3], result)
+
+    def test_strip_rows_empty(self):
+        rows = [
+            utils.GridRow(dt(2012, 6, 1, 9, 0), dt(2012, 6, 1, 9, 30), []),
+            utils.GridRow(dt(2012, 6, 1, 9, 30), dt(2012, 6, 1, 10, 0), []),
+            utils.GridRow(dt(2012, 6, 1, 10, 0), dt(2012, 6, 1, 10, 30), []),
+            utils.GridRow(dt(2012, 6, 1, 10, 30), dt(2012, 6, 1, 11, 00), []),
+        ]
+        result = utils._strip_empty_rows(rows)
+        self.assertEquals(0, len(result))

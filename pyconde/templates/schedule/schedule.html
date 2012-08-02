@@ -1,10 +1,10 @@
-{% extends "base.html" %}
-{% block content %}
+{% extends "cms/page_templates/fullpage.html" %}
+{% block apphook %}
 {% for section, grid in schedule.items %}
 <h2>{{ section.name }}</h2>
 {% for day in grid.1 %}
-<h3>{{ day.day|date }}</h3>
-<table>
+<table class="schedule">
+    <caption>{{ day.day|date }}</caption>
     <thead>
         <tr>
             <th>Zeit</th>
@@ -15,13 +15,16 @@
     </thead>
     <tbody>
         {% for row in day.rows %}
-        <tr>
-            <td>{{ row.date|time }}</td>
+        <tr{% if row.is_pause_row %} class="pause"{% endif %}>
+            <td class="timetable">{{ row.start|time:'H:i' }} - {{ row.end|time:'H:i' }}</td>
             {% for evt in row.events %}
-                {% if evt.event.is_global %}
-                <td rowspan="{{ evt.rowspan }}" colspan="2">{{ evt.event }}</td>
+                {% if evt.is_global %}
+                <td rowspan="{{ evt.rowspan }}" colspan="{{ grid.0|length }}">{{ evt.event }}</td>
                 {% else %}
-                <td rowspan="{{ evt.rowspan }}">{{ evt.event }}</td>
+                <td rowspan="{{ evt.rowspan }}">
+                    <a href="{{ evt.url }}">{{ evt.name }}</a>
+                    {% if evt.speakers %}von {{ evt.speakers|join:', ' }}{% endif %}
+                </td>
                 {% endif %}
             {% endfor %}
         </tr>

@@ -92,6 +92,7 @@ class SideEvent(models.Model):
     location = models.ForeignKey(conference_models.Location, blank=True,
         null=True)
     is_global = models.BooleanField(default=False)
+    is_pause = models.BooleanField(default=False)
     conference = models.ForeignKey(conference_models.Conference,
         verbose_name=_("conference"))
 
@@ -99,3 +100,6 @@ class SideEvent(models.Model):
 
     def __unicode__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('side_event', kwargs={'pk': self.pk})
