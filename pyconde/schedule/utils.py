@@ -2,7 +2,7 @@ import tablib
 import itertools
 import math
 import datetime
-import collections
+from  django.utils.datastructures import SortedDict
 
 from pyconde.conference import models as conference_models
 
@@ -62,8 +62,8 @@ def create_schedule(row_duration=30):
 
     @param row_duration duration represented by a row in minutes
     """
-    result = {}
-    for section in conference_models.Section.objects.all():
+    result = SortedDict()
+    for section in conference_models.Section.objects.order_by('order', 'start_date').all():
         section_schedule = create_section_schedule(section,
             row_duration=row_duration)
         result[section] = section_schedule
@@ -73,7 +73,7 @@ def create_schedule(row_duration=30):
 def create_section_schedule(section, row_duration=30):
     # Determine all the locations used by this section
     sessions = list(section.sessions
-        .select_related('location')
+        .select_related('location', 'audience_level', 'speaker', 'track')
         .order_by('start')
         .all())
     side_events = list(section.side_events\
@@ -172,6 +172,7 @@ class GridCell(object):
         self.is_pause = False
         self.start = None
         self.end = None
+        self.level_name = None
         if event is not None:
             self.event = event
             self.type = event.__class__.__name__.lower()
@@ -183,10 +184,12 @@ class GridCell(object):
                 self.name = event.title
                 if event.speaker:
                     self.speakers.append(unicode(event.speaker))
-                for speaker in event.additional_speakers.all():
+                for speaker in event.additional_speakers.select_related('user').all():
                     self.speakers.append(unicode(speaker))
                 if event.track:
                     self.track_name = event.track.name
+                if event.audience_level:
+                    self.level_name = event.audience_level.name
             else:
                 self.is_global = event.is_global
                 self.is_pause = event.is_pause

@@ -1,7 +1,7 @@
 {% extends "cms/page_templates/fullpage.html" %}
 {% block apphook %}
 {% for section, grid in schedule.items %}
-<h2>{{ section.name }}</h2>
+<h2><img src="{{ STATIC_URL }}images/{{ section.slug }}.png" alt="{{ section.name }}" /></h2>
 {% for day in grid.1 %}
 <table class="schedule">
     <caption>{{ day.day|date }}</caption>
@@ -22,8 +22,10 @@
                 <td rowspan="{{ evt.rowspan }}" colspan="{{ grid.0|length }}">{{ evt.event }}</td>
                 {% else %}
                 <td rowspan="{{ evt.rowspan }}">
-                    <a href="{{ evt.url }}">{{ evt.name }}</a>
+                    <a href="{{ evt.url }}">{{ evt.name }}</a><br />
                     {% if evt.speakers %}von {{ evt.speakers|join:', ' }}{% endif %}
+                    {% if evt.level_name %}für {{ evt.level_name }}{% endif %}
+                    {% if evt.track_name %}im Track {{ evt.track_name }}{% endif %}
                 </td>
                 {% endif %}
             {% endfor %}

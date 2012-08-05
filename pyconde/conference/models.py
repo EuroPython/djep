@@ -84,6 +84,9 @@ class Section(models.Model):
     start_date = models.DateField(_("start date"), null=True, blank=True)
     end_date = models.DateField(_("end date"), null=True, blank=True)
 
+    slug = models.SlugField(_("slug"), null=True, blank=True)
+    order = models.IntegerField(_("order"), default=0)
+
     objects = models.Manager()
     current_objects = CurrentConferenceManager()
 
