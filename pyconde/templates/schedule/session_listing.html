@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block content %}
+    <h1>{% block page_title %}{% endblock %}</h1>
+    {% if sessions %}
+    <table>
+        <thead>
+            <tr>
+                <th>Titel</th>
+                <th>Ort</th>
+                <th>Zeit</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for session in sessions %}
+            <tr>
+                <td><a href="{% url session session_pk=session.pk %}">{{ session.title }}</a></td>
+                <td>{{ session.location }}</td>
+                <td>{{ session.start|date:"DATE_FORMAT" }}: {{ session.start|time:"TIME_FORMAT" }} - {{ session.end|time:"TIME_FORMAT" }}</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {% else %}
+    <p class="empty">Es konnten leider keine entsprechenden Sessions gefunden werden.</p>
+    {% endif %}
+{% endblock %}

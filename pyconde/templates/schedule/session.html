@@ -1,0 +1,51 @@
+{% extends "site_base.html" %}
+{% load i18n markup speaker_tags %}
+{% block title %}{% trans "session" %}: {{ session.title }}{% endblock %}
+{% block bodycls %}sessionpage{% endblock %}
+{% block body %}
+<article class="session">
+<h1>{% trans "session" %}: {{ session.title }}{% if session.track %} ({{ session.track.name }}){% endif %}</h1>
+
+<div class="meta">
+{% if session.tags %}
+<dl class="tags"><dt>{% trans "Tags" %}:</dt><dd>
+    {% for tag in session.tags.all %}
+    <a href="{% url sessions_by_tag tag=tag.name %}" rel="tag" class="tag">{{ tag.name }}</a>{% if not forloop.last %},  {% endif %}
+    {% endfor %}
+</dd></dl>
+{% endif %}
+{% if session.location %}
+<dl>
+    <dt>{% trans "Location" %}:</dt>
+    <dd><a href="{% url sessions_by_location pk=session.location.pk %}">{{ session.location }}</a></dd>
+</dl>
+{% endif %}
+{% if session.start or session.end %}
+<dl>
+    <dt>{% trans "Duration" %}:</dt>
+    <dd>{{ session.start|date:"DATE_FORMAT" }} von {{ session.start|time:"TIME_FORMAT" }} - {{ session.end|time:"TIME_FORMAT" }}</dd>
+</dl>
+{% endif %}
+</div>
+
+<div class="actions">
+</div>
+
+<div class="description">
+    {{ session.description|markdown:"safe" }}
+</div>
+
+<div class="abstract">
+    {{ session.abstract|markdown:"safe" }}
+</div>
+</article>
+{% endblock %}
+{% block sidebar %}
+<div id="speakers" class="box">
+    <h2>Vortragende:</h2>
+    {% speaker_box session.speaker %}
+    {% for speaker in session.additional_speakers.all %}
+    {% speaker_box speaker %}
+    {% endfor %}
+</div>
+{% endblock %}

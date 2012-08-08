@@ -21,3 +21,42 @@ table.schedule th.tut-gelb {background:#F0B708;text-align:center;}
 tr.pause td {
     vertical-align: middle;
 }
+.sessionpage {
+    #speakers {
+        width: @sidebar-width - (2 * @sidebarbox-hpadding);
+        overflow: hidden;
+        .picture {
+            padding: 1px;
+            border: 1px solid #CCC;
+            margin: 1px;
+            display: block;
+            float: left;
+            img {
+                display: block;
+            }
+        }
+    }
+}
+article.session {
+    .meta {
+        margin: 30px 0 50px 0;
+        dl {
+            border-bottom: 1px solid @border-color;
+            width: 100%;
+            overflow: hidden;
+        }
+        dt {
+            float: left;
+            width: 150px;
+        }
+        dd {
+            padding-left: 170px;
+        }
+    }
+    .abstract {
+        margin-top: 20px;
+        border-top: 1px solid #CCC;
+        padding-top: 20px;
+        clear: both;
+    }
+}
