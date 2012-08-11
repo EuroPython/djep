@@ -84,3 +84,17 @@ def view_session(request, session_pk):
         },
         template='schedule/session.html'
     )
+
+
+def view_sideevent(request, pk):
+    """
+    Shows details of a specific side event.
+    """
+    evt = get_object_or_404(models.SideEvent, pk=pk)
+    return TemplateResponse(
+        request=request,
+        context={
+            'event': evt
+        },
+        template='schedule/sideevent.html'
+    )

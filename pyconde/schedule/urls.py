@@ -8,6 +8,6 @@ urlpatterns = patterns('',
     url(r'^sessions/(?P<session_pk>\d+)/$', views.view_session, name='session'),
     url(r'^sessions/tags/(?P<tag>[^/]+)/$', views.sessions_by_tag, name='sessions_by_tag'),
     url(r'^sessions/locations/(?P<pk>[^/]+)/$', views.sessions_by_location, name='sessions_by_location'),
-    url(r'^events/(?P<pk>\d+)/$', views.view_session, name='side_event'),
+    url(r'^events/(?P<pk>\d+)/$', views.view_sideevent, name='side_event'),
     url(r'^schedule/$', views.view_schedule, name='schedule'),
     )

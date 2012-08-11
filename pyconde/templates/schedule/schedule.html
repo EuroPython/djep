@@ -19,7 +19,7 @@
             <td class="timetable">{{ row.start|time:'H:i' }} - {{ row.end|time:'H:i' }}</td>
             {% for evt in row.events %}
                 {% if evt.is_global %}
-                <td rowspan="{{ evt.rowspan }}" colspan="{{ grid.0|length }}">{{ evt.event }}</td>
+                <td class="global" rowspan="{{ evt.rowspan }}" colspan="{{ grid.0|length }}"><a href="{{ evt.url }}">{{ evt.event }}</a></td>
                 {% else %}
                 <td rowspan="{{ evt.rowspan }}">
                     <a href="{{ evt.url }}">{{ evt.name }}</a><br />
