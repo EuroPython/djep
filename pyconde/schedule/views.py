@@ -1,12 +1,17 @@
+# -*- encoding: utf-8 -*-
 from django.shortcuts import get_object_or_404
 from django.http import HttpResponseRedirect
 from django.template.response import TemplateResponse
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 
 from ..proposals import models as proposal_models
 from ..conference import models as conference_models
+from ..utils import create_403
 
 from . import models
 from . import utils
+from . import forms
 
 
 def view_schedule(request):
@@ -80,7 +85,8 @@ def view_session(request, session_pk):
     return TemplateResponse(
         request=request,
         context={
-            'session': session
+            'session': session,
+            'can_edit': utils.can_edit_session(request.user, session)
         },
         template='schedule/session.html'
     )
@@ -97,4 +103,27 @@ def view_sideevent(request, pk):
             'event': evt
         },
         template='schedule/sideevent.html'
+    )
+
+
+@login_required
+def edit_session(request, session_pk):
+    session = get_object_or_404(models.Session, pk=session_pk)
+    if not utils.can_edit_session(request.user, session):
+        return create_403()
+    if request.method == 'POST':
+        form = forms.EditSessionForm(instance=session, data=request.POST)
+        if form.is_valid():
+            form.save()
+            messages.success(request, u"Änderungen gespeichert")
+            return HttpResponseRedirect(session.get_absolute_url())
+    else:
+        form = forms.EditSessionForm(instance=session)
+    return TemplateResponse(
+        request=request,
+        context={
+        'form': form,
+        'session': session
+        },
+        template='schedule/edit_session.html'
     )

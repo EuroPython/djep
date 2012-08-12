@@ -348,3 +348,16 @@ def _pad_row_for_locations(row, prev_row, locations):
             filler_added = True
     if filler_added:
         row.reorder_by_location(locations)
+
+
+def can_edit_session(user, session):
+    if user.is_anonymous():
+        return False
+    if user.is_superuser or user.is_staff:
+        return True
+    speaker = user.speaker_profile
+    if not speaker:
+        return False
+    if session.speaker == speaker:
+        return True
+    return speaker in session.additional_speakers.all()

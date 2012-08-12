@@ -5,7 +5,11 @@
 {% block body %}
 <article class="session">
 <h1>{% trans "session" %}: {{ session.title }}{% if session.track %} ({{ session.track.name }}){% endif %}</h1>
-
+{% if can_edit %}
+<div class="actions">
+    <a class="btn" href="edit/"><i class="icon-edit"></i>Editieren</a>
+</div>
+{% endif %}
 <div class="meta">
 {% if session.tags %}
 <dl class="tags"><dt>{% trans "Tags" %}:</dt><dd>
