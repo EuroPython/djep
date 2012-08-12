@@ -71,7 +71,12 @@ def create_schedule(row_duration=30):
 
 
 def create_section_schedule(section, row_duration=30):
-    # Determine all the locations used by this section
+    """
+    Creates a schedule for a given section.
+
+    @param section section for which the schedule should be generated.
+    @param row_duration number of minutes a single row should represent
+    """
     sessions = list(section.sessions
         .select_related('location', 'audience_level', 'speaker', 'track')
         .order_by('start')
@@ -98,15 +103,16 @@ def create_section_schedule(section, row_duration=30):
         return {}
     start_time = events[0].start
     end_time = events[-1].end
+
+    # As a first step we build a grid with the resepctive row start time as
+    # key and fill it with events starting at that time.
     grid = _create_base_grid(start_time, end_time, row_duration)
     for evt in events:
-        # Normalize date for the grid
         grid[evt.start].append(GridCell(evt, int((evt.end - evt.start).total_seconds() / (row_duration * 60))))
-    # Now sort by location order in order to being able to render the grid as
-    # HTML
+
+    # Convert this grid into a list of grid rows sorted by the row's start time.
     new_grid = []
     for k, v in grid.iteritems():
-        v.sort(cmp=_gridcell_location_cmp)
         new_grid.append(GridRow(k, k + datetime.timedelta(0, row_duration * 60), v))
     new_grid.sort(cmp=lambda a, b: cmp(a.start, b.start))
 
@@ -115,6 +121,8 @@ def create_section_schedule(section, row_duration=30):
     days = []
     prev_row = None
     for row in new_grid:
+        _pad_row_for_locations(row, prev_row, locations)
+
         if current_day is None:
             current_day = SectionDay(row.start.date(), [])
         elif current_day.day < row.start.date():
@@ -129,6 +137,7 @@ def create_section_schedule(section, row_duration=30):
                 if prev_row.pause_until is not None and prev_row.pause_until >= row.end:
                     row.pause = True
                     row.pause_until = prev_row.pause_until
+
         prev_row = row
     if current_day and current_day.rows:
         days.append(current_day)
@@ -145,11 +154,18 @@ class GridRow(object):
         self.events = events
         self.pause = None
         self.pause_until = None
+        self.event_by_location = {}
+        self.cells = events
+        for evt in events:
+            self.event_by_location[evt.location] = evt
 
     def is_pause_row(self):
         if self.pause is not None:
             return self.pause
-        return len(self.events) == 1 and self.events[0].is_global and self.events[0].is_pause
+        return self.is_global_row() and self.events[0].is_pause
+
+    def is_global_row(self):
+        return len(self.events) == 1 and self.events[0].is_global
 
     def __str__(self):
         return "<GridRow %s - %s>" % (self.start, self.end)
@@ -160,9 +176,36 @@ class GridRow(object):
     def __repr__(self):
         return str(self)
 
+    def reorder_by_location(self, locations):
+        events = [self.event_by_location[loc] for loc in locations]
+        self.cells = events
+
+    @property
+    def contains_global(self):
+        if self.is_pause_row():
+            return True
+        for evt in self.events:
+            if evt.is_global:
+                return True
+        return False
+
+    def get_renderable_cells(self):
+        """
+        Returns all cells that are either empty or represent events. Pure
+        fillers are skipped
+        """
+        return (c for c in self.cells if c.is_empty or not c.is_filler)
+
 
 class GridCell(object):
+    """
+    A cell prepresents an element within a row that can either be an actual
+    event or a placeholder for an event in the same room that hasn't yet ended
+    or a completely empty placeholder.
+    """
+
     def __init__(self, event, rowspan):
+        self.is_filler = False
         self.rowspan = rowspan
         self.speakers = []
         self.track_name = None
@@ -173,6 +216,8 @@ class GridCell(object):
         self.start = None
         self.end = None
         self.level_name = None
+        self.location = event.location if event else None
+        self.event = None
         if event is not None:
             self.event = event
             self.type = event.__class__.__name__.lower()
@@ -195,6 +240,18 @@ class GridCell(object):
                 self.is_pause = event.is_pause
                 self.name = event.name
 
+    @property
+    def is_empty(self):
+        return self.is_filler and not self.event
+
+    def __str__(self):
+        if self.is_empty:
+            return '<GridCell EMTPY location=%s>' % (self.location,)
+        elif self.is_filler:
+            return '<GridCell FILLER location=%s>' % (self.location,)
+        else:
+            return '<GridCell location=%s start=%s end=%s evt=%s>' % (self.location, self.start, self.end, self.event)
+
 
 class SectionDay(object):
     def __init__(self, day, rows):
@@ -203,6 +260,10 @@ class SectionDay(object):
 
 
 def _create_base_grid(start_time, end_time, row_duration):
+    """
+    Create the initial grid with a row for every time interval as defined
+    by the start_time, end_time and the duration in minutes specified.
+    """
     t = start_time
     grid = {}
     while t < end_time:
@@ -229,6 +290,10 @@ def _gridcell_location_cmp(a, b):
 
 
 def _strip_empty_rows(rows):
+    """
+    Removes empty rows at the end and beginning of the rows collections and
+    returns the result.
+    """
     first_idx_with_events = None
     last_idx_with_events = None
     rows_until = None
@@ -247,3 +312,39 @@ def _strip_empty_rows(rows):
     if not last_idx_with_events:
         last_idx_with_events = first_idx_with_events - 1
     return rows[first_idx_with_events:last_idx_with_events + 1]
+
+
+def _pad_row_for_locations(row, prev_row, locations):
+    """
+    Make sure that "empty" rooms are also included in the grid as such.
+    This has to take into account if a talk in the same room in the
+    previous row actually requires a row-span. If it does, *this* row
+    must not be empty, otherwise it has to include an empty cell.
+    """
+    if row.contains_global:
+        return
+    filler_added = False
+    for location in locations:
+        if location not in row.event_by_location:
+            # Let's check the previous row if it exists. We also have to take
+            # global events into account
+            prev_event = prev_row.event_by_location.get(location, None) if prev_row else None
+            if prev_event is None and prev_row is not None and prev_row.is_global_row():
+                prev_event = prev_row.events[0]
+
+            if prev_event is None or prev_event.is_empty:
+                filler = GridCell(None, 1)
+            elif prev_event.end <= row.start:
+                filler = GridCell(None, 1)
+            else:
+                filler = GridCell(prev_event, 1)
+            if not filler.start:
+                filler.start = row.start
+            if not filler.end:
+                filler.end = row.end
+            filler.location = location
+            filler.is_filler = True
+            row.event_by_location[location] = filler
+            filler_added = True
+    if filler_added:
+        row.reorder_by_location(locations)
