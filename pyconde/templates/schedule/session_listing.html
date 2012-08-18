@@ -1,13 +1,14 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% block content %}
     <h1>{% block page_title %}{% endblock %}</h1>
     {% if sessions %}
     <table>
         <thead>
             <tr>
-                <th>Titel</th>
-                <th>Ort</th>
-                <th>Zeit</th>
+                <th>{% trans "Title" %}</th>
+                <th>{% trans "Location" %}</th>
+                <th>{% trans "Time" %}</th>
             </tr>
         </thead>
         <tbody>
@@ -21,6 +22,6 @@
         </tbody>
     </table>
     {% else %}
-    <p class="empty">Es konnten leider keine entsprechenden Sessions gefunden werden.</p>
+    <p class="empty">{% trans "No matching sessions found." %}</p>
     {% endif %}
 {% endblock %}

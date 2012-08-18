@@ -23,7 +23,7 @@ class Session(proposal_models.AbstractProposal):
     start = models.DateTimeField(_("start time"), blank=True, null=True)
     end = models.DateTimeField(_("end time"), blank=True, null=True)
     section = models.ForeignKey(conference_models.Section, blank=True,
-        null=True, verbose_name=u"section", related_name='sessions')
+        null=True, verbose_name=_("section"), related_name='sessions')
     proposal = models.ForeignKey(proposal_models.Proposal,
         blank=True, null=True,
         related_name='session',
@@ -83,16 +83,16 @@ class SideEvent(models.Model):
     Side events are either social events or things like breaks and info events
     that take place during the conference days but are not sessions.
     """
-    name = models.CharField(max_length=255)
-    description = models.TextField(blank=True, null=True)
-    start = models.DateTimeField()
-    end = models.DateTimeField()
+    name = models.CharField(_("name"), max_length=255)
+    description = models.TextField(_("description"), blank=True, null=True)
+    start = models.DateTimeField(_("start time"))
+    end = models.DateTimeField(_("end time"))
     section = models.ForeignKey(conference_models.Section, blank=True,
-        null=True, verbose_name=u"section", related_name='side_events')
+        null=True, verbose_name=_("section"), related_name='side_events')
     location = models.ForeignKey(conference_models.Location, blank=True,
-        null=True)
-    is_global = models.BooleanField(default=False)
-    is_pause = models.BooleanField(default=False)
+        null=True, verbose_name=_("location"))
+    is_global = models.BooleanField(_("is global"), default=False)
+    is_pause = models.BooleanField(_("is pause"), default=False)
     conference = models.ForeignKey(conference_models.Conference,
         verbose_name=_("conference"))
 

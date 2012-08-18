@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 from django.shortcuts import get_object_or_404
+from django.utils.translation import ugettext_lazy as _
 from django.http import HttpResponseRedirect
 from django.template.response import TemplateResponse
 from django.contrib.auth.decorators import login_required
@@ -115,7 +116,7 @@ def edit_session(request, session_pk):
         form = forms.EditSessionForm(instance=session, data=request.POST)
         if form.is_valid():
             form.save()
-            messages.success(request, u"Änderungen gespeichert")
+            messages.success(request, _("Changes saved"))
             return HttpResponseRedirect(session.get_absolute_url())
     else:
         form = forms.EditSessionForm(instance=session)

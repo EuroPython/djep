@@ -7,7 +7,7 @@
 <h1>{% trans "session" %}: {{ session.title }}{% if session.track %} ({{ session.track.name }}){% endif %}</h1>
 {% if can_edit %}
 <div class="actions">
-    <a class="btn" href="edit/"><i class="icon-edit"></i>Editieren</a>
+    <a class="btn" href="edit/"><i class="icon-edit"></i>{% trans "Edit" %}</a>
 </div>
 {% endif %}
 <div class="meta">
@@ -46,7 +46,7 @@
 {% endblock %}
 {% block sidebar %}
 <div id="speakers" class="box">
-    <h2>Vortragende:</h2>
+    <h2>{% trans "Speakers:" %}</h2>
     {% speaker_box session.speaker %}
     {% for speaker in session.additional_speakers.all %}
     {% speaker_box speaker %}

@@ -1,13 +1,13 @@
 {% extends "site_base.html" %}
 {% load crispy_forms_tags i18n %}
-{% block title %}Session editieren: {{ session.title }}{% endblock %}
+{% block title %}{% blocktrans with title=session.title %}Edit session: {{ title }}{% endblocktrans %}{% endblock %}
 {% block content %}
-    <h1>Session editieren: <a href="{{ session.get_absolute_url }}">{{ session.title }}</a></h1>
+    <h1>{% blocktrans with title=session.title link=session.get_absolute_url %}Edit session: <a href="{{ link }}">{{ title }}</a>{% endblocktrans %}</h1>
     {% crispy form %}
 {% endblock %}
 {% block sidebar %}
 <div class="box">
-    <h2>Über die Session</h2>
+    <h2>{% trans "About this session" %}</h2>
     <div>
     {% if session.tags %}
     <dl class="tags"><dt>{% trans "Tags:" %}</dt><dd>

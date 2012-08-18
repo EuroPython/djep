@@ -1,6 +1,8 @@
 {% extends "base.html" %}
 {% block content %}
-<h1>Session-Informationen nicht verfügbar</h1>
-<p>Informationen zu dieser Session sind derzeit noch nicht verfügbar.</p>
-<p>Bitte versuchen Sie es später erneut :-)</p>
+<h1>{% trans "Session information not available "%}</h1>
+{% blocktrans %}
+<p>There are currently no informations about this session available.</p>
+<p>Please visit this page again later :-)</p>
+{% endblocktrans %}
 {% endblock %}
