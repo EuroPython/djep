@@ -351,6 +351,9 @@ def _pad_row_for_locations(row, prev_row, locations):
 
 
 def can_edit_session(user, session):
+    """
+    Checks if a given user can modify the specified session.
+    """
     if user.is_anonymous():
         return False
     if user.is_superuser or user.is_staff:
