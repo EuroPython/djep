@@ -112,4 +112,5 @@ class CompleteSchedulePlugin(CMSPlugin):
     """
     Renders the complete schedule for the active conference.
     """
-    pass
+    sections = models.ManyToManyField(conference_models.Section,
+        blank=True, null=True, verbose_name=_("sections"))
