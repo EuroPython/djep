@@ -23,12 +23,10 @@
                     <td>&nbsp;</td>
                 {% else %}
                     {% if evt.is_global %}
-                    <td class="filled global" rowspan="{{ evt.rowspan }}" colspan="{{ grid.0|length }}"><a href="{{ evt.url }}">{{ evt.event }}</a></td>
+                    <td class="filled {% if evt.type == 'sideevent' %}global{% endif %}" rowspan="{{ evt.rowspan }}" colspan="{{ grid.0|length }}">{% eventinfo evt %}</td>
                     {% else %}
                     <td class="filled" rowspan="{{ evt.rowspan }}">
-                        <a href="{{ evt.url }}">{{ evt.name }}</a><br />
-                        {% if evt.speakers %}von {{ evt.speakers|join:', ' }}{% endif %}
-                        {% if evt.level_name %}für {{ evt.level_name }}{% endif %}
+                        {% eventinfo evt %}
                     </td>
                     {% endif %}
                 {% endif %}
