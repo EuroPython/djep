@@ -2,6 +2,7 @@ import tablib
 import itertools
 import math
 import datetime
+import collections
 from  django.utils.datastructures import SortedDict
 
 from pyconde.conference import models as conference_models
@@ -56,27 +57,43 @@ def create_simple_export(queryset):
     return data
 
 
-def create_schedule(row_duration=30):
+def create_schedule(row_duration=30, uncached=False):
     """
     Creates a schedule for each section of the conference.
 
     @param row_duration duration represented by a row in minutes
     """
+    conf = conference_models.current_conference()
+    cache_key = 'schedule:{0}:{1}'.format(conf.pk, row_duration)
+    if not uncached:
+        result = cache.get(cache_key)
+        if result:
+            return result
     result = SortedDict()
     for section in conference_models.Section.objects.order_by('order', 'start_date').all():
         section_schedule = create_section_schedule(section,
             row_duration=row_duration)
         result[section] = section_schedule
+    if not uncached:
+        cache.set(cache_key, result, 180)
     return result
 
 
-def create_section_schedule(section, row_duration=30):
+def create_section_schedule(section, row_duration=30, uncached=False):
     """
     Creates a schedule for a given section.
 
     @param section section for which the schedule should be generated.
     @param row_duration number of minutes a single row should represent
     """
+    schedule_cache_key = 'section_schedule:{0}:{1}'.format(section.pk, row_duration)
+    evt_cache_key = 'schedule_event'
+
+    if not uncached:
+        section_schedule = cache.get(schedule_cache_key)
+        if section_schedule:
+            return section_schedule
+
     sessions = list(section.sessions
         .select_related('location', 'audience_level', 'speaker', 'track')
         .order_by('start')
@@ -85,6 +102,7 @@ def create_section_schedule(section, row_duration=30):
         .select_related('location')
         .order_by('start')
         .all())
+    evt_cache = {}
 
     locations = set()
     for session in sessions:
@@ -108,7 +126,9 @@ def create_section_schedule(section, row_duration=30):
     # key and fill it with events starting at that time.
     grid = _create_base_grid(start_time, end_time, row_duration)
     for evt in events:
-        grid[evt.start].append(GridCell(evt, int((evt.end - evt.start).total_seconds() / (row_duration * 60))))
+        cell = GridCell(evt, int((evt.end - evt.start).total_seconds() / (row_duration * 60)))
+        evt_cache[repr(cell)] = cell
+        grid[evt.start].append(cell)
 
     # Convert this grid into a list of grid rows sorted by the row's start time.
     new_grid = []
@@ -144,6 +164,10 @@ def create_section_schedule(section, row_duration=30):
     # Strip out heading and tailing empty rows
     for day in days:
         day.rows = _strip_empty_rows(day.rows)
+
+    if not uncached:
+        cache.set(schedule_cache_key, (locations, days), 120)
+        cache.set(evt_cache_key, evt_cache, 120)
     return (locations, days)
 
 
@@ -251,6 +275,10 @@ class GridCell(object):
             return '<GridCell FILLER location=%s>' % (self.location,)
         else:
             return '<GridCell location=%s start=%s end=%s evt=%s>' % (self.location, self.start, self.end, self.event)
+
+    def repr(self):
+        type_ = 'session' if isinstance(self.event, models.Session) else 'side'
+        return '{0}:{1}'.format(type_, self.event.pk)
 
 
 class SectionDay(object):
@@ -364,3 +392,31 @@ def can_edit_session(user, session):
     if session.speaker == speaker:
         return True
     return speaker in session.additional_speakers.all()
+
+
+def prepare_event(evt):
+    model = None
+    if isinstance(evt, basestring):
+        type_, pk = evt.split(':')
+        if type_ == 'side':
+            model = models.SideEvent.objects.select_related('location').get(pk=pk)
+        else:
+            model = models.Session.objects.select_related('location').get(pk=pk)
+    else:
+        model = evt
+    return GridCell(model, None)
+
+
+def load_event_models(events):
+    pk_map = collections.defaultdict(list)
+    result = []
+    for evt in events:
+        type_, pk = evt.split(':')
+        pk_map[type_].append(pk)
+    print pk_map
+    for k, v in pk_map.iteritems():
+        if k == 'session':
+            result += list(models.Session.objects.select_related('location').filter(pk__in=v))
+        if k == 'side':
+            result += list(models.SideEvent.objects.select_related('location').filter(pk__in=v))
+    return result
