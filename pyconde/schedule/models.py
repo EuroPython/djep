@@ -4,6 +4,9 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 
+from cms.models import CMSPlugin
+
+
 from ..proposals import models as proposal_models
 from ..reviews import models as review_models
 from ..conference import models as conference_models
@@ -103,3 +106,10 @@ class SideEvent(models.Model):
 
     def get_absolute_url(self):
         return reverse('side_event', kwargs={'pk': self.pk})
+
+
+class CompleteSchedulePlugin(CMSPlugin):
+    """
+    Renders the complete schedule for the active conference.
+    """
+    pass

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-18 22:19+0200\n"
+"POT-Creation-Date: 2012-08-19 11:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -317,7 +317,7 @@ msgstr "Zeitzone"
 
 #: conference/models.py:59 conference/models.py:79 conference/models.py:120
 #: conference/models.py:143 conference/models.py:169 conference/models.py:213
-#: conference/models.py:238 schedule/models.py:97 sponsorship/models.py:11
+#: conference/models.py:238 schedule/models.py:100 sponsorship/models.py:11
 msgid "conference"
 msgstr "Konferenz"
 
@@ -326,7 +326,7 @@ msgid "conferences"
 msgstr "Konferenzen"
 
 #: conference/models.py:81 conference/models.py:121 conference/models.py:170
-#: conference/models.py:214 conference/models.py:239 schedule/models.py:86
+#: conference/models.py:214 conference/models.py:239 schedule/models.py:89
 #: sponsorship/models.py:12 sponsorship/models.py:31
 msgid "name"
 msgstr "Name"
@@ -342,7 +342,7 @@ msgstr "Slug"
 msgid "order"
 msgstr "Reihenfolge"
 
-#: conference/models.py:97 schedule/models.py:26 schedule/models.py:91
+#: conference/models.py:97 schedule/models.py:29 schedule/models.py:94
 msgid "section"
 msgstr "Abschnitt"
 
@@ -398,7 +398,7 @@ msgstr ""
 msgid "The end date has to be after the start date"
 msgstr "Das Ende muss nach dem Anfang sein"
 
-#: conference/models.py:216 proposals/models.py:23 schedule/models.py:87
+#: conference/models.py:216 proposals/models.py:23 schedule/models.py:90
 #: sponsorship/models.py:14
 msgid "description"
 msgstr "Beschreibung"
@@ -419,7 +419,7 @@ msgstr "Tracks"
 msgid "used for sessions"
 msgstr "wird für Sessions verwendet"
 
-#: conference/models.py:251 schedule/models.py:32 schedule/models.py:93
+#: conference/models.py:251 schedule/models.py:35 schedule/models.py:96
 msgid "location"
 msgstr "Ort"
 
@@ -552,7 +552,7 @@ msgstr ""
 "Die Dauer muss mit derselben Konferenz wie der Vorschlag assoziiert sein"
 
 #: proposals/models.py:69 reviews/models.py:64 reviews/models.py:147
-#: reviews/models.py:170 schedule/models.py:30
+#: reviews/models.py:170 schedule/models.py:33
 msgid "proposal"
 msgstr "Session-Vorschlag"
 
@@ -959,36 +959,40 @@ msgstr "Hat Session"
 
 #: schedule/cms_app.py:10
 msgid "Schedule app"
-msgstr ""
+msgstr "Programm-App"
+
+#: schedule/cms_plugins.py:15
+msgid "Complete schedule"
+msgstr "Vollständiges Programm"
 
 #: schedule/menu.py:11
 msgid "Schedule menu"
-msgstr ""
+msgstr "Programm-Menü"
 
-#: schedule/models.py:23 schedule/models.py:88
+#: schedule/models.py:26 schedule/models.py:91
 msgid "start time"
 msgstr "Start"
 
-#: schedule/models.py:24 schedule/models.py:89
+#: schedule/models.py:27 schedule/models.py:92
 msgid "end time"
 msgstr "Ende"
 
-#: schedule/models.py:77 templates/schedule/session.html:3
+#: schedule/models.py:80 templates/schedule/session.html:3
 #: templates/schedule/session.html.py:7
 msgid "session"
 msgstr "Session"
 
-#: schedule/models.py:78
+#: schedule/models.py:81
 msgid "sessions"
 msgstr "Sessions"
 
-#: schedule/models.py:94
+#: schedule/models.py:97
 msgid "is global"
-msgstr ""
+msgstr "Global"
 
-#: schedule/models.py:95
+#: schedule/models.py:98
 msgid "is pause"
-msgstr ""
+msgstr "Pause"
 
 #: schedule/views.py:119
 msgid "Changes saved"
@@ -1163,11 +1167,6 @@ msgstr "Zeit:"
 msgid "Location:"
 msgstr "Ort:"
 
-#: templates/schedule/schedule.html:12
-#: templates/schedule/session_listing.html:11
-msgid "Time"
-msgstr "Zeit"
-
 #: templates/schedule/session.html:23
 #: templates/schedule/session_listing.html:10
 #: templates/schedule/sideevent.html:10
@@ -1181,6 +1180,11 @@ msgstr "Dauer"
 #: templates/schedule/session.html:49
 msgid "Speakers:"
 msgstr "Vortragende(r):"
+
+#: templates/schedule/session_listing.html:11
+#: templates/schedule/plugins/complete.html:11
+msgid "Time"
+msgstr "Zeit"
 
 #: templates/schedule/session_listing.html:25
 msgid "No matching sessions found."
