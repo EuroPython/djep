@@ -1,6 +1,6 @@
 import logging
 
-from django.template import Library, Node
+from django.template import Library, Node, TemplateSyntaxError
 
 from .. import utils
 from .. import models

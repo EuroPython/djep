@@ -4,6 +4,7 @@ import math
 import datetime
 import collections
 from  django.utils.datastructures import SortedDict
+from django.conf import settings
 
 from pyconde.conference import models as conference_models
 
@@ -57,12 +58,14 @@ def create_simple_export(queryset):
     return data
 
 
-def create_schedule(row_duration=30, uncached=False):
+def create_schedule(row_duration=30, uncached=None):
     """
     Creates a schedule for each section of the conference.
 
     @param row_duration duration represented by a row in minutes
     """
+    if uncached is None:
+        uncached = not getattr(settings, 'SCHEDULE_CACHE_SCHEDULE', True)
     conf = conference_models.current_conference()
     cache_key = 'schedule:{0}:{1}'.format(conf.pk, row_duration)
     if not uncached:
@@ -72,7 +75,7 @@ def create_schedule(row_duration=30, uncached=False):
     result = SortedDict()
     for section in conference_models.Section.objects.order_by('order', 'start_date').all():
         section_schedule = create_section_schedule(section,
-            row_duration=row_duration)
+            row_duration=row_duration, uncached=uncached)
         result[section] = section_schedule
     if not uncached:
         cache.set(cache_key, result, 180)
@@ -95,7 +98,7 @@ def create_section_schedule(section, row_duration=30, uncached=False):
             return section_schedule
 
     sessions = list(section.sessions
-        .select_related('location', 'audience_level', 'speaker', 'track')
+        .select_related('location', 'audience_level', 'speaker', 'track', 'kind')
         .order_by('start')
         .all())
     side_events = list(section.side_events\
@@ -106,6 +109,8 @@ def create_section_schedule(section, row_duration=30, uncached=False):
 
     locations = set()
     for session in sessions:
+        if session.is_global:
+            continue
         locations.add(session.location)
     for evt in side_events:
         # Global events span all session locations and therefor the location
@@ -242,6 +247,8 @@ class GridCell(object):
         self.level_name = None
         self.location = event.location if event else None
         self.event = None
+        self.type = None
+        self.session_kind = None
         if event is not None:
             self.event = event
             self.type = event.__class__.__name__.lower()
@@ -251,6 +258,9 @@ class GridCell(object):
             self.end = event.end
             if isinstance(event, models.Session):
                 self.name = event.title
+                self.type = 'session'
+                self.session_kind = self.event.kind.slug if self.event.kind else None
+                self.is_global = event.is_global
                 if event.speaker:
                     self.speakers.append(unicode(event.speaker))
                 for speaker in event.additional_speakers.select_related('user').all():
@@ -260,6 +270,7 @@ class GridCell(object):
                 if event.audience_level:
                     self.level_name = event.audience_level.name
             else:
+                self.type = 'sideevent'
                 self.is_global = event.is_global
                 self.is_pause = event.is_pause
                 self.name = event.name

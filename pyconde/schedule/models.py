@@ -33,6 +33,7 @@ class Session(proposal_models.AbstractProposal):
         verbose_name=_("proposal"))
     location = models.ForeignKey(conference_models.Location,
         verbose_name=_("location"), blank=True, null=True)
+    is_global = models.BooleanField(_("is global"), default=False)
 
     @classmethod
     def create_from_proposal(cls, proposal):
