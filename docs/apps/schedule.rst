@@ -14,9 +14,10 @@ Implementierungsphasen
 Datenstrukturen
 ---------------
 
-Die Schedule-App bietet eine neue Datenstrukturen:
+Die Schedule-App bietet zwei neue Datenstrukturen:
 
 * Session
+* SideEvent
 
 Die Session basiert auf dem Proposal-Datenmodell, erweitert dieses jedoch um
 Informationen zu Ort und Zeit. Zusätzlich verweist eine Session optional auf
@@ -26,6 +27,12 @@ musste).
 
 Die Zeitinformationen sind derzeit noch optional, da diese erste in Phase 2
 der Umsetzung verwendet werden.
+
+Ein SideEvent ist zum Beispiel die Begrüßung, Lightning-Talks oder Pause. Wie
+auch bei normalen Sessions können diese einem Ort und einer Zeitspanne
+zugewiesen werden. Zusätzlich verfügen SideEvents über die Flags "Global" und
+"Pause". Während "Pause" primär die Darstellung beeinflusst, sind globale Events
+nicht an einen bestimmten Ort gebunden sondern gleichzeitig in allen aktiv.
 
 
 
@@ -51,3 +58,18 @@ Name    Format Felder
 ======= ====== ================================================================================================
 Einfach CSV    ID, ProposalID, Title, SpeakerUsername, SpeakerName, CoSpeakers, AudienceLevel, Duration, Track
 ======= ====== ================================================================================================
+
+
+Schedule-Darstellung
+--------------------
+
+Die Schedule-App bietet Views zur Darstellung des gesamten Programms sowie
+einzelner Sessions und Side-Events.
+
+Der gesamte Schedule kann auf zwei Arten eingebunden werden:
+
+* Über die Schedule-App, welche die URL /schedule/ bereitstellt
+* Über das CMS-Plugin "Vollständiges Programm"
+
+Beim Plugin muss bedacht werden, dass die Darstellung nur auf einer Seite
+mit dem Page-Template "Full page width" Sinn macht.

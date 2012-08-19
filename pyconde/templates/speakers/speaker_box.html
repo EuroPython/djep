@@ -1,0 +1,7 @@
+{% load thumbnail %}
+<div class="speaker-box">
+    {% if avatar %}
+    <a class="picture" title="{{ name }}s Profilseite" href=""><img src="{% thumbnail avatar '80x80' crop %}" alt="{{ name }}" /></a>
+    {% else %}
+    {% endif %}
+</div>

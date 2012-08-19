@@ -1,0 +1,24 @@
+{% extends "site_base.html" %}
+{% load i18n markup %}
+{% block content %}
+<article class="session">
+<h1>{{ event.name }}</h1>
+
+<div class="meta">
+{% if event.location %}
+<dl>
+    <dt>{% trans "Location" %}:</dt>
+    <dd>{{ event.location }}</dd>
+</dl>
+{% endif %}
+{% if event.start or event.end %}
+<dl>
+    <dt>{% trans "Duration" %}:</dt>
+    <dd>{{ event.start|date:"DATE_FORMAT" }} von {{ event.start|time:"TIME_FORMAT" }} - {{ event.end|time:"TIME_FORMAT" }}</dd>
+</dl>
+{% endif %}
+</div>
+
+<div class="description">{{ event.description|markdown:"safe" }}</div>
+</article>
+{% endblock %}

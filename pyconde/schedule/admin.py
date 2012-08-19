@@ -56,6 +56,11 @@ class SessionAdmin(admin.ModelAdmin):
     actions = [create_simple_session_export]
 
 
+class SideEventAdmin(admin.ModelAdmin):
+    list_display = ['name', 'start', 'end', 'conference', 'location']
+    list_filter = ['conference', 'location']
+
+
 class ProposalAdmin(proposal_admin.ProposalAdmin):
     actions = proposal_admin.ProposalAdmin.actions + [schedule_multiple_proposals]
     list_display = list(proposal_admin.ProposalAdmin.list_display) + ['is_scheduled']
@@ -82,3 +87,4 @@ admin.site.unregister(proposal_models.Proposal)
 admin.site.register(models.Session, SessionAdmin)
 admin.site.register(proposal_models.Proposal, ProposalAdmin)
 admin.site.register(review_models.ProposalMetaData, ProposalMetaDataAdmin)
+admin.site.register(models.SideEvent, SideEventAdmin)

@@ -4,6 +4,9 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 
+from cms.models import CMSPlugin
+
+
 from ..proposals import models as proposal_models
 from ..reviews import models as review_models
 from ..conference import models as conference_models
@@ -22,6 +25,8 @@ class Session(proposal_models.AbstractProposal):
     """
     start = models.DateTimeField(_("start time"), blank=True, null=True)
     end = models.DateTimeField(_("end time"), blank=True, null=True)
+    section = models.ForeignKey(conference_models.Section, blank=True,
+        null=True, verbose_name=_("section"), related_name='sessions')
     proposal = models.ForeignKey(proposal_models.Proposal,
         blank=True, null=True,
         related_name='session',
@@ -74,3 +79,38 @@ class Session(proposal_models.AbstractProposal):
     class Meta(object):
         verbose_name = _('session')
         verbose_name_plural = _('sessions')
+
+
+class SideEvent(models.Model):
+    """
+    Side events are either social events or things like breaks and info events
+    that take place during the conference days but are not sessions.
+    """
+    name = models.CharField(_("name"), max_length=255)
+    description = models.TextField(_("description"), blank=True, null=True)
+    start = models.DateTimeField(_("start time"))
+    end = models.DateTimeField(_("end time"))
+    section = models.ForeignKey(conference_models.Section, blank=True,
+        null=True, verbose_name=_("section"), related_name='side_events')
+    location = models.ForeignKey(conference_models.Location, blank=True,
+        null=True, verbose_name=_("location"))
+    is_global = models.BooleanField(_("is global"), default=False)
+    is_pause = models.BooleanField(_("is pause"), default=False)
+    conference = models.ForeignKey(conference_models.Conference,
+        verbose_name=_("conference"))
+
+    objects = conference_models.CurrentConferenceManager()
+
+    def __unicode__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse('side_event', kwargs={'pk': self.pk})
+
+
+class CompleteSchedulePlugin(CMSPlugin):
+    """
+    Renders the complete schedule for the active conference.
+    """
+    sections = models.ManyToManyField(conference_models.Section,
+        blank=True, null=True, verbose_name=_("sections"))
