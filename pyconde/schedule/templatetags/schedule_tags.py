@@ -13,9 +13,7 @@ log = logging.getLogger(__name__)
 def eventinfo(context, evt):
     event = None
     if isinstance(evt, basestring):
-        log.debug("Got event as string: " + evt)
         if '_evt_cache' in context:
-            log.debug("Checking local cache")
             event = context['_evt_cache'].get(evt)
         if event is None:
             event = utils.prepare_event(evt)
@@ -42,7 +40,6 @@ class PreloadEventsNode(Node):
             else:
                 evtkey = 'side:{0}'.format(evt.pk)
             cache[evtkey] = utils.prepare_event(evt)
-        print cache
         context.update({
             '_evt_cache': cache
             })
