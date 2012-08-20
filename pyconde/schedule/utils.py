@@ -362,7 +362,6 @@ def _pad_row_for_locations(row, prev_row, locations):
     """
     if row.contains_global:
         return
-    filler_added = False
     for location in locations:
         if location not in row.event_by_location:
             # Let's check the previous row if it exists. We also have to take
@@ -384,9 +383,7 @@ def _pad_row_for_locations(row, prev_row, locations):
             filler.location = location
             filler.is_filler = True
             row.event_by_location[location] = filler
-            filler_added = True
-    if filler_added:
-        row.reorder_by_location(locations)
+    row.reorder_by_location(locations)
 
 
 def can_edit_session(user, session):
