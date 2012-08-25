@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-19 11:41+0200\n"
+"POT-Creation-Date: 2012-08-25 17:02+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -20,6 +20,10 @@ msgstr ""
 #: utils.py:11
 msgid "You are not allowed to access this page."
 msgstr ""
+
+#: accounts/cms_app.py:10
+msgid "Accounts app"
+msgstr "Accounts-Anwendung"
 
 #: accounts/forms.py:25
 msgid "Account data"
@@ -50,6 +54,22 @@ msgstr "Passwort ändern"
 #: accounts/forms.py:91
 msgid "Change"
 msgstr "Ändern"
+
+#: accounts/menu.py:11
+msgid "Accounts menu"
+msgstr "Accounts-Menü"
+
+#: accounts/menu.py:16
+msgid "Your profile"
+msgstr "Ihre Profil"
+
+#: accounts/menu.py:17
+msgid "Change your profile"
+msgstr "Profil ändern"
+
+#: accounts/menu.py:18
+msgid "Change your password"
+msgstr "Passwort ändern"
 
 #: accounts/models.py:12
 msgid "short info"
@@ -317,7 +337,7 @@ msgstr "Zeitzone"
 
 #: conference/models.py:59 conference/models.py:79 conference/models.py:120
 #: conference/models.py:143 conference/models.py:169 conference/models.py:213
-#: conference/models.py:238 schedule/models.py:100 sponsorship/models.py:11
+#: conference/models.py:238 schedule/models.py:101 sponsorship/models.py:11
 msgid "conference"
 msgstr "Konferenz"
 
@@ -326,7 +346,7 @@ msgid "conferences"
 msgstr "Konferenzen"
 
 #: conference/models.py:81 conference/models.py:121 conference/models.py:170
-#: conference/models.py:214 conference/models.py:239 schedule/models.py:89
+#: conference/models.py:214 conference/models.py:239 schedule/models.py:90
 #: sponsorship/models.py:12 sponsorship/models.py:31
 msgid "name"
 msgstr "Name"
@@ -342,11 +362,11 @@ msgstr "Slug"
 msgid "order"
 msgstr "Reihenfolge"
 
-#: conference/models.py:97 schedule/models.py:29 schedule/models.py:94
+#: conference/models.py:97 schedule/models.py:29 schedule/models.py:95
 msgid "section"
 msgstr "Abschnitt"
 
-#: conference/models.py:98
+#: conference/models.py:98 schedule/models.py:117
 msgid "sections"
 msgstr "Abschnitte"
 
@@ -398,7 +418,7 @@ msgstr ""
 msgid "The end date has to be after the start date"
 msgstr "Das Ende muss nach dem Anfang sein"
 
-#: conference/models.py:216 proposals/models.py:23 schedule/models.py:90
+#: conference/models.py:216 proposals/models.py:23 schedule/models.py:91
 #: sponsorship/models.py:14
 msgid "description"
 msgstr "Beschreibung"
@@ -419,7 +439,7 @@ msgstr "Tracks"
 msgid "used for sessions"
 msgstr "wird für Sessions verwendet"
 
-#: conference/models.py:251 schedule/models.py:35 schedule/models.py:96
+#: conference/models.py:251 schedule/models.py:35 schedule/models.py:97
 msgid "location"
 msgstr "Ort"
 
@@ -961,7 +981,7 @@ msgstr "Hat Session"
 msgid "Schedule app"
 msgstr "Programm-App"
 
-#: schedule/cms_plugins.py:15
+#: schedule/cms_plugins.py:16
 msgid "Complete schedule"
 msgstr "Vollständiges Programm"
 
@@ -969,28 +989,28 @@ msgstr "Vollständiges Programm"
 msgid "Schedule menu"
 msgstr "Programm-Menü"
 
-#: schedule/models.py:26 schedule/models.py:91
+#: schedule/models.py:26 schedule/models.py:92
 msgid "start time"
 msgstr "Start"
 
-#: schedule/models.py:27 schedule/models.py:92
+#: schedule/models.py:27 schedule/models.py:93
 msgid "end time"
 msgstr "Ende"
 
-#: schedule/models.py:80 templates/schedule/session.html:3
+#: schedule/models.py:36 schedule/models.py:98
+msgid "is global"
+msgstr "Global"
+
+#: schedule/models.py:81 templates/schedule/session.html:3
 #: templates/schedule/session.html.py:7
 msgid "session"
 msgstr "Session"
 
-#: schedule/models.py:81
+#: schedule/models.py:82
 msgid "sessions"
 msgstr "Sessions"
 
-#: schedule/models.py:97
-msgid "is global"
-msgstr "Global"
-
-#: schedule/models.py:98
+#: schedule/models.py:99
 msgid "is pause"
 msgstr "Pause"
 
@@ -1217,6 +1237,15 @@ msgstr "Sessions mit Tag \"%(tag)s\""
 #: templates/userprofiles/login.html:4 templates/userprofiles/login.html:8
 msgid "Login"
 msgstr "Anmelden"
+
+#: templates/userprofiles/profile_view.html:3
+#: templates/userprofiles/profile_view.html:6
+msgid "User profile:"
+msgstr "Benutzerprofil:"
+
+#: templates/userprofiles/profile_view.html:16
+msgid "No info available"
+msgstr "Keine weiteren Informationen verfügbar"
 
 #: templates/userprofiles/registration.html:4
 #: templates/userprofiles/registration.html:7

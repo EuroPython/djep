@@ -4,8 +4,8 @@ from django.template import Library
 register = Library()
 
 
-@register.inclusion_tag('speakers/speaker_box.html')
-def speaker_box(speaker):
+@register.inclusion_tag('speakers/speaker_box.html', takes_context=True)
+def speaker_box(context, speaker):
     try:
         profile = speaker.user.get_profile()
     except:
@@ -13,5 +13,6 @@ def speaker_box(speaker):
     return {
         'name': unicode(speaker.user),
         'avatar': profile.avatar if profile else None,
-        'user': speaker.user
+        'user': speaker.user,
+        'STATIC_URL': context['STATIC_URL']
     }

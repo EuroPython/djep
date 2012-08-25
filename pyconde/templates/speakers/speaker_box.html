@@ -1,7 +1,8 @@
 {% load thumbnail %}
 <div class="speaker-box">
     {% if avatar %}
-    <a class="picture" title="{{ name }}s Profilseite" href=""><img src="{% thumbnail avatar '80x80' crop %}" alt="{{ name }}" /></a>
+    <a class="picture" title="{{ name }}s Profilseite" href="{% url account_profile uid=user.pk %}"><img src="{% thumbnail avatar '80x80' crop %}" alt="{{ name }}" /></a>
     {% else %}
+    <a class="picture" title="{{ name }}s Profilseite" href="{% url account_profile uid=user.pk %}"><img src="{{ STATIC_URL }}images/noavatar80.png" alt="{{ name }}" /></a>
     {% endif %}
 </div>
