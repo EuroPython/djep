@@ -5,7 +5,7 @@
 {% for day in grid.1 %}
 
 <table class="schedule {{ section.slug }} numcols-{{ grid.0|length }}">
-    <caption>{{ day.day|date:"l - t.n.Y" }}</caption>
+    <caption>{{ day.day|date:"l - d.n.Y" }}</caption>
     <thead>
         <tr>
             <th>{% trans "Time" %}</th>
