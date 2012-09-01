@@ -25,6 +25,9 @@
 @red: #9C1006;
 @yellow: #FFCC33;
 
+@sidebar-width: 302px;
+@sidebarbox-hpadding: 10px;
+
 @border-color: #DDD;
 @base-img-url: 'static_media/images';
 
@@ -72,3 +75,23 @@ a.btn-danger:visited {
 @import "_sponsors";
 @import "_reviews";
 #proposals > .all();
+
+.profilepage {
+    .avatar {
+        float: right;
+        padding: 3px;
+        border: 1px solid #CCC;
+    }
+    #info {
+        float: left;
+        width: 500px;
+    }
+    #sessions {
+        clear: both;
+    }
+
+    article .post {
+        width: 594px;
+        overflow: hidden;
+    }
+}

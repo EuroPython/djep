@@ -1,0 +1,29 @@
+{% extends "site_base.html" %}
+{% load i18n account_tags thumbnail markup %}
+{% block title %}{% trans "User profile:" %} {{ userobj|account_name }}{% endblock %}
+{% block bodycls %}profilepage{% endblock %}
+{% block body %}
+    <h1>{% trans "User profile:" %} {{ userobj|account_name }}</h1>
+    {% if profile.avatar %}
+        <img class="avatar" src="{% thumbnail profile.avatar '80x80' crop %}" alt="" />
+    {% else %}
+        <img class="avatar" src="{{ STATIC_URL }}images/noavatar80.png" alt="" />
+    {% endif %}
+    <div id="info">
+        {% if profile.short_info %}
+        {{ profile.short_info|markdown:"safe" }}
+        {% else %}
+        <p class="empty">{% trans "No info available" %}</p>
+        {% endif %}
+    </div>
+    {% if sessions %}
+    <section id="sessions">
+        <h1>Sessions</h1>
+        <ul>
+            {% for session in sessions %}
+            <li><a href="{{ session.get_absolute_url }}">{{ session.title }}</a></li>
+            {% endfor %}
+        </ul>
+    </section>
+    {% endif %}
+{% endblock %}

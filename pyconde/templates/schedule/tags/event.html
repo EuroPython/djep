@@ -1,0 +1,6 @@
+<a href="{{ event.url }}">{% if event.session_kind == 'keynote'%}KEYNOTE: {% endif %}{{ event.name }}</a>
+{% if event.type == 'session' %}
+<br />
+{% if event.speakers %}von {{ event.speakers|join:', ' }}{% endif %}
+{% if event.level_name %}für {{ event.level_name }}{% endif %}
+{% endif %}

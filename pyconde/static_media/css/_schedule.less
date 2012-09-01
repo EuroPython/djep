@@ -17,3 +17,62 @@ table.tutorial tr {background:#eee;}
 table.schedule th.tut {background:#33b7e7;text-align:center;}
 table.schedule th.tut-red {background:#9C1006;text-align:center;}
 table.schedule th.tut-gelb {background:#F0B708;text-align:center;}
+
+table.schedule {
+    td.global {
+        a {
+            color: #33B7E7;
+        }
+    }
+}
+
+tr.pause td {
+    vertical-align: middle;
+}
+.sessionpage {
+    #speakers {
+        width: @sidebar-width - (2 * @sidebarbox-hpadding);
+        overflow: hidden;
+        a {
+            display: block;
+            width: 100%;
+            overflow: hidden;
+        }
+        img {
+            width: 80px;
+            padding: 2px;
+            border: 1px solid #CCC;
+            float: left;
+            height: 80px;
+        }
+        .name {
+            display: table-cell;
+            height: 86px;
+            padding-left: 10px;
+            vertical-align: middle;
+        }
+    }
+}
+article.session {
+    .meta {
+        margin: 30px 0 50px 0;
+        dl {
+            border-bottom: 1px solid @border-color;
+            width: 100%;
+            overflow: hidden;
+        }
+        dt {
+            float: left;
+            width: 150px;
+        }
+        dd {
+            padding-left: 170px;
+        }
+    }
+    .abstract {
+        margin-top: 20px;
+        border-top: 1px solid #CCC;
+        padding-top: 20px;
+        clear: both;
+    }
+}
