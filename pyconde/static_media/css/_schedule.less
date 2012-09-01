@@ -33,17 +33,23 @@ tr.pause td {
     #speakers {
         width: @sidebar-width - (2 * @sidebarbox-hpadding);
         overflow: hidden;
-        .picture {
-            padding: 1px;
-            border: 1px solid #CCC;
-            margin: 1px;
+        a {
             display: block;
+            width: 100%;
+            overflow: hidden;
+        }
+        img {
+            width: 80px;
+            padding: 2px;
+            border: 1px solid #CCC;
             float: left;
-            img {
-                display: block;
-                width: 80px;
-                height: 80px;
-            }
+            height: 80px;
+        }
+        .name {
+            display: table-cell;
+            height: 86px;
+            padding-left: 10px;
+            vertical-align: middle;
         }
     }
 }
