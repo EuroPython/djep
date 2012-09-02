@@ -11,4 +11,5 @@ urlpatterns = patterns('',
     url(r'^sessions/locations/(?P<pk>[^/]+)/$', views.sessions_by_location, name='sessions_by_location'),
     url(r'^events/(?P<pk>\d+)/$', views.view_sideevent, name='side_event'),
     url(r'^schedule/$', views.view_schedule, name='schedule'),
+    url(r'^exports/guidebook/events.csv$', views.guidebook_events_export, name='guidebook-events-export'),
     )

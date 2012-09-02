@@ -3,6 +3,8 @@ import logging
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
+import django.db.models.signals as model_signals
+from django.core.cache import cache
 
 from cms.models import CMSPlugin
 
@@ -115,3 +117,25 @@ class CompleteSchedulePlugin(CMSPlugin):
     """
     sections = models.ManyToManyField(conference_models.Section,
         blank=True, null=True, verbose_name=_("sections"))
+
+
+def clear_schedule_caches(sender, *args, **kwargs):
+    instance = kwargs.get('instance', None)
+    if not instance:
+        return
+    # We have to clear the cache for every section of the current conference as
+    # well as the global cache itself.
+    conf = conference_models.current_conference()
+    cache_keys = [
+        'schedule:{0}:30'.format(conf.pk),
+        'schedule:guidebook:events'
+    ]
+    for section in conf.sections.all():
+        cache_keys.append('section_schedule:{0}:30'.format(section.pk))
+    LOG.debug("Clearing following cache keys: " + unicode(cache_keys))
+    cache.delete_many(cache_keys)
+
+model_signals.post_save.connect(clear_schedule_caches, sender=SideEvent)
+model_signals.post_save.connect(clear_schedule_caches, sender=Session)
+model_signals.post_delete.connect(clear_schedule_caches, sender=SideEvent)
+model_signals.post_delete.connect(clear_schedule_caches, sender=Session)

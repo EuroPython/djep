@@ -76,7 +76,8 @@ class Section(models.Model):
     scheduling process.
     """
 
-    conference = models.ForeignKey(Conference, verbose_name=_("conference"))
+    conference = models.ForeignKey(Conference, verbose_name=_("conference"),
+        related_name='sections')
 
     name = models.CharField(_("name"), max_length=100)
 
