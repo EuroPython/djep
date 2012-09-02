@@ -11,7 +11,7 @@ def speaker_box(context, speaker):
     except:
         profile = None
     return {
-        'name': unicode(speaker.user),
+        'name': unicode(speaker),
         'avatar': profile.avatar if profile else None,
         'user': speaker.user,
         'STATIC_URL': context['STATIC_URL']
