@@ -9,6 +9,7 @@ from ..reviews import models as review_models
 from ..reviews import admin as review_admin
 
 from . import models
+from . import exporters
 from . import utils
 
 
@@ -45,7 +46,7 @@ schedule_multiple_proposals.short_description = _("convert to sessions")
 
 
 def create_simple_session_export(modeladmin, request, queryset):
-    return HttpResponse(utils.create_simple_export(queryset).csv,
+    return HttpResponse(exporters.SimpleSessionExporter(queryset)().csv,
         mimetype='text/csv')
 create_simple_session_export.short_description = _("create simple export")
 

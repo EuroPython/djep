@@ -1,10 +1,11 @@
 # -*- encoding: utf-8 -*-
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy as _
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, HttpResponse
 from django.template.response import TemplateResponse
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.core.cache import cache
 
 from ..proposals import models as proposal_models
 from ..conference import models as conference_models
@@ -13,6 +14,7 @@ from ..utils import create_403
 from . import models
 from . import utils
 from . import forms
+from . import exporters
 
 
 def view_schedule(request):
@@ -128,3 +130,16 @@ def edit_session(request, session_pk):
         },
         template='schedule/edit_session.html'
     )
+
+
+def guidebook_events_export(request):
+    """
+    A simple export of all events as it can be used for importing into
+    Guidebook.
+    """
+    data = cache.get('schedule:guidebook:events', None)
+    if not data:
+        data = exporters.GuidebookExporter()().csv
+        cache.set('schedule:guidebook:events', data)
+    return HttpResponse(data,
+        content_type='text/csv')
