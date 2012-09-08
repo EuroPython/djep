@@ -143,3 +143,13 @@ def guidebook_events_export(request):
         cache.set('schedule:guidebook:events', data)
     return HttpResponse(data,
         content_type='text/csv')
+
+
+def guidebook_sponsors_export(request):
+    """
+    A simple export of all sponsors as it can be used for importing into
+    Guidebook.
+    """
+    data = exporters.GuidebookSponsorsExporter()().csv
+    return HttpResponse(data,
+        content_type='text/csv')

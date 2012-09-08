@@ -1,4 +1,6 @@
 from . import models
+from pyconde.sponsorship import models as sponsorship_models
+
 import tablib
 
 
@@ -95,3 +97,18 @@ class GuidebookExporter(object):
         if res == 0:
             res = cmp(a[4], b[4])
         return res
+
+
+class GuidebookSponsorsExporter(object):
+    def __call__(self):
+        data = tablib.Dataset(headers=['name', 'website', 'description',
+            'level_code', 'level_name'])
+        for sponsor in sponsorship_models.Sponsor.objects.all():
+            data.append([
+                sponsor.name if sponsor.name else '',
+                sponsor.external_url if sponsor.external_url else '',
+                sponsor.description if sponsor.description else '',
+                sponsor.level.slug if sponsor.level else '',
+                sponsor.level.name if sponsor.level else '',
+                ])
+        return data
