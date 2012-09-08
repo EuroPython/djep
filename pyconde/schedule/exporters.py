@@ -1,19 +1,18 @@
-from django.core.management.base import BaseCommand
-
 from . import models
 import tablib
+
+
+def _format_cospeaker(s):
+    """
+    Format the speaker's name for secondary speaker export and removes
+    our separator characters to avoid confusion.
+    """
+    return unicode(s).replace("|", " ")
 
 
 class SimpleSessionExporter(object):
     def __init__(self, queryset):
         self.queryset = queryset
-
-    def _format_cospeaker(self, s):
-        """
-        Format the speaker's name for secondary speaker export and removes
-        our separator characters to avoid confusion.
-        """
-        return unicode(s).replace("|", " ")
 
     def __call__(self):
         queryset = self.queryset.select_related('duration', 'track', 'proposal',
@@ -25,7 +24,7 @@ class SimpleSessionExporter(object):
             duration = session.duration
             audience_level = session.audience_level
             track = session.track
-            cospeakers = [self._format_cospeaker(s) for s in session.additional_speakers.all()]
+            cospeakers = [_format_cospeaker(s) for s in session.additional_speakers.all()]
             data.append((
                 session.pk,
                 session.proposal.pk if session.proposal else "",
@@ -44,39 +43,53 @@ class GuidebookExporter(object):
     def __call__(self):
         result = []
         for session in models.Session.objects.select_related('track', 'location').all():
+            cospeakers = [_format_cospeaker(s) for s in session.additional_speakers.all()]
             result.append([
                 session.title,
-                session.start.date() if session.start else None,
-                session.start.time() if session.start else None,
-                session.end.time() if session.end else None,
-                session.location.name if session.location else None,
-                session.track.name if session.track else None,
-                session.description
+                session.start.date() if session.start else '',
+                session.start.time() if session.start else '',
+                session.end.time() if session.end else '',
+                session.location.name if session.location else '',
+                session.track.name if session.track else '',
+                session.description,
+                session.kind.name if session.kind else u'Sonstiges',
+                session.audience_level.name if session.audience_level else '',
+                unicode(session.speaker),
+                u"|".join(cospeakers),
                 ])
         for evt in models.SideEvent.objects.select_related('location').all():
+            loc = evt.location.name if evt.location else ''
+            if evt.is_pause:
+                loc = ''
             result.append([
                 evt.name,
-                evt.start.date() if evt.start else None,
-                evt.start.time() if evt.start else None,
-                evt.end.time() if evt.end else None,
-                evt.location.name if evt.location else None,
-                None,
-                evt.description
+                evt.start.date() if evt.start else '',
+                evt.start.time() if evt.start else '',
+                evt.end.time() if evt.end else '',
+                loc,
+                '',
+                evt.description,
+                "Pause" if evt.is_pause else u'Sonstiges',
+                '',  # audience level
+                '',  # speaker
+                '',  # co-speakers
                 ])
         # Now sort by start date and time
         result.sort(cmp=self._sort_events)
 
-        data = tablib.Dataset(headers=['title', 'date', 'start_time', 'end_time', 'location_name', 'track_name', 'description'])
+        data = tablib.Dataset(headers=['title', 'date', 'start_time',
+            'end_time', 'location_name', 'track_name', 'description', 'type',
+            'audience', 'speaker', 'cospeakers'])
         for evt in result:
             data.append(evt)
         return data
-    
+
     def _sort_events(self, a, b):
         """
         Sort events by their start datetime. If these are similar, use the location
         name.
         """
-        res =  cmp(a[1], b[1])
+        res = cmp(a[1], b[1])
         if res == 0:
             res = cmp(a[2], b[2])
         if res == 0:
