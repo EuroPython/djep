@@ -32,6 +32,12 @@
 {% endif %}
 </div>
 
+{% if session.kind.slug == 'tutorial' and session.description %}
+    <div class="description">
+        {{ session.description|markdown:"safe" }}
+    </div>
+{% endif %}
+
 <div class="abstract">
     {{ session.abstract|markdown:"safe" }}
 </div>
