@@ -1,6 +1,9 @@
 {% extends "site_base.html" %}
 {% load i18n markup speaker_tags %}
 {% block title %}{% trans "session" %}: {{ session.title }}{% endblock %}
+{% block og_title %}{% trans "session" %}: {{ session.title }}{% endblock %}
+{% block og_description %}{{ session.abstract|truncatewords:100 }}{% endblock %}
+{% block meta_description %}{{ session.abstract|truncatewords:100 }}{% endblock %}
 {% block bodycls %}sessionpage{% endblock %}
 {% block body %}
 <article class="session">
