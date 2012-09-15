@@ -17,7 +17,7 @@ django-crispy-forms==1.1.1
 Markdown
 django-taggit==0.9.3
 django-debug-toolbar==0.9.4
-django-helpdesk==0.1.7b
+-e git+https://github.com/rossp/django-helpdesk.git@3785ca4477d7696eb87085f7e9b5a90eadea0a62#egg=django-helpdesk
 
 # tablib for export support
 tablib==0.9.11
