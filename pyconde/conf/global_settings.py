@@ -110,6 +110,7 @@ INSTALLED_APPS = [
     'pyconde.events',
     'pyconde.reviews',
     'pyconde.schedule',
+    'pyconde.helpers',
 ]
 
 MIDDLEWARE_CLASSES = [

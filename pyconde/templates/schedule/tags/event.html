@@ -1,4 +1,5 @@
-<a href="{{ event.url }}">{% if event.session_kind == 'keynote'%}KEYNOTE: {% endif %}{{ event.name }}</a>
+{% load helper_tags %}
+<a href="{{ event.url }}">{% if event.session_kind == 'keynote'%}KEYNOTE: {% endif %}{{ event.name|safe_and_shy:15 }}</a>
 {% if event.type == 'session' %}
 <br />
 {% if event.speakers %}von {{ event.speakers|join:', ' }}{% endif %}
