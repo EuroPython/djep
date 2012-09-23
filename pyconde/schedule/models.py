@@ -36,6 +36,7 @@ class Session(proposal_models.AbstractProposal):
     location = models.ForeignKey(conference_models.Location,
         verbose_name=_("location"), blank=True, null=True)
     is_global = models.BooleanField(_("is global"), default=False)
+    released = models.BooleanField(_("released"), default=False)
 
     @classmethod
     def create_from_proposal(cls, proposal):

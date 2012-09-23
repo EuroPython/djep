@@ -1,7 +1,11 @@
+import tablib
+import math
+import collections
+
+from django.contrib.sites import models as site_models
+
 from . import models
 from pyconde.sponsorship import models as sponsorship_models
-
-import tablib
 
 
 def _format_cospeaker(s):
@@ -112,3 +116,43 @@ class GuidebookSponsorsExporter(object):
                 sponsor.level.name if sponsor.level else '',
                 ])
         return data
+
+
+class SessionForEpisodesExporter(object):
+    """
+    This exporter creates a JSON file that is used by the video team in order
+    to add metadata to the created media files.
+    """
+
+    def _get_speaker_data(self, session):
+        Speaker = collections.namedtuple('Speaker', 'name email')
+        result = []
+        if session.speaker is not None:
+            result.append(Speaker(unicode(session.speaker), session.speaker.user.email))
+        for speaker in session.additional_speakers.all():
+            result.append(Speaker(unicode(speaker), speaker.user.email))
+        return result
+
+    def create_episode_data(self, session):
+        site = site_models.Site.objects.get_current()
+        speakers = self._get_speaker_data(session)
+        ep = {
+            'name': u"{kind}: {title}".format(kind=session.kind.name, title=session.title),
+            'room': session.location.name,
+            'start': session.start.isoformat(),
+            'duration': (session.end - session.start).total_seconds() / 60.0,
+            'end': session.end.isoformat(),
+            'authors': [s.name for s in speakers],
+            'contact': [s.email for s in speakers],
+            'released': session.released,
+            'license': None, # TODO: Add license information
+            'description': session.abstract, # TODO: Convert markdown to HTML if necessary
+            'conf_key': "{0}".format(session.pk),
+            'conf_url': u"https://{domain}{path}".format(domain=site.domain, path=session.get_absolute_url()),
+            'tags': u", ".join([t.name for t in session.tags.all()])
+        }
+        return ep
+
+    def __call__(self):
+        items = [self.create_episode_data(session) for session in models.Session.objects.select_related('location', 'speaker').all()]
+        return items
