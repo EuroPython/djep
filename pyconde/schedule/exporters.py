@@ -135,24 +135,37 @@ class SessionForEpisodesExporter(object):
 
     def create_episode_data(self, session):
         site = site_models.Site.objects.get_current()
-        speakers = self._get_speaker_data(session)
+        is_sideevent = isinstance(session, models.SideEvent)
+        if is_sideevent:
+            title = session.name
+            speakers = []
+            description = session.description
+            released = True
+        else:
+            title = u"{kind}: {title}".format(kind=session.kind.name, title=session.title) 
+            speakers = self._get_speaker_data(session)
+            description = session.abstract
+            released = session.released
+
         ep = {
-            'name': u"{kind}: {title}".format(kind=session.kind.name, title=session.title),
+            'name': title,
             'room': session.location.name,
             'start': session.start.isoformat(),
             'duration': (session.end - session.start).total_seconds() / 60.0,
             'end': session.end.isoformat(),
             'authors': [s.name for s in speakers],
             'contact': [s.email for s in speakers],
-            'released': session.released,
+            'released': released,
             'license': None, # TODO: Add license information
-            'description': session.abstract, # TODO: Convert markdown to HTML if necessary
-            'conf_key': "{0}".format(session.pk),
+            'description': description, # TODO: Convert markdown to HTML if necessary
+            'conf_key': "{0}:{1}".format("session" if not is_sideevent else "event", session.pk),
             'conf_url': u"https://{domain}{path}".format(domain=site.domain, path=session.get_absolute_url()),
-            'tags': u", ".join([t.name for t in session.tags.all()])
+            'tags': u", ".join([t.name for t in session.tags.all()]) if not is_sideevent else ""
         }
         return ep
 
     def __call__(self):
         items = [self.create_episode_data(session) for session in models.Session.objects.select_related('location', 'speaker').all()]
+        # Also export all side-events that are not pauses
+        items += [self.create_episode_data(evt) for evt in models.SideEvent.objects.filter(is_recordable=True).exclude(is_pause=True).select_related('location').all()]
         return items
