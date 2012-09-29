@@ -1,6 +1,7 @@
 import tablib
 import collections
 
+from django.core.urlresolvers import reverse
 from django.contrib.sites import models as site_models
 
 from . import models
@@ -56,10 +57,18 @@ class SimpleSessionExporter(AbstractExporter):
 
 
 class GuidebookExporter(object):
+    def get_speaker_url(self, speaker):
+        site = site_models.Site.objects.get_current()
+        url = ""
+        if speaker.user is not None:
+            url = reverse('account_profile', kwargs={'uid': speaker.user.pk})
+        return u'<https://{0}{1}>'.format(site.domain, url)
+
     def __call__(self):
         result = []
         for session in models.Session.objects.select_related('track', 'location').all():
-            cospeakers = [_format_cospeaker(s) for s in session.additional_speakers.all()]
+            additional_speakers = list(session.additional_speakers.all())
+            cospeakers = [_format_cospeaker(s) for s in additional_speakers]
             result.append([
                 session.title,
                 session.start.date() if session.start else '',
@@ -72,6 +81,9 @@ class GuidebookExporter(object):
                 session.audience_level.name if session.audience_level else '',
                 unicode(session.speaker),
                 u"|".join(cospeakers),
+                self.get_speaker_url(session.speaker),
+                u" ".join([self.get_speaker_url(s) for s in additional_speakers]),
+                session.abstract if session.abstract else '',
                 ])
         for evt in models.SideEvent.objects.select_related('location').all():
             loc = evt.location.name if evt.location else ''
@@ -89,13 +101,17 @@ class GuidebookExporter(object):
                 '',  # audience level
                 '',  # speaker
                 '',  # co-speakers
+                '',  # speaker url
+                '',  # cospeaker urls
+                '',  # abstract
                 ])
         # Now sort by start date and time
         result.sort(cmp=self._sort_events)
 
         data = tablib.Dataset(headers=['title', 'date', 'start_time',
             'end_time', 'location_name', 'track_name', 'description', 'type',
-            'audience', 'speaker', 'cospeakers'])
+            'audience', 'speaker', 'cospeakers', 'speaker_url',
+            'cospeaker_urls', 'abstract'])
         for evt in result:
             data.append(evt)
         return data
@@ -165,7 +181,7 @@ class SessionForEpisodesExporter(object):
             description = session.description
             released = True
         else:
-            title = u"{kind}: {title}".format(kind=session.kind.name, title=session.title) 
+            title = u"{kind}: {title}".format(kind=session.kind.name, title=session.title)
             speakers = self._get_speaker_data(session)
             description = session.abstract
             released = session.released
@@ -179,8 +195,8 @@ class SessionForEpisodesExporter(object):
             'authors': [s.name for s in speakers],
             'contact': [s.email for s in speakers],
             'released': released,
-            'license': None, # TODO: Add license information
-            'description': description, # TODO: Convert markdown to HTML if necessary
+            'license': None,  # TODO: Add license information
+            'description': description,
             'conf_key': "{0}:{1}".format("session" if not is_sideevent else "event", session.pk),
             'conf_url': u"https://{domain}{path}".format(domain=site.domain, path=session.get_absolute_url()),
             'tags': u", ".join([t.name for t in session.tags.all()]) if not is_sideevent else ""
