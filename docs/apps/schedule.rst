@@ -53,16 +53,20 @@ Proposal-Metadaten zur Verfügung.
 Exports
 -------
 
-===================== ====== ==============================================================================================================
+======================= ====== ==============================================================================================================
 Name    Format Felder
-===================== ====== ==============================================================================================================
-Einfach               CSV    ID, ProposalID, Title, SpeakerUsername, SpeakerName, CoSpeakers, AudienceLevel, Duration, Track
-Guidebook_            CSV    title, date, start_time, end_time, location_name, track_name, description, type, audience, speaker, cospeakers
-Sponsors_ (Guidebook) CSV    name, website, description, level_code, level_name
-===================== ====== ==============================================================================================================
+======================= ====== ==============================================================================================================
+Einfach                 CSV    ID, ProposalID, Title, SpeakerUsername, SpeakerName, CoSpeakers, AudienceLevel, Duration, Track
+Guidebook_              CSV    title, date, start_time, end_time, location_name, track_name, description, type, audience, speaker, cospeakers
+Sponsors_ (Guidebook)   CSV    name, website, description, level_code, level_name
+Abschnitte_ (Guidebook) CSV    name, start, end, description
+======================= ====== ==============================================================================================================
 
 .. _Guidebook: /schedule/exports/guidebook/events.csv
 .. _Sponsors: /schedule/exports/guidebook/sponsors.csv
+.. _Abschnitte: /schedule/exports/guidebook/sections.csv
+
+
 
 Schedule-Darstellung
 --------------------

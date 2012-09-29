@@ -1,11 +1,11 @@
 import tablib
-import math
 import collections
 
 from django.contrib.sites import models as site_models
 
 from . import models
 from pyconde.sponsorship import models as sponsorship_models
+from pyconde.conference import models as conference_models
 
 
 def _format_cospeaker(s):
@@ -16,7 +16,17 @@ def _format_cospeaker(s):
     return unicode(s).replace("|", " ")
 
 
-class SimpleSessionExporter(object):
+class AbstractExporter(object):
+    def as_csv_value(self, value):
+        """
+        If a value is None, returns it as empty string instead of "None".
+        """
+        if value is None:
+            return ""
+        return value
+
+
+class SimpleSessionExporter(AbstractExporter):
     def __init__(self, queryset):
         self.queryset = queryset
 
@@ -114,6 +124,19 @@ class GuidebookSponsorsExporter(object):
                 sponsor.description if sponsor.description else '',
                 sponsor.level.slug if sponsor.level else '',
                 sponsor.level.name if sponsor.level else '',
+                ])
+        return data
+
+
+class GuidebookSectionsExporter(AbstractExporter):
+    def __call__(self):
+        data = tablib.Dataset(headers=['name', 'start', 'end', 'description'])
+        for section in conference_models.Section.objects.order_by('start_date').all():
+            data.append([
+                self.as_csv_value(section.name),
+                self.as_csv_value(section.start_date),
+                self.as_csv_value(section.end_date),
+                self.as_csv_value(section.description)
                 ])
         return data
 

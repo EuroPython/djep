@@ -13,4 +13,5 @@ urlpatterns = patterns('',
     url(r'^schedule/$', views.view_schedule, name='schedule'),
     url(r'^exports/guidebook/events.csv$', views.guidebook_events_export, name='guidebook-events-export'),
     url(r'^exports/guidebook/sponsors.csv$', views.guidebook_sponsors_export, name='guidebook-sponsors-export'),
+    url(r'^exports/guidebook/sections.csv$', views.guidebook_sections_export, name='guidebook-sections-export'),
     )
