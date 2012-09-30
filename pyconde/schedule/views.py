@@ -145,6 +145,11 @@ def guidebook_events_export(request):
         content_type='text/csv')
 
 
+def guidebook_sections_export(request):
+    return HttpResponse(exporters.GuidebookSectionsExporter()().csv,
+        content_type='text/csv')
+
+
 def guidebook_sponsors_export(request):
     """
     A simple export of all sponsors as it can be used for importing into

@@ -88,6 +88,8 @@ class Section(models.Model):
     slug = models.SlugField(_("slug"), null=True, blank=True)
     order = models.IntegerField(_("order"), default=0)
 
+    description = models.TextField(_("description"), blank=True, null=True)
+
     objects = models.Manager()
     current_objects = CurrentConferenceManager()
 
