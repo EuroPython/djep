@@ -89,6 +89,9 @@
           if (entity.url == url && entity.expanded_url) {
             url = entity.expanded_url;
             text = entity.display_url;
+            if (text.length > 32) {
+              text = text.substring(0, 30) + '&hellip;';
+            }
             break;
           }
         }
