@@ -18,6 +18,7 @@ Markdown
 django-taggit==0.9.3
 django-debug-toolbar==0.9.4
 -e git+https://github.com/rossp/django-helpdesk.git@3785ca4477d7696eb87085f7e9b5a90eadea0a62#egg=django-helpdesk
+requests==0.14.1
 
 # tablib for export support
 tablib==0.9.11

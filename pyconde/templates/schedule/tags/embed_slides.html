@@ -1,0 +1,5 @@
+{% if embed_code %}
+    {{ embed_code|safe }}
+{% else %}
+    <a href="{{ url }}">Link</a>
+{% endif %}
