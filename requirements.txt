@@ -14,7 +14,7 @@ django-compressor==1.1.2
 BeautifulSoup==3.2.0
 django-cms==2.2
 django-crispy-forms==1.1.1
-Markdown
+Markdown==2.2.0
 django-taggit==0.9.3
 django-debug-toolbar==0.9.4
 -e git+https://github.com/rossp/django-helpdesk.git@3785ca4477d7696eb87085f7e9b5a90eadea0a62#egg=django-helpdesk
