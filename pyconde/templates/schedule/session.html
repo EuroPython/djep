@@ -1,5 +1,5 @@
 {% extends "site_base.html" %}
-{% load i18n markup speaker_tags %}
+{% load i18n markup speaker_tags embed_tags %}
 {% block title %}{% trans "session" %}: {{ session.title }}{% endblock %}
 {% block og_title %}{% trans "session" %}: {{ session.title }}{% endblock %}
 {% block og_description %}{{ session.abstract|truncatewords:100 }}{% endblock %}
@@ -44,6 +44,14 @@
 <div class="abstract">
     {{ session.abstract|markdown:"safe" }}
 </div>
+
+{% if session.slides_url %}
+<div class="slides">
+    <h2>Folien</h2>
+    {% embed_slides session.slides_url %}
+</div>
+{% endif %}
+
 </article>
 {% endblock %}
 {% block sidebar %}
