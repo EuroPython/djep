@@ -181,7 +181,7 @@ class SessionForEpisodesExporter(object):
             description = session.description
             released = True
         else:
-            title = u"{kind}: {title}".format(kind=session.kind.name, title=session.title)
+            title = session.title
             speakers = self._get_speaker_data(session)
             description = session.abstract
             released = session.released
