@@ -8,6 +8,7 @@ First you have to clone this repository and all its submodules::
     git clone git@bitbucket.org:PySV/pycon_de_website.git
     cd pycon_de_website
     git submodule init
+    git submodule update
 
 Next create a virtualenv and install all the requirments into it. In this
 example we are using virtualenvwrapper to manage the virtualenv::
