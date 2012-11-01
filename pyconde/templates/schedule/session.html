@@ -52,6 +52,13 @@
 </div>
 {% endif %}
 
+{% if session.video_url %}
+<div class="video">
+    <h2>Video</h2>
+    {% embed_video session.video_url %}
+</div>
+{% endif %}
+
 </article>
 {% endblock %}
 {% block sidebar %}
