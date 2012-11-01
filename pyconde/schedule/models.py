@@ -38,6 +38,7 @@ class Session(proposal_models.AbstractProposal):
     is_global = models.BooleanField(_("is global"), default=False)
     released = models.BooleanField(_("released"), default=False)
     slides_url = models.URLField(_("Slides URL"), blank=True, null=True)
+    video_url = models.URLField(_("Video URL"), blank=True, null=True)
 
     @classmethod
     def create_from_proposal(cls, proposal):

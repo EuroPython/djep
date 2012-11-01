@@ -1,8 +1,13 @@
 import unittest
 from datetime import datetime as dt
+import logging
 
 from . import utils
 from . import slides
+from . import videos
+
+
+logging.disable(logging.CRITICAL)
 
 
 class MockEvent(object):
@@ -97,6 +102,18 @@ class SlideCodeGeneratorTests(unittest.TestCase):
     def test_slideshare_oembed_link(self):
         service = slides.SlideShareService()
         self.assertTrue(service.get_oembed_url('http://www.slideshare.net/zeeg/pycon-2011-scaling-disqus-7251315') == 'http://www.slideshare.net/api/oembed/2?format=json&url=http%3A%2F%2Fwww.slideshare.net%2Fzeeg%2Fpycon-2011-scaling-disqus-7251315')
+
+
+class VideoServiceTests(unittest.TestCase):
+    def test_youtube_oembed_link(self):
+        """
+        Internal test to make sure that the url generator for youtube works.
+        """
+        service = videos.YouTubeService()
+        self.assertEquals(
+            r"http://www.youtube.com/oembed?url=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DcR2XilcGYOo&format=json",
+            service.generate_oembed_url('http://www.youtube.com/watch?v=cR2XilcGYOo')
+            )
 
 
 SAMPLE_SPEAKERDECK_DOC = """<!DOCTYPE html>
