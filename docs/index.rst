@@ -1,8 +1,3 @@
-.. PyCon DE 2012-Website documentation master file, created by
-   sphinx-quickstart on Tue Jul 10 22:18:54 2012.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
-
 Übersicht
 =========
 
@@ -21,6 +16,7 @@ jeweils einen Einstiegspunkt darstellen:
    apps/proposals
    apps/reviews
    apps/schedule
+   apps/events
 
 Index und Tabellen
 ==================
