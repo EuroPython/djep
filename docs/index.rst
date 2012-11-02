@@ -1,5 +1,14 @@
-Übersicht
-=========
+Das PyCon DE-Website-System
+===========================
+
+Installation
+------------
+
+.. toctree::
+    :maxdepth: 1
+
+    setup/entwickler
+    setup/deployment
 
 Apps
 ----
@@ -17,6 +26,7 @@ jeweils einen Einstiegspunkt darstellen:
    apps/reviews
    apps/schedule
    apps/events
+
 
 Index und Tabellen
 ==================

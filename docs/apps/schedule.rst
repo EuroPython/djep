@@ -54,7 +54,7 @@ Exports
 -------
 
 ======================= ====== ==============================================================================================================
-Name    Format Felder
+Name                    Format Felder
 ======================= ====== ==============================================================================================================
 Einfach                 CSV    ID, ProposalID, Title, SpeakerUsername, SpeakerName, CoSpeakers, AudienceLevel, Duration, Track
 Guidebook_              CSV    title, date, start_time, end_time, location_name, track_name, description, type, audience, speaker, cospeakers

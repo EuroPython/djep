@@ -1,0 +1,19 @@
+<h3>Verwandte Themen</h3>
+<ul>
+  <li><a href="{{ pathto(master_doc) }}">Übersicht</a><ul>
+  {%- for parent in parents %}
+  <li><a href="{{ parent.link|e }}">{{ parent.title }}</a><ul>
+  {%- endfor %}
+    {%- if prev %}
+      <li>Zurück: <a href="{{ prev.link|e }}" title="{{ _('previous chapter')
+        }}">{{ prev.title }}</a></li>
+    {%- endif %}
+    {%- if next %}
+      <li>Weiter: <a href="{{ next.link|e }}" title="{{ _('next chapter')
+        }}">{{ next.title }}</a></li>
+    {%- endif %}
+  {%- for parent in parents %}
+  </ul></li>
+  {%- endfor %}
+  </ul></li>
+</ul>
