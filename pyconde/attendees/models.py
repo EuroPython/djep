@@ -78,7 +78,7 @@ class TicketType(models.Model):
     voucher_needed = models.BooleanField(_('Voucher needed'), default=False)
     tutorial_ticket = models.BooleanField(_('Tutorial ticket'), default=False)
 
-    remarks = models.CharField(_('Remarks'), max_length=254, blank=True)
+    remarks = models.TextField(_('Remarks'), blank=True)
 
     objects = TicketTypeManager()
 
