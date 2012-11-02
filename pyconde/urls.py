@@ -9,6 +9,7 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
+    url(r'^tickets/', include('pyconde.attendees.urls')),
     url(r'^accounts/', include('pyconde.accounts.urls')),
     url(r'^accounts/', include('userprofiles.urls')),
     url(r'^reviews/', include('pyconde.reviews.urls')),
