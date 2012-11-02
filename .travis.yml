@@ -1,0 +1,10 @@
+language: python
+python:
+    - "2.7"
+install:
+  - pip install -q --use-mirrors -r requirements.txt
+script:
+  - "cd pyconde && cp settings.py{.dist,} && python manage.py syncdb --noinput && python manage.py migrate && python manage.py test schedule reviews proposals helpers accounts"
+branches:
+    only:
+        - develop
