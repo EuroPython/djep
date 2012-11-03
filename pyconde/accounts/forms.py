@@ -16,6 +16,15 @@ from ..forms import Submit
 
 
 class ProfileRegistrationForm(RegistrationForm):
+    """
+    Override for the default registration form that adds two new fields:
+
+    * Avatar for allowing the user to upload a profile picture
+    * and short_info, which allows the user to introduce herself to the
+      other attendees/speakers.
+
+    Both of these fields are publically accessible and optional.
+    """
     avatar = forms.ImageField(widget=forms.FileInput, required=False,
         help_text=Profile()._meta.get_field_by_name('avatar')[0].help_text)
     short_info = forms.CharField(widget=forms.Textarea, required=False)
@@ -32,6 +41,10 @@ class ProfileRegistrationForm(RegistrationForm):
                 )
 
     def save_profile(self, new_user, *args, **kwargs):
+        """
+        save_profile is used by django-userprofiles as a post-save hook. In this
+        case we use it to create a new profile object for the user.
+        """
         Profile.objects.create(
             user=new_user,
             avatar=self.cleaned_data['avatar'],
@@ -40,6 +53,12 @@ class ProfileRegistrationForm(RegistrationForm):
 
 
 class AuthenticationForm(auth_forms.AuthenticationForm):
+    """
+    Override for the default login/authentication form that acts as entrypoint
+    for crispy_forms.
+
+    Note that right now it includes some hardcoded strings.
+    """
     def __init__(self, *args, **kwargs):
         super(AuthenticationForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -55,6 +74,10 @@ class AuthenticationForm(auth_forms.AuthenticationForm):
 
 
 class PasswordResetForm(auth_forms.PasswordResetForm):
+    """
+    Override for the default password reset form which acts as entrypoint
+    for crispy forms.
+    """
     def __init__(self, *args, **kwargs):
         super(PasswordResetForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -66,6 +89,10 @@ class PasswordResetForm(auth_forms.PasswordResetForm):
 
 
 class PasswordChangeForm(auth_forms.PasswordChangeForm):
+    """
+    Override for the default password change form which acts as entrypoint
+    for crispy forms.
+    """
     def __init__(self, *args, **kwargs):
         super(PasswordChangeForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -90,4 +117,3 @@ class ProfileForm(BaseProfileForm):
                 Div(Field('first_name', autofocus="autofocus"), 'last_name', 'avatar', 'short_info'),
                 ButtonHolder(Submit('save', _('Change'), css_class='btn-primary'))
             )
-

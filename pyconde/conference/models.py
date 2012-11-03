@@ -266,6 +266,9 @@ def current_conference():
     try:
         current_conf = CONFERENCE_CACHE[conf_id]
     except KeyError:
-        current_conf = Conference.objects.get(pk=conf_id)
+        try:
+            current_conf = Conference.objects.get(pk=conf_id)
+        except Conference.DoesNotExist:
+            return None
         CONFERENCE_CACHE[conf_id] = current_conf
     return current_conf

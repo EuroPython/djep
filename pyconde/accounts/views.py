@@ -19,15 +19,24 @@ class AutocompleteUser(generic_views.View):
           speakers application.
     """
 
-    def get(self, request):
-        term = request.GET['term']
+    def get_matching_users(self, term):
+        """
+        Returns a list of dicts containing a user's name ("label") and her
+        speaker pk ("value"). The name is a concatination of first and last
+        name.
+        """
         result = []
         for user in auth_models.User.objects.filter(
-                Q(first_name=term) | Q(last_name=term)):
+                Q(first_name__iexact=term) | Q(last_name__iexact=term)):
             result.append({
                 'label': u'{0} {1}'.format(user.first_name, user.last_name),
                 'value': user.speaker_profile.pk
             })
+        return result
+
+    def get(self, request):
+        term = request.GET['term']
+        result = self.get_matching_users(term)
         return HttpResponse(json.dumps(result))
 
 

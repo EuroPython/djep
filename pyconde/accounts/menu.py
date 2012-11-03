@@ -8,6 +8,10 @@ from django.core.urlresolvers import reverse
 
 
 class AccountsMenu(CMSAttachMenu):
+    """
+    Menu for the accounts app which provides access to the profile rendering
+    and change form as well as the change password form.
+    """
     name = _("Accounts menu")
 
     def get_nodes(self, request):
