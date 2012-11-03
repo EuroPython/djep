@@ -1,4 +1,4 @@
-
+.. image:: https://secure.travis-ci.org/zerok/pyconde-website-mirror.png
 
 Installation
 ------------
