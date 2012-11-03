@@ -4,7 +4,7 @@ python:
 install:
   - pip install -q --use-mirrors -r requirements.txt
 script:
-  - "cd pyconde && cp settings.py{.dist,} && python manage.py syncdb --noinput && python manage.py migrate && python manage.py test schedule reviews proposals helpers accounts"
+  - "cd pyconde && cp settings.py{.dist,} && python manage.py syncdb --noinput && python manage.py migrate && python manage.py test conference proposals schedule reviews sponsorship speakers helpers accounts events attendees"
 branches:
     only:
         - develop
