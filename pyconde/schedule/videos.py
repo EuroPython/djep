@@ -8,6 +8,7 @@ import urlparse
 import urllib
 import logging
 import requests
+import re
 
 
 LOG = logging.getLogger(__name__)
@@ -42,14 +43,40 @@ class YouTubeService(OEmbedSupportingVideoService):
         return url.startswith('https://www.youtube.com/watch?v=') or url.startswith('http://www.youtube.com/watch?v=')
 
     def generate_oembed_url(self, url):
-        video_id = urlparse.parse_qs(urlparse.urlparse(url).query)['v']
         query = urllib.urlencode({
             'url': url,
             'format': 'json'
             })
         return 'http://www.youtube.com/oembed?' + query
 
-_SERVICES = [YouTubeService()]
+
+class PyVideoService(VideoService):
+    video_re = re.compile(r'http://pyvideo\.org/video/(?P<id>\d+)/.*')
+
+    def matches_link(self, url):
+        return self.video_re.match(url) is not None
+
+    def get_video_id(self, url):
+        mo = self.video_re.match(url)
+        if mo:
+            return mo.group('id')
+
+    def generate_embed_code(self, url):
+        video_id = self.get_video_id(url)
+        if video_id is None:
+            return None
+        data = requests.get('http://pyvideo.org/api/v1/video/{0}/'.format(video_id)).json
+
+        # pyvideos is used as front for some other service like YouTube, use
+        # the embed-code from the source.
+        source_embed = generate_embed_code(data['source_url'])
+        if not source_embed:
+            source_embed = data['embed']
+        return source_embed + '<br><a href="{0}">pyvideo.org</a>'.format(url)
+
+
+_SERVICES = [YouTubeService(), PyVideoService()]
+
 
 def generate_embed_code(url):
     for service in _SERVICES:
