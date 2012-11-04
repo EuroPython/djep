@@ -8,9 +8,9 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Fieldset, Submit, Field, HTML
 from pyconde.forms import ExtendedHelpField
 
-from conference.models import current_conference
-from conference import models as conference_models
-from speakers import models as speaker_models
+from pyconde.conference.models import current_conference
+from pyconde.conference import models as conference_models
+from pyconde.speakers import models as speaker_models
 
 from . import models
 from . import settings

@@ -12,7 +12,7 @@ env.proj_root = join(env.root, 'pycon_de_website')
 env.pip_files = (
     join(env.proj_root, 'requirements.txt'),
 )
-env.manage_py = join(env.proj_root, env.proj_name, 'manage.py')
+env.manage_py = join(env.proj_root, 'manage.py')
 
 
 def srv_run(cmd):
@@ -28,7 +28,7 @@ def ve_python(cmd):
 
 
 def manage_py(cmd):
-    return ve_python('%s %s' % (join(env.proj_root, env.proj_name, 'manage.py'), cmd))
+    return ve_python('%s %s' % (join(env.proj_root, 'manage.py'), cmd))
 
 
 def supervisorctl(cmd):
@@ -112,10 +112,9 @@ def build_statics():
     """
     Compiles files locally.
     """
-    with lcd('pyconde'):
-        local('lessc -x static_media/css/style.{less,css}')
-        local('python manage.py collectstatic --noinput -v1 -i bootstrap -i \'*.less\'')
-        local('python manage.py compress --force')
+    local('lessc -x pyconde/static_media/css/style.{less,css}')
+    local('python manage.py collectstatic --noinput -v1 -i bootstrap -i \'*.less\'')
+    local('python manage.py compress --force')
 
 
 @task
@@ -133,7 +132,7 @@ def djshell():
     """
     return srv_open_shell('%s %s shell' % (
         join(env.root, 'bin', 'python'),
-        join(env.proj_root, env.proj_name, 'manage.py')))
+        join(env.proj_root, 'manage.py')))
 
 
 @task

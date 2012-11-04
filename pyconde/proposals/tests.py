@@ -6,8 +6,8 @@ from django.forms.models import model_to_dict
 from django.contrib.auth import models as auth_models
 from django.core.exceptions import ValidationError
 
-from conference import models as conference_models
-from speakers import models as speakers_models
+from pyconde.conference import models as conference_models
+from pyconde.speakers import models as speakers_models
 
 from . import models
 from . import forms

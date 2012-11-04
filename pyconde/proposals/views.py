@@ -8,7 +8,7 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.template.response import TemplateResponse
 
-from conference.models import current_conference, SessionKind
+from pyconde.conference.models import current_conference, SessionKind
 
 from . import forms
 from . import models

@@ -2,10 +2,10 @@ import itertools
 import math
 import datetime
 import collections
-from  django.utils.datastructures import SortedDict
+from django.utils.datastructures import SortedDict
 from django.conf import settings
 
-from pyconde.conference import models as conference_models
+from ..conference import models as conference_models
 
 from . import models
 

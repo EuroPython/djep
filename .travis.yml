@@ -4,7 +4,7 @@ python:
 install:
   - pip install -q --use-mirrors -r requirements.txt
 script:
-  - "cd pyconde && cp settings.py{.dist,} && python manage.py test conference proposals schedule reviews sponsorship speakers helpers accounts events attendees"
+  - "cp pyconde/settings.py{.dist,} && python manage.py test conference proposals schedule reviews sponsorship speakers helpers accounts events attendees"
 branches:
     only:
         - develop

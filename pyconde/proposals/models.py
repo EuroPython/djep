@@ -5,8 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django import forms
 
-from conference.models import CurrentConferenceManager
-
+from pyconde.conference.models import CurrentConferenceManager
 from pyconde.tagging import TaggableManager
 
 
