@@ -116,6 +116,13 @@ class VideoServiceTests(unittest.TestCase):
             )
 
 
+class PyVideoServiceTests(unittest.TestCase):
+    service = videos.PyVideoService()
+
+    def test_id_extraction(self):
+        self.assertEquals('1436', self.service.get_video_id('http://pyvideo.org/video/1436/praktische-anwendung-von-metaklassen'))
+
+
 SAMPLE_SPEAKERDECK_DOC = """<!DOCTYPE html>
 <html>
 <body class="signed-out">
