@@ -1,14 +1,16 @@
 Das PyCon DE-Website-System
 ===========================
 
-Installation
-------------
+Installation & Konfiguration
+----------------------------
 
 .. toctree::
     :maxdepth: 1
 
     setup/entwickler
     setup/deployment
+    setup/configuration
+    setup/skins
 
 Apps
 ----

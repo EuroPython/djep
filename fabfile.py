@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
+import functools
+from os.path import join, splitext
+
 from fabric.api import *
-from os.path import join
 
 if not env.get('branch'):
     abort("Please select a config file (staging.ini | live.ini)")
@@ -95,6 +97,16 @@ def update_proj():
         srv_run('git submodule update')
 
 
+def _find_style_less(cmd):
+    """Helper that returns the path to style.less suitable for lessc.
+
+    cmd is either functools.partial(local, capture=True), sudo or run.
+    """
+    output = cmd('python manage.py findstatic css/style.less')
+    fname = output.splitlines()[1].strip()  # first line contains header
+    return '%s.{less,css}' % splitext(fname)[0]
+
+
 @task
 def build_static_files():
     """
@@ -102,7 +114,7 @@ def build_static_files():
     """
     with path('/srv/pyconde/local/bin', behavior="prepend"):
         with cd(env.proj_root):
-            srv_run('lessc -x pyconde/static_media/css/style.{less,css}')
+            srv_run('lessc -x %s' % _find_style_less(srv_run))
         manage_py('collectstatic --noinput -v1 -i bootstrap -i \'*.less\'')
         manage_py('compress')
 
@@ -112,7 +124,8 @@ def build_statics():
     """
     Compiles files locally.
     """
-    local('lessc -x pyconde/static_media/css/style.{less,css}')
+    less = _find_style_less(functools.partial(local, capture=True))
+    local('lessc -x %s' % less)
     local('python manage.py collectstatic --noinput -v1 -i bootstrap -i \'*.less\'')
     local('python manage.py compress --force')
 

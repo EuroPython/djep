@@ -98,6 +98,10 @@ INSTALLED_APPS = [
     'cmsplugin_filer_image',
     'cmsplugin_news',
 
+    # Skins
+    'pyconde.skins.pyconde2012',
+    'pyconde.skins.default',
+
     # Symposion apps
     'pyconde.conference',
     'pyconde.speakers',
@@ -135,9 +139,10 @@ TEMPLATE_CONTEXT_PROCESSORS += (
     'pyconde.context_processors.less_settings',
 )
 
-TEMPLATE_DIRS = (
-    os.path.join(PROJECT_ROOT, 'templates'),
-)
+# TEMPLATE_DIRS = (
+#     os.path.join(PROJECT_ROOT, 'skins', 'default'),
+#     os.path.join(PROJECT_ROOT, 'skins', 'pyconde2012'),
+# )
 
 USERPROFILES_CHECK_UNIQUE_EMAIL = True
 USERPROFILES_DOUBLE_CHECK_EMAIL = False
@@ -215,7 +220,7 @@ LESS_USE_DYNAMIC_IN_DEBUG = True
 
 # Django Helpdesk stuff
 #
-#   Configuration is done in admin, 
+#   Configuration is done in admin,
 #   but these placeholders are required in order to make it work
 
 QUEUE_EMAIL_BOX_TYPE = None
