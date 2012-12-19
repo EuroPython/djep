@@ -24,8 +24,8 @@ requests==0.14.1
 tablib==0.9.11
 
 # Requirements for symposion
-pytz
-django-timezones
+pytz==2012h
+django-timezones==0.2
 
 # Documentation
 Sphinx==1.1.3

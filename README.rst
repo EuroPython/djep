@@ -21,17 +21,26 @@ Now that this is complete, prepare the settings::
 
     cd pyconde
     cp settings.py.dist settings.py
+    cd ..
 
-Everything should be in place now to initialize the database. By default
-(as seen in the settings.py.dist file) this is located in the local_database.db
-file right next to the manage.py::
+Everything should be in place now to initialize the database. If you want to use
+SQLite be warned that there are some issues with the migration steps done
+for some of django-cms' plugins. Therefor you will most likely have to run
+this::
+    
+    python manage.py syncdb --noinput --all
+    python manage.py migrate --fake
 
+If you want to use PostgreSQL (which is also used in production for this site),
+alter the `DATABASES` section of your pyconde/settings.py accordingly and then
+run following command::
+    
     python manage.py syncdb --noinput --migrate
 
 For PyCONDE we have prepared a bunch of fixtures that provide some basic
 conference data::
     
-    python manage.py loaddata ../fixtures/conference-setup.json
+    python manage.py loaddata fixtures/conference-setup.json
     python manage.py loaddata tickets2012
     python manage.py loaddata pyconde2012-tracks.json
 
