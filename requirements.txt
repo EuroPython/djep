@@ -29,3 +29,7 @@ django-timezones==0.2
 
 # Documentation
 Sphinx==1.1.3
+
+# Search integration
+django-haystack==1.2.7
+Whoosh==2.4.1

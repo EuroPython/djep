@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 
 
 class Speaker(models.Model):
@@ -13,6 +14,9 @@ class Speaker(models.Model):
         if self.user.first_name and self.user.last_name:
             return u"{0} {1}".format(self.user.first_name, self.user.last_name)
         return self.user.username
+
+    def get_absolute_url(self):
+        return reverse('account_profile', kwargs={'uid': self.user.id})
 
 
 def create_speaker_profile(sender, instance, created, raw, **kwargs):
