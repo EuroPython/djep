@@ -1,0 +1,45 @@
+{% extends "site_structure.html" %}
+{% load sekizai_tags menu_tags compress event_tags %}
+
+{% block site_title %}{% block title %}Willkommen{% endblock %} - PyCon DE 2013 - 3. Deutsche Python-Konferenz{% endblock %}
+
+{% block site_meta %}
+  <meta name="author" content="Python Software Verband e.V.">
+  <meta name="keywords" content="{% block meta_keywords %}Python, Pycon, Python Konferenz, Konferenz{% endblock %}">
+  <meta name="description" content="{% block meta_description %}Die deutschsprachige Python-Konferenz PyCon DE findet vom 14.10. bis 19.10.2013 in Köln statt.{% endblock %}">
+  <meta property="og:title" content="{% block og_title %}{% endblock %}PyCon DE 2013 - 3. Deutsche Python-Konferenz" />
+  <meta property="og:site_name" content="PyCon DE 2013" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="http://{{ request.get_host }}/" />
+  <meta property="og:image" content="http://{{ request.get_host }}{{ STATIC_URL }}images/logo-pycon.png" />
+  <meta property="og:description" content="{% block og_description %}Die deutschsprachige Python-Konferenz PyCon DE findet vom 14.10. bis 19.10.2013 in Köln statt.{% endblock %}" />
+  <link rel="alternate" href="/news/feed/" type="application/atom+xml" title="PyCon DE 2013-News" />
+{% endblock %}
+
+{% block site_content %}
+  <div id="page">
+    <header>
+      <hgroup>
+        <h1>PyCon.DE 2013 – Die 3. Deutsche Python-Konferenz.</h1>
+        <h2>Dynamisch.Zukunft.Entwickeln.</h2>
+      </hgroup>
+    </header>
+    <div id="main">
+      <div class="body">
+        <p>Die PyCon.DE 2013 bietet ein <strong>attraktives, breit gefächertes Programm für Python-Experten und Einsteiger</strong>. Die <strong>Vorträge</strong> präsentieren neueste Entwicklungen zu Programmiertechnik, Anwendungsbeispiele und Erfolgsgeschichten. Daneben gibt es Raum und Zeit für Diskussionen und gemeinsames Arbeiten. Die <strong>Keynotes</strong> werden über den Python-Tellerrand hinaus zum Nachdenken, Schmunzeln oder Weiterdenken anregen. In der Ausstellung sind Firmen und Projekte vertreten, um neue Kunden, Partner und Mitarbeiter<em>innen</em> zu finden. Der <strong>Schülerwettbewerb</strong> im Vorfeld soll Schüler<em>innen</em> an Python heranführen und praxisnah für die IT motivieren. Die PyCon.DE 2013 wird eine <strong>familienfreundliche Konferenz</strong> sein. Die Kinderbetreuung wird neben anderen Angeboten den Teilnehmer<em>innen</em> und Teilnehmern einen sorgenfreien und unbeschwerten Konferenzbesuch erlauben.</p>
+        <p class="secondary">Die PyCon.DE 2013 wird von der Python User Group Köln, dem Deutschen Zentrum für Luft- und Raumfahrt e.V. und dem Python Software Verband e.V. organisiert. Sie findet vom <strong>14.-19. Oktober 2013 im Kölner KOMED</strong> statt.</p>
+      </div>
+      <div id="contact">
+        <img src="{{ STATIC_URL }}images/logo-small.png" alt="" />
+        <p>PyCon.DE/2013
+          <br>c/o Deutsches Zentrum für
+          <br>Luft- und Raumfahrt e.V.
+          <br>Linder Höhe
+          <br>51147 Köln
+          <br>Telefon: +49.2203.601-2485
+          <br>E-Mail: <a href="mailto:pyconde2013@dlr.de">PyConDE2013@dlr.de</a>
+        </p>
+      </div>
+    </div>
+  </div>
+{% endblock %}

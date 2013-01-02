@@ -1,0 +1,81 @@
+@green: #1d8c2d;
+@baseColor: #444;
+@titleFont: Georgia, serif;
+@bodyFont: "Helvetica Neue", Helvetica, Arial, sans-serif;
+@pageWidth: 927px;
+@pagePadding: 10px;
+@contactWidth: 250px;
+
+.clearfix, hgroup, #main {
+    &:after {
+        content: "";
+        display: table;
+        clear: both;
+    }
+}
+
+a {
+    color: darken(@green, 0);
+}
+
+body {
+    font-size: 16px;
+    font-family: @bodyFont;
+    color: @baseColor;
+    line-height: 1.6em;
+    background: #FAFAFA;
+}
+
+#page {
+    width: @pageWidth;
+    padding: @pagePadding;
+    margin: 30px auto 0 auto;
+    background: url(../images/background.jpg) 50% 10px no-repeat #FFF;
+}
+
+header {
+    min-height: 300px;
+}
+
+hgroup {
+    margin: 50px 0 0 0;
+}
+
+h1, h2 {
+    background: @green;
+    color: #FFF;
+    padding: 7px 7px 7px 20px;
+    margin: 0 0 10px -10px;
+    float: left;
+    clear: left;
+    font-size: 18px;
+}
+h1 {
+    font-size: 24px;
+}
+
+#main {
+    background: #FFF;
+    background: rgba(255, 255, 255, 0.85);
+}
+
+.body, #contact {
+    padding: 15px;
+}
+
+#contact {
+    float: right;
+    width: @contactWidth;
+    margin-top: -115px;
+    img {
+        border: 17px solid rgba(255, 255, 255, 0.5);
+        max-width: 170px;
+        margin-left: 20px;
+        display: block;
+    }
+}
+
+.body {
+    float: left;
+    width: @pageWidth - @contactWidth - 4 * 15px;
+}

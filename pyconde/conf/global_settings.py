@@ -99,7 +99,7 @@ INSTALLED_APPS = [
     'cmsplugin_news',
 
     # Skins
-    'pyconde.skins.pyconde2012',
+    'pyconde.skins.pyconde2013',
     'pyconde.skins.default',
 
     # Symposion apps
