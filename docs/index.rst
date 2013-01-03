@@ -28,6 +28,7 @@ jeweils einen Einstiegspunkt darstellen:
    apps/reviews
    apps/schedule
    apps/events
+   apps/search
 
 
 Index und Tabellen

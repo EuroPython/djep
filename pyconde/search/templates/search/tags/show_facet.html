@@ -1,0 +1,13 @@
+{% load search_tags %}
+{% if has_fields %}
+<div class="tbox">
+    <h2>{{ title }}</h2>
+    <ul>
+        {% for val in facet %}{% if val.1 %}
+        <li><a href="{% faceted_search_url facet_field val.0 %}">
+            {% if facet_field == 'django_ct' %}{{ val.0|as_model_name }}{% else %}{{ val.0 }}{% endif %}
+        </a> ({{ val.1 }})</li>
+        {% endif %}{% endfor %}
+    </ul>    
+</div>
+{% endif %}

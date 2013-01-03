@@ -95,6 +95,9 @@
                         {% list_events 3 %}
                     </div>
                 </div>
+                <form method="GET" action="/search/" id="searchbox">
+                    <input type="search" name="q" placeholder="Suchen..." />
+                </form>
             </div>
         </div>
         {% block header_topbar %}{% endblock %}
