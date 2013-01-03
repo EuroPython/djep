@@ -2,80 +2,161 @@
 @baseColor: #444;
 @titleFont: Georgia, serif;
 @bodyFont: "Helvetica Neue", Helvetica, Arial, sans-serif;
-@pageWidth: 927px;
-@pagePadding: 10px;
-@contactWidth: 250px;
+@baseFontSize: 16px;
 
-.clearfix, hgroup, #main {
-    &:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
+@import "bootstrap/less/variables";
+@import "bootstrap/less/bootstrap";
+
+// Bootstrap overrides
+.container {
+  margin-left: 0;
+  margin-right: 0;
 }
+
+// taken from https://github.com/twitter/bootstrap/issues/2742#issuecomment-7374060
+@inputBorderFocus: @green;
+
+textarea:focus, input[type="text"]:focus,
+input[type="password"]:focus,
+input[type="datetime"]:focus,
+input[type="datetime-local"]:focus,
+input[type="date"]:focus,
+input[type="month"]:focus,
+input[type="time"]:focus,
+input[type="week"]:focus,
+input[type="number"]:focus,
+input[type="email"]:focus,
+input[type="url"]:focus,
+input[type="search"]:focus,
+input[type="tel"]:focus,
+input[type="color"]:focus,
+.uneditable-input:focus {
+  border-color: fade(@inputBorderFocus, 80%);
+  @shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px fade(@inputBorderFocus, 60%);
+  .box-shadow(@shadow);
+  outline: 0;
+  outline: thin dotted \9; /* IE6-9 */
+}
+
+
+// styles
 
 a {
     color: darken(@green, 0);
 }
 
 body {
-    font-size: 16px;
+    font-size: @baseFontSize;
     font-family: @bodyFont;
     color: @baseColor;
     line-height: 1.6em;
-    background: #FAFAFA;
+    background: darken(#FAFAFA, 2%);
 }
 
 #page {
-    width: @pageWidth;
-    padding: @pagePadding;
-    margin: 30px auto 0 auto;
-    background: url(../images/background.jpg) 50% 10px no-repeat #FFF;
+  border-right: 1px solid #ccc;
+  background: #fafafa;
 }
 
 header {
-    min-height: 300px;
-}
-
-hgroup {
-    margin: 50px 0 0 0;
-}
-
-h1, h2 {
-    background: @green;
-    color: #FFF;
-    padding: 7px 7px 7px 20px;
-    margin: 0 0 10px -10px;
-    float: left;
-    clear: left;
-    font-size: 18px;
-}
-h1 {
-    font-size: 24px;
-}
-
-#main {
-    background: #FFF;
-    background: rgba(255, 255, 255, 0.85);
-}
-
-.body, #contact {
-    padding: 15px;
-}
-
-#contact {
-    float: right;
-    width: @contactWidth;
-    margin-top: -115px;
-    img {
-        border: 17px solid rgba(255, 255, 255, 0.5);
-        max-width: 170px;
-        margin-left: 20px;
-        display: block;
+  background: url(../images/background.jpg) no-repeat;
+  min-height: 330px;
+  hgroup {
+    margin: 30px auto 0 auto;
+    h1, h2 {
+      background: @green;
+      color: #FFF;
+      padding: 7px 7px 7px 20px;
+      margin: 0 0 10px -10px;
+      float: left;
+      clear: left;
+      font-size: 18px;
     }
+    h1 {
+      font-size: 24px;
+    }
+  }
 }
 
-.body {
-    float: left;
-    width: @pageWidth - @contactWidth - 4 * 15px;
+#subheader {
+  margin-top: -115px;
+  img {
+    border: 17px solid rgba(255, 255, 255, 0.5);
+  }
+  .aligned {
+    margin-top: 115px;
+  }
+}
+
+#mainmenu, .nav {
+  ul {
+    list-style-type: none;
+    margin-left: 0px;
+    li {
+      padding-bottom: 4px;
+      line-height: 25px;
+      a, .link-style {
+        color: #fff;
+        background: @green;
+        color: #fff;
+        padding: 3px 10px 3px 15px;
+        margin-bottom: 5px;
+        font-weight: bold;
+      }
+      ul {
+        margin-top: 4px;
+        margin-bottom: 7px;
+        li {
+          a {
+            background: lighten(@green, 15%);
+            color: #111;
+            font-weight: normal;
+            padding: 3px 10px 3px 35px;
+          }
+        }
+      }
+    }
+  }
+}
+
+.nav {
+  ul {
+    margin-left: 10px;
+    li {
+      a {
+        font-weight: normal;
+      }
+      input {
+        font-size: @baseFontSize * .7;
+        padding: 3px;
+      }
+    }
+  }
+}
+
+#breadcrumbs {
+  ul {
+    list-style-type: none;
+    margin-left: 0;
+    font-size: @baseFontSize * .9;
+    li {
+      display: inline;
+    }
+  }
+}
+
+#content {
+  padding-right: 10px;
+  h1 {
+    background: @green;
+    color: #fff;
+    padding: 5px;
+    display: inline;
+    font-size: @baseFontSize * 1.5;
+  }
+}
+
+footer {
+  background: @green;
+  color: #fff;
 }

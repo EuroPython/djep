@@ -1,5 +1,5 @@
 {% extends "site_structure.html" %}
-{% load sekizai_tags menu_tags compress event_tags %}
+{% load sekizai_tags cms_tags menu_tags compress event_tags %}
 
 {% block site_title %}{% block title %}Willkommen{% endblock %} - PyCon DE 2013 - 3. Deutsche Python-Konferenz{% endblock %}
 
@@ -17,29 +17,72 @@
 {% endblock %}
 
 {% block site_content %}
-  <div id="page">
-    <header>
-      <hgroup>
-        <h1>PyCon.DE 2013 – Die 3. Deutsche Python-Konferenz.</h1>
-        <h2>Dynamisch.Zukunft.Entwickeln.</h2>
-      </hgroup>
-    </header>
-    <div id="main">
-      <div class="body">
-        <p>Die PyCon.DE 2013 bietet ein <strong>attraktives, breit gefächertes Programm für Python-Experten und Einsteiger</strong>. Die <strong>Vorträge</strong> präsentieren neueste Entwicklungen zu Programmiertechnik, Anwendungsbeispiele und Erfolgsgeschichten. Daneben gibt es Raum und Zeit für Diskussionen und gemeinsames Arbeiten. Die <strong>Keynotes</strong> werden über den Python-Tellerrand hinaus zum Nachdenken, Schmunzeln oder Weiterdenken anregen. In der Ausstellung sind Firmen und Projekte vertreten, um neue Kunden, Partner und Mitarbeiter<em>innen</em> zu finden. Der <strong>Schülerwettbewerb</strong> im Vorfeld soll Schüler<em>innen</em> an Python heranführen und praxisnah für die IT motivieren. Die PyCon.DE 2013 wird eine <strong>familienfreundliche Konferenz</strong> sein. Die Kinderbetreuung wird neben anderen Angeboten den Teilnehmer<em>innen</em> und Teilnehmern einen sorgenfreien und unbeschwerten Konferenzbesuch erlauben.</p>
-        <p class="secondary">Die PyCon.DE 2013 wird von der Python User Group Köln, dem Deutschen Zentrum für Luft- und Raumfahrt e.V. und dem Python Software Verband e.V. organisiert. Sie findet vom <strong>14.-19. Oktober 2013 im Kölner KOMED</strong> statt.</p>
+  <div class="container" id="page">
+    <header class="row">
+      <div class="span12">
+        <hgroup>
+          <h1>Zukunft.Dynamisch.Entwickeln</h1>
+          <h2>14. - 19. Oktober 2013</h2>
+        </hgroup>
       </div>
-      <div id="contact">
+    </header>
+
+    <div class="row" id="subheader">
+      <div class="span4 aligned nav">
+        <ul>
+          {% if user.is_authenticated %}
+            {% if request.user.is_staff %}
+              <li><a href="{% url admin:index %}" target="_blank">Admin</a></li>
+            {% endif %}
+            <li><a href="{% url auth_logout %}?next={{ request.path }}">Abmelden</a></li>
+          {% else %}
+            <li><a href="{% url auth_login %}?next={{ request.path }}">Anmelden</a></li>
+            <li><a href="{% url userprofiles_registration %}">Registrieren</a></li>
+          {% endif %}
+          <!-- <li> -->
+          <!--   <form class="form-search link-style"> -->
+          <!--     <input type="text" class="search-query input-medium" /> -->
+          <!--   </form> -->
+          <!-- </li> -->
+        </ul>
+      </div>
+      <div class="span4 aligned">Sponsoren</div>
+      <div class="span4 logo">
         <img src="{{ STATIC_URL }}images/logo-small.png" alt="" />
-        <p>PyCon.DE/2013
-          <br>c/o Deutsches Zentrum für
-          <br>Luft- und Raumfahrt e.V.
-          <br>Linder Höhe
-          <br>51147 Köln
-          <br>Telefon: +49.2203.601-2485
-          <br>E-Mail: <a href="mailto:pyconde2013@dlr.de">PyConDE2013@dlr.de</a>
-        </p>
       </div>
     </div>
+
+    <div class="row">
+      <div class="span4">
+        <nav id="mainmenu"><ul>{% show_menu 0 100 0 100 %}</ul></nav>
+      </div>
+      <div class="span8">
+        <div id="content">
+          <div id="breadcrumbs"><ul>{% show_breadcrumb 1 %}</ul></div>
+          <section>
+            <h1>{% page_attribute "page_title" %}</h1>
+            {% block content %}{% endblock %}
+          </section>
+        </div>
+      </div>
+    </div>
+
+    <footer class="row">
+      <div class="span4"></div>
+      <div class="span8">
+        <div class="row-fluid">
+          <div class="span4">
+            <strong>Impressum</strong>
+          </div>
+          <div class="span4">
+            <strong>Kontakt</strong>
+          </div>
+          <div class="span4">
+            <strong>Folgen Sie uns auch auf</strong>
+          </div>
+        </div>
+      </div>
+    </footer>
   </div>
+
 {% endblock %}
