@@ -7,10 +7,10 @@ django-classy-tags==0.3.4.1
 python-dateutil==1.5
 easy-thumbnails==1.1
 django-userprofiles==0.2 #nocache
-django-filer==0.9.1
-cmsplugin-filer==0.9.3
+django-filer==0.9.3
+cmsplugin-filer==0.9.4
 cmsplugin-news==0.4.1
-django-compressor==1.1.2
+django-compressor==1.2
 BeautifulSoup==3.2.0
 django-cms==2.3.3
 django-crispy-forms==1.1.1

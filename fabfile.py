@@ -82,7 +82,7 @@ def update_requirements():
     """
     pip = join(env.root, 'bin', 'pip')
     for reqfile in env.pip_files:
-        srv_run('%s install --use-mirrors -E %s -r %s' % (pip, env.root, reqfile))
+        srv_run('%s install --use-mirrors -r %s' % (pip, reqfile))
 
 
 @task
@@ -102,7 +102,7 @@ def _find_style_less(cmd):
 
     cmd is either functools.partial(local, capture=True), sudo or run.
     """
-    output = cmd('python manage.py findstatic css/style.less')
+    output = cmd('{0}/bin/python manage.py findstatic css/style.less'.format(env.root))
     fname = output.splitlines()[1].strip()  # first line contains header
     return '%s.{less,css}' % splitext(fname)[0]
 
@@ -113,9 +113,9 @@ def build_static_files():
     Compiles less files into css, runs collectstatic and compress.
     """
     with path('/srv/pyconde/local/bin', behavior="prepend"):
-        with cd(env.proj_root):
-            srv_run('lessc -x %s' % _find_style_less(srv_run))
-        manage_py('collectstatic --noinput -v1 -i bootstrap -i \'*.less\'')
+        manage_py('collectstatic --noinput -v1')
+        with cd(env.root + '/htdocs/static_media/css'):
+            srv_run('/srv/pyconde/local/bin/lessc -x {0}'.format('style.{less,css}'))
         manage_py('compress')
 
 
