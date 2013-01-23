@@ -577,6 +577,23 @@
   }, 
   {
     "pk": 1, 
+    "model": "cms.cmsplugin", 
+    "fields": {
+      "rght": 2, 
+      "changed_date": "2013-01-23T20:31:18.749", 
+      "parent": null, 
+      "language": "de", 
+      "level": 0, 
+      "creation_date": "2013-01-23T20:18:12.505", 
+      "lft": 1, 
+      "tree_id": 1, 
+      "position": 0, 
+      "placeholder": 3, 
+      "plugin_type": "TextPlugin"
+    }
+  }, 
+  {
+    "pk": 1, 
     "model": "cms.page", 
     "fields": {
       "rght": 2, 
@@ -1813,7 +1830,7 @@
       "application_urls": null, 
       "creation_date": "2012-12-19T05:52:47.958", 
       "page": 1, 
-      "path": "startseite", 
+      "path": "", 
       "meta_description": null, 
       "slug": "startseite"
     }
@@ -2481,6 +2498,13 @@
       "path": "jugend-und-familie/hundebetreuung", 
       "meta_description": null, 
       "slug": "hundebetreuung"
+    }
+  }, 
+  {
+    "pk": 1, 
+    "model": "text.text", 
+    "fields": {
+      "body": "<p>Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet. Lorem ipsum dolor sit amet, consetetur sadipscing elitr, sed diam nonumy eirmod tempor invidunt ut labore et dolore magna aliquyam erat, sed diam voluptua. At vero eos et accusam et justo duo dolores et ea rebum. Stet clita kasd gubergren, no sea takimata sanctus est Lorem ipsum dolor sit amet.\u00a0</p>\n<h2>Zwischen\u00fcberschrift</h2>\n<p>Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi. Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat.\u00a0</p>\n<p>Ut wisi enim ad minim veniam, quis nostrud exerci tation ullamcorper suscipit lobortis nisl ut aliquip ex ea commodo consequat. Duis autem vel eum iriure dolor in hendrerit in vulputate velit esse molestie consequat, vel illum dolore eu feugiat nulla facilisis at vero eros et accumsan et iusto odio dignissim qui blandit praesent luptatum zzril delenit augue duis dolore te feugait nulla facilisi.\u00a0</p>"
     }
   }
 ]
