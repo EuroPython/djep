@@ -2,7 +2,7 @@
 @baseColor: #444;
 @titleFont: Georgia, serif;
 @bodyFont: "Verdana", "Helvetica Neue", Helvetica, Arial, sans-serif;
-@baseFontSize: 16px;
+@baseFontSize: 13pt;
 
 @import "bootstrap/less/variables";
 @import "bootstrap/less/bootstrap";
@@ -70,10 +70,7 @@ header {
       margin: 0 0 10px -10px;
       float: left;
       clear: left;
-      font-size: 18px;
-    }
-    h1 {
-      font-size: 24px;
+      font-size: 21.34pt;
     }
   }
 }
@@ -92,6 +89,7 @@ header {
   ul {
     list-style-type: none;
     margin-left: 0px;
+    font-size: 11pt;
     li {
       padding-bottom: 4px;
       line-height: 25px;
@@ -127,11 +125,15 @@ header {
         font-weight: normal;
       }
       input {
-        font-size: @baseFontSize * .7;
+        font-size: 11pt;
         padding: 3px;
       }
     }
   }
+}
+
+#mainmenu ul {
+    font-size: 13pt;
 }
 
 #breadcrumbs {
@@ -152,7 +154,17 @@ header {
     color: #fff;
     padding: 5px;
     display: inline;
-    font-size: @baseFontSize * 1.5;
+    font-size: 22pt;
+  }
+  h2, h3, h4, h5, h6 {
+    color: @green;
+    font-size: 13pt;
+  }
+  p {
+    margin-top: .7em;
+  }
+  a {
+    font-size: 11pt;
   }
 }
 
