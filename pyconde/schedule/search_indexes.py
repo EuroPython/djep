@@ -1,9 +1,8 @@
-from haystack.indexes import SearchIndex, CharField, MultiValueField
-import haystack
+from haystack.indexes import SearchIndex, CharField, MultiValueField, Indexable
 from . import models
 
 
-class SessionIndex(SearchIndex):
+class SessionIndex(SearchIndex, Indexable):
     title = CharField(model_attr='title')
     text = CharField(document=True)
     url = CharField()
@@ -11,6 +10,9 @@ class SessionIndex(SearchIndex):
     tags = MultiValueField(faceted=True)
     track = CharField(faceted=True)
     speaker = CharField()
+
+    def get_model(self):
+        return models.Session
 
     def prepare(self, obj):
         self.prepared_data = super(SessionIndex, self).prepare(obj)
@@ -28,5 +30,3 @@ class SessionIndex(SearchIndex):
             speaker=self.prepared_data['speaker'])
 
         return self.prepared_data
-
-haystack.site.register(models.Session, SessionIndex)

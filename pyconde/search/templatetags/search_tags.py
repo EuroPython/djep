@@ -31,7 +31,7 @@ def show_facet(context, facet, title, facet_field):
         'facet': facet,
         'facet_field': facet_field,
         'request': context['request']
-        }
+    }
 
 
 class FacetedSearchUrlNode(template.Node):
@@ -42,7 +42,8 @@ class FacetedSearchUrlNode(template.Node):
     def render(self, context):
         fn = self.get_value(self.facet_name, context)
         fv = self.get_value(self.facet_value, context)
-        return utils.set_facet_value(context['request'].get_full_path(), fn, fv)
+        return utils.set_facet_value(context['request'].get_full_path(), fn,
+                                     fv)
 
     def get_value(self, var, context):
         if var.startswith(("'", '"')):

@@ -31,6 +31,5 @@ django-timezones==0.2
 Sphinx==1.1.3
 
 # Search integration
-django-haystack==1.2.7
+-e git+https://github.com/toastdriven/django-haystack.git@ac6bbfbcd30f16768b4bfda1f0b1abf7a0aa34ff#egg=django-haystack
 Whoosh==2.4.1
-django-cms-search==0.6.2

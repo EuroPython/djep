@@ -1,6 +1,6 @@
 from django.utils import unittest
 
-from . import utils
+from . import utils, search_indexes
 
 
 class FacetizedUrlTest(unittest.TestCase):
@@ -40,3 +40,9 @@ class QsSetterTest(unittest.TestCase):
     def test_replace(self):
         self.assertEquals('http://test.com?f=n',
             utils.set_qs_value('http://test.com?f=v', [('f', 'n')]))
+
+
+class ContentCleanupTest(unittest.TestCase):
+    def test_simple(self):
+        self.assertEquals('lalalulu', search_indexes.cleanup_content(
+            '<html>lala<span>lulu</span></html>'))

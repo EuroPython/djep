@@ -99,7 +99,6 @@ INSTALLED_APPS = [
     'cms.plugins.text',
     'cmsplugin_filer_image',
     'cmsplugin_news',
-    'cms_search',
 
     # Skins
     'pyconde.skins.pyconde2013',
@@ -239,10 +238,12 @@ SCHEDULE_CACHE_SCHEDULE = True
 #    If no other search backend is specified, Whoosh is used to make the setup
 #    as simple as possible. In production we will be using a Lucene-based
 #    backend like SOLR or ElasticSearch.
-HAYSTACK_SITECONF = 'pyconde.search_sites'
-
-HAYSTACK_SEARCH_ENGINE = 'whoosh'
-HAYSTACK_WHOOSH_PATH = os.path.join(PROJECT_ROOT, 'whoosh_index')
-#HAYSTACK_SEARCH_ENGINE = 'solr'
-#HAYSTACK_SOLR_URL = 'http://localhost:8983/solr/main'
-HAYSTACK_MULTISELECT_FACETS = ['django_ct', 'session_kind', 'tags', 'track']
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(PROJECT_ROOT, 'whoosh_index'),
+        'STORAGE': 'file',
+        'INCLUDE_SPELLING': True,
+        'BATCH_SIZE': 100,
+    }
+}

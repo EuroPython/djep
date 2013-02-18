@@ -1,4 +1,4 @@
-from haystack.indexes import SearchIndex, CharField
+from haystack.indexes import SearchIndex, CharField, Indexable
 from django.db import connection
 import haystack
 
@@ -7,7 +7,7 @@ from pyconde.accounts.models import Profile
 from . import models
 
 
-class SpeakerIndex(SearchIndex):
+class SpeakerIndex(SearchIndex, Indexable):
     """
     We index all actual speakers.
     """
@@ -18,7 +18,7 @@ class SpeakerIndex(SearchIndex):
 
     def prepare(self, obj):
         data = super(SpeakerIndex, self).prepare(obj)
-        
+
         short_info = ""
         try:
             profile = Profile.objects.get(user=obj.user)
@@ -31,7 +31,10 @@ class SpeakerIndex(SearchIndex):
         data['url'] = obj.get_absolute_url()
         return data
 
-    def index_queryset(self):
+    def get_model(self):
+        return models.Speaker
+
+    def index_queryset(self, using=None):
         c = connection.cursor()
         c.execute('''
             SELECT distinct(s.*)
@@ -44,7 +47,7 @@ class SpeakerIndex(SearchIndex):
             UNION
 
             SELECT distinct(s.*)
-            FROM 
+            FROM
                 schedule_session_additional_speakers as session,
                 speakers_speaker as s
             WHERE
@@ -52,6 +55,3 @@ class SpeakerIndex(SearchIndex):
             ''')
         ids = [r[0] for r in c.fetchall()]
         return models.Speaker.objects.filter(id__in=ids).select_related('user')
-
-
-haystack.site.register(models.Speaker, SpeakerIndex)

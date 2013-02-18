@@ -11,7 +11,7 @@
             {% for result in page.object_list %}
                 {% if result.content_type == 'schedule.session' %}{% include 'search/resulttypes/session.html' %}{% endif %}
                 {% if result.content_type == 'speakers.speaker' %}{% include 'search/resulttypes/speaker.html' %}{% endif %}
-                {% if result.content_type == 'cms_search.page_de' %}{% include 'search/resulttypes/page.html' %}{% endif %}
+                {% if result.content_type == 'cms.page' %}{% include 'search/resulttypes/page.html' %}{% endif %}
             {% endfor %}
         </ul>
         {% else %}
