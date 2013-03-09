@@ -106,6 +106,9 @@ header {
     list-style-type: none;
     margin-left: 0px;
     font-size: 11pt;
+    li.selected > a {
+        font-weight: bold;
+    }
     li {
       padding-bottom: 2px;
       a, .link-style {
@@ -113,7 +116,7 @@ header {
         background: @green;
         color: #fff;
         padding: 3px 10px 3px 15px;
-        font-weight: bold;
+        font-weight: normal;
         display: inline-block;
         line-height: 25px;
       }
@@ -122,8 +125,10 @@ header {
         margin-bottom: 7px;
         li {
           a {
-            background: lighten(@green, 15%);
-            color: #111;
+            font-size: 85%;
+            line-height: 120%;
+            background: none;
+            color: @linkColor;
             font-weight: normal;
             padding: 3px 10px 3px 35px;
           }
