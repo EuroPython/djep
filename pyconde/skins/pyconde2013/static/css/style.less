@@ -7,6 +7,10 @@
 @import "bootstrap/less/variables";
 @import "bootstrap/less/bootstrap";
 
+@gridColumnWidth: 67px;
+@linkColor: @green;
+
+
 // Bootstrap overrides
 .container {
   margin-left: 0;
@@ -42,7 +46,7 @@ input[type="color"]:focus,
 // styles
 
 a {
-    color: darken(@green, 0);
+    color: @linkColor;
 }
 
 body {
@@ -61,7 +65,7 @@ body {
 }
 
 header {
-  background: url(../images/background.jpg) no-repeat;
+  background: url(../images/background.jpg) no-repeat 20px 0px;
   min-height: 330px;
   hgroup {
     margin: 30px auto 0 auto;
@@ -161,15 +165,35 @@ header {
 
 #main {
     margin-bottom: 75px;
+    #grid > .core .row();
+}
+#sidebar, #content {
+    float: left;
+    margin-left: @gridGutterWidth;
+}
+footer .box {
+    margin-left: @fluidGridGutterWidth;
+}
+
+#sidebar {
+    #grid > .core .span(4);
+}
+#content {
+    #grid > .core .span(8);
+    > div {
+        padding-right: 10px;
+    }
 }
 
 #content {
-  padding-right: 10px;
   h1 {
+    margin-bottom: 10px;
+  }
+  h1 span {
     background: @green;
     color: #fff;
     padding: 5px;
-    display: inline;
+    display: inline-block;
     font-size: 22pt;
   }
   h2, h3, h4, h5, h6 {
@@ -194,8 +218,17 @@ footer {
         text-transform: uppercase;
         min-height: 30px;
     }
-    .span4 {
+    .content {
+        #grid > .core .span(8);
+        #grid > .core .offset(4);
+    }
+    .box {
+        #grid > .fluid .span(4);
+        float: left;
         padding: 20px 0;
+        &:first-child {
+            margin-left: 0;
+        }
     }
 }
 
@@ -234,7 +267,7 @@ ul.social-links {
     }
 }
 
-.span4 .tbox {
+#sidebar .tbox {
     > * {
         margin-left: 15px;
     }

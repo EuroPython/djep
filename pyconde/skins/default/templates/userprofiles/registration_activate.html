@@ -3,12 +3,10 @@
 {% load thumbnail %}
 
 {% block title %}{% trans "Registration" %}{% endblock %}
-
+{% block page_title %}{% trans "Registration" %}{% endblock %}
 {% block bodycls %}registration-activate{% endblock %}
 
 {% block content %}
-    <h1>{% trans "Registration" %}</h1>
-
     {% if account %}
         {% if account.get_profile.avatar %}
         <img src="{% thumbnail account.get_profile.avatar 100x100 %}" alt="avatar">

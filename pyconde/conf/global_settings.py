@@ -65,6 +65,10 @@ COMPRESS_PRECOMPILERS = (
 ROOT_URLCONF = '%s.urls' % PROJECT_NAME
 
 INSTALLED_APPS = [
+    # Skins
+    'pyconde.skins.pyconde2013',
+    'pyconde.skins.default',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -99,10 +103,6 @@ INSTALLED_APPS = [
     'cms.plugins.text',
     'cmsplugin_filer_image',
     'cmsplugin_news',
-
-    # Skins
-    'pyconde.skins.pyconde2013',
-    'pyconde.skins.default',
 
     # Symposion apps
     'pyconde.conference',

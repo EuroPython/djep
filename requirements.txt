@@ -13,7 +13,7 @@ cmsplugin-news==0.4.1
 django-compressor==1.2
 BeautifulSoup==3.2.0
 django-cms==2.3.5
-django-crispy-forms==1.1.1
+django-crispy-forms==1.2.3
 Markdown==2.2.0
 django-taggit==0.9.3
 django-debug-toolbar==0.9.4
