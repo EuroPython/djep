@@ -247,3 +247,13 @@ HAYSTACK_CONNECTIONS = {
         'BATCH_SIZE': 100,
     }
 }
+
+# For Elasticsearch you can use for instance following configuration in your
+# settings.py.
+# HAYSTACK_CONNECTIONS = {
+#     'default': {
+#         'ENGINE': 'pyconde.search.backends.elasticsearch.Engine',
+#         'URL': 'http://127.0.0.1:9200/',
+#         'INDEX_NAME': 'pyconde2013',
+#     }
+# }

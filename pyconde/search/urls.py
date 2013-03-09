@@ -14,6 +14,8 @@ sqs = sqs.facet('tag')
 
 
 urlpatterns = patterns('',
-    url(r'^/?$', FacetedSearchView(searchqueryset=sqs, load_all=False,
-        form_class=FacetedSearchForm)),
-)
+                       url(r'^/?$',
+                           FacetedSearchView(searchqueryset=sqs,
+                                             load_all=False,
+                                             form_class=FacetedSearchForm)),
+                       )
