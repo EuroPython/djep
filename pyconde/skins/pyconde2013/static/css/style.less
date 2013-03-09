@@ -185,8 +185,39 @@ header {
 }
 
 footer {
-  background: @green;
-  color: #fff;
+    background: @green;
+    color: #fff;
+    h2 {
+        font-size: 100%;
+        line-height: 100%;
+        margin-bottom: 10px;
+        text-transform: uppercase;
+        min-height: 30px;
+    }
+    .span4 {
+        padding: 20px 0;
+    }
+}
+
+ul.social-links {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    a {
+        color: #FFF;
+        padding-left: 26px;
+        background-position: 0% 50%;
+        background-repeat: no-repeat;
+        display: block;
+        line-height: 24px;
+    }
+    li {
+        padding: 0;
+    }
+    .twitter {background-image:url("/static_media/images/twitter-16x16.png");}
+    .googleplus {background-image:url("/static_media/images/google+-16x16.png");}
+    .youtube {background-image:url("/static_media/images/youtube-16x16.png");}
+    .facebook {background-image:url("/static_media/images/facebook-16x16.png");}
 }
 
 #content .pagination {
