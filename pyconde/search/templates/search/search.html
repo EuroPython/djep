@@ -30,14 +30,6 @@
     {% endif %}
 {% endblock %}
 {% block sidebar %}
-    <div class="tbox">
-        <form method="get">
-            {{ form.q }}
-            <button type="search">Suchen</button>
-            {{ query.facets }}
-        </form>
-    </div>
-
     {% show_facet facets.fields.django_ct "Typ" "django_ct" %}
     {% show_facet facets.fields.session_kind "Session-Arten" "session_kind" %}
     {% show_facet facets.fields.track "Track" "track" %}

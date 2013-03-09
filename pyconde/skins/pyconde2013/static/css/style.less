@@ -188,3 +188,37 @@ footer {
   background: @green;
   color: #fff;
 }
+
+#content .pagination {
+    .next, .prev, .pageinfo, a {
+        display: inline-block;
+        float: none;
+        line-height: 34px;
+        padding: 0 14px;
+        font-size: 12px;
+        border: none;
+    }
+    span.next, span.prev {
+        color: #BBB;
+    }
+}
+
+.span4 .tbox {
+    > * {
+        margin-left: 15px;
+    }
+    > ul {
+        list-style: none;
+    }
+    > h2 {
+        margin-left: 0px;
+        > span {
+            padding: 0 10px 0 15px;
+            background: @green;
+            line-height: 25px;
+            color: #FFF;
+            font-size: 17px;
+            display: inline-block;
+        }
+    }
+}

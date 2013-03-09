@@ -1,7 +1,7 @@
 {% load search_tags %}
 {% if has_fields %}
 <div class="tbox">
-    <h2>{{ title }}</h2>
+    <h2><span>{{ title }}</span></h2>
     <ul>
         {% for val in facet %}{% if val.1 %}
         <li><a href="{% faceted_search_url facet_field val.0 %}">
