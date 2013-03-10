@@ -77,6 +77,9 @@ header {
       float: left;
       clear: left;
       font-size: 21.34pt;
+      a, a:hover {
+        color: #FFF;
+      }
     }
   }
 }
@@ -90,8 +93,13 @@ header {
 #subheader {
   margin-top: -115px;
   margin-bottom: 25px;
+  .logo {
+    text-align: right;
+  }
   .logo a {
     border: 0;
+    display: inline-block;
+    margin-right: 10px;
   }
   img {
     border: 17px solid rgba(255, 255, 255, 0.5);
@@ -101,7 +109,7 @@ header {
   }
 }
 
-#mainmenu, .nav {
+#mainmenu, nav {
   ul {
     list-style-type: none;
     margin-left: 0px;
@@ -119,6 +127,9 @@ header {
         font-weight: normal;
         display: inline-block;
         line-height: 25px;
+        &:hover {
+          color: #FFF;
+        }
       }
       ul {
         margin-top: 4px;
@@ -131,23 +142,11 @@ header {
             color: @linkColor;
             font-weight: normal;
             padding: 3px 10px 3px 35px;
+            &:hover {
+              color: @linkColor;
+            }
           }
         }
-      }
-    }
-  }
-}
-
-.nav {
-  ul {
-    margin-left: 10px;
-    li {
-      a {
-        font-weight: normal;
-      }
-      input {
-        font-size: 11pt;
-        padding: 3px;
       }
     }
   }

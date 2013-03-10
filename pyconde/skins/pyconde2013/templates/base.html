@@ -22,7 +22,7 @@
       <div class="span12">
         <hgroup>
           <h1>Zukunft.Dynamisch.Entwickeln</h1>
-          <h2>14. - 19. Oktober 2013</h2>
+          <h2><a href="/programm/">14. - 19. Oktober 2013</a></h2>
         </hgroup>
       </div>
       <form method="GET" id="search" action="/search/">
@@ -31,7 +31,7 @@
     </header>
 
     <div class="row" id="subheader">
-      <div class="span4 aligned nav">
+      <nav class="span4 aligned">
         <ul>
           {% if user.is_authenticated %}
             {% if request.user.is_staff %}
@@ -48,9 +48,8 @@
           <!--   </form> -->
           <!-- </li> -->
         </ul>
-      </div>
-      <div class="span4 aligned">Sponsoren</div>
-      <div class="span4 logo">
+      </nav>
+      <div class="span8 logo">
         <a href="/"><img src="{{ STATIC_URL }}images/logo-small.png" alt="PyCon DE 2013" /></a>
       </div>
     </div>
@@ -62,6 +61,9 @@
       </div>
       <div id="content">
         <div>
+          <section id="sponsors">
+            Sponsoren
+          </section>
           <h1><span>{% block page_title %}{% page_attribute "page_title" %}{% endblock %}</span></h1>
           {% block content %}{% endblock %}
         </div>
