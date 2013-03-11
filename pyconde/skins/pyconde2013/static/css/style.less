@@ -1,8 +1,13 @@
 @green: #1d8c2d;
 @baseColor: #444;
-@titleFont: Georgia, serif;
+
+// Font definitions
 @bodyFont: "Verdana", "Helvetica Neue", Helvetica, Arial, sans-serif;
 @baseFontSize: 13pt;
+@headerFontSize: 21.34pt;
+@header1FontSize: 22pt;
+@normalFontSize: 13pt;
+@smallFontSize: 11pt;
 
 @import "bootstrap/less/variables";
 @import "bootstrap/less/bootstrap";
@@ -76,7 +81,7 @@ header {
       margin: 0 0 10px -10px;
       float: left;
       clear: left;
-      font-size: 21.34pt;
+      font-size: @headerFontSize;
       a, a:hover {
         color: #FFF;
       }
@@ -113,7 +118,7 @@ header {
   ul {
     list-style-type: none;
     margin-left: 0px;
-    font-size: 11pt;
+    font-size: @smallFontSize;
     li.selected > a {
         font-weight: bold;
     }
@@ -153,19 +158,19 @@ header {
 }
 
 #mainmenu ul {
-    font-size: 13pt;
+    font-size: @normalFontSize;
 }
 
-#breadcrumbs {
-  ul {
-    list-style-type: none;
-    margin-left: 0;
-    font-size: @baseFontSize * .9;
-    li {
-      display: inline;
-    }
-  }
-}
+// #breadcrumbs {
+//   ul {
+//     list-style-type: none;
+//     margin-left: 0;
+//     font-size: @baseFontSize * .9;
+//     li {
+//       display: inline;
+//     }
+//   }
+// }
 
 #main {
     margin-bottom: 75px;
@@ -198,17 +203,17 @@ footer .box {
     color: #fff;
     padding: 5px;
     display: inline-block;
-    font-size: 22pt;
+    font-size: @header1FontSize;
   }
   h2, h3, h4, h5, h6 {
     color: @green;
-    font-size: 13pt;
+    font-size: @normalFontSize;
   }
   p {
     margin-top: .7em;
   }
   a {
-    font-size: 11pt;
+    font-size: @smallFontSize;
   }
 }
 
@@ -216,7 +221,7 @@ footer {
     background: @green;
     color: #fff;
     h2 {
-        font-size: 100%;
+        font-size: @normalFontSize;
         line-height: 100%;
         margin-bottom: 10px;
         text-transform: uppercase;
@@ -263,7 +268,7 @@ ul.social-links {
         float: none;
         line-height: 34px;
         padding: 0 14px;
-        font-size: 12px;
+        font-size: @normalFontSize;
         border: none;
     }
     span.next, span.prev {
@@ -285,7 +290,7 @@ ul.social-links {
             background: @green;
             line-height: 25px;
             color: #FFF;
-            font-size: 17px;
+            font-size: @normalFontSize;
             display: inline-block;
         }
     }
