@@ -34,9 +34,7 @@
       <nav class="span4 aligned">
         <ul>
           {% if user.is_authenticated %}
-            {% if request.user.is_staff %}
-              <li><a href="{% url admin:index %}" target="_blank">Admin</a></li>
-            {% endif %}
+            <li><a href="{% url userprofiles_profile_change %}">Mein Konto</a></li>
             <li><a href="{% url auth_logout %}?next={{ request.path }}">Abmelden</a></li>
           {% else %}
             <li><a href="{% url auth_login %}?next={{ request.path }}">Anmelden</a></li>
