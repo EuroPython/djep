@@ -9,6 +9,8 @@
 @normalFontSize: 13pt;
 @smallFontSize: 11pt;
 
+@rightPageMargin: 60px;
+
 @import "bootstrap/less/variables";
 @import "bootstrap/less/bootstrap";
 
@@ -104,7 +106,7 @@ header {
   .logo a {
     border: 0;
     display: inline-block;
-    margin-right: 10px;
+    margin-right: @rightPageMargin;
   }
   img {
     border: 17px solid rgba(255, 255, 255, 0.5);
@@ -190,7 +192,7 @@ footer .box {
 #content {
     #grid > .core .span(8);
     > div {
-        padding-right: 10px;
+        padding-right: @rightPageMargin;
     }
 }
 
