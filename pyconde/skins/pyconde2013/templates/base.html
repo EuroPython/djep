@@ -61,7 +61,11 @@
         <div id="content">
           <div>
             <section id="sponsors">
-              Sponsoren
+              <div>Veranstalter</div>
+              <img src="{{ STATIC_URL }}images/pysv_logo.png" alt="Python Software Verband e.V." />
+              <img src="{{ STATIC_URL }}images/dlr_logo.png" alt="DLR - Deutsches Zentrum für Luft- und Raumfahrt" />
+              <img src="{{ STATIC_URL }}images/pycologne_logo.png" alt="pyCologne - Python User Group Köln" />
+              <div>Sponsoren</div>
             </section>
             <h1><span>{% block page_title %}{% page_attribute "page_title" %}{% endblock %}</span></h1>
             {% block content %}{% endblock %}
