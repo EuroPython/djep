@@ -2,10 +2,9 @@
 {% load crispy_forms_tags %}
 
 {% block title %}Profil ändern{% endblock %}
+{% block page_title %}Profil ändern{% endblock %}
 
 {% block content %}
-    <h1 class="h2">Profil ändern</h1>
-
     <p>
         Deine aktuelle E-Mail-Adresse lautet <em>{{ request.user.email }}</em>,<br />
         <a href="{% url userprofiles_email_change %}">um deine E-Mail-Adresse zu ändern, klicke bitte hier</a>.
