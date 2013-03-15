@@ -48,7 +48,7 @@ master_doc = 'index'
 
 # General information about the project.
 project = u'PyCon DE-Website'
-copyright = u'2012, PyCon DE-Webteam'
+copyright = u'2012-2013, PyCon DE-Webteam'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
