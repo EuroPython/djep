@@ -1,5 +1,5 @@
 {% extends "site_structure.html" %}
-{% load sekizai_tags cms_tags menu_tags compress event_tags %}
+{% load sekizai_tags cms_tags menu_tags compress event_tags sponsorship_tags %}
 
 {% block site_title %}{% block title %}Willkommen{% endblock %} - PyCon DE 2013 - 3. Deutsche Python-Konferenz{% endblock %}
 
@@ -60,15 +60,21 @@
         </div>
         <div id="content">
           <div>
-            <section id="sponsors">
-              <div>Veranstalter</div>
-              <img src="{{ STATIC_URL }}images/pysv_logo.png" alt="Python Software Verband e.V." />
-              <img src="{{ STATIC_URL }}images/dlr_logo.png" alt="DLR - Deutsches Zentrum für Luft- und Raumfahrt" />
-              <img src="{{ STATIC_URL }}images/pycologne_logo.png" alt="pyCologne - Python User Group Köln" />
-              <div>Sponsoren</div>
-            </section>
+            {% block content_banner %}{% endblock %}
             <h1><span>{% block page_title %}{% page_attribute "page_title" %}{% endblock %}</span></h1>
             {% block content %}{% endblock %}
+            {% block content_footer %}
+            <aside class="content_footer">
+              <section id="organizers">
+                <h2>Veranstalter</h2>
+                <ul>
+                  <li><img src="{{ STATIC_URL }}images/pysv_logo.png" alt="Python Software Verband e.V." /></li>
+                  <li><img src="{{ STATIC_URL }}images/dlr_logo.png" alt="DLR - Deutsches Zentrum für Luft- und Raumfahrt" /></li>
+                  <li><img src="{{ STATIC_URL }}images/pycologne_logo.png" alt="pyCologne - Python User Group Köln" /></li>
+                </ul>
+              </section>
+            </aside>
+            {% endblock %}
           </div>
         </div>
       </div>

@@ -1,0 +1,18 @@
+{% extends "cms/default.html" %}
+{% load i18n sekizai_tags sponsorship_tags %}
+{% block bodycls %}frontpage with-headeraddon{% endblock %}
+{% block content_banner %}
+<section id="sponsors">
+  {% sponsors as all_sponsors %}
+  {% if all_sponsors %}
+  <section class="sponsors">
+    <div>Sponsoren</div>
+    <ul>
+    {% for sponsor in all_sponsors %}
+      <li><a href="{{ sponsor.external_url }}"><img src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}" /></a></li>
+    {% endfor %}
+    </ul>
+  </section>
+  {% endif %}
+</section>
+{% endblock %}
