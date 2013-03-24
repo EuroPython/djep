@@ -15,6 +15,16 @@ from .widgets import AvatarWidget
 from ..forms import Submit
 
 
+NUM_ACCOMPANYING_CHILDREN_CHOICES = (
+    (0, 0),
+    (1, 1),
+    (2, 2),
+    (3, 3),
+    (4, 4),
+    (5, 5),
+)
+
+
 class ProfileRegistrationForm(RegistrationForm):
     """
     Override for the default registration form that adds two new fields:
@@ -28,11 +38,14 @@ class ProfileRegistrationForm(RegistrationForm):
     avatar = forms.ImageField(widget=forms.FileInput, required=False,
         help_text=Profile()._meta.get_field_by_name('avatar')[0].help_text)
     short_info = forms.CharField(widget=forms.Textarea, required=False)
+    num_accompanying_children = forms.ChoiceField(required=False,
+                                                  label=_('Number of accompanying children'),
+                                                  choices=NUM_ACCOMPANYING_CHILDREN_CHOICES)
 
     def __init__(self, *args, **kwargs):
         super(ProfileRegistrationForm, self).__init__(*args, **kwargs)
         account_fields = Fieldset(_('Account data'), Field('username', autofocus="autofocus"), 'password', 'password_repeat')
-        profile_fields = Fieldset(_('Profile'), 'first_name', 'last_name', 'email', 'avatar', 'short_info')
+        profile_fields = Fieldset(_('Profile'), 'first_name', 'last_name', 'email', 'avatar', 'short_info', 'num_accompanying_children')
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
@@ -48,7 +61,8 @@ class ProfileRegistrationForm(RegistrationForm):
         Profile.objects.create(
             user=new_user,
             avatar=self.cleaned_data['avatar'],
-            short_info=self.cleaned_data['short_info']
+            short_info=self.cleaned_data['short_info'],
+            num_accompanying_children=self.cleaned_data['num_accompanying_children']
         )
 
 
@@ -108,12 +122,15 @@ class ProfileForm(BaseProfileForm):
     avatar_help_text = Profile()._meta.get_field_by_name('avatar')[0].help_text
     avatar = forms.ImageField(widget=AvatarWidget(size=avatar_size),
         required=False, help_text=avatar_help_text)
+    num_accompanying_children = forms.ChoiceField(required=False,
+                                                  label=_('Number of accompanying children'),
+                                                  choices=NUM_ACCOMPANYING_CHILDREN_CHOICES)
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
-                Div(Field('first_name', autofocus="autofocus"), 'last_name', 'avatar', 'short_info'),
+                Div(Field('first_name', autofocus="autofocus"), 'last_name', 'avatar', 'short_info', 'num_accompanying_children'),
                 ButtonHolder(Submit('save', _('Change'), css_class='btn-primary'))
             )

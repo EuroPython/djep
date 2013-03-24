@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-08-25 17:02+0200\n"
+"POT-Creation-Date: 2013-03-24 13:31+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,67 +21,77 @@ msgstr ""
 msgid "You are not allowed to access this page."
 msgstr ""
 
-#: accounts/cms_app.py:10
+#: accounts/cms_app.py:13
 msgid "Accounts app"
 msgstr "Accounts-Anwendung"
 
-#: accounts/forms.py:25
+#: accounts/forms.py:42 accounts/forms.py:126
+msgid "Number of accompanying children"
+msgstr "Voraussichtliche Anzahl mitkommender Kinder"
+
+#: accounts/forms.py:47
 msgid "Account data"
 msgstr "Konto-Daten"
 
-#: accounts/forms.py:26
+#: accounts/forms.py:48
 msgid "Profile"
 msgstr "Profil"
 
-#: accounts/forms.py:31
+#: accounts/forms.py:53
 msgid "Create account"
 msgstr "Konto anlegen"
 
-#: accounts/forms.py:52
+#: accounts/forms.py:85
 msgid "Log in"
 msgstr "Anmelden"
 
-#: accounts/forms.py:64 templates/userprofiles/password_reset.html:4
-#: templates/userprofiles/password_reset.html:7
+#: accounts/forms.py:101
+#: skins/default/templates/userprofiles/password_reset.html:4
+#: skins/default/templates/userprofiles/password_reset.html:7
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
-#: accounts/forms.py:75 templates/userprofiles/password_change.html:4
-#: templates/userprofiles/password_change.html:7
+#: accounts/forms.py:116
+#: skins/default/templates/userprofiles/password_change.html:4
+#: skins/default/templates/userprofiles/password_change.html:7
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: accounts/forms.py:91
+#: accounts/forms.py:135
 msgid "Change"
 msgstr "Ändern"
 
-#: accounts/menu.py:11
+#: accounts/menu.py:15
 msgid "Accounts menu"
 msgstr "Accounts-Menü"
 
-#: accounts/menu.py:16
+#: accounts/menu.py:20
 msgid "Your profile"
 msgstr "Ihre Profil"
 
-#: accounts/menu.py:17
+#: accounts/menu.py:21
 msgid "Change your profile"
 msgstr "Profil ändern"
 
-#: accounts/menu.py:18
+#: accounts/menu.py:22
 msgid "Change your password"
 msgstr "Passwort ändern"
 
-#: accounts/models.py:12
+#: accounts/models.py:16
 msgid "short info"
 msgstr "Steckbrief"
 
-#: accounts/models.py:13 accounts/widgets.py:45
+#: accounts/models.py:17 accounts/widgets.py:45
 msgid "avatar"
 msgstr "Profilbild"
 
-#: accounts/models.py:14
+#: accounts/models.py:19
 msgid "Please upload an image with a side length of at least 300 pixels."
 msgstr "Bitte ein Bild mit einer Breite von mindestens 300 Pixeln hochladen."
+
+#: accounts/models.py:20
+msgid "number of accompanying children"
+msgstr "Voraussichtliche Anzahl mitkommender Kinder"
 
 #: attendees/admin.py:69
 msgid "1 mail was"
@@ -315,19 +325,19 @@ msgstr ""
 msgid "Ticket successfully purchased"
 msgstr "Ticket erfolgreich gekauft"
 
-#: conf/global_settings.py:34
+#: conf/global_settings.py:35
 msgid "German"
 msgstr "Deutsch"
 
-#: conference/models.py:21 proposals/models.py:22
+#: conference/models.py:21 proposals/models.py:21
 msgid "title"
 msgstr "Titel"
 
-#: conference/models.py:24 conference/models.py:84
+#: conference/models.py:24 conference/models.py:85
 msgid "start date"
 msgstr "Start"
 
-#: conference/models.py:25 conference/models.py:85
+#: conference/models.py:25 conference/models.py:86
 msgid "end date"
 msgstr "Ende"
 
@@ -335,9 +345,9 @@ msgstr "Ende"
 msgid "timezone"
 msgstr "Zeitzone"
 
-#: conference/models.py:59 conference/models.py:79 conference/models.py:120
-#: conference/models.py:143 conference/models.py:169 conference/models.py:213
-#: conference/models.py:238 schedule/models.py:101 sponsorship/models.py:11
+#: conference/models.py:59 conference/models.py:79 conference/models.py:123
+#: conference/models.py:146 conference/models.py:172 conference/models.py:216
+#: conference/models.py:241 schedule/models.py:107 sponsorship/models.py:10
 msgid "conference"
 msgstr "Konferenz"
 
@@ -345,68 +355,73 @@ msgstr "Konferenz"
 msgid "conferences"
 msgstr "Konferenzen"
 
-#: conference/models.py:81 conference/models.py:121 conference/models.py:170
-#: conference/models.py:214 conference/models.py:239 schedule/models.py:90
-#: sponsorship/models.py:12 sponsorship/models.py:31
+#: conference/models.py:82 conference/models.py:124 conference/models.py:173
+#: conference/models.py:217 conference/models.py:242 schedule/models.py:95
+#: sponsorship/models.py:11 sponsorship/models.py:29
 msgid "name"
 msgstr "Name"
 
-#: conference/models.py:87 conference/models.py:122 conference/models.py:145
-#: conference/models.py:171 conference/models.py:215 conference/models.py:240
-#: sponsorship/models.py:15
+#: conference/models.py:88 conference/models.py:125 conference/models.py:148
+#: conference/models.py:174 conference/models.py:218 conference/models.py:243
+#: sponsorship/models.py:14
 msgid "slug"
 msgstr "Slug"
 
-#: conference/models.py:88 conference/models.py:218 conference/models.py:241
-#: sponsorship/models.py:13
+#: conference/models.py:89 conference/models.py:221 conference/models.py:244
+#: sponsorship/models.py:12
 msgid "order"
 msgstr "Reihenfolge"
 
-#: conference/models.py:97 schedule/models.py:29 schedule/models.py:95
+#: conference/models.py:91 conference/models.py:219 proposals/models.py:22
+#: schedule/models.py:96 sponsorship/models.py:13 sponsorship/models.py:32
+msgid "description"
+msgstr "Beschreibung"
+
+#: conference/models.py:100 schedule/models.py:31 schedule/models.py:100
 msgid "section"
 msgstr "Abschnitt"
 
-#: conference/models.py:98 schedule/models.py:117
+#: conference/models.py:101 schedule/models.py:123
 msgid "sections"
 msgstr "Abschnitte"
 
-#: conference/models.py:123 sponsorship/models.py:37
+#: conference/models.py:126 sponsorship/models.py:36
 msgid "level"
 msgstr "Stufe"
 
-#: conference/models.py:129 proposals/forms.py:89 proposals/models.py:37
+#: conference/models.py:132 proposals/forms.py:89 proposals/models.py:36
 msgid "audience level"
 msgstr "Zielgruppe"
 
-#: conference/models.py:130
+#: conference/models.py:133
 msgid "audience levels"
 msgstr "Zielgruppen"
 
-#: conference/models.py:144
+#: conference/models.py:147
 msgid "label"
 msgstr "Label"
 
-#: conference/models.py:146
+#: conference/models.py:149
 msgid "minutes"
 msgstr "Minuten"
 
-#: conference/models.py:152
+#: conference/models.py:155
 msgid "session duration"
 msgstr "Sessiondauer"
 
-#: conference/models.py:153
+#: conference/models.py:156
 msgid "session durations"
 msgstr "Sessiondauer"
 
-#: conference/models.py:183
+#: conference/models.py:186
 msgid "session kind"
 msgstr "Session-Art"
 
-#: conference/models.py:184
+#: conference/models.py:187
 msgid "session kinds"
 msgstr "Session-Arten"
 
-#: conference/models.py:196
+#: conference/models.py:199
 msgid ""
 "You have to specify a start and end date if you leave the 'closed' status "
 "undetermined"
@@ -414,36 +429,31 @@ msgstr ""
 "Sie müssen ein Start- und Enddatum angeben, wenn sie den 'geschlossen'-"
 "Status nicht setzen."
 
-#: conference/models.py:198
+#: conference/models.py:201
 msgid "The end date has to be after the start date"
 msgstr "Das Ende muss nach dem Anfang sein"
 
-#: conference/models.py:216 proposals/models.py:23 schedule/models.py:91
-#: sponsorship/models.py:14
-msgid "description"
-msgstr "Beschreibung"
-
-#: conference/models.py:217
+#: conference/models.py:220
 msgid "visible"
 msgstr "Sichtbar"
 
-#: conference/models.py:224 proposals/models.py:41
+#: conference/models.py:227 proposals/models.py:40
 msgid "track"
 msgstr "Track"
 
-#: conference/models.py:225
+#: conference/models.py:228
 msgid "tracks"
 msgstr "Tracks"
 
-#: conference/models.py:242
+#: conference/models.py:245
 msgid "used for sessions"
 msgstr "wird für Sessions verwendet"
 
-#: conference/models.py:251 schedule/models.py:35 schedule/models.py:97
+#: conference/models.py:254 schedule/models.py:37 schedule/models.py:102
 msgid "location"
 msgstr "Ort"
 
-#: conference/models.py:252
+#: conference/models.py:255
 msgid "locations"
 msgstr "Orte"
 
@@ -451,9 +461,9 @@ msgstr "Orte"
 msgid "Conference"
 msgstr "Konferenz"
 
-#: events/models.py:9 templates/proposals/proposal_list_mine.html:12
-#: templates/proposals/proposal_list_mine.html:43
-#: templates/schedule/session_listing.html:9
+#: events/models.py:9 proposals/templates/proposals/proposal_list_mine.html:12
+#: proposals/templates/proposals/proposal_list_mine.html:43
+#: schedule/templates/schedule/session_listing.html:9
 msgid "Title"
 msgstr "Titel"
 
@@ -495,20 +505,21 @@ msgstr "Allgemeines"
 msgid "Details"
 msgstr "Details"
 
-#: proposals/forms.py:83 proposals/models.py:29
+#: proposals/forms.py:83 proposals/models.py:28
 msgid "additional speakers"
 msgstr "Weitere Vortragende"
 
-#: proposals/forms.py:86 proposals/models.py:35
+#: proposals/forms.py:86 proposals/models.py:34
 msgid "kind"
 msgstr "Art"
 
-#: proposals/forms.py:92 proposals/forms.py:238 proposals/models.py:39
+#: proposals/forms.py:92 proposals/forms.py:238 proposals/models.py:38
 msgid "duration"
 msgstr "Dauer"
 
-#: proposals/forms.py:95 templates/proposals/proposal_list_mine.html:14
-#: templates/proposals/proposal_list_mine.html:45
+#: proposals/forms.py:95
+#: proposals/templates/proposals/proposal_list_mine.html:14
+#: proposals/templates/proposals/proposal_list_mine.html:45
 msgid "Track"
 msgstr ""
 
@@ -534,9 +545,9 @@ msgstr "Bitte wählen Sie eine gültige Session-Art aus."
 msgid "Proposals menu"
 msgstr "Proposals-Menü"
 
-#: proposals/menu.py:20 reviews/menu.py:22
-#: templates/proposals/proposal_list_mine.html:3
-#: templates/proposals/proposal_list_mine.html:5
+#: proposals/menu.py:20
+#: proposals/templates/proposals/proposal_list_mine.html:3
+#: proposals/templates/proposals/proposal_list_mine.html:5 reviews/menu.py:22
 msgid "My proposals"
 msgstr "Meine Session-Vorschläge"
 
@@ -549,34 +560,34 @@ msgstr "Einreichen"
 msgid "Submit %s"
 msgstr "%s einreichen"
 
-#: proposals/models.py:24
+#: proposals/models.py:23
 msgid "abstract"
 msgstr "Abstract"
 
-#: proposals/models.py:26
+#: proposals/models.py:25
 msgid "speaker"
 msgstr "Vortragende(r)"
 
-#: proposals/models.py:30
+#: proposals/models.py:29
 msgid "submission date"
 msgstr "Einreichungsdatum"
 
-#: proposals/models.py:32
+#: proposals/models.py:31
 msgid "modification date"
 msgstr "Änderungsdatum"
 
-#: proposals/models.py:53
+#: proposals/models.py:52
 msgid ""
 "The duration has to be associated with the same conference as the proposal"
 msgstr ""
 "Die Dauer muss mit derselben Konferenz wie der Vorschlag assoziiert sein"
 
-#: proposals/models.py:69 reviews/models.py:64 reviews/models.py:147
-#: reviews/models.py:170 schedule/models.py:33
+#: proposals/models.py:68 reviews/models.py:64 reviews/models.py:147
+#: reviews/models.py:170 schedule/models.py:35
 msgid "proposal"
 msgstr "Session-Vorschlag"
 
-#: proposals/models.py:70
+#: proposals/models.py:69
 msgid "proposals"
 msgstr "Session-Vorschläge"
 
@@ -641,22 +652,15 @@ msgstr ""
 "Zum jetzigen Zeitpunkt können leider keine Vorträge eingereicht werden."
 
 #: proposals/templates/proposals/proposal_cancel_confirm.html:4
-#: templates/proposals/proposal_cancel_confirm.html:4
 msgid "Do you really want to cancel this proposal?"
 msgstr "Möchten Sie diesen Session-Vorschlag zurückziehen?"
 
-#: proposals/templates/proposals/proposal_cancel_confirm.html:5
-#: proposals/templates/proposals/proposal_leave_confirm.html:5
-#: templates/confirm.html:9
-msgid "Yes"
-msgstr "Ja"
+#: proposals/templates/proposals/proposal_detail.html:3
+#: proposals/templates/proposals/proposal_detail.html:6
+msgid "Proposal"
+msgstr "Session-Vorschlag"
 
-#: proposals/templates/proposals/proposal_detail.html:5
-msgid "Proposal:"
-msgstr "Session-Vorschlag:"
-
-#: proposals/templates/proposals/proposal_detail.html:8
-#: templates/proposals/proposal_detail.html:9
+#: proposals/templates/proposals/proposal_detail.html:9
 #, python-format
 msgid ""
 "\n"
@@ -669,64 +673,68 @@ msgstr ""
 "diesen Vortrag am <span class=\"submission-date\">%(submission_date)s</span> "
 "eingereicht.\n"
 
-#: proposals/templates/proposals/proposal_detail.html:16
-#: proposals/templates/proposals/proposal_list_mine.html:37
-#: templates/proposals/proposal_detail.html:24
-#: templates/proposals/proposal_list_mine.html:56
+#: proposals/templates/proposals/proposal_detail.html:13
+#: schedule/templates/schedule/session.html:18
+msgid "Tags"
+msgstr ""
+
+#: proposals/templates/proposals/proposal_detail.html:24
+#: proposals/templates/proposals/proposal_list_mine.html:56
 msgid "Leave"
 msgstr "Teilnahme zurückziehen"
 
-#: proposals/templates/proposals/proposal_detail.html:19
-#: proposals/templates/proposals/proposal_list_mine.html:15
-#: templates/proposals/proposal_detail.html:27
-#: templates/proposals/proposal_list_mine.html:25
-#: templates/schedule/session.html:10
+#: proposals/templates/proposals/proposal_detail.html:27
+#: proposals/templates/proposals/proposal_list_mine.html:25
+#: schedule/templates/schedule/session.html:13
 msgid "Edit"
 msgstr "Ändern"
 
-#: proposals/templates/proposals/proposal_detail.html:22 reviews/forms.py:144
-#: templates/proposals/proposal_detail.html:30
+#: proposals/templates/proposals/proposal_detail.html:30 reviews/forms.py:144
 msgid "Delete"
 msgstr "Löschen"
 
 #: proposals/templates/proposals/proposal_form.html:7
-msgid "Create"
-msgstr "Anlegen"
-
-#: proposals/templates/proposals/proposal_form.html:8
-#: proposals/templates/proposals/proposal_list_mine.html:16
-#: templates/proposals/proposal_list_mine.html:26
-msgid "Cancel"
-msgstr "Zurückziehen"
+#: proposals/templates/proposals/proposal_form.html:9
+msgid "Submit a proposal"
+msgstr "Reichen Sie einen Vortrag ein"
 
 #: proposals/templates/proposals/proposal_leave_confirm.html:4
-#: templates/proposals/proposal_leave_confirm.html:4
 msgid "Do you really want to leave this proposal?"
 msgstr "Möchten sie wirklich Ihre Teilnahme zurückziehen?"
 
-#: proposals/templates/proposals/proposal_list_mine.html:4
-msgid "Your proposals"
-msgstr "Ihre Session-Vorschläge"
-
-#: proposals/templates/proposals/proposal_list_mine.html:7
-#: templates/proposals/proposal_list_mine.html:8
+#: proposals/templates/proposals/proposal_list_mine.html:8
 msgid "... as primary speaker"
 msgstr "... als Sprecher"
 
-#: proposals/templates/proposals/proposal_list_mine.html:24
-#: templates/proposals/proposal_list_mine.html:34
+#: proposals/templates/proposals/proposal_list_mine.html:13
+#: proposals/templates/proposals/proposal_list_mine.html:44
+msgid "Kind"
+msgstr "Art"
+
+#: proposals/templates/proposals/proposal_list_mine.html:26
+msgid "Cancel"
+msgstr "Zurückziehen"
+
+#: proposals/templates/proposals/proposal_list_mine.html:34
 msgid "You haven't created any proposals yet."
 msgstr "Sie haben noch keine Vorträge eingereicht."
 
-#: proposals/templates/proposals/proposal_list_mine.html:29
-#: templates/proposals/proposal_list_mine.html:39
+#: proposals/templates/proposals/proposal_list_mine.html:39
 msgid "Participations"
 msgstr "Session-Teilnahmen"
 
-#: proposals/templates/proposals/proposal_list_mine.html:46
-#: templates/proposals/proposal_list_mine.html:65
+#: proposals/templates/proposals/proposal_list_mine.html:65
 msgid "Submit a session proposal "
 msgstr "Reichen Sie einen Vortrag ein"
+
+#: proposals/templates/proposals/tracks-help.html:2
+msgid "What track should I choose?"
+msgstr "Welchen Track soll ich nehmen?"
+
+#: proposals/templates/proposals/tutorial_proposal_form.html:3
+#: proposals/templates/proposals/tutorial_proposal_form.html:5
+msgid "Submit a tutorial"
+msgstr "Reichen Sie ein Tutorial ein"
 
 #: reviews/admin.py:17
 msgid "Mark comment(s) as deleted"
@@ -955,25 +963,25 @@ msgstr ""
 msgid "Exports all reviews as CSV to stdout"
 msgstr "Exportiert alle Reviews als CSV nach STDOUT"
 
-#: schedule/admin.py:37
+#: schedule/admin.py:38
 #, python-format
 msgid "%(counter)s proposal(s) converted to sessions"
 msgstr "%(counter)s Session-Vorschläge wurden in Sessions umgewandelt"
 
-#: schedule/admin.py:41
+#: schedule/admin.py:42
 #, python-format
 msgid "%(counter)s proposal(s) skipped"
 msgstr "%(counter)s Session-Vorschläge wurden übersprungen"
 
-#: schedule/admin.py:44
+#: schedule/admin.py:45
 msgid "convert to sessions"
 msgstr "Auswahl in Sessions umwandeln"
 
-#: schedule/admin.py:50
+#: schedule/admin.py:51
 msgid "create simple export"
 msgstr "Auswahl als CSV exportieren"
 
-#: schedule/admin.py:71 schedule/admin.py:81
+#: schedule/admin.py:72 schedule/admin.py:82
 msgid "is scheduled"
 msgstr "Hat Session"
 
@@ -989,232 +997,111 @@ msgstr "Vollständiges Programm"
 msgid "Schedule menu"
 msgstr "Programm-Menü"
 
-#: schedule/models.py:26 schedule/models.py:92
+#: schedule/models.py:28 schedule/models.py:97
 msgid "start time"
 msgstr "Start"
 
-#: schedule/models.py:27 schedule/models.py:93
+#: schedule/models.py:29 schedule/models.py:98
 msgid "end time"
 msgstr "Ende"
 
-#: schedule/models.py:36 schedule/models.py:98
+#: schedule/models.py:38 schedule/models.py:103
 msgid "is global"
 msgstr "Global"
 
-#: schedule/models.py:81 templates/schedule/session.html:3
-#: templates/schedule/session.html.py:7
+#: schedule/models.py:39
+msgid "released"
+msgstr ""
+
+#: schedule/models.py:40
+msgid "Slides URL"
+msgstr ""
+
+#: schedule/models.py:41
+msgid "Video URL"
+msgstr ""
+
+#: schedule/models.py:86 schedule/templates/schedule/session.html:3
+#: schedule/templates/schedule/session.html:4
+#: schedule/templates/schedule/session.html:10
 msgid "session"
 msgstr "Session"
 
-#: schedule/models.py:82
+#: schedule/models.py:87
 msgid "sessions"
 msgstr "Sessions"
 
-#: schedule/models.py:99
+#: schedule/models.py:104
 msgid "is pause"
 msgstr "Pause"
 
-#: schedule/views.py:119
+#: schedule/models.py:105
+msgid "is recordable"
+msgstr ""
+
+#: schedule/views.py:121
 msgid "Changes saved"
 msgstr "Änderungen wurden gespeichert"
 
-#: sponsorship/models.py:19
-msgid "sponsor level"
-msgstr "Sponsor-Stufe"
-
-#: sponsorship/models.py:20
-msgid "sponsor levels"
-msgstr "Sponsor-Stufen"
-
-#: sponsorship/models.py:32
-msgid "external URL"
-msgstr "Externe URL"
-
-#: sponsorship/models.py:33
-msgid "annotation"
-msgstr "Anmerkungen"
-
-#: sponsorship/models.py:34
-msgid "contact_name"
-msgstr "Kontakt-Name"
-
-#: sponsorship/models.py:35
-msgid "Contact e‑mail"
-msgstr "Kontakt-EMail"
-
-#: sponsorship/models.py:36
-msgid "logo"
-msgstr "Logo"
-
-#: sponsorship/models.py:38
-msgid "added"
-msgstr "Hinzugefügt"
-
-#: sponsorship/models.py:39
-msgid "active"
-msgstr "Aktiv"
-
-#: sponsorship/models.py:45
-msgid "sponsor"
-msgstr "Sponsor"
-
-#: sponsorship/models.py:46
-msgid "sponsors"
-msgstr "Sponsoren"
-
-#: templates/bootstrap/whole_uni_form.html:17
-msgid "All fields marked with <b>*</b> are required."
-msgstr "Alle mit <b>*</b> markierten Felder sind Pflichtfelder."
-
-#: templates/cms/plugins/twitter_recent_entries.html:13
-msgid "we said,"
-msgstr ""
-
-#: templates/cms/plugins/twitter_recent_entries.html:14
-msgid "we"
-msgstr ""
-
-#: templates/cms/plugins/twitter_recent_entries.html:15
-msgid "we were"
-msgstr ""
-
-#: templates/cms/plugins/twitter_recent_entries.html:16
-msgid "we replied to"
-msgstr ""
-
-#: templates/cms/plugins/twitter_recent_entries.html:17
-msgid "we were checking out"
-msgstr ""
-
-#: templates/cms/plugins/twitter_recent_entries.html:18
-msgid "loading tweets..."
-msgstr ""
-
-#: templates/cmsplugin_news/latest_news.html:4
-#: templates/cmsplugin_news/news_archive.html:3
-#: templates/cmsplugin_news/news_archive.html:5
-#: templates/cmsplugin_news/news_archive_day.html:3
-#: templates/cmsplugin_news/news_archive_day.html:5
-#: templates/cmsplugin_news/news_archive_month.html:3
-#: templates/cmsplugin_news/news_archive_month.html:5
-#: templates/cmsplugin_news/news_archive_year.html:3
-#: templates/cmsplugin_news/news_archive_year.html:5
-#: templates/cmsplugin_news/news_detail.html:3
-msgid "News"
-msgstr ""
-
-#: templates/cmsplugin_news/latest_news.html:16
-#: templates/cmsplugin_news/latest_news.html:35
-#: templates/cmsplugin_news/news_archive.html:8
-#: templates/cmsplugin_news/news_archive_day.html:8
-#: templates/cmsplugin_news/news_archive_month.html:8
-#: templates/cmsplugin_news/news_archive_year.html:8
-msgid "No news yet"
-msgstr "Keine News vorhanden"
-
-#: templates/cmsplugin_news/latest_news.html:23
-msgid "Latest news"
-msgstr "Aktuelle News"
-
-#: templates/cmsplugin_news/latest_news.html:37
-msgid "Archive"
-msgstr "Archiv"
-
-#: templates/djiki/edit.html:3
-msgid "Edit page"
-msgstr "Seite editieren"
-
-#: templates/djiki/edit.html:17
-msgid "Preview"
-msgstr "Vorschau"
-
-#: templates/proposals/proposal_detail.html:3
-#: templates/proposals/proposal_detail.html:6
-msgid "Proposal"
-msgstr "Session-Vorschlag"
-
-#: templates/proposals/proposal_detail.html:13
-#: templates/schedule/session.html:15
-msgid "Tags"
-msgstr ""
-
-#: templates/proposals/proposal_form.html:7
-#: templates/proposals/proposal_form.html:9
-msgid "Submit a proposal"
-msgstr "Reichen Sie einen Vortrag ein"
-
-#: templates/proposals/proposal_list_mine.html:13
-#: templates/proposals/proposal_list_mine.html:44
-msgid "Kind"
-msgstr "Art"
-
-#: templates/proposals/tracks-help.html:2
-msgid "What track should I choose?"
-msgstr "Welchen Track soll ich nehmen?"
-
-#: templates/proposals/tutorial_proposal_form.html:3
-#: templates/proposals/tutorial_proposal_form.html:5
-msgid "Submit a tutorial"
-msgstr "Reichen Sie ein Tutorial ein"
-
-#: templates/schedule/edit_session.html:3
+#: schedule/templates/schedule/edit_session.html:3
 #, python-format
 msgid "Edit session: %(title)s"
 msgstr "Session editeren: %(title)s"
 
-#: templates/schedule/edit_session.html:5
+#: schedule/templates/schedule/edit_session.html:5
 #, python-format
 msgid "Edit session: <a href=\"%(link)s\">%(title)s</a>"
 msgstr "Session editieren: <a href=\"%(link)s\">%(title)s</a>"
 
-#: templates/schedule/edit_session.html:10
+#: schedule/templates/schedule/edit_session.html:10
 msgid "About this session"
 msgstr "Über diese Session"
 
-#: templates/schedule/edit_session.html:13
+#: schedule/templates/schedule/edit_session.html:13
 msgid "Tags:"
 msgstr "Tags:"
 
-#: templates/schedule/edit_session.html:21
+#: schedule/templates/schedule/edit_session.html:21
 msgid "Date:"
 msgstr "Datum:"
 
-#: templates/schedule/edit_session.html:27
+#: schedule/templates/schedule/edit_session.html:27
 msgid "Time:"
 msgstr "Zeit:"
 
-#: templates/schedule/edit_session.html:35
+#: schedule/templates/schedule/edit_session.html:35
 msgid "Location:"
 msgstr "Ort:"
 
-#: templates/schedule/session.html:23
-#: templates/schedule/session_listing.html:10
-#: templates/schedule/sideevent.html:10
+#: schedule/templates/schedule/session.html:26
+#: schedule/templates/schedule/session_listing.html:10
+#: schedule/templates/schedule/sideevent.html:10
 msgid "Location"
 msgstr "Ort"
 
-#: templates/schedule/session.html:29 templates/schedule/sideevent.html:16
+#: schedule/templates/schedule/session.html:32
+#: schedule/templates/schedule/sideevent.html:16
 msgid "Duration"
 msgstr "Dauer"
 
-#: templates/schedule/session.html:49
+#: schedule/templates/schedule/session.html:66
 msgid "Speakers:"
 msgstr "Vortragende(r):"
 
-#: templates/schedule/session_listing.html:11
-#: templates/schedule/plugins/complete.html:11
+#: schedule/templates/schedule/session_listing.html:11
+#: schedule/templates/schedule/plugins/complete.html:11
 msgid "Time"
 msgstr "Zeit"
 
-#: templates/schedule/session_listing.html:25
+#: schedule/templates/schedule/session_listing.html:25
 msgid "No matching sessions found."
 msgstr "Es wurden keine entsprechenden Sessions gefunden."
 
-#: templates/schedule/session_not_available.html:3
+#: schedule/templates/schedule/session_not_available.html:3
 msgid "Session information not available "
 msgstr "Session-Information nicht verfügbar"
 
-#: templates/schedule/session_not_available.html:4
+#: schedule/templates/schedule/session_not_available.html:4
 msgid ""
 "\n"
 "<p>There are currently no informations about this session available.</p>\n"
@@ -1224,49 +1111,173 @@ msgstr ""
 "<p>Derzeit stehen keine Informationen zu dieser Session zur Verfügung.</p>\n"
 "<p>Bitte besuchen Sie diese Seite später wieder :-)</p>\n"
 
-#: templates/schedule/sessions_by_location.html:3
+#: schedule/templates/schedule/sessions_by_location.html:3
 #, python-format
 msgid "Sessions in %(location)s"
 msgstr "Sessions in %(location)s"
 
-#: templates/schedule/sessions_by_tag.html:3
+#: schedule/templates/schedule/sessions_by_tag.html:3
 #, python-format
 msgid "Sessions tagged with \"%(tag)s\""
 msgstr "Sessions mit Tag \"%(tag)s\""
 
-#: templates/userprofiles/login.html:4 templates/userprofiles/login.html:8
+#: skins/default/templates/confirm.html:9
+msgid "Yes"
+msgstr "Ja"
+
+#: skins/default/templates/bootstrap/whole_uni_form.html:17
+msgid "All fields marked with <b>*</b> are required."
+msgstr "Alle mit <b>*</b> markierten Felder sind Pflichtfelder."
+
+#: skins/default/templates/cms/plugins/twitter_recent_entries.html:13
+msgid "we said,"
+msgstr ""
+
+#: skins/default/templates/cms/plugins/twitter_recent_entries.html:14
+msgid "we"
+msgstr ""
+
+#: skins/default/templates/cms/plugins/twitter_recent_entries.html:15
+msgid "we were"
+msgstr ""
+
+#: skins/default/templates/cms/plugins/twitter_recent_entries.html:16
+msgid "we replied to"
+msgstr ""
+
+#: skins/default/templates/cms/plugins/twitter_recent_entries.html:17
+msgid "we were checking out"
+msgstr ""
+
+#: skins/default/templates/cms/plugins/twitter_recent_entries.html:18
+msgid "loading tweets..."
+msgstr ""
+
+#: skins/default/templates/cmsplugin_news/latest_news.html:4
+#: skins/default/templates/cmsplugin_news/news_archive.html:3
+#: skins/default/templates/cmsplugin_news/news_archive.html:5
+#: skins/default/templates/cmsplugin_news/news_detail.html:3
+#: templates/cmsplugin_news/news_archive_day.html:3
+#: templates/cmsplugin_news/news_archive_day.html:5
+#: templates/cmsplugin_news/news_archive_month.html:3
+#: templates/cmsplugin_news/news_archive_month.html:5
+#: templates/cmsplugin_news/news_archive_year.html:3
+#: templates/cmsplugin_news/news_archive_year.html:5
+msgid "News"
+msgstr ""
+
+#: skins/default/templates/cmsplugin_news/latest_news.html:16
+#: skins/default/templates/cmsplugin_news/latest_news.html:35
+#: skins/default/templates/cmsplugin_news/news_archive.html:8
+#: templates/cmsplugin_news/news_archive_day.html:8
+#: templates/cmsplugin_news/news_archive_month.html:8
+#: templates/cmsplugin_news/news_archive_year.html:8
+msgid "No news yet"
+msgstr "Keine News vorhanden"
+
+#: skins/default/templates/cmsplugin_news/latest_news.html:23
+msgid "Latest news"
+msgstr "Aktuelle News"
+
+#: skins/default/templates/cmsplugin_news/latest_news.html:37
+msgid "Archive"
+msgstr "Archiv"
+
+#: skins/default/templates/userprofiles/login.html:4
+#: skins/default/templates/userprofiles/login.html:5
 msgid "Login"
 msgstr "Anmelden"
 
-#: templates/userprofiles/profile_view.html:3
-#: templates/userprofiles/profile_view.html:6
+#: skins/default/templates/userprofiles/profile_view.html:3
+#: skins/default/templates/userprofiles/profile_view.html:6
 msgid "User profile:"
 msgstr "Benutzerprofil:"
 
-#: templates/userprofiles/profile_view.html:16
+#: skins/default/templates/userprofiles/profile_view.html:16
 msgid "No info available"
 msgstr "Keine weiteren Informationen verfügbar"
 
-#: templates/userprofiles/registration.html:4
-#: templates/userprofiles/registration.html:7
-#: templates/userprofiles/registration_activate.html:5
-#: templates/userprofiles/registration_activate.html:10
+#: skins/default/templates/userprofiles/registration.html:4
+#: skins/default/templates/userprofiles/registration.html:5
+#: skins/default/templates/userprofiles/registration_activate.html:5
+#: skins/default/templates/userprofiles/registration_activate.html:6
 msgid "Registration"
 msgstr "Registrierung"
 
-#: templates/userprofiles/registration_activate.html:16
+#: skins/default/templates/userprofiles/registration_activate.html:14
 msgid "Hi"
 msgstr "Hallo"
 
-#: templates/userprofiles/registration_activate.html:18
+#: skins/default/templates/userprofiles/registration_activate.html:16
 msgid "We activated your account. You are now able to log in. Have fun!"
 msgstr "Ihr Account wurde aktiviert. Sie können sich nun einloggen."
 
-#: templates/userprofiles/registration_activate.html:22
+#: skins/default/templates/userprofiles/registration_activate.html:20
 msgid "The submitted activation code is invalid. Activation is not possible."
 msgstr ""
 "Der verwendete Aktivierungsgcode ist ungültig. Eine Aktivierung ist damit "
 "nicht möglich."
+
+#: sponsorship/models.py:18
+msgid "sponsor level"
+msgstr "Sponsor-Stufe"
+
+#: sponsorship/models.py:19
+msgid "sponsor levels"
+msgstr "Sponsor-Stufen"
+
+#: sponsorship/models.py:30
+msgid "external URL"
+msgstr "Externe URL"
+
+#: sponsorship/models.py:31
+msgid "annotation"
+msgstr "Anmerkungen"
+
+#: sponsorship/models.py:33
+msgid "contact_name"
+msgstr "Kontakt-Name"
+
+#: sponsorship/models.py:34
+msgid "Contact e‑mail"
+msgstr "Kontakt-EMail"
+
+#: sponsorship/models.py:35
+msgid "logo"
+msgstr "Logo"
+
+#: sponsorship/models.py:37
+msgid "added"
+msgstr "Hinzugefügt"
+
+#: sponsorship/models.py:38
+msgid "active"
+msgstr "Aktiv"
+
+#: sponsorship/models.py:44
+msgid "sponsor"
+msgstr "Sponsor"
+
+#: sponsorship/models.py:45
+msgid "sponsors"
+msgstr "Sponsoren"
+
+#: templates/djiki/edit.html:3
+msgid "Edit page"
+msgstr "Seite editieren"
+
+#: templates/djiki/edit.html:17
+msgid "Preview"
+msgstr "Vorschau"
+
+#~ msgid "Proposal:"
+#~ msgstr "Session-Vorschlag:"
+
+#~ msgid "Create"
+#~ msgstr "Anlegen"
+
+#~ msgid "Your proposals"
+#~ msgstr "Ihre Session-Vorschläge"
 
 #~ msgid ""
 #~ "This field supports <a href=\"http://daringfireball.net/projects/markdown/"

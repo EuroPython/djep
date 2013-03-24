@@ -15,4 +15,9 @@ class Profile(models.Model):
     user = models.OneToOneField(User)
     short_info = models.TextField(_('short info'), blank=True)
     avatar = ThumbnailerImageField(_('avatar'), upload_to='avatars', null=True,
-        blank=True, help_text=_('Please upload an image with a side length of at least 300 pixels.'))
+                                   blank=True,
+                                   help_text=_('Please upload an image with a side length of at least 300 pixels.'))
+    num_accompanying_children = models.PositiveIntegerField(_('number of accompanying children'),
+                                                            null=True,
+                                                            blank=True,
+                                                            default=0)
