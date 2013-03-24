@@ -38,9 +38,9 @@ class ProfileRegistrationForm(RegistrationForm):
     avatar = forms.ImageField(widget=forms.FileInput, required=False,
         help_text=Profile()._meta.get_field_by_name('avatar')[0].help_text)
     short_info = forms.CharField(widget=forms.Textarea, required=False)
-    num_accompanying_children = forms.ChoiceField(required=False,
-                                                  label=_('Number of accompanying children'),
-                                                  choices=NUM_ACCOMPANYING_CHILDREN_CHOICES)
+    num_accompanying_children = forms.IntegerField(required=False,
+                                                   label=_('Number of accompanying children'),
+                                                   widget=forms.Select(choices=NUM_ACCOMPANYING_CHILDREN_CHOICES))
 
     def __init__(self, *args, **kwargs):
         super(ProfileRegistrationForm, self).__init__(*args, **kwargs)
@@ -122,9 +122,9 @@ class ProfileForm(BaseProfileForm):
     avatar_help_text = Profile()._meta.get_field_by_name('avatar')[0].help_text
     avatar = forms.ImageField(widget=AvatarWidget(size=avatar_size),
         required=False, help_text=avatar_help_text)
-    num_accompanying_children = forms.ChoiceField(required=False,
-                                                  label=_('Number of accompanying children'),
-                                                  choices=NUM_ACCOMPANYING_CHILDREN_CHOICES)
+    num_accompanying_children = forms.IntegerField(required=False,
+                                                   label=_('Number of accompanying children'),
+                                                   widget=forms.Select(choices=NUM_ACCOMPANYING_CHILDREN_CHOICES))
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
