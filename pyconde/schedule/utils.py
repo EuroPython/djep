@@ -374,9 +374,9 @@ def prepare_event(evt):
     if isinstance(evt, basestring):
         type_, pk = evt.split(':')
         if type_ == 'side':
-            model = models.SideEvent.objects.select_related('location').get(pk=pk)
+            model = models.SideEvent.current_conference.select_related('location').get(pk=pk)
         else:
-            model = models.Session.objects.select_related('location').get(pk=pk)
+            model = models.Session.current_conference.select_related('location').get(pk=pk)
     else:
         model = evt
     return GridCell(model, None)
@@ -391,7 +391,7 @@ def load_event_models(events):
     print pk_map
     for k, v in pk_map.iteritems():
         if k == 'session':
-            result += list(models.Session.objects.select_related('location').filter(pk__in=v))
+            result += list(models.Session.current_conference.select_related('location').filter(pk__in=v))
         if k == 'side':
-            result += list(models.SideEvent.objects.select_related('location').filter(pk__in=v))
+            result += list(models.SideEvent.current_conference.select_related('location').filter(pk__in=v))
     return result

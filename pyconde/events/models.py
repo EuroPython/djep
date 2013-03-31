@@ -10,9 +10,10 @@ class Event(models.Model):
     date = models.DateTimeField(_("Date"))
     end_date = models.DateTimeField(_("End date"), blank=True, null=True)
     link = models.URLField(_("Link"), blank=True, null=True,
-        verify_exists=False)
+                           verify_exists=False)
 
-    objects = CurrentConferenceManager()
+    objects = models.Manager()
+    current_conference = CurrentConferenceManager()
 
     class Meta(object):
         verbose_name = _('event')

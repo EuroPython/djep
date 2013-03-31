@@ -302,9 +302,11 @@ class ListUserProposalsView(generic_views.TemplateView):
         this_speaker = self.request.user.speaker_profile
         ctx = super(ListUserProposalsView, self).get_context_data(**kwargs)
         ctx.update({
-            'proposals': this_speaker.proposals.all(),
-            'proposal_participations': this_speaker.proposal_participations.all()
-            })
+            'proposals': this_speaker.proposals
+            .filter(conference=current_conference()).all(),
+            'proposal_participations': this_speaker.proposal_participations
+            .filter(conference=current_conference()).all()
+        })
         return ctx
 
 

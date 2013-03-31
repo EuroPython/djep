@@ -47,7 +47,8 @@ class Proposal(proposal_models.Proposal):
     class Meta(object):
         proxy = True
 
-    objects = ProposalsManager()
+    objects = models.Manager()
+    current_conference = ProposalsManager()
 
     def can_be_updated(self):
         return self.conference.get_reviews_active()

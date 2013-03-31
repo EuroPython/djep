@@ -245,7 +245,8 @@ class Location(models.Model):
     used_for_sessions = models.BooleanField(_("used for sessions"),
         default=True)
 
-    objects = CurrentConferenceManager()
+    objects = models.Manager()
+    current_conference = CurrentConferenceManager()
 
     def __unicode__(self):
         return self.name

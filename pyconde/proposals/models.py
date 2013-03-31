@@ -40,7 +40,8 @@ class AbstractProposal(models.Model):
         verbose_name=_("track"), blank=True, null=True)
     tags = TaggableManager(blank=True)
 
-    objects = CurrentConferenceManager()
+    objects = models.Manager()
+    current_conference = CurrentConferenceManager()
 
     class Meta(object):
         abstract = True

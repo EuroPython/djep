@@ -8,7 +8,7 @@ register = template.Library()
 
 @register.inclusion_tag('events/tags/list_events.html')
 def list_events(number_of_events=None):
-    events = models.Event.objects.all()
+    events = models.Event.current_conference.all()
     if number_of_events is not None:
         events = events[:number_of_events]
     has_range = False

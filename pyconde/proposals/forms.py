@@ -157,12 +157,14 @@ class TypedSubmissionForm(ProposalSubmissionForm):
             button_text = u"Vortrag einreichen"
         self.helper.layout = Layout(
             Fieldset(_('General'),
-                Field('title', autofocus="autofocus"),
-                Field('description'),
-                Field('abstract')),
-            Fieldset(_('Details'), ExtendedHelpField('track', render_to_string('proposals/tracks-help.html', {'tracks': tracks})), 'tags', 'duration', 'audience_level', Field('additional_speakers', css_class='multiselect-user')),
+                     Field('title', autofocus="autofocus"),
+                     Field('description'),
+                     Field('abstract')),
+            Fieldset(_('Details'),
+                     ExtendedHelpField('track', render_to_string('proposals/tracks-help.html', {'tracks': tracks})),
+                     'tags', 'duration', 'audience_level', Field('additional_speakers', css_class='multiselect-user')),
             ButtonHolder(Submit('submit', button_text, css_class="btn-primary"))
-            )
+        )
 
     def save(self, commit=True):
         instance = super(TypedSubmissionForm, self).save(False)

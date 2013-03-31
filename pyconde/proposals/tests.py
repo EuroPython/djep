@@ -6,7 +6,7 @@ from django.forms.models import model_to_dict
 from django.contrib.auth import models as auth_models
 from django.core.exceptions import ValidationError
 
-from pyconde.conference import models as conference_models
+from pyconde.conference.test_utils import ConferenceTestingMixin
 from pyconde.speakers import models as speakers_models
 
 from . import models
@@ -14,36 +14,20 @@ from . import forms
 from . import validators
 
 
-class SubmissionTests(TestCase):
+class SubmissionTests(ConferenceTestingMixin, TestCase):
     def setUp(self):
-        self.conference = conference_models.Conference(title="TestCon")
-        self.conference.save()
-        self.audience_level = conference_models.AudienceLevel(level=1,
-            name='Level 1', conference=self.conference)
-        self.audience_level.save()
-        self.kind = conference_models.SessionKind(
-            conference=self.conference,
-            closed=False
-        )
-        self.kind.save()
-        self.duration = conference_models.SessionDuration(
-            minutes=30,
-            conference=self.conference)
-        self.duration.save()
-        self.user = auth_models.User.objects.create_user('test', 'test@test.com',
+        self.create_test_conference()
+        self.user = auth_models.User.objects.create_user(
+            'test', 'test@test.com',
             'testpassword')
         speakers_models.Speaker.objects.all().delete()
         self.speaker = speakers_models.Speaker(user=self.user)
         self.speaker.save()
-        self.track = conference_models.Track(name="NAME", slug="SLUG", conference=self.conference)
-        self.track.save()
+
         self.now = datetime.datetime.now()
 
     def tearDown(self):
-        self.conference.delete()
-        self.user.delete()
-        self.speaker.delete()
-        self.track.delete()
+        self.destroy_all_test_conferences()
 
     def test_with_open_sessionkind(self):
         """
@@ -117,3 +101,69 @@ class MaxWordsValidatorTests(TestCase):
     def test_ok_with_whitespaces(self):
         v = validators.MaxWordsValidator(2)
         v("hello    \n   \t world!")
+
+
+class ListUserProposalsViewTests(ConferenceTestingMixin, TestCase):
+    def setUp(self):
+        self.create_test_conference('')
+        self.create_test_conference('other_')
+
+        self.user = auth_models.User.objects.create_user(
+            'test', 'test@test.com',
+            'testpassword'
+        )
+        speakers_models.Speaker.objects.all().delete()
+        self.speaker = speakers_models.Speaker(user=self.user)
+        self.speaker.save()
+
+        self.now = datetime.datetime.now()
+
+    def tearDown(self):
+        self.destroy_all_test_conferences()
+        self.user.delete()
+
+    def test_current_conf_only(self):
+        """
+        This view should only list proposals made for the current conference.
+        """
+        # In this case the user has made two proposals: One for the current
+        # conference, one for another one also managed within the same
+        # database. Only the one for the current conference should be listed
+        # here.
+        previous_proposal = models.Proposal(
+            conference=self.other_conference,
+            title="Proposal",
+            description="DESCRIPTION",
+            abstract="ABSTRACT",
+            speaker=self.speaker,
+            kind=self.other_kind,
+            audience_level=self.other_audience_level,
+            duration=self.other_duration,
+            track=self.other_track
+        )
+        previous_proposal.save()
+
+        current_proposal = models.Proposal(
+            conference=self.conference,
+            title="Proposal",
+            description="DESCRIPTION",
+            abstract="ABSTRACT",
+            speaker=self.speaker,
+            kind=self.kind,
+            audience_level=self.audience_level,
+            duration=self.duration,
+            track=self.track
+        )
+        current_proposal.save()
+
+        with self.settings(CONFERENCE_ID=self.conference.pk):
+            self.client.login(username=self.user.username,
+                              password='testpassword')
+            ctx = self.client.get('/proposals/mine/').context
+            self.assertEqual([current_proposal], list(ctx['proposals']))
+
+        with self.settings(CONFERENCE_ID=self.other_conference.pk):
+            self.client.login(username=self.user.username,
+                              password='testpassword')
+            ctx = self.client.get('/proposals/mine/').context
+            self.assertEqual([previous_proposal], list(ctx['proposals']))

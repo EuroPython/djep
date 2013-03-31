@@ -3,7 +3,7 @@ import datetime
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from pyconde.conference.models import Conference
+from pyconde.conference.models import Conference, CurrentConferenceManager
 
 
 class SponsorLevel(models.Model):
@@ -12,6 +12,9 @@ class SponsorLevel(models.Model):
     order = models.IntegerField(_("order"), default=0)
     description = models.TextField(_("description"), blank=True)
     slug = models.SlugField(_("slug"))
+
+    objects = models.Manager()
+    current_conference = CurrentConferenceManager()
 
     class Meta:
         ordering = ["conference", "order"]
