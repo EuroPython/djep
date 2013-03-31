@@ -248,6 +248,9 @@ HAYSTACK_CONNECTIONS = {
     }
 }
 
+# Disable south migrations during unittests
+SOUTH_TESTS_MIGRATE = False
+
 # For Elasticsearch you can use for instance following configuration in your
 # settings.py.
 # HAYSTACK_CONNECTIONS = {

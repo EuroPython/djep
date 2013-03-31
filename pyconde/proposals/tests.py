@@ -167,3 +167,52 @@ class ListUserProposalsViewTests(ConferenceTestingMixin, TestCase):
                               password='testpassword')
             ctx = self.client.get('/proposals/mine/').context
             self.assertEqual([previous_proposal], list(ctx['proposals']))
+
+    def test_login_required(self):
+        """
+        This list should only be available to logged in users.
+        """
+        self.client.logout()
+        self.assertRedirects(
+            self.client.get('/proposals/mine/'),
+            '/accounts/login/?next=/proposals/mine/')
+
+
+class SubmitProposalViewTests(TestCase):
+    def test_login_required(self):
+        self.client.logout()
+        self.assertRedirects(
+            self.client.get('/proposals/submit/'),
+            '/accounts/login/?next=/proposals/submit/')
+
+
+class SubmitTypedProposalViewTests(TestCase):
+    def test_login_required(self):
+        self.client.logout()
+        self.assertRedirects(
+            self.client.get('/proposals/submit/testkind/'),
+            '/accounts/login/?next=/proposals/submit/testkind/')
+
+
+class EditProposalViewTests(TestCase):
+    def test_login_required(self):
+        self.client.logout()
+        self.assertRedirects(
+            self.client.get('/proposals/edit/123/'),
+            '/accounts/login/?next=/proposals/edit/123/')
+
+
+class CancelProposalViewTests(TestCase):
+    def test_login_required(self):
+        self.client.logout()
+        self.assertRedirects(
+            self.client.get('/proposals/cancel/123/'),
+            '/accounts/login/?next=/proposals/cancel/123/')
+
+
+class LeaveProposalViewTests(TestCase):
+    def test_login_required(self):
+        self.client.logout()
+        self.assertRedirects(
+            self.client.get('/proposals/leave/123/'),
+            '/accounts/login/?next=/proposals/leave/123/')

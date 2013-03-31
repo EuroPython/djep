@@ -7,6 +7,10 @@ from django.utils.importlib import import_module
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.template.response import TemplateResponse
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import login_required
+
+from braces.views import LoginRequiredMixin
 
 from pyconde.conference.models import current_conference, SessionKind
 
@@ -74,7 +78,7 @@ class TypedProposalFormMixin(object):
         return proposed_names
 
 
-class SubmitProposalView(TypedProposalFormMixin, generic_views.CreateView, NextRedirectMixin):
+class SubmitProposalView(TypedProposalFormMixin, NextRedirectMixin, generic_views.CreateView):
     """
     Once registered a user can submit a proposal for the conference for a
     specific kind. This is only possible while the selected SessionKind
@@ -82,6 +86,8 @@ class SubmitProposalView(TypedProposalFormMixin, generic_views.CreateView, NextR
     """
     model = models.Proposal
 
+    # In this case we can't use LoginRequiredMixin since we override dispatch
+    @method_decorator(login_required)
     def dispatch(self, request, *args, **kwargs):
         if not len(SessionKind.current_objects.filter_open_kinds()):
             return TemplateResponse(request=request, template='proposals/closed.html', context={})
@@ -168,7 +174,7 @@ class PermissionCheckedUpdateView(generic_views.UpdateView, NextRedirectMixin):
         return super(PermissionCheckedUpdateView, self).post(request, *args, **kwargs)
 
 
-class EditProposalView(TypedProposalFormMixin, PermissionCheckedUpdateView):
+class EditProposalView(LoginRequiredMixin, TypedProposalFormMixin, PermissionCheckedUpdateView):
     """
     The primary speaker can edit a proposal as long as the SessionKind
     still accepts proposals.
@@ -233,7 +239,7 @@ class AbstractProposalAction(generic_views.DetailView, NextRedirectMixin):
         return reverse('view_proposal', kwargs={'pk': self.object.pk})
 
 
-class CancelProposalView(AbstractProposalAction):
+class AbstractCancelProposalView(AbstractProposalAction):
     """
     During the submission and review period a proposal can be cancelled
     by the primary speaker. As soon as the review period is over
@@ -267,7 +273,11 @@ class CancelProposalView(AbstractProposalAction):
         return reverse('my_proposals')
 
 
-class LeaveProposalView(CancelProposalView):
+class CancelProposalView(LoginRequiredMixin, AbstractCancelProposalView):
+    pass
+
+
+class LeaveProposalView(LoginRequiredMixin, AbstractCancelProposalView):
     """
     A secondary speaker can decide not to actually take part in a session
     and therefor leave a proposal. This is an option that is exclusive
@@ -291,7 +301,7 @@ class LeaveProposalView(CancelProposalView):
         messages.success(self.request, _("You were successfully removed as secondary speaker."))
 
 
-class ListUserProposalsView(generic_views.TemplateView):
+class ListUserProposalsView(LoginRequiredMixin, generic_views.TemplateView):
     """
     A speaker can see and manage a list of proposals submitted by her or that
     include her as a secondary speaker.
