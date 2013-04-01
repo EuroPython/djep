@@ -71,7 +71,6 @@ body {
   position: relative;
 }
 
-
 div.page-wrapper {
   -webkit-box-shadow: 5px -5px 10px -2px #888;
   box-shadow: 5px -5px 10px -2px #888;
@@ -105,7 +104,7 @@ header {
 
 #subheader {
   margin-top: -115px;
-  margin-bottom: 25px;
+  margin-bottom: 5px;
   .logo {
     text-align: right;
   }
@@ -323,12 +322,51 @@ ul.social-links {
         display: inline-block;
         line-height: 75px;
         margin-right: 10px;
+        width: 130px;
+        height: 75px;
+        vertical-align: middle;
+        text-align: center;
     }
     img {
         max-height: 75px;
+        max-width: 130px;
     }
 }
 
 #sponsors {
-    margin-bottom: 20px;
+    margin-bottom: 50px;
+    position: relative;
+    
+    h2 {
+        position: absolute;
+        top: -50px;
+        left: 0px;
+        font-size: 100%px;
+    }
+
+    .slidesjs-pagination {
+        position: absolute;
+        right: -5px;
+        top: 0px;
+        width: 10px;
+        li {
+            width: 10px;
+            height: 10px;
+            padding: 0;
+            margin: 0 0 2px 0;
+            display: block;
+        }
+        a {
+            width: 8px;
+            height: 8px;
+            border: 1px solid darken(@green, 10);
+            overflow: hidden;
+            display: block;
+            background: lighten(@green, 30);
+            color: #000;
+            &.active {
+                background: @green;
+            }
+        }
+    }
 }
