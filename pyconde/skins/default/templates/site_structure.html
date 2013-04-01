@@ -35,13 +35,6 @@
 
     {% render_block "css" %}
 
-    {% compress js %}
-    <script src="{{ STATIC_URL }}js/modernizr-2.0.6.js"></script>
-    <script src="{{ STATIC_URL }}js/jquery-1.7.1.min.js"></script>
-    <script src="{{ STATIC_URL }}js/jquery.slides.min.js"></script>
-    {% endcompress %}
-    {% render_block "js" %}
-
     {% block extra_head %}{% endblock %}
 </head>
 <body class="{% if request.user.is_authenticated %}logged-in{% else %}logged-out{% endif %} {% block bodycls %}{% endblock %}">
@@ -53,5 +46,13 @@
       <nav>{% show_menu 1 1 0 1 "cms/navigation.html" %}</nav>
       {% block content %}{% endblock %}
     {% endblock %}
+
+    {% compress js %}
+    <script src="{{ STATIC_URL }}js/modernizr-2.0.6.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery-1.7.1.min.js"></script>
+    <script src="{{ STATIC_URL }}js/jquery.slides.min.js"></script>
+    <script src="{{ STATIC_URL }}js/pyconde.core.js"></script>
+    {% endcompress %}
+    {% render_block "js" %}
 </body>
 </html>

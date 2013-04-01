@@ -313,7 +313,8 @@ ul.social-links {
         font-size: 100%;
     }
 }
-#sponsors, #organizers {
+.cmsplugin-sponsorlist, #sponsors, #organizers {
+    position: relative;
     ul {
         margin: 0;
         padding: 0;
@@ -331,19 +332,6 @@ ul.social-links {
         max-height: 75px;
         max-width: 130px;
     }
-}
-
-#sponsors {
-    margin-bottom: 50px;
-    position: relative;
-    
-    h2 {
-        position: absolute;
-        top: -50px;
-        left: 0px;
-        font-size: 100%px;
-    }
-
     .slidesjs-pagination {
         position: absolute;
         right: -5px;
@@ -368,5 +356,17 @@ ul.social-links {
                 background: @green;
             }
         }
+    }
+}
+
+#content_banner {
+    margin-bottom: 50px;
+    position: relative;
+    
+    h2 {
+        position: absolute;
+        top: -50px;
+        left: 0px;
+        font-size: 100%px;
     }
 }

@@ -1,54 +1,8 @@
 {% extends "cms/default.html" %}
-{% load i18n sekizai_tags sponsorship_tags %}
+{% load i18n sekizai_tags sponsorship_tags cms_tags %}
 {% block bodycls %}frontpage with-headeraddon{% endblock %}
 {% block content_banner %}
-<section id="sponsors">
-  {% sponsors as all_sponsors %}
-  {% if all_sponsors %}
-  <section class="sponsors">
-    <h2>Unsere Sponsoren</h2>
-    <div class="slideshow">
-    <ul class="">
-        {% for sponsor in all_sponsors %}
-        <li class="{{ sponsor.level.slug }}">
-        <a rel="external" target="_blank" title="{{ sponsor.name }}" href="{{ sponsor.external_url }}"><img alt="Logo: {{sponsor.name}}" src="{{ sponsor.logo.url }}" /></a>
-        </li>
-        {% if forloop.counter|divisibleby:8 and not forloop.last %}
-        </ul><ul class="">
-        {% endif %}
-        {% endfor %}
-    </ul>
-    </div>
-    <script type="text/javascript">
-        (function() {
-            var numSlides = $('#sponsors .slideshow ul').length;
-            if (numSlides < 2) return;
-            $('#sponsors .slideshow').slidesjs({
-                width: 616, height: 150,
-                navigation: {active: false},
-                effect: {fade: {speed: 1000}},
-                pagination: {effect: 'fade'},
-                play: {
-                    effect: "fade",
-                    auto: true,
-                    interval: 5000,
-                    pauseOnHover: true
-                },
-                callback: {
-                    start: function(num) {
-                        console.log("Start: ", num);
-                        $('#sponsors .slideshow .slidesjs-pagination-item a').removeClass('active');
-                        $('#sponsors .slideshow a[data-slidesjs-item=' + (num % numSlides) + ']').addClass('active');
-                    },
-                    loaded: function(num) {
-                        console.log("Loaded: ", num);
-                        $('#sponsors .slideshow a[data-slidesjs-item=' + (num-1) + ']').addClass('active');
-                    }
-                }
-            });
-        })();
-    </script>
-  </section>
-  {% endif %}
-</section>
+<div id="content_banner">
+    {% placeholder "content_banner" %}
+</div>
 {% endblock %}
