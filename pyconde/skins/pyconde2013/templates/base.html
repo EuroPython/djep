@@ -61,7 +61,9 @@
         <div id="content">
           <div>
             {% block content_banner %}{% endblock %}
-            <h1><span>{% block page_title %}{% page_attribute "page_title" %}{% endblock %}</span></h1>
+            {% if request.current_page %}
+              <h1>{% block page_title %}{% page_attribute "page_title" %}{% endblock %}</h1>
+            {% endif %}
             {% block content %}{% endblock %}
             {% block content_footer %}
             <aside class="content_footer">
