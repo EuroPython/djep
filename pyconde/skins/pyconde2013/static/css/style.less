@@ -281,22 +281,23 @@ ul.social-links {
     }
 }
 
-#sidebar .tbox {
-    > * {
-        margin-left: 15px;
+#sidebar {
+    > aside > .cmsplugin,
+    > aside > .tbox {
+        padding: 0 15px 15px 15px;
+        font-size: 90%;
+        h2 {
+            font-size: 16px;
+        }
+        ul > li {
+            margin-bottom: 4px;
+        }
     }
-    > ul {
-        list-style: none;
-    }
-    > h2 {
-        margin-left: 0px;
-        > span {
-            padding: 0 10px 0 15px;
-            background: @green;
-            line-height: 25px;
-            color: #FFF;
-            font-size: @normalFontSize;
-            display: inline-block;
+    .cmsplugin-news {
+        .headline {display: block;}
+        ul {
+            list-style: none;
+            margin-left: 0;
         }
     }
 }

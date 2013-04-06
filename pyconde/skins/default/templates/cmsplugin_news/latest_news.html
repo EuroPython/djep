@@ -1,8 +1,8 @@
 {% load i18n %}
 {% if placeholder == 'sidebar' %}
-<div class="tbox news-plugin">
+<section class="cmsplugin cmsplugin-news">
     <h2>{% trans "News" %}</h2>
-    <div class="pynews">
+    <div class="cmsplugin-content">
         {% if latest %}
             <ul>
             {% for news in latest %}
@@ -17,11 +17,11 @@
         {% endif %}
         <p class="more"><a href="{% url news_archive_index %}">Alle News lesen</a></p>
     </div>
-</div>
+</section>
 {% else %}
-<div class="cmsplugin-news">
+<div class="cmsplugin cmsplugin-news">
     <h2>{% trans "Latest news" %}</h2>
-    <div class="content">
+    <div class="cmsplugin-content">
         {% if latest %}
             <ul>
             {% for news in latest %}
