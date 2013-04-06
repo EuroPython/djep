@@ -283,7 +283,10 @@ ul.social-links {
 
 #sidebar {
     > aside > .cmsplugin,
-    > aside > .tbox {
+    > aside > .tbox,
+    > aside > a,
+    > aside > img {
+        display: block;
         padding: 0 15px 15px 15px;
         font-size: 90%;
         h2 {
@@ -298,6 +301,17 @@ ul.social-links {
         ul {
             list-style: none;
             margin-left: 0;
+        }
+    }
+    .cmsplugin-twitter {
+        ul.tweet_list {
+            list-style: none;
+            margin-left: 0; padding-left: 0;
+            li {
+                .avatar {
+                    float:left;
+                }
+            }
         }
     }
 }

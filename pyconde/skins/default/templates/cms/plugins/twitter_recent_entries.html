@@ -23,8 +23,10 @@ jQuery(document).ready(function ($) {
 //]]>
 </script>
 {% endaddtoblock %}
-<div class="tbox twitter-plugin">
+<div class="cmsplugin cmsplugin-twitter">
     <h2 class="twitter-title"><a href="https://www.twitter.com/{{ object.twitter_user }}" class="twitter-icon"><img alt="twitter link" src="{{ STATIC_URL }}images/twitter-logo.png"></a></h2>
+    <div class="cmsplugin-content">
     <div id="twitter-container-{{ object.pk }}"></div>
     {% if object.twitter_user %}<p><a href="https://www.twitter.com/{{ object.twitter_user }}" class="twitter-link">{{ object.link_hint }}</a></p>{% endif %}
+    </div>
 </div>
