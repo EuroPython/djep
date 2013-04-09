@@ -67,14 +67,17 @@
             {% block content %}{% endblock %}
             {% block content_footer %}
             <aside class="content_footer">
-              <section id="organizers">
-                <h2>Veranstalter</h2>
-                <ul>
-                  <li><img src="{{ STATIC_URL }}images/pysv_logo.png" alt="Python Software Verband e.V." /></li>
-                  <li><img src="{{ STATIC_URL }}images/dlr_logo.png" alt="DLR - Deutsches Zentrum für Luft- und Raumfahrt" /></li>
-                  <li><img src="{{ STATIC_URL }}images/pycologne_logo.png" alt="pyCologne - Python User Group Köln" /></li>
-                </ul>
-              </section>
+                {% sponsors "organizers" as organizers %}
+                {% if organizers %}
+                    <section id="organizers">
+                        <h2>Veranstalter</h2>
+                        <ul>
+                            {% for sponsor in organizers %}
+                            <li><a href="{{ sponsor.external_url }}"><img src="{{ sponsor.logo.url }}" alt="{{ sponsor.name }}" /></a></li>
+                            {% endfor %}
+                        </ul>
+                    </section>
+                {% endif %}
             </aside>
             {% endblock %}
           </div>
