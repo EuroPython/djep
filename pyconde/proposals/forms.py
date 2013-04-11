@@ -107,7 +107,8 @@ class ProposalSubmissionForm(forms.ModelForm):
             form.fields['available_timeslots'] = forms.ModelMultipleChoiceField(
                 label=_("available timeslots"),
                 queryset=models.TimeSlot.objects.select_related('section').filter(section__conference=conference_models.current_conference()).order_by('date', 'slot'),
-                widget=forms.CheckboxSelectMultiple
+                widget=forms.CheckboxSelectMultiple,
+                required=False
             )
             form.fields['available_timeslots'].help_text += u"""<br /><br />Bitte geben Sie hier alle Zeiten an, die für Ihren Vortrag/Ihr Tutorial in Frage kommen. Diese Zeiten werden dann so gut wie möglich für die Erstellung des Zeitplans in Betracht gezogen."""
 
