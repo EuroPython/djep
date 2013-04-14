@@ -44,8 +44,8 @@ class ProfileRegistrationForm(RegistrationForm):
 
     def __init__(self, *args, **kwargs):
         super(ProfileRegistrationForm, self).__init__(*args, **kwargs)
-        account_fields = Fieldset(_('Account data'), Field('username', autofocus="autofocus"), 'password', 'password_repeat')
-        profile_fields = Fieldset(_('Profile'), 'first_name', 'last_name', 'email', 'avatar', 'short_info', 'num_accompanying_children')
+        account_fields = Fieldset(_('Account data'), Field('username', autofocus="autofocus"), 'email', 'password', 'password_repeat')
+        profile_fields = Fieldset(_('Profile'), 'first_name', 'last_name', 'avatar', 'short_info', 'num_accompanying_children')
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
