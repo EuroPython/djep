@@ -1,4 +1,49 @@
+/*global jQuery */
 var pyconde = (function($) {
+    function createMultiuserSelectBox() {
+        function createUserTrigger(data, selectBox) {
+            var speakerPks = selectBox.data('speaker_pks');
+            if (speakerPks[data.value]) {
+                return;
+            }
+            var span = $('<span>');
+            var remove = $('<a href="#" class="del">x</a>');
+            var opt = data.el || $('<option>').val(data.value).text(data.label).attr('selected', 'selected').appendTo(selectBox);
+            span.text(data.label);
+            span.append(remove);
+            speakerPks[data.value] = true;
+            remove.click(function(evt) {
+                evt.preventDefault();
+                opt.remove();
+                span.remove();
+            });
+            return span;
+        }
+        if ($.ui && $.ui.autocomplete) {
+            $('select.multiselect-user').each(function() {
+                var $that = $(this);
+                var input = $('<input />').attr('type', 'text');
+                var listing = $('<div>').addClass('ui-autocomplete-result');
+                $that.data('speaker_pks', {});
+                input.insertAfter($that);
+                listing.insertAfter(input);
+                $('option', $that).each(function() {
+                    var $opt = $(this);
+                    var value = $opt.val();
+                    if (value === '') {
+                        return;
+                    }
+                    listing.append(createUserTrigger({'label': $opt.text(), 'value': value, 'el': $opt}, $that));
+                });
+                input.autocomplete({source:'/accounts/ajax/users'}).unbind('autocompleteselect').bind('autocompleteselect', function(evt, ui) {
+                    evt.preventDefault();
+                    $(this).val('');
+                    listing.append(createUserTrigger(ui.item, $that));
+                });
+                $that.hide();
+            });
+        }
+    }
     function createSponsorSlides() {
         $('.cmsplugin-sponsorlist.split').each(function() {
             var container = $(this), height;
@@ -9,9 +54,12 @@ var pyconde = (function($) {
             } else {
                 height = 75;
             }
-            if (numSlides < 2) return;
+            if (numSlides < 2) {
+                return;
+            }
             slideContainer.slidesjs({
-                width: container.width(), height: 150,
+                width: container.width(),
+                height: 150,
                 navigation: {active: false},
                 effect: {fade: {speed: 1000}},
                 pagination: {effect: 'fade'},
@@ -23,12 +71,10 @@ var pyconde = (function($) {
                 },
                 callback: {
                     start: function(num) {
-                        console.log("Start: ", num);
                         container.find('.slidesjs-pagination-item a').removeClass('active');
                         container.find('a[data-slidesjs-item=' + (num % numSlides) + ']').addClass('active');
                     },
                     loaded: function(num) {
-                        console.log("Loaded: ", num);
                         container.find('a[data-slidesjs-item=' + (num-1) + ']').addClass('active');
                     }
                 }
@@ -38,6 +84,7 @@ var pyconde = (function($) {
 
     function init() {
         createSponsorSlides();
+        $(createMultiuserSelectBox);
     }
 
     init();
