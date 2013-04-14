@@ -13,16 +13,17 @@
 
 @import "bootstrap/less/variables";
 @import "bootstrap/less/bootstrap";
+@import "bootstrap/less/responsive";
 
 @gridColumnWidth: 67px;
 @linkColor: @green;
 
 
 // Bootstrap overrides
-.container {
-  margin-left: 0;
-  margin-right: 0;
-}
+// .container {
+//   margin-left: 0;
+//   margin-right: 0;
+// }
 
 // taken from https://github.com/twitter/bootstrap/issues/2742#issuecomment-7374060
 @inputBorderFocus: @green;
@@ -66,9 +67,13 @@ body {
 
 #page {
   border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
   background: #fafafa;
-  margin-bottom: 50px;
   position: relative;
+  margin-top: 40px;
+  padding-top: 20px;
+  background: url(../images/background.png) no-repeat 0px 0px #fff;
+  min-height: 400px;
 }
 
 div.page-wrapper {
@@ -121,7 +126,7 @@ header {
   }
 }
 
-#mainmenu, nav {
+#mainmenu2, nav2 {
   ul {
     list-style-type: none;
     margin-left: 0px;
@@ -164,7 +169,7 @@ header {
   }
 }
 
-#mainmenu ul {
+#mainmenu2 ul {
     font-size: @normalFontSize;
 }
 
@@ -180,46 +185,65 @@ header {
 // }
 
 #main {
-    margin-bottom: 40px;
-    #grid > .core .row();
+    //margin-bottom: 40px;
+//    #grid > .core .row();
 }
-#sidebar, #content {
-    float: left;
-    margin-left: @gridGutterWidth;
-}
+// #sidebar, #content {
+//     float: left;
+//     margin-left: @gridGutterWidth;
+// }
 footer .box {
     margin-left: @fluidGridGutterWidth;
 }
 
-#sidebar {
-    #grid > .core .span(4);
-}
-#content {
-    #grid > .core .span(8);
-    > div {
-        padding-right: @rightPageMargin;
-    }
-}
+// #sidebar {
+//     #grid > .core .span(4);
+// }
+// #content {
+//     #grid > .core .span(8);
+//     > div {
+//         padding-right: @rightPageMargin;
+//     }
+// }
 
 #content {
+  margin-left: 0px;
   h1 {
     margin-bottom: 25px;
     background: @green;
     color: #fff;
-    padding: 5px;
     display: inline-block;
     font-size: @header1FontSize;
+    padding: 5px;
+    padding-left: 20px;
+    padding-right: 10px;
+  }
+  h2.highlight {
+    color: #fff;
+    background: @green;
+    padding: 3px;
+    padding-left: 20px;
+    padding-right: 10px;
+    display: inline-block;
   }
   h2, h3, h4, h5, h6 {
     color: @green;
     font-size: @normalFontSize;
+    padding-left: 20px;
   }
   p {
     margin-top: .7em;
+    padding-left: 20px;
   }
   a {
     font-size: @smallFontSize;
   }
+}
+
+#content-main {
+  background: rgba(255, 255, 255, 1);
+  padding-top: 10px;
+  padding-right: 15px;
 }
 
 footer {
@@ -382,4 +406,66 @@ ul.social-links {
         left: 0px;
         font-size: 100%px;
     }
+}
+
+#mainmenu {
+  font-size: 10pt;
+  ul {
+    ul {
+      display: none;
+      font-size: 9pt;
+      margin-left: 0;
+      padding: 10px 15px 10px;
+      li {
+        list-style-type: none;
+      }
+    }
+  }
+}
+
+#dropout-menu {
+  display: none;
+  margin-top: 15px;
+  ul {
+    list-style-type: none;
+    margin: 0;
+    margin-bottom: 20px;
+    font-size: 10pt;
+    font-weight: bold;
+    li {
+      padding-right: 15px;
+      float: left;
+    }
+    ul {
+      font-size: 9pt;
+      font-weight: normal;
+      li {
+         float: none;
+      }
+    }
+  }
+}
+
+footer {
+  padding-left: 20px;
+}
+
+@media (max-width: 767px) {
+  body {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  
+}
+
+img.halo {
+ border: 17px solid rgba(255, 255, 255, 0.5);
+}
+
+div.postcard {
+  background: url(../images/frontpage_background.png) no-repeat 0px 0px;
+  margin-top: 40px;
+  padding-top: 20px;
+  padding-right: 15px;
+  padding-bottom: 15px;
 }

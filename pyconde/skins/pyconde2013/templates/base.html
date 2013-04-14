@@ -17,91 +17,136 @@
 {% endblock %}
 
 {% block site_content %}
-  <div class="container" id="page">
-    <div class="page-wrapper">
-      <header class="row">
-        <div class="span12">
-          <hgroup>
-            <h1>Zukunft.Dynamisch.Entwickeln</h1>
-            <h2><a href="/programm/">14. - 19. Oktober 2013</a></h2>
-          </hgroup>
-        </div>
-        <form method="GET" id="search" action="/search/">
-          <input type="search" name="q" placeholder="Suchen..." />
-        </form>
-      </header>
-
-      <div class="row" id="subheader">
-        <nav class="span4 aligned">
-          <ul>
-            {% if user.is_authenticated %}
-              <li><a href="{% url userprofiles_profile_change %}">Mein Konto</a></li>
-              <li><a href="{% url auth_logout %}?next={{ request.path }}">Abmelden</a></li>
-            {% else %}
-              <li><a href="{% url auth_login %}?next={{ request.path }}">Anmelden</a></li>
-              <li><a href="{% url userprofiles_registration %}">Registrieren</a></li>
-            {% endif %}
-            <!-- <li> -->
-            <!--   <form class="form-search link-style"> -->
-            <!--     <input type="text" class="search-query input-medium" /> -->
-            <!--   </form> -->
-            <!-- </li> -->
-          </ul>
-        </nav>
-        <div class="span8 logo">
-          <a href="/"><img src="{{ STATIC_URL }}images/logo-small.png" alt="PyCon DE 2013" /></a>
-        </div>
+  <div class="navbar navbar-fixed-top">
+    <div class="navbar-inner">
+      <div class="container">
+         <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+           <span class="icon-bar"></span>
+         </a>
+         <a class="brand" href="/">PyCon.DE 2013</a>
+         <div class="nav-collapse collapse" id="mainmenu">
+           <ul class="nav">{% show_menu 0 100 0 0 "mainmenu.html" %}</ul>
+           <form method="GET" id="search" action="/search/" class="visible-desktop navbar-search pull-right">
+             <input type="search" name="q" class="search-query" placeholder="Suchen..." />
+           </form>
+         </div>
       </div>
-      {% block body_main %}
-      <div id="main">
-        <div id="sidebar">
-          <nav id="mainmenu"><ul>{% show_menu 0 100 0 100 %}</ul></nav>
-          {% block sidebar %}{% endblock %}
-        </div>
-        <div id="content">
-          <div>
-            {% block content_banner %}{% endblock %}
-            {% if request.current_page %}
-              <h1>{% block page_title %}{% page_attribute "page_title" %}{% endblock %}</h1>
-            {% endif %}
-            {% block content %}{% endblock %}
-            {% block content_footer %}
-            <aside class="content_footer">
-              <section id="organizers">
-                <h2>Veranstalter</h2>
-                <ul>
-                  <li><img src="{{ STATIC_URL }}images/pysv_logo.png" alt="Python Software Verband e.V." /></li>
-                  <li><img src="{{ STATIC_URL }}images/dlr_logo.png" alt="DLR - Deutsches Zentrum für Luft- und Raumfahrt" /></li>
-                  <li><img src="{{ STATIC_URL }}images/pycologne_logo.png" alt="pyCologne - Python User Group Köln" /></li>
-                </ul>
-              </section>
-            </aside>
-            {% endblock %}
+      <div id="dropout-menu" class="container">
+        <div class="row">
+          <div class="span3">
+            Zukunft.Dynamisch.Entwickeln
+            <br />
+            3. Deutsche Python-Konferenz
+            <br />
+            14. - 19. Oktober 2013, Köln
           </div>
-        </div>
-      </div>
-      {% endblock %}
-
-      <footer class="row">
-        <div class="content">
-          <div class="box">
-            <h2>Impressum</h2>
-          </div>
-          <div class="box">
-            <h2>Kontakt</h2>
-            <p>Wenden Sie sich bei Fragen gerne per Post oder E-Mail an uns.</p>
-          </div>
-          <div class="box">
-            <h2>Folgen Sie uns auch auf</h2>
-            <ul class="social-links">
-              <li><a class="twitter" href="http://twitter.com/pyconde">Twitter</a></li>
-              <li><a class="facebook" href="https://www.facebook.com/events/282743508468358/">Facebook</a></li>
-              <li><a class="googleplus" href="https://plus.google.com/u/0/105513231278038048004/">Google+</a></li>
-              <li><a class="youtube" href="http://www.youtube.com/user/PyConDE">YouTube</a></li>
+          <div class="span9">
+            <ul>
+              {% show_menu 0 100 3 100 %}
             </ul>
           </div>
         </div>
-      </footer>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    {% block page %}
+    <div class="row" id="page">
+      <div class="span8" id="content">
+        {% block content_banner %}{% endblock %}
+        {% block content_title %}
+        {% if request.current_page %}
+        <h1>{% block page_title %}{% page_attribute "page_title" %}{% endblock %}</h1>
+        {% endif %}
+        {% endblock %}
+        <div id="content-main">{% block content %}{% endblock %}</div>
+      </div>
+      <div class="span3 pull-right">
+        {% block sidebar_wrapper %}
+        <img class="halo" src="{{ STATIC_URL }}images/logo-small.png" title="PyCon.DE 2013" />
+        {% block sidebar %}{% endblock %}
+        {% endblock %}
+      </div>
+    </div>
+    {% endblock %}
+
+    <!-- <div class="row"> -->
+    <!--   {% block content_footer %} -->
+    <!--   <aside class="content_footer"> -->
+    <!--     <section id="organizers"> -->
+    <!--       <h2>Veranstalter</h2> -->
+    <!--       <ul> -->
+    <!--         <li><img src="{{ STATIC_URL }}images/pysv_logo.png" alt="Python Software Verband e.V." /></li> -->
+    <!--         <li><img src="{{ STATIC_URL }}images/dlr_logo.png" alt="DLR - Deutsches Zentrum für Luft- und Raumfahrt" /></li> -->
+    <!--         <li><img src="{{ STATIC_URL }}images/pycologne_logo.png" alt="pyCologne - Python User Group Köln" /></li> -->
+    <!--       </ul> -->
+    <!--     </section> -->
+    <!--   </aside> -->
+    <!--   {% endblock %} -->
+    <!-- </div> -->
+    <footer class="row hidden-phone">
+      <div class="box span3">
+        <h2>Impressum</h2>
+      </div>
+      <div class="box span3">
+        <h2>Kontakt</h2>
+        <p>Wenden Sie sich bei Fragen gerne per Post oder E-Mail an uns.</p>
+      </div>
+      <div class="box span3">
+        <h2>Folgen Sie uns auch auf</h2>
+        <ul class="social-links">
+          <li><a class="twitter" href="http://twitter.com/pyconde">Twitter</a></li>
+          <li><a class="facebook" href="https://www.facebook.com/events/282743508468358/">Facebook</a></li>
+          <li><a class="googleplus" href="https://plus.google.com/u/0/105513231278038048004/">Google+</a></li>
+          <li><a class="youtube" href="http://www.youtube.com/user/PyConDE">YouTube</a></li>
+        </ul>
+      </div>
+    </footer>
+    <!-- <div id="subnav" class="row"> -->
+    <!--   <div class="span2"> -->
+    <!--     <ul class="nav nav-list">{% show_menu 1 100 0 100 %}</ul> -->
+    <!--   </div> -->
+    <!--   <div class="span10">content</div> -->
+    <!-- </div> -->
+    <!-- <div class="page-wrapper"> -->
+    <!--   <header class="row"> -->
+    <!--     <div class="span12"> -->
+    <!--       <hgroup class="hidden-phone"> -->
+    <!--         <h1>Zukunft.Dynamisch.Entwickeln</h1> -->
+    <!--         <h2><a href="/programm/">14. - 19. Oktober 2013</a></h2> -->
+    <!--       </hgroup> -->
+    <!--     </div> -->
+    <!--   </header> -->
+
+    <!--   <div class="row" id="subheader"> -->
+    <!--     <nav class="span4 aligned"> -->
+    <!--       <ul> -->
+    <!--         {% if user.is_authenticated %} -->
+    <!--         {% show_menu_below_id "proposals" %} -->
+    <!--         <li><a href="{% url userprofiles_profile_change %}">Mein Konto</a></li> -->
+    <!--         <li><a href="{% url auth_logout %}?next={{ request.path }}">Abmelden</a></li> -->
+    <!--         {% else %} -->
+    <!--         <li><a href="{% url auth_login %}?next={{ request.path }}">Anmelden</a></li> -->
+    <!--         <li><a href="{% url userprofiles_registration %}">Registrieren</a></li> -->
+    <!--         {% endif %} -->
+    <!--         <\!-- <li> -\-> -->
+    <!--         <\!--   <form class="form-search link-style"> -\-> -->
+    <!--         <\!--     <input type="text" class="search-query input-medium" /> -\-> -->
+    <!--         <\!--   </form> -\-> -->
+    <!--         <\!-- </li> -\-> -->
+    <!--       </ul> -->
+    <!--     </nav> -->
+    <!--     <div class="span8 logo"> -->
+    <!--       <a href="/"><img src="{{ STATIC_URL }}images/logo-small.png" alt="PyCon DE 2013" /></a> -->
+    <!--     </div> -->
+    <!--   </div> -->
+          <div id="main">
+        <div id="sidebar">
+          
+        </div>
+       
     </div>
   </div>
 

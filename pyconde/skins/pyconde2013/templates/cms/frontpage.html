@@ -1,8 +1,17 @@
 {% extends "cms/default.html" %}
 {% load i18n sekizai_tags sponsorship_tags cms_tags %}
 {% block bodycls %}frontpage with-headeraddon{% endblock %}
-{% block content_banner %}
-<div id="content_banner">
-    {% placeholder "content_banner" %}
+{% block page %}
+<div class="row postcard">
+  <div id="content">
+    <img class="halo pull-right" src="{{ STATIC_URL }}images/PostkartePyConDE-Logo-big.png" />
+    <h1>Zukunft.Dynamisch.Entwickeln</h1><br />
+    <h2 class="highlight">3. Deutsche Python-Konferenz</h2><br />
+    <h2 class="highlight">14. - 19. Oktober 2013, Köln</h2>
+  </div>
+</div>
+<div id="content-main">
+  {% block content %}{% endblock %}
+  CONTENT GOES HERE
 </div>
 {% endblock %}

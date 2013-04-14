@@ -9,7 +9,8 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
-    <meta name="viewport" content="width=1024" initial-scale="1.0">
+    <!-- <meta name="viewport" content="width=1024" initial-scale="1.0"> -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block site_title %}PyCon DE{% endblock %}</title>
     {% block site_meta %}
     <meta name="author" content="Python Software Verband e.V.">
@@ -52,6 +53,7 @@
     <script src="{{ STATIC_URL }}js/jquery-1.7.1.min.js"></script>
     <script src="{{ STATIC_URL }}js/jquery.slides.min.js"></script>
     <script src="{{ STATIC_URL }}js/pyconde.core.js"></script>
+    <script src="{{ STATIC_URL }}css/bootstrap/js/bootstrap-collapse.js"></script>
     {% endcompress %}
     {% render_block "js" %}
 </body>

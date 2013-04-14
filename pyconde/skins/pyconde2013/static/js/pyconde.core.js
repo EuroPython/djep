@@ -38,6 +38,12 @@ var pyconde = (function($) {
 
     function init() {
         createSponsorSlides();
+        $('div.navbar').mouseenter(function() {
+            $('#dropout-menu').slideDown();
+        });
+        $('#dropout-menu').mouseleave(function() {
+            $('#dropout-menu').slideUp();
+        });
     }
 
     init();
