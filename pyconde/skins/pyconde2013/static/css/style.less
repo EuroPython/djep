@@ -50,6 +50,11 @@ input[type="color"]:focus,
   outline: thin dotted \9; /* IE6-9 */
 }
 
+textarea {
+    width: 450px;
+    height: 300px;
+}
+
 
 // styles
 
@@ -229,18 +234,15 @@ footer .box {
     color: #fff;
     background: @green;
     padding: 3px;
-    padding-left: 20px;
     padding-right: 10px;
     display: inline-block;
   }
   h2, h3, h4, h5, h6 {
     color: @green;
     font-size: @normalFontSize;
-    padding-left: 20px;
   }
   p {
     margin-top: .7em;
-    padding-left: 20px;
   }
   a {
     font-size: @smallFontSize;
@@ -251,12 +253,12 @@ footer .box {
   background: rgba(255, 255, 255, 1);
   padding-top: 10px;
   padding-right: 15px;
+  > * {
+    padding-left: 20px;
+  }
 }
 .frontpage #content-main {
     padding-right: 0;
-    > * {
-        margin-left: 20px;
-    }
 }
 
 footer {
@@ -470,8 +472,12 @@ footer {
   
 }
 
-img.halo {
+a.halo {
+  display: inline-block;
   border: 17px solid rgba(255, 255, 255, 0.5);
+  img {
+    display: block;
+  }
 }
 
 div.postcard {
