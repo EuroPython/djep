@@ -57,9 +57,9 @@
         "fields": {
             "conference": 1,
             "name": "Konferenz",
-            "end_date": "2012-10-17",
+            "end_date": "2013-10-17",
             "order": 3,
-            "start_date": "2012-10-15",
+            "start_date": "2013-10-15",
             "slug": "konferenz",
             "description": ""
         }
@@ -159,7 +159,7 @@
             "slug": "python",
             "visible": true,
             "order": 0,
-            "name": "Python"
+            "name": "Python Core"
         }
     },
     {
@@ -167,11 +167,11 @@
         "model": "conference.track",
         "fields": {
             "conference": 1,
-            "description": "Frameworks, best practices, JavaScript",
-            "slug": "web",
+            "description": "",
+            "slug": "libs",
             "visible": true,
             "order": 1,
-            "name": "Web"
+            "name": "Libraries und Erweiterungen"
         }
     },
     {
@@ -179,11 +179,11 @@
         "model": "conference.track",
         "fields": {
             "conference": 1,
-            "description": "Wissenschaft, Finanzen, Lehre",
-            "slug": "anwendungsbereiche",
+            "description": "",
+            "slug": "best-practices",
             "visible": true,
             "order": 2,
-            "name": "Anwendungsbereiche"
+            "name": "Best Practices"
         }
     },
     {
@@ -191,11 +191,11 @@
         "model": "conference.track",
         "fields": {
             "conference": 1,
-            "description": "Testen, Agile, Algorithmen, Datenstrukturen, Design-Patterns",
-            "slug": "softwareentwicklung",
+            "description": "",
+            "slug": "web",
             "visible": true,
             "order": 3,
-            "name": "Softwareentwicklung"
+            "name": "Web-Entwicklung"
         }
     },
     {
@@ -203,11 +203,71 @@
         "model": "conference.track",
         "fields": {
             "conference": 1,
-            "description": "Packaging, Deployment, IDEs, Plattformen wie GAE",
-            "slug": "werkzeuge",
+            "description": "",
+            "slug": "multimedia",
             "visible": true,
             "order": 4,
-            "name": "Werkzeuge"
+            "name": "Spiele, Multimedia und Grafik"
+        }
+    },
+    {
+        "pk": 7,
+        "model": "conference.track",
+        "fields": {
+            "conference": 1,
+            "description": "",
+            "slug": "science",
+            "visible": true,
+            "order": 5,
+            "name": "Wissenschaft und Big Data"
+        }
+    },
+    {
+        "pk": 8,
+        "model": "conference.track",
+        "fields": {
+            "conference": 1,
+            "description": "",
+            "slug": "hardware",
+            "visible": true,
+            "order": 6,
+            "name": "Hardware und Embedded Systems"
+        }
+    },
+    {
+        "pk": 9,
+        "model": "conference.track",
+        "fields": {
+            "conference": 1,
+            "description": "",
+            "slug": "infrastructure",
+            "visible": true,
+            "order": 7,
+            "name": "Infrastruktur und Cloud Computing"
+        }
+    },
+    {
+        "pk": 10,
+        "model": "conference.track",
+        "fields": {
+            "conference": 1,
+            "description": "",
+            "slug": "education",
+            "visible": true,
+            "order": 8,
+            "name": "Bildung und Ausbildung"
+        }
+    },
+    {
+        "pk": 11,
+        "model": "conference.track",
+        "fields": {
+            "conference": 1,
+            "description": "",
+            "slug": "communities",
+            "visible": true,
+            "order": 9,
+            "name": "Communities"
         }
     },
     {
