@@ -11,7 +11,13 @@
   </div>
 </div>
 <div id="content-main">
-  {% block content %}{% endblock %}
-  CONTENT GOES HERE
+    <div id="content_banner">
+        {% placeholder content_banner %}
+    </div>
+  {% block content %}
+    {% block apphook %}
+        {% placeholder content %}
+    {% endblock %}
+  {% endblock %}
 </div>
 {% endblock %}
