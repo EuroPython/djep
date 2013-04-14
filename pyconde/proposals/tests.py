@@ -7,11 +7,13 @@ from django.contrib.auth import models as auth_models
 from django.core.exceptions import ValidationError
 
 from pyconde.conference.test_utils import ConferenceTestingMixin
+from pyconde.conference import models as conference_models
 from pyconde.speakers import models as speakers_models
 
 from . import models
 from . import forms
 from . import validators
+from . import utils
 
 
 class SubmissionTests(ConferenceTestingMixin, TestCase):
@@ -216,3 +218,52 @@ class LeaveProposalViewTests(TestCase):
         self.assertRedirects(
             self.client.get('/proposals/leave/123/'),
             '/accounts/login/?next=/proposals/leave/123/')
+
+
+class TimeslotModelTests(ConferenceTestingMixin, TestCase):
+    def setUp(self):
+        self.create_test_conference()
+
+    def tearDown(self):
+        self.destroy_all_test_conferences()
+
+    def test_uniqueness(self):
+        """
+        Ensure uniqueness of a timeslot per day.
+        """
+        section = conference_models.Section(
+            conference=self.conference, name="Test section")
+        section.save()
+        today = datetime.datetime.now().date()
+        ts1 = models.TimeSlot(date=today, slot=1, section=section)
+        ts1.save()
+        ts2 = models.TimeSlot(date=today, slot=2, section=section)
+        ts2.save()
+        ts1_again = models.TimeSlot(date=today, slot=1, section=section)
+        with self.assertRaises(Exception):
+            ts1_again.clear()
+
+
+class DateRangeTests(TestCase):
+    def test_simple_daterange(self):
+        start = datetime.date(2013, 3, 15)
+        end = datetime.date(2013, 3, 18)
+        range_ = list(utils.get_date_range(start, end))
+        self.assertEquals(4, len(range_))
+        self.assertEquals(datetime.date(2013, 3, 15), range_[0])
+        self.assertEquals(datetime.date(2013, 3, 16), range_[1])
+        self.assertEquals(datetime.date(2013, 3, 17), range_[2])
+        self.assertEquals(datetime.date(2013, 3, 18), range_[3])
+
+    def test_oneday_daterange(self):
+        start = datetime.date(2013, 3, 15)
+        end = datetime.date(2013, 3, 15)
+        range_ = list(utils.get_date_range(start, end))
+        self.assertEquals(1, len(range_))
+        self.assertEquals(datetime.date(2013, 3, 15), range_[0])
+
+    def test_invalid_daterange(self):
+        start = datetime.date(2013, 03, 15)
+        end = datetime.date(2013, 03, 14)
+        with self.assertRaises(ValueError):
+            list(utils.get_date_range(start, end))

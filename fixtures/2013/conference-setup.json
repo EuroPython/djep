@@ -1,0 +1,285 @@
+[
+    {
+        "pk": 1,
+        "model": "conference.conference",
+        "fields": {
+            "reviews_active": false,
+            "end_date": "2013-10-19",
+            "title": "PyConDE 2013",
+            "reviews_end_date": null,
+            "reviews_start_date": null,
+            "timezone": "Europe/Berlin",
+            "start_date": "2013-10-14"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "conference.section",
+        "fields": {
+            "conference": 1,
+            "name": "Tutorials",
+            "end_date": "2013-10-14",
+            "order": 1,
+            "start_date": "2013-10-14",
+            "slug": "tutorials",
+            "description": ""
+        }
+    },
+    {
+        "pk": 3,
+        "model": "conference.section",
+        "fields": {
+            "conference": 1,
+            "name": "Barcamp",
+            "end_date": "2013-10-18",
+            "order": 4,
+            "start_date": "2013-10-18",
+            "slug": "barcamp",
+            "description": ""
+        }
+    },
+    {
+        "pk": 4,
+        "model": "conference.section",
+        "fields": {
+            "conference": 1,
+            "name": "Sprints",
+            "end_date": "2013-10-19",
+            "order": 3,
+            "start_date": "2013-10-18",
+            "slug": "sprints",
+            "description": ""
+        }
+    },
+    {
+        "pk": 5,
+        "model": "conference.section",
+        "fields": {
+            "conference": 1,
+            "name": "Konferenz",
+            "end_date": "2013-10-17",
+            "order": 3,
+            "start_date": "2013-10-15",
+            "slug": "konferenz",
+            "description": ""
+        }
+    },
+    {
+        "pk": 1,
+        "model": "conference.audiencelevel",
+        "fields": {
+            "conference": 1,
+            "level": 1,
+            "name": "Novice",
+            "slug": "novice"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "conference.audiencelevel",
+        "fields": {
+            "conference": 1,
+            "level": 2,
+            "name": "Experienced",
+            "slug": "experienced"
+        }
+    },
+    {
+        "pk": 1,
+        "model": "conference.sessionduration",
+        "fields": {
+            "conference": 1,
+            "minutes": 180,
+            "slug": "tutorial",
+            "label": "Tutorial"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "conference.sessionduration",
+        "fields": {
+            "conference": 1,
+            "minutes": 55,
+            "slug": "normal",
+            "label": "45 min. + 10 min. F&A"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "conference.sessionduration",
+        "fields": {
+            "conference": 1,
+            "minutes": 25,
+            "slug": "half",
+            "label": "20 min. + 5 min. F&A"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "conference.sessionkind",
+        "fields": {
+            "conference": 1,
+            "name": "Keynote",
+            "end_date": null,
+            "slug": "keynote",
+            "closed": true,
+            "start_date": null
+        }
+    },
+    {
+        "pk": 1,
+        "model": "conference.sessionkind",
+        "fields": {
+            "conference": 1,
+            "name": "Vortrag",
+            "end_date": null,
+            "slug": "talk",
+            "closed": false,
+            "start_date": null
+        }
+    },
+    {
+        "pk": 2,
+        "model": "conference.sessionkind",
+        "fields": {
+            "conference": 1,
+            "name": "Tutorial",
+            "end_date": null,
+            "slug": "tutorial",
+            "closed": false,
+            "start_date": null
+        }
+    },
+    {
+        "pk": 1,
+        "model": "conference.track",
+        "fields": {
+            "conference": 1,
+            "description": "Sprache, Advanced Programming/Metaprogramming, CPython, Core development, PyPy, Jython",
+            "slug": "python",
+            "visible": true,
+            "order": 0,
+            "name": "Python Core"
+        }
+    },
+    {
+        "pk": 2,
+        "model": "conference.track",
+        "fields": {
+            "conference": 1,
+            "description": "",
+            "slug": "libs",
+            "visible": true,
+            "order": 1,
+            "name": "Libraries und Erweiterungen"
+        }
+    },
+    {
+        "pk": 3,
+        "model": "conference.track",
+        "fields": {
+            "conference": 1,
+            "description": "",
+            "slug": "best-practices",
+            "visible": true,
+            "order": 2,
+            "name": "Best Practices"
+        }
+    },
+    {
+        "pk": 4,
+        "model": "conference.track",
+        "fields": {
+            "conference": 1,
+            "description": "",
+            "slug": "web",
+            "visible": true,
+            "order": 3,
+            "name": "Web-Entwicklung"
+        }
+    },
+    {
+        "pk": 5,
+        "model": "conference.track",
+        "fields": {
+            "conference": 1,
+            "description": "",
+            "slug": "multimedia",
+            "visible": true,
+            "order": 4,
+            "name": "Spiele, Multimedia und Grafik"
+        }
+    },
+    {
+        "pk": 7,
+        "model": "conference.track",
+        "fields": {
+            "conference": 1,
+            "description": "",
+            "slug": "science",
+            "visible": true,
+            "order": 5,
+            "name": "Wissenschaft und Big Data"
+        }
+    },
+    {
+        "pk": 8,
+        "model": "conference.track",
+        "fields": {
+            "conference": 1,
+            "description": "",
+            "slug": "hardware",
+            "visible": true,
+            "order": 6,
+            "name": "Hardware und Embedded Systems"
+        }
+    },
+    {
+        "pk": 9,
+        "model": "conference.track",
+        "fields": {
+            "conference": 1,
+            "description": "",
+            "slug": "infrastructure",
+            "visible": true,
+            "order": 7,
+            "name": "Infrastruktur und Cloud Computing"
+        }
+    },
+    {
+        "pk": 10,
+        "model": "conference.track",
+        "fields": {
+            "conference": 1,
+            "description": "",
+            "slug": "education",
+            "visible": true,
+            "order": 8,
+            "name": "Bildung und Ausbildung"
+        }
+    },
+    {
+        "pk": 11,
+        "model": "conference.track",
+        "fields": {
+            "conference": 1,
+            "description": "",
+            "slug": "communities",
+            "visible": true,
+            "order": 9,
+            "name": "Communities"
+        }
+    },
+    {
+        "pk": 6,
+        "model": "conference.track",
+        "fields": {
+            "conference": 1,
+            "description": "Ich bin mir nicht sicher, in welchen Track mein Proposal passt.",
+            "slug": "unbekannt",
+            "visible": false,
+            "order": 1000,
+            "name": "Unbekannt"
+        }
+    }
+]

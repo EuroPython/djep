@@ -30,7 +30,7 @@ class SponsorsNode(template.Node):
         conference = current_conference()
         if self.level:
             level = self.level.resolve(context)
-            queryset = Sponsor.objects.filter(level__conference = conference, level__name__iexact = level, active = True).order_by("added")
+            queryset = Sponsor.objects.filter(level__conference = conference, level__slug__iexact = level, active = True).order_by("added")
         else:
             queryset = Sponsor.objects.filter(level__conference = conference, active = True).order_by("level__order", "added")
         context[self.context_var] = queryset
