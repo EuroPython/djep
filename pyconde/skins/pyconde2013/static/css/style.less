@@ -3,11 +3,11 @@
 
 // Font definitions
 @bodyFont: "Verdana", "Helvetica Neue", Helvetica, Arial, sans-serif;
-@baseFontSize: 13pt;
+@baseFontSize: 14px;
 @headerFontSize: 21.34pt;
 @header1FontSize: 22pt;
-@normalFontSize: 13pt;
-@smallFontSize: 11pt;
+@normalFontSize: 14px;
+@smallFontSize: 12px;
 
 @rightPageMargin: 60px;
 
@@ -15,6 +15,7 @@
 @import "bootstrap/less/bootstrap";
 @import "bootstrap/less/responsive";
 
+@baseFontSize: 14px;
 @gridColumnWidth: 67px;
 @linkColor: @green;
 
@@ -68,6 +69,11 @@ body {
     color: @baseColor;
     line-height: 1.6em;
     background: darken(#FAFAFA, 2%);
+}
+
+p {
+    font-size: @baseFontSize;
+    line-height: 1.6em;
 }
 
 #page {
@@ -184,42 +190,13 @@ header {
     font-size: @normalFontSize;
 }
 
-// #breadcrumbs {
-//   ul {
-//     list-style-type: none;
-//     margin-left: 0;
-//     font-size: @baseFontSize * .9;
-//     li {
-//       display: inline;
-//     }
-//   }
-// }
-
-#main {
-    //margin-bottom: 40px;
-//    #grid > .core .row();
-}
-// #sidebar, #content {
-//     float: left;
-//     margin-left: @gridGutterWidth;
-// }
 footer .box {
     margin-left: @fluidGridGutterWidth;
 }
 
-// #sidebar {
-//     #grid > .core .span(4);
-// }
-// #content {
-//     #grid > .core .span(8);
-//     > div {
-//         padding-right: @rightPageMargin;
-//     }
-// }
-
 #content {
   margin-left: 0px;
-  h1 {
+  > h1 {
     margin-bottom: 25px;
     background: @green;
     color: #fff;
@@ -230,22 +207,8 @@ footer .box {
     padding-left: 20px;
     padding-right: 10px;
   }
-  h2.highlight {
-    color: #fff;
-    background: @green;
-    padding: 3px;
-    padding-right: 10px;
-    display: inline-block;
-  }
-  h2, h3, h4, h5, h6 {
-    color: @green;
-    font-size: @normalFontSize;
-  }
   p {
     margin-top: .7em;
-  }
-  a {
-    font-size: @smallFontSize;
   }
 }
 
@@ -256,6 +219,18 @@ footer .box {
   > * {
     padding-left: 20px;
   }
+  h1, h2, h3, h4 {
+    color: @green;
+    margin-bottom: 5px;
+    margin-top: 1em;
+  }
+  h1 {
+    margin-top: 0;
+    margin-bottom: 10px;
+    font-size: 28px;
+  }
+  h2 {font-size: 22px;}
+  h3 {font-size: 17px;}
 }
 .frontpage #content-main {
     padding-right: 0;
@@ -321,6 +296,7 @@ ul.social-links {
 }
 
 #sidebar {
+    font-size: 13px;
     > aside > .cmsplugin,
     > aside > .tbox,
     > aside > a,
@@ -486,4 +462,26 @@ div.postcard {
   padding-top: 20px;
   padding-right: 15px;
   padding-bottom: 15px;
+    h1, h2 {
+        color: #FFF;
+        font-size: 29px;
+        span {
+            padding: 2px 10px 2px 20px;
+            display: inline-block;
+            background: @green;
+        }
+    }
+    h1 {
+        margin-bottom: 25px;
+    }
+    h2 {
+        font-size: 17px;
+        margin-bottom: 1px;
+    }
+}
+
+form {
+    legend {
+        font-size: 120%;
+    }
 }
