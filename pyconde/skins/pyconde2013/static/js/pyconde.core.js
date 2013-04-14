@@ -51,6 +51,8 @@ var pyconde = (function($) {
             var numSlides = slideContainer.find('ul').length;
             if (container.hasClass('slides-2rows')) {
                 height = 150;
+            } else if (container.hasClass('slides-3rows')){
+                height = 225;
             } else {
                 height = 75;
             }

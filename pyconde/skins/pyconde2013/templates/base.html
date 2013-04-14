@@ -69,21 +69,6 @@
       </div>
     </div>
     {% endblock %}
-
-    <!-- <div class="row"> -->
-    <!--   {% block content_footer %} -->
-    <!--   <aside class="content_footer"> -->
-    <!--     <section id="organizers"> -->
-    <!--       <h2>Veranstalter</h2> -->
-    <!--       <ul> -->
-    <!--         <li><img src="{{ STATIC_URL }}images/pysv_logo.png" alt="Python Software Verband e.V." /></li> -->
-    <!--         <li><img src="{{ STATIC_URL }}images/dlr_logo.png" alt="DLR - Deutsches Zentrum für Luft- und Raumfahrt" /></li> -->
-    <!--         <li><img src="{{ STATIC_URL }}images/pycologne_logo.png" alt="pyCologne - Python User Group Köln" /></li> -->
-    <!--       </ul> -->
-    <!--     </section> -->
-    <!--   </aside> -->
-    <!--   {% endblock %} -->
-    <!-- </div> -->
     <footer class="row hidden-phone">
       <div class="box span3">
         <h2>Impressum</h2>
@@ -102,50 +87,6 @@
         </ul>
       </div>
     </footer>
-    <!-- <div id="subnav" class="row"> -->
-    <!--   <div class="span2"> -->
-    <!--     <ul class="nav nav-list">{% show_menu 1 100 0 100 %}</ul> -->
-    <!--   </div> -->
-    <!--   <div class="span10">content</div> -->
-    <!-- </div> -->
-    <!-- <div class="page-wrapper"> -->
-    <!--   <header class="row"> -->
-    <!--     <div class="span12"> -->
-    <!--       <hgroup class="hidden-phone"> -->
-    <!--         <h1>Zukunft.Dynamisch.Entwickeln</h1> -->
-    <!--         <h2><a href="/programm/">14. - 19. Oktober 2013</a></h2> -->
-    <!--       </hgroup> -->
-    <!--     </div> -->
-    <!--   </header> -->
-
-    <!--   <div class="row" id="subheader"> -->
-    <!--     <nav class="span4 aligned"> -->
-    <!--       <ul> -->
-    <!--         {% if user.is_authenticated %} -->
-    <!--         {% show_menu_below_id "proposals" %} -->
-    <!--         <li><a href="{% url userprofiles_profile_change %}">Mein Konto</a></li> -->
-    <!--         <li><a href="{% url auth_logout %}?next={{ request.path }}">Abmelden</a></li> -->
-    <!--         {% else %} -->
-    <!--         <li><a href="{% url auth_login %}?next={{ request.path }}">Anmelden</a></li> -->
-    <!--         <li><a href="{% url userprofiles_registration %}">Registrieren</a></li> -->
-    <!--         {% endif %} -->
-    <!--         <\!-- <li> -\-> -->
-    <!--         <\!--   <form class="form-search link-style"> -\-> -->
-    <!--         <\!--     <input type="text" class="search-query input-medium" /> -\-> -->
-    <!--         <\!--   </form> -\-> -->
-    <!--         <\!-- </li> -\-> -->
-    <!--       </ul> -->
-    <!--     </nav> -->
-    <!--     <div class="span8 logo"> -->
-    <!--       <a href="/"><img src="{{ STATIC_URL }}images/logo-small.png" alt="PyCon DE 2013" /></a> -->
-    <!--     </div> -->
-    <!--   </div> -->
-          <div id="main">
-        <div id="sidebar">
-          
-        </div>
-       
-    </div>
   </div>
 
 {% endblock %}

@@ -76,6 +76,11 @@ body {
   background: url(../images/background.png) no-repeat 0px 0px #fff;
   min-height: 400px;
 }
+.frontpage #page {
+    margin-left: -30px;
+    margin-top: 0;
+    background: #FFF;
+}
 
 div.page-wrapper {
   -webkit-box-shadow: 5px -5px 10px -2px #888;
@@ -247,6 +252,12 @@ footer .box {
   padding-top: 10px;
   padding-right: 15px;
 }
+.frontpage #content-main {
+    padding-right: 0;
+    > * {
+        margin-left: 20px;
+    }
+}
 
 footer {
     background: @green;
@@ -313,7 +324,7 @@ ul.social-links {
     > aside > a,
     > aside > img {
         display: block;
-        padding: 0 15px 15px 15px;
+        padding: 0 15px 25px 15px;
         font-size: 90%;
         h2 {
             font-size: 16px;
@@ -325,8 +336,7 @@ ul.social-links {
     .cmsplugin-news {
         .headline {display: block;}
         ul {
-            list-style: none;
-            margin-left: 0;
+            margin-left: 2em;
         }
     }
     .cmsplugin-twitter {

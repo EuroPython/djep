@@ -10,14 +10,18 @@
     <h2 class="highlight">14. - 19. Oktober 2013, Köln</h2>
   </div>
 </div>
-<div id="content-main">
-    <div id="content_banner">
-        {% placeholder content_banner %}
-    </div>
-  {% block content %}
-    {% block apphook %}
-        {% placeholder content %}
+<div id="page">
+<div class="row">
+<div id="content-main" class="span7">
+    {% block content %}
+        {% block apphook %}
+            {% placeholder content %}
+        {% endblock %}
     {% endblock %}
-  {% endblock %}
+</div>
+<div id="sidebar" class="span5"><aside>
+    {% placeholder sidebar %}
+</aside></div>
+</div>
 </div>
 {% endblock %}
