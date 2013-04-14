@@ -57,9 +57,7 @@
       <div class="span8" id="content">
         {% block content_banner %}{% endblock %}
         {% block content_title %}
-        {% if request.current_page %}
-        <h1>{% block page_title %}{% page_attribute "page_title" %}{% endblock %}</h1>
-        {% endif %}
+        <h1>{% block page_title %}{% if request.current_page %}{% page_attribute "page_title" %}{% endif %}{% endblock %}</h1>
         {% endblock %}
         <div id="content-main">{% block content %}{% endblock %}</div>
       </div>
