@@ -11,6 +11,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Fieldset, Div, Field, HTML
 
 from .models import Profile
+from . import validators
 from .widgets import AvatarWidget
 from ..forms import Submit
 
@@ -37,7 +38,10 @@ class ProfileRegistrationForm(RegistrationForm):
     """
     avatar = forms.ImageField(widget=forms.FileInput, required=False,
         help_text=Profile()._meta.get_field_by_name('avatar')[0].help_text)
-    short_info = forms.CharField(widget=forms.Textarea, required=False)
+    short_info = forms.CharField(_("short info"), widget=forms.Textarea, required=False)
+    twitter = forms.CharField(_("Twitter"), required=False,
+        validators=[validators.twitter_username])
+    website = forms.URLField(_("Website"), required=False)
     num_accompanying_children = forms.IntegerField(required=False,
                                                    label=_('Number of accompanying children'),
                                                    widget=forms.Select(choices=NUM_ACCOMPANYING_CHILDREN_CHOICES))
@@ -45,7 +49,9 @@ class ProfileRegistrationForm(RegistrationForm):
     def __init__(self, *args, **kwargs):
         super(ProfileRegistrationForm, self).__init__(*args, **kwargs)
         account_fields = Fieldset(_('Account data'), Field('username', autofocus="autofocus"), 'email', 'password', 'password_repeat')
-        profile_fields = Fieldset(_('Profile'), 'first_name', 'last_name', 'avatar', 'short_info', 'num_accompanying_children')
+        profile_fields = Fieldset(_('Profile'), 'first_name', 'last_name',
+                                  'avatar', 'short_info', 'twitter', 'website',
+                                  'num_accompanying_children')
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
@@ -131,6 +137,8 @@ class ProfileForm(BaseProfileForm):
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
-                Div(Field('first_name', autofocus="autofocus"), 'last_name', 'avatar', 'short_info', 'num_accompanying_children'),
-                ButtonHolder(Submit('save', _('Change'), css_class='btn-primary'))
-            )
+            Div(Field('first_name', autofocus="autofocus"), 'last_name',
+                'avatar', 'short_info', 'twitter', 'website',
+                'num_accompanying_children'),
+            ButtonHolder(Submit('save', _('Change'), css_class='btn-primary'))
+        )

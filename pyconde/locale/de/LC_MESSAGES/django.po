@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-07 16:48+0200\n"
+"POT-Creation-Date: 2013-04-15 17:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,39 +25,51 @@ msgstr ""
 msgid "Accounts app"
 msgstr "Accounts-Anwendung"
 
-#: accounts/forms.py:42 accounts/forms.py:126
+#: accounts/forms.py:41 accounts/models.py:18
+msgid "short info"
+msgstr "Steckbrief"
+
+#: accounts/forms.py:42 accounts/models.py:26
+msgid "Twitter"
+msgstr ""
+
+#: accounts/forms.py:44 accounts/models.py:28
+msgid "Website"
+msgstr ""
+
+#: accounts/forms.py:46 accounts/forms.py:132
 msgid "Number of accompanying children"
 msgstr "Voraussichtliche Anzahl mitkommender Kinder"
 
-#: accounts/forms.py:47
+#: accounts/forms.py:51
 msgid "Account data"
 msgstr "Konto-Daten"
 
-#: accounts/forms.py:48
+#: accounts/forms.py:52
 msgid "Profile"
 msgstr "Profil"
 
-#: accounts/forms.py:53
+#: accounts/forms.py:59
 msgid "Create account"
 msgstr "Konto anlegen"
 
-#: accounts/forms.py:85
+#: accounts/forms.py:91
 msgid "Log in"
 msgstr "Anmelden"
 
-#: accounts/forms.py:101
+#: accounts/forms.py:107
 #: skins/default/templates/userprofiles/password_reset.html:4
 #: skins/default/templates/userprofiles/password_reset.html:7
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
-#: accounts/forms.py:116
+#: accounts/forms.py:122
 #: skins/default/templates/userprofiles/password_change.html:4
 #: skins/default/templates/userprofiles/password_change.html:7
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: accounts/forms.py:135
+#: accounts/forms.py:143
 msgid "Change"
 msgstr "Ändern"
 
@@ -77,21 +89,25 @@ msgstr "Profil ändern"
 msgid "Change your password"
 msgstr "Passwort ändern"
 
-#: accounts/models.py:16
-msgid "short info"
-msgstr "Steckbrief"
-
-#: accounts/models.py:17 accounts/widgets.py:45
+#: accounts/models.py:19 accounts/widgets.py:45
 msgid "avatar"
 msgstr "Profilbild"
 
-#: accounts/models.py:19
+#: accounts/models.py:21
 msgid "Please upload an image with a side length of at least 300 pixels."
 msgstr "Bitte ein Bild mit einer Breite von mindestens 300 Pixeln hochladen."
 
-#: accounts/models.py:20
+#: accounts/models.py:22
 msgid "number of accompanying children"
 msgstr "Voraussichtliche Anzahl mitkommender Kinder"
+
+#: accounts/validators.py:11
+msgid "Twitter usernames only have 15 or less characters"
+msgstr "Twitter-Benutzernamen haben 15 Zeichen oder weniger"
+
+#: accounts/validators.py:14
+msgid "Please omit the @ at the start of the twitter username"
+msgstr "Bitte schreiben Sie Ihren Twitter-Namen ohne @ am Anfang"
 
 #: attendees/admin.py:69
 msgid "1 mail was"
@@ -496,12 +512,12 @@ msgstr "Keine geplanten Events"
 msgid "Proposals app"
 msgstr "Proposals-Anwendung"
 
-#: proposals/forms.py:61 proposals/forms.py:166 proposals/forms.py:210
+#: proposals/forms.py:61 proposals/forms.py:172 proposals/forms.py:217
 #: reviews/forms.py:30 reviews/forms.py:92
 msgid "General"
 msgstr "Allgemeines"
 
-#: proposals/forms.py:67 proposals/forms.py:170 proposals/forms.py:214
+#: proposals/forms.py:67 proposals/forms.py:176 proposals/forms.py:221
 #: reviews/forms.py:35 reviews/forms.py:97
 msgid "Details"
 msgstr "Details"
@@ -514,7 +530,7 @@ msgstr "Weitere Vortragende"
 msgid "kind"
 msgstr "Art"
 
-#: proposals/forms.py:93 proposals/forms.py:250 proposals/models.py:67
+#: proposals/forms.py:93 proposals/forms.py:257 proposals/models.py:67
 msgid "duration"
 msgstr "Dauer"
 
@@ -524,21 +540,25 @@ msgstr "Dauer"
 msgid "Track"
 msgstr ""
 
-#: proposals/forms.py:113
+#: proposals/forms.py:108 proposals/models.py:72
+msgid "available timeslots"
+msgstr "Mögliche Zeiten"
+
+#: proposals/forms.py:119
 msgid "The selected session kind doesn't accept any proposals anymore."
 msgstr ""
 "Für die ausgewähle Session-Art können leider keine neuen Vorträge mehr "
 "eingereicht werden."
 
-#: proposals/forms.py:119
+#: proposals/forms.py:125
 msgid "Please select a valid audience level."
 msgstr "Bitte wählen Sie eine gültige Teilnehmerstufe aus."
 
-#: proposals/forms.py:125
+#: proposals/forms.py:131
 msgid "Please select a valid duration."
 msgstr "Bitte wählen Sie eine gültige Vortragsdauer aus."
 
-#: proposals/forms.py:131
+#: proposals/forms.py:137
 msgid "Please select a valid session kind."
 msgstr "Bitte wählen Sie eine gültige Session-Art aus."
 
@@ -596,10 +616,6 @@ msgstr "Einreichungsdatum"
 #: proposals/models.py:60
 msgid "modification date"
 msgstr "Änderungsdatum"
-
-#: proposals/models.py:72
-msgid "available timeslots"
-msgstr "Mögliche Zeiten"
 
 #: proposals/models.py:85
 msgid ""
@@ -1182,6 +1198,7 @@ msgstr ""
 #: skins/default/templates/cmsplugin_news/news_archive.html:3
 #: skins/default/templates/cmsplugin_news/news_archive.html:5
 #: skins/default/templates/cmsplugin_news/news_detail.html:3
+#: skins/pyconde2013/templates/cmsplugin_news/news_archive.html:3
 #: templates/cmsplugin_news/news_archive_day.html:3
 #: templates/cmsplugin_news/news_archive_day.html:5
 #: templates/cmsplugin_news/news_archive_month.html:3
@@ -1191,9 +1208,10 @@ msgstr ""
 msgid "News"
 msgstr ""
 
-#: skins/default/templates/cmsplugin_news/latest_news.html:16
-#: skins/default/templates/cmsplugin_news/latest_news.html:35
+#: skins/default/templates/cmsplugin_news/latest_news.html:17
+#: skins/default/templates/cmsplugin_news/latest_news.html:36
 #: skins/default/templates/cmsplugin_news/news_archive.html:8
+#: skins/pyconde2013/templates/cmsplugin_news/news_archive.html:6
 #: templates/cmsplugin_news/news_archive_day.html:8
 #: templates/cmsplugin_news/news_archive_month.html:8
 #: templates/cmsplugin_news/news_archive_year.html:8
@@ -1204,7 +1222,7 @@ msgstr "Keine News vorhanden"
 msgid "Latest news"
 msgstr "Aktuelle News"
 
-#: skins/default/templates/cmsplugin_news/latest_news.html:37
+#: skins/default/templates/cmsplugin_news/latest_news.html:34
 msgid "Archive"
 msgstr "Archiv"
 
@@ -1244,9 +1262,8 @@ msgstr ""
 "nicht möglich."
 
 #: sponsorship/cms_plugins.py:10
-#, fuzzy
 msgid "sponsor list plugin"
-msgstr "Sponsor-Stufe"
+msgstr "Sponsoren-Plugin"
 
 #: sponsorship/models.py:23
 msgid "sponsor level"
