@@ -4,6 +4,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.db import models
 from easy_thumbnails.fields import ThumbnailerImageField
 
+from . import validators
+
 
 class Profile(models.Model):
     """
@@ -21,3 +23,6 @@ class Profile(models.Model):
                                                             null=True,
                                                             blank=True,
                                                             default=0)
+    twitter = models.CharField(_("Twitter"), blank=True, max_length=20,
+        validators=[validators.twitter_username])
+    website = models.URLField(_("Website"), blank=True)

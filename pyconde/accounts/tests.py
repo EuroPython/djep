@@ -1,10 +1,12 @@
 import unittest
 from django.contrib.auth.models import User
+from django.core.exceptions import ValidationError
 
 from .templatetags import account_tags
 from . import forms
 from . import models
 from . import views
+from . import validators
 
 
 class AccountNameFilterTests(unittest.TestCase):
@@ -113,3 +115,13 @@ class AutocompleteUserViewTests(unittest.TestCase):
         result = self.view.get_matching_users('firstname')
         self.assertEquals(1, len(result))
         self.assertEquals('Firstname Lastname', result[0]['label'])
+
+
+class TwitterUsernameValidatorTest(unittest.TestCase):
+    def test_start_with_at(self):
+        with self.assertRaises(ValidationError):
+            validators.twitter_username("@test")
+
+    def test_too_long(self):
+        with self.assertRaises(ValidationError):
+            validators.twitter_username("test test test t")
