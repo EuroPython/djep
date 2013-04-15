@@ -82,7 +82,7 @@ p {
   background: #fafafa;
   padding-bottom: 50px;
   position: relative;
-  margin-top: 40px;
+  // margin-top: 40px;
   padding-top: 20px;
   background: url(../images/background.png) no-repeat 0px 0px #fff;
   min-height: 400px;
@@ -487,4 +487,21 @@ form {
     legend {
         font-size: 120%;
     }
+}
+
+
+// Workarounds to make the site work on mobile devices.
+@media (max-width: 979px) {
+    .navbar-fixed-top {
+        margin-bottom: 0;
+    }
+}
+
+@media (max-width: 767px) {
+    .navbar-fixed-top, .navbar-fixed-bottom, .navbar-static-top {
+        margin-left: 0;
+        margin-right: 0;
+    }
+  }
+
 }
