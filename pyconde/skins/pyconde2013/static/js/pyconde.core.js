@@ -88,9 +88,13 @@ var pyconde = (function($) {
         createSponsorSlides();
         $(createMultiuserSelectBox);
         $('div.navbar').mouseenter(function() {
-            $('#dropout-menu').slideDown();
-        });
-        $('#page').mouseenter(function() {
+            var $that = $(this);
+            window.setTimeout(function() {
+                if ($that.is(':hover')) {
+                    $('#dropout-menu').slideDown();
+                }
+            }, 300);
+        }).mouseleave(function() {
             $('#dropout-menu').slideUp();
         });
     }
