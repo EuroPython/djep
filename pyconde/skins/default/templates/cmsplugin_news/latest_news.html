@@ -12,10 +12,10 @@
                 </li>
             {% endfor %}
             </ul>
+            <p class="more"><a href="{% url news_archive_index %}">Alle News lesen</a></p>
         {% else %}
             <p class="empty">{% trans "No news yet" %}</p>
         {% endif %}
-        <p class="more"><a href="{% url news_archive_index %}">Alle News lesen</a></p>
     </div>
 </section>
 {% else %}
@@ -31,10 +31,10 @@
                 </li>
             {% endfor %}
             </ul>
+            <a href="{% url news_archive_index %}">{% trans "Archive" %}</a>
         {% else %}
             <p class="empty">{% trans "No news yet" %}</p>
         {% endif %}
-        <a href="{% url news_archive_index %}">{% trans "Archive" %}</a>
     </div>
 </div>
 {% endif %}
