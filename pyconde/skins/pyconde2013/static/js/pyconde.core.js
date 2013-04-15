@@ -90,7 +90,7 @@ var pyconde = (function($) {
         $('div.navbar').mouseenter(function() {
             $('#dropout-menu').slideDown();
         });
-        $('#dropout-menu').mouseleave(function() {
+        $('#page').mouseenter(function() {
             $('#dropout-menu').slideUp();
         });
     }
