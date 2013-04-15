@@ -36,11 +36,27 @@
       <div id="dropout-menu" class="container">
         <div class="row">
           <div class="span3">
-            Zukunft.Dynamisch.Entwickeln
-            <br />
-            3. Deutsche Python-Konferenz
-            <br />
-            14. - 19. Oktober 2013, Köln
+            <div>
+              Zukunft.Dynamisch.Entwickeln
+              <br />
+              3. Deutsche Python-Konferenz
+              <br />
+              14. - 19. Oktober 2013, Köln
+            </div>
+            <div class="user-menu">
+              <ul>
+                <li>Meine Konferenz</li>
+                <ul>
+                  {% if user.is_authenticated %}
+                    <li><a href="{% url userprofiles_profile_change %}">Mein Konto</a></li>
+                    <li><a href="{% url auth_logout %}?next={{ request.path }}">Abmelden</a></li>
+                  {% else %}
+                    <li><a href="{% url auth_login %}?next={{ request.path }}">Anmelden</a></li>
+                    <li><a href="{% url userprofiles_registration %}">Registrieren</a></li>
+                {% endif %}
+                </ul>
+              </ul>
+            </div>
           </div>
           <div class="span9">
             <ul>
