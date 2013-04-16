@@ -77,7 +77,12 @@
         {% block content_title %}
         <h1>{% block page_title %}{% if request.current_page %}{% page_attribute "page_title" %}{% endif %}{% endblock %}</h1>
         {% endblock %}
-        <div id="content-main">{% block content %}{% endblock %}</div>
+        <div id="content-main">
+          <div class="visible-phone">
+              <ul class="nav nav-pills">{% show_menu 1 100 0 0 "mainmenu.html" %}</ul>
+          </div>
+          {% block content %}{% endblock %}
+        </div>
       </div>
       <div class="span3 pull-right">
         {% block sidebar_wrapper %}
