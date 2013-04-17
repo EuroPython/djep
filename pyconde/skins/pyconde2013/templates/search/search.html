@@ -7,19 +7,20 @@
     {% if query %}
     <div id="results">
         {% if page.object_list %}
-        <ul>
-            {% for result in page.object_list %}
-                {% if result.content_type == 'schedule.session' %}{% include 'search/resulttypes/session.html' %}{% endif %}
-                {% if result.content_type == 'speakers.speaker' %}{% include 'search/resulttypes/speaker.html' %}{% endif %}
-                {% if result.content_type == 'cms.page' %}{% include 'search/resulttypes/page.html' %}{% endif %}
-            {% endfor %}
-        </ul>
+            <p>Ihre Suche nach &quot;<strong>{{ query }}</strong>&quot; lieferte {{ page.paginator.count }} Ergebnis{{ page.paginator.count|pluralize:"se" }}.</p>
+            <ol class="result-list" start="{{ page.start_index }}">
+                {% for result in page.object_list %}
+                    {% if result.content_type == 'schedule.session' %}{% include 'search/resulttypes/session.html' %}{% endif %}
+                    {% if result.content_type == 'speakers.speaker' %}{% include 'search/resulttypes/speaker.html' %}{% endif %}
+                    {% if result.content_type == 'cms.page' %}{% include 'search/resulttypes/page.html' %}{% endif %}
+                {% endfor %}
+            </ol>
         {% else %}
             <p>Ihre Suche nach &quot;<strong>{{ query }}</strong>&quot; lieferte keine Ergebnisse.</p>
         {% endif %}
         {% if page.has_previous or page.has_next %}
             <div class="pagination">
-                {% if page.has_previous %}<a class="prev" href="{{ request.get_full_path }}&amp;page={{ page.previous_page_number }}">&laquo; Vorherige Seite</a>
+                {% if page.has_previous %}<a class="prev" href="{% qs_set page=page.previous_page_number %}">&laquo; Vorherige Seite</a>
                 {% else %}<span class="prev">&laquo; Vorherige Seite</span>{% endif %}
                 <span class="pageinfo">Seite {{ page.number }} von {{ page.paginator.num_pages }}</span>
                 {% if page.has_next %}<a class="next" href="{% qs_set page=page.next_page_number %}">Nächste Seite &raquo;</a>
