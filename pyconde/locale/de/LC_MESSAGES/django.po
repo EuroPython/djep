@@ -570,7 +570,7 @@ msgstr "Proposals-Menü"
 #: proposals/templates/proposals/proposal_list_mine.html:3
 #: proposals/templates/proposals/proposal_list_mine.html:5 reviews/menu.py:22
 msgid "My proposals"
-msgstr "Meine Session-Vorschläge"
+msgstr "Meine eingereichten Vorschläge"
 
 #: proposals/menu.py:24
 msgid "Submit"
@@ -685,7 +685,7 @@ msgstr "Sie wurden erfolgreich als Mitvortragende(r) entfernt."
 #: proposals/templates/proposals/closed.html:4
 #: proposals/templates/proposals/submission_intro.html:4
 msgid "Submit a session"
-msgstr "Reichen Sie einen Vortrag ein"
+msgstr "Neuen Vorschlag einreichen"
 
 #: proposals/templates/proposals/closed.html:5
 msgid "Sorry, but we currently don't accept any proposals."
@@ -758,7 +758,7 @@ msgstr "Zurückziehen"
 
 #: proposals/templates/proposals/proposal_list_mine.html:34
 msgid "You haven't created any proposals yet."
-msgstr "Sie haben noch keine Vorträge eingereicht."
+msgstr "Sie haben noch keine Vorschläge eingereicht."
 
 #: proposals/templates/proposals/proposal_list_mine.html:39
 msgid "Participations"
@@ -766,7 +766,7 @@ msgstr "Session-Teilnahmen"
 
 #: proposals/templates/proposals/proposal_list_mine.html:65
 msgid "Submit a session proposal "
-msgstr "Reichen Sie einen Vortrag ein"
+msgstr "Neuen Vorschlag einreichen "
 
 #: proposals/templates/proposals/tracks-help.html:2
 msgid "What track should I choose?"
