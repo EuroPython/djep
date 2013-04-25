@@ -2,6 +2,7 @@ from __future__ import unicode_literals
 import datetime
 
 from django.db import models
+from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django import forms
@@ -14,6 +15,11 @@ DATE_SLOT_CHOICES = (
     (1, _('morning')),
     (2, _('afternoon')),
 )
+
+LANGUAGES_CHOICES = [(x[0], _(x[1])) for x in getattr(settings, 'PROPOSAL_LANGUAGES', (
+    ('de', 'German'),
+    ('en', 'English'),
+))]
 
 
 class TimeSlot(models.Model):
@@ -50,6 +56,7 @@ class AbstractProposal(models.Model):
     title = models.CharField(_("title"), max_length=100)
     description = models.TextField(_("description"), max_length=400)
     abstract = models.TextField(_("abstract"))
+    notes = models.TextField(_("notes"), blank=True)
     speaker = models.ForeignKey("speakers.Speaker", related_name="%(class)ss",
         verbose_name=_("speaker"))
     additional_speakers = models.ManyToManyField("speakers.Speaker",
@@ -70,6 +77,10 @@ class AbstractProposal(models.Model):
     available_timeslots = models.ManyToManyField(
         TimeSlot,
         verbose_name=_("available timeslots"), null=True, blank=True)
+    language = models.CharField(
+        _('Language'),
+        max_length=5, blank=False, default=LANGUAGES_CHOICES[0][0],
+        choices=LANGUAGES_CHOICES)
     tags = TaggableManager(blank=True)
 
     objects = models.Manager()

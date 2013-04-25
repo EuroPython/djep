@@ -30,9 +30,9 @@ USE_L10N = True
 
 SITE_ID = 1
 
-gettext_noop = lambda s: s
+ugettext = lambda s: s
 LANGUAGES = (
-    ('de', gettext_noop('German')),
+    ('de', ugettext('German')),
     #('en', gettext_noop('English')),
 )
 
@@ -218,6 +218,10 @@ PROPOSALS_TYPED_SUBMISSION_FORMS = {
     'tutorial': 'pyconde.proposals.forms.TutorialSubmissionForm',
     'talk': 'pyconde.proposals.forms.TalkSubmissionForm',
 }
+PROPOSAL_LANGUAGES = (
+    ('de', ugettext('German')),
+    ('en', ugettext('English')),
+)
 
 LESS_USE_DYNAMIC_IN_DEBUG = True
 

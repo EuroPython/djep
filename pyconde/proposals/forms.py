@@ -43,6 +43,8 @@ class ProposalSubmissionForm(forms.ModelForm):
             "track",
             "tags",
             "available_timeslots",
+            "language",
+            "notes",
         ]
 
     def __init__(self, *args, **kwargs):
@@ -64,7 +66,15 @@ class ProposalSubmissionForm(forms.ModelForm):
                 Field('description'),
                 Field('abstract'),
                 'agree_to_terms'),
-            Fieldset(_('Details'), 'available_timeslots', ExtendedHelpField('track', render_to_string('proposals/tracks-help.html', {'tracks': tracks})), 'tags', 'duration', 'audience_level', Field('additional_speakers', css_class='multiselect-user')),
+            Fieldset(_('Details'),
+                'language',
+                'available_timeslots',
+                ExtendedHelpField('track', render_to_string('proposals/tracks-help.html', {'tracks': tracks})),
+                'tags',
+                'duration',
+                'audience_level',
+                Field('additional_speakers', css_class='multiselect-user'),
+                'notes'),
             ButtonHolder(Submit('submit', button_text, css_class="btn-primary"))
             )
 
@@ -111,6 +121,8 @@ class ProposalSubmissionForm(forms.ModelForm):
                 required=False
             )
             form.fields['available_timeslots'].help_text += u"""<br /><br />Bitte geben Sie hier alle Zeiten an, die für Ihren Vortrag/Ihr Tutorial in Frage kommen. Diese Zeiten werden dann so gut wie möglich für die Erstellung des Zeitplans in Betracht gezogen."""
+        if 'notes' in form.fields:
+            form.fields['notes'].help_text = u"""Hier können Sie Anmerkungen und Kommentare eintragen, die nur für die Reviewer und Organisatoren sichtbar sind."""
 
     def clean(self):
         cleaned_data = super(ProposalSubmissionForm, self).clean()
@@ -155,6 +167,8 @@ class TypedSubmissionForm(ProposalSubmissionForm):
             "track",
             "duration",
             "available_timeslots",
+            "language",
+            "notes",
         ]
 
     def __init__(self, *args, **kwargs):
@@ -174,9 +188,11 @@ class TypedSubmissionForm(ProposalSubmissionForm):
                      Field('description'),
                      Field('abstract')),
             Fieldset(_('Details'),
+                     'language',
                      'available_timeslots',
                      ExtendedHelpField('track', render_to_string('proposals/tracks-help.html', {'tracks': tracks})),
-                     'tags', 'duration', 'audience_level', Field('additional_speakers', css_class='multiselect-user')),
+                     'tags', 'duration', 'audience_level', Field('additional_speakers', css_class='multiselect-user'),
+                     'notes'),
             ButtonHolder(Submit('submit', button_text, css_class="btn-primary"))
         )
 
@@ -203,6 +219,8 @@ class TutorialSubmissionForm(TypedSubmissionForm):
             "audience_level",
             "tags",
             "available_timeslots",
+            "language",
+            "notes",
         ]
 
     def __init__(self, *args, **kwargs):
@@ -218,7 +236,11 @@ class TutorialSubmissionForm(TypedSubmissionForm):
                 Field('title', autofocus="autofocus"),
                 Field('description'),
                 Field('abstract')),
-            Fieldset(_('Details'), 'available_timeslots', 'tags', 'audience_level', Field('additional_speakers', css_class='multiselect-user')),
+            Fieldset(
+                _('Details'),
+                'language', 'available_timeslots', 'tags', 'audience_level',
+                Field('additional_speakers', css_class='multiselect-user'),
+                'notes'),
             ButtonHolder(Submit('submit', button_text, css_class="btn-primary")),
         )
 

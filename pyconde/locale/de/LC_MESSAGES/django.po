@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-23 17:58+0200\n"
+"POT-Creation-Date: 2013-04-25 17:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -341,11 +341,15 @@ msgstr ""
 msgid "Ticket successfully purchased"
 msgstr "Ticket erfolgreich gekauft"
 
-#: conf/global_settings.py:35
+#: conf/global_settings.py:35 conf/global_settings.py:222
 msgid "German"
 msgstr "Deutsch"
 
-#: conference/models.py:21 proposals/models.py:50 sponsorship/models.py:54
+#: conf/global_settings.py:223
+msgid "English"
+msgstr ""
+
+#: conference/models.py:21 proposals/models.py:56 sponsorship/models.py:54
 msgid "title"
 msgstr "Titel"
 
@@ -388,12 +392,12 @@ msgstr "Slug"
 msgid "order"
 msgstr "Reihenfolge"
 
-#: conference/models.py:91 conference/models.py:219 proposals/models.py:51
+#: conference/models.py:91 conference/models.py:219 proposals/models.py:57
 #: schedule/models.py:96 sponsorship/models.py:15 sponsorship/models.py:37
 msgid "description"
 msgstr "Beschreibung"
 
-#: conference/models.py:100 proposals/models.py:29 schedule/models.py:31
+#: conference/models.py:100 proposals/models.py:35 schedule/models.py:31
 #: schedule/models.py:100
 msgid "section"
 msgstr "Abschnitt"
@@ -406,7 +410,7 @@ msgstr "Abschnitte"
 msgid "level"
 msgstr "Stufe"
 
-#: conference/models.py:132 proposals/forms.py:90 proposals/models.py:65
+#: conference/models.py:132 proposals/forms.py:100 proposals/models.py:72
 msgid "audience level"
 msgstr "Zielgruppe"
 
@@ -454,7 +458,7 @@ msgstr "Das Ende muss nach dem Anfang sein"
 msgid "visible"
 msgstr "Sichtbar"
 
-#: conference/models.py:227 proposals/models.py:69
+#: conference/models.py:227 proposals/models.py:76
 msgid "track"
 msgstr "Track"
 
@@ -512,53 +516,53 @@ msgstr "Keine geplanten Events"
 msgid "Proposals app"
 msgstr "Proposals-Anwendung"
 
-#: proposals/forms.py:61 proposals/forms.py:172 proposals/forms.py:217
+#: proposals/forms.py:63 proposals/forms.py:186 proposals/forms.py:235
 #: reviews/forms.py:30 reviews/forms.py:92
 msgid "General"
 msgstr "Allgemeines"
 
-#: proposals/forms.py:67 proposals/forms.py:176 proposals/forms.py:221
+#: proposals/forms.py:69 proposals/forms.py:190 proposals/forms.py:240
 #: reviews/forms.py:35 reviews/forms.py:97
 msgid "Details"
 msgstr "Details"
 
-#: proposals/forms.py:84 proposals/models.py:57
+#: proposals/forms.py:94 proposals/models.py:64
 msgid "additional speakers"
 msgstr "Weitere Vortragende"
 
-#: proposals/forms.py:87 proposals/models.py:63
+#: proposals/forms.py:97 proposals/models.py:70
 msgid "kind"
 msgstr "Art"
 
-#: proposals/forms.py:93 proposals/forms.py:257 proposals/models.py:67
+#: proposals/forms.py:103 proposals/forms.py:279 proposals/models.py:74
 msgid "duration"
 msgstr "Dauer"
 
-#: proposals/forms.py:96
+#: proposals/forms.py:106
 #: proposals/templates/proposals/proposal_list_mine.html:14
 #: proposals/templates/proposals/proposal_list_mine.html:45
 msgid "Track"
 msgstr ""
 
-#: proposals/forms.py:108 proposals/models.py:72
+#: proposals/forms.py:118 proposals/models.py:79
 msgid "available timeslots"
 msgstr "Mögliche Zeiten"
 
-#: proposals/forms.py:119
+#: proposals/forms.py:131
 msgid "The selected session kind doesn't accept any proposals anymore."
 msgstr ""
 "Für die ausgewähle Session-Art können leider keine neuen Vorträge mehr "
 "eingereicht werden."
 
-#: proposals/forms.py:125
+#: proposals/forms.py:137
 msgid "Please select a valid audience level."
 msgstr "Bitte wählen Sie eine gültige Teilnehmerstufe aus."
 
-#: proposals/forms.py:131
+#: proposals/forms.py:143
 msgid "Please select a valid duration."
 msgstr "Bitte wählen Sie eine gültige Vortragsdauer aus."
 
-#: proposals/forms.py:137
+#: proposals/forms.py:149
 msgid "Please select a valid session kind."
 msgstr "Bitte wählen Sie eine gültige Session-Art aus."
 
@@ -581,54 +585,62 @@ msgstr "Einreichen"
 msgid "Submit %s"
 msgstr "%s einreichen"
 
-#: proposals/models.py:14
+#: proposals/models.py:15
 msgid "morning"
 msgstr "Vormittag"
 
-#: proposals/models.py:15
+#: proposals/models.py:16
 msgid "afternoon"
 msgstr "Nachmittag"
 
-#: proposals/models.py:25
+#: proposals/models.py:31
 msgid "date"
 msgstr "Datum"
 
-#: proposals/models.py:26 proposals/models.py:37
+#: proposals/models.py:32 proposals/models.py:43
 msgid "timeslot"
 msgstr "Zeitfenster"
 
-#: proposals/models.py:38
+#: proposals/models.py:44
 msgid "timeslots"
 msgstr "Zeitfenster"
 
-#: proposals/models.py:52
+#: proposals/models.py:58
 msgid "abstract"
 msgstr "Abstract"
 
-#: proposals/models.py:54
+#: proposals/models.py:59
+msgid "notes"
+msgstr "Anmerkungen"
+
+#: proposals/models.py:61
 msgid "speaker"
 msgstr "Vortragende(r)"
 
-#: proposals/models.py:58
+#: proposals/models.py:65
 msgid "submission date"
 msgstr "Einreichungsdatum"
 
-#: proposals/models.py:60
+#: proposals/models.py:67
 msgid "modification date"
 msgstr "Änderungsdatum"
 
-#: proposals/models.py:85
+#: proposals/models.py:81
+msgid "Language"
+msgstr "Sprache"
+
+#: proposals/models.py:96
 msgid ""
 "The duration has to be associated with the same conference as the proposal"
 msgstr ""
 "Die Dauer muss mit derselben Konferenz wie der Vorschlag assoziiert sein"
 
-#: proposals/models.py:101 reviews/models.py:65 reviews/models.py:148
+#: proposals/models.py:112 reviews/models.py:65 reviews/models.py:148
 #: reviews/models.py:171 schedule/models.py:35
 msgid "proposal"
 msgstr "Session-Vorschlag"
 
-#: proposals/models.py:102
+#: proposals/models.py:113
 msgid "proposals"
 msgstr "Session-Vorschläge"
 
