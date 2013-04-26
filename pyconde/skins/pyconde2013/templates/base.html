@@ -47,14 +47,16 @@
               <ul>
                 <li>Meine Konferenz
                   <ul>
-                    {% if user.is_authenticated %}
-                      {% show_menu_below_id "proposals" %}
-                      <li><a href="{% url userprofiles_profile_change %}">Mein Konto</a></li>
-                      <li><a href="{% url auth_logout %}?next={{ request.path }}">Abmelden</a></li>
-                    {% else %}
-                      <li><a href="{% url auth_login %}?next={{ request.path }}">Anmelden</a></li>
-                      <li><a href="{% url userprofiles_registration %}">Registrieren</a></li>
-                  {% endif %}
+                    {% block user_menu %}
+                      {% if user.is_authenticated %}
+                        {% show_menu_below_id "proposals" %}
+                        <li><a href="{% url userprofiles_profile_change %}">Mein Konto</a></li>
+                        <li><a href="{% url auth_logout %}?next={{ request.path }}">Abmelden</a></li>
+                      {% else %}
+                        <li><a href="{% url auth_login %}?next={{ request.path }}">Anmelden</a></li>
+                        <li><a href="{% url userprofiles_registration %}">Registrieren</a></li>
+                    {% endif %}
+                  {% endblock %}
                   </ul>
                 </li>
               </ul>
