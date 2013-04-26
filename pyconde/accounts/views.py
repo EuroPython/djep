@@ -7,15 +7,36 @@ from django.shortcuts import get_object_or_404
 
 
 class AutocompleteUser(generic_views.View):
-    def get(self, request):
-        term = request.GET['term']
+    """
+    This view is used for instance within the proposals application to support
+    the autocompletion widget in there.
+
+    The current implementation matches users with either their firstname or
+    lastname being equal to the given "term" parameter and returns their
+    speaker pk as JSON object.
+
+    TODO: Evaluation if this might be better placed somewhere within the
+          speakers application.
+    """
+
+    def get_matching_users(self, term):
+        """
+        Returns a list of dicts containing a user's name ("label") and her
+        speaker pk ("value"). The name is a concatination of first and last
+        name.
+        """
         result = []
         for user in auth_models.User.objects.filter(
-                Q(first_name=term) | Q(last_name=term)):
+                Q(first_name__iexact=term) | Q(last_name__iexact=term)):
             result.append({
                 'label': u'{0} {1}'.format(user.first_name, user.last_name),
                 'value': user.speaker_profile.pk
             })
+        return result
+
+    def get(self, request):
+        term = request.GET['term']
+        result = self.get_matching_users(term)
         return HttpResponse(json.dumps(result))
 
 

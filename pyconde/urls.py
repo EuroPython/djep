@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-from django.conf.urls.defaults import *
+from django.conf.urls import *
 from django.conf import settings
 from django.contrib import admin
 
@@ -8,16 +8,15 @@ admin.autodiscover()
 
 
 urlpatterns = patterns('',
-    #url(r'^2011/(?P<path>.*)$', 'django.views.generic.simple.redirect_to', {
-    #        'permanent': True,
-    #        'query_string': True,
-    #        'url': 'http://2011.de.pycon.org/2011/%(path)s'}),
     (r'^admin/', include(admin.site.urls)),
+    url(r'^tickets/', include('pyconde.attendees.urls')),
     url(r'^accounts/', include('pyconde.accounts.urls')),
     url(r'^accounts/', include('userprofiles.urls')),
     url(r'^reviews/', include('pyconde.reviews.urls')),
     url(r'^schedule/', include('pyconde.schedule.urls')),
+    url(r'^proposals/', include('pyconde.proposals.urls')),
     url(r'^helpdesk/', include('helpdesk.urls')),
+    url(r'^search/', include('pyconde.search.urls')),
     url(r'^', include('cms.urls')),
 )
 

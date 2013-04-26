@@ -26,4 +26,7 @@ class ExtendedHelpField(layout.Field):
 
     def render(self, form, form_style, context):
         context.update({'extended_help': self.help})
-        return render_field(self.field, form, form_style, context, template=self.template, attrs=self.attrs)
+        output = u""
+        for field in self.fields:
+            output += render_field(field, form, form_style, context, template=self.template, attrs=self.attrs)
+        return output

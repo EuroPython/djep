@@ -8,9 +8,9 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Fieldset, Submit, Field, HTML
 from pyconde.forms import ExtendedHelpField
 
-from conference.models import current_conference
-from conference import models as conference_models
-from speakers import models as speaker_models
+from pyconde.conference.models import current_conference
+from pyconde.conference import models as conference_models
+from pyconde.speakers import models as speaker_models
 
 from . import models
 from . import settings
@@ -42,6 +42,9 @@ class ProposalSubmissionForm(forms.ModelForm):
             "duration",
             "track",
             "tags",
+            "available_timeslots",
+            "language",
+            "notes",
         ]
 
     def __init__(self, *args, **kwargs):
@@ -63,7 +66,15 @@ class ProposalSubmissionForm(forms.ModelForm):
                 Field('description'),
                 Field('abstract'),
                 'agree_to_terms'),
-            Fieldset(_('Details'), ExtendedHelpField('track', render_to_string('proposals/tracks-help.html', {'tracks': tracks})), 'tags', 'duration', 'audience_level', Field('additional_speakers', css_class='multiselect-user')),
+            Fieldset(_('Details'),
+                'language',
+                'available_timeslots',
+                ExtendedHelpField('track', render_to_string('proposals/tracks-help.html', {'tracks': tracks})),
+                'tags',
+                'duration',
+                'audience_level',
+                Field('additional_speakers', css_class='multiselect-user'),
+                'notes'),
             ButtonHolder(Submit('submit', button_text, css_class="btn-primary"))
             )
 
@@ -101,7 +112,17 @@ class ProposalSubmissionForm(forms.ModelForm):
             form.fields['abstract'].help_text = """Darstellung des Vortragsinhalts und ist die Grundlage für das Review.<br />Dieses Feld unterstützt <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a>."""
             form.fields['abstract'].validators = [validators.MaxLengthValidator(3000)]
         if 'additional_speakers' in form.fields:
-            form.fields['additional_speakers'].help_text = """Wenn Sie den Vortrag mit zusammen mit anderen Personen halten wollen, tragen Sie hier bitte deren Namen ein."""
+            form.fields['additional_speakers'].help_text = """Wenn Sie den Vortrag zusammen mit anderen Personen halten wollen, tragen Sie hier bitte deren Namen ein."""
+        if 'available_timeslots' in form.fields:
+            form.fields['available_timeslots'] = forms.ModelMultipleChoiceField(
+                label=_("available timeslots"),
+                queryset=models.TimeSlot.objects.select_related('section').filter(section__conference=conference_models.current_conference()).order_by('date', 'slot'),
+                widget=forms.CheckboxSelectMultiple,
+                required=False
+            )
+            form.fields['available_timeslots'].help_text += u"""<br /><br />Bitte geben Sie hier alle Zeiten an, die für Ihren Vortrag/Ihr Tutorial in Frage kommen. Diese Zeiten werden dann so gut wie möglich für die Erstellung des Zeitplans in Betracht gezogen."""
+        if 'notes' in form.fields:
+            form.fields['notes'].help_text = u"""Hier können Sie Anmerkungen und Kommentare eintragen, die nur für die Reviewer und Organisatoren sichtbar sind."""
 
     def clean(self):
         cleaned_data = super(ProposalSubmissionForm, self).clean()
@@ -144,7 +165,10 @@ class TypedSubmissionForm(ProposalSubmissionForm):
             "audience_level",
             "tags",
             "track",
-            "duration"
+            "duration",
+            "available_timeslots",
+            "language",
+            "notes",
         ]
 
     def __init__(self, *args, **kwargs):
@@ -155,14 +179,22 @@ class TypedSubmissionForm(ProposalSubmissionForm):
             button_text = u"Änderungen speichern"
         else:
             button_text = u"Vortrag einreichen"
+            # Also select all available timeslots by default
+            if 'available_timeslots' in self.fields:
+                self.initial['available_timeslots'] = [ts.pk for ts in self.fields['available_timeslots'].queryset]
         self.helper.layout = Layout(
             Fieldset(_('General'),
-                Field('title', autofocus="autofocus"),
-                Field('description'),
-                Field('abstract')),
-            Fieldset(_('Details'), ExtendedHelpField('track', render_to_string('proposals/tracks-help.html', {'tracks': tracks})), 'tags', 'duration', 'audience_level', Field('additional_speakers', css_class='multiselect-user')),
+                     Field('title', autofocus="autofocus"),
+                     Field('description'),
+                     Field('abstract')),
+            Fieldset(_('Details'),
+                     'language',
+                     'available_timeslots',
+                     ExtendedHelpField('track', render_to_string('proposals/tracks-help.html', {'tracks': tracks})),
+                     'tags', 'duration', 'audience_level', Field('additional_speakers', css_class='multiselect-user'),
+                     'notes'),
             ButtonHolder(Submit('submit', button_text, css_class="btn-primary"))
-            )
+        )
 
     def save(self, commit=True):
         instance = super(TypedSubmissionForm, self).save(False)
@@ -186,6 +218,9 @@ class TutorialSubmissionForm(TypedSubmissionForm):
             "additional_speakers",
             "audience_level",
             "tags",
+            "available_timeslots",
+            "language",
+            "notes",
         ]
 
     def __init__(self, *args, **kwargs):
@@ -196,13 +231,18 @@ class TutorialSubmissionForm(TypedSubmissionForm):
         else:
             button_text = u"Tutorial einreichen"
         self.helper.layout = Layout(
-            Fieldset(_('General'),
+            Fieldset(
+                _('General'),
                 Field('title', autofocus="autofocus"),
                 Field('description'),
                 Field('abstract')),
-            Fieldset(_('Details'), 'tags', 'audience_level', Field('additional_speakers', css_class='multiselect-user')),
+            Fieldset(
+                _('Details'),
+                'language', 'available_timeslots', 'tags', 'audience_level',
+                Field('additional_speakers', css_class='multiselect-user'),
+                'notes'),
             ButtonHolder(Submit('submit', button_text, css_class="btn-primary")),
-            )
+        )
 
     def customize_fields(self, instance=None, form=None, tracks=None):
         super(TutorialSubmissionForm, self).customize_fields(instance, form, tracks)
@@ -221,6 +261,7 @@ class TutorialSubmissionForm(TypedSubmissionForm):
                                               sollten die Tutorial-Inhalte auf allen drei gängigen
                                               Betriebssystemen (Linux, Mac OS X und Windows) funktionieren.
                                               Wenn nicht, bitte explizit darauf hinweisen."""
+        form.fields['available_timeslots'].queryset = form.fields['available_timeslots'].queryset.filter(section__slug='tutorials')
 
     def customize_save(self, instance):
         instance.duration = conference_models.SessionDuration.current_objects.get(slug='tutorial')
@@ -237,3 +278,4 @@ class TalkSubmissionForm(TypedSubmissionForm):
             form = self
         form.fields['duration'] = forms.ModelChoiceField(label=_("duration"),
                 queryset=conference_models.SessionDuration.current_objects.exclude(slug='tutorial').all())
+        form.fields['available_timeslots'].queryset = form.fields['available_timeslots'].queryset.filter(section__slug='konferenz')

@@ -1,0 +1,10 @@
+language: python
+python:
+    - "2.7"
+install:
+  - pip install -q --use-mirrors -r requirements.txt
+script:
+  - "cp pyconde/settings.py{.dist,} && python manage.py test conference proposals schedule reviews sponsorship speakers helpers accounts events attendees search"
+branches:
+    only:
+        - develop

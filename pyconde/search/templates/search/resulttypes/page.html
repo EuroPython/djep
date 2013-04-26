@@ -1,0 +1,5 @@
+{% load highlight %}
+<li class="page">
+    <a href="{{ result.url }}"><span class="type">Seite: </span>{{ result.title }}</a>
+    <div class="snippet">{% highlight result.text with query %}</div>
+</li>

@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from conference import models
+from . import models
 
 
 admin.site.register(models.Conference, list_display=("title", "start_date", "end_date"))

@@ -1,3 +1,4 @@
+# -*- encoding: UTF-8 -*-
 import os
 from django.conf.global_settings import (TEMPLATE_CONTEXT_PROCESSORS,
     STATICFILES_FINDERS)
@@ -29,9 +30,9 @@ USE_L10N = True
 
 SITE_ID = 1
 
-gettext_noop = lambda s: s
+ugettext = lambda s: s
 LANGUAGES = (
-    ('de', gettext_noop('German')),
+    ('de', ugettext('German')),
     #('en', gettext_noop('English')),
 )
 
@@ -64,6 +65,10 @@ COMPRESS_PRECOMPILERS = (
 ROOT_URLCONF = '%s.urls' % PROJECT_NAME
 
 INSTALLED_APPS = [
+    # Skins
+    'pyconde.skins.pyconde2013',
+    'pyconde.skins.default',
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -88,6 +93,7 @@ INSTALLED_APPS = [
     'taggit',
     'debug_toolbar',
     'helpdesk',
+    'haystack',
 
     'cms.plugins.inherit',
     'cms.plugins.googlemap',
@@ -110,6 +116,7 @@ INSTALLED_APPS = [
     'pyconde.events',
     'pyconde.reviews',
     'pyconde.schedule',
+    'pyconde.search',
     'pyconde.helpers',
 ]
 
@@ -135,9 +142,10 @@ TEMPLATE_CONTEXT_PROCESSORS += (
     'pyconde.context_processors.less_settings',
 )
 
-TEMPLATE_DIRS = (
-    os.path.join(PROJECT_ROOT, 'templates'),
-)
+# TEMPLATE_DIRS = (
+#     os.path.join(PROJECT_ROOT, 'skins', 'default'),
+#     os.path.join(PROJECT_ROOT, 'skins', 'pyconde2012'),
+# )
 
 USERPROFILES_CHECK_UNIQUE_EMAIL = True
 USERPROFILES_DOUBLE_CHECK_EMAIL = False
@@ -198,8 +206,8 @@ WYM_TOOLS = ",\n".join([
     "{'name': 'Preview', 'title': 'Preview', 'css': 'wym_tools_preview'}",
 ])
 
-CMSPLUGIN_NEWS_FEED_TITLE = u'PyCon DE 2012-News'
-CMSPLUGIN_NEWS_FEED_DESCRIPTION = u'Neuigkeiten rund um die PyCon DE 2012 in Leipzig'
+CMSPLUGIN_NEWS_FEED_TITLE = u'PyCon DE 2013-News'
+CMSPLUGIN_NEWS_FEED_DESCRIPTION = u'Neuigkeiten rund um die PyCon DE 2013 in Köln'
 CONFERENCE_ID = 1
 
 ATTENDEES_CUSTOMER_NUMBER_START = 20000
@@ -210,12 +218,16 @@ PROPOSALS_TYPED_SUBMISSION_FORMS = {
     'tutorial': 'pyconde.proposals.forms.TutorialSubmissionForm',
     'talk': 'pyconde.proposals.forms.TalkSubmissionForm',
 }
+PROPOSAL_LANGUAGES = (
+    ('de', ugettext('German')),
+    ('en', ugettext('English')),
+)
 
 LESS_USE_DYNAMIC_IN_DEBUG = True
 
 # Django Helpdesk stuff
 #
-#   Configuration is done in admin, 
+#   Configuration is done in admin,
 #   but these placeholders are required in order to make it work
 
 QUEUE_EMAIL_BOX_TYPE = None
@@ -225,3 +237,30 @@ QUEUE_EMAIL_BOX_SSL = None
 QUEUE_EMAIL_BOX_PASSWORD = None
 
 SCHEDULE_CACHE_SCHEDULE = True
+
+# Search configuration
+#    If no other search backend is specified, Whoosh is used to make the setup
+#    as simple as possible. In production we will be using a Lucene-based
+#    backend like SOLR or ElasticSearch.
+HAYSTACK_CONNECTIONS = {
+    'default': {
+        'ENGINE': 'haystack.backends.whoosh_backend.WhooshEngine',
+        'PATH': os.path.join(PROJECT_ROOT, 'whoosh_index'),
+        'STORAGE': 'file',
+        'INCLUDE_SPELLING': True,
+        'BATCH_SIZE': 100,
+    }
+}
+
+# Disable south migrations during unittests
+SOUTH_TESTS_MIGRATE = False
+
+# For Elasticsearch you can use for instance following configuration in your
+# settings.py.
+# HAYSTACK_CONNECTIONS = {
+#     'default': {
+#         'ENGINE': 'pyconde.search.backends.elasticsearch.Engine',
+#         'URL': 'http://127.0.0.1:9200/',
+#         'INDEX_NAME': 'pyconde2013',
+#     }
+# }

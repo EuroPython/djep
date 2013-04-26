@@ -85,7 +85,7 @@ class GuidebookExporter(object):
                 u" ".join([self.get_speaker_url(s) for s in additional_speakers]),
                 session.abstract if session.abstract else '',
                 ])
-        for evt in models.SideEvent.objects.select_related('location').all():
+        for evt in models.SideEvent.current_conference.select_related('location').all():
             loc = evt.location.name if evt.location else ''
             if evt.is_pause:
                 loc = ''
@@ -204,7 +204,7 @@ class SessionForEpisodesExporter(object):
         return ep
 
     def __call__(self):
-        items = [self.create_episode_data(session) for session in models.Session.objects.select_related('location', 'speaker').all()]
+        items = [self.create_episode_data(session) for session in models.Session.current_conference.select_related('location', 'speaker').all()]
         # Also export all side-events that are not pauses
-        items += [self.create_episode_data(evt) for evt in models.SideEvent.objects.filter(is_recordable=True).exclude(is_pause=True).select_related('location').all()]
+        items += [self.create_episode_data(evt) for evt in models.SideEvent.current_conference.filter(is_recordable=True).exclude(is_pause=True).select_related('location').all()]
         return items

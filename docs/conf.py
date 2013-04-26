@@ -13,6 +13,13 @@
 
 import sys, os
 
+sys.path.append(os.path.abspath('_themes'))
+html_theme_path = ['_themes']
+html_theme = 'pyconde'
+html_theme_options = {
+    'index_logo': None
+}
+
 # If extensions (or modules to document with autodoc) are in another directory,
 # add these directories to sys.path here. If the directory is relative to the
 # documentation root, use os.path.abspath to make it absolute, like shown here.
@@ -40,8 +47,8 @@ source_suffix = '.rst'
 master_doc = 'index'
 
 # General information about the project.
-project = u'PyCon DE 2012-Website'
-copyright = u'2012, PyCon DE 2012-Webteam'
+project = u'PyCon DE-Website'
+copyright = u'2012-2013, PyCon DE-Webteam'
 
 # The version info for the project you're documenting, acts as replacement for
 # |version| and |release|, also used in various other places throughout the
@@ -91,7 +98,7 @@ pygments_style = 'sphinx'
 
 # The theme to use for HTML and HTML Help pages.  See the documentation for
 # a list of builtin themes.
-html_theme = 'nature'
+#html_theme = 'nature'
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
@@ -110,7 +117,7 @@ html_theme = 'nature'
 
 # The name of an image file (relative to this directory) to place at the top
 # of the sidebar.
-#html_logo = None
+html_logo = "_static/logo.jpg"
 
 # The name of an image file (within the static path) to use as favicon of the
 # docs.  This file should be a Windows icon file (.ico) being 16x16 or 32x32
@@ -164,7 +171,7 @@ html_static_path = ['_static']
 #html_file_suffix = None
 
 # Output file base name for HTML help builder.
-htmlhelp_basename = 'PyConDE2012-Websitedoc'
+htmlhelp_basename = 'PyConDE-Websitedoc'
 
 
 # -- Options for LaTeX output --------------------------------------------------
@@ -183,7 +190,7 @@ latex_elements = {
 # Grouping the document tree into LaTeX files. List of tuples
 # (source start file, target name, title, author, documentclass [howto/manual]).
 latex_documents = [
-  ('index', 'PyConDE2012-Website.tex', u'PyCon DE 2012-Website Documentation',
+  ('index', 'PyConDE-Website.tex', u'PyCon DE 2012-Website Documentation',
    u'Horst Gutmann', 'manual'),
 ]
 
@@ -213,7 +220,7 @@ latex_documents = [
 # One entry per manual page. List of tuples
 # (source start file, name, description, authors, manual section).
 man_pages = [
-    ('index', 'pyconde2012-website', u'PyCon DE 2012-Website Documentation',
+    ('index', 'pyconde-website', u'PyCon DE 2012-Website Documentation',
      [u'Horst Gutmann'], 1)
 ]
 
@@ -227,8 +234,8 @@ man_pages = [
 # (source start file, target name, title, author,
 #  dir menu entry, description, category)
 texinfo_documents = [
-  ('index', 'PyConDE2012-Website', u'PyCon DE 2012-Website Documentation',
-   u'Horst Gutmann', 'PyConDE2012-Website', 'One line description of project.',
+  ('index', 'PyConDE-Website', u'PyCon DE-Website Documentation',
+   u'Horst Gutmann', 'PyConDE-Website', 'One line description of project.',
    'Miscellaneous'),
 ]
 

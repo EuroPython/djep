@@ -64,6 +64,7 @@ class ListProposalsView(OrderMappingMixin, generic_views.TemplateView):
 
     def get_queryset(self):
         qs = models.ProposalMetaData.objects.select_related('proposal', 'proposal__track', 'proposal__kind').order_by(self.get_order()).all()
+        qs = qs.filter(proposal__conference=current_conference())
         if self.filter_form.is_valid():
             track_slug = self.filter_form.cleaned_data['track']
             kind_slug = self.filter_form.cleaned_data['kind']
@@ -99,7 +100,7 @@ class ListMyProposalsView(ListProposalsView):
 
     def get_queryset(self):
         speaker = self.request.user.speaker_profile
-        my_proposals = models.Proposal.objects.filter(speaker=speaker) | models.Proposal.objects.filter(additional_speakers=speaker)
+        my_proposals = models.Proposal.current_conference.filter(speaker=speaker) | models.Proposal.current_conference.filter(additional_speakers=speaker)
         return models.ProposalMetaData.objects.select_related().filter(proposal__in=my_proposals).order_by(self.get_order()).all()
 
 
@@ -417,14 +418,14 @@ class ProposalVersionListView(generic_views.ListView):
 
     def get_queryset(self):
         if self.proposal is None:
-            self.proposal = models.Proposal.objects.get(pk=self.kwargs['proposal_pk'])
+            self.proposal = models.Proposal.current_conference.get(pk=self.kwargs['proposal_pk'])
         return self.model.objects.filter(original=self.proposal)
 
     def get_context_data(self, **kwargs):
         data = super(ProposalVersionListView, self).get_context_data(**kwargs)
-        data['original'] = models.Proposal.objects.get(pk=self.kwargs['proposal_pk'])
+        data['original'] = models.Proposal.current_conference.get(pk=self.kwargs['proposal_pk'])
         data['proposal'] = data['original']
-        data['proposal_version'] = models.ProposalVersion.objects.get_latest_for(data['original'])
+        data['proposal_version'] = models.ProposalVersion.current_conference.get_latest_for(data['original'])
         return data
 
     def get(self, *args, **kwargs):
@@ -511,7 +512,7 @@ class UpdateProposalView(TemplateResponseMixin, generic_views.View):
 
     @method_decorator(decorators.reviews_active_required)
     def dispatch(self, request, *args, **kwargs):
-        self.object = get_object_or_404(models.Proposal.objects, pk=kwargs['pk'])
+        self.object = get_object_or_404(models.Proposal.current_conference, pk=kwargs['pk'])
         if not self.object.can_be_updated():
             messages.error(request, _("Proposals can no longer be updated"))
             return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.object.pk}))

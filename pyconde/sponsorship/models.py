@@ -3,7 +3,9 @@ import datetime
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 
-from conference.models import Conference
+from cms.models import CMSPlugin
+
+from pyconde.conference.models import Conference, CurrentConferenceManager
 
 
 class SponsorLevel(models.Model):
@@ -12,6 +14,9 @@ class SponsorLevel(models.Model):
     order = models.IntegerField(_("order"), default=0)
     description = models.TextField(_("description"), blank=True)
     slug = models.SlugField(_("slug"))
+
+    objects = models.Manager()
+    current_conference = CurrentConferenceManager()
 
     class Meta:
         ordering = ["conference", "order"]
@@ -43,3 +48,16 @@ class Sponsor(models.Model):
     class Meta:
         verbose_name = _("sponsor")
         verbose_name_plural = _("sponsors")
+
+
+class SponsorListPlugin(CMSPlugin):
+    title = models.CharField(_("title"), max_length=100, blank=True)
+    levels = models.ManyToManyField(
+        'SponsorLevel',
+        verbose_name=_("sponsor levels"))
+    group = models.BooleanField(_("group by level"), default=False)
+    split_list_length = models.IntegerField(
+        _("length of split splits"), null=True, blank=True, default=None)
+    custom_css_classes = models.CharField(
+        _("custom CSS classes"), max_length=100, blank=True,
+        help_text=u"Use slides-2rows if your row actually consists of two rows.")

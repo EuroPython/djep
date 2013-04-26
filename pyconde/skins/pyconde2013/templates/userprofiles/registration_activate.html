@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% load i18n menu_tags %}
+
+{% block user_menu %}
+    {% if user.is_authenticated %}
+        {% show_menu_below_id "proposals" %}
+        <li><a href="{% url userprofiles_profile_change %}">Mein Konto</a></li>
+        <li><a href="{% url auth_logout %}?next=/">Abmelden</a></li>
+    {% else %}
+        <li><a href="{% url auth_login %}?next=/">Anmelden</a></li>
+    {% endif %}
+{% endblock %}
+
+{% block title %}{% trans "Registration" %}{% endblock %}
+
+{% block page_title %}{% trans "Registration" %}{% endblock %}
+
+{% block content %}
+    {% if account %}
+        <p>
+            {% blocktrans %}We activated your account. You are now able to log in. Have fun!{% endblocktrans %}
+        </p>
+        <p>
+            <a href="{% url auth_login %}?next=/">Zum Login</a>
+        </p>
+    {% else %}
+        <p>
+            {% blocktrans %}The submitted activation code is invalid. Activation is not possible.{% endblocktrans %}
+        </p>
+    {% endif %}
+{% endblock %}

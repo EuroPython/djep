@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+{% load search_tags url_tags %}
+
+{% block content %}
+    <h1>Suchen</h1>
+    {% if query %}
+    <div id="results">
+        <h2>Ergebnisse</h2>
+        {% if page.object_list %}
+        <ul>
+            {% for result in page.object_list %}
+                {% if result.content_type == 'schedule.session' %}{% include 'search/resulttypes/session.html' %}{% endif %}
+                {% if result.content_type == 'speakers.speaker' %}{% include 'search/resulttypes/speaker.html' %}{% endif %}
+                {% if result.content_type == 'cms.page' %}{% include 'search/resulttypes/page.html' %}{% endif %}
+            {% endfor %}
+        </ul>
+        {% else %}
+            <p>Nichts gefunden.</p>
+        {% endif %}
+        {% if page.has_previous or page.has_next %}
+            <div class="pagination">
+                {% if page.has_previous %}<a class="prev" href="{{ request.get_full_path }}&amp;page={{ page.previous_page_number }}">&laquo; Vorherige Seite</a>
+                {% else %}<span class="prev">&laquo; Vorherige Seite</span>{% endif %}
+                <span class="pageinfo">Seite {{ page.number }} von {{ page.paginator.num_pages }}</span>
+                {% if page.has_next %}<a class="next" href="{% qs_set page=page.next_page_number %}">Nächste Seite &raquo;</a>
+                {% else %}<span class="next">Nächste Seite &raquo;</span>{% endif %}
+            </div>
+        {% endif %}
+    </div>
+    {% endif %}
+{% endblock %}
+{% block sidebar %}
+    {% show_facet facets.fields.django_ct "Typ" "django_ct" %}
+    {% show_facet facets.fields.session_kind "Session-Arten" "session_kind" %}
+    {% show_facet facets.fields.track "Track" "track" %}
+    {% show_facet facets.fields.tags "Tags" "tags" %}
+
+{% endblock %}

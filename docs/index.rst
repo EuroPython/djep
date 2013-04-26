@@ -1,10 +1,16 @@
-.. PyCon DE 2012-Website documentation master file, created by
-   sphinx-quickstart on Tue Jul 10 22:18:54 2012.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+Das PyCon DE-Website-System
+===========================
 
-Übersicht
-=========
+Installation & Konfiguration
+----------------------------
+
+.. toctree::
+    :maxdepth: 1
+
+    setup/entwickler
+    setup/deployment
+    setup/configuration
+    setup/skins
 
 Apps
 ----
@@ -21,6 +27,9 @@ jeweils einen Einstiegspunkt darstellen:
    apps/proposals
    apps/reviews
    apps/schedule
+   apps/events
+   apps/search
+
 
 Index und Tabellen
 ==================

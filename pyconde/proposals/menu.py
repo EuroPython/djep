@@ -5,7 +5,7 @@ from menus.base import NavigationNode
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 
-from conference import models as conference_models
+from pyconde.conference import models as conference_models
 
 from . import settings
 

@@ -1,0 +1,19 @@
+{% extends "cms/base.html" %}
+{% load cms_tags %}
+
+{% block body_main %}
+<section>
+    <div class="span12 clearfix" id="content">
+        <article>
+            <div class="box post">
+                <h1>{{ current_page.get_title }}</h1>
+                <div class="entry">
+                {% block apphook %}
+                    {% placeholder content %}
+                {% endblock %}
+                </div>
+            </div>
+        </article>
+    </div>
+</section>
+{% endblock %}

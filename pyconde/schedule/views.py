@@ -32,7 +32,7 @@ def session_by_proposal(request, proposal_pk):
     Redirects to a session page based on the given proposal pk or presents
     a temporary page if a proposal exists but no session could be found for it.
     """
-    proposal = get_object_or_404(proposal_models.Proposal.objects,
+    proposal = get_object_or_404(proposal_models.Proposal.current_conference,
         pk=proposal_pk)
     try:
         session = proposal.sessions.all()[0]

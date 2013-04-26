@@ -106,7 +106,8 @@ class SideEvent(models.Model):
     conference = models.ForeignKey(conference_models.Conference,
         verbose_name=_("conference"))
 
-    objects = conference_models.CurrentConferenceManager()
+    objects = models.Manager()
+    current_conference = conference_models.CurrentConferenceManager()
 
     def __unicode__(self):
         return self.name
