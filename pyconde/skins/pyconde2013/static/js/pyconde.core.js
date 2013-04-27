@@ -87,16 +87,49 @@ var pyconde = (function($) {
     function init() {
         createSponsorSlides();
         $(createMultiuserSelectBox);
-        $('div.navbar').mouseenter(function() {
-            var $that = $(this);
-            window.setTimeout(function() {
-                if ($that.is(':hover')) {
-                    $('#dropout-menu').slideDown();
+        if (!Hammer.HAS_TOUCHEVENTS) {
+            $('div.navbar').mouseenter(function() {
+                var $that = $(this);
+                window.setTimeout(function() {
+                    if ($that.is(':hover')) {
+                        $('#dropout-menu').slideDown();
+                    }
+                }, 300);
+            }).mouseleave(function() {
+                $('#dropout-menu').slideUp();
+            });
+        } else {
+            var $menu = $('#dropout-menu');
+            // For touch devices we configure the navbar in a way that tapping toggles the submenu
+            $('body').hammer().on('tap', 'div.navbar > .navbar-inner > .bar', function(evt) {
+                evt.preventDefault();
+                evt.stopPropagation();
+                if ($menu.hasClass('open')) {
+                    $('#dropout-menu').slideUp(function() {
+                        $(this).removeClass('open');
+                    });
+                } else {
+                    $('#dropout-menu').slideDown(function() {
+                        $(this).addClass('open');
+                    });
                 }
-            }, 300);
-        }).mouseleave(function() {
-            $('#dropout-menu').slideUp();
-        });
+            }).on('tap', '#dropout-menu, #search', function(evt) {
+                evt.stopPropagation();
+            }).on('tap', function(evt) {
+                if ($menu.hasClass('open')) {
+                    $('#dropout-menu').slideUp(function() {
+                        $(this).removeClass('open');
+                    });
+                }
+            }).on('doubletap', '.navbar-inner a', function(evt) {
+                evt.preventDefault();
+                evt.gesture.preventDefault();
+                window.location = $(this).attr('href');
+            });
+            $('div.navbar > .navbar-inner > .bar').delegate('a', 'click', function(evt) {
+                evt.preventDefault();
+            });
+        }
     }
 
     init();

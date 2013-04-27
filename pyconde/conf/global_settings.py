@@ -94,6 +94,7 @@ INSTALLED_APPS = [
     'debug_toolbar',
     'helpdesk',
     'haystack',
+    #'tinymce', # If you want tinymce, add it in the settings.py file.
 
     'cms.plugins.inherit',
     'cms.plugins.googlemap',
@@ -254,6 +255,12 @@ HAYSTACK_CONNECTIONS = {
 
 # Disable south migrations during unittests
 SOUTH_TESTS_MIGRATE = False
+
+TINYMCE_DEFAULT_CONFIG={
+    'theme': 'advanced',
+    'relative_urls': False,
+    'theme_advanced_resizing': True,
+}
 
 # For Elasticsearch you can use for instance following configuration in your
 # settings.py.
