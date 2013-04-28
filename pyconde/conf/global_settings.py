@@ -95,6 +95,7 @@ INSTALLED_APPS = [
     'helpdesk',
     'haystack',
     #'tinymce', # If you want tinymce, add it in the settings.py file.
+    'django_gravatar',
 
     'cms.plugins.inherit',
     'cms.plugins.googlemap',
@@ -261,6 +262,8 @@ TINYMCE_DEFAULT_CONFIG={
     'relative_urls': False,
     'theme_advanced_resizing': True,
 }
+
+ACCOUNTS_FALLBACK_TO_GRAVATAR = True
 
 # For Elasticsearch you can use for instance following configuration in your
 # settings.py.

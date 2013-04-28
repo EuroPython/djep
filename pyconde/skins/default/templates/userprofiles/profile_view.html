@@ -4,11 +4,7 @@
 {% block bodycls %}profilepage{% endblock %}
 {% block body %}
     <h1>{% trans "User profile:" %} {{ userobj|account_name }}</h1>
-    {% if profile.avatar %}
-        <img class="avatar" src="{% thumbnail profile.avatar '80x80' crop %}" alt="" />
-    {% else %}
-        <img class="avatar" src="{{ STATIC_URL }}images/noavatar80.png" alt="" />
-    {% endif %}
+    {% avatar profile %}
     <div id="info">
         {% if profile.short_info %}
         {{ profile.short_info|markdown:"safe" }}

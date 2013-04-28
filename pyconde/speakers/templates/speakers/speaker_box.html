@@ -1,11 +1,7 @@
-{% load thumbnail %}
+{% load thumbnail account_tags %}
 <div class="speaker-box">
     <a href="{% url account_profile uid=user.pk %}">
-    {% if avatar %}
-    <img src="{% thumbnail avatar '80x80' crop %}" alt="" />
-    {% else %}
-    <img src="{{ STATIC_URL }}images/noavatar80.png" alt="" />
-    {% endif %}
+    {% avatar profile %}
     <span class="name">{{ name }}</span>
     </a>
 </div>
