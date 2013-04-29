@@ -58,6 +58,8 @@ class ProfileRegistrationForm(RegistrationForm):
                 account_fields, profile_fields,
                 ButtonHolder(Submit('submit', _('Create account'), css_class='btn-primary'))
                 )
+        if settings.ACCOUNTS_FALLBACK_TO_GRAVATAR:
+            self.fields['avatar'].help_text = _("""Please upload an image with a side length of at least 300 pixels.<br />If you don't upload an avatar your Gravatar will be used instead.""")
 
     def save_profile(self, new_user, *args, **kwargs):
         """
@@ -142,3 +144,5 @@ class ProfileForm(BaseProfileForm):
                 'num_accompanying_children'),
             ButtonHolder(Submit('save', _('Change'), css_class='btn-primary'))
         )
+        if settings.ACCOUNTS_FALLBACK_TO_GRAVATAR:
+            self.fields['avatar'].help_text = _("""Please upload an image with a side length of at least 300 pixels.<br />If you don't upload an avatar your Gravatar will be used instead.""")

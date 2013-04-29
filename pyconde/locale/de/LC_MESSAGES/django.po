@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-25 17:33+0200\n"
+"POT-Creation-Date: 2013-04-28 12:07+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,7 +37,7 @@ msgstr ""
 msgid "Website"
 msgstr ""
 
-#: accounts/forms.py:46 accounts/forms.py:132
+#: accounts/forms.py:46 accounts/forms.py:134
 msgid "Number of accompanying children"
 msgstr "Voraussichtliche Anzahl mitkommender Kinder"
 
@@ -53,23 +53,32 @@ msgstr "Profil"
 msgid "Create account"
 msgstr "Konto anlegen"
 
-#: accounts/forms.py:91
+#: accounts/forms.py:62 accounts/forms.py:148
+msgid ""
+"Please upload an image with a side length of at least 300 pixels.<br />If "
+"you don't upload an avatar your Gravatar will be used instead."
+msgstr ""
+"Bitte ein Bild mit einer Breite von mindestens 300 Pixeln hochladen."
+"<br />Falls Sie keinen Avatar hochladen, wird versucht, Ihren Gravatar zu "
+"verwenden."
+
+#: accounts/forms.py:93
 msgid "Log in"
 msgstr "Anmelden"
 
-#: accounts/forms.py:107
+#: accounts/forms.py:109
 #: skins/default/templates/userprofiles/password_reset.html:4
 #: skins/default/templates/userprofiles/password_reset.html:7
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
-#: accounts/forms.py:122
+#: accounts/forms.py:124
 #: skins/default/templates/userprofiles/password_change.html:4
 #: skins/default/templates/userprofiles/password_change.html:7
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: accounts/forms.py:143
+#: accounts/forms.py:145
 msgid "Change"
 msgstr "Ändern"
 
@@ -341,11 +350,11 @@ msgstr ""
 msgid "Ticket successfully purchased"
 msgstr "Ticket erfolgreich gekauft"
 
-#: conf/global_settings.py:35 conf/global_settings.py:222
+#: conf/global_settings.py:35 conf/global_settings.py:224
 msgid "German"
 msgstr "Deutsch"
 
-#: conf/global_settings.py:223
+#: conf/global_settings.py:225
 msgid "English"
 msgstr ""
 
@@ -1253,7 +1262,7 @@ msgstr "Anmelden"
 msgid "User profile:"
 msgstr "Benutzerprofil:"
 
-#: skins/default/templates/userprofiles/profile_view.html:16
+#: skins/default/templates/userprofiles/profile_view.html:12
 msgid "No info available"
 msgstr "Keine weiteren Informationen verfügbar"
 
@@ -1261,22 +1270,35 @@ msgstr "Keine weiteren Informationen verfügbar"
 #: skins/default/templates/userprofiles/registration.html:5
 #: skins/default/templates/userprofiles/registration_activate.html:5
 #: skins/default/templates/userprofiles/registration_activate.html:6
+#: skins/pyconde2013/templates/userprofiles/registration_activate.html:14
+#: skins/pyconde2013/templates/userprofiles/registration_activate.html:16
 msgid "Registration"
 msgstr "Registrierung"
 
-#: skins/default/templates/userprofiles/registration_activate.html:14
+#: skins/default/templates/userprofiles/registration_activate.html:11
 msgid "Hi"
 msgstr "Hallo"
 
-#: skins/default/templates/userprofiles/registration_activate.html:16
+#: skins/default/templates/userprofiles/registration_activate.html:13
+#: skins/pyconde2013/templates/userprofiles/registration_activate.html:21
 msgid "We activated your account. You are now able to log in. Have fun!"
 msgstr "Ihr Account wurde aktiviert. Sie können sich nun einloggen."
 
-#: skins/default/templates/userprofiles/registration_activate.html:20
+#: skins/default/templates/userprofiles/registration_activate.html:17
+#: skins/pyconde2013/templates/userprofiles/registration_activate.html:28
 msgid "The submitted activation code is invalid. Activation is not possible."
 msgstr ""
 "Der verwendete Aktivierungsgcode ist ungültig. Eine Aktivierung ist damit "
 "nicht möglich."
+
+#: skins/default/templates/userprofiles/mails/activation_email_subject.html:1
+#, fuzzy
+msgid "Account activation"
+msgstr "Konto-Daten"
+
+#: skins/default/templates/userprofiles/mails/emailverification_subject.html:1
+msgid "E-mail confirmation"
+msgstr ""
 
 #: sponsorship/cms_plugins.py:10
 msgid "sponsor list plugin"

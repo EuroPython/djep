@@ -14,5 +14,6 @@ def speaker_box(context, speaker):
         'name': unicode(speaker),
         'avatar': profile.avatar if profile else None,
         'user': speaker.user,
+        'profile': profile,
         'STATIC_URL': context['STATIC_URL']
     }
