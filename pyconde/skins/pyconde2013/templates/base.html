@@ -71,26 +71,36 @@
       </div>
     </div>
   </div>
-  <div class="container">
+  <div class="container page-wrapper">
     {% block page %}
-    <div class="row" id="page">
-      <div class="span8" id="content">
-        {% block content_banner %}{% endblock %}
-        {% block content_title %}
-        <h1>{% block page_title %}{% if request.current_page %}{% page_attribute "page_title" %}{% endif %}{% endblock %}</h1>
-        {% endblock %}
-        <div id="content-main">
-          <div class="visible-phone">
+    <div class="row postcard">
+      <h1><span>Zukunft.Dynamisch.Entwickeln.</span></h1>
+      <h2 class="highlight"><span>3. Deutsche Python-Konferenz</span></h2>
+      <h2 class="highlight"><span>14. - 19. Oktober 2013, Köln</span></h2>
+    </div>
+
+    <div id="page">
+      <div class="row">
+        <div class="span5 logo-spacer" id="content">
+          {% block content_banner %}{% endblock %}
+          {% block content_title %}
+          <h1>{% block page_title %}{% if request.current_page %}{% page_attribute "page_title" %}{% endif %}{% endblock %}</h1>
+          {% endblock %}
+          <div id="content-main">
+            <div class="visible-phone">
               <ul class="nav nav-pills">{% show_menu 1 100 0 0 "mainmenu.html" %}</ul>
+            </div>
+            {% block content %}{% endblock %}
           </div>
-          {% block content %}{% endblock %}
         </div>
-      </div>
-      <div class="span3 pull-right">
-        {% block sidebar_wrapper %}
-        <a class="halo" href="/"><img src="{{ STATIC_URL }}images/logo-small.png" title="PyCon.DE 2013" /></a>
-        {% block sidebar %}{% endblock %}
-        {% endblock %}
+        <div class="span3 logo-spacer">
+          {% block sidebar_wrapper %}
+          {% block sidebar %}{% endblock %}
+          {% endblock %}
+        </div>
+        <div class="span3">
+          <a class="halo logo" href="/"><img src="{{ STATIC_URL }}images/logo-small.png" title="PyCon.DE 2013" /></a>
+        </div>
       </div>
     </div>
     {% endblock %}

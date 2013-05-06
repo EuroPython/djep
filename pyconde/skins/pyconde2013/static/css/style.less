@@ -130,26 +130,24 @@ p {
     line-height: 1.6em;
 }
 
-#page {
+#page .row {
   border-right: 1px solid #ccc;
   border-left: 1px solid #ccc;
-  background: #fafafa;
+  background: #fff;
   padding-bottom: 50px;
   position: relative;
-  margin-top: 40px;
   padding-top: 20px;
-  background: url(../images/background.png) no-repeat 0px 0px #fff;
-  min-height: 400px;
+  margin-left: 0;
 }
 .frontpage #page {
-    margin-left: -30px;
     margin-top: 0;
     background: #FFF;
 }
 
 div.page-wrapper {
-  -webkit-box-shadow: 5px -5px 10px -2px #888;
-  box-shadow: 5px -5px 10px -2px #888;
+  // -webkit-box-shadow: 5px -5px 10px -2px #888;
+  // box-shadow: 5px -5px 10px -2px #888;
+  background: url(../images/frontpage_background.png) no-repeat 0px 0px #fff;
 }
 
 header {
@@ -194,6 +192,17 @@ header {
   }
   .aligned {
     margin-top: 115px;
+  }
+}
+
+#page {
+  .logo-spacer {
+    padding-top: 60px;
+  }
+  a.logo {
+    position: relative;
+    top: -130px;
+    left: 60px;
   }
 }
 
@@ -456,7 +465,7 @@ ul.social-links {
 #content_banner {
     margin-bottom: 50px;
     position: relative;
-    
+
     h2 {
         position: absolute;
         top: -50px;
@@ -516,7 +525,7 @@ footer {
     padding-left: 0;
     padding-right: 0;
   }
-  
+
 }
 
 a.halo {
@@ -528,11 +537,13 @@ a.halo {
 }
 
 div.postcard {
-  background: url(../images/frontpage_background.png) no-repeat 0px 0px;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
   margin-top: 40px;
   padding-top: 20px;
   padding-right: 15px;
   padding-bottom: 15px;
+  min-height: 270px;
     h1, h2 {
         color: #FFF;
         font-size: 29px;
@@ -573,6 +584,14 @@ form {
 
 
 // Workarounds to make the site work on mobile devices.
+@media (min-width: 1200px) {
+  .row {
+    margin-left: 0;
+  }
+  #dropout-menu .row {
+    margin-left: -30px;
+  }
+}
 @media (max-width: 1024px) {
     .navbar-fixed-top {
         margin-bottom: 0;
