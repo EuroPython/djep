@@ -15,7 +15,6 @@ env.pip_files = (
     join(env.proj_root, 'requirements.txt'),
 )
 env.manage_py = join(env.proj_root, 'manage.py')
-env.use_ssh_config = True
 
 
 def srv_run(cmd):
