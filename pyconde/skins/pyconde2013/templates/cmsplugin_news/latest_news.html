@@ -6,7 +6,7 @@
                 <h5><a href="{{ news.get_absolute_url }}">{{ news.title }}</a></h5>
                 <span class="pub_date">{{ news.pub_date|date:"DATE_FORMAT" }}</span>
                 {% if news.excerpt %}
-                    <p>{{ news.excerpt }}</p>
+                    <p>{{ news.excerpt|safe }}</p>
                 {% endif %}
                 <p><a href="{{ news.get_absolute_url }}" class="more">mehr</a></p>
             </div>
