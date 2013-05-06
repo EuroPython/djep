@@ -392,8 +392,17 @@ ul.social-links {
     }
     .cmsplugin-news {
         .headline {display: block;}
-        ul {
-            margin-left: 2em;
+        h5 {
+          margin-bottom: 0px;
+        }
+        .pub_date {
+          color: lighten(@baseColor, 10%);
+        }
+        a.more:after {
+          content: " >>";
+        }
+        .content {
+          margin-bottom: 2.5em;
         }
     }
     .cmsplugin-twitter {

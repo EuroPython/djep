@@ -10,7 +10,7 @@
         <h2><a href="{{ item.get_absolute_url }}">{{ item.title }}</a></h2>
         <span class="blog-date">{{ item.pub_date|date:"DATE_FORMAT" }}</span>
         {% if item.excerpt %}<div class="teaser">{{ item.excerpt|safe }}</div>{% endif %}
-        {% if item.content %}<p><a class="post-link" href="{{ item.get_absolute_url }}">Weiter lesen...</a></p>{% endif %}
+        {% if item.content %}<p><a class="post-link" href="{{ item.get_absolute_url }}">mehr &gt;&gt;</a></p>{% endif %}
     </article>
     {% endfor %}
 {% endif %}

@@ -1,0 +1,14 @@
+{% extends "site_base.html" %}
+{% load i18n %}
+{% block title %}{{ object.title }} - {% trans "News" %}{% endblock %}
+{% block meta_description %}{{ object.excerpt|striptags }}{% endblock %}
+{% block og_title %}{{ object.title }} - {% endblock %}
+{% block og_description %}{{ object.excerpt|striptags }}{% endblock %}
+{% block content %}
+<h1>{{ object.title }}</h1>
+<span class="blog-date">{{ object.pub_date|date:"DATE_FORMAT" }}</span>
+<div class="body">
+    {{ object.content|safe }}
+</div>
+<p><a href="{% url news_archive_index %}">Alle Neuigkeiten anzeigen</a></p>
+{% endblock %}
