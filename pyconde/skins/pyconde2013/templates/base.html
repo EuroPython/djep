@@ -81,7 +81,7 @@
 
     <div id="page">
       <div class="row">
-        <div class="span5 logo-spacer" id="content">
+        <div class="span6 logo-spacer" id="content">
           {% block content_banner %}{% endblock %}
           {% block content_title %}
           <h1>{% block page_title %}{% if request.current_page %}{% page_attribute "page_title" %}{% endif %}{% endblock %}</h1>
@@ -98,14 +98,14 @@
           {% block sidebar %}{% endblock %}
           {% endblock %}
         </div>
-        <div class="span3">
+        <div class="span2">
           <a class="halo logo" href="/"><img src="{{ STATIC_URL }}images/logo-small.png" title="PyCon.DE 2013" /></a>
         </div>
       </div>
     </div>
     {% endblock %}
     <footer class="row hidden-phone">
-      <div class="box span5">
+      <div class="box span6">
         <h2>Kontakt</h2>
         <script>(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/of8RAgSle2hkbFF9IgHKrw.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})()</script>
         <p><a href="javascript:void(0)" data-uv-lightbox="classic_widget" data-uv-mode="full" data-uv-primary-color="#1d8c2e" data-uv-link-color="#007dbf" data-uv-default-mode="support" data-uv-forum-id="203064">Hilfe und Support</a></p>
@@ -121,7 +121,7 @@
           <li><a class="youtube" href="http://www.youtube.com/user/PyConDE">YouTube</a></li>
         </ul>
       </div>
-      <div class="box span3"></div>
+      <div class="box span2"></div>
     </footer>
   </div>
 
