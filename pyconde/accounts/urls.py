@@ -18,4 +18,6 @@ urlpatterns = patterns('django.contrib.auth.views',
             name='auth_password_change'),
         url(r'^ajax/users$', views.AutocompleteUser.as_view()),
         url(r'^profile/(?P<uid>\d+)/$', views.ProfileView.as_view(), name='account_profile'),
+        url(r'^login/request-email/$', views.LoginEmailRequestView.as_view(),
+            name='login-email-request'),
     )

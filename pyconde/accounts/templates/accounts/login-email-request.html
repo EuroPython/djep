@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags i18n %}
+{% block title %}{% trans "Registration" %}{% endblock %}
+{% block pagetitle %}{% trans "Registration" %}{% endblock %}
+{% block content %}
+    <div id="info">{% blocktrans %}<p>The main mean of sending out notifications and updates is via e-mail. Providing one is optional.</p><p>If you enter an e-mail address in the form below, an activation email will be sent to this address. You can always change your e-mail address in the profile section of the site.</p>{% endblocktrans %}</div>
+
+    {% crispy form %}
+{% endblock %}

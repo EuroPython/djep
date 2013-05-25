@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-04-28 12:07+0200\n"
+"POT-Creation-Date: 2013-05-30 16:19+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,15 +25,15 @@ msgstr ""
 msgid "Accounts app"
 msgstr "Accounts-Anwendung"
 
-#: accounts/forms.py:41 accounts/models.py:18
+#: accounts/forms.py:41 accounts/models.py:22
 msgid "short info"
 msgstr "Steckbrief"
 
-#: accounts/forms.py:42 accounts/models.py:26
+#: accounts/forms.py:42 accounts/models.py:30
 msgid "Twitter"
 msgstr ""
 
-#: accounts/forms.py:44 accounts/models.py:28
+#: accounts/forms.py:44 accounts/models.py:32
 msgid "Website"
 msgstr ""
 
@@ -58,8 +58,8 @@ msgid ""
 "Please upload an image with a side length of at least 300 pixels.<br />If "
 "you don't upload an avatar your Gravatar will be used instead."
 msgstr ""
-"Bitte ein Bild mit einer Breite von mindestens 300 Pixeln hochladen."
-"<br />Falls Sie keinen Avatar hochladen, wird versucht, Ihren Gravatar zu "
+"Bitte ein Bild mit einer Breite von mindestens 300 Pixeln hochladen.<br /"
+">Falls Sie keinen Avatar hochladen, wird versucht, Ihren Gravatar zu "
 "verwenden."
 
 #: accounts/forms.py:93
@@ -98,17 +98,21 @@ msgstr "Profil ändern"
 msgid "Change your password"
 msgstr "Passwort ändern"
 
-#: accounts/models.py:19 accounts/widgets.py:45
+#: accounts/models.py:23 accounts/widgets.py:45
 msgid "avatar"
 msgstr "Profilbild"
 
-#: accounts/models.py:21
+#: accounts/models.py:25
 msgid "Please upload an image with a side length of at least 300 pixels."
 msgstr "Bitte ein Bild mit einer Breite von mindestens 300 Pixeln hochladen."
 
-#: accounts/models.py:22
+#: accounts/models.py:26
 msgid "number of accompanying children"
 msgstr "Voraussichtliche Anzahl mitkommender Kinder"
+
+#: accounts/models.py:37
+msgid "You've logged in successfully."
+msgstr "Sie haben sich erfolgreich angemeldet."
 
 #: accounts/validators.py:11
 msgid "Twitter usernames only have 15 or less characters"
@@ -350,11 +354,11 @@ msgstr ""
 msgid "Ticket successfully purchased"
 msgstr "Ticket erfolgreich gekauft"
 
-#: conf/global_settings.py:35 conf/global_settings.py:224
+#: conf/global_settings.py:35 conf/global_settings.py:226
 msgid "German"
 msgstr "Deutsch"
 
-#: conf/global_settings.py:225
+#: conf/global_settings.py:227
 msgid "English"
 msgstr ""
 
@@ -1225,6 +1229,7 @@ msgstr ""
 #: skins/default/templates/cmsplugin_news/news_archive.html:5
 #: skins/default/templates/cmsplugin_news/news_detail.html:3
 #: skins/pyconde2013/templates/cmsplugin_news/news_archive.html:3
+#: skins/pyconde2013/templates/cmsplugin_news/news_detail.html:3
 #: templates/cmsplugin_news/news_archive_day.html:3
 #: templates/cmsplugin_news/news_archive_day.html:5
 #: templates/cmsplugin_news/news_archive_month.html:3
@@ -1237,6 +1242,7 @@ msgstr ""
 #: skins/default/templates/cmsplugin_news/latest_news.html:17
 #: skins/default/templates/cmsplugin_news/latest_news.html:36
 #: skins/default/templates/cmsplugin_news/news_archive.html:8
+#: skins/pyconde2013/templates/cmsplugin_news/latest_news.html:16
 #: skins/pyconde2013/templates/cmsplugin_news/news_archive.html:6
 #: templates/cmsplugin_news/news_archive_day.html:8
 #: templates/cmsplugin_news/news_archive_month.html:8
@@ -1252,10 +1258,29 @@ msgstr "Aktuelle News"
 msgid "Archive"
 msgstr "Archiv"
 
+#: skins/default/templates/userprofiles/email_change.html:4
+#: skins/default/templates/userprofiles/email_change.html:5
+#: skins/default/templates/userprofiles/email_change.html:14
+msgid "Change e-mail address"
+msgstr ""
+
 #: skins/default/templates/userprofiles/login.html:4
 #: skins/default/templates/userprofiles/login.html:5
 msgid "Login"
 msgstr "Anmelden"
+
+#: skins/default/templates/userprofiles/profile_change.html:15
+#, python-format
+msgid ""
+"You haven't set an e-mail address for notifications yet. To so click <a href="
+"\"%(url)s\">here</a>."
+msgstr ""
+
+#: skins/default/templates/userprofiles/profile_change.html:22
+#, python-format
+msgid ""
+"Your account is based on the data provided by your %(provider)s account."
+msgstr ""
 
 #: skins/default/templates/userprofiles/profile_view.html:3
 #: skins/default/templates/userprofiles/profile_view.html:6
@@ -1291,14 +1316,24 @@ msgstr ""
 "Der verwendete Aktivierungsgcode ist ungültig. Eine Aktivierung ist damit "
 "nicht möglich."
 
+#: skins/default/templates/userprofiles/sociallogin.html:5
+msgid ""
+"<p>You can also log in using your social accounts from these providers:</p>"
+msgstr ""
+"<p>Sie können sich auch mit Ihrem Konto bei einem der folgenden Anbieter hier anmelden:</p>"
+
+#: skins/default/templates/userprofiles/sociallogin.html:8
+#, python-format
+msgid "Login with %(backend)s"
+msgstr "Mit %(backend)s anmelden"
+
 #: skins/default/templates/userprofiles/mails/activation_email_subject.html:1
-#, fuzzy
 msgid "Account activation"
-msgstr "Konto-Daten"
+msgstr "Konto-Aktivierung"
 
 #: skins/default/templates/userprofiles/mails/emailverification_subject.html:1
 msgid "E-mail confirmation"
-msgstr ""
+msgstr "E-mail-Bestätigung"
 
 #: sponsorship/cms_plugins.py:10
 msgid "sponsor list plugin"

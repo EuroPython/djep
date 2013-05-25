@@ -95,6 +95,7 @@ INSTALLED_APPS = [
     'haystack',
     #'tinymce', # If you want tinymce, add it in the settings.py file.
     'django_gravatar',
+    'social_auth',
 
     'cms.plugins.inherit',
     'cms.plugins.googlemap',
@@ -132,6 +133,7 @@ MIDDLEWARE_CLASSES = [
     'cms.middleware.user.CurrentUserMiddleware',
     #'cms.middleware.toolbar.ToolbarMiddleware',
     'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'social_auth.middleware.SocialAuthExceptionMiddleware',
 ]
 
 TEMPLATE_CONTEXT_PROCESSORS += (
@@ -141,6 +143,7 @@ TEMPLATE_CONTEXT_PROCESSORS += (
     'pyconde.conference.context_processors.current_conference',
     'pyconde.reviews.context_processors.review_roles',
     'pyconde.context_processors.less_settings',
+    'social_auth.context_processors.social_auth_backends',
 )
 
 # TEMPLATE_DIRS = (
@@ -153,6 +156,7 @@ USERPROFILES_DOUBLE_CHECK_EMAIL = False
 USERPROFILES_DOUBLE_CHECK_PASSWORD = True
 USERPROFILES_REGISTRATION_FULLNAME = True
 USERPROFILES_USE_ACCOUNT_VERIFICATION = True
+USERPROFILES_USE_EMAIL_VERIFICATION = True
 USERPROFILES_USE_PROFILE = True
 USERPROFILES_INLINE_PROFILE_ADMIN = True
 USERPROFILES_USE_PROFILE_VIEW = False
@@ -267,3 +271,37 @@ ACCOUNTS_FALLBACK_TO_GRAVATAR = True
 #         'INDEX_NAME': 'pyconde2013',
 #     }
 # }
+
+SOCIAL_AUTH_PIPELINE = (
+    'social_auth.backends.pipeline.social.social_auth_user',
+    'social_auth.backends.pipeline.user.get_username',
+    'social_auth.backends.pipeline.user.create_user',
+    'social_auth.backends.pipeline.social.associate_user',
+    'social_auth.backends.pipeline.social.load_extra_data',
+    'social_auth.backends.pipeline.user.update_user_details',
+    'social_auth.backends.pipeline.misc.save_status_to_session',
+    'pyconde.accounts.pipeline.show_request_email_form',
+    'pyconde.accounts.pipeline.create_profile',
+)
+
+LOGIN_ERROR_URL = '/accounts/login/'
+
+GITHUB_APP_ID = os.environ.get('GITHUB_APP_ID')
+GITHUB_API_SECRET = os.environ['GITHUB_API_SECRET']
+GITHUB_EXTENDED_PERMISSIONS = ['user:email']
+TWITTER_CONSUMER_KEY = os.environ.get('TWITTER_CONSUMER_KEY')
+TWITTER_CONSUMER_SECRET = os.environ.get('TWITTER_CONSUMER_SECRET')
+GOOGLE_OAUTH2_CLIENT_ID = os.environ.get('GOOGLE_OAUTH2_CLIENT_ID')
+GOOGLE_OAUTH2_CLIENT_SECRET = os.environ.get('GOOGLE_OAUTH2_CLIENT_SECRET')
+FACEBOOK_APP_ID = os.environ.get('FACEBOOK_APP_ID')
+FACEBOOK_API_SECRET = os.environ.get('FACEBOOK_API_SECRET')
+
+AUTHENTICATION_BACKENDS = ['django.contrib.auth.backends.ModelBackend']
+if GITHUB_APP_ID and GITHUB_API_SECRET:
+    AUTHENTICATION_BACKENDS.insert(-1, 'social_auth.backends.contrib.github.GithubBackend')
+if TWITTER_CONSUMER_KEY and TWITTER_CONSUMER_SECRET:
+    AUTHENTICATION_BACKENDS.insert(-1, 'social_auth.backends.twitter.TwitterBackend')
+if FACEBOOK_API_SECRET and FACEBOOK_APP_ID:
+    AUTHENTICATION_BACKENDS.insert(-1, 'social_auth.backends.facebook.FacebookBackend')
+if GOOGLE_OAUTH2_CLIENT_SECRET and GOOGLE_OAUTH2_CLIENT_ID:
+    AUTHENTICATION_BACKENDS.insert(-1, 'social_auth.backends.google.GoogleOAuth2Backend')

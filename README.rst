@@ -73,3 +73,12 @@ originating in Symposion are:
 * conference
 * sponsorship
 
+
+Other 3rd-party components
+--------------------------
+
+This repository also contains various icons created by `Paul Robert Lloyd`_.
+Every site using this component must either indicate this in the footer or
+in the imprint.
+
+.. _Paul Robert Lloyd: http://www.paulrobertlloyd.com/2009/06/social_media_icons/

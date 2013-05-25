@@ -20,6 +20,7 @@ django-debug-toolbar==0.9.4
 requests==0.14.1
 django-braces==1.0.0
 django-gravatar2==1.0.6
+django-social-auth==0.7.23
 
 # tablib for export support
 tablib==0.9.11

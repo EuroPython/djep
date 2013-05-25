@@ -90,6 +90,15 @@
             <div class="visible-phone">
               <ul class="nav nav-pills">{% show_menu 1 100 0 0 "mainmenu.html" %}</ul>
             </div>
+            <div id="messages">
+                {% for message in messages %}
+                  <div id="message_{{ forloop.counter }}"{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
+                    {{ message }}
+                  </div>
+                {% endfor %}
+                {% block top_notices %}
+                {% endblock %}
+            </div>
             {% block content %}{% endblock %}
           </div>
         </div>

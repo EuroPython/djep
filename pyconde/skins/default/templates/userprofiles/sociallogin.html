@@ -1,0 +1,12 @@
+{% load url from future %}
+{% load i18n %}
+
+{% if social_auth.backends %}
+    {% blocktrans %}<p>You can also log in using your social accounts from these providers:</p>{% endblocktrans %}
+
+    {% for backend in social_auth.backends %}
+    <a title="{% blocktrans with backend=backend|capfirst %}Login with {{ backend }}{% endblocktrans %}" class="sociallogin sociallogin-{{ backend }}" href="{% url "socialauth_begin" backend=backend %}?next={{ next }}">
+        <img src="/static_media/images/sociallogin/{{ backend }}.png" alt="{{ backend }}" />
+    </a>
+    {% endfor %}
+{% endif %}
