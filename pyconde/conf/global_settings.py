@@ -92,7 +92,6 @@ INSTALLED_APPS = [
     'userprofiles.contrib.profiles',
     'taggit',
     'debug_toolbar',
-    'helpdesk',
     'haystack',
     #'tinymce', # If you want tinymce, add it in the settings.py file.
     'django_gravatar',
@@ -226,17 +225,6 @@ PROPOSAL_LANGUAGES = (
 )
 
 LESS_USE_DYNAMIC_IN_DEBUG = True
-
-# Django Helpdesk stuff
-#
-#   Configuration is done in admin,
-#   but these placeholders are required in order to make it work
-
-QUEUE_EMAIL_BOX_TYPE = None
-QUEUE_EMAIL_BOX_HOST = None
-QUEUE_EMAIL_BOX_USER = None
-QUEUE_EMAIL_BOX_SSL = None
-QUEUE_EMAIL_BOX_PASSWORD = None
 
 SCHEDULE_CACHE_SCHEDULE = True
 
