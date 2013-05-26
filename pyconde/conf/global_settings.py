@@ -245,10 +245,15 @@ HAYSTACK_CONNECTIONS = {
 # Disable south migrations during unittests
 SOUTH_TESTS_MIGRATE = False
 
-TINYMCE_DEFAULT_CONFIG={
+TINYMCE_DEFAULT_CONFIG = {
     'theme': 'advanced',
     'relative_urls': False,
     'theme_advanced_resizing': True,
+    'theme_advanced_buttons1_add': 'forecolor,backcolor',
+    'style_formats': [
+        {'title': u'Heading 2 (alternative)', 'block': 'h2', 'classes': 'alt'},
+        {'title': u'Heading 3 (alternative)', 'block': 'h3', 'classes': 'alt'},
+    ]
 }
 
 ACCOUNTS_FALLBACK_TO_GRAVATAR = True
