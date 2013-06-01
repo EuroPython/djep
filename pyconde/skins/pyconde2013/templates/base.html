@@ -17,7 +17,7 @@
 {% endblock %}
 
 {% block site_content %}
-  <div class="navbar navbar-fixed-top">
+  <div class="navbar navbar-fixed-top navbar-inverse">
     <div class="navbar-inner">
       <div class="container bar">
          <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
@@ -71,39 +71,58 @@
       </div>
     </div>
   </div>
-  <div class="container">
+  <div class="container page-wrapper">
     {% block page %}
-    <div class="row" id="page">
-      <div class="span8" id="content">
-        {% block content_banner %}{% endblock %}
-        {% block content_title %}
-        <h1>{% block page_title %}{% if request.current_page %}{% page_attribute "page_title" %}{% endif %}{% endblock %}</h1>
-        {% endblock %}
-        <div id="content-main">
-          <div class="visible-phone">
+    <div class="row postcard">
+      <h1><span>Zukunft.Dynamisch.Entwickeln.</span></h1>
+      <h2 class="highlight"><span>3. Deutsche Python-Konferenz</span></h2>
+      <h2 class="highlight"><span>14. - 19. Oktober 2013, Köln</span></h2>
+    </div>
+
+    <div id="page">
+      <div class="row">
+        <div class="span6 logo-spacer" id="content">
+          {% block content_banner %}{% endblock %}
+          {% block content_title %}
+          <h1>{% block page_title %}{% if request.current_page %}{% page_attribute "page_title" %}{% endif %}{% endblock %}</h1>
+          {% endblock %}
+          <div id="content-main">
+            <div class="visible-phone">
               <ul class="nav nav-pills">{% show_menu 1 100 0 0 "mainmenu.html" %}</ul>
+            </div>
+            {% block content %}{% endblock %}
           </div>
-          {% block content %}{% endblock %}
         </div>
-      </div>
-      <div class="span3 pull-right">
-        {% block sidebar_wrapper %}
-        <a class="halo" href="/"><img src="{{ STATIC_URL }}images/logo-small.png" title="PyCon.DE 2013" /></a>
-        {% block sidebar %}{% endblock %}
-        {% endblock %}
+        <div class="span3 logo-spacer">
+          {% if request.current_page %}
+            <div>
+              <strong>Weitere Themen:</strong>
+              <ul class="nav">
+                {% if request.current_page.menu_level == 0 %}
+                  {% show_sub_menu %}
+                {% else %}
+                  {% show_menu request.current_page.level %}
+                {% endif %}
+              </ul>
+            </div>
+          {% endif %}
+          {% block sidebar_wrapper %}
+          {% block sidebar %}{% endblock %}
+          {% endblock %}
+        </div>
+        <div class="span2">
+          <a class="halo logo" href="/"><img src="{{ STATIC_URL }}images/logo-small.png" title="PyCon.DE 2013" /></a>
+        </div>
       </div>
     </div>
     {% endblock %}
     <footer class="row hidden-phone">
-      <div class="box span3">
-        <h2>Impressum</h2>
-        <p>&copy 2013 PyCon DE</p>
-        <p><a href="/impressum/">Impressum</a></p>
-      </div>
-      <div class="box span3">
+      <div class="box span6">
         <h2>Kontakt</h2>
         <script>(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/of8RAgSle2hkbFF9IgHKrw.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})()</script>
-        <a href="javascript:void(0)" data-uv-lightbox="classic_widget" data-uv-mode="full" data-uv-primary-color="#1d8c2e" data-uv-link-color="#007dbf" data-uv-default-mode="support" data-uv-forum-id="203064">Hilfe und Support</a>
+        <p><a href="javascript:void(0)" data-uv-lightbox="classic_widget" data-uv-mode="full" data-uv-primary-color="#1d8c2e" data-uv-link-color="#007dbf" data-uv-default-mode="support" data-uv-forum-id="203064">Hilfe und Support</a></p>
+        <p><a href="/impressum/">Impressum</a></p>
+        <p>&copy 2013 PyCon DE</p>
       </div>
       <div class="box span3">
         <h2>Folgen Sie uns auch auf</h2>
@@ -114,6 +133,7 @@
           <li><a class="youtube" href="http://www.youtube.com/user/PyConDE">YouTube</a></li>
         </ul>
       </div>
+      <div class="box span2"></div>
     </footer>
   </div>
 

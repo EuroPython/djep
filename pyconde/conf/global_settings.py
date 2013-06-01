@@ -92,7 +92,6 @@ INSTALLED_APPS = [
     'userprofiles.contrib.profiles',
     'taggit',
     'debug_toolbar',
-    'helpdesk',
     'haystack',
     #'tinymce', # If you want tinymce, add it in the settings.py file.
     'django_gravatar',
@@ -227,17 +226,6 @@ PROPOSAL_LANGUAGES = (
 
 LESS_USE_DYNAMIC_IN_DEBUG = True
 
-# Django Helpdesk stuff
-#
-#   Configuration is done in admin,
-#   but these placeholders are required in order to make it work
-
-QUEUE_EMAIL_BOX_TYPE = None
-QUEUE_EMAIL_BOX_HOST = None
-QUEUE_EMAIL_BOX_USER = None
-QUEUE_EMAIL_BOX_SSL = None
-QUEUE_EMAIL_BOX_PASSWORD = None
-
 SCHEDULE_CACHE_SCHEDULE = True
 
 # Search configuration
@@ -257,10 +245,15 @@ HAYSTACK_CONNECTIONS = {
 # Disable south migrations during unittests
 SOUTH_TESTS_MIGRATE = False
 
-TINYMCE_DEFAULT_CONFIG={
+TINYMCE_DEFAULT_CONFIG = {
     'theme': 'advanced',
     'relative_urls': False,
     'theme_advanced_resizing': True,
+    'theme_advanced_buttons1_add': 'forecolor,backcolor',
+    'style_formats': [
+        {'title': u'Heading 2 (alternative)', 'block': 'h2', 'classes': 'alt'},
+        {'title': u'Heading 3 (alternative)', 'block': 'h3', 'classes': 'alt'},
+    ]
 }
 
 ACCOUNTS_FALLBACK_TO_GRAVATAR = True

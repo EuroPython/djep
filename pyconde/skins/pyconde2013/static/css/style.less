@@ -54,22 +54,26 @@
 
 @baseColor: #444;
 @green: #1d8c2d;
+@grey: #888;
 
 // Font definitions
 @bodyFont: "Verdana", "Helvetica Neue", Helvetica, Arial, sans-serif;
 @sansFontFamily: @bodyFont;
 @baseFontFamily: @bodyFont;
-@baseFontSize: 14px;
-@headerFontSize: 21.34pt;
-@header1FontSize: 22pt;
-@normalFontSize: 14px;
-@smallFontSize: 12px;
+@baseFontSize: 13.5px;
+@headerFontSize: 21.34px;
+@header1FontSize: 28px;
+@normalFontSize: 13.5px;
+@smallFontSize: 11px;
 
 @rightPageMargin: 60px;
 @gridColumnWidth: 67px;
 @linkColor: @green;
 
 // Bootstrap overrides
+.row {
+  margin-left: 0px;
+}
 // .container {
 //   margin-left: 0;
 //   margin-right: 0;
@@ -130,26 +134,28 @@ p {
     line-height: 1.6em;
 }
 
-#page {
+ul {
+  list-style-type: square;
+}
+
+#page .row {
   border-right: 1px solid #ccc;
   border-left: 1px solid #ccc;
-  background: #fafafa;
+  background: #fff;
   padding-bottom: 50px;
   position: relative;
-  margin-top: 40px;
   padding-top: 20px;
-  background: url(../images/background.png) no-repeat 0px 0px #fff;
-  min-height: 400px;
+  margin-left: 0;
 }
 .frontpage #page {
-    margin-left: -30px;
     margin-top: 0;
     background: #FFF;
 }
 
 div.page-wrapper {
-  -webkit-box-shadow: 5px -5px 10px -2px #888;
-  box-shadow: 5px -5px 10px -2px #888;
+  // -webkit-box-shadow: 5px -5px 10px -2px #888;
+  // box-shadow: 5px -5px 10px -2px #888;
+  background: url(../images/frontpage_background.png) no-repeat 0px 0px #fff;
 }
 
 header {
@@ -194,6 +200,17 @@ header {
   }
   .aligned {
     margin-top: 115px;
+  }
+}
+
+#page {
+  .logo-spacer {
+    padding-top: 60px;
+  }
+  a.logo {
+    position: relative;
+    top: -130px;
+    left: 60px;
   }
 }
 
@@ -252,14 +269,13 @@ footer .box {
   margin-left: 0px;
   > h1 {
     margin-bottom: 25px;
-    background: @green;
-    color: #fff;
-    padding: 5px;
+    border-bottom: 7px solid @green;
+    color: @green;
     display: inline-block;
     font-size: @header1FontSize;
-    padding: 5px;
+    padding: 0px;
     padding-left: 20px;
-    padding-right: 10px;
+    line-height: 1.1em;
   }
   p {
     margin-top: .7em;
@@ -285,13 +301,21 @@ footer .box {
     margin-bottom: 5px;
     margin-top: 1em;
   }
+  h2, h3 {
+    &.alt {
+        color: @grey;
+    }
+  }
+  h4, h5, h6 {
+    color: @grey;
+  }
   h1 {
     margin-top: 0;
     margin-bottom: 10px;
-    font-size: 28px;
+    font-size: 24px;
   }
-  h2 {font-size: 22px;}
-  h3 {font-size: 17px;}
+  h2 {font-size: 20px;}
+  h3 {font-size: 15px;}
 }
 .frontpage #content-main {
     padding-right: 0;
@@ -363,7 +387,7 @@ ul.social-links {
 }
 
 #sidebar {
-    font-size: 13px;
+    font-size: @normalFontSize;
     > aside > .cmsplugin,
     > aside > .tbox,
     > aside > a,
@@ -380,8 +404,17 @@ ul.social-links {
     }
     .cmsplugin-news {
         .headline {display: block;}
-        ul {
-            margin-left: 2em;
+        h5 {
+          margin-bottom: 0px;
+        }
+        .pub_date {
+          color: lighten(@baseColor, 10%);
+        }
+        a.more:after {
+          content: " >>";
+        }
+        .content {
+          margin-bottom: 2.5em;
         }
     }
     .cmsplugin-twitter {
@@ -456,7 +489,7 @@ ul.social-links {
 #content_banner {
     margin-bottom: 50px;
     position: relative;
-    
+
     h2 {
         position: absolute;
         top: -50px;
@@ -516,7 +549,7 @@ footer {
     padding-left: 0;
     padding-right: 0;
   }
-  
+
 }
 
 a.halo {
@@ -528,11 +561,13 @@ a.halo {
 }
 
 div.postcard {
-  background: url(../images/frontpage_background.png) no-repeat 0px 0px;
+  border-right: 1px solid #ccc;
+  border-left: 1px solid #ccc;
   margin-top: 40px;
   padding-top: 20px;
   padding-right: 15px;
   padding-bottom: 15px;
+  min-height: 270px;
     h1, h2 {
         color: #FFF;
         font-size: 29px;
@@ -573,6 +608,14 @@ form {
 
 
 // Workarounds to make the site work on mobile devices.
+@media (min-width: 1200px) {
+  .row {
+    margin-left: 0;
+  }
+  #dropout-menu .row {
+    margin-left: -30px;
+  }
+}
 @media (max-width: 1024px) {
     .navbar-fixed-top {
         margin-bottom: 0;
