@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-05-30 16:19+0200\n"
+"POT-Creation-Date: 2013-06-01 10:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -82,6 +82,10 @@ msgstr "Passwort ändern"
 msgid "Change"
 msgstr "Ändern"
 
+#: accounts/forms.py:160
+msgid "Continue"
+msgstr "Weiter"
+
 #: accounts/menu.py:15
 msgid "Accounts menu"
 msgstr "Accounts-Menü"
@@ -121,6 +125,29 @@ msgstr "Twitter-Benutzernamen haben 15 Zeichen oder weniger"
 #: accounts/validators.py:14
 msgid "Please omit the @ at the start of the twitter username"
 msgstr "Bitte schreiben Sie Ihren Twitter-Namen ohne @ am Anfang"
+
+#: accounts/templates/accounts/login-email-request.html:3
+#: accounts/templates/accounts/login-email-request.html:4
+#: skins/default/templates/userprofiles/registration.html:4
+#: skins/default/templates/userprofiles/registration.html:5
+#: skins/default/templates/userprofiles/registration_activate.html:5
+#: skins/default/templates/userprofiles/registration_activate.html:6
+#: skins/pyconde2013/templates/userprofiles/registration_activate.html:14
+#: skins/pyconde2013/templates/userprofiles/registration_activate.html:16
+msgid "Registration"
+msgstr "Registrierung"
+
+#: accounts/templates/accounts/login-email-request.html:6
+msgid ""
+"<p>The main mean of sending out notifications and updates is via e-mail. "
+"Providing one is optional.</p><p>If you enter an e-mail address in the form "
+"below, an activation email will be sent to this address. You can always "
+"change your e-mail address in the profile section of the site.</p>"
+msgstr ""
+"<p>Hier können Sie optional Ihre E-mail-Adresse angeben, "
+"um Benachrichtungen zu erhalten.</p><p>Sollten Sie im untenstehenden Formular "
+"Ihre E-mail-Adresse eingeben, wird an diese Adresse eine Aktivierungsmail versandt. "
+"Sie können Ihre Adresse im Mein Konto-Bereich jederzeit ändern.</p>"
 
 #: attendees/admin.py:69
 msgid "1 mail was"
@@ -354,11 +381,11 @@ msgstr ""
 msgid "Ticket successfully purchased"
 msgstr "Ticket erfolgreich gekauft"
 
-#: conf/global_settings.py:35 conf/global_settings.py:226
+#: conf/global_settings.py:35 conf/global_settings.py:227
 msgid "German"
 msgstr "Deutsch"
 
-#: conf/global_settings.py:227
+#: conf/global_settings.py:228
 msgid "English"
 msgstr ""
 
@@ -836,7 +863,6 @@ msgstr ""
 "zugreifen zu können."
 
 #: reviews/forms.py:40 reviews/forms.py:101 schedule/forms.py:27
-#: templates/djiki/edit.html:16
 msgid "Save"
 msgstr "Speichern"
 
@@ -1230,12 +1256,6 @@ msgstr ""
 #: skins/default/templates/cmsplugin_news/news_detail.html:3
 #: skins/pyconde2013/templates/cmsplugin_news/news_archive.html:3
 #: skins/pyconde2013/templates/cmsplugin_news/news_detail.html:3
-#: templates/cmsplugin_news/news_archive_day.html:3
-#: templates/cmsplugin_news/news_archive_day.html:5
-#: templates/cmsplugin_news/news_archive_month.html:3
-#: templates/cmsplugin_news/news_archive_month.html:5
-#: templates/cmsplugin_news/news_archive_year.html:3
-#: templates/cmsplugin_news/news_archive_year.html:5
 msgid "News"
 msgstr ""
 
@@ -1244,9 +1264,6 @@ msgstr ""
 #: skins/default/templates/cmsplugin_news/news_archive.html:8
 #: skins/pyconde2013/templates/cmsplugin_news/latest_news.html:16
 #: skins/pyconde2013/templates/cmsplugin_news/news_archive.html:6
-#: templates/cmsplugin_news/news_archive_day.html:8
-#: templates/cmsplugin_news/news_archive_month.html:8
-#: templates/cmsplugin_news/news_archive_year.html:8
 msgid "No news yet"
 msgstr "Keine News vorhanden"
 
@@ -1291,15 +1308,6 @@ msgstr "Benutzerprofil:"
 msgid "No info available"
 msgstr "Keine weiteren Informationen verfügbar"
 
-#: skins/default/templates/userprofiles/registration.html:4
-#: skins/default/templates/userprofiles/registration.html:5
-#: skins/default/templates/userprofiles/registration_activate.html:5
-#: skins/default/templates/userprofiles/registration_activate.html:6
-#: skins/pyconde2013/templates/userprofiles/registration_activate.html:14
-#: skins/pyconde2013/templates/userprofiles/registration_activate.html:16
-msgid "Registration"
-msgstr "Registrierung"
-
 #: skins/default/templates/userprofiles/registration_activate.html:11
 msgid "Hi"
 msgstr "Hallo"
@@ -1320,7 +1328,8 @@ msgstr ""
 msgid ""
 "<p>You can also log in using your social accounts from these providers:</p>"
 msgstr ""
-"<p>Sie können sich auch mit Ihrem Konto bei einem der folgenden Anbieter hier anmelden:</p>"
+"<p>Sie können sich auch mit Ihrem Konto bei einem der folgenden Anbieter "
+"hier anmelden:</p>"
 
 #: skins/default/templates/userprofiles/sociallogin.html:8
 #, python-format
@@ -1395,13 +1404,11 @@ msgstr ""
 msgid "custom CSS classes"
 msgstr ""
 
-#: templates/djiki/edit.html:3
-msgid "Edit page"
-msgstr "Seite editieren"
+#~ msgid "Edit page"
+#~ msgstr "Seite editieren"
 
-#: templates/djiki/edit.html:17
-msgid "Preview"
-msgstr "Vorschau"
+#~ msgid "Preview"
+#~ msgstr "Vorschau"
 
 #~ msgid "Proposal:"
 #~ msgstr "Session-Vorschlag:"

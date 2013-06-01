@@ -6,7 +6,8 @@ django-mptt==0.5.2
 django-classy-tags==0.4
 python-dateutil==1.5
 easy-thumbnails==1.1
-django-userprofiles==0.2 #nocache
+#django-userprofiles==0.2 #nocache
+-e git+https://github.com/zerok/django-userprofiles.git@fe29d7feb2a1b0ca8a10be8032f235df5406267f#egg=django-userprofiles
 django-filer==0.9.3
 cmsplugin-filer==0.9.4
 cmsplugin-news==0.4.1
