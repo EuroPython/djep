@@ -47,7 +47,11 @@ def purchase(request):
             # Redirect to names page
             return redirect('attendees_purchase_names', pk=purchase.pk)
     else:
-        form = PurchaseForm()
+        form = PurchaseForm(initial={
+            'first_name': request.user.first_name,
+            'last_name': request.user.last_name,
+            'email': request.user.email,
+        })
         quantity_forms = [TicketQuantityForm(ticket_type=ticket_type)
             for ticket_type in TicketType.objects.available()]
 
