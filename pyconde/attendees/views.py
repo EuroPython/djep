@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.conf import settings
+from django.contrib.auth.decorators import login_required
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
@@ -12,6 +13,7 @@ from pyconde.attendees.models import TicketType, Ticket, Purchase, PURCHASE_STAT
 from pyconde.attendees.forms import PurchaseForm, TicketQuantityForm, TicketNameForm, TicketVoucherForm
 
 
+@login_required
 def purchase(request):
     total_ticket_num = 0
 
@@ -56,6 +58,7 @@ def purchase(request):
     })
 
 
+@login_required
 def purchase_names(request, pk):
     purchase = get_object_or_404(Purchase, pk=pk, state='incomplete')
 
@@ -111,6 +114,7 @@ def purchase_names(request, pk):
     })
 
 
+@login_required
 def purchase_confirm(request, pk):
     purchase = get_object_or_404(Purchase, pk=pk, state='incomplete')
 
