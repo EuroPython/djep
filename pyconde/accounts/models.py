@@ -34,4 +34,5 @@ class Profile(models.Model):
 
 @receiver(user_logged_in)
 def show_logged_in_message(request, user, **kwargs):
-    messages.success(request, _("You've logged in successfully."))
+    messages.success(request, _("You've logged in successfully."),
+                     fail_silently=True)
