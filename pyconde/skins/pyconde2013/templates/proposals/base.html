@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load menu_tags %}
+
+{% block content %}{% block body %}{% endblock %}{% endblock %}
+
+{% block sidebar_wrapper %}
+<div>
+    <strong>Optionen:</strong>
+    <ul class="nav">
+        {% show_menu_below_id "proposals" %}
+    </ul>
+</div>
+{% block sidebar %}{% endblock %}
+{% endblock %}

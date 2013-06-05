@@ -103,19 +103,19 @@
           </div>
         </div>
         <div class="span3 logo-spacer">
-          {% if request.current_page %}
-            <div>
-              <strong>Weitere Themen:</strong>
-              <ul class="nav">
-                {% if request.current_page.menu_level == 0 %}
-                  {% show_sub_menu %}
-                {% else %}
-                  {% show_menu request.current_page.level %}
-                {% endif %}
-              </ul>
-            </div>
-          {% endif %}
           {% block sidebar_wrapper %}
+            {% if request.current_page %}
+              <div>
+                <strong>Weitere Themen:</strong>
+                <ul class="nav">
+                  {% if request.current_page.menu_level == 0 %}
+                    {% show_sub_menu %}
+                  {% else %}
+                    {% show_menu request.current_page.level %}
+                  {% endif %}
+                </ul>
+              </div>
+            {% endif %}
           {% block sidebar %}{% endblock %}
           {% endblock %}
         </div>
