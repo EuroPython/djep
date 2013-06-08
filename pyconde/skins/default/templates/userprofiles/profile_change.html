@@ -12,7 +12,7 @@
         <a href="{{ change_email_url }}">um deine E-Mail-Adresse zu ändern, klicke bitte hier</a>.
     </p>
     {% else %}
-        <p>{% blocktrans with url=change_email_url %}You haven't set an e-mail address for notifications yet. To so click <a href="{{ url }}">here</a>.{% endblocktrans %}</p>
+        <p>{% blocktrans with url=change_email_url %}You haven't set an e-mail address for notifications yet. To do so click <a href="{{ url }}">here</a>.{% endblocktrans %}</p>
     {% endif %}
     {% if not social_auth.associated %}
     <p>

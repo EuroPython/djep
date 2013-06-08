@@ -1,5 +1,5 @@
 {% extends "reviews/proposal_base.html" %}
-{% load markup crispy_forms_tags %}
+{% load markup crispy_forms_tags i18n account_tags %}
 {% block title %}Review-Info: {{ proposal.title }}{% endblock %}
 {% block content %}
     <h1>Review-Info: {% if proposal_version %}{{ proposal_version.title }}{% else %}{{ proposal.title }}{% endif %}</h1>
@@ -40,10 +40,10 @@
                     <dt><a href="#{{ item.type }}-{{ item.item.pk }}">{{ item.item.pub_date }}</a></dt>
                     {% if item.type == 'comment' %}
                         {% if item.item.deleted %}
-                        <dd>Dieses Kommentar von {{ item.item.author }} wurde gelöscht.
+                        <dd>Dieses Kommentar {% if not item.hide_author %}von {{ item.item.author|account_name }}{% endif %} wurde gelöscht.
                             {% if item.item.author != item.item.deleted_by %}(durch {{ item.item.deleted_by }}){% endif %}</dd>
                         {% else %}
-                        <dd><div class="content">{{ item.item.content|markdown:"safe" }}</div><cite>-- {{ item.item.author }}
+                        <dd><div class="content">{{ item.item.content|markdown:"safe" }}</div><cite>-- {% if item.hide_author %}Proposal-Autor{% else %}{{ item.item.author|account_name }}{% endif %}
                             (basierend auf {% if item.item.proposal_version %} <a href="{% url reviews-version-details proposal_pk=proposal.pk pk=item.item.proposal_version.pk %}">Version vom {{ item.item.proposal_version.pub_date }}</a>{% else %} dem Original-Vorschlag{% endif %})</cite>
                             {% if item.item.author == user or user.is_staff or user.is_admin %}<p class="actions">
                                 <a href="{% url reviews-delete-comment proposal_pk=proposal.pk pk=item.item.pk %}?next={{ request.get_full_path }}">Löschen</a>
@@ -51,7 +51,11 @@
                         </dd>
                         {% endif %}
                     {% else %}
-                        <dd>{{ item.item.creator }} hat das Proposal aktualisiert.</dd>
+                        {% if current_conference.anonymize_proposal_author %}
+                            <dd>{% trans "The author has updated the proposal." %}
+                        {% else %}
+                            <dd>{{ item.item.creator|account_name }} hat das Proposal aktualisiert.</dd>
+                        {% endif %}
                     {% endif %}
                 </dl>
             </li>

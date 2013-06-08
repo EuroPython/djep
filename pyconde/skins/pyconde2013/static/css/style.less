@@ -110,7 +110,7 @@ input[type="color"]:focus,
 }
 
 textarea {
-    width: 450px;
+    width: 350px;
     height: 300px;
 }
 
@@ -136,6 +136,10 @@ p {
 
 ul {
   list-style-type: square;
+}
+
+table {
+    width: 100%;
 }
 
 #page .row {
@@ -612,6 +616,67 @@ form {
     padding: 5px;
 }
 
+.reviews.listing {
+    .track {
+        display: block;
+        font-size: 80%;
+    }
+    .kind-talk {
+        background-color: #fcf8e3;
+    }
+    .kind-tutorial {
+        background-color: lighten(@green, 60);
+    }
+    td {
+        padding: 2px;
+        text-align: center;
+    }
+    p.legend {
+        border-top: 1px dotted #DDD;
+        font-size: 90%;
+        margin-top: 20px;
+        padding-top: 20px;
+    }
+}
+.review-overview #content-main {
+
+    .warning {
+        background: @warningBackground;
+        border: 1px solid @warningBorder;
+        color: @warningText;
+        padding: 5px;
+    }
+    .score {
+        float: left;
+        font-size: 45px;
+        display: block;
+        width: 100px;
+        margin-top: 9px;
+    }
+    .summary, cite {
+        margin-left: 110px;
+    }
+    cite {
+        font-style: italic;
+        font-size: 90%;
+    }
+    ul.reviews {
+        padding: 0;
+        li {
+            list-style: none;
+            border-top: 1px dotted #DDD;
+            padding-top: 10px;
+            margin-top: 10px;
+            width: 100%;
+            overflow: hidden;
+            &:first-child {
+                border-top: 0;
+                padding-top: 0;
+                margin-top: 0;
+            }
+        }
+    }
+}
 
 // Workarounds to make the site work on mobile devices.
 @media (min-width: 1200px) {

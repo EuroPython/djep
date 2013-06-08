@@ -87,6 +87,13 @@ var pyconde = (function($) {
     function init() {
         createSponsorSlides();
         $(createMultiuserSelectBox);
+        $('form.filters').each(function() {
+            var form = $(this);
+            form.delegate('select', 'change', function(evt) {
+                form.submit();
+            });
+            form.find('button').hide();
+        });
         if (!Hammer.HAS_TOUCHEVENTS) {
             $('div.navbar').mouseenter(function() {
                 var $that = $(this);
