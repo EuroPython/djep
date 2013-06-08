@@ -5,11 +5,13 @@
 
     <table>
         <tbody>
-            <tr><td colspan="2"><a href="{{ original.get_absolute_url }}">Original</a></td></tr>
+            <tr><td {% if not current_conference.anonymize_proposal_author %}colspan="2"{% endif %}><a href="{{ original.get_absolute_url }}">Original</a></td></tr>
         {% for version in object_list %}
         <tr>
             <td><a href="{% url reviews-version-details proposal_pk=version.original.pk pk=version.pk %}">{{ version.pub_date }}</a></td>
+            {% if not current_conference.anonymize_proposal_author %}
             <td>{{ version.creator }}</td>
+            {% endif %}
         </tr>
         {% endfor %}
         </tbody>

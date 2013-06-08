@@ -1,4 +1,4 @@
-{{ version.creator }} hat "{{ proposal.title }}" aktualisiert:
+{% if hide_author %}"{{ proposal.title }}" wurde aktualisiert:{% else %}{{ version.creator }} hat "{{ proposal.title }}" aktualisiert:{% endif %}
 
 --------- TITEL ------------------
 {{ version.title }}

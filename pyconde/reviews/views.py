@@ -399,11 +399,16 @@ class ProposalDetailsView(generic_views.DetailView):
 
     def wrap_timeline_elements(self, item):
         type_ = 'comment'
+        user = None
         if isinstance(item, models.ProposalVersion):
             type_ = 'version'
+            user = item.creator
+        else:
+            user = item.author
         return {
             'type': type_,
-            'item': item
+            'item': item,
+            'hide_author': current_conference().anonymize_proposal_author and utils.is_proposal_author(user, self.object),
         }
 
 
@@ -425,7 +430,7 @@ class ProposalVersionListView(generic_views.ListView):
         data = super(ProposalVersionListView, self).get_context_data(**kwargs)
         data['original'] = models.Proposal.current_conference.get(pk=self.kwargs['proposal_pk'])
         data['proposal'] = data['original']
-        data['proposal_version'] = models.ProposalVersion.current_conference.get_latest_for(data['original'])
+        data['proposal_version'] = models.ProposalVersion.objects.get_latest_for(data['original'])
         return data
 
     def get(self, *args, **kwargs):

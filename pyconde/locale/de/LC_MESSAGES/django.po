@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-01 10:33+0200\n"
+"POT-Creation-Date: 2013-06-08 21:04+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -144,10 +144,10 @@ msgid ""
 "below, an activation email will be sent to this address. You can always "
 "change your e-mail address in the profile section of the site.</p>"
 msgstr ""
-"<p>Hier können Sie optional Ihre E-mail-Adresse angeben, "
-"um Benachrichtungen zu erhalten.</p><p>Sollten Sie im untenstehenden Formular "
-"Ihre E-mail-Adresse eingeben, wird an diese Adresse eine Aktivierungsmail versandt. "
-"Sie können Ihre Adresse im Mein Konto-Bereich jederzeit ändern.</p>"
+"<p>Hier können Sie optional Ihre E-mail-Adresse angeben, um Benachrichtungen "
+"zu erhalten.</p><p>Sollten Sie im untenstehenden Formular Ihre E-mail-"
+"Adresse eingeben, wird an diese Adresse eine Aktivierungsmail versandt. Sie "
+"können Ihre Adresse im Mein Konto-Bereich jederzeit ändern.</p>"
 
 #: attendees/admin.py:69
 msgid "1 mail was"
@@ -377,7 +377,7 @@ msgstr ""
 msgid "Tickets"
 msgstr ""
 
-#: attendees/views.py:121
+#: attendees/views.py:129
 msgid "Ticket successfully purchased"
 msgstr "Ticket erfolgreich gekauft"
 
@@ -387,17 +387,17 @@ msgstr "Deutsch"
 
 #: conf/global_settings.py:228
 msgid "English"
-msgstr ""
+msgstr "Englisch"
 
 #: conference/models.py:21 proposals/models.py:56 sponsorship/models.py:54
 msgid "title"
 msgstr "Titel"
 
-#: conference/models.py:24 conference/models.py:85
+#: conference/models.py:24 conference/models.py:89
 msgid "start date"
 msgstr "Start"
 
-#: conference/models.py:25 conference/models.py:86
+#: conference/models.py:25 conference/models.py:90
 msgid "end date"
 msgstr "Ende"
 
@@ -405,84 +405,84 @@ msgstr "Ende"
 msgid "timezone"
 msgstr "Zeitzone"
 
-#: conference/models.py:59 conference/models.py:79 conference/models.py:123
-#: conference/models.py:146 conference/models.py:172 conference/models.py:216
-#: conference/models.py:241 schedule/models.py:107 sponsorship/models.py:12
+#: conference/models.py:63 conference/models.py:83 conference/models.py:127
+#: conference/models.py:150 conference/models.py:176 conference/models.py:220
+#: conference/models.py:245 schedule/models.py:107 sponsorship/models.py:12
 msgid "conference"
 msgstr "Konferenz"
 
-#: conference/models.py:60
+#: conference/models.py:64
 msgid "conferences"
 msgstr "Konferenzen"
 
-#: conference/models.py:82 conference/models.py:124 conference/models.py:173
-#: conference/models.py:217 conference/models.py:242 schedule/models.py:95
+#: conference/models.py:86 conference/models.py:128 conference/models.py:177
+#: conference/models.py:221 conference/models.py:246 schedule/models.py:95
 #: sponsorship/models.py:13 sponsorship/models.py:34
 msgid "name"
 msgstr "Name"
 
-#: conference/models.py:88 conference/models.py:125 conference/models.py:148
-#: conference/models.py:174 conference/models.py:218 conference/models.py:243
+#: conference/models.py:92 conference/models.py:129 conference/models.py:152
+#: conference/models.py:178 conference/models.py:222 conference/models.py:247
 #: sponsorship/models.py:16
 msgid "slug"
 msgstr "Slug"
 
-#: conference/models.py:89 conference/models.py:221 conference/models.py:244
+#: conference/models.py:93 conference/models.py:225 conference/models.py:248
 #: sponsorship/models.py:14
 msgid "order"
 msgstr "Reihenfolge"
 
-#: conference/models.py:91 conference/models.py:219 proposals/models.py:57
+#: conference/models.py:95 conference/models.py:223 proposals/models.py:57
 #: schedule/models.py:96 sponsorship/models.py:15 sponsorship/models.py:37
 msgid "description"
 msgstr "Beschreibung"
 
-#: conference/models.py:100 proposals/models.py:35 schedule/models.py:31
+#: conference/models.py:104 proposals/models.py:35 schedule/models.py:31
 #: schedule/models.py:100
 msgid "section"
 msgstr "Abschnitt"
 
-#: conference/models.py:101 schedule/models.py:124
+#: conference/models.py:105 schedule/models.py:124
 msgid "sections"
 msgstr "Abschnitte"
 
-#: conference/models.py:126 sponsorship/models.py:41
+#: conference/models.py:130 sponsorship/models.py:41
 msgid "level"
 msgstr "Stufe"
 
-#: conference/models.py:132 proposals/forms.py:100 proposals/models.py:72
+#: conference/models.py:136 proposals/forms.py:100 proposals/models.py:72
 msgid "audience level"
 msgstr "Zielgruppe"
 
-#: conference/models.py:133
+#: conference/models.py:137
 msgid "audience levels"
 msgstr "Zielgruppen"
 
-#: conference/models.py:147
+#: conference/models.py:151
 msgid "label"
 msgstr "Label"
 
-#: conference/models.py:149
+#: conference/models.py:153
 msgid "minutes"
 msgstr "Minuten"
 
-#: conference/models.py:155
+#: conference/models.py:159
 msgid "session duration"
 msgstr "Sessiondauer"
 
-#: conference/models.py:156
+#: conference/models.py:160
 msgid "session durations"
 msgstr "Sessiondauer"
 
-#: conference/models.py:186
+#: conference/models.py:190
 msgid "session kind"
 msgstr "Session-Art"
 
-#: conference/models.py:187
+#: conference/models.py:191
 msgid "session kinds"
 msgstr "Session-Arten"
 
-#: conference/models.py:199
+#: conference/models.py:203
 msgid ""
 "You have to specify a start and end date if you leave the 'closed' status "
 "undetermined"
@@ -490,31 +490,31 @@ msgstr ""
 "Sie müssen ein Start- und Enddatum angeben, wenn sie den 'geschlossen'-"
 "Status nicht setzen."
 
-#: conference/models.py:201
+#: conference/models.py:205
 msgid "The end date has to be after the start date"
 msgstr "Das Ende muss nach dem Anfang sein"
 
-#: conference/models.py:220
+#: conference/models.py:224
 msgid "visible"
 msgstr "Sichtbar"
 
-#: conference/models.py:227 proposals/models.py:76
+#: conference/models.py:231 proposals/models.py:76
 msgid "track"
 msgstr "Track"
 
-#: conference/models.py:228
+#: conference/models.py:232
 msgid "tracks"
 msgstr "Tracks"
 
-#: conference/models.py:245
+#: conference/models.py:249
 msgid "used for sessions"
 msgstr "wird für Sessions verwendet"
 
-#: conference/models.py:255 schedule/models.py:37 schedule/models.py:102
+#: conference/models.py:259 schedule/models.py:37 schedule/models.py:102
 msgid "location"
 msgstr "Ort"
 
-#: conference/models.py:256
+#: conference/models.py:260
 msgid "locations"
 msgstr "Orte"
 
@@ -753,7 +753,19 @@ msgstr "Möchten Sie diesen Session-Vorschlag zurückziehen?"
 msgid "Proposal"
 msgstr "Session-Vorschlag"
 
-#: proposals/templates/proposals/proposal_detail.html:9
+#: proposals/templates/proposals/proposal_detail.html:10
+#, fuzzy, python-format
+msgid ""
+"\n"
+"This proposal was submitted on <span class=\"submission-date\">"
+"%(submission_date)s</span>.\n"
+msgstr ""
+"\n"
+"<a class=\"speaker user\" href=\"%(speaker_url)s\">%(speaker)s</a> hat "
+"diesen Vortrag am <span class=\"submission-date\">%(submission_date)s</span> "
+"eingereicht.\n"
+
+#: proposals/templates/proposals/proposal_detail.html:14
 #, python-format
 msgid ""
 "\n"
@@ -766,23 +778,23 @@ msgstr ""
 "diesen Vortrag am <span class=\"submission-date\">%(submission_date)s</span> "
 "eingereicht.\n"
 
-#: proposals/templates/proposals/proposal_detail.html:13
+#: proposals/templates/proposals/proposal_detail.html:19
 #: schedule/templates/schedule/session.html:18
 msgid "Tags"
 msgstr ""
 
-#: proposals/templates/proposals/proposal_detail.html:24
+#: proposals/templates/proposals/proposal_detail.html:30
 #: proposals/templates/proposals/proposal_list_mine.html:56
 msgid "Leave"
 msgstr "Teilnahme zurückziehen"
 
-#: proposals/templates/proposals/proposal_detail.html:27
+#: proposals/templates/proposals/proposal_detail.html:33
 #: proposals/templates/proposals/proposal_list_mine.html:25
 #: schedule/templates/schedule/session.html:13
 msgid "Edit"
 msgstr "Ändern"
 
-#: proposals/templates/proposals/proposal_detail.html:30 reviews/forms.py:144
+#: proposals/templates/proposals/proposal_detail.html:36 reviews/forms.py:144
 msgid "Delete"
 msgstr "Löschen"
 
@@ -998,12 +1010,22 @@ msgstr "Kommentar"
 msgid "comments"
 msgstr "Kommentare"
 
-#: reviews/utils.py:84
+#: reviews/utils.py:91
 #, python-format
-msgid "[REVIEW] %(author)s commented on %(title)s"
-msgstr "[REVIEW] %(author)s hat %(title)s kommentiert"
+msgid "[REVIEW] The author has commented on \"%(title)s\""
+msgstr "[REVIEW] Der Autor hat \"%(title)s\" kommentiert"
 
-#: reviews/utils.py:108
+#: reviews/utils.py:93
+#, python-format
+msgid "[REVIEW] %(author)s commented on \"%(title)s\""
+msgstr "[REVIEW] %(author)s hat \"%(title)s\" kommentiert"
+
+#: reviews/utils.py:122
+#, python-format
+msgid "[REVIEW] The author updated %(title)s"
+msgstr "[REVIEW] Der Autor hat %(title)s bearbeitet"
+
+#: reviews/utils.py:124
 #, python-format
 msgid "[REVIEW] %(author)s updated %(title)s"
 msgstr "[REVIEW] %(author)s hat %(title)s bearbeitet"
@@ -1036,22 +1058,22 @@ msgstr "Review wurde gelöscht"
 msgid "Comment has been added"
 msgstr "Kommentar wurde hinzugefügt"
 
-#: reviews/views.py:434 reviews/views.py:465
+#: reviews/views.py:439 reviews/views.py:470
 msgid ""
 "You have to be the author of this proposal or a reviewer to access this page"
 msgstr ""
 "Sie müssen Autor dieses Vorschlages oder Reviewer sein, um auf diese Seite "
 "zugreifen zu können."
 
-#: reviews/views.py:508
+#: reviews/views.py:513
 msgid "Proposal has been successfully updated"
 msgstr "Der Vorschlag wurde erfolgreich geändert"
 
-#: reviews/views.py:517
+#: reviews/views.py:522
 msgid "Proposals can no longer be updated"
 msgstr "Vorschläge können nicht mehr aktualisiert werden"
 
-#: reviews/views.py:521
+#: reviews/views.py:526
 msgid "You have to be the author of this review to access this page"
 msgstr ""
 "Sie müssen Autor dieser Review sein, um auf diese Seite zugreifen zu können."
@@ -1059,6 +1081,22 @@ msgstr ""
 #: reviews/management/commands/export_reviews.py:9
 msgid "Exports all reviews as CSV to stdout"
 msgstr "Exportiert alle Reviews als CSV nach STDOUT"
+
+#: reviews/templates/reviews/proposal_details.html:55
+msgid "The author has updated the proposal."
+msgstr "Der Autor hat das Proposal aktualisiert."
+
+#: reviews/templates/reviews/review_list.html:15
+msgid "This review is based on an old version of the proposal:"
+msgstr "Diese Review basiert auf einer alten Vorschlagsversion:"
+
+#: reviews/templates/reviews/review_list.html:19
+msgid "Original"
+msgstr ""
+
+#: reviews/templates/reviews/reviewable_proposals.html:9
+msgid "Filters"
+msgstr "Filter"
 
 #: schedule/admin.py:38
 #, python-format
@@ -1116,7 +1154,7 @@ msgstr ""
 
 #: schedule/models.py:41
 msgid "Video URL"
-msgstr ""
+msgstr "Video-URL"
 
 #: schedule/models.py:86 schedule/templates/schedule/session.html:3
 #: schedule/templates/schedule/session.html:4
@@ -1134,7 +1172,7 @@ msgstr "Pause"
 
 #: schedule/models.py:105
 msgid "is recordable"
-msgstr ""
+msgstr "kann aufgenommen werden"
 
 #: schedule/views.py:121
 msgid "Changes saved"
@@ -1279,7 +1317,7 @@ msgstr "Archiv"
 #: skins/default/templates/userprofiles/email_change.html:5
 #: skins/default/templates/userprofiles/email_change.html:14
 msgid "Change e-mail address"
-msgstr ""
+msgstr "E-Mail-Adresse ändern"
 
 #: skins/default/templates/userprofiles/login.html:4
 #: skins/default/templates/userprofiles/login.html:5
@@ -1289,15 +1327,17 @@ msgstr "Anmelden"
 #: skins/default/templates/userprofiles/profile_change.html:15
 #, python-format
 msgid ""
-"You haven't set an e-mail address for notifications yet. To so click <a href="
-"\"%(url)s\">here</a>."
+"You haven't set an e-mail address for notifications yet. To do so click <a "
+"href=\"%(url)s\">here</a>."
 msgstr ""
+"Sie haben noch keine E-Mail-Adresse für Benachrichtigungen angegeben. Sie "
+"können das <a href=\"%(url)s\">hier</a> tun."
 
 #: skins/default/templates/userprofiles/profile_change.html:22
 #, python-format
 msgid ""
 "Your account is based on the data provided by your %(provider)s account."
-msgstr ""
+msgstr "Ihr Konto basiert auf Ihrem %(provider)s Konto."
 
 #: skins/default/templates/userprofiles/profile_view.html:3
 #: skins/default/templates/userprofiles/profile_view.html:6

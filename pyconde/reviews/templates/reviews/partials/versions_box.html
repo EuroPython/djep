@@ -1,10 +1,11 @@
+{% load account_tags %}
 {% if versions %}
 <div class="box" id="versions">
     <h2>Versionen</h2>
     <ul>
         {% for v in versions %}
         <li class="{% if v == version %}active{% endif %}">
-            <a href="{% url reviews-version-details proposal_pk=proposal.pk pk=v.pk %}">{{ v.pub_date }}</a> ({{ v.creator }})
+            <a href="{% url reviews-version-details proposal_pk=proposal.pk pk=v.pk %}">{{ v.pub_date }}</a>{% if not current_conference.anonymize_proposal_author %} ({{ v.creator|account_name }}){% endif %}
         </li>
         {% endfor %}
     </ul>

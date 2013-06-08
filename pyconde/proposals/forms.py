@@ -278,4 +278,6 @@ class TalkSubmissionForm(TypedSubmissionForm):
             form = self
         form.fields['duration'] = forms.ModelChoiceField(label=_("duration"),
                 queryset=conference_models.SessionDuration.current_objects.exclude(slug='tutorial').all())
-        form.fields['available_timeslots'].queryset = form.fields['available_timeslots'].queryset.filter(section__slug='konferenz')
+        if 'available_timeslots' in form.fields:
+            form.fields['available_timeslots'].queryset = form.fields['available_timeslots']\
+                .queryset.filter(section__slug='konferenz')
