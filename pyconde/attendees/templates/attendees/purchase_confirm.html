@@ -1,5 +1,5 @@
 {% extends "attendees/base.html" %}
-{% load i18n %}
+{% load i18n crispy_forms_tags %}
 
 {% block title %}Tickets für Konferenz und Tutorials{% endblock %}
 
@@ -51,10 +51,10 @@
     </p>
     <p>Wenn alle Angaben korrekt sind, klicken Sie bitte auf den Button "Bestellung abschließen", um die Daten zu speichern.
     Sie erhalten eine Bestellbestätigung per E-Mail.</p>
+
     <form class="form-horizontal" method="post">
+        <h2>Zahlungsart</h2>
         {% csrf_token %}
-        <div class="form-actions">
-            <input type="submit" name="submit" value="Bestellung abschließen" class="submit btn btn-primary" id="submit-id-submit">
-        </div>
+        {% crispy form %}
     </form>
 {% endblock %}

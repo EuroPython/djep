@@ -305,3 +305,8 @@ if FACEBOOK_API_SECRET and FACEBOOK_APP_ID:
     AUTHENTICATION_BACKENDS.insert(-1, 'social_auth.backends.facebook.FacebookBackend')
 if GOOGLE_OAUTH2_CLIENT_SECRET and GOOGLE_OAUTH2_CLIENT_ID:
     AUTHENTICATION_BACKENDS.insert(-1, 'social_auth.backends.google.GoogleOAuth2Backend')
+
+PAYMILL_PRIVATE_KEY = os.environ.get('PAYMILL_PRIVATE_KEY')
+PAYMILL_PUBLIC_KEY = os.environ.get('PAYMILL_PUBLIC_KEY')
+
+PAYMILL_TRANSACTION_DESCRIPTION = 'PyCon.DE 2013: Einkaufsnummer {purchase_pk}'

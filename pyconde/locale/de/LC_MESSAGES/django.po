@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-08 21:04+0200\n"
+"POT-Creation-Date: 2013-06-18 22:33+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -149,237 +149,327 @@ msgstr ""
 "Adresse eingeben, wird an diese Adresse eine Aktivierungsmail versandt. Sie "
 "können Ihre Adresse im Mein Konto-Bereich jederzeit ändern.</p>"
 
-#: attendees/admin.py:69
+#: attendees/admin.py:62 attendees/admin.py:88
 msgid "1 mail was"
 msgstr "1 E-Mail wurde"
 
-#: attendees/admin.py:71
+#: attendees/admin.py:64 attendees/admin.py:90
 #, python-format
 msgid "%s mails were"
 msgstr "%s E-Mails wurden"
 
-#: attendees/admin.py:73
+#: attendees/admin.py:65 attendees/admin.py:92
 #, python-format
 msgid "%s successfully sent."
 msgstr "%s erfolgreich versandt."
 
-#: attendees/admin.py:75
+#: attendees/admin.py:67
+#, python-format
+msgid "Send purchase confirmation for selected %(verbose_name_plural)s"
+msgstr ""
+"Versende Bestellungsbest&auml;igungen f&uuml;r ausgew&auml;hlte "
+"%(verbose_name_plural)s"
+
+#: attendees/admin.py:94
 #, python-format
 msgid "Send confirmation for selected %(verbose_name_plural)s"
 msgstr ""
+"Versende Zahlungsbest&auml;tigung f&uuml;r ausgew&auml;hlte "
+"%(verbose_name_plural)s"
 
 #: attendees/cms_app.py:9
 msgid "Attendees App"
 msgstr ""
 
-#: attendees/forms.py:13 attendees/models.py:126
+#: attendees/forms.py:13 attendees/models.py:21
+msgid "Invoice"
+msgstr "Rechnung"
+
+#: attendees/forms.py:14 attendees/models.py:22
+msgid "Credit card"
+msgstr "Kreditkarte"
+
+#: attendees/forms.py:15 attendees/models.py:23
+msgid "ELV"
+msgstr ""
+
+#: attendees/forms.py:20 attendees/models.py:139
 msgid "E-Mail"
 msgstr ""
 
-#: attendees/forms.py:26
+#: attendees/forms.py:33
 msgid "Invoice address"
 msgstr "Rechnungsadresse"
 
-#: attendees/forms.py:29
+#: attendees/forms.py:36
 msgid "Purchase tickets"
 msgstr "Tickets kaufen"
 
-#: attendees/forms.py:44
+#: attendees/forms.py:53
 msgid "Quantity"
 msgstr "Anzahl"
 
-#: attendees/forms.py:67
+#: attendees/forms.py:76
 msgid "Ticket sold out."
 msgstr "Tickets ausverkauft."
 
-#: attendees/forms.py:70
+#: attendees/forms.py:79
 msgid "Not enough tickets left."
 msgstr "Nicht genug Tickets mehr verfügbar."
 
-#: attendees/forms.py:98 attendees/models.py:38 attendees/models.py:42
-#: attendees/models.py:200
+#: attendees/forms.py:107 attendees/models.py:48 attendees/models.py:52
+#: attendees/models.py:227
 msgid "Voucher"
 msgstr "Gutschein"
 
-#: attendees/forms.py:117
+#: attendees/forms.py:126
 msgid "Voucher verification failed."
 msgstr "Gutschein-Verifikation fehlgeschlagen."
 
-#: attendees/models.py:11
+#: attendees/forms.py:144 attendees/models.py:184
+msgid "Payment method"
+msgstr "Zahlungsart"
+
+#: attendees/forms.py:146
+msgid ""
+"If you choose invoice you will receive an invoice from us. After we receive "
+"your money transfer your purchase will be finanized.<br /><br />Credit card "
+"payment is handled through <a href=\"http://www.paymill.com\">PayMill</a>."
+msgstr ""
+"Falls Sie Rechnung auswählen, erhalten Sie von uns eine Rechnung nach "
+"Abschluss des Einkaufes. Sobald wir von Ihnen eine entsprechende Überweisung "
+"erhalten, wird Ihre Bestellung abgeschlossen.<br /><br />Krediatkarten-"
+"Zahlungen werden durch <a href=\"http://www.paymill.com\">PayMill</a> "
+"durchgeführt."
+
+#: attendees/forms.py:158
+msgid "Complete purchase"
+msgstr "Bestellung abschlie&szlig;en"
+
+#: attendees/models.py:13
 msgid "Purchase incomplete"
 msgstr "Kauf unvollständig"
 
-#: attendees/models.py:12
+#: attendees/models.py:14
 msgid "new"
 msgstr "neu"
 
-#: attendees/models.py:13
+#: attendees/models.py:15
 msgid "invoice created"
 msgstr "Rechnung erstellt"
 
-#: attendees/models.py:14
+#: attendees/models.py:16
 msgid "payment received"
 msgstr "Zahlung eingegangen"
 
-#: attendees/models.py:15
+#: attendees/models.py:17
 msgid "canceled"
 msgstr "Zurückgezogen"
 
-#: attendees/models.py:28
+#: attendees/models.py:37
 msgid "Code"
 msgstr ""
 
-#: attendees/models.py:29
+#: attendees/models.py:38
 msgid "Can be left blank, code will be created when you save."
 msgstr "Kann leer gelassen werden. Code wird beim Speichern generiert."
 
-#: attendees/models.py:30 attendees/models.py:81
+#: attendees/models.py:39 attendees/models.py:93
 msgid "Remarks"
 msgstr "Bemerkungen"
 
-#: attendees/models.py:31
+#: attendees/models.py:41
 msgid "Date (valid)"
 msgstr "Gültigkeitsdatum"
 
-#: attendees/models.py:32
+#: attendees/models.py:42
 msgid "The voucher is valid until this date"
 msgstr "Der Gutschein ist bis zu diesem Datum gültig"
 
-#: attendees/models.py:33
+#: attendees/models.py:43
 msgid "Is used"
 msgstr "Wird verwendet"
 
-#: attendees/models.py:39
+#: attendees/models.py:49
 msgid "Vouchers"
 msgstr "Gutscheine"
 
-#: attendees/models.py:65
+#: attendees/models.py:76
 msgid "Product number"
 msgstr "Produktnummer"
 
-#: attendees/models.py:66 attendees/models.py:124
+#: attendees/models.py:77 attendees/models.py:137
 msgid "Will be created when you save the first time."
 msgstr "Wird bei erstmaliger Speicherung erstellt."
 
-#: attendees/models.py:68
+#: attendees/models.py:79
+#: attendees/templates/attendees/payment_paymill.html:42
 msgid "Name"
 msgstr ""
 
-#: attendees/models.py:69
+#: attendees/models.py:80
 msgid "Fee"
 msgstr "Gebühr"
 
-#: attendees/models.py:71
+#: attendees/models.py:83
 msgid "Max purchases"
 msgstr ""
 
-#: attendees/models.py:72
+#: attendees/models.py:84
 msgid "0 means no limit"
 msgstr "0 bedeutet kein Limit"
 
-#: attendees/models.py:74
+#: attendees/models.py:86
 msgid "Is active"
 msgstr "Aktiv"
 
-#: attendees/models.py:75
+#: attendees/models.py:87
 msgid "Date (valid from)"
 msgstr "Gültig ab"
 
-#: attendees/models.py:76
+#: attendees/models.py:88
 msgid "Date (valid to)"
 msgstr "Gültig bis"
 
-#: attendees/models.py:78
+#: attendees/models.py:90
 msgid "Voucher needed"
 msgstr "Benötigt Gutschein"
 
-#: attendees/models.py:79
+#: attendees/models.py:91
 msgid "Tutorial ticket"
 msgstr "Tutorial-Ticket"
 
-#: attendees/models.py:87 attendees/models.py:88 attendees/models.py:193
+#: attendees/models.py:99 attendees/models.py:100 attendees/models.py:219
 msgid "Ticket type"
 msgstr "Tickettyp"
 
-#: attendees/models.py:123
+#: attendees/models.py:136
 msgid "Customer number"
 msgstr "Kundennummer"
 
-#: attendees/models.py:128 attendees/models.py:162 attendees/models.py:198
+#: attendees/models.py:142 attendees/models.py:177 attendees/models.py:225
 msgid "Date (added)"
 msgstr "Hinzugefügt am"
 
-#: attendees/models.py:130
+#: attendees/models.py:143
 msgid "Is exported"
 msgstr "Exportiert"
 
-#: attendees/models.py:136 attendees/models.py:149
+#: attendees/models.py:149 attendees/models.py:162
 msgid "Customer"
 msgstr "Kunde"
 
-#: attendees/models.py:137
+#: attendees/models.py:150
 msgid "Customers"
 msgstr "Kunden"
 
-#: attendees/models.py:152
+#: attendees/models.py:163
+msgid "User"
+msgstr "Benutzer"
+
+#: attendees/models.py:166
 msgid "Company"
 msgstr "Firma"
 
-#: attendees/models.py:153 attendees/models.py:195
+#: attendees/models.py:167 attendees/models.py:221
 msgid "First name"
 msgstr "Vorname"
 
-#: attendees/models.py:154 attendees/models.py:196
+#: attendees/models.py:168 attendees/models.py:222
 msgid "Last name"
 msgstr "Nachname"
 
-#: attendees/models.py:156
+#: attendees/models.py:170
 msgid "Street and house number"
 msgstr "Straße und Hausnummer"
 
-#: attendees/models.py:157
+#: attendees/models.py:171
 msgid "Zip code"
 msgstr "Postleitzahl"
 
-#: attendees/models.py:158
+#: attendees/models.py:172
 msgid "City"
 msgstr "Ort"
 
-#: attendees/models.py:159
+#: attendees/models.py:173
 msgid "Country"
 msgstr "Land"
 
-#: attendees/models.py:160
+#: attendees/models.py:174
 msgid "VAT-ID"
 msgstr ""
 
-#: attendees/models.py:164
-msgid "State"
-msgstr "Bundesstaat / Bundesland"
+#: attendees/models.py:179
+msgid "Status"
+msgstr "Status"
 
-#: attendees/models.py:167
+#: attendees/models.py:182
 msgid "Comments"
 msgstr "Kommentare"
 
-#: attendees/models.py:170
+#: attendees/models.py:187
+msgid "Transaction ID"
+msgstr "TransaktionsID"
+
+#: attendees/models.py:191
 msgid "Purchase"
 msgstr "Kauf"
 
-#: attendees/models.py:171
+#: attendees/models.py:192
 msgid "Purchases"
 msgstr "Einkäufe"
 
-#: attendees/models.py:205
+#: attendees/models.py:232
 msgid "Ticket"
 msgstr ""
 
-#: attendees/models.py:206
+#: attendees/models.py:233
 msgid "Tickets"
 msgstr ""
 
-#: attendees/views.py:129
+#: attendees/utils.py:44
 msgid "Ticket successfully purchased"
 msgstr "Ticket erfolgreich gekauft"
+
+#: attendees/templates/attendees/payment_paymill.html:3
+msgid "Payment"
+msgstr "Bezahlung"
+
+#: attendees/templates/attendees/payment_paymill.html:6
+msgid "You have to have JavaScript enabled to pay via credit card."
+msgstr "Sie müssen JavaScript aktiviert haben, um mit Kreditkarte oder ELV bezahlen zu können."
+
+#: attendees/templates/attendees/payment_paymill.html:17
+msgid "Card number"
+msgstr "Kartennummer"
+
+#: attendees/templates/attendees/payment_paymill.html:17
+msgid "Account number"
+msgstr "Kontonummer"
+
+#: attendees/templates/attendees/payment_paymill.html:25
+msgid "CVC"
+msgstr ""
+
+#: attendees/templates/attendees/payment_paymill.html:34
+msgid "Bank (BLZ)"
+msgstr ""
+
+#: attendees/templates/attendees/payment_paymill.html:50
+msgid "Expiration date"
+msgstr "Ablaufdatum"
+
+#: attendees/templates/attendees/payment_paymill.html:53
+msgid "Month"
+msgstr "Monat"
+
+#: attendees/templates/attendees/payment_paymill.html:68
+msgid "Year"
+msgstr "Jahr"
+
+#: attendees/templates/attendees/payment_paymill.html:79
+msgid "Pay &amp; Complete purchase"
+msgstr "Bezahlen &amp; Bestellung abschlie&szlig;en"
 
 #: conf/global_settings.py:35 conf/global_settings.py:227
 msgid "German"
@@ -393,11 +483,11 @@ msgstr "Englisch"
 msgid "title"
 msgstr "Titel"
 
-#: conference/models.py:24 conference/models.py:89
+#: conference/models.py:24 conference/models.py:88
 msgid "start date"
 msgstr "Start"
 
-#: conference/models.py:25 conference/models.py:90
+#: conference/models.py:25 conference/models.py:89
 msgid "end date"
 msgstr "Ende"
 
@@ -405,84 +495,88 @@ msgstr "Ende"
 msgid "timezone"
 msgstr "Zeitzone"
 
-#: conference/models.py:63 conference/models.py:83 conference/models.py:127
-#: conference/models.py:150 conference/models.py:176 conference/models.py:220
-#: conference/models.py:245 schedule/models.py:107 sponsorship/models.py:12
+#: conference/models.py:35
+msgid "anonymize proposal author"
+msgstr "Vorschlag-Autor anonymisieren"
+
+#: conference/models.py:62 conference/models.py:82 conference/models.py:126
+#: conference/models.py:149 conference/models.py:175 conference/models.py:219
+#: conference/models.py:244 schedule/models.py:107 sponsorship/models.py:12
 msgid "conference"
 msgstr "Konferenz"
 
-#: conference/models.py:64
+#: conference/models.py:63
 msgid "conferences"
 msgstr "Konferenzen"
 
-#: conference/models.py:86 conference/models.py:128 conference/models.py:177
-#: conference/models.py:221 conference/models.py:246 schedule/models.py:95
+#: conference/models.py:85 conference/models.py:127 conference/models.py:176
+#: conference/models.py:220 conference/models.py:245 schedule/models.py:95
 #: sponsorship/models.py:13 sponsorship/models.py:34
 msgid "name"
 msgstr "Name"
 
-#: conference/models.py:92 conference/models.py:129 conference/models.py:152
-#: conference/models.py:178 conference/models.py:222 conference/models.py:247
+#: conference/models.py:91 conference/models.py:128 conference/models.py:151
+#: conference/models.py:177 conference/models.py:221 conference/models.py:246
 #: sponsorship/models.py:16
 msgid "slug"
 msgstr "Slug"
 
-#: conference/models.py:93 conference/models.py:225 conference/models.py:248
+#: conference/models.py:92 conference/models.py:224 conference/models.py:247
 #: sponsorship/models.py:14
 msgid "order"
 msgstr "Reihenfolge"
 
-#: conference/models.py:95 conference/models.py:223 proposals/models.py:57
+#: conference/models.py:94 conference/models.py:222 proposals/models.py:57
 #: schedule/models.py:96 sponsorship/models.py:15 sponsorship/models.py:37
 msgid "description"
 msgstr "Beschreibung"
 
-#: conference/models.py:104 proposals/models.py:35 schedule/models.py:31
+#: conference/models.py:103 proposals/models.py:35 schedule/models.py:31
 #: schedule/models.py:100
 msgid "section"
 msgstr "Abschnitt"
 
-#: conference/models.py:105 schedule/models.py:124
+#: conference/models.py:104 schedule/models.py:124
 msgid "sections"
 msgstr "Abschnitte"
 
-#: conference/models.py:130 sponsorship/models.py:41
+#: conference/models.py:129 sponsorship/models.py:41
 msgid "level"
 msgstr "Stufe"
 
-#: conference/models.py:136 proposals/forms.py:100 proposals/models.py:72
+#: conference/models.py:135 proposals/forms.py:100 proposals/models.py:72
 msgid "audience level"
 msgstr "Zielgruppe"
 
-#: conference/models.py:137
+#: conference/models.py:136
 msgid "audience levels"
 msgstr "Zielgruppen"
 
-#: conference/models.py:151
+#: conference/models.py:150
 msgid "label"
 msgstr "Label"
 
-#: conference/models.py:153
+#: conference/models.py:152
 msgid "minutes"
 msgstr "Minuten"
 
-#: conference/models.py:159
+#: conference/models.py:158
 msgid "session duration"
 msgstr "Sessiondauer"
 
-#: conference/models.py:160
+#: conference/models.py:159
 msgid "session durations"
 msgstr "Sessiondauer"
 
-#: conference/models.py:190
+#: conference/models.py:189
 msgid "session kind"
 msgstr "Session-Art"
 
-#: conference/models.py:191
+#: conference/models.py:190
 msgid "session kinds"
 msgstr "Session-Arten"
 
-#: conference/models.py:203
+#: conference/models.py:202
 msgid ""
 "You have to specify a start and end date if you leave the 'closed' status "
 "undetermined"
@@ -490,31 +584,31 @@ msgstr ""
 "Sie müssen ein Start- und Enddatum angeben, wenn sie den 'geschlossen'-"
 "Status nicht setzen."
 
-#: conference/models.py:205
+#: conference/models.py:204
 msgid "The end date has to be after the start date"
 msgstr "Das Ende muss nach dem Anfang sein"
 
-#: conference/models.py:224
+#: conference/models.py:223
 msgid "visible"
 msgstr "Sichtbar"
 
-#: conference/models.py:231 proposals/models.py:76
+#: conference/models.py:230 proposals/models.py:76
 msgid "track"
 msgstr "Track"
 
-#: conference/models.py:232
+#: conference/models.py:231
 msgid "tracks"
 msgstr "Tracks"
 
-#: conference/models.py:249
+#: conference/models.py:248
 msgid "used for sessions"
 msgstr "wird für Sessions verwendet"
 
-#: conference/models.py:259 schedule/models.py:37 schedule/models.py:102
+#: conference/models.py:258 schedule/models.py:37 schedule/models.py:102
 msgid "location"
 msgstr "Ort"
 
-#: conference/models.py:260
+#: conference/models.py:259
 msgid "locations"
 msgstr "Orte"
 

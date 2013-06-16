@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from datetime import datetime
+import decimal
 import uuid
 
 from django.conf import settings
+from django.contrib.auth.models import User
 from django.db import models
 from django.utils.translation import gettext_lazy as _
 
@@ -15,6 +17,12 @@ PURCHASE_STATES = (
     ('canceled', _('canceled'))
 )
 
+PAYMENT_METHOD_CHOICES = (
+    ('invoice', _('Invoice')),
+    ('creditcard', _('Credit card')),
+    ('elv', _('ELV')),
+)
+
 PRODUCT_NUMBER_START = getattr(settings, 'ATTENDEES_PRODUCT_NUMBER_START', 1)
 CUSTOMER_NUMBER_START = getattr(settings, 'ATTENDEES_CUSTOMER_NUMBER_START', 1)
 
@@ -25,10 +33,12 @@ class VoucherManager(models.Manager):
 
 
 class Voucher(models.Model):
-    code = models.CharField(_('Code'), max_length=12, blank=True,
+    code = models.CharField(
+        _('Code'), max_length=12, blank=True,
         help_text=_('Can be left blank, code will be created when you save.'))
     remarks = models.CharField(_('Remarks'), max_length=254, blank=True)
-    date_valid = models.DateTimeField(_('Date (valid)'), blank=False,
+    date_valid = models.DateTimeField(
+        _('Date (valid)'), blank=False,
         help_text=_('The voucher is valid until this date'))
     is_used = models.BooleanField(_('Is used'), default=False)
 
@@ -50,7 +60,7 @@ class Voucher(models.Model):
 class TicketTypeManager(models.Manager):
     def available(self):
         return self.filter(date_valid_from__lte=datetime.now,
-            date_valid_to__gte=datetime.now, is_active=True)
+                           date_valid_to__gte=datetime.now, is_active=True)
 
     def get_next_product_number(self):
         """Returns the next product number."""
@@ -62,13 +72,15 @@ class TicketTypeManager(models.Manager):
 
 
 class TicketType(models.Model):
-    product_number = models.IntegerField(_('Product number'), blank=True,
-        unique=True, help_text=_('Will be created when you save the first time.'))
+    product_number = models.IntegerField(
+        _('Product number'), blank=True, unique=True,
+        help_text=_('Will be created when you save the first time.'))
 
     name = models.CharField(_('Name'), max_length=50)
     fee = models.FloatField(_('Fee'), default=0)
 
-    max_purchases = models.PositiveIntegerField(_('Max purchases'),
+    max_purchases = models.PositiveIntegerField(
+        _('Max purchases'),
         default=0, help_text=_('0 means no limit'))
 
     is_active = models.BooleanField(_('Is active'), default=False)
@@ -120,13 +132,14 @@ class CustomerManager(models.Manager):
 
 
 class Customer(models.Model):
-    customer_number = models.IntegerField(_('Customer number'), blank=True,
-        unique=True, help_text=_('Will be created when you save the first time.'))
+    customer_number = models.IntegerField(
+        _('Customer number'), blank=True, unique=True,
+        help_text=_('Will be created when you save the first time.'))
 
     email = models.EmailField(_('E-Mail'), max_length=250, blank=False)
 
-    date_added = models.DateTimeField(_('Date (added)'), blank=False,
-        default=datetime.now)
+    date_added = models.DateTimeField(
+        _('Date (added)'), blank=False, default=datetime.now)
     is_exported = models.BooleanField(_('Is exported'), default=False)
 
     objects = CustomerManager()
@@ -147,6 +160,7 @@ class Customer(models.Model):
 
 class Purchase(models.Model):
     customer = models.ForeignKey(Customer, verbose_name=_('Customer'))
+    user = models.ForeignKey(User, null=True, verbose_name=_('User'))
 
     # Address in purchase because a user maybe wants to different invoices.
     company_name = models.CharField(_('Company'), max_length=100, blank=True)
@@ -159,12 +173,19 @@ class Purchase(models.Model):
     country = models.CharField(_('Country'), max_length=100)
     vat_id = models.CharField(_('VAT-ID'), max_length=16, blank=True)
 
-    date_added = models.DateTimeField(_('Date (added)'), blank=False,
-        default=datetime.now)
-    state = models.CharField(_('State'), max_length=25,
-        choices=PURCHASE_STATES, default=PURCHASE_STATES[0][0], blank=False)
+    date_added = models.DateTimeField(
+        _('Date (added)'), blank=False, default=datetime.now)
+    state = models.CharField(
+        _('Status'), max_length=25, choices=PURCHASE_STATES,
+        default=PURCHASE_STATES[0][0], blank=False)
 
     comments = models.TextField(_('Comments'), blank=True)
+
+    payment_method = models.CharField(_('Payment method'), max_length=20,
+                                      choices=PAYMENT_METHOD_CHOICES,
+                                      default='invoice')
+    payment_transaction = models.CharField(_('Transaction ID'), max_length=255,
+                                           blank=True)
 
     class Meta:
         verbose_name = _('Purchase')
@@ -177,6 +198,10 @@ class Purchase(models.Model):
         return fee_sum['ticket_type__fee__sum']
 
     @property
+    def payment_total_in_cents(self):
+        return int(decimal.Decimal(self.payment_total) * 100)
+
+    @property
     def payment_fee(self):
         return self.payment_total / 1.19
 
@@ -185,7 +210,8 @@ class Purchase(models.Model):
         return self.payment_total - (self.payment_total / 1.19)
 
     def __unicode__(self):
-        return '%s - %s - %s' % (self.pk, self.customer, self.get_state_display())
+        return '%s - %s - %s' % (self.pk, self.customer,
+                                 self.get_state_display())
 
 
 class Ticket(models.Model):
@@ -195,15 +221,17 @@ class Ticket(models.Model):
     first_name = models.CharField(_('First name'), max_length=250, blank=True)
     last_name = models.CharField(_('Last name'), max_length=250, blank=True)
 
-    date_added = models.DateTimeField(_('Date (added)'), blank=False,
-        default=datetime.now)
-    voucher = models.ForeignKey('Voucher', verbose_name=_('Voucher'),
-        blank=True, null=True)
+    date_added = models.DateTimeField(
+        _('Date (added)'), blank=False, default=datetime.now)
+    voucher = models.ForeignKey(
+        'Voucher', verbose_name=_('Voucher'), blank=True, null=True)
 
     class Meta:
-        ordering = ('ticket_type__tutorial_ticket', 'ticket_type__product_number')
+        ordering = ('ticket_type__tutorial_ticket',
+                    'ticket_type__product_number')
         verbose_name = _('Ticket')
         verbose_name_plural = _('Tickets')
 
     def __unicode__(self):
-        return u'%s %s - %s' % (self.first_name, self.last_name, self.ticket_type)
+        return u'%s %s - %s' % (self.first_name, self.last_name,
+                                self.ticket_type)

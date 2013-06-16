@@ -9,6 +9,13 @@ from pyconde.attendees.models import Purchase, Customer, Ticket, Voucher
 from pyconde.forms import Submit
 
 
+PAYMENT_METHOD_CHOICES = (
+    ('invoice', _('Invoice')),
+    ('creditcard', _('Credit card')),
+    ('elv', _('ELV')),
+)
+
+
 class PurchaseForm(forms.ModelForm):
     email = forms.EmailField(label=_('E-Mail'), required=True)
 
@@ -35,7 +42,9 @@ class PurchaseForm(forms.ModelForm):
 
         purchase = super(PurchaseForm, self).save(commit=False)
         purchase.customer = customer
-        purchase.save()
+
+        if (kwargs.get('commit', True)):
+            purchase.save()
 
         return purchase
 
@@ -127,4 +136,25 @@ class TicketVoucherForm(forms.ModelForm):
         # Update, save would overwrite other flags too (even if not in `fields`)
         Ticket.objects.filter(pk=self.instance.pk).update(
             voucher=voucher,
+        )
+
+
+class PurchaseOverviewForm(forms.Form):
+    payment_method = forms.ChoiceField(
+        label=_('Payment method'),
+        choices=PAYMENT_METHOD_CHOICES, widget=forms.RadioSelect,
+        help_text=_('If you choose invoice you will receive an invoice from us.'
+                    ' After we receive your money transfer your purchase will'
+                    ' be finanized.<br /><br />Credit card payment is handled'
+                    ' through <a href="http://www.paymill.com">PayMill</a>.'))
+
+    def __init__(self, *args, **kwargs):
+        super(PurchaseOverviewForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            'payment_method',
+            ButtonHolder(Submit('submit', _('Complete purchase'),
+                                css_class='btn-primary'))
         )

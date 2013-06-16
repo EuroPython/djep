@@ -1,6 +1,10 @@
+from decimal import Decimal
+
 from django.contrib.auth import models as auth_models
 from django.core.urlresolvers import reverse
 from django.test import TestCase
+
+from . import utils
 
 
 class ViewTests(TestCase):
@@ -10,12 +14,12 @@ class ViewTests(TestCase):
             self.client.get(url), '/accounts/login/?next=' + url)
 
     def test_purchase_confirm_required_login(self):
-        url = reverse('attendees_purchase_confirm', kwargs={'pk': 123})
+        url = reverse('attendees_purchase_confirm')
         self.assertRedirects(
             self.client.get(url), '/accounts/login/?next=' + url)
 
     def test_purchase_names_required_login(self):
-        url = reverse('attendees_purchase_names', kwargs={'pk': 123})
+        url = reverse('attendees_purchase_names')
         self.assertRedirects(
             self.client.get(url), '/accounts/login/?next=' + url)
 
@@ -41,3 +45,13 @@ class PurchaseViewTests(TestCase):
         self.assertEqual('Firstname', initial['first_name'])
         self.assertEqual('Lastname', initial['last_name'])
         self.assertEqual('user@user.com', initial['email'])
+
+
+class UtilsTests(TestCase):
+    def test_rounding(self):
+        self.assertEqual(Decimal('1.25'),
+                         utils.round_money_value(Decimal('1.245')))
+        self.assertEqual(Decimal('1.24'),
+                         utils.round_money_value(Decimal('1.244')))
+        self.assertEqual(Decimal('1.25'),
+                         utils.round_money_value(1.245))

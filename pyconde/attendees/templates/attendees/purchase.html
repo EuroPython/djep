@@ -2,6 +2,7 @@
 {% load i18n crispy_forms_tags markup %}
 
 {% block title %}Tickets für Konferenz und Tutorials{% endblock %}
+{% block page_title %}Tickets für Konferenz und Tutorials{% endblock %}
 
 {% block extra_head %}
     <style type="text/css">
@@ -25,7 +26,6 @@
     </script>
 {% endblock extra_foot %}
 {% block content %}
-    <h1>Tickets für Konferenz und Tutorials</h1>
 
     <form class="form-horizontal" method="post">
         {% csrf_token %}
@@ -63,7 +63,7 @@
         {% crispy form %}
     </form>
     <h2>Weitere Informationen und Bestellhinweise</h2>
-    <p>Alle Preise sind inklusive 19% USt. Der Verkauf erfolgt auf Rechnung.</p>
+    <p>Alle Preise sind inklusive 19% USt. Der Verkauf erfolgt entweder auf Rechnung oder mittels Kreditkarte.</p>
     <p>Ermäßigte Tickets werden gegen Vorlage von Studentenausweis, Ausbildungsbescheinigung o.ä. ausgegeben. Bitte eine Kopie des Dokuments an <a href="mailto:info@de.pycon.org">info@de.pycon.org</a> schicken, um den nötigen Coupon zum Kauf eines ermäßigten Tickets zu erhalten.</p>
     <p>Sollen bestimmte Angaben wie eine Bestellnummer oder die USt-IdNr. des Rechnungsempfängers auf der Rechnung stehen, dies bitte im Feld Bemerkungen bzw. "USt-ID" angeben. Sein Ticket erhält jeder Teilnehmer direkt auf der Konferenz zusammen mit den anderen Tagungsunterlagen am Registrierungsschalter. Gebuchte Tutorials finden unabhängig von der Teilnehmerzahl garantiert statt.</p>
     <h5>Folgende Leistungen erhalten Sie beim Kauf eines Konferenz-Tickets</h5>
