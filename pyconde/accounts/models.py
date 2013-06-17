@@ -1,7 +1,11 @@
 # -*- coding: utf-8 -*-
 from django.contrib.auth.models import User
+from django.contrib import messages
+from django.contrib.auth.signals import user_logged_in
 from django.utils.translation import ugettext_lazy as _
+from django.dispatch import receiver
 from django.db import models
+
 from easy_thumbnails.fields import ThumbnailerImageField
 
 from . import validators
@@ -26,3 +30,9 @@ class Profile(models.Model):
     twitter = models.CharField(_("Twitter"), blank=True, max_length=20,
         validators=[validators.twitter_username])
     website = models.URLField(_("Website"), blank=True)
+
+
+@receiver(user_logged_in)
+def show_logged_in_message(request, user, **kwargs):
+    messages.success(request, _("You've logged in successfully."),
+                     fail_silently=True)

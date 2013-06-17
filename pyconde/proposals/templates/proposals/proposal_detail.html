@@ -1,4 +1,4 @@
-{% extends "site_base.html" %}
+{% extends "proposals/base.html" %}
 {% load i18n markup %}
 {% block title %}{% trans "Proposal" %}: {{ proposal.title }}{% endblock %}
 {% block body %}
@@ -6,9 +6,15 @@
 <h1>{% trans "Proposal" %}: {{ proposal.title }}{% if proposal.track %} ({{ proposal.track.name }}){% endif %}</h1>
 
 <div class="meta">
+{% if current_conference.anonymize_proposal_author %}
+{% blocktrans with submission_date=proposal.submission_date|date:"DATE_FORMAT" %}
+This proposal was submitted on <span class="submission-date">{{ submission_date }}</span>.
+{% endblocktrans %}
+{% else %}
 {% blocktrans with speaker_url=proposal.speaker.get_absolute_url speaker=proposal.speaker submission_date=proposal.submission_date|date:"DATE_FORMAT" %}
 <a class="speaker user" href="{{ speaker_url }}">{{ speaker }}</a> submitted this proposal at <span class="submission-date">{{ submission_date }}</span>.
 {% endblocktrans %}
+{% endif %}
 {% if proposal.tags %}
 <dl class="tags"><dt>{% trans "Tags" %}:</dt><dd>
     {% for tag in proposal.tags.all %}

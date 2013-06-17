@@ -146,3 +146,15 @@ class ProfileForm(BaseProfileForm):
         )
         if settings.ACCOUNTS_FALLBACK_TO_GRAVATAR:
             self.fields['avatar'].help_text = _("""Please upload an image with a side length of at least 300 pixels.<br />If you don't upload an avatar your Gravatar will be used instead.""")
+
+
+class LoginEmailRequestForm(forms.Form):
+    email = forms.EmailField(required=False)
+
+    def __init__(self, *args, **kwargs):
+        super(LoginEmailRequestForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.layout = Layout(
+            'email',
+            ButtonHolder(Submit('save', _("Continue"), css_class='btn-primary')))

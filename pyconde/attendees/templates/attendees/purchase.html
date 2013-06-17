@@ -12,6 +12,8 @@
         .form-horizontal fieldset.tickets a#showtutorials { text-align:center; font-weight:bold; }
         .form-horizontal fieldset.tickets div.ticketsbottom { padding:10px; text-align:center; font-weight: bold; }
     </style>
+{% endblock %}
+{% block extra_foot %}
     <script type="text/javascript">
         $(document).ready(function() {
             $('a#showtutorials').click(function(e) {
@@ -21,8 +23,7 @@
             });
         });
     </script>
-{% endblock %}
-
+{% endblock extra_foot %}
 {% block content %}
     <h1>Tickets für Konferenz und Tutorials</h1>
 

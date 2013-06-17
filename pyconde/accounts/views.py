@@ -1,9 +1,14 @@
 from django.views import generic as generic_views
 import json
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.contrib.auth import models as auth_models
+from django.conf import settings
 from django.db.models import Q
 from django.shortcuts import get_object_or_404
+
+from userprofiles.contrib.emailverification.models import EmailVerification
+
+from . import forms
 
 
 class AutocompleteUser(generic_views.View):
@@ -61,3 +66,24 @@ class ProfileView(generic_views.TemplateView):
             'sessions': sessions,
             'profile': profile
         }
+
+
+class LoginEmailRequestView(generic_views.FormView):
+    """
+    Requests an email address for the user currently trying to login. If the
+    input is valid, continue the login process.
+    """
+
+    form_class = forms.LoginEmailRequestForm
+    template_name = 'accounts/login-email-request.html'
+
+    def form_valid(self, form):
+        data = self.request.session[getattr(settings, 'SOCIAL_AUTH_PARTIAL_PIPELINE_KEY', 'partial_pipeline')]
+        backend = data['backend']
+        user_pk = data['kwargs']['user']['pk']
+        if form.cleaned_data['email']:
+            user = auth_models.User.objects.get(pk=user_pk)
+            EmailVerification.objects.create_new_verification(
+                user, form.cleaned_data['email'])
+        self.request.session['_email_passed_{0}'.format(user_pk)] = True
+        return HttpResponseRedirect('/complete/{0}/'.format(backend))

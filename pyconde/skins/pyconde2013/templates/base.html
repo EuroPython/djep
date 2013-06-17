@@ -10,7 +10,7 @@
   <meta property="og:title" content="{% block og_title %}{% endblock %}PyCon DE 2013 - 3. Deutsche Python-Konferenz" />
   <meta property="og:site_name" content="PyCon DE 2013" />
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="http://{{ request.get_host }}/" />
+  <meta property="og:url" content="http://{{ request.get_host }}{{ request.get_full_path }}" />
   <meta property="og:image" content="http://{{ request.get_host }}{{ STATIC_URL }}images/logo-small.png" />
   <meta property="og:description" content="{% block og_description %}Die deutschsprachige Python-Konferenz PyCon DE findet vom 14.10. bis 19.10.2013 in Köln statt.{% endblock %}" />
   <link rel="alternate" href="/news/feed/" type="application/atom+xml" title="PyCon DE 2013-News" />
@@ -90,23 +90,32 @@
             <div class="visible-phone">
               <ul class="nav nav-pills">{% show_menu 1 100 0 0 "mainmenu.html" %}</ul>
             </div>
+            <div id="messages">
+                {% for message in messages %}
+                  <div id="message_{{ forloop.counter }}"{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
+                    {{ message }}
+                  </div>
+                {% endfor %}
+                {% block top_notices %}
+                {% endblock %}
+            </div>
             {% block content %}{% endblock %}
           </div>
         </div>
         <div class="span3 logo-spacer">
-          {% if request.current_page %}
-            <div>
-              <strong>Weitere Themen:</strong>
-              <ul class="nav">
-                {% if request.current_page.menu_level == 0 %}
-                  {% show_sub_menu %}
-                {% else %}
-                  {% show_menu request.current_page.level %}
-                {% endif %}
-              </ul>
-            </div>
-          {% endif %}
           {% block sidebar_wrapper %}
+            {% if request.current_page %}
+              <div>
+                <strong>Weitere Themen:</strong>
+                <ul class="nav">
+                  {% if request.current_page.menu_level == 0 %}
+                    {% show_sub_menu %}
+                  {% else %}
+                    {% show_menu request.current_page.level %}
+                  {% endif %}
+                </ul>
+              </div>
+            {% endif %}
           {% block sidebar %}{% endblock %}
           {% endblock %}
         </div>
@@ -122,7 +131,7 @@
         <script>(function(){var uv=document.createElement('script');uv.type='text/javascript';uv.async=true;uv.src='//widget.uservoice.com/of8RAgSle2hkbFF9IgHKrw.js';var s=document.getElementsByTagName('script')[0];s.parentNode.insertBefore(uv,s)})()</script>
         <p><a href="javascript:void(0)" data-uv-lightbox="classic_widget" data-uv-mode="full" data-uv-primary-color="#1d8c2e" data-uv-link-color="#007dbf" data-uv-default-mode="support" data-uv-forum-id="203064">Hilfe und Support</a></p>
         <p><a href="/impressum/">Impressum</a></p>
-        <p>&copy 2013 PyCon DE</p>
+        <p>&copy; 2013 PyCon DE</p>
       </div>
       <div class="box span3">
         <h2>Folgen Sie uns auch auf</h2>

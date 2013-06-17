@@ -31,6 +31,9 @@ class Conference(models.Model):
     reviews_end_date = models.DateTimeField(null=True, blank=True)
     reviews_active = models.NullBooleanField()
 
+    anonymize_proposal_author = models.BooleanField(
+        _("anonymize proposal author"), default=True)
+
     def __unicode__(self):
         return self.title
 

@@ -5,6 +5,9 @@
 {% block page_title %}{% trans "Registration" %}{% endblock %}
 
 {% block content %}
-
     {% crispy form %}
+{% endblock %}
+
+{% block sidebar %}
+    {% include "userprofiles/sociallogin.html" %}
 {% endblock %}

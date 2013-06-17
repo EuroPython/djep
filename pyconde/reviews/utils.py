@@ -11,6 +11,9 @@ from django.core.cache import cache
 from django.contrib.auth import models as auth_models
 from django.db.models import Q
 
+from pyconde.conference import models as conference_models
+from pyconde.accounts import utils as account_utils
+
 
 logger = logging.getLogger(__name__)
 
@@ -75,14 +78,21 @@ def send_comment_notification(comment, notify_author=False):
     current_user = comment.author
     if notify_author:
         current_user = None
+    hide_author = conference_models.current_conference().anonymize_proposal_author and\
+        is_proposal_author(comment.author, proposal)
     body = render_to_string('reviews/emails/comment_notification.txt', {
         'comment': comment,
         'proposal': proposal,
+        'hide_author': hide_author,
         'site': Site.objects.get_current(),
         'proposal_url': reverse('reviews-proposal-details', kwargs={'pk': proposal.pk}),
-        })
-    msg = EmailMessage(subject=_("[REVIEW] %(author)s commented on %(title)s") % {
-            'author': unicode(comment.author),
+    })
+    if hide_author:
+        subject = _("[REVIEW] The author has commented on \"%(title)s\"")
+    else:
+        subject = _("[REVIEW] %(author)s commented on \"%(title)s\"")
+    msg = EmailMessage(subject=subject % {
+            'author': account_utils.get_account_name(comment.author),
             'title': proposal.title},
         bcc=[u.email for u in get_people_to_notify(proposal, current_user)],
         body=body)
@@ -99,14 +109,21 @@ def send_proposal_update_notification(version, notify_author=False):
     current_user = version.creator
     if notify_author:
         current_user = None
+    hide_author = conference_models.current_conference().anonymize_proposal_author and\
+        is_proposal_author(current_user, proposal)
     body = render_to_string('reviews/emails/version_notification.txt', {
         'version': version,
         'proposal': proposal,
         'site': Site.objects.get_current(),
+        'hide_author': hide_author,
         'proposal_url': reverse('reviews-proposal-details', kwargs={'pk': proposal.pk}),
-        })
-    msg = EmailMessage(subject=_("[REVIEW] %(author)s updated %(title)s") % {
-            'author': version.creator,
+    })
+    if hide_author:
+        subject = _("[REVIEW] The author updated %(title)s")
+    else:
+        subject = _("[REVIEW] %(author)s updated %(title)s")
+    msg = EmailMessage(subject=subject % {
+            'author': account_utils.get_account_name(version.creator),
             'title': proposal.title},
         bcc=[u.email for u in get_people_to_notify(proposal, current_user)],
         body=body)

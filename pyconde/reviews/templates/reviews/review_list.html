@@ -1,5 +1,5 @@
 {% extends "reviews/base.html" %}
-{% load markup %}
+{% load markup account_tags i18n %}
 {% block bodycls %}review-overview{% endblock %}
 {% block title %}Reviews von {{ proposal.title }}{% endblock %}
 {% block content %}
@@ -8,12 +8,20 @@
     {% if not object_list %}
     <p class="empty">Dieser Vorschlag wurde bisher nicht bewertet.</p>
     {% else %}
-    <ul>
+    <ul class="reviews">
         {% for review in object_list %}
         <li>
+            {% if proposal_version != review.proposal_version %}
+            <p class="warning">{% trans "This review is based on an old version of the proposal:" %}
+                {% if review.proposal_version %}
+                    <a href="{% url reviews-version-details proposal_pk=proposal.pk pk=review.proposal_version.pk %}">{{ review.proposal_version.pub_date }}</a>
+                {% else %}
+                    <a href="{{ proposal.get_absolute_url }}">{% trans "Original" %}</a>
+                {% endif %}</p>
+            {% endif %}
             <span class="score">{{ review.rating }}</span>
             <div class="summary">{{ review.summary|markdown:"safe" }}</div>
-            <cite>-- {{ review.user }} ({{ review.pub_date }})</cite>
+            <cite>-- {{ review.user|account_name }} ({{ review.pub_date }})</cite>
         </li>
         {% endfor %}
     </ul>

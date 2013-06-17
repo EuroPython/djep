@@ -8,8 +8,10 @@
             <tr>
                 <th class="orderable"><a href="?order={% if order == 'title' %}-{% endif %}title">Titel</a>
                     {% if order == "-title" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "title" %}<i class="icon-chevron-up"></i>{% endif %}</th>
+                {% if not current_conference.anonymize_proposal_author %}
                 <th class="orderable"><a href="?order={% if order == 'speaker' %}-{% endif %}speaker">Vortragende(r)</a>
                     {% if order == "-speaker" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "speaker" %}<i class="icon-chevron-up"></i>{% endif %}</th>
+                {% endif %}
                 <th class="orderable"><a href="?order={% if order == 'rating' %}-{% endif %}rating">Bewertung</a>
                     {% if order == "-rating" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "rating" %}<i class="icon-chevron-up"></i>{% endif %}</th>
             </tr>
@@ -18,7 +20,9 @@
             {% for review in object_list %}
             <tr class="{% if review.proposal.kind %}kind-{{ review.proposal.kind.slug }}{% endif %}">
                 <td class="title"><a href="{% url reviews-proposal-details pk=review.proposal.pk %}">{{ review.proposal.title }}</a></td>
+                {% if not current_conference.anonymize_proposal_author %}
                 <td>{{ review.proposal.speaker }}</td>
+                {% endif %}
                 <td>{{ review.rating }}</td>
             </tr>
             {% endfor %}
