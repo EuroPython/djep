@@ -1538,6 +1538,91 @@ msgstr ""
 msgid "custom CSS classes"
 msgstr ""
 
+# PAYMILL ERRORS
+msgid "General undefined response."
+msgstr "Es ist leider ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
+
+msgid "Still waiting on something."
+msgstr ""
+
+msgid "General problem with data."
+msgstr "Bitte überprüfen Sie Ihre Eingaben."
+
+msgid "Problem with creditcard data."
+msgstr "Bitte überprüfen Sie Ihre Kreditkartendaten."
+
+msgid "Problem with cvv."
+msgstr "Bitte überprüfen Sie Ihre Prüfsumme."
+
+msgid "Card expired or not yet valid."
+msgstr "Ihre Karte ist abgelaufen oder noch nicht gültig."
+
+msgid "Limit exceeded."
+msgstr "Sie haben Ihr Limit überschritten."
+
+msgid "Card invalid."
+msgstr "Die Karte ist ungültig."
+
+msgid "expiry date not valid"
+msgstr "Das Ablaufdatum ist ungültig."
+
+msgid "Problem with bank account data."
+msgstr "Bitte überprüfen Sie Ihre Kontodaten."
+
+msgid "Problem with 3d secure data."
+msgstr "Bitte überprüfen Sie Ihre 3D-Secure-Daten."
+
+msgid "currency / amount mismatch"
+msgstr ""
+
+msgid "Problem with input data."
+msgstr "Bitte überprüfen Sie Ihre Eingabe."
+
+msgid "Amount too low or zero."
+msgstr ""
+
+msgid "Usage field too long."
+msgstr ""
+
+msgid "Currency not allowed."
+msgstr ""
+
+msgid "General problem with backend."
+msgstr "Es ist leider ein Problem bei PayMill aufgetreten. Bitte kontaktieren Sie uns."
+
+msgid "country blacklisted."
+msgstr "Zahlungen können aus Ihrem Land leider nicht angenommen werden."
+
+msgid "Technical error with credit card."
+msgstr ""
+
+msgid "Error limit exceeded."
+msgstr ""
+
+msgid "Card declined by authorization system."
+msgstr "Die Karte wurde leider abgelehnt."
+
+msgid "Manipulation or stolen card."
+msgstr "Die Karte wurde leider abgelehnt. (50103)"
+
+msgid "Card restricted."
+msgstr "Die Karte wurde leider abgelehnt. (50104)"
+
+msgid "Invalid card configuration data."
+msgstr ""
+
+msgid "Technical error with bank account."
+msgstr "Es ist leider ein Problem bei PayMill aufgetreten. Bitte kontaktieren Sie uns. (50200)"
+
+msgid "Card blacklisted."
+msgstr "Die Karte wurde leider abgelehnt. (50201)"
+
+msgid "Technical error with 3D secure."
+msgstr "Es ist leider ein Problem bei PayMill aufgetreten. Bitte kontaktieren Sie uns. (50300)"
+
+msgid "Decline because of risk issues."
+msgstr "Ihre Karte wurde leider abgelehnt. (50400)"
+
 #~ msgid "Edit page"
 #~ msgstr "Seite editieren"
 

@@ -21,6 +21,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
+from django.utils.translation import ugettext_lazy as _
 import django.views.generic as generic_views
 
 from braces.views import LoginRequiredMixin
@@ -29,8 +30,6 @@ from .models import TicketType, Ticket, Purchase
 from . import forms
 from . import utils
 
-
-SESSION_KEY = 'current_purchase_pk'
 
 LOG = logging.getLogger(__name__)
 
@@ -299,9 +298,13 @@ class HandlePaymentView(LoginRequiredMixin, PurchaseMixin,
             self.error = unicode(e)
             return self.get(*args, **kwargs)
         if resp is None:
+            self.error = _("Payment failed. Please check your data.")
             return self.get(*args, **kwargs)
         else:
             transaction = resp
+            if transaction.response_code != 20000:
+                self.error = _(api.response_code2text(transaction.response_code))
+                return self.get(*args, **kwargs)
             purchase.payment_transaction = transaction.id
             self.save_state()
             return utils.complete_purchase(purchase)
