@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-18 22:33+0200\n"
+"POT-Creation-Date: 2013-06-19 20:24+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -181,56 +181,56 @@ msgstr ""
 msgid "Attendees App"
 msgstr ""
 
-#: attendees/forms.py:13 attendees/models.py:21
+#: attendees/forms.py:14 attendees/models.py:21
 msgid "Invoice"
 msgstr "Rechnung"
 
-#: attendees/forms.py:14 attendees/models.py:22
+#: attendees/forms.py:15 attendees/models.py:22
 msgid "Credit card"
 msgstr "Kreditkarte"
 
-#: attendees/forms.py:15 attendees/models.py:23
+#: attendees/forms.py:16 attendees/models.py:23
 msgid "ELV"
 msgstr ""
 
-#: attendees/forms.py:20 attendees/models.py:139
+#: attendees/forms.py:21 attendees/models.py:139
 msgid "E-Mail"
 msgstr ""
 
-#: attendees/forms.py:33
+#: attendees/forms.py:34
 msgid "Invoice address"
 msgstr "Rechnungsadresse"
 
-#: attendees/forms.py:36
+#: attendees/forms.py:37
 msgid "Purchase tickets"
 msgstr "Tickets kaufen"
 
-#: attendees/forms.py:53
+#: attendees/forms.py:54
 msgid "Quantity"
 msgstr "Anzahl"
 
-#: attendees/forms.py:76
+#: attendees/forms.py:77
 msgid "Ticket sold out."
 msgstr "Tickets ausverkauft."
 
-#: attendees/forms.py:79
+#: attendees/forms.py:80
 msgid "Not enough tickets left."
 msgstr "Nicht genug Tickets mehr verfügbar."
 
-#: attendees/forms.py:107 attendees/models.py:48 attendees/models.py:52
+#: attendees/forms.py:108 attendees/models.py:48 attendees/models.py:52
 #: attendees/models.py:227
 msgid "Voucher"
 msgstr "Gutschein"
 
-#: attendees/forms.py:126
+#: attendees/forms.py:127
 msgid "Voucher verification failed."
 msgstr "Gutschein-Verifikation fehlgeschlagen."
 
-#: attendees/forms.py:144 attendees/models.py:184
+#: attendees/forms.py:145 attendees/models.py:184
 msgid "Payment method"
 msgstr "Zahlungsart"
 
-#: attendees/forms.py:146
+#: attendees/forms.py:147
 msgid ""
 "If you choose invoice you will receive an invoice from us. After we receive "
 "your money transfer your purchase will be finanized.<br /><br />Credit card "
@@ -242,7 +242,7 @@ msgstr ""
 "Zahlungen werden durch <a href=\"http://www.paymill.com\">PayMill</a> "
 "durchgeführt."
 
-#: attendees/forms.py:158
+#: attendees/forms.py:159
 msgid "Complete purchase"
 msgstr "Bestellung abschlie&szlig;en"
 
@@ -431,13 +431,15 @@ msgstr ""
 msgid "Ticket successfully purchased"
 msgstr "Ticket erfolgreich gekauft"
 
-#: attendees/templates/attendees/payment_paymill.html:3
-msgid "Payment"
-msgstr "Bezahlung"
+#: attendees/views.py:305
+msgid "Payment failed. Please check your data."
+msgstr ""
 
 #: attendees/templates/attendees/payment_paymill.html:6
 msgid "You have to have JavaScript enabled to pay via credit card."
-msgstr "Sie müssen JavaScript aktiviert haben, um mit Kreditkarte oder ELV bezahlen zu können."
+msgstr ""
+"Sie müssen JavaScript aktiviert haben, um mit Kreditkarte oder ELV bezahlen "
+"zu können."
 
 #: attendees/templates/attendees/payment_paymill.html:17
 msgid "Card number"
@@ -470,6 +472,39 @@ msgstr "Jahr"
 #: attendees/templates/attendees/payment_paymill.html:79
 msgid "Pay &amp; Complete purchase"
 msgstr "Bezahlen &amp; Bestellung abschlie&szlig;en"
+
+#: attendees/templates/attendees/payment_paymill.html:80
+msgid "Back"
+msgstr "Zurück"
+
+#: attendees/templates/attendees/purchase_progressbar.html:3
+msgid "Progress"
+msgstr "Fortschritt"
+
+#: attendees/templates/attendees/purchase_progressbar.html:12
+msgctxt "purchase-step"
+msgid "Start"
+msgstr "Anfang"
+
+#: attendees/templates/attendees/purchase_progressbar.html:13
+msgctxt "purchase-step"
+msgid "Names on the tickets"
+msgstr "Namen auf den Tickets"
+
+#: attendees/templates/attendees/purchase_progressbar.html:14
+msgctxt "purchase-step"
+msgid "Overview"
+msgstr "Übersicht"
+
+#: attendees/templates/attendees/purchase_progressbar.html:15
+msgctxt "purchase-step"
+msgid "Payment"
+msgstr "Bezahlung"
+
+#: attendees/templates/attendees/purchase_progressbar.html:16
+msgctxt "purchase-step"
+msgid "Complete"
+msgstr "Fertig"
 
 #: conf/global_settings.py:35 conf/global_settings.py:227
 msgid "German"
@@ -1539,89 +1574,72 @@ msgid "custom CSS classes"
 msgstr ""
 
 # PAYMILL ERRORS
-msgid "General undefined response."
-msgstr "Es ist leider ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
+#~ msgid "General undefined response."
+#~ msgstr ""
+#~ "Es ist leider ein Fehler aufgetreten. Bitte versuchen Sie es erneut."
 
-msgid "Still waiting on something."
-msgstr ""
+#~ msgid "General problem with data."
+#~ msgstr "Bitte überprüfen Sie Ihre Eingaben."
 
-msgid "General problem with data."
-msgstr "Bitte überprüfen Sie Ihre Eingaben."
+#~ msgid "Problem with creditcard data."
+#~ msgstr "Bitte überprüfen Sie Ihre Kreditkartendaten."
 
-msgid "Problem with creditcard data."
-msgstr "Bitte überprüfen Sie Ihre Kreditkartendaten."
+#~ msgid "Problem with cvv."
+#~ msgstr "Bitte überprüfen Sie Ihre Prüfsumme."
 
-msgid "Problem with cvv."
-msgstr "Bitte überprüfen Sie Ihre Prüfsumme."
+#~ msgid "Card expired or not yet valid."
+#~ msgstr "Ihre Karte ist abgelaufen oder noch nicht gültig."
 
-msgid "Card expired or not yet valid."
-msgstr "Ihre Karte ist abgelaufen oder noch nicht gültig."
+#~ msgid "Limit exceeded."
+#~ msgstr "Sie haben Ihr Limit überschritten."
 
-msgid "Limit exceeded."
-msgstr "Sie haben Ihr Limit überschritten."
+#~ msgid "Card invalid."
+#~ msgstr "Die Karte ist ungültig."
 
-msgid "Card invalid."
-msgstr "Die Karte ist ungültig."
+#~ msgid "expiry date not valid"
+#~ msgstr "Das Ablaufdatum ist ungültig."
 
-msgid "expiry date not valid"
-msgstr "Das Ablaufdatum ist ungültig."
+#~ msgid "Problem with bank account data."
+#~ msgstr "Bitte überprüfen Sie Ihre Kontodaten."
 
-msgid "Problem with bank account data."
-msgstr "Bitte überprüfen Sie Ihre Kontodaten."
+#~ msgid "Problem with 3d secure data."
+#~ msgstr "Bitte überprüfen Sie Ihre 3D-Secure-Daten."
 
-msgid "Problem with 3d secure data."
-msgstr "Bitte überprüfen Sie Ihre 3D-Secure-Daten."
+#~ msgid "Problem with input data."
+#~ msgstr "Bitte überprüfen Sie Ihre Eingabe."
 
-msgid "currency / amount mismatch"
-msgstr ""
+#~ msgid "General problem with backend."
+#~ msgstr ""
+#~ "Es ist leider ein Problem bei PayMill aufgetreten. Bitte kontaktieren Sie "
+#~ "uns."
 
-msgid "Problem with input data."
-msgstr "Bitte überprüfen Sie Ihre Eingabe."
+#~ msgid "country blacklisted."
+#~ msgstr "Zahlungen können aus Ihrem Land leider nicht angenommen werden."
 
-msgid "Amount too low or zero."
-msgstr ""
+#~ msgid "Card declined by authorization system."
+#~ msgstr "Die Karte wurde leider abgelehnt."
 
-msgid "Usage field too long."
-msgstr ""
+#~ msgid "Manipulation or stolen card."
+#~ msgstr "Die Karte wurde leider abgelehnt. (50103)"
 
-msgid "Currency not allowed."
-msgstr ""
+#~ msgid "Card restricted."
+#~ msgstr "Die Karte wurde leider abgelehnt. (50104)"
 
-msgid "General problem with backend."
-msgstr "Es ist leider ein Problem bei PayMill aufgetreten. Bitte kontaktieren Sie uns."
+#~ msgid "Technical error with bank account."
+#~ msgstr ""
+#~ "Es ist leider ein Problem bei PayMill aufgetreten. Bitte kontaktieren Sie "
+#~ "uns. (50200)"
 
-msgid "country blacklisted."
-msgstr "Zahlungen können aus Ihrem Land leider nicht angenommen werden."
+#~ msgid "Card blacklisted."
+#~ msgstr "Die Karte wurde leider abgelehnt. (50201)"
 
-msgid "Technical error with credit card."
-msgstr ""
+#~ msgid "Technical error with 3D secure."
+#~ msgstr ""
+#~ "Es ist leider ein Problem bei PayMill aufgetreten. Bitte kontaktieren Sie "
+#~ "uns. (50300)"
 
-msgid "Error limit exceeded."
-msgstr ""
-
-msgid "Card declined by authorization system."
-msgstr "Die Karte wurde leider abgelehnt."
-
-msgid "Manipulation or stolen card."
-msgstr "Die Karte wurde leider abgelehnt. (50103)"
-
-msgid "Card restricted."
-msgstr "Die Karte wurde leider abgelehnt. (50104)"
-
-msgid "Invalid card configuration data."
-msgstr ""
-
-msgid "Technical error with bank account."
-msgstr "Es ist leider ein Problem bei PayMill aufgetreten. Bitte kontaktieren Sie uns. (50200)"
-
-msgid "Card blacklisted."
-msgstr "Die Karte wurde leider abgelehnt. (50201)"
-
-msgid "Technical error with 3D secure."
-msgstr "Es ist leider ein Problem bei PayMill aufgetreten. Bitte kontaktieren Sie uns. (50300)"
-
-msgid "Decline because of risk issues."
-msgstr "Ihre Karte wurde leider abgelehnt. (50400)"
+#~ msgid "Decline because of risk issues."
+#~ msgstr "Ihre Karte wurde leider abgelehnt. (50400)"
 
 #~ msgid "Edit page"
 #~ msgstr "Seite editieren"

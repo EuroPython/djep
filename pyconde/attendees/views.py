@@ -71,7 +71,8 @@ class PurchaseMixin(object):
         return state
 
     def clear_purchase_info(self):
-        del self.request.session['purchase_state']
+        if 'purchase_state' in self.request.session:
+            del self.request.session['purchase_state']
 
     def setup(self):
         if self.step != 'start':
@@ -100,6 +101,7 @@ class StartPurchaseView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
     total_ticket_num = 0
 
     def get(self, *args, **kwargs):
+        self.clear_purchase_info()
         if self.form is None:
             self.form = forms.PurchaseForm(initial={
                 'first_name': self.request.user.first_name,
@@ -117,6 +119,7 @@ class StartPurchaseView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
             and self.request.POST,
             'quantity_forms': self.quantity_forms,
             'form': self.form,
+            'step': self.step,
         })
 
     def post(self, *args, **kwargs):
@@ -185,7 +188,8 @@ class PurchaseNamesView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
             'name_forms': self.name_forms,
             'double_vouchers': not self.no_double_voucher
             and self.request.POST,
-            'voucher_forms': self.voucher_forms
+            'voucher_forms': self.voucher_forms,
+            'step': self.step,
         })
 
     def post(self, *args, **kwargs):
@@ -249,6 +253,7 @@ class PurchaseOverviewView(LoginRequiredMixin, PurchaseMixin,
         data = super(PurchaseOverviewView, self).get_context_data(*args,
                                                                   **kwargs)
         data['purchase'] = self.purchase
+        data['step'] = self.step
         return data
 
     def form_valid(self, form):
@@ -281,6 +286,7 @@ class HandlePaymentView(LoginRequiredMixin, PurchaseMixin,
         data['exp_years'] = range(this_year, this_year + 10)
         data['error'] = self.error
         data['purchase'] = self.purchase
+        data['step'] = self.step
         return data
 
     def post(self, *args, **kwargs):
@@ -317,4 +323,6 @@ class ConfirmationView(LoginRequiredMixin, PurchaseMixin,
 
     def get_context_data(self, *args, **kwargs):
         self.clear_purchase_info()
-        return super(ConfirmationView, self).get_context_data(*args, **kwargs)
+        data = super(ConfirmationView, self).get_context_data(*args, **kwargs)
+        data['step'] = self.step
+        return data

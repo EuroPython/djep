@@ -1,7 +1,5 @@
-{% extends "attendees/base.html" %}
+{% extends "attendees/purchase_base.html" %}
 {% load i18n crispy_forms_tags %}
-
-{% block title %}Tickets für Konferenz und Tutorials{% endblock %}
 
 {% block extra_head %}
     <style type="text/css">
@@ -15,7 +13,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Tickets für Konferenz und Tutorials</h1>
+    {{ block.super }}
     <p>Auf dieser Seite haben Sie noch einmal einen Überblick über die bestellten Tickets, die Zuordnung der Tickets zu den Personen, die diese dann in Anspruch nehmen werden und auch die Gesamtkosten sowie die Rechnungsadresse.<br />
     <br />
     Sollten die Angaben nicht korrekt sein, beginnen Sie den Bestellvorgang bitte <a href="/tickets/">von vorn</a>.</p>

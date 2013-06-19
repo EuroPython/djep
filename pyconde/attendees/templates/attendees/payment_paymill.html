@@ -1,7 +1,7 @@
-{% extends "attendees/base.html" %}
+{% extends "attendees/purchase_base.html" %}
 {% load i18n %}
-{% block page_title %}{% trans "Payment" %}{% endblock page_title %}
 {% block content %}
+{{ block.super }}
 <noscript>
     <p class="alert alert-error">{% trans "You have to have JavaScript enabled to pay via credit card."%}</p>
 </noscript>
@@ -77,6 +77,7 @@
     <div class="control-group">
         <div class="controls">
             <button class="btn-primary" type="submit">{% trans "Pay &amp; Complete purchase" %}</button>
+            <a class="back" href="{% url attendees_purchase_confirm %}">{% trans "Back" %}</a>
         </div>
     </div>
 

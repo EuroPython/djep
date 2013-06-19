@@ -43,7 +43,7 @@
 // @import "bootstrap/less/thumbnails.less";
 // @import "bootstrap/less/media.less";
 // @import "bootstrap/less/labels-badges.less";
-// @import "bootstrap/less/progress-bars.less";
+@import "bootstrap/less/progress-bars.less";
 // @import "bootstrap/less/accordion.less";
 // @import "bootstrap/less/carousel.less";
 // @import "bootstrap/less/hero-unit.less";
@@ -594,6 +594,10 @@ form {
     legend {
         font-size: 120%;
     }
+    a.back {
+        display: inline-block;
+        margin-left: 2em;
+    }
 }
 
 .result-list {
@@ -688,6 +692,29 @@ table.proposals td.actions {
 
 #payment-form {
     visibility: hidden; // Will be re-enabled via JavaScript
+}
+
+.progressbar {
+    .progress-success .bar, .progress .bar-success {
+        #gradient > .vertical(lighten(@green, 10), @green);
+    }
+    ol {
+        margin: 0; padding: 0;
+        li {
+            display: block;
+            float: left;
+            width: 20%;
+            text-align: center;
+            font-size: 90%;
+        }
+        width: 100%;
+        overflow: hidden;
+    }
+    h2 {
+        position: absolute;
+        left: -5000px;
+    }
+    margin-bottom: 40px;
 }
 
 // Workarounds to make the site work on mobile devices.

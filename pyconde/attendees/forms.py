@@ -4,7 +4,7 @@ from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, ButtonHolder
+from crispy_forms.layout import Layout, Fieldset, ButtonHolder, HTML
 
 from pyconde.attendees.models import Purchase, Customer, Ticket, Voucher
 from pyconde.forms import Submit
@@ -156,8 +156,11 @@ class PurchaseOverviewForm(forms.Form):
         self.helper.form_tag = False
         self.helper.layout = Layout(
             'payment_method',
-            ButtonHolder(Submit('submit', _('Complete purchase'),
-                                css_class='btn-primary'))
+            ButtonHolder(
+                Submit('submit', _('Complete purchase'),
+                       css_class='btn-primary'),
+                HTML('{% load i18n %}<a class="back" href="{% url attendees_purchase_names %}">{% trans "Back" %}</a>')
+            )
         )
         if hasattr(settings, 'PAYMENT_METHODS') and settings.PAYMENT_METHODS:
             choices = self.fields['payment_method'].choices

@@ -1,7 +1,5 @@
-{% extends "attendees/base.html" %}
+{% extends "attendees/purchase_base.html" %}
 {% load i18n %}
-
-{% block title %}Tickets für Konferenz und Tutorials{% endblock %}
 
 {% block extra_head %}
     <style type="text/css">
@@ -17,7 +15,7 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Tickets für Konferenz und Tutorials</h1>
+    {{ block.super }}
 
     <form class="form-horizontal" method="post">
         {% csrf_token %}
@@ -83,6 +81,7 @@
         {% endif %}
         <div class="form-actions">
             <input type="submit" name="submit" value="Weiter zur Bestellübersicht" class="submit btn-primary btn" id="submit-id-submit">
+            <a class="back" href="{% url attendees_purchase %}">{% trans "Back" %}</a>
         </div>
     </form>
 {% endblock %}
