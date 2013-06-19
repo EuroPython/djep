@@ -238,7 +238,7 @@ msgid ""
 msgstr ""
 "Falls Sie Rechnung auswählen, erhalten Sie von uns eine Rechnung nach "
 "Abschluss des Einkaufes. Sobald wir von Ihnen eine entsprechende Überweisung "
-"erhalten, wird Ihre Bestellung abgeschlossen.<br /><br />Krediatkarten-"
+"erhalten, wird Ihre Bestellung abgeschlossen.<br /><br />Kreditkarten-"
 "Zahlungen werden durch <a href=\"http://www.paymill.com\">PayMill</a> "
 "durchgeführt."
 

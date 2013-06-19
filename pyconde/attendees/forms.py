@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
+from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
 from crispy_forms.helper import FormHelper
@@ -158,3 +159,10 @@ class PurchaseOverviewForm(forms.Form):
             ButtonHolder(Submit('submit', _('Complete purchase'),
                                 css_class='btn-primary'))
         )
+        if hasattr(settings, 'PAYMENT_METHODS') and settings.PAYMENT_METHODS:
+            choices = self.fields['payment_method'].choices
+            new_choices = []
+            for choice in choices:
+                if choice[0] in settings.PAYMENT_METHODS:
+                    new_choices.append(choice)
+            self.fields['payment_method'].choices = new_choices

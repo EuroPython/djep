@@ -310,3 +310,5 @@ PAYMILL_PRIVATE_KEY = os.environ.get('PAYMILL_PRIVATE_KEY')
 PAYMILL_PUBLIC_KEY = os.environ.get('PAYMILL_PUBLIC_KEY')
 
 PAYMILL_TRANSACTION_DESCRIPTION = 'PyCon.DE 2013: Einkaufsnummer {purchase_pk}'
+
+PAYMENT_METHODS = set(['invoice', 'creditcard'])
