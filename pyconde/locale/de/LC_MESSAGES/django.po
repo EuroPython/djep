@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-22 14:31+0200\n"
+"POT-Creation-Date: 2013-06-22 20:05+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -149,32 +149,32 @@ msgstr ""
 "Adresse eingeben, wird an diese Adresse eine Aktivierungsmail versandt. Sie "
 "können Ihre Adresse im Mein Konto-Bereich jederzeit ändern.</p>"
 
-#: attendees/admin.py:64 attendees/admin.py:96
+#: attendees/admin.py:70 attendees/admin.py:102
 msgid "1 mail was"
 msgstr "1 E-Mail wurde"
 
-#: attendees/admin.py:66 attendees/admin.py:98
+#: attendees/admin.py:72 attendees/admin.py:104
 #, python-format
 msgid "%s mails were"
 msgstr "%s E-Mails wurden"
 
-#: attendees/admin.py:67 attendees/admin.py:100
+#: attendees/admin.py:73 attendees/admin.py:106
 #, python-format
 msgid "%s successfully sent."
 msgstr "%s erfolgreich versandt."
 
-#: attendees/admin.py:69
+#: attendees/admin.py:75
 #, python-format
 msgid "Send purchase confirmation for selected %(verbose_name_plural)s"
 msgstr ""
 "Versende Bestellungsbest&auml;tigungen f&uuml;r ausgew&auml;hlte "
 "%(verbose_name_plural)s"
 
-#: attendees/admin.py:75
+#: attendees/admin.py:81
 msgid "Send export e-mails"
 msgstr "Export-E-mails versenden"
 
-#: attendees/admin.py:102
+#: attendees/admin.py:108
 #, python-format
 msgid "Send confirmation for selected %(verbose_name_plural)s"
 msgstr ""
@@ -197,7 +197,7 @@ msgstr "Kreditkarte"
 msgid "ELV"
 msgstr ""
 
-#: attendees/forms.py:21 attendees/models.py:139
+#: attendees/forms.py:21 attendees/models.py:158
 msgid "E-Mail"
 msgstr ""
 
@@ -213,28 +213,33 @@ msgstr "Tickets kaufen"
 msgid "Quantity"
 msgstr "Anzahl"
 
-#: attendees/forms.py:77
+#: attendees/forms.py:78
 msgid "Ticket sold out."
 msgstr "Tickets ausverkauft."
 
-#: attendees/forms.py:80
+#: attendees/forms.py:81
 msgid "Not enough tickets left."
 msgstr "Nicht genug Tickets mehr verfügbar."
 
-#: attendees/forms.py:108 attendees/models.py:48 attendees/models.py:52
-#: attendees/models.py:238
+#: attendees/forms.py:84
+msgid ""
+"You've exceeded the maximum number of items of this type for this purchase"
+msgstr ""
+
+#: attendees/forms.py:114 attendees/models.py:67 attendees/models.py:71
+#: attendees/models.py:257
 msgid "Voucher"
 msgstr "Gutschein"
 
-#: attendees/forms.py:127
+#: attendees/forms.py:135
 msgid "Voucher verification failed."
 msgstr "Gutschein-Verifikation fehlgeschlagen."
 
-#: attendees/forms.py:145 attendees/models.py:191
+#: attendees/forms.py:153 attendees/models.py:210
 msgid "Payment method"
 msgstr "Zahlungsart"
 
-#: attendees/forms.py:147
+#: attendees/forms.py:155
 msgid ""
 "If you choose invoice you will receive an invoice from us. After we receive "
 "your money transfer your purchase will be finanized.<br /><br />Credit card "
@@ -246,7 +251,7 @@ msgstr ""
 "Zahlungen werden durch <a href=\"http://www.paymill.com\">PayMill</a> "
 "durchgeführt."
 
-#: attendees/forms.py:160
+#: attendees/forms.py:168
 msgid "Complete purchase"
 msgstr "Bestellung abschlie&szlig;en"
 
@@ -270,169 +275,172 @@ msgstr "Zahlung eingegangen"
 msgid "canceled"
 msgstr "Zurückgezogen"
 
-#: attendees/models.py:37
+#: attendees/models.py:35 attendees/models.py:43 attendees/models.py:61
+msgid "voucher type"
+msgstr "Gutscheintyp"
+
+#: attendees/models.py:44
+msgid "voucher types"
+msgstr "Gutscheintypen"
+
+#: attendees/models.py:54
 msgid "Code"
 msgstr ""
 
-#: attendees/models.py:38
+#: attendees/models.py:55
 msgid "Can be left blank, code will be created when you save."
 msgstr "Kann leer gelassen werden. Code wird beim Speichern generiert."
 
-#: attendees/models.py:39 attendees/models.py:93
+#: attendees/models.py:56 attendees/models.py:112
 msgid "Remarks"
 msgstr "Bemerkungen"
 
-#: attendees/models.py:41
+#: attendees/models.py:58
 msgid "Date (valid)"
 msgstr "Gültigkeitsdatum"
 
-#: attendees/models.py:42
+#: attendees/models.py:59
 msgid "The voucher is valid until this date"
 msgstr "Der Gutschein ist bis zu diesem Datum gültig"
 
-#: attendees/models.py:43
+#: attendees/models.py:60
 msgid "Is used"
 msgstr "Wird verwendet"
 
-#: attendees/models.py:49
+#: attendees/models.py:68
 msgid "Vouchers"
 msgstr "Gutscheine"
 
-#: attendees/models.py:76
+#: attendees/models.py:95
 msgid "Product number"
 msgstr "Produktnummer"
 
-#: attendees/models.py:77 attendees/models.py:137
+#: attendees/models.py:96 attendees/models.py:156
 msgid "Will be created when you save the first time."
 msgstr "Wird bei erstmaliger Speicherung erstellt."
 
-#: attendees/models.py:79
+#: attendees/models.py:98
 #: attendees/templates/attendees/payment_paymill.html:42
 msgid "Name"
 msgstr ""
 
-#: attendees/models.py:80
+#: attendees/models.py:99
 msgid "Fee"
 msgstr "Gebühr"
 
-#: attendees/models.py:83
+#: attendees/models.py:102
 msgid "Max purchases"
 msgstr ""
 
-#: attendees/models.py:84
+#: attendees/models.py:103
 msgid "0 means no limit"
 msgstr "0 bedeutet kein Limit"
 
-#: attendees/models.py:86
+#: attendees/models.py:105
 msgid "Is active"
 msgstr "Aktiv"
 
-#: attendees/models.py:87
+#: attendees/models.py:106
 msgid "Date (valid from)"
 msgstr "Gültig ab"
 
-#: attendees/models.py:88
+#: attendees/models.py:107
 msgid "Date (valid to)"
 msgstr "Gültig bis"
 
-#: attendees/models.py:90
-msgid "Voucher needed"
-msgstr "Benötigt Gutschein"
-
-#: attendees/models.py:91
+#: attendees/models.py:110
 msgid "Tutorial ticket"
 msgstr "Tutorial-Ticket"
 
-#: attendees/models.py:99 attendees/models.py:100 attendees/models.py:230
+#: attendees/models.py:118 attendees/models.py:119 attendees/models.py:249
 msgid "Ticket type"
 msgstr "Tickettyp"
 
-#: attendees/models.py:136
+#: attendees/models.py:155
 msgid "Customer number"
 msgstr "Kundennummer"
 
-#: attendees/models.py:142 attendees/models.py:184 attendees/models.py:236
+#: attendees/models.py:161 attendees/models.py:203 attendees/models.py:255
 msgid "Date (added)"
 msgstr "Hinzugefügt am"
 
-#: attendees/models.py:143
+#: attendees/models.py:162
 msgid "Is exported"
 msgstr "Exportiert"
 
-#: attendees/models.py:149 attendees/models.py:169
+#: attendees/models.py:168 attendees/models.py:188
 msgid "Customer"
 msgstr "Kunde"
 
-#: attendees/models.py:150
+#: attendees/models.py:169
 msgid "Customers"
 msgstr "Kunden"
 
-#: attendees/models.py:170
+#: attendees/models.py:189
 msgid "User"
 msgstr "Benutzer"
 
-#: attendees/models.py:173
+#: attendees/models.py:192
 msgid "Company"
 msgstr "Firma"
 
-#: attendees/models.py:174 attendees/models.py:232
+#: attendees/models.py:193 attendees/models.py:251
 msgid "First name"
 msgstr "Vorname"
 
-#: attendees/models.py:175 attendees/models.py:233
+#: attendees/models.py:194 attendees/models.py:252
 msgid "Last name"
 msgstr "Nachname"
 
-#: attendees/models.py:177
+#: attendees/models.py:196
 msgid "Street and house number"
 msgstr "Straße und Hausnummer"
 
-#: attendees/models.py:178
+#: attendees/models.py:197
 msgid "Zip code"
 msgstr "Postleitzahl"
 
-#: attendees/models.py:179
+#: attendees/models.py:198
 msgid "City"
 msgstr "Ort"
 
-#: attendees/models.py:180
+#: attendees/models.py:199
 msgid "Country"
 msgstr "Land"
 
-#: attendees/models.py:181
+#: attendees/models.py:200
 msgid "VAT-ID"
 msgstr ""
 
-#: attendees/models.py:186
+#: attendees/models.py:205
 msgid "Status"
 msgstr "Status"
 
-#: attendees/models.py:189
+#: attendees/models.py:208
 msgid "Comments"
 msgstr "Kommentare"
 
-#: attendees/models.py:194
+#: attendees/models.py:213
 msgid "Transaction ID"
 msgstr "TransaktionsID"
 
-#: attendees/models.py:197
-#, fuzzy
+#: attendees/models.py:216
 msgid "Exported"
 msgstr "Exportiert"
 
-#: attendees/models.py:202
+#: attendees/models.py:221
 msgid "Purchase"
 msgstr "Kauf"
 
-#: attendees/models.py:203
+#: attendees/models.py:222
 msgid "Purchases"
 msgstr "Einkäufe"
 
-#: attendees/models.py:243
+#: attendees/models.py:262
 msgid "Ticket"
 msgstr ""
 
-#: attendees/models.py:244
+#: attendees/models.py:263
 msgid "Tickets"
 msgstr ""
 
@@ -1582,6 +1590,9 @@ msgstr ""
 #: sponsorship/models.py:62
 msgid "custom CSS classes"
 msgstr ""
+
+#~ msgid "Voucher needed"
+#~ msgstr "Benötigt Gutschein"
 
 # PAYMILL ERRORS
 #~ msgid "General undefined response."

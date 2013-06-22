@@ -6,24 +6,30 @@ from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 
 from .models import (Customer, Purchase, Ticket, TicketType,
-                     Voucher)
+                     Voucher, VoucherType)
 from . import utils
 from . import exporters
 
 
 class TicketTypeAdmin(admin.ModelAdmin):
     list_display = ('product_number', '__unicode__', 'fee', 'is_active',
-        'voucher_needed', 'tutorial_ticket', 'purchases_count',
-        'max_purchases', 'date_valid_from', 'date_valid_to')
+                    'tutorial_ticket', 'purchases_count',
+                    'max_purchases', 'date_valid_from', 'date_valid_to')
     list_display_links = ('product_number', '__unicode__')
     list_filter = ('is_active',)
 
 admin.site.register(TicketType, TicketTypeAdmin)
 
 
+class VoucherTypeAdmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(VoucherType, VoucherTypeAdmin)
+
+
 class VoucherAdmin(admin.ModelAdmin):
-    list_display = ('__unicode__', 'remarks', 'is_used', 'date_valid')
-    list_filter = ('is_used',)
+    list_display = ('pk', 'code', 'is_used', 'type', 'remarks', 'date_valid')
+    list_filter = ('is_used', 'type')
     search_fields = ('code', 'remarks')
 
 admin.site.register(Voucher, VoucherAdmin)

@@ -27,6 +27,23 @@ PRODUCT_NUMBER_START = getattr(settings, 'ATTENDEES_PRODUCT_NUMBER_START', 1)
 CUSTOMER_NUMBER_START = getattr(settings, 'ATTENDEES_CUSTOMER_NUMBER_START', 1)
 
 
+class VoucherTypeManager(models.Manager):
+    pass
+
+
+class VoucherType(models.Model):
+    name = models.CharField(_('voucher type'), max_length=50)
+
+    objects = VoucherTypeManager()
+
+    def __unicode__(self):
+        return self.name
+
+    class Meta(object):
+        verbose_name = _('voucher type')
+        verbose_name_plural = _('voucher types')
+
+
 class VoucherManager(models.Manager):
     def valid(self):
         return self.filter(date_valid__gte=datetime.now, is_used=False)
@@ -41,6 +58,8 @@ class Voucher(models.Model):
         _('Date (valid)'), blank=False,
         help_text=_('The voucher is valid until this date'))
     is_used = models.BooleanField(_('Is used'), default=False)
+    type = models.ForeignKey('VoucherType', verbose_name=_('voucher type'),
+                             null=True)
 
     objects = VoucherManager()
 
@@ -87,7 +106,7 @@ class TicketType(models.Model):
     date_valid_from = models.DateTimeField(_('Date (valid from)'), blank=False)
     date_valid_to = models.DateTimeField(_('Date (valid to)'), blank=False)
 
-    voucher_needed = models.BooleanField(_('Voucher needed'), default=False)
+    vouchertype_needed = models.ForeignKey('VoucherType', null=True, verbose_name='voucher type needed')
     tutorial_ticket = models.BooleanField(_('Tutorial ticket'), default=False)
 
     remarks = models.TextField(_('Remarks'), blank=True)
@@ -95,7 +114,7 @@ class TicketType(models.Model):
     objects = TicketTypeManager()
 
     class Meta:
-        ordering = ('tutorial_ticket', 'product_number', 'voucher_needed',)
+        ordering = ('tutorial_ticket', 'product_number', 'vouchertype_needed',)
         verbose_name = _('Ticket type')
         verbose_name_plural = _('Ticket type')
 

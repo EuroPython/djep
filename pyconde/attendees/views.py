@@ -111,7 +111,7 @@ class StartPurchaseView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
         if self.quantity_forms is None:
             self.quantity_forms = [
                 forms.TicketQuantityForm(ticket_type=ticket_type)
-                for ticket_type in TicketType.objects.available()
+                for ticket_type in TicketType.objects.available().select_related('vouchertype_needed')
             ]
 
         return render(self.request, 'attendees/purchase.html', {
@@ -181,7 +181,7 @@ class PurchaseNamesView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
             self.voucher_forms = [
                 forms.TicketVoucherForm(instance=ticket)
                 for ticket in self.purchase.ticket_set.filter(
-                    ticket_type__voucher_needed=True)
+                    ticket_type__vouchertype_needed__isnull=False)
             ]
 
         return render(self.request, 'attendees/purchase_names.html', {
@@ -209,7 +209,7 @@ class PurchaseNamesView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
         self.all_voucher_forms_valid = True
 
         for ticket in self.purchase.ticket_set.filter(
-                ticket_type__voucher_needed=True):
+                ticket_type__vouchertype_needed__isnull=False):
             voucher_form = forms.TicketVoucherForm(
                 data=self.request.POST, instance=ticket)
 

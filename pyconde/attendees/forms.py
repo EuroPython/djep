@@ -64,7 +64,7 @@ class TicketQuantityForm(forms.Form):
         else:
             max_value = 10
 
-        if self.ticket_type.voucher_needed:
+        if self.ticket_type.vouchertype_needed:
             max_value = 1
 
         self.fields['quantity'].max_value = max_value
@@ -72,12 +72,18 @@ class TicketQuantityForm(forms.Form):
             range(0, max_value+1), range(0, max_value+1))
 
     def clean_quantity(self):
-        if self.cleaned_data['quantity'] > 0:
+        value = self.cleaned_data['quantity']
+        if value > 0:
             if self.ticket_type.available_tickets < 1:
                 raise forms.ValidationError(_('Ticket sold out.'))
 
-            if self.cleaned_data['quantity'] > self.ticket_type.available_tickets:
+            if value > self.ticket_type.available_tickets:
                 raise forms.ValidationError(_('Not enough tickets left.'))
+
+            if value > self.fields['quantity'].max_value:
+                raise forms.ValidationError(_("You've exceeded the maximum"
+                                              " number of items of this type "
+                                              "for this purchase"))
 
         return self.cleaned_data['quantity']
 
@@ -122,7 +128,9 @@ class TicketVoucherForm(forms.ModelForm):
             code = self.cleaned_data['code']
             ticket = Ticket.objects.get(pk=self.instance.pk)
             if not ticket.voucher or ticket.voucher.code != code:
-                Voucher.objects.valid().get(code=code)
+                Voucher.objects.valid().get(
+                    code=code,
+                    type=ticket.ticket_type.vouchertype_needed)
         except Voucher.DoesNotExist:
             raise forms.ValidationError(_('Voucher verification failed.'))
 
