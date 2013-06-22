@@ -312,3 +312,7 @@ PAYMILL_PUBLIC_KEY = os.environ.get('PAYMILL_PUBLIC_KEY')
 PAYMILL_TRANSACTION_DESCRIPTION = 'PyCon.DE 2013: Einkaufsnummer {purchase_pk}'
 
 PAYMENT_METHODS = set(['invoice', 'creditcard'])
+
+PURCHASE_NUMBER_FORMAT = 'PCDE13-{0:04d}'
+PURCHASE_EXPORT_RECIPIENTS = []
+PURCHASE_EXPORT_SUBJECT = 'Purchase-export: {purchase_number}'

@@ -8,6 +8,7 @@ from django.utils.translation import gettext_lazy as _
 from .models import (Customer, Purchase, Ticket, TicketType,
                      Voucher)
 from . import utils
+from . import exporters
 
 
 class TicketTypeAdmin(admin.ModelAdmin):
@@ -45,12 +46,13 @@ class PurchaseAdmin(admin.ModelAdmin):
     list_display = (
         '__unicode__', 'payment_total', 'first_name', 'last_name',
         'company_name', 'street', 'city', 'date_added', 'payment_method',
-        'state'
+        'state', 'exported',
     )
     list_editable = ('state',)
-    list_filter = ('state', 'date_added', 'payment_method',)
+    list_filter = ('state', 'date_added', 'payment_method', 'exported',)
     inlines = [TicketInline]
-    actions = ['send_purchase_confirmation', 'send_payment_confirmation']
+    actions = ['send_purchase_confirmation', 'send_payment_confirmation',
+               'email_export']
 
     def send_purchase_confirmation(self, request, queryset):
         sent = 0
@@ -65,6 +67,12 @@ class PurchaseAdmin(admin.ModelAdmin):
         self.message_user(request, _('%s successfully sent.') % message_bit)
     send_purchase_confirmation.short_description = _(
         'Send purchase confirmation for selected %(verbose_name_plural)s')
+
+    def email_export(self, request, queryset):
+        exporter = exporters.PurchaseEmailExporter()
+        for purchase in queryset:
+            exporter(purchase)
+    email_export.short_description = _('Send export e-mails')
 
     def send_payment_confirmation(self, request, queryset):
         sent = 0

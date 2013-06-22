@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import xmlrpclib
 import decimal
+import logging
 
 from django.conf import settings
 from django.core.mail import send_mail
@@ -8,6 +9,11 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
+
+from . import exporters
+
+
+LOG = logging.getLogger(__name__)
 
 
 def validate_vatid(own_vatid, other_vatid):
@@ -51,11 +57,19 @@ def send_purchase_confirmation_mail(purchase, recipients=None):
         settings.DEFAULT_FROM_EMAIL, recipients,
         fail_silently=True
     )
+    try:
+        exporters.PurchaseEmailExporter()(purchase)
+    except:
+        LOG.error("Failed to export the order", exc_info=True)
 
 
 def generate_transaction_description(purchase):
     return settings.PAYMILL_TRANSACTION_DESCRIPTION.format(
         purchase_pk=purchase.pk)
+
+
+def get_purchase_number(purchase):
+    return settings.PURCHASE_NUMBER_FORMAT.format(purchase.pk)
 
 
 def round_money_value(val):

@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-19 20:24+0200\n"
+"POT-Creation-Date: 2013-06-22 14:31+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -149,28 +149,32 @@ msgstr ""
 "Adresse eingeben, wird an diese Adresse eine Aktivierungsmail versandt. Sie "
 "können Ihre Adresse im Mein Konto-Bereich jederzeit ändern.</p>"
 
-#: attendees/admin.py:62 attendees/admin.py:88
+#: attendees/admin.py:64 attendees/admin.py:96
 msgid "1 mail was"
 msgstr "1 E-Mail wurde"
 
-#: attendees/admin.py:64 attendees/admin.py:90
+#: attendees/admin.py:66 attendees/admin.py:98
 #, python-format
 msgid "%s mails were"
 msgstr "%s E-Mails wurden"
 
-#: attendees/admin.py:65 attendees/admin.py:92
+#: attendees/admin.py:67 attendees/admin.py:100
 #, python-format
 msgid "%s successfully sent."
 msgstr "%s erfolgreich versandt."
 
-#: attendees/admin.py:67
+#: attendees/admin.py:69
 #, python-format
 msgid "Send purchase confirmation for selected %(verbose_name_plural)s"
 msgstr ""
-"Versende Bestellungsbest&auml;igungen f&uuml;r ausgew&auml;hlte "
+"Versende Bestellungsbest&auml;tigungen f&uuml;r ausgew&auml;hlte "
 "%(verbose_name_plural)s"
 
-#: attendees/admin.py:94
+#: attendees/admin.py:75
+msgid "Send export e-mails"
+msgstr "Export-E-mails versenden"
+
+#: attendees/admin.py:102
 #, python-format
 msgid "Send confirmation for selected %(verbose_name_plural)s"
 msgstr ""
@@ -218,7 +222,7 @@ msgid "Not enough tickets left."
 msgstr "Nicht genug Tickets mehr verfügbar."
 
 #: attendees/forms.py:108 attendees/models.py:48 attendees/models.py:52
-#: attendees/models.py:227
+#: attendees/models.py:238
 msgid "Voucher"
 msgstr "Gutschein"
 
@@ -226,7 +230,7 @@ msgstr "Gutschein"
 msgid "Voucher verification failed."
 msgstr "Gutschein-Verifikation fehlgeschlagen."
 
-#: attendees/forms.py:145 attendees/models.py:184
+#: attendees/forms.py:145 attendees/models.py:191
 msgid "Payment method"
 msgstr "Zahlungsart"
 
@@ -242,7 +246,7 @@ msgstr ""
 "Zahlungen werden durch <a href=\"http://www.paymill.com\">PayMill</a> "
 "durchgeführt."
 
-#: attendees/forms.py:159
+#: attendees/forms.py:160
 msgid "Complete purchase"
 msgstr "Bestellung abschlie&szlig;en"
 
@@ -339,7 +343,7 @@ msgstr "Benötigt Gutschein"
 msgid "Tutorial ticket"
 msgstr "Tutorial-Ticket"
 
-#: attendees/models.py:99 attendees/models.py:100 attendees/models.py:219
+#: attendees/models.py:99 attendees/models.py:100 attendees/models.py:230
 msgid "Ticket type"
 msgstr "Tickettyp"
 
@@ -347,7 +351,7 @@ msgstr "Tickettyp"
 msgid "Customer number"
 msgstr "Kundennummer"
 
-#: attendees/models.py:142 attendees/models.py:177 attendees/models.py:225
+#: attendees/models.py:142 attendees/models.py:184 attendees/models.py:236
 msgid "Date (added)"
 msgstr "Hinzugefügt am"
 
@@ -355,7 +359,7 @@ msgstr "Hinzugefügt am"
 msgid "Is exported"
 msgstr "Exportiert"
 
-#: attendees/models.py:149 attendees/models.py:162
+#: attendees/models.py:149 attendees/models.py:169
 msgid "Customer"
 msgstr "Kunde"
 
@@ -363,75 +367,80 @@ msgstr "Kunde"
 msgid "Customers"
 msgstr "Kunden"
 
-#: attendees/models.py:163
+#: attendees/models.py:170
 msgid "User"
 msgstr "Benutzer"
 
-#: attendees/models.py:166
+#: attendees/models.py:173
 msgid "Company"
 msgstr "Firma"
 
-#: attendees/models.py:167 attendees/models.py:221
+#: attendees/models.py:174 attendees/models.py:232
 msgid "First name"
 msgstr "Vorname"
 
-#: attendees/models.py:168 attendees/models.py:222
+#: attendees/models.py:175 attendees/models.py:233
 msgid "Last name"
 msgstr "Nachname"
 
-#: attendees/models.py:170
+#: attendees/models.py:177
 msgid "Street and house number"
 msgstr "Straße und Hausnummer"
 
-#: attendees/models.py:171
+#: attendees/models.py:178
 msgid "Zip code"
 msgstr "Postleitzahl"
 
-#: attendees/models.py:172
+#: attendees/models.py:179
 msgid "City"
 msgstr "Ort"
 
-#: attendees/models.py:173
+#: attendees/models.py:180
 msgid "Country"
 msgstr "Land"
 
-#: attendees/models.py:174
+#: attendees/models.py:181
 msgid "VAT-ID"
 msgstr ""
 
-#: attendees/models.py:179
+#: attendees/models.py:186
 msgid "Status"
 msgstr "Status"
 
-#: attendees/models.py:182
+#: attendees/models.py:189
 msgid "Comments"
 msgstr "Kommentare"
 
-#: attendees/models.py:187
+#: attendees/models.py:194
 msgid "Transaction ID"
 msgstr "TransaktionsID"
 
-#: attendees/models.py:191
+#: attendees/models.py:197
+#, fuzzy
+msgid "Exported"
+msgstr "Exportiert"
+
+#: attendees/models.py:202
 msgid "Purchase"
 msgstr "Kauf"
 
-#: attendees/models.py:192
+#: attendees/models.py:203
 msgid "Purchases"
 msgstr "Einkäufe"
 
-#: attendees/models.py:232
+#: attendees/models.py:243
 msgid "Ticket"
 msgstr ""
 
-#: attendees/models.py:233
+#: attendees/models.py:244
 msgid "Tickets"
 msgstr ""
 
-#: attendees/utils.py:44
+#: attendees/utils.py:50
 msgid "Ticket successfully purchased"
 msgstr "Ticket erfolgreich gekauft"
 
-#: attendees/views.py:305
+#: attendees/views.py:307
 msgid "Payment failed. Please check your data."
 msgstr ""
 
@@ -474,6 +483,7 @@ msgid "Pay &amp; Complete purchase"
 msgstr "Bezahlen &amp; Bestellung abschlie&szlig;en"
 
 #: attendees/templates/attendees/payment_paymill.html:80
+#: attendees/templates/attendees/purchase_names.html:84
 msgid "Back"
 msgstr "Zurück"
 

@@ -158,6 +158,13 @@ class Customer(models.Model):
         super(Customer, self).save(*args, **kwargs)
 
 
+class PurchaseManager(models.Manager):
+    def get_exportable_purchases(self):
+        return self.filter(
+            exported=False,
+            state__in=['payment_received', 'new', 'invoice_created'])
+
+
 class Purchase(models.Model):
     customer = models.ForeignKey(Customer, verbose_name=_('Customer'))
     user = models.ForeignKey(User, null=True, verbose_name=_('User'))
@@ -186,6 +193,10 @@ class Purchase(models.Model):
                                       default='invoice')
     payment_transaction = models.CharField(_('Transaction ID'), max_length=255,
                                            blank=True)
+
+    exported = models.BooleanField(_('Exported'), default=False)
+
+    objects = PurchaseManager()
 
     class Meta:
         verbose_name = _('Purchase')
