@@ -52,6 +52,7 @@ class PurchaseEmailExporter(object):
             'comments': purchase.comments if purchase.comments else None,
             'date_added': purchase.date_added,
             'payment_address': {
+                'email': purchase.customer.email,
                 'first_name': purchase.first_name,
                 'last_name': purchase.last_name,
                 'company': purchase.company_name,

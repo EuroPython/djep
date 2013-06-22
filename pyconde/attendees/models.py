@@ -160,7 +160,7 @@ class Customer(models.Model):
 
 class PurchaseManager(models.Manager):
     def get_exportable_purchases(self):
-        return self.filter(
+        return self.select_related('customer').filter(
             exported=False,
             state__in=['payment_received', 'new', 'invoice_created'])
 
