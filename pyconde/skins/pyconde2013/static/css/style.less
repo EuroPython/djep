@@ -322,6 +322,11 @@ footer .box {
   }
   h2 {font-size: 20px;}
   h3 {font-size: 15px;}
+  a[name] { /* corrects placement of anchors with fixed navbar */
+    padding-top: 80px;
+    margin-top: -80px;
+    display: inline-block; /* required for webkit browsers */
+  }
 }
 .frontpage #content-main {
     padding-right: 0;
