@@ -68,6 +68,7 @@
 
 @rightPageMargin: 60px;
 @gridColumnWidth: 67px;
+@contentPaddingLeft: 40px;
 @linkColor: @green;
 
 // Bootstrap overrides
@@ -278,7 +279,7 @@ footer .box {
     display: inline-block;
     font-size: @header1FontSize;
     padding: 0px;
-    padding-left: 20px;
+    padding-left: @contentPaddingLeft;
     line-height: 1.1em;
   }
   p {
@@ -291,7 +292,7 @@ footer .box {
   padding-top: 10px;
   padding-right: 15px;
   > * {
-    margin-left: 20px;
+    margin-left: @contentPaddingLeft;
   }
   > .btn {
     padding-left: 10px;
@@ -545,7 +546,7 @@ ul.social-links {
 }
 
 footer {
-  padding-left: 20px;
+  padding-left: @contentPaddingLeft;
 }
 
 @media (max-width: 767px) {
@@ -576,7 +577,7 @@ div.postcard {
         color: #FFF;
         font-size: 29px;
         span {
-            padding: 2px 10px 2px 20px;
+            padding: 2px 10px 2px @contentPaddingLeft;
             display: inline-block;
             background: @green;
         }
