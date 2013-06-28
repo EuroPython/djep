@@ -1,4 +1,5 @@
 import logging
+import hashlib
 
 from django.conf import settings
 from django.core.serializers.json import DjangoJSONEncoder
@@ -33,12 +34,18 @@ class PurchaseEmailExporter(object):
         msg = EmailMessage(
             settings.PURCHASE_EXPORT_SUBJECT.format(
                 purchase_number=order_number),
-            from_email=settings.DEFAULT_FROM_EMAIL, to=self.recipients)
+            from_email=settings.DEFAULT_FROM_EMAIL, to=self.recipients,
+            headers={
+                'X-Data-Checksum': self._create_checksum(json_data)
+            })
         msg.encoding = 'utf-8'
         msg.attach('data-{0}.json'.format(order_number), json_data, 'application/json')
         msg.send()
         purchase.exported = True
         purchase.save()
+
+    def _create_checksum(self, data):
+        return hashlib.sha1(settings.EXPORT_SECRET_KEY + data).hexdigest()
 
     def _purchase_to_json(self, purchase):
         from . import utils

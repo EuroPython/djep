@@ -316,3 +316,4 @@ PAYMENT_METHODS = set(['invoice', 'creditcard'])
 PURCHASE_NUMBER_FORMAT = 'PCDE13-{0:04d}'
 PURCHASE_EXPORT_RECIPIENTS = []
 PURCHASE_EXPORT_SUBJECT = 'Purchase-export: {purchase_number}'
+EXPORT_SECRET_KEY = os.environ.get('EXPORT_SECRET_KEY', '')  # Set this for production
