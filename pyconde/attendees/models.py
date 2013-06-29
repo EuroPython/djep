@@ -244,12 +244,27 @@ class Purchase(models.Model):
                                  self.get_state_display())
 
 
+class TShirtSize(models.Model):
+    size = models.CharField(max_length=100, verbose_name=_('Size'))
+    sort = models.IntegerField(default=999, verbose_name=_('Sort order'))
+
+    class Meta:
+        verbose_name = _(u'T-Shirt Size')
+        verbose_name_plural = _(u'T-Shirt Sizes')
+        ordering = ('sort',)
+
+    def __unicode__(self):
+        return self.size
+
+
 class Ticket(models.Model):
     purchase = models.ForeignKey(Purchase)
     ticket_type = models.ForeignKey(TicketType, verbose_name=_('Ticket type'))
 
     first_name = models.CharField(_('First name'), max_length=250, blank=True)
     last_name = models.CharField(_('Last name'), max_length=250, blank=True)
+    shirtsize = models.ForeignKey(TShirtSize, blank=True, null=True,
+                                  verbose_name=_('Desired T-Shirt size'))
 
     date_added = models.DateTimeField(
         _('Date (added)'), blank=False, default=datetime.now)
@@ -265,3 +280,4 @@ class Ticket(models.Model):
     def __unicode__(self):
         return u'%s %s - %s' % (self.first_name, self.last_name,
                                 self.ticket_type)
+

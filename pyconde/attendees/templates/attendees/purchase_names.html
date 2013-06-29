@@ -1,19 +1,6 @@
 {% extends "attendees/purchase_base.html" %}
 {% load i18n %}
 
-{% block extra_head %}
-    <style type="text/css">
-        .form-horizontal fieldset.attendees label { width: 220px; }
-        .form-horizontal fieldset.attendees div.controls { margin-left: 260px; }
-        .form-horizontal fieldset.attendees input { width: 140px; }
-        .form-horizontal fieldset.vouchers label { width: 370px; }
-        .form-horizontal fieldset.vouchers div.controls { margin-left: 410px; }
-        .form-horizontal fieldset.vouchers input { width: 140px; }
-        .form-horizontal fieldset div.headerlabel span { display: inline-block; width: 150px; }
-        .form-horizontal fieldset div.headerlabel { margin-bottom: 4px; font-weight: bold; }
-    </style>
-{% endblock %}
-
 {% block content %}
     {{ block.super }}
 
@@ -23,29 +10,44 @@
             <legend>Teilnehmer</legend>
             <p style="padding-top:10px">Zur korrekten Zuordnung der Konferenz- und Tutorial-Tickets benötigen wir die vollen Namen der Personen, die die Tickets in Anspruch nehmen werden. Bitte geben Sie die Namen und die untenstehenden Felder ein.</p>
             {% for name_form in name_forms %}
-                {% if forloop.first %}
-                    <div class="clearfix control-group headerlabel">
-                        <div class="controls">
-                            <span class="headerlabel">{{ name_form.first_name.label }}</span>
-                            <span class="headerlabel">{{ name_form.last_name.label }}</span>
-                        </div>
-                    </div>
-                {% endif %}
-                <div class="clearfix control-group{% if name_form.errors %} error{% endif %}">
-                    <label for="{{ name_form.first_name.id }}" class="requiredField">
-                        {{ forloop.counter }}. {{ name_form.instance.ticket_type.name }} <span class="asteriskField">*</span>
+              <fieldset>
+                <legend>{{ forloop.counter }}. Ticket ({{ name_form.instance.ticket_type.name }})</legend>
+                <div class="control-group {% if name_form.first_name.errors %}error{% endif %}">
+                  <label class="control-label" for="{{ name_form.first_name.id }}" class="requiredField">
+                    {{ name_form.first_name.label }} <span class="asteriskField">*</span>:
+                  </label>
+                  <div class="controls">
+                    {{ name_form.first_name }}
+                    {% for error in name_form.first_name.errors %}
+                      <span class="help-inline"><strong>{{ error }}</strong></span>
+                    {% endfor %}
+                  </div>
+                </div>
+                <div class="control-group {% if name_form.last_name.errors %}error{% endif %}">
+                  <label class="control-label" for="{{ name_form.last_name.id }}" class="requiredField">
+                    {{ name_form.last_name.label }} <span class="asteriskField">*</span>:
+                  </label>
+                  <div class="controls">
+                    {{ name_form.last_name }}
+                    {% for error in name_form.last_name.errors %}
+                      <span class="help-inline"><strong>{{ error }}</strong></span>
+                    {% endfor %}
+                  </div>
+                </div>
+                {% if not name_form.instance.ticket_type.tutorial_ticket %}
+                  <div class="control-group {% if name_form.shirtsize.errors %}error{% endif %}">
+                    <label class="control-label" for="{{ name_form.shirtsize.id }}">
+                      {{ name_form.shirtsize.label }}:
                     </label>
                     <div class="controls">
-                        {{ name_form.first_name }}
-                        {{ name_form.last_name }}
-                        {% for error in name_form.first_name.errors %}
-                            <span class="help-inline"><strong>{{ error }}</strong></span>
-                        {% endfor %}
-                        {% for error in name_form.last_name.errors %}
-                            <span class="help-inline"><strong>{{ error }}</strong></span>
-                        {% endfor %}
+                      {{ name_form.shirtsize }}
+                      {% for error in name_form.shirtsize.errors %}
+                        <span class="help-inline"><strong>{{ error }}</strong></span>
+                      {% endfor %}
                     </div>
-                </div>
+                  </div>
+                {% endif %}
+              </fieldset>
             {% endfor %}
         </fieldset>
         {% if voucher_forms %}

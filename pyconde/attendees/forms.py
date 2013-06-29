@@ -100,13 +100,14 @@ class TicketNameForm(forms.ModelForm):
 
     class Meta:
         model = Ticket
-        fields = ('first_name', 'last_name')
+        fields = ('first_name', 'last_name', 'shirtsize')
 
     def save(self, *args, **kwargs):
         # Update, save would overwrite other flags too (even if not in `fields`)
         Ticket.objects.filter(pk=self.instance.pk).update(
             first_name=self.cleaned_data['first_name'],
-            last_name=self.cleaned_data['last_name']
+            last_name=self.cleaned_data['last_name'],
+            shirtsize=self.cleaned_data['shirtsize']
         )
 
 

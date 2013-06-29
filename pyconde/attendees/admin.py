@@ -6,7 +6,7 @@ from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 
 from .models import (Customer, Purchase, Ticket, TicketType,
-                     Voucher, VoucherType)
+                     Voucher, VoucherType, TShirtSize)
 from . import utils
 from . import exporters
 
@@ -19,6 +19,12 @@ class TicketTypeAdmin(admin.ModelAdmin):
     list_filter = ('is_active',)
 
 admin.site.register(TicketType, TicketTypeAdmin)
+
+
+class ShirtSizeAdmin(admin.ModelAdmin):
+    list_display = ('size', 'sort')
+
+admin.site.register(TShirtSize, ShirtSizeAdmin)
 
 
 class VoucherTypeAdmin(admin.ModelAdmin):
