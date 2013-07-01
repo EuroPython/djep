@@ -28,7 +28,7 @@
         </div>
     </div>
     {% endif %}
-    
+
     {% if purchase.payment_method == 'elv' %}
     <div class="control-group">
         <label for="bank" class="control-label">{% trans "Bank (BLZ)" %}</label>
@@ -49,7 +49,7 @@
     <div class="control-group">
         <label for="cc-exp-month" class="control-label">{% trans "Expiration date" %}</label>
         <div class="controls controls-row">
-            <select id="cc-exp-month" class="card-exp-month span2">
+            <select id="cc-exp-month" class="card-exp-month input-small">
                 <option>{% trans "Month" %}</option>
                 <option value="1">1</option>
                 <option value="2">2</option>
@@ -64,7 +64,7 @@
                 <option value="11">11</option>
                 <option value="12">12</option>
             </select>
-            <select id="cc-exp-year" class="card-exp-year span2">
+            <select id="cc-exp-year" class="card-exp-year input-small">
                 <option>{% trans "Year" %}</option>
                 {% for year in exp_years %}
                 <option value="{{ year}}">{{ year}}</option>
