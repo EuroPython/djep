@@ -106,7 +106,7 @@ class TicketType(models.Model):
     date_valid_from = models.DateTimeField(_('Date (valid from)'), blank=False)
     date_valid_to = models.DateTimeField(_('Date (valid to)'), blank=False)
 
-    vouchertype_needed = models.ForeignKey('VoucherType', null=True, verbose_name='voucher type needed')
+    vouchertype_needed = models.ForeignKey('VoucherType', null=True, blank=True, verbose_name=_('voucher type needed'))
     tutorial_ticket = models.BooleanField(_('Tutorial ticket'), default=False)
 
     remarks = models.TextField(_('Remarks'), blank=True)

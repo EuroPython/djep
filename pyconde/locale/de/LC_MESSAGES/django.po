@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-06-22 20:05+0200\n"
+"POT-Creation-Date: 2013-07-02 22:03+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -149,32 +149,32 @@ msgstr ""
 "Adresse eingeben, wird an diese Adresse eine Aktivierungsmail versandt. Sie "
 "können Ihre Adresse im Mein Konto-Bereich jederzeit ändern.</p>"
 
-#: attendees/admin.py:70 attendees/admin.py:102
+#: attendees/admin.py:76 attendees/admin.py:108
 msgid "1 mail was"
 msgstr "1 E-Mail wurde"
 
-#: attendees/admin.py:72 attendees/admin.py:104
+#: attendees/admin.py:78 attendees/admin.py:110
 #, python-format
 msgid "%s mails were"
 msgstr "%s E-Mails wurden"
 
-#: attendees/admin.py:73 attendees/admin.py:106
+#: attendees/admin.py:79 attendees/admin.py:112
 #, python-format
 msgid "%s successfully sent."
 msgstr "%s erfolgreich versandt."
 
-#: attendees/admin.py:75
+#: attendees/admin.py:81
 #, python-format
 msgid "Send purchase confirmation for selected %(verbose_name_plural)s"
 msgstr ""
 "Versende Bestellungsbest&auml;tigungen f&uuml;r ausgew&auml;hlte "
 "%(verbose_name_plural)s"
 
-#: attendees/admin.py:81
+#: attendees/admin.py:87
 msgid "Send export e-mails"
 msgstr "Export-E-Mails versenden"
 
-#: attendees/admin.py:108
+#: attendees/admin.py:114
 #, python-format
 msgid "Send confirmation for selected %(verbose_name_plural)s"
 msgstr ""
@@ -226,20 +226,20 @@ msgid ""
 "You've exceeded the maximum number of items of this type for this purchase"
 msgstr ""
 
-#: attendees/forms.py:114 attendees/models.py:67 attendees/models.py:71
-#: attendees/models.py:257
+#: attendees/forms.py:115 attendees/models.py:67 attendees/models.py:71
+#: attendees/models.py:272
 msgid "Voucher"
 msgstr "Gutschein"
 
-#: attendees/forms.py:135
+#: attendees/forms.py:136
 msgid "Voucher verification failed."
 msgstr "Gutschein-Verifikation fehlgeschlagen."
 
-#: attendees/forms.py:153 attendees/models.py:210
+#: attendees/forms.py:154 attendees/models.py:210
 msgid "Payment method"
 msgstr "Zahlungsart"
 
-#: attendees/forms.py:155
+#: attendees/forms.py:156
 msgid ""
 "If you choose invoice you will receive an invoice from us. After we receive "
 "your money transfer your purchase will be finanized.<br /><br />Credit card "
@@ -251,7 +251,7 @@ msgstr ""
 "Zahlungen werden durch <a href=\"http://www.paymill.com\">PayMill</a> "
 "durchgeführt."
 
-#: attendees/forms.py:168
+#: attendees/forms.py:169
 msgid "Complete purchase"
 msgstr "Bestellung abschlie&szlig;en"
 
@@ -348,11 +348,15 @@ msgstr "Gültig ab"
 msgid "Date (valid to)"
 msgstr "Gültig bis"
 
+#: attendees/models.py:109
+msgid "voucher type needed"
+msgstr "Erforderlicher Gutscheintyp"
+
 #: attendees/models.py:110
 msgid "Tutorial ticket"
 msgstr "Tutorial-Ticket"
 
-#: attendees/models.py:118 attendees/models.py:119 attendees/models.py:249
+#: attendees/models.py:118 attendees/models.py:119 attendees/models.py:262
 msgid "Ticket type"
 msgstr "Tickettyp"
 
@@ -360,7 +364,7 @@ msgstr "Tickettyp"
 msgid "Customer number"
 msgstr "Kundennummer"
 
-#: attendees/models.py:161 attendees/models.py:203 attendees/models.py:255
+#: attendees/models.py:161 attendees/models.py:203 attendees/models.py:270
 msgid "Date (added)"
 msgstr "Hinzugefügt am"
 
@@ -384,11 +388,11 @@ msgstr "Benutzer"
 msgid "Company"
 msgstr "Firma"
 
-#: attendees/models.py:193 attendees/models.py:251
+#: attendees/models.py:193 attendees/models.py:264
 msgid "First name"
 msgstr "Vorname"
 
-#: attendees/models.py:194 attendees/models.py:252
+#: attendees/models.py:194 attendees/models.py:265
 msgid "Last name"
 msgstr "Nachname"
 
@@ -436,11 +440,32 @@ msgstr "Kauf"
 msgid "Purchases"
 msgstr "Einkäufe"
 
-#: attendees/models.py:262
+#: attendees/models.py:248
+msgid "Size"
+msgstr ""
+
+#: attendees/models.py:249
+#, fuzzy
+msgid "Sort order"
+msgstr "Reihenfolge"
+
+#: attendees/models.py:252
+msgid "T-Shirt Size"
+msgstr ""
+
+#: attendees/models.py:253
+msgid "T-Shirt Sizes"
+msgstr ""
+
+#: attendees/models.py:267
+msgid "Desired T-Shirt size"
+msgstr ""
+
+#: attendees/models.py:277
 msgid "Ticket"
 msgstr ""
 
-#: attendees/models.py:263
+#: attendees/models.py:278
 msgid "Tickets"
 msgstr ""
 
@@ -491,7 +516,7 @@ msgid "Pay &amp; Complete purchase"
 msgstr "Bezahlen &amp; Bestellung abschlie&szlig;en"
 
 #: attendees/templates/attendees/payment_paymill.html:80
-#: attendees/templates/attendees/purchase_names.html:84
+#: attendees/templates/attendees/purchase_names.html:90
 msgid "Back"
 msgstr "Zurück"
 
@@ -1590,9 +1615,6 @@ msgstr ""
 #: sponsorship/models.py:62
 msgid "custom CSS classes"
 msgstr ""
-
-#~ msgid "Voucher needed"
-#~ msgstr "Benötigt Gutschein"
 
 # PAYMILL ERRORS
 #~ msgid "General undefined response."
