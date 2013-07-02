@@ -144,8 +144,8 @@ msgid ""
 "below, an activation email will be sent to this address. You can always "
 "change your e-mail address in the profile section of the site.</p>"
 msgstr ""
-"<p>Hier können Sie optional Ihre E-mail-Adresse angeben, um Benachrichtungen "
-"zu erhalten.</p><p>Sollten Sie im untenstehenden Formular Ihre E-mail-"
+"<p>Hier können Sie optional Ihre E-Mail-Adresse angeben, um Benachrichtungen "
+"zu erhalten.</p><p>Sollten Sie im untenstehenden Formular Ihre E-Mail-"
 "Adresse eingeben, wird an diese Adresse eine Aktivierungsmail versandt. Sie "
 "können Ihre Adresse im Mein Konto-Bereich jederzeit ändern.</p>"
 
@@ -172,7 +172,7 @@ msgstr ""
 
 #: attendees/admin.py:81
 msgid "Send export e-mails"
-msgstr "Export-E-mails versenden"
+msgstr "Export-E-Mails versenden"
 
 #: attendees/admin.py:108
 #, python-format
@@ -450,7 +450,7 @@ msgstr "Ticket erfolgreich gekauft"
 
 #: attendees/views.py:307
 msgid "Payment failed. Please check your data."
-msgstr ""
+msgstr "Zahlung fehlgeschlagen. Bitte überprüfen Sie die Daten."
 
 #: attendees/templates/attendees/payment_paymill.html:6
 msgid "You have to have JavaScript enabled to pay via credit card."
@@ -1529,7 +1529,7 @@ msgstr "Konto-Aktivierung"
 
 #: skins/default/templates/userprofiles/mails/emailverification_subject.html:1
 msgid "E-mail confirmation"
-msgstr "E-mail-Bestätigung"
+msgstr "E-Mail-Bestätigung"
 
 #: sponsorship/cms_plugins.py:10
 msgid "sponsor list plugin"

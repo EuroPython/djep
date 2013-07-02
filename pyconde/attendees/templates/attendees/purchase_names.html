@@ -8,7 +8,9 @@
         {% csrf_token %}
         <fieldset class="attendees">
             <legend>Teilnehmer</legend>
-            <p style="padding-top:10px">Zur korrekten Zuordnung der Konferenz- und Tutorial-Tickets benötigen wir die vollen Namen der Personen, die die Tickets in Anspruch nehmen werden. Bitte geben Sie die Namen und die untenstehenden Felder ein.</p>
+            <p style="padding-top:10px">Zur korrekten Zuordnung der Konferenz- und Tutorial-Tickets
+             benötigen wir die vollständigen Namen der Personen, die die Tickets in Anspruch nehmen werden. 
+             Bitte geben Sie die Namen in die untenstehenden Felder ein.</p>
             {% for name_form in name_forms %}
               <fieldset>
                 <legend>{{ forloop.counter }}. Ticket ({{ name_form.instance.ticket_type.name }})</legend>
@@ -52,11 +54,13 @@
         </fieldset>
         {% if voucher_forms %}
         <fieldset class="vouchers">
-            <p style="padding-top:10px">Ermäßigte Tickets werden gegen Vorlage von Studentenausweis, Ausbildungsbescheinigung o.ä. ausgegeben. Bitte eine Kopie des Dokuments an <a href="mailto:info@de.pycon.org">info@de.pycon.org</a> schicken, um den nötigen Coupon zum Kauf eines ermäßigten Tickets zu erhalten.</p>
-            <legend>Coupons</legend>
+            <p style="padding-top:10px">Ermäßigte Tickets werden gegen Vorlage von Studentenausweis, Ausbildungsbescheinigung o.ä. ausgegeben. 
+            Bitte senden Sie dazu <b>vorab</b> eine Kopie des Dokuments an <a href="mailto:info@de.pycon.org">info@de.pycon.org</a>, um 
+            den nötigen Gutschein zum Kauf eines ermäßigten Tickets zu erhalten.</p>
+            <legend>Gutscheine</legend>
             {% if double_vouchers %}
                 <div class="clearfix control-group error">
-                    <span class="help-inline"><strong>Es wurde ein Coupon mehrfach verwendet.</strong></span>
+                    <span class="help-inline"><strong>Es wurde ein Gutschein mehrfach verwendet.</strong></span>
                 </div>
             {% endif %}
             {% for voucher_form in voucher_forms %}

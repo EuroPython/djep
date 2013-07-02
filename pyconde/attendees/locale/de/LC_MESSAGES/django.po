@@ -97,11 +97,11 @@ msgstr ""
 
 #: forms.py:115 models.py:67 models.py:71 models.py:272
 msgid "Voucher"
-msgstr "Coupon"
+msgstr "Gutschein"
 
 #: forms.py:136
 msgid "Voucher verification failed."
-msgstr "Coupon ist nicht korrekt oder wurde bereits verwendet."
+msgstr "Gutschein ist nicht korrekt oder wurde bereits verwendet."
 
 #: forms.py:154 models.py:210
 #, fuzzy
@@ -143,12 +143,12 @@ msgstr "Abgebrochen"
 #: models.py:35 models.py:43 models.py:61
 #, fuzzy
 msgid "voucher type"
-msgstr "Coupon"
+msgstr "Gutschein"
 
 #: models.py:44
 #, fuzzy
 msgid "voucher types"
-msgstr "Coupons"
+msgstr "Gutscheintyp"
 
 #: models.py:54
 msgid "Code"
