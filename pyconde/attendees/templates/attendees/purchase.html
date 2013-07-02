@@ -6,22 +6,9 @@
         .form-horizontal fieldset.tickets label { width: 340px; }
         .form-horizontal fieldset.tickets div.controls { margin-left: 360px; }
         .form-horizontal fieldset.tickets select { width: 80px; }
-        .form-horizontal fieldset.tickets div.tutorial { display: none; }
-        .form-horizontal fieldset.tickets a#showtutorials { text-align:center; font-weight:bold; }
         .form-horizontal fieldset.tickets div.ticketsbottom { padding:10px; text-align:center; font-weight: bold; }
     </style>
 {% endblock %}
-{% block extra_foot %}
-    <script type="text/javascript">
-        $(document).ready(function() {
-            $('a#showtutorials').click(function(e) {
-                e.preventDefault();
-                $(this).hide();
-                $('fieldset.tickets div.tutorial').fadeIn();
-            });
-        });
-    </script>
-{% endblock extra_foot %}
 {% block content %}
     {{ block.super }}
 
@@ -32,7 +19,7 @@
             <p style="padding-top:10px">Wenn Sie <strong>Python im privaten Umfeld</strong> einsetzen oder als Hobby betreiben, ist das <strong>Privat/Hobby-Ticket</strong> richtig für Sie. Arbeiten Sie mit <strong>Python im beruflichen Umfeld</strong> oder zahlt Ihre Firma für Sie, sollten Sie das <strong>Business-Ticket</strong> wählen.</p>
             <p style="padding-bottom:10px">Sind Sie <strong>Student oder Auszubildender</strong>, wählen Sie bitte das <strong>Studenten-Ticket</strong>. Die Anzahl der Studenten-Tickets ist beschränkt. Wenn das Kontingent aufgebraucht ist, gibt es auch für Studenten nur noch Privat/Hobby-Tickets. Die Reihenfolge der Anfragen entscheidet.</p>
             <div class="tutorial">
-                <p>Die Tutorials finden am Montag (14.10.) statt. An diesem Tag wird es eine Session am Vormittag (9:00-12:30 Uhr) und eine Session am Nachmittag (13:30-17:00 Uhr) geben.  
+                <p>Die Tutorials finden am Montag (14.10.) statt. An diesem Tag wird es eine Session am Vormittag (9:00-12:30 Uhr) und eine Session am Nachmittag (13:30-17:00 Uhr) geben.
                Tutorials sind entweder halb- oder ganztägig, d.h. jeder Teilnehmer kann entweder ein oder zwei Tutorials belegen.</p>
                 <p>Bitte beachten Sie bei der Auswahl auch, dass die Tutorials nicht parallel liegen.</p>
             </div>
@@ -55,16 +42,13 @@
                     </div>
                 </div>
             {% endfor %}
-            <div class="ticketsbottom">
-                <a href="#" id="showtutorials">Um auch Tutorial Tickets zu kaufen, bitte hier klicken!</a>
-            </div>
         </fieldset>
         {% crispy form %}
     </form>
     <h2>Weitere Informationen und Bestellhinweise</h2>
     <p>Alle Preise sind <b>Bruttopreise</b>, also inklusive der gesetzlichen Mehrwertsteuer von 19%. Die Zahlung erfolgt wahlweise auf Rechnung oder mittels Kreditkarte.</p>
     <p>Ermäßigte Tickets werden gegen Vorlage von Studentenausweis, Ausbildungsbescheinigung o.ä. ausgegeben. Bitte senden Sie dazu <b>vorab</b> eine Kopie des Dokuments an <a href="mailto:info@de.pycon.org">info@de.pycon.org</a>, um den nötigen Gutschein zum Kauf eines ermäßigten Tickets zu erhalten.</p>
-    <p>Sollen bestimmte Angaben wie eine Bestellnummer oder die USt-IdNr. des Rechnungsempfängers auf der Rechnung erscheinen, so tragen Sie dies bitte im Feld Bemerkungen bzw. "USt-ID" ein. 
+    <p>Sollen bestimmte Angaben wie eine Bestellnummer oder die USt-IdNr. des Rechnungsempfängers auf der Rechnung erscheinen, so tragen Sie dies bitte im Feld Bemerkungen bzw. "USt-ID" ein.
     Die Tickets werden vor Ort auf der Konferenz (zusammen mit den anderen Tagungsunterlagen) am Registrierungsschalter an die Teilnehmer ausgegeben.
     Gebuchte Tutorials finden unabhängig von der Teilnehmerzahl garantiert statt.</p>
     <h5>Folgende Leistungen erhalten Sie beim Kauf eines Konferenz-Tickets</h5>
