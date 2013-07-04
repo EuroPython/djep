@@ -157,6 +157,8 @@ class StartPurchaseView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
                     Ticket.objects.create(
                         purchase=purchase,
                         ticket_type=quantity_form.ticket_type)
+            purchase.payment_total = purchase.calculate_payment_total()
+            purchase.save()
             self.purchase = purchase
             self.save_state()
             return redirect('attendees_purchase_names')
@@ -281,7 +283,7 @@ class HandlePaymentView(LoginRequiredMixin, PurchaseMixin,
         data = super(HandlePaymentView, self).get_context_data(*args, **kwargs)
         data['public_key'] = settings.PAYMILL_PUBLIC_KEY
         data['amount_in_cent'] = int(
-            decimal.Decimal(self.purchase.payment_total) * 100)
+            decimal.Decimal(self.purchase.purchase_total) * 100)
         this_year = datetime.datetime.now().year
         data['exp_years'] = range(this_year, this_year + 10)
         data['error'] = self.error

@@ -212,6 +212,8 @@ class Purchase(models.Model):
                                       default='invoice')
     payment_transaction = models.CharField(_('Transaction ID'), max_length=255,
                                            blank=True)
+    payment_total = models.FloatField(_('Payment total'),
+                                      blank=True, null=True)
 
     exported = models.BooleanField(_('Exported'), default=False)
 
@@ -221,8 +223,7 @@ class Purchase(models.Model):
         verbose_name = _('Purchase')
         verbose_name_plural = _('Purchases')
 
-    @property
-    def payment_total(self):
+    def calculate_payment_total(self):
         # TODO Maybe it's neccessary to add VAT to payment_total.
         fee_sum = self.ticket_set.aggregate(models.Sum('ticket_type__fee'))
         return fee_sum['ticket_type__fee__sum']
