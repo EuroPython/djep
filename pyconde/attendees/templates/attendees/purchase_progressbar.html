@@ -1,0 +1,18 @@
+{% load i18n %}
+<aside class="progressbar">
+    <h2>{% trans "Progress" %}</h2>
+    <div class="progress progress-success">
+        {% if step == 'start' %}<div class="bar" style="width:10%"></div>{% endif %}
+        {% if step == 'names' %}<div class="bar" style="width:30%"></div>{% endif %}
+        {% if step == 'overview' %}<div class="bar" style="width:50%"></div>{% endif %}
+        {% if step == 'payment' %}<div class="bar" style="width:70%"></div>{% endif %}
+        {% if step == 'done' %}<div class="bar" style="width:100%"></div>{% endif %}
+    </div>
+    <ol>
+        <li class="{% if step == 'start' %}active{% endif %}">{% trans "Start" context "purchase-step" %}</li>
+        <li class="{% if step == 'names' %}active{% endif %}">{% trans "Names on the tickets" context "purchase-step" %}</li>
+        <li class="{% if step == 'overview' %}active{% endif %}">{% trans "Overview" context "purchase-step" %}</li>
+        <li class="{% if step == 'payment' %}active{% endif %}">{% trans "Payment" context "purchase-step" %}</li>
+        <li class="{% if step == 'done' %}active{% endif %}">{% trans "Complete" context "purchase-step" %}</li>
+    </ol>
+</aside>

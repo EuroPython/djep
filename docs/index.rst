@@ -29,6 +29,7 @@ jeweils einen Einstiegspunkt darstellen:
    apps/schedule
    apps/events
    apps/search
+   apps/attendees
 
 
 Index und Tabellen

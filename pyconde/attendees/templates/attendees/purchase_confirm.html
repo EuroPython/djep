@@ -1,7 +1,5 @@
-{% extends "attendees/base.html" %}
-{% load i18n %}
-
-{% block title %}Tickets für Konferenz und Tutorials{% endblock %}
+{% extends "attendees/purchase_base.html" %}
+{% load i18n crispy_forms_tags %}
 
 {% block extra_head %}
     <style type="text/css">
@@ -15,11 +13,17 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Tickets für Konferenz und Tutorials</h1>
-    <p>Auf dieser Seite haben Sie noch einmal einen Überblick über die bestellten Tickets, die Zuordnung der Tickets zu den Personen, die diese dann in Anspruch nehmen werden und auch die Gesamtkosten sowie die Rechnungsadresse.<br />
+    {{ block.super }}
+    <p>Bitte kontrollieren Sie Ihre Rechnungsadresse sowie die 
+    Bestellung der Tickets auf der nachfolgenden Übersicht.
+    Neben den Gesamtkosten ist auch die Zuordnung der Tickets zu den Personen, die 
+    diese dann in Anspruch nehmen werden, ersichtlich.
     <br />
-    Sollten die Angaben nicht korrekt sein, beginnen Sie den Bestellvorgang bitte <a href="/tickets/">von vorn</a>.</p>
-    <h2>Übersicht der bestellten Tickets</h2>
+    <br />
+    Sollten die Angaben nicht korrekt sein, so beginnen Sie den Bestellvorgang 
+    bitte <a href="/tickets/">von vorn</a>.
+    </p>
+    <h2>Bestellungsübersicht</h2>
     <table>
         <thead>
             <th>Ticket</th>
@@ -40,6 +44,8 @@
             <td>{{ purchase.payment_total|floatformat:2 }} EUR</td>
         </tr>
     </table>
+    <p>Alle Preise sind <b>Bruttopreise</b>, also inklusive der gesetzlichen Mehrwertsteuer von 19%. 
+    Sie erhalten selbstverständlich eine Rechnung mit ausgewiesener Mehrwertsteuer.</p>
     <h2>Rechnungsadresse</h2>
     <p>
     {% filter linebreaksbr %}{{ purchase.company_name }}
@@ -49,12 +55,13 @@
         {{ purchase.country }}
     {% endfilter %}
     </p>
-    <p>Wenn alle Angaben korrekt sind, klicken Sie bitte auf den Button "Bestellung abschließen", um die Daten zu speichern.
-    Sie erhalten eine Bestellbestätigung per E-Mail.</p>
+    <p>Wenn alle Angaben korrekt sind, wählen Sie bitte nachfolgend die gewünschte Zahlungsart
+    und klicken Sie dann auf "Bestellung abschließen", um die Daten zu speichern.
+    Sie erhalten am Ende des Bestellvorgangs eine Bestellbestätigung per E-Mail.</p>
+
     <form class="form-horizontal" method="post">
+        <h2>Zahlungsart</h2>
         {% csrf_token %}
-        <div class="form-actions">
-            <input type="submit" name="submit" value="Bestellung abschließen" class="submit btn btn-primary" id="submit-id-submit">
-        </div>
+        {% crispy form %}
     </form>
 {% endblock %}

@@ -1,5 +1,6 @@
 Python Software Verband e.V.
-Forsterstraße 29 
-06112 Halle (Saale)
+Schulstraße 20
+15366 Neuenhagen bei Berlin
+USt-ID: DE287430795
 
 info@de.pycon.org

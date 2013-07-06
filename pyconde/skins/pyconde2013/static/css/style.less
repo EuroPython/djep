@@ -43,7 +43,7 @@
 // @import "bootstrap/less/thumbnails.less";
 // @import "bootstrap/less/media.less";
 // @import "bootstrap/less/labels-badges.less";
-// @import "bootstrap/less/progress-bars.less";
+@import "bootstrap/less/progress-bars.less";
 // @import "bootstrap/less/accordion.less";
 // @import "bootstrap/less/carousel.less";
 // @import "bootstrap/less/hero-unit.less";
@@ -68,6 +68,7 @@
 
 @rightPageMargin: 60px;
 @gridColumnWidth: 67px;
+@contentPaddingLeft: 40px;
 @linkColor: @green;
 
 // Bootstrap overrides
@@ -214,7 +215,7 @@ header {
   a.logo {
     position: relative;
     top: -130px;
-    left: 60px;
+    left: 20px;
   }
 }
 
@@ -273,13 +274,13 @@ footer .box {
   margin-left: 0px;
   > h1 {
     margin-bottom: 25px;
-    border-bottom: 7px solid @green;
+    border-bottom: 5px solid @green;
     color: @green;
     display: inline-block;
     font-size: @header1FontSize;
     padding: 0px;
-    padding-left: 20px;
-    line-height: 1.1em;
+    padding-left: @contentPaddingLeft;
+    line-height: 1.3em;
   }
   p {
     margin-top: .7em;
@@ -291,7 +292,7 @@ footer .box {
   padding-top: 10px;
   padding-right: 15px;
   > * {
-    margin-left: 20px;
+    margin-left: @contentPaddingLeft;
   }
   > .btn {
     padding-left: 10px;
@@ -302,8 +303,9 @@ footer .box {
   }
   h1, h2, h3, h4 {
     color: @green;
-    margin-bottom: 5px;
+    margin-bottom: 20px;
     margin-top: 1em;
+    line-height: 1.2em;
   }
   h2, h3 {
     &.alt {
@@ -320,6 +322,11 @@ footer .box {
   }
   h2 {font-size: 20px;}
   h3 {font-size: 15px;}
+  a[name] { /* corrects placement of anchors with fixed navbar */
+    padding-top: 80px;
+    margin-top: -80px;
+    display: inline-block; /* required for webkit browsers */
+  }
 }
 .frontpage #content-main {
     padding-right: 0;
@@ -539,13 +546,10 @@ ul.social-links {
       }
     }
   }
-  .user-menu {
-      margin-top: 10px;
-  }
 }
 
 footer {
-  padding-left: 20px;
+  padding-left: @contentPaddingLeft;
 }
 
 @media (max-width: 767px) {
@@ -574,18 +578,18 @@ div.postcard {
   min-height: 270px;
     h1, h2 {
         color: #FFF;
-        font-size: 29px;
+        font-size: 27px;
         span {
-            padding: 2px 10px 2px 20px;
+            padding: 2px 10px 2px @contentPaddingLeft;
             display: inline-block;
             background: @green;
         }
     }
     h1 {
-        margin-bottom: 25px;
+        margin-bottom: 1px;
     }
     h2 {
-        font-size: 17px;
+        font-size: 15px;
         margin-bottom: 1px;
     }
 }
@@ -593,6 +597,10 @@ div.postcard {
 form {
     legend {
         font-size: 120%;
+    }
+    a.back {
+        display: inline-block;
+        margin-left: 2em;
     }
 }
 
@@ -686,6 +694,33 @@ table.proposals td.actions {
     }
 }
 
+#payment-form {
+    visibility: hidden; // Will be re-enabled via JavaScript
+}
+
+.progressbar {
+    .progress-success .bar, .progress .bar-success {
+        #gradient > .vertical(lighten(@green, 10), @green);
+    }
+    ol {
+        margin: 0; padding: 0;
+        li {
+            display: block;
+            float: left;
+            width: 20%;
+            text-align: center;
+            font-size: 90%;
+        }
+        width: 100%;
+        overflow: hidden;
+    }
+    h2 {
+        position: absolute;
+        left: -5000px;
+    }
+    margin-bottom: 40px;
+}
+
 // Workarounds to make the site work on mobile devices.
 @media (min-width: 1200px) {
   .row {
@@ -714,9 +749,6 @@ table.proposals td.actions {
     }
     div.postcard {
         margin-top: 0;
-    }
-    #header-info {
-        display: none;
     }
   }
 }

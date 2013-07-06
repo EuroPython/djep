@@ -7,256 +7,411 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2012-03-18 17:17+0100\n"
+"POT-Creation-Date: 2013-06-29 07:18+0200\n"
 "PO-Revision-Date: 2012-03-18 17:24+0100\n"
 "Last-Translator: Stephan Jaekel <steph@rdev.info>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 
-#: admin.py:68
+#: admin.py:73 admin.py:105
 msgid "1 mail was"
 msgstr "1 E-Mail wurde"
 
-#: admin.py:70
+#: admin.py:75 admin.py:107
 #, python-format
 msgid "%s mails were"
 msgstr "%s E-Mails wurden"
 
-#: admin.py:72
+#: admin.py:76 admin.py:109
 #, python-format
 msgid "%s successfully sent."
 msgstr "%s erfolgreich verschickt."
 
-#: admin.py:74
+#: admin.py:78
+#, fuzzy, python-format
+msgid "Send purchase confirmation for selected %(verbose_name_plural)s"
+msgstr ""
+"Bestaetigung des Zahlungseingangs an die ausgewaehlten "
+"%(verbose_name_plural)s verschicken"
+
+#: admin.py:84
+msgid "Send export e-mails"
+msgstr ""
+
+#: admin.py:111
 #, python-format
 msgid "Send confirmation for selected %(verbose_name_plural)s"
-msgstr "Bestaetigung des Zahlungseingangs an die ausgewaehlten %(verbose_name_plural)s verschicken"
+msgstr ""
+"Bestaetigung des Zahlungseingangs an die ausgewaehlten "
+"%(verbose_name_plural)s verschicken"
 
 #: cms_app.py:9
 msgid "Attendees App"
 msgstr "Ticketverkauf App"
 
-#: forms.py:13
-#: models.py:126
+#: forms.py:14 models.py:21
+#, fuzzy
+msgid "Invoice"
+msgstr "Rechnungsadresse"
+
+#: forms.py:15 models.py:22
+msgid "Credit card"
+msgstr ""
+
+#: forms.py:16 models.py:23
+msgid "ELV"
+msgstr ""
+
+#: forms.py:21 models.py:158
 msgid "E-Mail"
 msgstr "E-Mail"
 
-#: forms.py:26
+#: forms.py:34
 msgid "Invoice address"
 msgstr "Rechnungsadresse"
 
-#: forms.py:29
+#: forms.py:37
 msgid "Purchase tickets"
 msgstr "Tickets kaufen"
 
-#: forms.py:44
+#: forms.py:54
 msgid "Quantity"
 msgstr "Anzahl"
 
-#: forms.py:66
+#: forms.py:78
 msgid "Ticket sold out."
 msgstr "Ticket ausverkauft."
 
-#: forms.py:69
+#: forms.py:81
 msgid "Not enough tickets left."
 msgstr "Nicht genügend Tickets vorhanden."
 
-#: forms.py:97
-#: models.py:38
-#: models.py:42
-#: models.py:200
+#: forms.py:84
+msgid ""
+"You've exceeded the maximum number of items of this type for this purchase"
+msgstr ""
+
+#: forms.py:115 models.py:67 models.py:71 models.py:272
 msgid "Voucher"
-msgstr "Coupon"
+msgstr "Gutschein"
 
-#: forms.py:113
+#: forms.py:136
 msgid "Voucher verification failed."
-msgstr "Coupon ist nicht korrekt oder wurde bereits verwendet."
+msgstr "Gutschein ist nicht korrekt oder wurde bereits verwendet."
 
-#: models.py:11
+#: forms.py:154 models.py:210
+#, fuzzy
+msgid "Payment method"
+msgstr "Zahlung eingegangen"
+
+#: forms.py:156
+msgid ""
+"If you choose invoice you will receive an invoice from us. After we receive "
+"your money transfer your purchase will be finanized.<br /><br />Credit card "
+"payment is handled through <a href=\"http://www.paymill.com\">PayMill</a>."
+msgstr ""
+
+#: forms.py:169
+#, fuzzy
+msgid "Complete purchase"
+msgstr "Verfügbare Tickets"
+
+#: models.py:13
 msgid "Purchase incomplete"
 msgstr "Bestellung unvollständig"
 
-#: models.py:12
+#: models.py:14
 msgid "new"
 msgstr "Neue Bestellung"
 
-#: models.py:13
+#: models.py:15
 msgid "invoice created"
 msgstr "Rechnung erstellt"
 
-#: models.py:14
+#: models.py:16
 msgid "payment received"
 msgstr "Zahlung eingegangen"
 
-#: models.py:15
+#: models.py:17
 msgid "canceled"
 msgstr "Abgebrochen"
 
-#: models.py:28
+#: models.py:35 models.py:43 models.py:61
+#, fuzzy
+msgid "voucher type"
+msgstr "Gutschein"
+
+#: models.py:44
+#, fuzzy
+msgid "voucher types"
+msgstr "Gutscheintyp"
+
+#: models.py:54
 msgid "Code"
 msgstr "Code"
 
-#: models.py:29
+#: models.py:55
 msgid "Can be left blank, code will be created when you save."
 msgstr "Kann leer bleiben, wird beim Speichern automatisch erstellt."
 
-#: models.py:30
-#: models.py:81
+#: models.py:56 models.py:112
 msgid "Remarks"
 msgstr "Bemerkungen"
 
-#: models.py:31
+#: models.py:58
 msgid "Date (valid)"
 msgstr "Datum (Gültig bis)"
 
-#: models.py:32
+#: models.py:59
 msgid "The voucher is valid until this date"
 msgstr "Der Gutschein ist bis zu diesem Datum gültig"
 
-#: models.py:33
+#: models.py:60
 msgid "Is used"
 msgstr "Verwendet"
 
-#: models.py:39
+#: models.py:68
 msgid "Vouchers"
 msgstr "Coupons"
 
-#: models.py:65
+#: models.py:95
 msgid "Product number"
 msgstr "Produktnummer"
 
-#: models.py:66
-#: models.py:124
+#: models.py:96 models.py:156
 msgid "Will be created when you save the first time."
 msgstr "Wird beim ersten Speichern erstellt."
 
-#: models.py:68
+#: models.py:98 templates/attendees/payment_paymill.html:42
 msgid "Name"
 msgstr "Bezeichnung"
 
-#: models.py:69
+#: models.py:99
 msgid "Fee"
 msgstr "Preis"
 
-#: models.py:71
+#: models.py:102
 msgid "Max purchases"
 msgstr "Verfügbare Tickets"
 
-#: models.py:72
+#: models.py:103
 msgid "0 means no limit"
 msgstr "0 bedeutet keine Limitierung"
 
-#: models.py:74
+#: models.py:105
 msgid "Is active"
 msgstr "Aktiv"
 
-#: models.py:75
+#: models.py:106
 msgid "Date (valid from)"
 msgstr "Datum (Gültig ab)"
 
-#: models.py:76
+#: models.py:107
 msgid "Date (valid to)"
 msgstr "Datum (Gültig bis)"
 
-#: models.py:78
-msgid "Voucher needed"
-msgstr "Coupon benötigt"
-
-#: models.py:79
+#: models.py:110
 msgid "Tutorial ticket"
 msgstr "Tutorial Ticket"
 
-#: models.py:87
-#: models.py:88
-#: models.py:193
+#: models.py:118 models.py:119 models.py:262
 msgid "Ticket type"
 msgstr "Ticketart"
 
-#: models.py:123
+#: models.py:155
 msgid "Customer number"
 msgstr "Kundennummer"
 
-#: models.py:128
-#: models.py:162
-#: models.py:198
+#: models.py:161 models.py:203 models.py:270
 msgid "Date (added)"
 msgstr "Datum (hinzugefügt)"
 
-#: models.py:130
+#: models.py:162
 msgid "Is exported"
 msgstr "Exportiert"
 
-#: models.py:136
-#: models.py:149
+#: models.py:168 models.py:188
 msgid "Customer"
 msgstr "Kunde"
 
-#: models.py:137
+#: models.py:169
 msgid "Customers"
 msgstr "Kunden"
 
-#: models.py:152
+#: models.py:189
+msgid "User"
+msgstr ""
+
+#: models.py:192
 msgid "Company"
 msgstr "Firma"
 
-#: models.py:153
-#: models.py:195
+#: models.py:193 models.py:264
 msgid "First name"
 msgstr "Vorname"
 
-#: models.py:154
-#: models.py:196
+#: models.py:194 models.py:265
 msgid "Last name"
 msgstr "Nachname"
 
-#: models.py:156
+#: models.py:196
 msgid "Street and house number"
 msgstr "Straße, Nr."
 
-#: models.py:157
+#: models.py:197
 msgid "Zip code"
 msgstr "Postleitzahl"
 
-#: models.py:158
+#: models.py:198
 msgid "City"
 msgstr "Ort"
 
-#: models.py:159
+#: models.py:199
 msgid "Country"
 msgstr "Land"
 
-#: models.py:160
+#: models.py:200
 msgid "VAT-ID"
 msgstr "USt-ID"
 
-#: models.py:164
-msgid "State"
+#: models.py:205
+#, fuzzy
+msgid "Status"
 msgstr "Status"
 
-#: models.py:167
+#: models.py:208
 msgid "Comments"
 msgstr "Bemerkungen"
 
-#: models.py:170
+#: models.py:213
+msgid "Transaction ID"
+msgstr ""
+
+#: models.py:216
+#, fuzzy
+msgid "Exported"
+msgstr "Exportiert"
+
+#: models.py:221
 msgid "Purchase"
 msgstr "Bestellung"
 
-#: models.py:171
+#: models.py:222
 msgid "Purchases"
 msgstr "Bestellungen"
 
-#: models.py:205
+#: models.py:248
+msgid "Size"
+msgstr "Größe"
+
+#: models.py:249
+msgid "Sort order"
+msgstr "Sortierung"
+
+#: models.py:252
+msgid "T-Shirt Size"
+msgstr "T-Shirt-Groesse"
+
+#: models.py:253
+msgid "T-Shirt Sizes"
+msgstr "T-Shirt-Groessen"
+
+#: models.py:267
+msgid "Desired T-Shirt size"
+msgstr "gewünschte T-Shirt-Größe"
+
+#: models.py:277
 msgid "Ticket"
 msgstr "Ticket"
 
-#: models.py:206
+#: models.py:278
 msgid "Tickets"
 msgstr "Tickets"
 
-#: views.py:121
+#: utils.py:50
 msgid "Ticket successfully purchased"
 msgstr "Ticketbestellung eingegangen"
 
+#: views.py:307
+msgid "Payment failed. Please check your data."
+msgstr ""
+
+#: templates/attendees/payment_paymill.html:6
+msgid "You have to have JavaScript enabled to pay via credit card."
+msgstr ""
+
+#: templates/attendees/payment_paymill.html:17
+#, fuzzy
+msgid "Card number"
+msgstr "Produktnummer"
+
+#: templates/attendees/payment_paymill.html:17
+#, fuzzy
+msgid "Account number"
+msgstr "Produktnummer"
+
+#: templates/attendees/payment_paymill.html:25
+msgid "CVC"
+msgstr ""
+
+#: templates/attendees/payment_paymill.html:34
+msgid "Bank (BLZ)"
+msgstr ""
+
+#: templates/attendees/payment_paymill.html:50
+msgid "Expiration date"
+msgstr ""
+
+#: templates/attendees/payment_paymill.html:53
+msgid "Month"
+msgstr ""
+
+#: templates/attendees/payment_paymill.html:68
+msgid "Year"
+msgstr ""
+
+#: templates/attendees/payment_paymill.html:79
+msgid "Pay &amp; Complete purchase"
+msgstr ""
+
+#: templates/attendees/payment_paymill.html:80
+#: templates/attendees/purchase_names.html:89
+msgid "Back"
+msgstr ""
+
+#: templates/attendees/purchase_progressbar.html:3
+msgid "Progress"
+msgstr ""
+
+#: templates/attendees/purchase_progressbar.html:12
+msgctxt "purchase-step"
+msgid "Start"
+msgstr ""
+
+#: templates/attendees/purchase_progressbar.html:13
+#, fuzzy
+msgctxt "purchase-step"
+msgid "Names on the tickets"
+msgstr "Tickets kaufen"
+
+#: templates/attendees/purchase_progressbar.html:14
+msgctxt "purchase-step"
+msgid "Overview"
+msgstr ""
+
+#: templates/attendees/purchase_progressbar.html:15
+msgctxt "purchase-step"
+msgid "Payment"
+msgstr ""
+
+#: templates/attendees/purchase_progressbar.html:16
+msgctxt "purchase-step"
+msgid "Complete"
+msgstr ""
+
+#~ msgid "Voucher needed"
+#~ msgstr "Coupon benötigt"

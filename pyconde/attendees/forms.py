@@ -1,12 +1,20 @@
 # -*- coding: utf-8 -*-
 from django import forms
+from django.conf import settings
 from django.utils.translation import gettext_lazy as _
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Fieldset, ButtonHolder
+from crispy_forms.layout import Layout, Fieldset, ButtonHolder, HTML
 
 from pyconde.attendees.models import Purchase, Customer, Ticket, Voucher
 from pyconde.forms import Submit
+
+
+PAYMENT_METHOD_CHOICES = (
+    ('invoice', _('Invoice')),
+    ('creditcard', _('Credit card')),
+    ('elv', _('ELV')),
+)
 
 
 class PurchaseForm(forms.ModelForm):
@@ -35,7 +43,9 @@ class PurchaseForm(forms.ModelForm):
 
         purchase = super(PurchaseForm, self).save(commit=False)
         purchase.customer = customer
-        purchase.save()
+
+        if (kwargs.get('commit', True)):
+            purchase.save()
 
         return purchase
 
@@ -54,7 +64,7 @@ class TicketQuantityForm(forms.Form):
         else:
             max_value = 10
 
-        if self.ticket_type.voucher_needed:
+        if self.ticket_type.vouchertype_needed:
             max_value = 1
 
         self.fields['quantity'].max_value = max_value
@@ -62,12 +72,18 @@ class TicketQuantityForm(forms.Form):
             range(0, max_value+1), range(0, max_value+1))
 
     def clean_quantity(self):
-        if self.cleaned_data['quantity'] > 0:
+        value = self.cleaned_data['quantity']
+        if value > 0:
             if self.ticket_type.available_tickets < 1:
                 raise forms.ValidationError(_('Ticket sold out.'))
 
-            if self.cleaned_data['quantity'] > self.ticket_type.available_tickets:
+            if value > self.ticket_type.available_tickets:
                 raise forms.ValidationError(_('Not enough tickets left.'))
+
+            if value > self.fields['quantity'].max_value:
+                raise forms.ValidationError(_("You've exceeded the maximum"
+                                              " number of items of this type "
+                                              "for this purchase"))
 
         return self.cleaned_data['quantity']
 
@@ -84,13 +100,14 @@ class TicketNameForm(forms.ModelForm):
 
     class Meta:
         model = Ticket
-        fields = ('first_name', 'last_name')
+        fields = ('first_name', 'last_name', 'shirtsize')
 
     def save(self, *args, **kwargs):
         # Update, save would overwrite other flags too (even if not in `fields`)
         Ticket.objects.filter(pk=self.instance.pk).update(
             first_name=self.cleaned_data['first_name'],
-            last_name=self.cleaned_data['last_name']
+            last_name=self.cleaned_data['last_name'],
+            shirtsize=self.cleaned_data['shirtsize']
         )
 
 
@@ -112,7 +129,9 @@ class TicketVoucherForm(forms.ModelForm):
             code = self.cleaned_data['code']
             ticket = Ticket.objects.get(pk=self.instance.pk)
             if not ticket.voucher or ticket.voucher.code != code:
-                Voucher.objects.valid().get(code=code)
+                Voucher.objects.valid().get(
+                    code=code,
+                    type=ticket.ticket_type.vouchertype_needed)
         except Voucher.DoesNotExist:
             raise forms.ValidationError(_('Voucher verification failed.'))
 
@@ -128,3 +147,34 @@ class TicketVoucherForm(forms.ModelForm):
         Ticket.objects.filter(pk=self.instance.pk).update(
             voucher=voucher,
         )
+
+
+class PurchaseOverviewForm(forms.Form):
+    payment_method = forms.ChoiceField(
+        label=_('Payment method'),
+        choices=PAYMENT_METHOD_CHOICES, widget=forms.RadioSelect,
+        help_text=_('If you choose invoice you will receive an invoice from us.'
+                    ' After we receive your money transfer your purchase will'
+                    ' be finanized.<br /><br />Credit card payment is handled'
+                    ' through <a href="http://www.paymill.com">PayMill</a>.'))
+
+    def __init__(self, *args, **kwargs):
+        super(PurchaseOverviewForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.form_tag = False
+        self.helper.layout = Layout(
+            'payment_method',
+            ButtonHolder(
+                Submit('submit', _('Complete purchase'),
+                       css_class='btn-primary'),
+                HTML('{% load i18n %}<a class="back" href="{% url attendees_purchase_names %}">{% trans "Back" %}</a>')
+            )
+        )
+        if hasattr(settings, 'PAYMENT_METHODS') and settings.PAYMENT_METHODS:
+            choices = self.fields['payment_method'].choices
+            new_choices = []
+            for choice in choices:
+                if choice[0] in settings.PAYMENT_METHODS:
+                    new_choices.append(choice)
+            self.fields['payment_method'].choices = new_choices
