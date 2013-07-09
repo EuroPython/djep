@@ -1,0 +1,14 @@
+{% extends "base.html" %}
+{% load i18n crispy_forms_tags %}
+
+{% block title %}{% trans "Registration" %}{% endblock %}
+{% block page_title %}{% trans "Registration" %}{% endblock %}
+
+{% block content %}
+<p>{% trans "You need to create a user account on this website if you want to buy tickets or submit a talk." %}</p>
+    {% crispy form %}
+{% endblock %}
+
+{% block sidebar %}
+    {% include "userprofiles/sociallogin.html" %}
+{% endblock %}
