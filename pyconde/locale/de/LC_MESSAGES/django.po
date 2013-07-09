@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-02 22:03+0200\n"
+"POT-Creation-Date: 2013-07-08 22:59+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -132,11 +132,14 @@ msgstr "Bitte schreiben Sie Ihren Twitter-Namen ohne @ am Anfang"
 #: skins/default/templates/userprofiles/registration.html:5
 #: skins/default/templates/userprofiles/registration_activate.html:5
 #: skins/default/templates/userprofiles/registration_activate.html:6
+#: skins/pyconde2013/templates/userprofiles/registration.html:4
+#: skins/pyconde2013/templates/userprofiles/registration.html:5
 #: skins/pyconde2013/templates/userprofiles/registration_activate.html:14
 #: skins/pyconde2013/templates/userprofiles/registration_activate.html:16
 msgid "Registration"
-msgstr "Registrierung"
+msgstr "Neues Konto anlegen"
 
+# "Registrierung"
 #: accounts/templates/accounts/login-email-request.html:6
 msgid ""
 "<p>The main mean of sending out notifications and updates is via e-mail. "
@@ -227,7 +230,7 @@ msgid ""
 msgstr ""
 
 #: attendees/forms.py:115 attendees/models.py:67 attendees/models.py:71
-#: attendees/models.py:272
+#: attendees/models.py:273
 msgid "Voucher"
 msgstr "Gutschein"
 
@@ -356,7 +359,7 @@ msgstr "Erforderlicher Gutscheintyp"
 msgid "Tutorial ticket"
 msgstr "Tutorial-Ticket"
 
-#: attendees/models.py:118 attendees/models.py:119 attendees/models.py:262
+#: attendees/models.py:118 attendees/models.py:119 attendees/models.py:263
 msgid "Ticket type"
 msgstr "Tickettyp"
 
@@ -364,7 +367,7 @@ msgstr "Tickettyp"
 msgid "Customer number"
 msgstr "Kundennummer"
 
-#: attendees/models.py:161 attendees/models.py:203 attendees/models.py:270
+#: attendees/models.py:161 attendees/models.py:203 attendees/models.py:271
 msgid "Date (added)"
 msgstr "Hinzugefügt am"
 
@@ -388,11 +391,11 @@ msgstr "Benutzer"
 msgid "Company"
 msgstr "Firma"
 
-#: attendees/models.py:193 attendees/models.py:264
+#: attendees/models.py:193 attendees/models.py:265
 msgid "First name"
 msgstr "Vorname"
 
-#: attendees/models.py:194 attendees/models.py:265
+#: attendees/models.py:194 attendees/models.py:266
 msgid "Last name"
 msgstr "Nachname"
 
@@ -428,44 +431,49 @@ msgstr "Kommentare"
 msgid "Transaction ID"
 msgstr "TransaktionsID"
 
-#: attendees/models.py:216
+#: attendees/models.py:215
+#, fuzzy
+msgid "Payment total"
+msgstr "Zahlungsart"
+
+#: attendees/models.py:218
 msgid "Exported"
 msgstr "Exportiert"
 
-#: attendees/models.py:221
+#: attendees/models.py:223
 msgid "Purchase"
 msgstr "Kauf"
 
-#: attendees/models.py:222
+#: attendees/models.py:224
 msgid "Purchases"
 msgstr "Einkäufe"
 
-#: attendees/models.py:248
-msgid "Size"
-msgstr ""
-
 #: attendees/models.py:249
+msgid "Size"
+msgstr "Größe"
+
+#: attendees/models.py:250
 #, fuzzy
 msgid "Sort order"
 msgstr "Reihenfolge"
 
-#: attendees/models.py:252
-msgid "T-Shirt Size"
-msgstr ""
-
 #: attendees/models.py:253
+msgid "T-Shirt Size"
+msgstr "T-Shirt Größe"
+
+#: attendees/models.py:254
 msgid "T-Shirt Sizes"
-msgstr ""
+msgstr "T-Shirt Größen"
 
-#: attendees/models.py:267
+#: attendees/models.py:268
 msgid "Desired T-Shirt size"
-msgstr ""
+msgstr "Gewünschte T-Shirt Größe"
 
-#: attendees/models.py:277
+#: attendees/models.py:278
 msgid "Ticket"
 msgstr ""
 
-#: attendees/models.py:278
+#: attendees/models.py:279
 msgid "Tickets"
 msgstr ""
 
@@ -473,7 +481,7 @@ msgstr ""
 msgid "Ticket successfully purchased"
 msgstr "Ticket erfolgreich gekauft"
 
-#: attendees/views.py:307
+#: attendees/views.py:309
 msgid "Payment failed. Please check your data."
 msgstr "Zahlung fehlgeschlagen. Bitte überprüfen Sie die Daten."
 
@@ -1318,11 +1326,11 @@ msgstr "Global"
 
 #: schedule/models.py:39
 msgid "released"
-msgstr ""
+msgstr "veröffentlicht"
 
 #: schedule/models.py:40
 msgid "Slides URL"
-msgstr ""
+msgstr "Folien-URL"
 
 #: schedule/models.py:41
 msgid "Video URL"
@@ -1555,6 +1563,13 @@ msgstr "Konto-Aktivierung"
 #: skins/default/templates/userprofiles/mails/emailverification_subject.html:1
 msgid "E-mail confirmation"
 msgstr "E-Mail-Bestätigung"
+
+#: skins/pyconde2013/templates/userprofiles/registration.html:8
+msgid ""
+"You need to create a user account on this website if you want to buy tickets "
+"or submit a talk."
+msgstr "Sie müssen ein Konto für diese Website anlegen, wenn Sie an der Konferenz "
+" als Besucher oder Vortragender teilnehmen möchten."
 
 #: sponsorship/cms_plugins.py:10
 msgid "sponsor list plugin"
