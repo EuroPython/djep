@@ -252,7 +252,7 @@ msgstr ""
 "Abschluss des Einkaufes. Sobald wir von Ihnen eine entsprechende Überweisung "
 "erhalten, wird Ihre Bestellung abgeschlossen.<br /><br />Kreditkarten-"
 "Zahlungen werden durch <a href=\"http://www.paymill.com\">PayMill</a> "
-"durchgeführt."
+"durchgeführt.<br /><br /><strong>Hinweis:</strong> Zahlung per Kreditkarte steht Ihnen in Kürze zur Verfügung."
 
 #: attendees/forms.py:169
 msgid "Complete purchase"

@@ -12,7 +12,7 @@ from pyconde.forms import Submit
 
 PAYMENT_METHOD_CHOICES = (
     ('invoice', _('Invoice')),
-    ('creditcard', _('Credit card')),
+    # ('creditcard', _('Credit card')),
     ('elv', _('ELV')),
 )
 
