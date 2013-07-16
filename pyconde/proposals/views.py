@@ -131,7 +131,8 @@ class SingleProposalView(generic_views.DetailView):
     model = models.Proposal
 
     def get_queryset(self):
-        return self.model.objects.filter(conference=current_conference())
+        return self.model.objects.filter(conference=current_conference(),
+                                         speaker__user=self.request.user)
 
     def get_context_data(self, **kwargs):
         data = super(SingleProposalView, self).get_context_data(**kwargs)
