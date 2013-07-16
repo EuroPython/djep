@@ -131,6 +131,8 @@ class SingleProposalView(generic_views.DetailView):
     model = models.Proposal
 
     def get_queryset(self):
+        if self.request.user.is_anonymous():
+            return self.model.objects.none()
         return self.model.objects.filter(conference=current_conference(),
                                          speaker__user=self.request.user)
 
