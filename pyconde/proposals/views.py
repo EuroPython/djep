@@ -130,6 +130,16 @@ class SingleProposalView(generic_views.DetailView):
     """
     model = models.Proposal
 
+    def get(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        # note: self.object is a Proposal
+        # user is allowed to see Proposal if he is the author (speaker)
+        # OR is he is a reviewer - both is checked in can_participate_in_review()
+        from ..reviews.utils import can_participate_in_review
+        if not can_participate_in_review(request.user, self.object):
+            return TemplateResponse(request=request, template='proposals/denied.html', context={})
+        return super(SingleProposalView, self).get(request, *args, **kwargs)
+
     def get_queryset(self):
         return self.model.objects.filter(conference=current_conference())
 
