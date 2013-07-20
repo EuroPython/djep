@@ -36,6 +36,10 @@
                 {% endif %}
             </dd>
         </dl>
+        <dl>
+            <dt>Sprache:</dt>
+            <dd>{{ proposal.get_language_display }}</dd>
+        </dl>
         {% if not current_conference.anonymize_proposal_author %}
         <dl>
             <dt>Vortragende(r):</dt>
