@@ -7,6 +7,7 @@
         <p class="original_notice">Dies ist eine modizierte Fassung. <a href="{{ proposal.get_absolute_url }}">Zum Original</a>.</p>
     {% endif %}
     <article class="proposal">
+    <h3>Beschreibung</h3>
     <div class="description">
         {% if proposal_version %}
             {{ proposal_version.description|markdown:"safe" }}
@@ -15,6 +16,7 @@
         {% endif %}
     </div>
 
+    <h3>Abstract</h3>
     <div class="abstract">
         {% if proposal_version %}
             {{ proposal_version.abstract|markdown:"safe" }}
@@ -63,7 +65,7 @@
         </ul>
     {% endif %}
     {% if can_comment %}
-    <h2>Kommentar:</h2>
+    <h2>Rückfrage an den Vortragenden / Kommentar:</h2>
     {% crispy comment_form %}
     {% endif %}
 {% endblock %}
