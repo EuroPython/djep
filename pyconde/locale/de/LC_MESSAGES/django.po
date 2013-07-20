@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-08 22:59+0200\n"
+"POT-Creation-Date: 2013-07-20 08:27+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -192,10 +192,6 @@ msgstr ""
 msgid "Invoice"
 msgstr "Rechnung"
 
-#: attendees/forms.py:15 attendees/models.py:22
-msgid "Credit card"
-msgstr "Kreditkarte"
-
 #: attendees/forms.py:16 attendees/models.py:23
 msgid "ELV"
 msgstr ""
@@ -252,7 +248,8 @@ msgstr ""
 "Abschluss des Einkaufes. Sobald wir von Ihnen eine entsprechende Überweisung "
 "erhalten, wird Ihre Bestellung abgeschlossen.<br /><br />Kreditkarten-"
 "Zahlungen werden durch <a href=\"http://www.paymill.com\">PayMill</a> "
-"durchgeführt.<br /><br /><strong>Hinweis:</strong> Zahlung per Kreditkarte steht Ihnen in Kürze zur Verfügung."
+"durchgeführt.<br /><br /><strong>Hinweis:</strong> Zahlung per Kreditkarte "
+"steht Ihnen in Kürze zur Verfügung."
 
 #: attendees/forms.py:169
 msgid "Complete purchase"
@@ -277,6 +274,10 @@ msgstr "Zahlung eingegangen"
 #: attendees/models.py:17
 msgid "canceled"
 msgstr "Zurückgezogen"
+
+#: attendees/models.py:22
+msgid "Credit card"
+msgstr "Kreditkarte"
 
 #: attendees/models.py:35 attendees/models.py:43 attendees/models.py:61
 msgid "voucher type"
@@ -864,11 +865,11 @@ msgstr "Session-Vorschlag"
 msgid "proposals"
 msgstr "Session-Vorschläge"
 
-#: proposals/views.py:187
+#: proposals/views.py:197
 msgid "Proposal successfully changed"
 msgstr "Änderungen gespeichert"
 
-#: proposals/views.py:197
+#: proposals/views.py:207
 msgid ""
 "You can no longer edit this proposal because the submission period has "
 "already ended."
@@ -876,29 +877,29 @@ msgstr ""
 "Sie können diesen Vorschlag nicht mehr bearbeiten, da die Einreichperiode "
 "vorbei ist."
 
-#: proposals/views.py:200
+#: proposals/views.py:210
 msgid ""
 "You have to be the primary speaker mentioned in the proposal in order to "
 "edit it."
 msgstr ""
 
-#: proposals/views.py:257
+#: proposals/views.py:267
 msgid ""
 "You can no longer cancel this proposal because the submission period has "
 "already ended."
 msgstr ""
 
-#: proposals/views.py:260
+#: proposals/views.py:270
 msgid ""
 "You have to be the primary speaker mentioned in the proposal in order to "
 "cancel it."
 msgstr ""
 
-#: proposals/views.py:266
+#: proposals/views.py:276
 msgid "Proposal has been removed"
 msgstr "Vorschlag wurde entfernt"
 
-#: proposals/views.py:292
+#: proposals/views.py:302
 msgid ""
 "You can no longer leave this proposal because the submission period has "
 "already ended."
@@ -906,11 +907,11 @@ msgstr ""
 "Sie können diese Einreichung nicht mehr verlassen, da die Einreichungsfrist "
 "bereits verstrichen ist."
 
-#: proposals/views.py:295
+#: proposals/views.py:305
 msgid "Only secondary speakers can leave a proposal"
 msgstr "Nur Mitvortragende können eine Einreichung verlassen."
 
-#: proposals/views.py:301
+#: proposals/views.py:311
 msgid "You were successfully removed as secondary speaker."
 msgstr "Sie wurden erfolgreich als Mitvortragende(r) entfernt."
 
@@ -924,14 +925,21 @@ msgid "Sorry, but we currently don't accept any proposals."
 msgstr ""
 "Zum jetzigen Zeitpunkt können leider keine Vorträge eingereicht werden."
 
-#: proposals/templates/proposals/proposal_cancel_confirm.html:4
-msgid "Do you really want to cancel this proposal?"
-msgstr "Möchten Sie diesen Session-Vorschlag zurückziehen?"
-
+#: proposals/templates/proposals/denied.html:4
 #: proposals/templates/proposals/proposal_detail.html:3
 #: proposals/templates/proposals/proposal_detail.html:6
 msgid "Proposal"
 msgstr "Session-Vorschlag"
+
+#: proposals/templates/proposals/denied.html:5
+#, fuzzy
+msgid "Sorry, but you're not allowed to access this proposal."
+msgstr ""
+"Zum jetzigen Zeitpunkt können leider keine Vorträge eingereicht werden."
+
+#: proposals/templates/proposals/proposal_cancel_confirm.html:4
+msgid "Do you really want to cancel this proposal?"
+msgstr "Möchten Sie diesen Session-Vorschlag zurückziehen?"
 
 #: proposals/templates/proposals/proposal_detail.html:10
 #, fuzzy, python-format
@@ -1059,8 +1067,8 @@ msgid "Save"
 msgstr "Speichern"
 
 #: reviews/forms.py:118
-msgid "Save comment"
-msgstr "Kommentar abgeben"
+msgid "Send feedback"
+msgstr "Rückfrage/Kommentar senden"
 
 #: reviews/forms.py:132
 msgid "Save review"
@@ -1262,7 +1270,7 @@ msgstr ""
 msgid "Exports all reviews as CSV to stdout"
 msgstr "Exportiert alle Reviews als CSV nach STDOUT"
 
-#: reviews/templates/reviews/proposal_details.html:55
+#: reviews/templates/reviews/proposal_details.html:57
 msgid "The author has updated the proposal."
 msgstr "Der Autor hat das Proposal aktualisiert."
 
@@ -1568,8 +1576,9 @@ msgstr "E-Mail-Bestätigung"
 msgid ""
 "You need to create a user account on this website if you want to buy tickets "
 "or submit a talk."
-msgstr "Sie müssen ein Konto für diese Website anlegen, wenn Sie an der Konferenz "
-" als Besucher oder Vortragender teilnehmen möchten."
+msgstr ""
+"Sie müssen ein Konto für diese Website anlegen, wenn Sie an der Konferenz  "
+"als Besucher oder Vortragender teilnehmen möchten."
 
 #: sponsorship/cms_plugins.py:10
 msgid "sponsor list plugin"
@@ -1630,6 +1639,9 @@ msgstr ""
 #: sponsorship/models.py:62
 msgid "custom CSS classes"
 msgstr ""
+
+#~ msgid "Save comment"
+#~ msgstr "Kommentar abgeben"
 
 # PAYMILL ERRORS
 #~ msgid "General undefined response."
