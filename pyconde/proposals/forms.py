@@ -261,7 +261,8 @@ class TutorialSubmissionForm(TypedSubmissionForm):
                                               sollten die Tutorial-Inhalte auf allen drei gängigen
                                               Betriebssystemen (Linux, Mac OS X und Windows) funktionieren.
                                               Wenn nicht, bitte explizit darauf hinweisen."""
-        form.fields['available_timeslots'].queryset = form.fields['available_timeslots'].queryset.filter(section__slug='tutorials')
+        if 'available_timeslots' in form.fields:
+            form.fields['available_timeslots'].queryset = form.fields['available_timeslots'].queryset.filter(section__slug='tutorials')
 
     def customize_save(self, instance):
         instance.duration = conference_models.SessionDuration.current_objects.get(slug='tutorial')

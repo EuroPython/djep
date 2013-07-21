@@ -509,6 +509,7 @@ class UpdateProposalView(TemplateResponseMixin, generic_views.View):
         new_version.track = self.object.track
         new_version.save()
         new_version.additional_speakers = self.object.additional_speakers.all()
+        new_version.available_timeslots = self.object.available_timeslots.all()
         self.form.save_m2m()
         messages.success(request, _("Proposal has been successfully updated"))
         if settings.ENABLE_PROPOSAL_UPDATE_NOTIFICATIONS:
