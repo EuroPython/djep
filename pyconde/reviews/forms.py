@@ -67,7 +67,8 @@ class UpdateProposalForm(forms.ModelForm):
             'track': proposal.track,
             'duration': proposal.duration,
             'audience_level': proposal.audience_level,
-            })
+            'available_timeslots': proposal.available_timeslots.all(),
+        })
         return form
 
 
