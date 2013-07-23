@@ -28,13 +28,17 @@ NUM_ACCOMPANYING_CHILDREN_CHOICES = (
 
 class ProfileRegistrationForm(RegistrationForm):
     """
-    Override for the default registration form that adds two new fields:
+    Override for the default registration form - adds new fields:
 
     * Avatar for allowing the user to upload a profile picture
     * and short_info, which allows the user to introduce herself to the
       other attendees/speakers.
+    * Twitter handle
+    * website (URL)
+    * Number of accompanying children (dropdown selection)
+    * Info about children's ages (free text)
 
-    Both of these fields are publically accessible and optional.
+    All these fields are publicly accessible and optional.
     """
     avatar = forms.ImageField(widget=forms.FileInput, required=False,
         help_text=Profile()._meta.get_field_by_name('avatar')[0].help_text)
@@ -45,13 +49,15 @@ class ProfileRegistrationForm(RegistrationForm):
     num_accompanying_children = forms.IntegerField(required=False,
                                                    label=_('Number of accompanying children'),
                                                    widget=forms.Select(choices=NUM_ACCOMPANYING_CHILDREN_CHOICES))
+    age_accompanying_children = forms.CharField(_("Age of accompanying children"), required=False)
 
     def __init__(self, *args, **kwargs):
         super(ProfileRegistrationForm, self).__init__(*args, **kwargs)
         account_fields = Fieldset(_('Account data'), Field('username', autofocus="autofocus"), 'email', 'password', 'password_repeat')
         profile_fields = Fieldset(_('Profile'), 'first_name', 'last_name',
                                   'avatar', 'short_info', 'twitter', 'website',
-                                  'num_accompanying_children')
+                                  'num_accompanying_children',
+                                  'age_accompanying_children')
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
@@ -70,7 +76,8 @@ class ProfileRegistrationForm(RegistrationForm):
             user=new_user,
             avatar=self.cleaned_data['avatar'],
             short_info=self.cleaned_data['short_info'],
-            num_accompanying_children=self.cleaned_data['num_accompanying_children']
+            num_accompanying_children=self.cleaned_data['num_accompanying_children'],
+            age_accompanying_children=self.cleaned_data['age_accompanying_children']
         )
 
 

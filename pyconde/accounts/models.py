@@ -13,8 +13,8 @@ from . import validators
 
 class Profile(models.Model):
     """
-    A userprofile model that for now only provides a short_info and avatar
-    field.
+    A userprofile model that provides a short_info, twitter handle, website URL, avatar
+    field and details about number/age of accompanying children
 
     This is also used as AUTH_PROFILE_MODULE.
     """
@@ -23,10 +23,11 @@ class Profile(models.Model):
     avatar = ThumbnailerImageField(_('avatar'), upload_to='avatars', null=True,
                                    blank=True,
                                    help_text=_('Please upload an image with a side length of at least 300 pixels.'))
-    num_accompanying_children = models.PositiveIntegerField(_('number of accompanying children'),
+    num_accompanying_children = models.PositiveIntegerField(_('Number of accompanying children'),
                                                             null=True,
                                                             blank=True,
                                                             default=0)
+    age_accompanying_children = models.CharField(_("Age of accompanying children"), blank=True, max_length=20)
     twitter = models.CharField(_("Twitter"), blank=True, max_length=20,
         validators=[validators.twitter_username])
     website = models.URLField(_("Website"), blank=True)
