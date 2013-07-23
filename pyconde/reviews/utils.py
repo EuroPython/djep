@@ -1,6 +1,7 @@
 import tablib
 import logging
 from tablib.compat import csv, StringIO
+import re
 
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
@@ -14,6 +15,7 @@ from django.db.models import Q
 from pyconde.conference import models as conference_models
 from pyconde.accounts import utils as account_utils
 
+EMAIL_REGEX = re.compile(r"[^@]+@[^@]+\.[^@]+")
 
 logger = logging.getLogger(__name__)
 
@@ -38,6 +40,9 @@ def can_participate_in_review(user, proposal):
         return True
     return False
 
+def has_valid_mailaddr(user):
+    mail = user.email
+    return mail and EMAIL_REGEX.match(mail)
 
 def is_proposal_author(user, proposal):
     if not hasattr(user, 'speaker_profile'):
@@ -94,7 +99,8 @@ def send_comment_notification(comment, notify_author=False):
     msg = EmailMessage(subject=subject % {
             'author': account_utils.get_account_name(comment.author),
             'title': proposal.title},
-        bcc=[u.email for u in get_people_to_notify(proposal, current_user)],
+        bcc=[u.email for u in get_people_to_notify(proposal, current_user)
+             if has_valid_mailaddr(u)],
         body=body)
     msg.send()
 
