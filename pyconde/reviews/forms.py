@@ -19,7 +19,8 @@ class UpdateProposalForm(forms.ModelForm):
     class Meta(object):
         model = models.ProposalVersion
         fields = [
-            'title', 'description', 'abstract', 'duration', 'audience_level', 'tags'
+            'title', 'description', 'abstract', 'duration', 'audience_level', 'tags',
+            'language',
         ]
 
     def __init__(self, *args, **kwargs):
@@ -36,6 +37,7 @@ class UpdateProposalForm(forms.ModelForm):
                 Field('duration'),
                 Field('audience_level'),
                 Field('tags'),
+                Field('language'),
                 ),
             ButtonHolder(Submit('save', _("Save"), css_class="btn-primary"))
             )
@@ -62,6 +64,7 @@ class UpdateProposalForm(forms.ModelForm):
             'description': proposal.description,
             'abstract': proposal.abstract,
             'tags': edit_string_for_tags(proposal.tags.all()),
+            'language': proposal.language,
             'speaker': proposal.speaker,
             'additional_speakers': proposal.additional_speakers.all(),
             'track': proposal.track,
