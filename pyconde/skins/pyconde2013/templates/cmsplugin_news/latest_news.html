@@ -3,7 +3,7 @@
     {% if latest %}
         {% for news in latest %}
             <div class="content">
-                <h5><a href="{{ news.get_absolute_url }}">{{ news.title }}</a></h5>
+                <h4><a href="{{ news.get_absolute_url }}">{{ news.title }}</a></h4>
                 <span class="pub_date">{{ news.pub_date|date:"DATE_FORMAT" }}</span>
                 {% if news.excerpt %}
                     <p>{{ news.excerpt|safe }}</p>
