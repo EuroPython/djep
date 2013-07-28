@@ -157,7 +157,7 @@ class ProfileForm(BaseProfileForm):
 
 
 class LoginEmailRequestForm(forms.Form):
-    email = forms.EmailField(required=False)
+    email = forms.EmailField(required=True)
 
     def __init__(self, *args, **kwargs):
         super(LoginEmailRequestForm, self).__init__(*args, **kwargs)
