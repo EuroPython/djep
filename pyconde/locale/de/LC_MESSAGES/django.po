@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-23 23:47+0200\n"
+"POT-Creation-Date: 2013-07-28 09:56+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -42,7 +42,6 @@ msgid "Number of accompanying children"
 msgstr "Voraussichtliche Anzahl mitkommender Kinder"
 
 #: accounts/forms.py:52 accounts/models.py:30
-#, fuzzy
 msgid "Age of accompanying children"
 msgstr "Alter der mitkommenden Kinder"
 
@@ -932,11 +931,13 @@ msgstr ""
 msgid "Proposal"
 msgstr "Session-Vorschlag"
 
-#: proposals/templates/proposals/denied.html:5
-#, fuzzy
-msgid "Sorry, but you're not allowed to access this proposal."
+#: proposals/templates/proposals/denied.html:5 reviews/views.py:439
+#: reviews/views.py:470
+msgid ""
+"You have to be the author of this proposal or a reviewer to access this page"
 msgstr ""
-"Zum jetzigen Zeitpunkt können leider keine Vorträge eingereicht werden."
+"Sie müssen Autor dieses Vorschlages oder Reviewer sein, um auf diese Seite "
+"zugreifen zu können."
 
 #: proposals/templates/proposals/proposal_cancel_confirm.html:4
 msgid "Do you really want to cancel this proposal?"
@@ -1246,13 +1247,6 @@ msgstr "Review wurde gelöscht"
 #: reviews/views.py:295
 msgid "Comment has been added"
 msgstr "Kommentar wurde hinzugefügt"
-
-#: reviews/views.py:439 reviews/views.py:470
-msgid ""
-"You have to be the author of this proposal or a reviewer to access this page"
-msgstr ""
-"Sie müssen Autor dieses Vorschlages oder Reviewer sein, um auf diese Seite "
-"zugreifen zu können."
 
 #: reviews/views.py:514
 msgid "Proposal has been successfully updated"
@@ -1640,6 +1634,11 @@ msgstr ""
 #: sponsorship/models.py:62
 msgid "custom CSS classes"
 msgstr ""
+
+#, fuzzy
+#~ msgid "Sorry, but you're not allowed to access this proposal."
+#~ msgstr ""
+#~ "Zum jetzigen Zeitpunkt können leider keine Vorträge eingereicht werden."
 
 #~ msgid "number of accompanying children"
 #~ msgstr "Voraussichtliche Anzahl mitkommender Kinder"

@@ -49,7 +49,8 @@ class ProfileRegistrationForm(RegistrationForm):
     num_accompanying_children = forms.IntegerField(required=False,
                                                    label=_('Number of accompanying children'),
                                                    widget=forms.Select(choices=NUM_ACCOMPANYING_CHILDREN_CHOICES))
-    age_accompanying_children = forms.CharField(_("Age of accompanying children"), required=False)
+    age_accompanying_children = forms.CharField(
+        label=_("Age of accompanying children"), required=False)
 
     def __init__(self, *args, **kwargs):
         super(ProfileRegistrationForm, self).__init__(*args, **kwargs)
