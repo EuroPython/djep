@@ -274,7 +274,10 @@ def update_proposal_metadata(sender, instance, **kwargs):
     if isinstance(instance, ProposalVersion):
         proposal = instance.original
     else:
-        proposal = instance.proposal
+        try:
+            proposal = instance.proposal
+        except Proposal.DoesNotExist:  # proposal was deleted
+            return
     _update_proposal_metadata(proposal)
 
 
