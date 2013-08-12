@@ -57,7 +57,7 @@ class PurchaseEmailExporter(object):
             'currency': 'EUR',
             'status': purchase.state,
             'comments': purchase.comments if purchase.comments else None,
-            'date_added': purchase.date_added,
+            'date_added': purchase.date_added.replace(microsecond=0),
             'payment_address': {
                 'email': purchase.customer.email,
                 'first_name': purchase.first_name,
