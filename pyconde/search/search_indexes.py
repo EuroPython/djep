@@ -47,6 +47,6 @@ class PageIndex(indexes.SearchIndex, indexes.Indexable):
         for placeholder in obj.placeholders.all():
             text += placeholder.render(context, None)
         self.prepared_data['text'] = cleanup_content(
-            self.prepared_data['title'] + text)
+            self.prepared_data['title'] + u' ' + text)
         self.prepared_data['url'] = obj.get_absolute_url()
         return self.prepared_data
