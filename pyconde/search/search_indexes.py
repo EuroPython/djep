@@ -40,13 +40,26 @@ class PageIndex(indexes.SearchIndex, indexes.Indexable):
         request = rf.get('/')
         request.session = {}
         text = u""
+        extra_data = []
         # Let's extract the title
         context = RequestContext(request)
         for title in obj.title_set.all():
-            self.prepared_data['title'] = title.title
+            if title.page_title:
+                self.prepared_data['title'] = title.page_title
+                extra_data.append(title.title)
+            else:
+                self.prepared_data['title'] = title.title
+            if title.meta_keywords:
+                extra_data.append(title.meta_keywords)
+            if title.meta_description:
+                extra_data.append(title.meta_description)
+            if title.menu_title:
+                extra_data.append(title.menu_title)
         for placeholder in obj.placeholders.all():
             text += placeholder.render(context, None)
-        self.prepared_data['text'] = cleanup_content(
-            self.prepared_data['title'] + u' ' + text)
+        self.prepared_data['text'] = cleanup_content(u' '.join([
+                self.prepared_data['title'],
+                text,
+            ] + extra_data))
         self.prepared_data['url'] = obj.get_absolute_url()
         return self.prepared_data
