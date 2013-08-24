@@ -73,6 +73,7 @@
     </div>
 
     <div id="page">
+      {% block content_wrapper %}
       <div class="row">
         <div class="span6 logo-spacer" id="content">
           {% block content_banner %}{% endblock %}
@@ -116,6 +117,7 @@
           <a class="halo logo" href="/"><img src="{{ STATIC_URL }}images/logo-small.png" title="PyCon.DE 2013" /></a>
         </div>
       </div>
+      {% endblock %}
     </div>
     {% endblock %}
     <footer class="row hidden-phone">
