@@ -21,7 +21,8 @@ class WithChildrenFilter(SimpleListFilter):
 
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'user', 'num_accompanying_children')
+    list_display = ('pk', 'user', 'num_accompanying_children',
+                    'age_accompanying_children')
     list_display_links = ('pk', 'user')
     list_filter = (WithChildrenFilter,)
 
