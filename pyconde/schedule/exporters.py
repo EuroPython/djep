@@ -36,7 +36,7 @@ class SimpleSessionExporter(AbstractExporter):
             'speaker', 'latest_proposalversion__track', 'audience_level')
         data = tablib.Dataset(headers=['ID', 'ProposalID', 'Title',
             'SpeakerUsername', 'SpeakerName', 'CoSpeakers', 'AudienceLevel',
-            'Duration', 'Track'])
+            'Duration', 'Track', 'Timeslots'])
         for session in queryset:
             duration = session.duration
             audience_level = session.audience_level
@@ -52,6 +52,7 @@ class SimpleSessionExporter(AbstractExporter):
                 unicode(audience_level) if audience_level else "",
                 unicode(duration) if duration else "",
                 unicode(track) if track else "",
+                u'|'.join(unicode(slot) for slot in session.proposal.available_timeslots.all()),
                 ))
         return data
 
