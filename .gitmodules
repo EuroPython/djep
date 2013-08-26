@@ -1,3 +1,0 @@
-[submodule "pyconde/skins/default/static/css/bootstrap"]
-	path = pyconde/skins/default/static/css/bootstrap
-	url = https://github.com/twitter/bootstrap.git
