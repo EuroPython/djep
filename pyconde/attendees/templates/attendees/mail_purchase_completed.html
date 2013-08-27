@@ -23,6 +23,8 @@ Rechnungsadresse:
 {% if purchase.comments %}Kommentar:
 {{ purchase.comments}}{% endif %}
 
+{% if terms_of_use_url %}Die Abwicklung des Verkaufs von Eintrittskarten (Tickets) für die PyCon.DE 2013 erfolgt ausschließlich zu den allgemeinen Geschäftsbedingungen der PyCon.DE 2013, die Sie hier finden:
+{{ terms_of_use_url }}{% endif %}
 
 {% if purchase.payment_method == 'invoice' %}
 Sie erhalten innerhalb der nächsten Tage eine Rechnung per E-Mail. Bitte senden sie uns einen Nachweis der Zahlung per E-Mail (Daniel.Szoska@python-verband.org), alternativ per Fax: 03342/2119995, oder bringen Sie eine Kopie zur Registrierung in Köln mit. Eine Begleichung der Rechnung vor Ort ist nur in BAR möglich, wir können keine EC-Karte, keine Kredit-Karte akzeptieren. Die Konferenzunterlagen werden vor Ort ausgegeben.

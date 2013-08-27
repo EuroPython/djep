@@ -16,6 +16,9 @@ PAYMENT_METHOD_CHOICES = (
     ('elv', _('ELV')),
 )
 
+terms_of_use_url = (settings.PURCHASE_TERMS_OF_USE_URL
+                    if (hasattr(settings, 'PURCHASE_TERMS_OF_USE_URL')
+                    and settings.PURCHASE_TERMS_OF_USE_URL) else '#')
 
 class PurchaseForm(forms.ModelForm):
     email = forms.EmailField(label=_('E-Mail'), required=True)
@@ -150,6 +153,10 @@ class TicketVoucherForm(forms.ModelForm):
 
 
 class PurchaseOverviewForm(forms.Form):
+    accept_terms=forms.BooleanField(
+        label=_("I've read and agree to the terms and conditions."),
+        help_text=_('You must accept the <a target="_blank" href="%s">terms and conditions</a>.') % terms_of_use_url,
+        error_messages={'required': _('You must accept the terms and conditions.')})
     payment_method = forms.ChoiceField(
         label=_('Payment method'),
         choices=PAYMENT_METHOD_CHOICES, widget=forms.RadioSelect,
@@ -164,6 +171,7 @@ class PurchaseOverviewForm(forms.Form):
         self.helper.form_class = 'form-horizontal'
         self.helper.form_tag = False
         self.helper.layout = Layout(
+            'accept_terms',
             'payment_method',
             ButtonHolder(
                 Submit('submit', _('Complete purchase'),

@@ -58,9 +58,13 @@
     <p>Wenn alle Angaben korrekt sind, wählen Sie bitte nachfolgend die gewünschte Zahlungsart
     und klicken Sie dann auf "Bestellung abschließen", um die Daten zu speichern.
     Sie erhalten am Ende des Bestellvorgangs eine Bestellbestätigung per E-Mail.</p>
-
+    
+    <p>Die Abwicklung des Verkaufs von Eintrittskarten (Tickets) für die PyCon.DE 2013 
+    erfolgt ausschließlich zu den allgemeinen Geschäftsbedingungen der PyCon.DE 2013, die 
+    Sie mit der Bestellung akzeptieren müssen.
+    </p>
     <form class="form-horizontal" method="post">
-        <h2>Zahlungsart</h2>
+        <h2>Zahlungsart und AGB</h2>
         {% csrf_token %}
         {% crispy form %}
     </form>
