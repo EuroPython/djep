@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-07-28 09:56+0200\n"
+"POT-Creation-Date: 2013-08-27 22:47+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -37,27 +37,27 @@ msgstr ""
 msgid "Website"
 msgstr ""
 
-#: accounts/forms.py:50 accounts/forms.py:141 accounts/models.py:26
+#: accounts/forms.py:50 accounts/forms.py:142 accounts/models.py:26
 msgid "Number of accompanying children"
 msgstr "Voraussichtliche Anzahl mitkommender Kinder"
 
-#: accounts/forms.py:52 accounts/models.py:30
+#: accounts/forms.py:53 accounts/models.py:30
 msgid "Age of accompanying children"
 msgstr "Alter der mitkommenden Kinder"
 
-#: accounts/forms.py:56
+#: accounts/forms.py:57
 msgid "Account data"
 msgstr "Konto-Daten"
 
-#: accounts/forms.py:57
+#: accounts/forms.py:58
 msgid "Profile"
 msgstr "Profil"
 
-#: accounts/forms.py:65
+#: accounts/forms.py:66
 msgid "Create account"
 msgstr "Konto anlegen"
 
-#: accounts/forms.py:68 accounts/forms.py:155
+#: accounts/forms.py:69 accounts/forms.py:156
 msgid ""
 "Please upload an image with a side length of at least 300 pixels.<br />If "
 "you don't upload an avatar your Gravatar will be used instead."
@@ -66,27 +66,27 @@ msgstr ""
 ">Falls Sie keinen Avatar hochladen, wird versucht, Ihren Gravatar zu "
 "verwenden."
 
-#: accounts/forms.py:100
+#: accounts/forms.py:101
 msgid "Log in"
 msgstr "Anmelden"
 
-#: accounts/forms.py:116
+#: accounts/forms.py:117
 #: skins/default/templates/userprofiles/password_reset.html:4
 #: skins/default/templates/userprofiles/password_reset.html:7
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
-#: accounts/forms.py:131
+#: accounts/forms.py:132
 #: skins/default/templates/userprofiles/password_change.html:4
 #: skins/default/templates/userprofiles/password_change.html:7
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: accounts/forms.py:152
+#: accounts/forms.py:153
 msgid "Change"
 msgstr "Ändern"
 
-#: accounts/forms.py:167
+#: accounts/forms.py:168
 msgid "Continue"
 msgstr "Weiter"
 
@@ -234,11 +234,24 @@ msgstr "Gutschein"
 msgid "Voucher verification failed."
 msgstr "Gutschein-Verifikation fehlgeschlagen."
 
-#: attendees/forms.py:154 attendees/models.py:210
+#: attendees/forms.py:157
+msgid "I've read and agree to the terms and conditions."
+msgstr "Ich habe die allgemeinen Geschäftsbedingungen gelesen und akzeptiert."
+
+#: attendees/forms.py:158
+#, python-format
+msgid "You must accept the <a target=\"_blank\" href=\"%s\">terms and conditions</a>."
+msgstr "Sie müssen die <a target=\"_blank\" href=\"%s\">allgemeinen Geschäftsbedingungen</a> akzeptieren."
+
+#: attendees/forms.py:159
+msgid "You must accept the terms and conditions."
+msgstr "Sie müssen die allgemeinen Geschäftsbedingungen akzeptieren."
+
+#: attendees/forms.py:161 attendees/models.py:210
 msgid "Payment method"
 msgstr "Zahlungsart"
 
-#: attendees/forms.py:156
+#: attendees/forms.py:163
 msgid ""
 "If you choose invoice you will receive an invoice from us. After we receive "
 "your money transfer your purchase will be finanized.<br /><br />Credit card "
@@ -251,7 +264,7 @@ msgstr ""
 "durchgeführt.<br /><br /><strong>Hinweis:</strong> Zahlung per Kreditkarte "
 "steht Ihnen in Kürze zur Verfügung."
 
-#: attendees/forms.py:169
+#: attendees/forms.py:177
 msgid "Complete purchase"
 msgstr "Bestellung abschlie&szlig;en"
 
@@ -738,12 +751,12 @@ msgid "Proposals app"
 msgstr "Proposals-Anwendung"
 
 #: proposals/forms.py:63 proposals/forms.py:186 proposals/forms.py:235
-#: reviews/forms.py:30 reviews/forms.py:93
+#: reviews/forms.py:31 reviews/forms.py:96
 msgid "General"
 msgstr "Allgemeines"
 
 #: proposals/forms.py:69 proposals/forms.py:190 proposals/forms.py:240
-#: reviews/forms.py:35 reviews/forms.py:98
+#: reviews/forms.py:36 reviews/forms.py:101
 msgid "Details"
 msgstr "Details"
 
@@ -865,11 +878,11 @@ msgstr "Session-Vorschlag"
 msgid "proposals"
 msgstr "Session-Vorschläge"
 
-#: proposals/views.py:197
+#: proposals/views.py:199
 msgid "Proposal successfully changed"
 msgstr "Änderungen gespeichert"
 
-#: proposals/views.py:207
+#: proposals/views.py:209
 msgid ""
 "You can no longer edit this proposal because the submission period has "
 "already ended."
@@ -877,29 +890,29 @@ msgstr ""
 "Sie können diesen Vorschlag nicht mehr bearbeiten, da die Einreichperiode "
 "vorbei ist."
 
-#: proposals/views.py:210
+#: proposals/views.py:212
 msgid ""
 "You have to be the primary speaker mentioned in the proposal in order to "
 "edit it."
 msgstr ""
 
-#: proposals/views.py:267
+#: proposals/views.py:269
 msgid ""
 "You can no longer cancel this proposal because the submission period has "
 "already ended."
 msgstr ""
 
-#: proposals/views.py:270
+#: proposals/views.py:272
 msgid ""
 "You have to be the primary speaker mentioned in the proposal in order to "
 "cancel it."
 msgstr ""
 
-#: proposals/views.py:276
+#: proposals/views.py:278
 msgid "Proposal has been removed"
 msgstr "Vorschlag wurde entfernt"
 
-#: proposals/views.py:302
+#: proposals/views.py:304
 msgid ""
 "You can no longer leave this proposal because the submission period has "
 "already ended."
@@ -907,11 +920,11 @@ msgstr ""
 "Sie können diese Einreichung nicht mehr verlassen, da die Einreichungsfrist "
 "bereits verstrichen ist."
 
-#: proposals/views.py:305
+#: proposals/views.py:307
 msgid "Only secondary speakers can leave a proposal"
 msgstr "Nur Mitvortragende können eine Einreichung verlassen."
 
-#: proposals/views.py:311
+#: proposals/views.py:313
 msgid "You were successfully removed as secondary speaker."
 msgstr "Sie wurden erfolgreich als Mitvortragende(r) entfernt."
 
@@ -984,7 +997,7 @@ msgstr "Teilnahme zurückziehen"
 msgid "Edit"
 msgstr "Ändern"
 
-#: proposals/templates/proposals/proposal_detail.html:36 reviews/forms.py:145
+#: proposals/templates/proposals/proposal_detail.html:36 reviews/forms.py:148
 msgid "Delete"
 msgstr "Löschen"
 
@@ -1064,19 +1077,19 @@ msgstr ""
 "Die Review-Phase ist zu Ende. Sie müssen Redakteur sein, um auf diese Seite "
 "zugreifen zu können."
 
-#: reviews/forms.py:40 reviews/forms.py:102 schedule/forms.py:27
+#: reviews/forms.py:42 reviews/forms.py:105 schedule/forms.py:27
 msgid "Save"
 msgstr "Speichern"
 
-#: reviews/forms.py:119
+#: reviews/forms.py:122
 msgid "Send feedback"
 msgstr "Rückfrage/Kommentar senden"
 
-#: reviews/forms.py:133
+#: reviews/forms.py:136
 msgid "Save review"
 msgstr "Review speichern"
 
-#: reviews/forms.py:146
+#: reviews/forms.py:149
 msgid "Save changes"
 msgstr "Änderungen speichern"
 
