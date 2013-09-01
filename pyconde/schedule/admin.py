@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib import admin
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
@@ -51,10 +52,19 @@ def create_simple_session_export(modeladmin, request, queryset):
 create_simple_session_export.short_description = _("create simple export")
 
 
+class SessionAdminForm(forms.ModelForm):
+
+    def clean_location(self):
+        if not self.cleaned_data['location']:
+            raise forms.ValidationError(u'Der Ort muss angegeben werden.')
+        return self.cleaned_data['location']
+
+
 class SessionAdmin(admin.ModelAdmin):
     list_display = ("title", "kind", "conference", "duration", "speaker", "track", "location")
     list_filter = ("conference", "kind", "duration", "track", "location")
     actions = [create_simple_session_export]
+    form = SessionAdminForm
 
 
 class SideEventAdmin(admin.ModelAdmin):
