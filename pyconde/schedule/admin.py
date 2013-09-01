@@ -1,3 +1,4 @@
+from django import forms
 from django.contrib import admin
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
@@ -69,12 +70,21 @@ class HasSelectedTimeslotsFilter(admin.SimpleListFilter):
         return queryset
 
 
+class SessionAdminForm(forms.ModelForm):
+
+    def clean_location(self):
+        if not self.cleaned_data['location']:
+            raise forms.ValidationError(u'Der Ort muss angegeben werden.')
+        return self.cleaned_data['location']
+
+
 class SessionAdmin(admin.ModelAdmin):
     list_display = ("title", "kind", "conference", "duration", "speaker", "track", "location",
                     "list_available_timeslots")
     list_filter = ("conference", "kind", "duration", "track", "location",
                    HasSelectedTimeslotsFilter)
     actions = [create_simple_session_export]
+    form = SessionAdminForm
 
     def list_available_timeslots(self, obj):
         return u'; '.join(
