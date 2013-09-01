@@ -4,7 +4,7 @@
 <h2>{{ section.name }}</h2>
 {% for day in grid.1 %}
 
-<table class="schedule {{ section.slug }} numcols-{{ grid.0|length }} table table-bordered">
+<table class="schedule {{ section.slug }} numcols-{{ grid.0|length }} table table-bordered table-hover">
     <caption>{{ day.day|date:"l - d. F Y" }}</caption>
     <thead>
         <tr>
