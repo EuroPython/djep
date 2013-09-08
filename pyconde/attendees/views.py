@@ -282,8 +282,7 @@ class HandlePaymentView(LoginRequiredMixin, PurchaseMixin,
     def get_context_data(self, *args, **kwargs):
         data = super(HandlePaymentView, self).get_context_data(*args, **kwargs)
         data['public_key'] = settings.PAYMILL_PUBLIC_KEY
-        data['amount_in_cent'] = int(
-            decimal.Decimal(self.purchase.purchase_total) * 100)
+        data['amount_in_cent'] = self.purchase.payment_total_in_cents
         this_year = datetime.datetime.now().year
         data['exp_years'] = range(this_year, this_year + 10)
         data['error'] = self.error
