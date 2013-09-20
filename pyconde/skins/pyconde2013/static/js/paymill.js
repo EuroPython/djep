@@ -92,7 +92,7 @@
                     exp_year: ccExpYear,
                     cvc: ccCvc,
                     cardholder: ccHolder,
-                    amount: parseInt(amount, 10),
+                    amount_int: parseInt(amount, 10),
                     currency: currency
                 }, handleResponse);
             } else if (mode === 'elv') {
@@ -100,7 +100,7 @@
                     number: ccNumber,
                     accountholder: ccHolder,
                     bank: bank,
-                    amount: parseInt(amount, 10),
+                    amount_int: parseInt(amount, 10),
                     currency: currency
                 }, handleResponse);
             }

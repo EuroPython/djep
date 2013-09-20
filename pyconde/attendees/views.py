@@ -11,8 +11,8 @@ The purchase process consists of the following steps:
 
 """
 import datetime
-import decimal
 import logging
+import hashlib
 from collections import OrderedDict
 
 import pymill
@@ -73,6 +73,8 @@ class PurchaseMixin(object):
     def clear_purchase_info(self):
         if 'purchase_state' in self.request.session:
             del self.request.session['purchase_state']
+        if 'paymentform' in self.request.session:
+            del self.request.session['paymentform']
 
     def setup(self):
         if self.step != 'start':
@@ -152,7 +154,7 @@ class StartPurchaseView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
 
             # Create a ticket for each ticket type and amount
             for quantity_form in self.quantity_forms:
-                for i in range(0,
+                for _i in range(0,
                                quantity_form.cleaned_data.get('quantity', 0)):
                     Ticket.objects.create(
                         purchase=purchase,
@@ -293,28 +295,45 @@ class HandlePaymentView(LoginRequiredMixin, PurchaseMixin,
     def post(self, *args, **kwargs):
         purchase = self.purchase
         token = self.request.POST['token']
-        api = pymill.Pymill(settings.PAYMILL_PRIVATE_KEY)
-        try:
-            resp = api.transact(
-                amount=purchase.payment_total_in_cents,
-                description=utils.generate_transaction_description(purchase),
-                token=token
-            )
-        except Exception, e:
-            LOG.exception("Failed to handle purchase")
-            self.error = unicode(e)
-            return self.get(*args, **kwargs)
-        if resp is None:
-            self.error = _("Payment failed. Please check your data.")
-            return self.get(*args, **kwargs)
-        else:
-            transaction = resp
-            if transaction.response_code != 20000:
-                self.error = _(api.response_code2text(transaction.response_code))
+        # generate hash on purchase and store in session to avoid double POST
+        # of payment form for same user/purchase (note that different tokens
+        # may be generated in case of parallel POST of payment form)
+        paymenthash=hashlib.md5()
+        paymenthash.update(utils.get_purchase_number(purchase))
+        paymenthash = paymenthash.hexdigest()
+        if (self.request.session.get('paymentform')!=paymenthash and
+            not purchase.payment_transaction):
+            self.request.session['paymentform'] = paymenthash
+            purchase.payment_transaction = paymenthash
+            purchase.save()  # set 'lock'
+            api = pymill.Pymill(settings.PAYMILL_PRIVATE_KEY)
+            try:
+                resp = api.transact(
+                    amount=purchase.payment_total_in_cents,
+                    description=utils.generate_transaction_description(purchase),
+                    token=token
+                )
+            except Exception, e:
+                LOG.exception("Failed to handle purchase")
+                self.error = unicode(e)
                 return self.get(*args, **kwargs)
-            purchase.payment_transaction = transaction.id
-            self.save_state()
-            return utils.complete_purchase(purchase)
+            if resp is None:
+                self.error = _("Payment failed. Please check your data.")
+                return self.get(*args, **kwargs)
+            else:
+                transaction = resp
+                if transaction.response_code != 20000:
+                    self.error = _(api.response_code2text(transaction.response_code))
+                    return self.get(*args, **kwargs)
+                purchase.payment_transaction = transaction.id
+                self.save_state()
+                return utils.complete_purchase(purchase)
+        else:
+            if purchase.payment_transaction:
+                self.error = _("Transaction already processed.")  # + purchase.payment_transaction
+            else:
+                self.error = _("Purchase already handled.")
+            return self.get(*args, **kwargs)
 
 
 class ConfirmationView(LoginRequiredMixin, PurchaseMixin,

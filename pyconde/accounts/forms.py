@@ -33,6 +33,7 @@ class ProfileRegistrationForm(RegistrationForm):
     * Avatar for allowing the user to upload a profile picture
     * and short_info, which allows the user to introduce herself to the
       other attendees/speakers.
+    * Organisation name
     * Twitter handle
     * website (URL)
     * Number of accompanying children (dropdown selection)
@@ -43,6 +44,7 @@ class ProfileRegistrationForm(RegistrationForm):
     avatar = forms.ImageField(widget=forms.FileInput, required=False,
         help_text=Profile()._meta.get_field_by_name('avatar')[0].help_text)
     short_info = forms.CharField(_("short info"), widget=forms.Textarea, required=False)
+    organisation = forms.CharField(label=_("organisation"), required=False)
     twitter = forms.CharField(_("Twitter"), required=False,
         validators=[validators.twitter_username])
     website = forms.URLField(_("Website"), required=False)
@@ -56,7 +58,7 @@ class ProfileRegistrationForm(RegistrationForm):
         super(ProfileRegistrationForm, self).__init__(*args, **kwargs)
         account_fields = Fieldset(_('Account data'), Field('username', autofocus="autofocus"), 'email', 'password', 'password_repeat')
         profile_fields = Fieldset(_('Profile'), 'first_name', 'last_name',
-                                  'avatar', 'short_info', 'twitter', 'website',
+                                  'avatar', 'short_info', 'organisation', 'twitter', 'website',
                                   'num_accompanying_children',
                                   'age_accompanying_children')
         self.helper = FormHelper()
@@ -77,6 +79,7 @@ class ProfileRegistrationForm(RegistrationForm):
             user=new_user,
             avatar=self.cleaned_data['avatar'],
             short_info=self.cleaned_data['short_info'],
+            organisation=self.cleaned_data['organisation'],
             num_accompanying_children=self.cleaned_data['num_accompanying_children'],
             age_accompanying_children=self.cleaned_data['age_accompanying_children']
         )
@@ -138,6 +141,7 @@ class ProfileForm(BaseProfileForm):
     avatar_help_text = Profile()._meta.get_field_by_name('avatar')[0].help_text
     avatar = forms.ImageField(widget=AvatarWidget(size=avatar_size),
         required=False, help_text=avatar_help_text)
+    organisation = forms.CharField(label=_("organisation"), required=False)
     num_accompanying_children = forms.IntegerField(required=False,
                                                    label=_('Number of accompanying children'),
                                                    widget=forms.Select(choices=NUM_ACCOMPANYING_CHILDREN_CHOICES))
@@ -148,7 +152,7 @@ class ProfileForm(BaseProfileForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
             Div(Field('first_name', autofocus="autofocus"), 'last_name',
-                'avatar', 'short_info', 'twitter', 'website',
+                'avatar', 'short_info', 'organisation', 'twitter', 'website',
                 'num_accompanying_children'),
             ButtonHolder(Submit('save', _('Change'), css_class='btn-primary'))
         )
