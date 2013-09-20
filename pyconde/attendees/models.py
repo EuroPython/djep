@@ -224,7 +224,11 @@ class Purchase(models.Model):
         verbose_name_plural = _('Purchases')
 
     def calculate_payment_total(self):
-        # TODO Maybe it's neccessary to add VAT to payment_total.
+        # TODO Maybe it's necessary to add VAT to payment_total.
+        # TKO: Nope: in 2013 at least all ticket prices have been including VAT
+        # However this may be different if people from foreign countries purchase
+        # a ticket because then no VAT may be added (depends on country...)
+        # so remains TODO for EuroPython
         fee_sum = self.ticket_set.aggregate(models.Sum('ticket_type__fee'))
         return fee_sum['ticket_type__fee__sum']
 
@@ -281,4 +285,3 @@ class Ticket(models.Model):
     def __unicode__(self):
         return u'%s %s - %s' % (self.first_name, self.last_name,
                                 self.ticket_type)
-

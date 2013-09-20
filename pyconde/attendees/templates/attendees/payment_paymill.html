@@ -87,6 +87,7 @@
 {% block extra_foot %}
 <script type="text/javascript">
 var PAYMILL_PUBLIC_KEY = '{{ public_key }}';
+$('form#payment-form').preventDoubleSubmission();
 </script>
 <script type="text/javascript" src="https://bridge.paymill.de/"></script>
 <script type="text/javascript" src="{{ STATIC_URL }}js/paymill.js"></script>
