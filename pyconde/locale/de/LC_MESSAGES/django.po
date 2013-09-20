@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-08-27 22:47+0200\n"
+"POT-Creation-Date: 2013-09-19 22:25+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -29,35 +29,39 @@ msgstr "Accounts-Anwendung"
 msgid "short info"
 msgstr "Steckbrief"
 
-#: accounts/forms.py:46 accounts/models.py:31
+#: accounts/forms.py:46
+msgid "organisation"
+msgstr "Organisation"
+
+#: accounts/forms.py:47 accounts/models.py:31
 msgid "Twitter"
 msgstr ""
 
-#: accounts/forms.py:48 accounts/models.py:33
+#: accounts/forms.py:49 accounts/models.py:33
 msgid "Website"
 msgstr ""
 
-#: accounts/forms.py:50 accounts/forms.py:142 accounts/models.py:26
+#: accounts/forms.py:51 accounts/forms.py:144 accounts/models.py:26
 msgid "Number of accompanying children"
 msgstr "Voraussichtliche Anzahl mitkommender Kinder"
 
-#: accounts/forms.py:53 accounts/models.py:30
+#: accounts/forms.py:54 accounts/models.py:30
 msgid "Age of accompanying children"
 msgstr "Alter der mitkommenden Kinder"
 
-#: accounts/forms.py:57
+#: accounts/forms.py:58
 msgid "Account data"
 msgstr "Konto-Daten"
 
-#: accounts/forms.py:58
+#: accounts/forms.py:59
 msgid "Profile"
 msgstr "Profil"
 
-#: accounts/forms.py:66
+#: accounts/forms.py:67
 msgid "Create account"
 msgstr "Konto anlegen"
 
-#: accounts/forms.py:69 accounts/forms.py:156
+#: accounts/forms.py:70 accounts/forms.py:158
 msgid ""
 "Please upload an image with a side length of at least 300 pixels.<br />If "
 "you don't upload an avatar your Gravatar will be used instead."
@@ -66,27 +70,27 @@ msgstr ""
 ">Falls Sie keinen Avatar hochladen, wird versucht, Ihren Gravatar zu "
 "verwenden."
 
-#: accounts/forms.py:101
+#: accounts/forms.py:103
 msgid "Log in"
 msgstr "Anmelden"
 
-#: accounts/forms.py:117
+#: accounts/forms.py:119
 #: skins/default/templates/userprofiles/password_reset.html:4
 #: skins/default/templates/userprofiles/password_reset.html:7
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
-#: accounts/forms.py:132
+#: accounts/forms.py:134
 #: skins/default/templates/userprofiles/password_change.html:4
 #: skins/default/templates/userprofiles/password_change.html:7
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: accounts/forms.py:153
+#: accounts/forms.py:155
 msgid "Change"
 msgstr "Ändern"
 
-#: accounts/forms.py:168
+#: accounts/forms.py:170
 msgid "Continue"
 msgstr "Weiter"
 
@@ -192,45 +196,49 @@ msgstr ""
 msgid "Invoice"
 msgstr "Rechnung"
 
+#: attendees/forms.py:15 attendees/models.py:22
+msgid "Credit card"
+msgstr "Kreditkarte"
+
 #: attendees/forms.py:16 attendees/models.py:23
 msgid "ELV"
 msgstr ""
 
-#: attendees/forms.py:21 attendees/models.py:158
+#: attendees/forms.py:24 attendees/models.py:158
 msgid "E-Mail"
 msgstr ""
 
-#: attendees/forms.py:34
+#: attendees/forms.py:37
 msgid "Invoice address"
 msgstr "Rechnungsadresse"
 
-#: attendees/forms.py:37
+#: attendees/forms.py:40
 msgid "Purchase tickets"
 msgstr "Tickets kaufen"
 
-#: attendees/forms.py:54
+#: attendees/forms.py:57
 msgid "Quantity"
 msgstr "Anzahl"
 
-#: attendees/forms.py:78
+#: attendees/forms.py:81
 msgid "Ticket sold out."
 msgstr "Tickets ausverkauft."
 
-#: attendees/forms.py:81
+#: attendees/forms.py:84
 msgid "Not enough tickets left."
 msgstr "Nicht genug Tickets mehr verfügbar."
 
-#: attendees/forms.py:84
+#: attendees/forms.py:87
 msgid ""
 "You've exceeded the maximum number of items of this type for this purchase"
 msgstr ""
 
-#: attendees/forms.py:115 attendees/models.py:67 attendees/models.py:71
+#: attendees/forms.py:118 attendees/models.py:67 attendees/models.py:71
 #: attendees/models.py:273
 msgid "Voucher"
 msgstr "Gutschein"
 
-#: attendees/forms.py:136
+#: attendees/forms.py:139
 msgid "Voucher verification failed."
 msgstr "Gutschein-Verifikation fehlgeschlagen."
 
@@ -240,8 +248,12 @@ msgstr "Ich habe die allgemeinen Geschäftsbedingungen gelesen und akzeptiert."
 
 #: attendees/forms.py:158
 #, python-format
-msgid "You must accept the <a target=\"_blank\" href=\"%s\">terms and conditions</a>."
-msgstr "Sie müssen die <a target=\"_blank\" href=\"%s\">allgemeinen Geschäftsbedingungen</a> akzeptieren."
+msgid ""
+"You must accept the <a target=\"_blank\" href=\"%s\">terms and conditions</"
+"a>."
+msgstr ""
+"Sie müssen die <a target=\"_blank\" href=\"%s\">allgemeinen "
+"Geschäftsbedingungen</a> akzeptieren."
 
 #: attendees/forms.py:159
 msgid "You must accept the terms and conditions."
@@ -286,10 +298,6 @@ msgstr "Zahlung eingegangen"
 #: attendees/models.py:17
 msgid "canceled"
 msgstr "Zurückgezogen"
-
-#: attendees/models.py:22
-msgid "Credit card"
-msgstr "Kreditkarte"
 
 #: attendees/models.py:35 attendees/models.py:43 attendees/models.py:61
 msgid "voucher type"
@@ -490,11 +498,11 @@ msgstr ""
 msgid "Tickets"
 msgstr ""
 
-#: attendees/utils.py:50
+#: attendees/utils.py:52
 msgid "Ticket successfully purchased"
 msgstr "Ticket erfolgreich gekauft"
 
-#: attendees/views.py:309
+#: attendees/views.py:308
 msgid "Payment failed. Please check your data."
 msgstr "Zahlung fehlgeschlagen. Bitte überprüfen Sie die Daten."
 
@@ -1293,25 +1301,25 @@ msgstr ""
 msgid "Filters"
 msgstr "Filter"
 
-#: schedule/admin.py:38
+#: schedule/admin.py:39
 #, python-format
 msgid "%(counter)s proposal(s) converted to sessions"
 msgstr "%(counter)s Session-Vorschläge wurden in Sessions umgewandelt"
 
-#: schedule/admin.py:42
+#: schedule/admin.py:43
 #, python-format
 msgid "%(counter)s proposal(s) skipped"
 msgstr "%(counter)s Session-Vorschläge wurden übersprungen"
 
-#: schedule/admin.py:45
+#: schedule/admin.py:46
 msgid "convert to sessions"
 msgstr "Auswahl in Sessions umwandeln"
 
-#: schedule/admin.py:51
+#: schedule/admin.py:52
 msgid "create simple export"
 msgstr "Auswahl als CSV exportieren"
 
-#: schedule/admin.py:72 schedule/admin.py:82
+#: schedule/admin.py:82 schedule/admin.py:92
 msgid "is scheduled"
 msgstr "Hat Session"
 
@@ -1420,6 +1428,7 @@ msgstr "Vortragende(r):"
 
 #: schedule/templates/schedule/session_listing.html:11
 #: schedule/templates/schedule/plugins/complete.html:11
+#: skins/pyconde2013/templates/schedule/plugins/complete.html:11
 msgid "Time"
 msgstr "Zeit"
 
