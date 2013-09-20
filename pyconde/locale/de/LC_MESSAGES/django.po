@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-19 22:25+0200\n"
+"POT-Creation-Date: 2013-09-20 14:40+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -25,43 +25,43 @@ msgstr "Sie haben kein Recht, diese Seite zu betrachten."
 msgid "Accounts app"
 msgstr "Accounts-Anwendung"
 
-#: accounts/forms.py:45 accounts/models.py:22
+#: accounts/forms.py:46 accounts/models.py:22
 msgid "short info"
 msgstr "Steckbrief"
 
-#: accounts/forms.py:46
+#: accounts/forms.py:47 accounts/forms.py:144 accounts/models.py:34
 msgid "organisation"
 msgstr "Organisation"
 
-#: accounts/forms.py:47 accounts/models.py:31
+#: accounts/forms.py:48 accounts/models.py:31
 msgid "Twitter"
 msgstr ""
 
-#: accounts/forms.py:49 accounts/models.py:33
+#: accounts/forms.py:50 accounts/models.py:33
 msgid "Website"
 msgstr ""
 
-#: accounts/forms.py:51 accounts/forms.py:144 accounts/models.py:26
+#: accounts/forms.py:52 accounts/forms.py:146 accounts/models.py:26
 msgid "Number of accompanying children"
 msgstr "Voraussichtliche Anzahl mitkommender Kinder"
 
-#: accounts/forms.py:54 accounts/models.py:30
+#: accounts/forms.py:55 accounts/models.py:30
 msgid "Age of accompanying children"
 msgstr "Alter der mitkommenden Kinder"
 
-#: accounts/forms.py:58
+#: accounts/forms.py:59
 msgid "Account data"
 msgstr "Konto-Daten"
 
-#: accounts/forms.py:59
+#: accounts/forms.py:60
 msgid "Profile"
 msgstr "Profil"
 
-#: accounts/forms.py:67
+#: accounts/forms.py:68
 msgid "Create account"
 msgstr "Konto anlegen"
 
-#: accounts/forms.py:70 accounts/forms.py:158
+#: accounts/forms.py:71 accounts/forms.py:160
 msgid ""
 "Please upload an image with a side length of at least 300 pixels.<br />If "
 "you don't upload an avatar your Gravatar will be used instead."
@@ -70,27 +70,27 @@ msgstr ""
 ">Falls Sie keinen Avatar hochladen, wird versucht, Ihren Gravatar zu "
 "verwenden."
 
-#: accounts/forms.py:103
+#: accounts/forms.py:104
 msgid "Log in"
 msgstr "Anmelden"
 
-#: accounts/forms.py:119
+#: accounts/forms.py:120
 #: skins/default/templates/userprofiles/password_reset.html:4
 #: skins/default/templates/userprofiles/password_reset.html:7
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
-#: accounts/forms.py:134
+#: accounts/forms.py:135
 #: skins/default/templates/userprofiles/password_change.html:4
 #: skins/default/templates/userprofiles/password_change.html:7
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: accounts/forms.py:155
+#: accounts/forms.py:157
 msgid "Change"
 msgstr "Ändern"
 
-#: accounts/forms.py:170
+#: accounts/forms.py:172
 msgid "Continue"
 msgstr "Weiter"
 
@@ -118,7 +118,7 @@ msgstr "Profilbild"
 msgid "Please upload an image with a side length of at least 300 pixels."
 msgstr "Bitte ein Bild mit einer Breite von mindestens 300 Pixeln hochladen."
 
-#: accounts/models.py:38
+#: accounts/models.py:39
 msgid "You've logged in successfully."
 msgstr "Sie haben sich erfolgreich angemeldet."
 
@@ -146,15 +146,17 @@ msgstr "Neues Konto anlegen"
 # "Registrierung"
 #: accounts/templates/accounts/login-email-request.html:6
 msgid ""
-"<p>The main mean of sending out notifications and updates is via e-mail. "
-"Providing one is optional.</p><p>If you enter an e-mail address in the form "
-"below, an activation email will be sent to this address. You can always "
-"change your e-mail address in the profile section of the site.</p>"
+"<p>Please provide a valid e-mail address. The main mean of sending out "
+"notifications and updates is via e-mail.</p><p>If you enter an e-mail "
+"address in the form below, an activation e-mail will be sent to this "
+"address. You can always change your e-mail address in the profile section of "
+"the site.</p>"
 msgstr ""
-"<p>Hier können Sie optional Ihre E-Mail-Adresse angeben, um Benachrichtungen "
-"zu erhalten.</p><p>Sollten Sie im untenstehenden Formular Ihre E-Mail-"
-"Adresse eingeben, wird an diese Adresse eine Aktivierungsmail versandt. Sie "
-"können Ihre Adresse im Mein Konto-Bereich jederzeit ändern.</p>"
+"<p>Bitte geben Sie eine gültige E-Mail-Adresse an, um Benachrichtungen zu "
+"erhalten.</p><p>Nachdem Sie im untenstehenden Formular Ihre E-Mail-Adresse "
+"eingegeben haben, wird an diese Adresse eine Aktivierungsmail versandt. Sie "
+"können Ihre Adresse später im <em>Mein Konto</em>-Bereich jederzeit ändern.</"
+"p>"
 
 #: attendees/admin.py:76 attendees/admin.py:108
 msgid "1 mail was"
