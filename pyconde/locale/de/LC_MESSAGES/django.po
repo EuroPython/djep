@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-20 14:40+0200\n"
+"POT-Creation-Date: 2013-09-20 17:41+0200\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -236,7 +236,7 @@ msgid ""
 msgstr ""
 
 #: attendees/forms.py:118 attendees/models.py:67 attendees/models.py:71
-#: attendees/models.py:273
+#: attendees/models.py:277
 msgid "Voucher"
 msgstr "Gutschein"
 
@@ -382,7 +382,7 @@ msgstr "Erforderlicher Gutscheintyp"
 msgid "Tutorial ticket"
 msgstr "Tutorial-Ticket"
 
-#: attendees/models.py:118 attendees/models.py:119 attendees/models.py:263
+#: attendees/models.py:118 attendees/models.py:119 attendees/models.py:267
 msgid "Ticket type"
 msgstr "Tickettyp"
 
@@ -390,7 +390,7 @@ msgstr "Tickettyp"
 msgid "Customer number"
 msgstr "Kundennummer"
 
-#: attendees/models.py:161 attendees/models.py:203 attendees/models.py:271
+#: attendees/models.py:161 attendees/models.py:203 attendees/models.py:275
 msgid "Date (added)"
 msgstr "Hinzugefügt am"
 
@@ -414,11 +414,11 @@ msgstr "Benutzer"
 msgid "Company"
 msgstr "Firma"
 
-#: attendees/models.py:193 attendees/models.py:265
+#: attendees/models.py:193 attendees/models.py:269
 msgid "First name"
 msgstr "Vorname"
 
-#: attendees/models.py:194 attendees/models.py:266
+#: attendees/models.py:194 attendees/models.py:270
 msgid "Last name"
 msgstr "Nachname"
 
@@ -471,32 +471,32 @@ msgstr "Kauf"
 msgid "Purchases"
 msgstr "Einkäufe"
 
-#: attendees/models.py:249
+#: attendees/models.py:253
 msgid "Size"
 msgstr "Größe"
 
-#: attendees/models.py:250
+#: attendees/models.py:254
 #, fuzzy
 msgid "Sort order"
 msgstr "Reihenfolge"
 
-#: attendees/models.py:253
+#: attendees/models.py:257
 msgid "T-Shirt Size"
 msgstr "T-Shirt Größe"
 
-#: attendees/models.py:254
+#: attendees/models.py:258
 msgid "T-Shirt Sizes"
 msgstr "T-Shirt Größen"
 
-#: attendees/models.py:268
+#: attendees/models.py:272
 msgid "Desired T-Shirt size"
 msgstr "Gewünschte T-Shirt Größe"
 
-#: attendees/models.py:278
+#: attendees/models.py:282
 msgid "Ticket"
 msgstr ""
 
-#: attendees/models.py:279
+#: attendees/models.py:283
 msgid "Tickets"
 msgstr ""
 
@@ -504,9 +504,17 @@ msgstr ""
 msgid "Ticket successfully purchased"
 msgstr "Ticket erfolgreich gekauft"
 
-#: attendees/views.py:308
+#: attendees/views.py:318
 msgid "Payment failed. Please check your data."
 msgstr "Zahlung fehlgeschlagen. Bitte überprüfen Sie die Daten."
+
+#: attendees/views.py:330
+msgid "Transaction already processed."
+msgstr "Transaktion wurde bereits ausgeführt."
+
+#: attendees/views.py:332
+msgid "Purchase already handled."
+msgstr "Bezahlung wurde bereits bearbeitet."
 
 #: attendees/templates/attendees/payment_paymill.html:6
 msgid "You have to have JavaScript enabled to pay via credit card."
