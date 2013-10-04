@@ -319,3 +319,6 @@ PURCHASE_EXPORT_SUBJECT = 'Purchase-export: {purchase_number}'
 PURCHASE_TERMS_OF_USE_URL = "https://2013.de.pycon.org/teilnehmen/registrieren/agb/"
 
 EXPORT_SECRET_KEY = os.environ.get('EXPORT_SECRET_KEY', '')  # Set this for production
+
+
+CHILDREN_DATA_DISABLED = True
