@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import xmlrpclib
 import decimal
+import tablib
 import logging
 
 from django.conf import settings
@@ -45,7 +46,7 @@ def send_purchase_confirmation_mail(purchase, recipients=None):
     from . import models
     if recipients is None:
         recipients = [purchase.customer.email, settings.DEFAULT_FROM_EMAIL]
-    terms_of_use_url = (settings.PURCHASE_TERMS_OF_USE_URL 
+    terms_of_use_url = (settings.PURCHASE_TERMS_OF_USE_URL
                         if (hasattr(settings, 'PURCHASE_TERMS_OF_USE_URL')
                         and settings.PURCHASE_TERMS_OF_USE_URL) else '')
     send_mail(
@@ -78,3 +79,16 @@ def get_purchase_number(purchase):
 def round_money_value(val):
     return decimal.Decimal(val).quantize(decimal.Decimal('.01'),
                                          rounding=decimal.ROUND_HALF_UP)
+
+
+def create_tickets_export(queryset):
+    """prepare CSV export of Tickets
+    note that we hard-coded exclude all tickets of state incomplete or canceled
+    """
+    data = tablib.Dataset(headers=['Ticket-ID', 'User-firstname', 'User-lastname',
+                                   'T-Shirt', 'Ticket-Type', 'Ticket-Status' ])
+    for ticket in queryset.select_related('purchase').exclude(
+                            purchase__state__in=['incomplete','canceled']):
+        data.append((ticket.pk, ticket.first_name, ticket.last_name,
+                     ticket.shirtsize, ticket.ticket_type, ticket.purchase.state))
+    return data

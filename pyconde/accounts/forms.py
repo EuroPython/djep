@@ -59,8 +59,13 @@ class ProfileRegistrationForm(RegistrationForm):
         account_fields = Fieldset(_('Account data'), Field('username', autofocus="autofocus"), 'email', 'password', 'password_repeat')
         profile_fields = Fieldset(_('Profile'), 'first_name', 'last_name',
                                   'avatar', 'short_info', 'organisation', 'twitter', 'website',
-                                  'num_accompanying_children',
-                                  'age_accompanying_children')
+                                   # children stuff
+                                   (Field('num_accompanying_children', disabled=True) 
+                                    if settings.CHILDREN_DATA_DISABLED else
+                                    Field('num_accompanying_children')),
+                                  (Field('age_accompanying_children', disabled=True) 
+                                   if settings.CHILDREN_DATA_DISABLED else                              
+                                   Field('age_accompanying_children')))
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
@@ -80,8 +85,8 @@ class ProfileRegistrationForm(RegistrationForm):
             avatar=self.cleaned_data['avatar'],
             short_info=self.cleaned_data['short_info'],
             organisation=self.cleaned_data['organisation'],
-            num_accompanying_children=self.cleaned_data['num_accompanying_children'],
-            age_accompanying_children=self.cleaned_data['age_accompanying_children']
+            num_accompanying_children=self.cleaned_data['num_accompanying_children'] or 0,
+            age_accompanying_children=self.cleaned_data['age_accompanying_children'] or ''
         )
 
 
@@ -145,6 +150,8 @@ class ProfileForm(BaseProfileForm):
     num_accompanying_children = forms.IntegerField(required=False,
                                                    label=_('Number of accompanying children'),
                                                    widget=forms.Select(choices=NUM_ACCOMPANYING_CHILDREN_CHOICES))
+    age_accompanying_children = forms.CharField(label=_("Age of accompanying children"),
+                                                required=False)
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
@@ -152,13 +159,21 @@ class ProfileForm(BaseProfileForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
             Div(Field('first_name', autofocus="autofocus"), 'last_name',
-                'avatar', 'short_info', 'organisation', 'twitter', 'website',
-                'num_accompanying_children'),
+                'avatar', 'short_info', 'organisation', 'twitter', 'website'),
+            (Div(Field('num_accompanying_children', disabled=True),
+                 Field('age_accompanying_children', disabled=True))
+             if settings.CHILDREN_DATA_DISABLED else
+             Div(Field('num_accompanying_children'),
+                 Field('age_accompanying_children'))),
             ButtonHolder(Submit('save', _('Change'), css_class='btn-primary'))
         )
         if settings.ACCOUNTS_FALLBACK_TO_GRAVATAR:
             self.fields['avatar'].help_text = _("""Please upload an image with a side length of at least 300 pixels.<br />If you don't upload an avatar your Gravatar will be used instead.""")
-
+        # children fields - may be disabled on registration form (see above)
+        # and removed completely from profile form
+        if settings.CHILDREN_DATA_DISABLED:
+            del self.fields['num_accompanying_children']
+            del self.fields['age_accompanying_children']
 
 class LoginEmailRequestForm(forms.Form):
     email = forms.EmailField(required=True)

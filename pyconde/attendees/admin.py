@@ -1,6 +1,7 @@
 # -* coding: utf-8 -*-
 from django.conf import settings
 from django.contrib import admin
+from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
@@ -9,6 +10,10 @@ from .models import (Customer, Purchase, Ticket, TicketType,
                      Voucher, VoucherType, TShirtSize)
 from . import utils
 from . import exporters
+
+def export_tickets(modeladmin, request, queryset):
+    return HttpResponse(utils.create_tickets_export(queryset).csv, mimetype='text/csv')
+export_tickets.short_description = _("Export as CSV")
 
 
 class TicketTypeAdmin(admin.ModelAdmin):
@@ -117,8 +122,10 @@ admin.site.register(Purchase, PurchaseAdmin)
 
 
 class TicketAdmin(admin.ModelAdmin):
-    list_display = ('purchase', 'first_name', 'last_name', 'ticket_type', 'date_added')
+    list_display = ('purchase', 'first_name', 'last_name', 'ticket_type',
+                    'shirtsize', 'date_added')
     list_filter = ('ticket_type', 'date_added', 'purchase__state')
     search_fields = ('first_name', 'last_name', 'purchase__customer__email')
+    actions = [export_tickets]
 
 admin.site.register(Ticket, TicketAdmin)
