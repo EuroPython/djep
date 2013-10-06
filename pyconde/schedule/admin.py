@@ -1,3 +1,5 @@
+import json
+
 from django import forms
 from django.contrib import admin
 from django.contrib import messages
@@ -52,6 +54,13 @@ def create_simple_session_export(modeladmin, request, queryset):
 create_simple_session_export.short_description = _("create simple export")
 
 
+def episodes_export(modeladmin, request, queryset):
+    exporter = exporters.SessionForEpisodesExporter()
+    return HttpResponse(json.dumps(exporter(), indent=4),
+                        mimetype='application/json')
+episodes_export.short_description = _("episodes export")
+
+
 class HasSelectedTimeslotsFilter(admin.SimpleListFilter):
     title = _(u'Timeslot Preferences')
     parameter_name = 'ts'
@@ -83,7 +92,7 @@ class SessionAdmin(admin.ModelAdmin):
                     "list_available_timeslots")
     list_filter = ("conference", "kind", "duration", "track", "location",
                    HasSelectedTimeslotsFilter)
-    actions = [create_simple_session_export]
+    actions = [create_simple_session_export, episodes_export]
     form = SessionAdminForm
 
     def list_available_timeslots(self, obj):
