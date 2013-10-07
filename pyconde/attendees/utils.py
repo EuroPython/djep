@@ -86,9 +86,12 @@ def create_tickets_export(queryset):
     note that we hard-coded exclude all tickets of state incomplete or canceled
     """
     data = tablib.Dataset(headers=['Ticket-ID', 'User-firstname', 'User-lastname',
-                                   'T-Shirt', 'Ticket-Type', 'Ticket-Status' ])
+                                   'T-Shirt', 'Ticket-Type', 'Ticket-Status',
+                                   'Purchase-ID', 'E-Mail (Purchase)' ])
     for ticket in queryset.select_related('purchase').exclude(
                             purchase__state__in=['incomplete','canceled']):
         data.append((ticket.pk, ticket.first_name, ticket.last_name,
-                     ticket.shirtsize, ticket.ticket_type, ticket.purchase.state))
+                     ticket.shirtsize, ticket.ticket_type,
+                     ticket.purchase.state, ticket.purchase.pk,
+                     ticket.purchase.customer.email))
     return data
