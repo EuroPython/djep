@@ -265,7 +265,8 @@ class TShirtSize(models.Model):
 class Ticket(models.Model):
     purchase = models.ForeignKey(Purchase)
     ticket_type = models.ForeignKey(TicketType, verbose_name=_('Ticket type'))
-
+    
+    # TODO: organisation - for badges should have asked for org name of visitor!
     first_name = models.CharField(_('First name'), max_length=250, blank=True)
     last_name = models.CharField(_('Last name'), max_length=250, blank=True)
     shirtsize = models.ForeignKey(TShirtSize, blank=True, null=True,
