@@ -26,3 +26,21 @@ class EditSessionForm(forms.ModelForm):
             Field('abstract'),
             ButtonHolder(Submit('save', _("Save"), css_class="btn btn-primary"))
             )
+
+
+class EditSessionCoverageForm(forms.ModelForm):
+    class Meta:
+        model = models.Session
+        fields = ['slides_url', 'video_url']
+
+    def __init__(self, *args, **kwargs):
+        super(EditSessionCoverageForm, self).__init__(*args, **kwargs)
+        self.fields['slides_url'].label = 'URL zu den Folien'
+        self.fields['video_url'].label = 'URL zum Video'
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.layout = Layout(
+            Field('slides_url'),
+            Field('video_url'),
+            ButtonHolder(Submit('save', _("Save"), css_class="btn btn-primary"))
+        )
