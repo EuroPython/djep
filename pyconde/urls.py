@@ -9,7 +9,9 @@ admin.autodiscover()
 
 urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
-    url(r'^tickets/', include('pyconde.attendees.urls')),
+    # Ticket app is replaced by placeholder page in CMS.
+    # To re-enable uncomment this URL and remove the placeholder page.
+    # url(r'^tickets/', include('pyconde.attendees.urls')),
     url(r'^accounts/', include('pyconde.accounts.urls')),
     url(r'^accounts/', include('userprofiles.urls')),
     url(r'^reviews/', include('pyconde.reviews.urls')),
