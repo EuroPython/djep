@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-09-20 17:41+0200\n"
+"POT-Creation-Date: 2013-11-03 15:10+0100\n"
 "PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
 "Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <LL@li.org>\n"
@@ -21,47 +21,59 @@ msgstr ""
 msgid "You are not allowed to access this page."
 msgstr "Sie haben kein Recht, diese Seite zu betrachten."
 
+#: accounts/admin.py:9
+msgid "Attending with children"
+msgstr "Anzahl Kinder"
+
+#: accounts/admin.py:13
+msgid "with children"
+msgstr "mit Kindern"
+
+#: accounts/admin.py:14
+msgid "without children"
+msgstr "ohne Kinder"
+
 #: accounts/cms_app.py:13
 msgid "Accounts app"
 msgstr "Accounts-Anwendung"
 
-#: accounts/forms.py:46 accounts/models.py:22
+#: accounts/forms.py:47 accounts/models.py:22
 msgid "short info"
 msgstr "Steckbrief"
 
-#: accounts/forms.py:47 accounts/forms.py:144 accounts/models.py:34
+#: accounts/forms.py:48 accounts/forms.py:152 accounts/models.py:34
 msgid "organisation"
 msgstr "Organisation"
 
-#: accounts/forms.py:48 accounts/models.py:31
+#: accounts/forms.py:49 accounts/models.py:31
 msgid "Twitter"
 msgstr ""
 
-#: accounts/forms.py:50 accounts/models.py:33
+#: accounts/forms.py:51 accounts/models.py:33
 msgid "Website"
 msgstr ""
 
-#: accounts/forms.py:52 accounts/forms.py:146 accounts/models.py:26
+#: accounts/forms.py:53 accounts/forms.py:154 accounts/models.py:26
 msgid "Number of accompanying children"
 msgstr "Voraussichtliche Anzahl mitkommender Kinder"
 
-#: accounts/forms.py:55 accounts/models.py:30
+#: accounts/forms.py:56 accounts/forms.py:156 accounts/models.py:30
 msgid "Age of accompanying children"
 msgstr "Alter der mitkommenden Kinder"
 
-#: accounts/forms.py:59
+#: accounts/forms.py:60
 msgid "Account data"
 msgstr "Konto-Daten"
 
-#: accounts/forms.py:60
+#: accounts/forms.py:61
 msgid "Profile"
 msgstr "Profil"
 
-#: accounts/forms.py:68
+#: accounts/forms.py:74
 msgid "Create account"
 msgstr "Konto anlegen"
 
-#: accounts/forms.py:71 accounts/forms.py:160
+#: accounts/forms.py:77 accounts/forms.py:174
 msgid ""
 "Please upload an image with a side length of at least 300 pixels.<br />If "
 "you don't upload an avatar your Gravatar will be used instead."
@@ -70,27 +82,34 @@ msgstr ""
 ">Falls Sie keinen Avatar hochladen, wird versucht, Ihren Gravatar zu "
 "verwenden."
 
-#: accounts/forms.py:104
+#: accounts/forms.py:108
+#, python-format
+msgid "<ul><li><a href=\"%(register_url)s\">Don't have an account yet?</a></li><li><a href=\"%(password_reset_url)s\">Forgot your password?</a></li></ul>"
+msgstr ""
+"<ul><li><a href=\"%(register_url)s\">Noch kein Konto?</a></li><li><a href="
+"\"%(password_reset_url)s\">Passwort vergessen?</a></li></ul>"
+
+#: accounts/forms.py:112
 msgid "Log in"
 msgstr "Anmelden"
 
-#: accounts/forms.py:120
+#: accounts/forms.py:128
 #: skins/default/templates/userprofiles/password_reset.html:4
 #: skins/default/templates/userprofiles/password_reset.html:7
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
-#: accounts/forms.py:135
+#: accounts/forms.py:143
 #: skins/default/templates/userprofiles/password_change.html:4
 #: skins/default/templates/userprofiles/password_change.html:7
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: accounts/forms.py:157
+#: accounts/forms.py:171
 msgid "Change"
 msgstr "Ändern"
 
-#: accounts/forms.py:172
+#: accounts/forms.py:190
 msgid "Continue"
 msgstr "Weiter"
 
@@ -158,32 +177,36 @@ msgstr ""
 "können Ihre Adresse später im <em>Mein Konto</em>-Bereich jederzeit ändern.</"
 "p>"
 
-#: attendees/admin.py:76 attendees/admin.py:108
+#: attendees/admin.py:16 reviews/admin.py:22 reviews/admin.py:28
+msgid "Export as CSV"
+msgstr "Als CSV exportieren"
+
+#: attendees/admin.py:81 attendees/admin.py:113
 msgid "1 mail was"
 msgstr "1 E-Mail wurde"
 
-#: attendees/admin.py:78 attendees/admin.py:110
+#: attendees/admin.py:83 attendees/admin.py:115
 #, python-format
 msgid "%s mails were"
 msgstr "%s E-Mails wurden"
 
-#: attendees/admin.py:79 attendees/admin.py:112
+#: attendees/admin.py:84 attendees/admin.py:117
 #, python-format
 msgid "%s successfully sent."
 msgstr "%s erfolgreich versandt."
 
-#: attendees/admin.py:81
+#: attendees/admin.py:86
 #, python-format
 msgid "Send purchase confirmation for selected %(verbose_name_plural)s"
 msgstr ""
 "Versende Bestellungsbest&auml;tigungen f&uuml;r ausgew&auml;hlte "
 "%(verbose_name_plural)s"
 
-#: attendees/admin.py:87
+#: attendees/admin.py:92
 msgid "Send export e-mails"
 msgstr "Export-E-Mails versenden"
 
-#: attendees/admin.py:114
+#: attendees/admin.py:119
 #, python-format
 msgid "Send confirmation for selected %(verbose_name_plural)s"
 msgstr ""
@@ -236,7 +259,7 @@ msgid ""
 msgstr ""
 
 #: attendees/forms.py:118 attendees/models.py:67 attendees/models.py:71
-#: attendees/models.py:277
+#: attendees/models.py:278
 msgid "Voucher"
 msgstr "Gutschein"
 
@@ -390,7 +413,7 @@ msgstr "Tickettyp"
 msgid "Customer number"
 msgstr "Kundennummer"
 
-#: attendees/models.py:161 attendees/models.py:203 attendees/models.py:275
+#: attendees/models.py:161 attendees/models.py:203 attendees/models.py:276
 msgid "Date (added)"
 msgstr "Hinzugefügt am"
 
@@ -414,11 +437,11 @@ msgstr "Benutzer"
 msgid "Company"
 msgstr "Firma"
 
-#: attendees/models.py:193 attendees/models.py:269
+#: attendees/models.py:193 attendees/models.py:270
 msgid "First name"
 msgstr "Vorname"
 
-#: attendees/models.py:194 attendees/models.py:270
+#: attendees/models.py:194 attendees/models.py:271
 msgid "Last name"
 msgstr "Nachname"
 
@@ -455,9 +478,8 @@ msgid "Transaction ID"
 msgstr "TransaktionsID"
 
 #: attendees/models.py:215
-#, fuzzy
 msgid "Payment total"
-msgstr "Zahlungsart"
+msgstr "Gesamtsumme"
 
 #: attendees/models.py:218
 msgid "Exported"
@@ -476,7 +498,6 @@ msgid "Size"
 msgstr "Größe"
 
 #: attendees/models.py:254
-#, fuzzy
 msgid "Sort order"
 msgstr "Reihenfolge"
 
@@ -488,31 +509,31 @@ msgstr "T-Shirt Größe"
 msgid "T-Shirt Sizes"
 msgstr "T-Shirt Größen"
 
-#: attendees/models.py:272
+#: attendees/models.py:273
 msgid "Desired T-Shirt size"
 msgstr "Gewünschte T-Shirt Größe"
 
-#: attendees/models.py:282
+#: attendees/models.py:283
 msgid "Ticket"
 msgstr ""
 
-#: attendees/models.py:283
+#: attendees/models.py:284
 msgid "Tickets"
 msgstr ""
 
-#: attendees/utils.py:52
+#: attendees/utils.py:53
 msgid "Ticket successfully purchased"
 msgstr "Ticket erfolgreich gekauft"
 
-#: attendees/views.py:318
+#: attendees/views.py:321
 msgid "Payment failed. Please check your data."
 msgstr "Zahlung fehlgeschlagen. Bitte überprüfen Sie die Daten."
 
-#: attendees/views.py:330
+#: attendees/views.py:333
 msgid "Transaction already processed."
 msgstr "Transaktion wurde bereits ausgeführt."
 
-#: attendees/views.py:332
+#: attendees/views.py:335
 msgid "Purchase already handled."
 msgstr "Bezahlung wurde bereits bearbeitet."
 
@@ -974,16 +995,15 @@ msgid "Do you really want to cancel this proposal?"
 msgstr "Möchten Sie diesen Session-Vorschlag zurückziehen?"
 
 #: proposals/templates/proposals/proposal_detail.html:10
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "\n"
 "This proposal was submitted on <span class=\"submission-date\">"
 "%(submission_date)s</span>.\n"
 msgstr ""
 "\n"
-"<a class=\"speaker user\" href=\"%(speaker_url)s\">%(speaker)s</a> hat "
-"diesen Vortrag am <span class=\"submission-date\">%(submission_date)s</span> "
-"eingereicht.\n"
+"Dieser Session-Vorschlag wurde am <span class=\"submission-date\">"
+"%(submission_date)s</span> eingereicht.\n"
 
 #: proposals/templates/proposals/proposal_detail.html:14
 #, python-format
@@ -1069,10 +1089,6 @@ msgstr "Einen Tutorialvorschlag einreichen"
 #: reviews/admin.py:17
 msgid "Mark comment(s) as deleted"
 msgstr "Kommentar(e) als gelöscht markieren"
-
-#: reviews/admin.py:22 reviews/admin.py:28
-msgid "Export as CSV"
-msgstr "Als CSV exportieren"
 
 #: reviews/cms_app.py:10
 msgid "Reviews app"

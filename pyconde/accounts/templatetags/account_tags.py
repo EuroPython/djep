@@ -24,6 +24,8 @@ def avatar(user, width=80):
     an avatar attached to his profile, gravatar will be used if enabled in
     the settings.
     """
+    if user is None:
+        raise ValueError("A user or profile has to be passed as argument")
     profile = None
     email = None
     if isinstance(user, models.Profile):

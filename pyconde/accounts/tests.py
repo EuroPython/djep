@@ -1,6 +1,9 @@
-import unittest
+from __future__ import print_function
+
+from django import template
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
+from django.test import TestCase, TransactionTestCase
 
 from .templatetags import account_tags
 from . import forms
@@ -9,7 +12,7 @@ from . import views
 from . import validators
 
 
-class AccountNameFilterTests(unittest.TestCase):
+class AccountNameFilterTests(TestCase):
     def test_empty_parameter(self):
         """
         If the parameter given to the filter was empty, we should return just
@@ -38,7 +41,42 @@ class AccountNameFilterTests(unittest.TestCase):
         self.assertEquals(u"username", account_tags.account_name(User(username="username", first_name=" ", last_name="User")))
 
 
-class ChangeProfileFormTests(unittest.TestCase):
+class AvatarTagTests(TransactionTestCase):
+    def test_no_user(self):
+        """
+        If you pass in a None object as user, a ValueError is expected.
+        """
+        tmpl = template.Template(
+            '''{% load account_tags %}{% avatar user %}''')
+        with self.assertRaises(ValueError):
+            tmpl.render(template.Context({'user': None}))
+
+    def test_with_user_without_avatar(self):
+        expected = '''<img class="avatar gravatar" src="images/noavatar80.png" alt="" style="width: 80px; height: 80px"/>'''
+        user = User.objects.create_user('testuser', 'test@test.com',
+            password='test')
+        profile = models.Profile(user=user)
+        profile.save()
+        with self.settings(ACCOUNTS_FALLBACK_TO_GRAVATAR=False):
+            tmpl = template.Template(
+                '''{% load account_tags %}{% avatar user %}''')
+            self.assertEquals(expected,
+                tmpl.render(template.Context({'user': user})).lstrip().rstrip())
+
+    def test_with_profile_without_avatar(self):
+        expected = '''<img class="avatar gravatar" src="images/noavatar80.png" alt="" style="width: 80px; height: 80px"/>'''
+        user = User.objects.create_user('testuser', 'test@test.com',
+            password='test')
+        profile = models.Profile(user=user)
+        profile.save()
+        with self.settings(ACCOUNTS_FALLBACK_TO_GRAVATAR=False):
+            tmpl = template.Template(
+                '''{% load account_tags %}{% avatar user %}''')
+            self.assertEquals(expected,
+                tmpl.render(template.Context({'user': profile})).lstrip().rstrip())
+
+
+class ChangeProfileFormTests(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(
             'test', 'test@test.com', 'test')
@@ -61,7 +99,7 @@ class ChangeProfileFormTests(unittest.TestCase):
         self.assertEquals('test', new_profile.short_info)
 
 
-class AutocompleteUserViewTests(unittest.TestCase):
+class AutocompleteUserViewTests(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(
             'test', 'test@test.com', 'test')
@@ -117,7 +155,7 @@ class AutocompleteUserViewTests(unittest.TestCase):
         self.assertEquals('Firstname Lastname', result[0]['label'])
 
 
-class TwitterUsernameValidatorTest(unittest.TestCase):
+class TwitterUsernameValidatorTest(TestCase):
     def test_start_with_at(self):
         with self.assertRaises(ValidationError):
             validators.twitter_username("@test")

@@ -4,6 +4,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth import forms as auth_forms
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext
 
 from userprofiles.forms import RegistrationForm
 from userprofiles.contrib.profiles.forms import ProfileForm as BaseProfileForm
@@ -104,8 +105,10 @@ class AuthenticationForm(auth_forms.AuthenticationForm):
         self.helper.layout = Layout(
                 Div(Field('username', autofocus="autofocus"), 'password'),
                 ButtonHolder(
-                    HTML('<ul><li><a href="{0}">Noch kein Konto?</a></li><li><a href="{1}">Passwort vergessen?</a></li></ul>'.format(
-                        reverse('userprofiles_registration'), reverse('auth_password_reset'))),
+                    HTML(ugettext(u'<ul><li><a href="%(register_url)s">Don\'t have an account yet?</a></li><li><a href="%(password_reset_url)s">Forgot your password?</a></li></ul>') % {
+                        'register_url': reverse('userprofiles_registration'), 
+                        'password_reset_url': reverse('auth_password_reset')
+                    }),
                     Submit('login', _('Log in'), css_class='btn-primary')
                 )
             )

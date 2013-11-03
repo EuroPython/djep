@@ -1,16 +1,17 @@
 from django.contrib import admin
 from django.contrib.admin import SimpleListFilter
+from django.utils.translation import ugettext_lazy as _
 
 from . import models
 
 
 class WithChildrenFilter(SimpleListFilter):
-    title = 'Anzahl Kinder'
+    title = _('Attending with children')
     parameter_name = 'children'
 
     def lookups(self, request, model_admin):
-        return (('y', 'mit Kindern'),
-                ('n', 'ohne Kinder'))
+        return (('y', _('with children')),
+                ('n', _('without children')))
 
     def queryset(self, request, queryset):
         if self.value() == 'y':
