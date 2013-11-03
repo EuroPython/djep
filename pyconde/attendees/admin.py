@@ -5,6 +5,7 @@ from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ugettext
 
 from .models import (Customer, Purchase, Ticket, TicketType,
                      Voucher, VoucherType, TShirtSize)
@@ -96,7 +97,7 @@ class PurchaseAdmin(admin.ModelAdmin):
         for purchase in queryset.filter(
                 state__in=('invoice_created', 'payment_received')):
 
-            send_mail('Bestätigung des Zahlungseingangs',
+            send_mail(ugettext('Payment receipt confirmation'),
                 render_to_string('attendees/mail_payment_received.html', {
                     'purchase': purchase
                 }),
@@ -114,7 +115,7 @@ class PurchaseAdmin(admin.ModelAdmin):
         else:
             message_bit = _('%s mails were') % sent
 
-        self.message_user(request, _('%s successfully sent.') % message_bit)
+        self.message_user(request, ugettext('%s successfully sent.') % message_bit)
     send_payment_confirmation.short_description = _(
         'Send confirmation for selected %(verbose_name_plural)s')
 

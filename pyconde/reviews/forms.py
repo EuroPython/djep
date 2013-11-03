@@ -2,6 +2,7 @@
 from django import forms
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Field, ButtonHolder, HTML, Fieldset
@@ -157,5 +158,5 @@ class ProposalFilterForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(ProposalFilterForm, self).__init__(*args, **kwargs)
-        self.fields['track'].choices = [('', 'Track'), ('-', '----------')] + [(t.slug, t.name) for t in conference_models.Track.objects.all()]
-        self.fields['kind'].choices = [('', 'Vortragsart'), ('-', '----------')] + [(t.slug, t.name) for t in conference_models.SessionKind.objects.exclude(slug='keynote').all()]
+        self.fields['track'].choices = [('', ugettext('Track')), ('-', '----------')] + [(t.slug, t.name) for t in conference_models.Track.objects.all()]
+        self.fields['kind'].choices = [('', ugettext('Session type')), ('-', '----------')] + [(t.slug, t.name) for t in conference_models.SessionKind.objects.exclude(slug='keynote').all()]

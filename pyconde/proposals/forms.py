@@ -1,6 +1,7 @@
 # -*- encoding: utf-8 -*-
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext
 from django.template.loader import render_to_string
 from django.core.exceptions import ValidationError
 
@@ -54,9 +55,9 @@ class ProposalSubmissionForm(forms.ModelForm):
 
         instance = kwargs.get('instance')
         if instance:
-            button_text = u"Änderungen speichern"
+            button_text = ugettext("Save changes")
         else:
-            button_text = u"Vortrag einreichen"
+            button_text = ugettext("Submit proposal")
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
@@ -106,13 +107,13 @@ class ProposalSubmissionForm(forms.ModelForm):
             form.fields['track'] = forms.ModelChoiceField(label=_("Track"), required=True, initial=None,
                 queryset=tracks)
         if 'description' in form.fields:
-            form.fields['description'].help_text = """Bis ca. 50 Worte. Erscheint im gedruckten Programm. <br />Dieses Feld unterstützt <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a>."""
+            form.fields['description'].help_text = _("""Up to around 50 words. Appears in the printed programem. <br />This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> input.""")
             form.fields['description'].validators = [validators.MaxLengthValidator(2000)]
         if 'abstract' in self.fields:
-            form.fields['abstract'].help_text = """Darstellung des Vortragsinhalts und ist die Grundlage für das Review.<br />Dieses Feld unterstützt <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a>."""
+            form.fields['abstract'].help_text = _("""Describe your presentation in detail. This is what will be reviewed during the review phase.<br />This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> input.""")
             form.fields['abstract'].validators = [validators.MaxLengthValidator(3000)]
         if 'additional_speakers' in form.fields:
-            form.fields['additional_speakers'].help_text = """Wenn Sie den Vortrag zusammen mit anderen Personen halten wollen, tragen Sie hier bitte deren Namen ein."""
+            form.fields['additional_speakers'].help_text = _("""If you want to present with others, please enter their names here.""")
         if 'available_timeslots' in form.fields:
             form.fields['available_timeslots'] = forms.ModelMultipleChoiceField(
                 label=_("available timeslots"),
@@ -120,9 +121,9 @@ class ProposalSubmissionForm(forms.ModelForm):
                 widget=forms.CheckboxSelectMultiple,
                 required=False
             )
-            form.fields['available_timeslots'].help_text += u"""<br /><br />Bitte geben Sie hier alle Zeiten an, die für Ihren Vortrag/Ihr Tutorial in Frage kommen. Diese Zeiten werden dann so gut wie möglich für die Erstellung des Zeitplans in Betracht gezogen."""
+            form.fields['available_timeslots'].help_text += ugettext("""<br /><br />Please pick alle the times that should be considered for your presentation/tutorial. If possible these will be used for the final timeslot.""")
         if 'notes' in form.fields:
-            form.fields['notes'].help_text = u"""Hier können Sie Anmerkungen und Kommentare eintragen, die nur für die Reviewer und Organisatoren sichtbar sind."""
+            form.fields['notes'].help_text = _("""Add notes or comments here that can only be seen by reviewers and the organizing team.""")
 
     def clean(self):
         cleaned_data = super(ProposalSubmissionForm, self).clean()
@@ -227,9 +228,9 @@ class TutorialSubmissionForm(TypedSubmissionForm):
         super(TutorialSubmissionForm, self).__init__(*args, **kwargs)
         instance = kwargs.get('instance')
         if instance:
-            button_text = u"Änderungen speichern"
+            button_text = _("Save changes")
         else:
-            button_text = u"Tutorial einreichen"
+            button_text = _("Submit tutorial")
         self.helper.layout = Layout(
             Fieldset(
                 _('General'),
@@ -248,19 +249,12 @@ class TutorialSubmissionForm(TypedSubmissionForm):
         super(TutorialSubmissionForm, self).customize_fields(instance, form, tracks)
         if form is None:
             form = self
-        form.fields['description'].label = "Kurzbeschreibung"
+        form.fields['description'].label = _("Description")
         form.fields['description'].validators.append(validators.MaxWordsValidator(300))
-        form.fields['description'].help_text = """Dieses Feld unterstützt <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a>.<br />< 300 Worte"""
-        form.fields['abstract'].label = "Gliederung"
-        form.fields['abstract'].help_text = """Dieses Feld unterstützt <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a>.<br /><br />
-                                              Bitte stichpunktartige Angaben zum Aufbau des Tutorials mit Zeitangaben
-                                              zu den einzelnen Punkten, wobei die Summe 180 Minuten ergeben muss.
-                                              Bitte die benötigen Software-Pakete aufführen, so dass die Teilnehmer
-                                              bereits vor dem Tutorial ihre Laptops einrichten können. Bitte Anforderungen
-                                              an Versionen angeben und deren Zusammenspiel überprüfen.<br /><br /> Grundsätzlich
-                                              sollten die Tutorial-Inhalte auf allen drei gängigen
-                                              Betriebssystemen (Linux, Mac OS X und Windows) funktionieren.
-                                              Wenn nicht, bitte explizit darauf hinweisen."""
+        form.fields['description'].help_text = ugettext("""This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> input.""") + ugettext("""<br />< 300 words""")
+        form.fields['abstract'].label = ugettext("Structure")
+        form.fields['abstract'].help_text = ugettext("""This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> input.""") + ugettext(
+            """<br /><br />Please provide details about the structure including the timing. The sum of these structural points has to be 180 minutes. Please also list any software (incl. version information) that attendees should install beforehand. The tutorial examples should work on Linux, Mac OSX and Windows. If they don't, please mark them accordingly.""")
         if 'available_timeslots' in form.fields:
             form.fields['available_timeslots'].queryset = form.fields['available_timeslots'].queryset.filter(section__slug='tutorials')
 
@@ -271,7 +265,7 @@ class TutorialSubmissionForm(TypedSubmissionForm):
 class TalkSubmissionForm(TypedSubmissionForm):
     def __init__(self, *args, **kwargs):
         super(TalkSubmissionForm, self).__init__(*args, **kwargs)
-        self.helper.layout.fields.insert(-1, Fieldset('Videoaufzeichnung', HTML(u"""<p class="control-group">Optional können Vorträge auch aufgezeichnet werden. Es liegt während der Konferenz ein Papierformular auf, durch das Sie einer solchen Aufzeichnung zustimmen können. Mehr Informationen dazu finden Sie <a href="/vortragende/">hier</a>.</p>""")))
+        self.helper.layout.fields.insert(-1, Fieldset(_('Video recording'), HTML(ugettext("""<p class="control-group">Optionally, presentatons can be video recorded. During the conference there will be a paper form available where you can allow this recording. You can find out more <a href="/vortragende/">here</a>.</p>"""))))
 
     def customize_fields(self, instance=None, form=None, tracks=None):
         super(TalkSubmissionForm, self).customize_fields(instance, form, tracks)
