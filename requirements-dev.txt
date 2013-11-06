@@ -1,0 +1,9 @@
+-r requirements.txt
+
+django-debug-toolbar==0.10.2
+
+Whoosh==2.5.4
+
+# Documentation
+Sphinx==1.1.3
+
