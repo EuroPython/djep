@@ -1,8 +1,12 @@
+*~
+*.pyc
+.*
+
+.sass-cache
+node_modules
+
 pyconde/site_media/
 pyconde/deployed_static_media/
 pyconde/settings.py
 pyconde/*.db
 docs/_build
-setup.py.bak
-*.mo
-*.*~
