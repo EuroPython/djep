@@ -1,0 +1,196 @@
+@import "compass/reset";
+@import "compass/css3/border-radius";
+@import "compass/css3/inline-block";
+@import "compass/typography/lists/horizontal-list";
+
+//-----------------------------------------------------------------------------
+
+$highlightColor: #D65216;
+$baseColor: #648899;
+$infoColor: #00788C;
+$background1: #F3F8F9;
+$baseFont: 'ff-mark-web-pro', 'Verdana', sans-serif;
+$footerFont: 'dejarip', 'Verdana', sans-serif;
+
+//-----------------------------------------------------------------------------
+
+html {
+    font-size: 62.5%;
+    font-family: $baseFont;
+    line-height: 150%;
+}
+
+body {
+    color: $baseColor;
+    background: #FFFFFF;
+    text-align: center;
+}
+
+p {
+    line-height: 140%;
+}
+
+header {
+    height: 170px;
+    .inner {
+        height: 100%;
+        background: $background1;
+        .logo, .menu {
+            float: left;
+        }
+        .logo {
+            margin: 30px 45px 20px 90px;
+            img {
+                height: 120px;
+            }
+        }
+        .menu {
+            margin: 63px 0 62px 0;
+            nav {
+                ul {
+                    @include horizontal-list(25px);
+                    a {
+                        color: $infoColor;
+                        line-height: 45px;
+                        font-size: 16px;
+                        font-weight: bold;
+                        text-decoration: none;
+                    }
+                }
+            }
+            &.left {
+                margin: 64px 0 64px 0;
+                nav {
+                    ul {
+                        @include horizontal-list(25px);
+                    }
+                }
+            }
+            &.right {
+                float: right;
+                margin-right: 90px;
+                nav {
+                    ul {
+                        @include horizontal-list(7.5px);
+                        a {
+                            color: $baseColor;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
+a.btn {
+    background: $baseColor !important;
+    color: #ffffff !important;
+    padding: 8px 20px 12px 20px !important;
+    @include border-radius(5px);
+    &.danger {
+        background-color: $highlightColor !important;
+    }
+}
+
+
+
+header .inner, section, footer {
+    width: 1100px;
+    margin: auto;
+}
+
+#info {
+    font-size: 32px;
+    font-size: 3.2rem;
+    padding: 60px 0;
+    color: $infoColor;
+    font-weight: 300;
+    width: 800px; // Override for styling purposes
+}
+
+#get-notified {
+    width: 782px;
+    border-radius: 5px;
+    background: $background1;
+    padding: 38px;
+    box-sizing: border-box;
+    font-size: 24px;
+    font-size: 2.4rem;
+    p {
+        a {
+            font-weight: 600;
+            color: $baseColor;
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+#social {
+    padding: 40px 0;
+    font-size: 32px;
+    font-size: 3.2rem;
+    font-weight: 300;
+    color: $infoColor;
+
+    ul {
+        margin-top: 20px;
+    }
+
+    li {
+        display: inline-block;
+    }
+}
+
+footer {
+    border-top: 1px solid #bcc7cb;
+    padding-top: 30px;
+    margin-bottom: 60px;
+    font-size: 16px;
+    font-size: 1.6rem;
+    font-family: $footerFont;
+
+    a {
+        font-weight: bold;
+        color: $baseColor;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+strong {
+    font-weight: bold;
+    color: $highlightColor;
+}
+
+//-----------------------------------------------------------------------------
+
+@media (screen and max-width: 1000px) {
+    header .inner, section, footer, #info {
+        width: 100%;
+    }
+}
+
+@media (screen and max-width: 782px) {
+    #get-notified {
+        width: 100%;
+    }
+}
+
+@media (screen and max-width: 550px) {
+    header p {
+        // We hide the info text because it would overlap with the logo
+        display: none;
+    }
+}
+
+@media (screen and max-width: 400px) {
+    html {
+        font-size: 50%;
+    }
+}

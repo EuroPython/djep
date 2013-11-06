@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="80.5px" height="102.453px" viewBox="0 0 80.5 102.453" enable-background="new 0 0 80.5 102.453" xml:space="preserve">
+<rect x="0.5" y="-0.033" opacity="0" width="80.369" height="102.033"/>
+<g>
+	<defs>
+		<rect id="SVGID_9_" y="0.42" width="80.369" height="102.033"/>
+	</defs>
+	<clipPath id="SVGID_2_">
+		<use xlink:href="#SVGID_9_"  overflow="visible"/>
+	</clipPath>
+	<g opacity="0.15" clip-path="url(#SVGID_2_)" enable-background="new    ">
+		<g>
+			<defs>
+				<rect id="SVGID_11_" x="0.5" width="80" height="102"/>
+			</defs>
+			<clipPath id="SVGID_4_">
+				<use xlink:href="#SVGID_11_"  overflow="visible"/>
+			</clipPath>
+			<g clip-path="url(#SVGID_4_)">
+				<defs>
+					<rect id="SVGID_13_" x="0.5" width="80" height="102"/>
+				</defs>
+				<clipPath id="SVGID_6_">
+					<use xlink:href="#SVGID_13_"  overflow="visible"/>
+				</clipPath>
+				<g clip-path="url(#SVGID_6_)">
+					<defs>
+						<rect id="SVGID_15_" x="0.5" width="80" height="102"/>
+					</defs>
+					<clipPath id="SVGID_8_">
+						<use xlink:href="#SVGID_15_"  overflow="visible"/>
+					</clipPath>
+					<path clip-path="url(#SVGID_8_)" fill-rule="evenodd" clip-rule="evenodd" fill="#00A0D9" d="M60.805,0.292
+						c6.52,0.034,11.705,2.924,15.583,8.123c2.533,3.398,3.78,7.273,3.808,11.549c0.083,13.059,0.209,26.115,0.304,39.174
+						c0.06,8.005-3.44,13.992-10.282,18.026c-2.568,1.515-5.377,2.352-8.352,2.391c-7.767,0.102-15.171,0.575-15.752,0.927
+						c-1.124,0.682-1.214,2.146-0.318,3.441c2.117,3.064,4.262,6.111,6.391,9.169c1.224,1.757,2.484,3.496,3.642,5.301
+						c0.339,0.53,0.563,1.271,0.509,1.89c-0.125,1.418-1.652,2.141-3.1,1.458c-1.424-0.671-2.781-1.483-4.149-2.269
+						c-7.968-4.567-15.929-9.149-23.895-13.725c-4.837-2.776-9.733-5.453-14.502-8.347c-6.423-3.898-9.753-9.752-9.9-17.269
+						c-0.157-8.027-0.086-16.058-0.136-24.085c-0.031-4.975-0.116-9.949-0.153-14.924c-0.024-3.312,0.391-6.56,1.867-9.566
+						C5.473,5.237,10.496,1.354,17.423,0.259c2.587-0.41,5.276-0.207,7.92-0.209C36.824,0.031,47.404,0.221,60.805,0.292"/>
+				</g>
+			</g>
+		</g>
+	</g>
+</g>
+<path fill="#0098B3" d="M46.073,36.382l-0.436,4.121h-3.294V52.46h-4.948V40.503h-2.467v-4.121h2.467V33.9
+	c0-3.352,1.394-5.354,5.354-5.354h3.294v4.121h-2.061c-1.538,0-1.64,0.58-1.64,1.654v2.061H46.073z"/>
+</svg>
