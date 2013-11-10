@@ -168,9 +168,9 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 CMS_TEMPLATES = (
-    ('cms/default.html', 'Default template'),
-    ('cms/frontpage.html', 'Frontpage template'),
-    ('cms/page_templates/fullpage.html', 'Full page width (schedule, ...)'),
+    ('cms/default.html', ugettext('Default template')),
+    ('cms/start.html', ugettext('Start page template')),
+    ('cms/page_templates/fullpage.html', ugettext('Full page width (schedule, ...)')),
 )
 
 # Docs at https://django-cms.readthedocs.org/en/develop/getting_started/configuration.html#cms-languages
