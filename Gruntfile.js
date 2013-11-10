@@ -3,7 +3,7 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         compass: {
             options: {
-                basePath: 'pyconde/skins/ep14',
+                basePath: 'pyconde/skins/ep14/',
                 config: 'pyconde/skins/ep14/config.rb',
             },
             server: {},

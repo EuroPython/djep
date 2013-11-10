@@ -60,7 +60,7 @@ COMPRESS_PRECOMPILERS = (
 
 ROOT_URLCONF = '%s.urls' % PROJECT_NAME
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     # Skins
     'pyconde.skins.ep14',
     'pyconde.skins.default',
@@ -118,7 +118,13 @@ INSTALLED_APPS = (
     'pyconde.schedule',
     'pyconde.search',
     'pyconde.helpers',
-)
+]
+
+try:
+    import django_extensions
+    INSTALLED_APPS += ['django_extensions']
+except ImportError:
+    pass
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -335,4 +341,4 @@ CHILDREN_DATA_DISABLED = True
 
 # TODO: As soon as we move to foundation use
 # https://pypi.python.org/pypi/crispy-forms-foundation
-CRISPY_TEMPLATE_PACK = 'bootstrap'
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
