@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 {% load i18n %}
 {% load thumbnail %}
+{% load account_tags %}
 
 {% block title %}{% trans "Registration" %}{% endblock %}
 {% block page_title %}{% trans "Registration" %}{% endblock %}
@@ -8,7 +9,7 @@
 
 {% block content %}
     {% if account %}
-        <p>{% trans "Hi" %} {{ account.username }}!</p>
+        <p>{% trans "Hi" %} {{ account|addressed_as }}!</p>
         <p>
             {% blocktrans %}We activated your account. You are now able to log in. Have fun!{% endblocktrans %}
         </p>

@@ -41,6 +41,50 @@ class AccountNameFilterTests(TestCase):
         self.assertEquals(u"username", account_tags.account_name(User(username="username", first_name=" ", last_name="User")))
 
 
+class DisplayNameFilterTests(TransactionTestCase):
+    def test_empty_parameter(self):
+        self.assertIsNone(account_tags.display_name(None))
+
+    def test_display_name_given(self):
+        """
+        If the user has specified a display name, it should be returned here.
+        """
+        user = User(username="username")
+        user.save()
+        profile = models.Profile(display_name="Display Name", user=user)
+        self.assertEquals("Display Name", account_tags.display_name(user))
+
+    def test_no_display_name_given(self):
+        """
+        If the user has not specified a display name, fallback to the
+        userername.
+        """
+        user = User(username="username")
+        user.save()
+        profile = models.Profile(display_name="", user=user)
+        profile.save()
+        self.assertEquals("username", account_tags.display_name(user))
+
+
+class AddressedAsFilterTest(TransactionTestCase):
+    def test_empty_parameter(self):
+        self.assertIsNone(account_tags.addressed_as(None))
+
+    def test_addressed_as_given(self):
+        user = User(username="username")
+        user.save()
+        profile = models.Profile(display_name="Display Name",
+            addressed_as="Addressed as", user=user)
+        self.assertEquals("Addressed as", account_tags.addressed_as(user))
+
+    def test_no_addressed_as_given(self):
+        user = User(username="username")
+        user.save()
+        profile = models.Profile(addressed_as="", display_name="Display name", user=user)
+        profile.save()
+        self.assertEquals("Display name", account_tags.addressed_as(user))
+
+
 class AvatarTagTests(TransactionTestCase):
     def test_no_user(self):
         """

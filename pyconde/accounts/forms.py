@@ -54,11 +54,17 @@ class ProfileRegistrationForm(RegistrationForm):
                                                    widget=forms.Select(choices=NUM_ACCOMPANYING_CHILDREN_CHOICES))
     age_accompanying_children = forms.CharField(
         label=_("Age of accompanying children"), required=False)
+    full_name = forms.CharField(required=False)
+    display_name = forms.CharField(required=True,
+        help_text=_('What name should be displayed to other people?'))
+    addressed_as = forms.CharField(label=_("Address me as"), required=False,
+        help_text=_('How should we call you in mails and dialogs throughout the website? If you leave this field blank, we will fallback to your display name.'))
 
     def __init__(self, *args, **kwargs):
         super(ProfileRegistrationForm, self).__init__(*args, **kwargs)
         account_fields = Fieldset(_('Login information'), Field('username', autofocus="autofocus"), 'email', 'password', 'password_repeat')
-        profile_fields = Fieldset(_('Personal information'), 'first_name', 'last_name', 'gender',
+        profile_fields = Fieldset(_('Personal information'), 'full_name',
+                                  'display_name', 'addressed_as',
                                   'avatar', 'short_info')
         profession_fields = Fieldset(_('Professional information'), 'organisation', 'twitter', 'website')
         self.helper = FormHelper()
@@ -81,7 +87,10 @@ class ProfileRegistrationForm(RegistrationForm):
             short_info=self.cleaned_data['short_info'],
             organisation=self.cleaned_data['organisation'],
             num_accompanying_children=self.cleaned_data['num_accompanying_children'] or 0,
-            age_accompanying_children=self.cleaned_data['age_accompanying_children'] or ''
+            age_accompanying_children=self.cleaned_data['age_accompanying_children'] or '',
+            full_name=self.cleaned_data['full_name'],
+            display_name=self.cleaned_data['display_name'],
+            addressed_as=self.cleaned_data['addressed_as']
         )
 
 

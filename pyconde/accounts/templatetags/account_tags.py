@@ -17,6 +17,16 @@ def account_name(user):
     return utils.get_account_name(user)
 
 
+@register.filter
+def display_name(user):
+    return utils.get_display_name(user)
+
+
+@register.filter
+def addressed_as(user):
+    return utils.get_addressed_as(user)
+
+
 @register.inclusion_tag('accounts/tags/avatar.html')
 def avatar(user, width=80):
     """

@@ -32,6 +32,13 @@ class Profile(models.Model):
         validators=[validators.twitter_username])
     website = models.URLField(_("Website"), blank=True)
     organisation = models.TextField(_('Organisation'), blank=True)
+    full_name = models.CharField(_("Full name"), max_length=255, blank=True)
+    display_name = models.CharField(_("Display name"), max_length=255,
+        help_text=_('What name should be displayed to other people?'),
+        blank=True)
+    addressed_as = models.CharField(_("Addressed as"), max_length=255,
+        help_text=_('How should we call you in mails and dialogs throughout the website?'),
+        blank=True)
 
 
 @receiver(user_logged_in)
