@@ -7,7 +7,7 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>{% block site_title %}EuroPython 2014{% endblock %}</title>
+        <title>{% block page_title %}EuroPython 2014{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- build:css assets/css/screen.css -->
         <link rel="stylesheet" href="{% static "assets/css/screen.css" %}">
@@ -60,10 +60,9 @@
                 </div>
             </header>
             <div id="main">
-                <section id="info">
-                    {% block abovepage %}{% placeholder abovepage %}{% endblock %}
-                </section>
+                {% block site_teaser %}{% endblock %}
                 <section id="content" class="container">
+                    {% block site_title %}<h1>{% block title %}{% endblock %}</h1>{% endblock %}
                     {% block site_content %}
                         {% block content %}
                             {% placeholder site_content %}

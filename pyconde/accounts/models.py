@@ -31,7 +31,7 @@ class Profile(models.Model):
     twitter = models.CharField(_("Twitter"), blank=True, max_length=20,
         validators=[validators.twitter_username])
     website = models.URLField(_("Website"), blank=True)
-    organisation = models.TextField(_('organisation'), blank=True)
+    organisation = models.TextField(_('Organisation'), blank=True)
 
 
 @receiver(user_logged_in)

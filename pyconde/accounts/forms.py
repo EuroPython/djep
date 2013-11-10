@@ -45,7 +45,7 @@ class ProfileRegistrationForm(RegistrationForm):
     avatar = forms.ImageField(widget=forms.FileInput, required=False,
         help_text=Profile()._meta.get_field_by_name('avatar')[0].help_text)
     short_info = forms.CharField(_("short info"), widget=forms.Textarea, required=False)
-    organisation = forms.CharField(label=_("organisation"), required=False)
+    organisation = forms.CharField(label=_("Organisation"), required=False)
     twitter = forms.CharField(_("Twitter"), required=False,
         validators=[validators.twitter_username])
     website = forms.URLField(_("Website"), required=False)
@@ -103,7 +103,7 @@ class AuthenticationForm(auth_forms.AuthenticationForm):
                         'register_url': reverse('userprofiles_registration'), 
                         'password_reset_url': reverse('auth_password_reset')
                     }),
-                    Submit('login', _('Log in'), css_class='btn-primary')
+                    Submit('login', _('Log in'), css_class='btn btn-primary')
                 )
             )
 
@@ -181,4 +181,4 @@ class LoginEmailRequestForm(forms.Form):
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
             'email',
-            ButtonHolder(Submit('save', _("Continue"), css_class='btn-primary')))
+            ButtonHolder(Submit('save', _("Continue"), css_class='btn btn-primary')))

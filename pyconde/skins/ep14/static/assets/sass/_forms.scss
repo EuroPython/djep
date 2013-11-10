@@ -37,16 +37,18 @@ label {
         float: left;
         width: 80%;
         margin-left: 2%;
-        input[type=text], input[type=email], input[type=password] {
+        input[type=text], input[type=email], input[type=password], textarea {
             box-sizing: border-box;
-            width: 60%;
-            display: inline-block;
             padding: 15px 1%;
             line-height: 150%;
             font-size: 16px;
             font-size: 1.6rem;
             border: 1px solid $inputBorder;
             border-radius: 5px;
+        }
+        input[type=text], input[type=email], input[type=password] {
+            width: 60%;
+            display: inline-block;
         }
         .help-block {
             display: inline-block;
@@ -63,7 +65,7 @@ label {
     text-align: right;
 }
 
-.btn {
+.btn, .btn-primary {
     border-radius: 5px;
     padding: 15px;
     font-size: 1.6rem;
