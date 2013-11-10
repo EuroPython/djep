@@ -20,7 +20,7 @@ DEFAULT_FROM_EMAIL = 'noreply@ep14.org'
 SERVER_EMAIL = 'noreply@ep14.org'
 
 TIME_ZONE = 'Europe/Berlin'
-LANGUAGE_CODE = 'en'
+LANGUAGE_CODE = 'de'
 
 USE_I18N = True
 USE_L10N = True
@@ -60,7 +60,7 @@ COMPRESS_PRECOMPILERS = (
 
 ROOT_URLCONF = '%s.urls' % PROJECT_NAME
 
-INSTALLED_APPS = [
+INSTALLED_APPS = (
     # Skins
     'pyconde.skins.ep14',
     'pyconde.skins.default',
@@ -118,13 +118,7 @@ INSTALLED_APPS = [
     'pyconde.schedule',
     'pyconde.search',
     'pyconde.helpers',
-]
-
-try:
-    import django_extensions
-    INSTALLED_APPS += ['django_extensions']
-except ImportError:
-    pass
+)
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -158,7 +152,7 @@ TEMPLATE_DIRS = (
 USERPROFILES_CHECK_UNIQUE_EMAIL = True
 USERPROFILES_DOUBLE_CHECK_EMAIL = False
 USERPROFILES_DOUBLE_CHECK_PASSWORD = True
-USERPROFILES_REGISTRATION_FULLNAME = False
+USERPROFILES_REGISTRATION_FULLNAME = True
 USERPROFILES_USE_ACCOUNT_VERIFICATION = True
 USERPROFILES_USE_EMAIL_VERIFICATION = True
 USERPROFILES_USE_PROFILE = True
@@ -170,6 +164,7 @@ USERPROFILES_EMAIL_VERIFICATION_DONE_URL = 'userprofiles_profile_change'
 
 AUTH_PROFILE_MODULE = 'accounts.Profile'
 
+LOGIN_ERROR_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
@@ -301,8 +296,6 @@ SOCIAL_AUTH_PIPELINE = (
     'pyconde.accounts.pipeline.create_profile',
 )
 
-LOGIN_ERROR_URL = '/accounts/login/'
-
 GITHUB_APP_ID = os.environ.get('GITHUB_APP_ID')
 GITHUB_API_SECRET = os.environ.get('GITHUB_API_SECRET')
 GITHUB_EXTENDED_PERMISSIONS = ['user:email']
@@ -339,4 +332,7 @@ EXPORT_SECRET_KEY = os.environ.get('EXPORT_SECRET_KEY', '')  # Set this for prod
 
 
 CHILDREN_DATA_DISABLED = True
-CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+# TODO: As soon as we move to foundation use
+# https://pypi.python.org/pypi/crispy-forms-foundation
+CRISPY_TEMPLATE_PACK = 'bootstrap'

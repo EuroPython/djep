@@ -5,7 +5,7 @@
 {% block page_title %}Profil ändern{% endblock %}
 
 {% block content %}
-    {% url userprofiles_email_change as change_email_url %}
+    {% url 'userprofiles_email_change' as change_email_url %}
     {% if request.user.email %}
     <p>
         Deine aktuelle E-Mail-Adresse lautet <em>{{ request.user.email }}</em>,<br />
@@ -16,7 +16,7 @@
     {% endif %}
     {% if not social_auth.associated %}
     <p>
-        Um dein Passwort zu ändern, <a href="{% url auth_password_change %}">klicke bitte hier</a>.
+        Um dein Passwort zu ändern, <a href="{% url 'auth_password_change' %}">klicke bitte hier</a>.
     </p>
     {% else %}
         <p>{% blocktrans with provider=social_auth.associated.0.provider.title %}Your account is based on the data provided by your {{ provider }} account.{% endblocktrans %}</p>

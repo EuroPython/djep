@@ -3,9 +3,8 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         compass: {
             options: {
-                sassDir: 'pyconde/skins/ep14/static/assets/sass',
-                cssDir: 'pyconde/skins/ep14/static/assets/css',
-                imagesDir: 'pyconde/skins/ep14/static/assets/images'
+                basePath: 'pyconde/skins/ep14',
+                config: 'pyconde/skins/ep14/config.rb',
             },
             server: {},
             dist: {

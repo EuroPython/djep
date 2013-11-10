@@ -30,32 +30,32 @@
         <nav>{% show_menu 0 1 1 1 "cms/primary-navigation.html" %}</nav>
         <div id="accountbox">
           {% if request.user.is_authenticated %}
-            <a class="myaccount" href="{% url userprofiles_profile %}">{{ user.username }}</a>
+            <a class="myaccount" href="{% url 'userprofiles_profile' %}">{{ user.username }}</a>
             <div id="account-actions">
               <ul>
-                <li><a href="{% url userprofiles_profile_change %}">Profil ändern</a></li>
-                <li><a href="{% url auth_password_change %}">Passwort ändern</a></li>
+                <li><a href="{% url 'userprofiles_profile_change' %}">Profil ändern</a></li>
+                <li><a href="{% url 'auth_password_change' %}">Passwort ändern</a></li>
                 {% if current_conference.get_reviews_active %}
                   {% if is_reviewer %}
-                    <li><a href="{% url reviews-available-proposals %}">Reviewbare Einreichungen</a></li>
-                <li><a href="{% url reviews-my-reviews %}">Meine Reviews</a></li>
+                    <li><a href="{% url 'reviews-available-proposals' %}">Reviewbare Einreichungen</a></li>
+                <li><a href="{% url 'reviews-my-reviews' %}">Meine Reviews</a></li>
               {% else %}
-                <li><a href="{% url reviews-my-proposals %}">Einreichungen in Review</a></li>
+                <li><a href="{% url 'reviews-my-proposals' %}">Einreichungen in Review</a></li>
               {% endif %}
             {% endif %}
             {% if current_conference.get_reviews_active %}
-              <li><a href="{% url reviews-my-proposals %}">Meine Einreichungen</a></li>
+              <li><a href="{% url 'reviews-my-proposals' %}">Meine Einreichungen</a></li>
             {% else %}
-              <li><a href="{% url my_proposals %}">Meine Einreichungen</a></li>
+              <li><a href="{% url 'my_proposals' %}">Meine Einreichungen</a></li>
             {% endif %}
             {% if request.user.is_staff %}
-              <li><a href="{% url admin:index %}" target="_blank">Admin</a></li>
+              <li><a href="{% url 'admin:index' %}" target="_blank">Admin</a></li>
             {% endif %}
-            <li><a href="{% url auth_logout %}?next={{ request.path }}">Abmelden</a></li>
+            <li><a href="{% url 'auth_logout' %}?next={{ request.path }}">Abmelden</a></li>
               </ul>
             </div>
           {% else %}
-            <a href="{% url auth_login %}?next={{ request.path }}">Anmelden</a> | <a href="{% url userprofiles_registration %}">Registrieren</a>
+            <a href="{% url 'auth_login' %}?next={{ request.path }}">Anmelden</a> | <a href="{% url 'userprofiles_registration' %}">Registrieren</a>
           {% endif %}
         </div>
       </div>

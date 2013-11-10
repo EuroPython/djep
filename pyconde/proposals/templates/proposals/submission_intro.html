@@ -4,7 +4,7 @@
 <h1>{% trans "Submit a session" %}</h1>
 <p>Sie können mehrere Arten von Vorschlägen einreichen:</p>
 <ol>
-    <li>einen <a href="{% url typed_submit_proposal type='talk' %}">Vortrag</a> oder</li>
-    <li>ein <a href="{% url typed_submit_proposal type='tutorial' %}">Tutorial</a></li>
+    <li>einen <a href="{% url 'typed_submit_proposal' type='talk' %}">Vortrag</a> oder</li>
+    <li>ein <a href="{% url 'typed_submit_proposal' type='tutorial' %}">Tutorial</a></li>
 </ol>
 {% endblock %}

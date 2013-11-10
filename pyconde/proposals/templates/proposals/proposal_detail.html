@@ -27,13 +27,13 @@ This proposal was submitted on <span class="submission-date">{{ submission_date 
 <div class="actions">
     {% if proposal.kind.accepts_proposals %}
         {% if can_leave %}
-        <a class="btn" href="{% url leave_proposal pk=proposal.pk %}"><i class="icon-remove"></i> {% trans "Leave" %}</a>
+        <a class="btn" href="{% url 'leave_proposal' pk=proposal.pk %}"><i class="icon-remove"></i> {% trans "Leave" %}</a>
         {% endif %}
         {% if can_edit %}
-        <a class="btn" href="{% url edit_proposal pk=proposal.pk %}"><i class="icon-edit"></i> {% trans "Edit" %}</a>
+        <a class="btn" href="{% url 'edit_proposal' pk=proposal.pk %}"><i class="icon-edit"></i> {% trans "Edit" %}</a>
         {% endif %}
         {% if can_delete %}
-        <a class="btn" href="{% url cancel_proposal pk=proposal.pk %}"><i class="icon-remove"></i> {% trans "Delete" %}</a>
+        <a class="btn" href="{% url 'cancel_proposal' pk=proposal.pk %}"><i class="icon-remove"></i> {% trans "Delete" %}</a>
         {% endif %}
     {% endif %}
 </div>
