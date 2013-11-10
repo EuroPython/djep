@@ -6,7 +6,7 @@ import uuid
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 
 
 PURCHASE_STATES = (
@@ -254,8 +254,8 @@ class TShirtSize(models.Model):
     sort = models.IntegerField(default=999, verbose_name=_('Sort order'))
 
     class Meta:
-        verbose_name = _(u'T-Shirt Size')
-        verbose_name_plural = _(u'T-Shirt Sizes')
+        verbose_name = _('T-Shirt Size')
+        verbose_name_plural = _('T-Shirt Sizes')
         ordering = ('sort',)
 
     def __unicode__(self):

@@ -1,0 +1,15 @@
+{
+  "name": "ep2014-teaser",
+  "version": "0.1.0",
+  "devDependencies": {
+    "grunt-contrib-compass": "~0.6.0",
+    "grunt-contrib-connect": "~0.5.0",
+    "grunt": "~0.4.1",
+    "grunt-contrib-watch": "~0.5.3",
+    "grunt-concurrent": "~0.4.1",
+    "grunt-contrib-copy": "~0.4.1",
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-rev": "~0.1.0",
+    "grunt-usemin": "~2.0.0"
+  }
+}

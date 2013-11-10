@@ -11,16 +11,13 @@ DEBUG = TEMPLATE_DEBUG = False
 INTERNAL_IPS = ('127.0.0.1',)
 DEBUG_TOOLBAR_CONFIG = {'INTERCEPT_REDIRECTS': False}
 
-ADMINS = (
-    ('Markus Zapke-Gruendemann', 'markus@de.pycon.org'),
-    ('Stephan Jaekel', 'steph@rdev.info')
-)
+ADMINS = ()
 MANAGERS = ADMINS
 
 EMAIL_SUBJECT_PREFIX = '[%s] ' % PROJECT_NAME
 
-DEFAULT_FROM_EMAIL = 'info@de.pycon.org'
-SERVER_EMAIL = 'info@de.pycon.org'
+DEFAULT_FROM_EMAIL = 'noreply@ep14.org'
+SERVER_EMAIL = 'noreply@ep14.org'
 
 TIME_ZONE = 'Europe/Berlin'
 LANGUAGE_CODE = 'de'
@@ -33,12 +30,11 @@ SITE_ID = 1
 ugettext = lambda s: s
 LANGUAGES = (
     ('de', ugettext('German')),
-    #('en', gettext_noop('English')),
+    ('en', ugettext('English')),
 )
 
 MEDIA_URL = '/site_media/'
 STATIC_URL = '/static_media/'
-ADMIN_MEDIA_PREFIX = '/static_media/admin/'
 
 STATICFILES_DIRS = (
     os.path.join(PROJECT_ROOT, 'static_media'),
@@ -64,11 +60,12 @@ COMPRESS_PRECOMPILERS = (
 
 ROOT_URLCONF = '%s.urls' % PROJECT_NAME
 
-INSTALLED_APPS = [
+INSTALLED_APPS = (
     # Skins
-    'pyconde.skins.pyconde2013',
+    'pyconde.skins.ep14',
     'pyconde.skins.default',
 
+    'djangocms_admin_style',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -82,7 +79,9 @@ INSTALLED_APPS = [
     'easy_thumbnails',
     'filer',
     'compressor',
+    'djangocms_text_ckeditor',  # must be before 'cms'!
     'cms',
+    'cms.stacks',
     'mptt',
     'menus',
     'sekizai',
@@ -91,7 +90,6 @@ INSTALLED_APPS = [
     'userprofiles.contrib.emailverification',
     'userprofiles.contrib.profiles',
     'taggit',
-    'debug_toolbar',
     'haystack',
     #'tinymce', # If you want tinymce, add it in the settings.py file.
     'django_gravatar',
@@ -101,10 +99,10 @@ INSTALLED_APPS = [
     'cms.plugins.googlemap',
     'cms.plugins.link',
     'cms.plugins.snippet',
-    'cms.plugins.twitter',
-    'cms.plugins.text',
+    #'cms.plugins.twitter',
+    #'cms.plugins.text',
     'cmsplugin_filer_image',
-    'cmsplugin_news',
+    #'cmsplugin_news',
 
     # Symposion apps
     'pyconde.conference',
@@ -120,21 +118,21 @@ INSTALLED_APPS = [
     'pyconde.schedule',
     'pyconde.search',
     'pyconde.helpers',
-]
+)
 
-MIDDLEWARE_CLASSES = [
-    'pyconde.helpers.middleware.CorrectDomainMiddleware',
+MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
+    'django.middleware.locale.LocaleMiddleware',
     'cms.middleware.page.CurrentPageMiddleware',
     'cms.middleware.user.CurrentUserMiddleware',
-    #'cms.middleware.toolbar.ToolbarMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
+    'cms.middleware.toolbar.ToolbarMiddleware',
+    'cms.middleware.language.LanguageCookieMiddleware',
     'social_auth.middleware.SocialAuthExceptionMiddleware',
-]
+)
 
 TEMPLATE_CONTEXT_PROCESSORS += (
     'django.core.context_processors.debug',
@@ -146,10 +144,10 @@ TEMPLATE_CONTEXT_PROCESSORS += (
     'social_auth.context_processors.social_auth_backends',
 )
 
-# TEMPLATE_DIRS = (
-#     os.path.join(PROJECT_ROOT, 'skins', 'default'),
-#     os.path.join(PROJECT_ROOT, 'skins', 'pyconde2012'),
-# )
+TEMPLATE_DIRS = (
+    os.path.join(PROJECT_ROOT, 'skins', 'default'),
+    os.path.join(PROJECT_ROOT, 'skins', 'ep14'),
+)
 
 USERPROFILES_CHECK_UNIQUE_EMAIL = True
 USERPROFILES_DOUBLE_CHECK_EMAIL = False
@@ -170,18 +168,31 @@ LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
 CMS_TEMPLATES = (
-    ('cms/default.html', 'Default template'),
-    ('cms/frontpage.html', 'Frontpage template'),
-    ('cms/page_templates/fullpage.html', 'Full page width (schedule, ...)'),
+    ('cms/default.html', ugettext('Default template')),
+    ('cms/start.html', ugettext('Start page template')),
+    ('cms/page_templates/fullpage.html', ugettext('Full page width (schedule, ...)')),
 )
 
-CMS_LANGUAGE_FALLBACK = False
-CMS_MENU_TITLE_OVERWRITE = True
-CMS_REDIRECTS = True
-CMS_SHOW_START_DATE = False
-CMS_SHOW_END_DATE = False
-CMS_MODERATOR = False
-CMS_SEO_FIELDS = True
+# Docs at https://django-cms.readthedocs.org/en/develop/getting_started/configuration.html#cms-languages
+CMS_LANGUAGES = {
+    1: [
+        {
+            'code': 'en',
+            'name': ugettext('English'),
+            'public': True,
+            'hide_untranslated': True,
+        },
+        {
+            'code': 'de',
+            'name': ugettext('German'),
+            'public': True,
+        },
+    ],
+    'default': {
+        'fallbacks': ['en', 'de'],
+        'hide_untranslated': False,
+    }
+}
 
 THUMBNAIL_PROCESSORS = (
     'easy_thumbnails.processors.colorspace',
@@ -309,14 +320,14 @@ if GOOGLE_OAUTH2_CLIENT_SECRET and GOOGLE_OAUTH2_CLIENT_ID:
 PAYMILL_PRIVATE_KEY = os.environ.get('PAYMILL_PRIVATE_KEY')
 PAYMILL_PUBLIC_KEY = os.environ.get('PAYMILL_PUBLIC_KEY')
 
-PAYMILL_TRANSACTION_DESCRIPTION = 'PyCon.DE 2013: Einkaufsnummer {purchase_pk}'
+PAYMILL_TRANSACTION_DESCRIPTION = 'EuroPython 2014: Invoice {purchase_pk}'
 
 PAYMENT_METHODS = set(['invoice', 'creditcard'])
 
-PURCHASE_NUMBER_FORMAT = 'PCDE13-{0:04d}'
+PURCHASE_NUMBER_FORMAT = 'EP14-{0:05d}'
 PURCHASE_EXPORT_RECIPIENTS = []
 PURCHASE_EXPORT_SUBJECT = 'Purchase-export: {purchase_number}'
-PURCHASE_TERMS_OF_USE_URL = "https://2013.de.pycon.org/teilnehmen/registrieren/agb/"
+PURCHASE_TERMS_OF_USE_URL = "https://ep14.org/participate/register/terms/"
 
 EXPORT_SECRET_KEY = os.environ.get('EXPORT_SECRET_KEY', '')  # Set this for production
 
