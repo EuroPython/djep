@@ -164,6 +164,7 @@ USERPROFILES_EMAIL_VERIFICATION_DONE_URL = 'userprofiles_profile_change'
 
 AUTH_PROFILE_MODULE = 'accounts.Profile'
 
+LOGIN_ERROR_URL = '/accounts/login/'
 LOGIN_REDIRECT_URL = '/'
 LOGOUT_REDIRECT_URL = '/'
 
@@ -295,8 +296,6 @@ SOCIAL_AUTH_PIPELINE = (
     'pyconde.accounts.pipeline.create_profile',
 )
 
-LOGIN_ERROR_URL = '/accounts/login/'
-
 GITHUB_APP_ID = os.environ.get('GITHUB_APP_ID')
 GITHUB_API_SECRET = os.environ.get('GITHUB_API_SECRET')
 GITHUB_EXTENDED_PERMISSIONS = ['user:email']
@@ -333,3 +332,7 @@ EXPORT_SECRET_KEY = os.environ.get('EXPORT_SECRET_KEY', '')  # Set this for prod
 
 
 CHILDREN_DATA_DISABLED = True
+
+# TODO: As soon as we move to foundation use
+# https://pypi.python.org/pypi/crispy-forms-foundation
+CRISPY_TEMPLATE_PACK = 'bootstrap'
