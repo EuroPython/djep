@@ -28,7 +28,7 @@
     <div class="actions">
         {% if can_update %}
             {% if proposal.can_be_updated %}
-                <a class="btn" href="{% url reviews-update-proposal pk=proposal.pk %}"><i class="icon-edit"></i> Ändern</a>
+                <a class="btn" href="{% url 'reviews-update-proposal' pk=proposal.pk %}"><i class="icon-edit"></i> Ändern</a>
             {% else %}
                 <a href="#">Vorschläge können nicht mehr editiert werden.</a>
             {% endif %}
@@ -46,9 +46,9 @@
                             {% if item.item.author != item.item.deleted_by %}(durch {{ item.item.deleted_by }}){% endif %}</dd>
                         {% else %}
                         <dd><div class="content">{{ item.item.content|markdown:"safe" }}</div><cite>-- {% if item.hide_author %}Proposal-Autor{% else %}{{ item.item.author|account_name }}{% endif %}
-                            (basierend auf {% if item.item.proposal_version %} <a href="{% url reviews-version-details proposal_pk=proposal.pk pk=item.item.proposal_version.pk %}">Version vom {{ item.item.proposal_version.pub_date }}</a>{% else %} dem Original-Vorschlag{% endif %})</cite>
+                            (basierend auf {% if item.item.proposal_version %} <a href="{% url 'reviews-version-details' proposal_pk=proposal.pk pk=item.item.proposal_version.pk %}">Version vom {{ item.item.proposal_version.pub_date }}</a>{% else %} dem Original-Vorschlag{% endif %})</cite>
                             {% if item.item.author == user or user.is_staff or user.is_admin %}<p class="actions">
-                                <a href="{% url reviews-delete-comment proposal_pk=proposal.pk pk=item.item.pk %}?next={{ request.get_full_path }}">Löschen</a>
+                                <a href="{% url 'reviews-delete-comment' proposal_pk=proposal.pk pk=item.item.pk %}?next={{ request.get_full_path }}">Löschen</a>
                             </p>{% endif %}
                         </dd>
                         {% endif %}
@@ -77,7 +77,7 @@
         {% if not user_review %}
             <h2>Nicht bewertet</h2>
             {% if proposal.can_be_reviewed %}
-                <a href="{% url reviews-review-proposal pk=proposal.pk %}">Bewerten</a>
+                <a href="{% url 'reviews-review-proposal' pk=proposal.pk %}">Bewerten</a>
             {% else %}
                 <a href="#">Dieser Vorschlag kann nicht mehr bewertet werden.</a>
             {% endif %}
@@ -85,7 +85,7 @@
             <h2>Bewertung: <span class="rating">{{ user_review.rating }}</span></h2>
             <div class="summary">{{ user_review.summary|markdown:"safe" }}</div>
             {% if proposal.can_be_reviewed %}
-                <a href="{% url reviews-update-review pk=proposal.pk %}">Bewertung aktualisieren</a>
+                <a href="{% url 'reviews-update-review' pk=proposal.pk %}">Bewertung aktualisieren</a>
             {% else %}
                 <a href="#">Bewertungen können nicht mehr editiert werden.</a>
             {% endif %}

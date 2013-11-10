@@ -12,7 +12,7 @@
     {% if session.tags %}
     <dl class="tags"><dt>{% trans "Tags:" %}</dt><dd>
         {% for tag in session.tags.all %}
-        <a href="{% url sessions_by_tag tag=tag.name %}" rel="tag" class="tag">{{ tag.name }}</a>{% if not forloop.last %},  {% endif %}
+        <a href="{% url 'sessions_by_tag' tag=tag.name %}" rel="tag" class="tag">{{ tag.name }}</a>{% if not forloop.last %},  {% endif %}
         {% endfor %}
     </dd></dl>
     {% endif %}

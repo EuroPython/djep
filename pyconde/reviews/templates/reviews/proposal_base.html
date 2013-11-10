@@ -5,9 +5,9 @@
         <dl>
             <dt>Titel:</dt>
             {% if proposal_version %}
-            <dd><a href="{% url reviews-proposal-details pk=proposal.pk %}">{{ proposal_version.title }}</a></dd>
+            <dd><a href="{% url 'reviews-proposal-details' pk=proposal.pk %}">{{ proposal_version.title }}</a></dd>
             {% else %}
-            <dd><a href="{% url reviews-proposal-details pk=proposal.pk %}">{{ proposal.title }}</a></dd>
+            <dd><a href="{% url 'reviews-proposal-details' pk=proposal.pk %}">{{ proposal.title }}</a></dd>
             {% endif %}
         </dl>
         {% if proposal_version and proposal_version.title != proposal.title %}

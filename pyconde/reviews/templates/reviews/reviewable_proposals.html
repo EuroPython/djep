@@ -37,14 +37,14 @@
         <tbody>
             {% for proposal in proposals %}
             <tr class="{% if proposal.proposal.kind %}kind-{{ proposal.proposal.kind.slug }}{% endif %}">
-                <td class="title"><a href="{% url reviews-proposal-details pk=proposal.proposal.pk %}">{{ proposal.title }}</a>{% if proposal.proposal.track %}<span class="track">Track: {{ proposal.proposal.track.name }}</span>{% endif %}</td>
+                <td class="title"><a href="{% url 'reviews-proposal-details' pk=proposal.proposal.pk %}">{{ proposal.title }}</a>{% if proposal.proposal.track %}<span class="track">Track: {{ proposal.proposal.track.name }}</span>{% endif %}</td>
                 <td class="reviews">{{ proposal.num_reviews }}</td>
                 {% comment %}
                 <td class="comments">{{ proposal.num_comments }}</td>
                 {% endcomment %}
                 <td class="activity">{% if proposal.latest_activity_date %}{{ proposal.latest_activity_date }}{% endif %}</td>
                 {% if user.is_staff %}
-                <td class="score"><a href="{% url reviews-proposal-reviews proposal_pk=proposal.proposal.pk %}">{{ proposal.score }}</a></td>
+                <td class="score"><a href="{% url 'reviews-proposal-reviews' proposal_pk=proposal.proposal.pk %}">{{ proposal.score }}</a></td>
                 {% endif %}
             </tr>
             {% endfor %}
