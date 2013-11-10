@@ -30,6 +30,17 @@
     </head>
     <body>
         {% cms_toolbar %}
+        <div class="contain-to-grid">
+            <nav class="top-bar">
+                <ul class="title-area">
+                    <li class="name"><img src="{% static "assets/images/logo.png" %}" alt="EuroPython 2014" /></li>
+                    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
+                </ul>
+                <section class="top-bar-section">
+                    {% show_menu 0 1 1 1 "cms/primary-navigation.html" %}
+                </section>
+            </nav>
+        </div>
         <div class="container">
             <header>
                 <div class="inner">

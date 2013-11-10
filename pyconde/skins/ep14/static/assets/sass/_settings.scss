@@ -1,0 +1,17 @@
+@import "theme";
+
+// default content width
+$row-width: 890px;
+
+$body-font-family: $baseFont;
+$body-font-color: $baseColor;
+
+$header-font-family: $baseFont;
+
+$topbar-bg-color: $background-color-light;
+$topbar-height: 170px;
+
+$topbar-link-color: $link-color-light;
+$topbar-link-color-hover: $topbar-link-color;
+$topbar-link-color-active: $topbar-link-color;
+$topbar-link-font-size: em-calc(16);

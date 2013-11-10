@@ -1,48 +1,40 @@
-@import "compass/reset";
-@import "compass/css3/border-radius";
-@import "compass/css3/inline-block";
-@import "compass/typography/lists/horizontal-list";
+// Make sure the charset is set appropriately
+@charset "UTF-8";
 
-//-----------------------------------------------------------------------------
+// This includes all of the foundation global elements that are needed to work with any of the other files.
+@import "foundation/variables";
 
-$highlightColor: #D65216;
-$baseColor: #648899;
-$infoColor: #00788C;
-$orange: #d65216;
-$blue: #0095cc;
-$background1: #F3F8F9;
-$baseFont: 'ff-mark-web-pro', 'Verdana', sans-serif;
-$footerFont: 'dejarip', 'Verdana', sans-serif;
-$primaryBtnBg: #1082c0;
-$primaryBtnFg: #fff;
-$inputBorder: #c1d0d2;
-$inputBorderHi: #58818a;
-$inputBorderErr: $orange;
+@import "settings";
+@import "normalize";
+@import "foundation/components/global";
+@import "foundation/components/grid";
+@import "foundation/components/top-bar";
+
 //-----------------------------------------------------------------------------
 
 @import "forms";
 
 
-html {
-    font-size: 62.5%;
-    font-family: $baseFont;
-    line-height: 150%;
-}
-
 body {
-    color: $baseColor;
-    background: #FFFFFF;
     text-align: center;
 }
 
-p {
-    line-height: 140%;
-}
-
 a {
-    color: $blue;
+    color: $blue-light;
 }
 
+.contain-to-grid {
+    .top-bar {
+        a {
+            text-decoration: none;
+            &:not(.button) {
+                padding: 0 25px;
+            }
+        }
+    }
+}
+
+/*
 header {
     height: 170px;
     background: $background1;
@@ -61,7 +53,7 @@ header {
             margin: 63px 0 62px 0;
             nav {
                 ul {
-                    @include horizontal-list(25px);
+                    //@include horizontal-list(25px);
                     a {
                         color: $infoColor;
                         line-height: 45px;
@@ -75,7 +67,7 @@ header {
                 margin: 64px 0 64px 0;
                 nav {
                     ul {
-                        @include horizontal-list(25px);
+                        //@include horizontal-list(25px);
                     }
                 }
             }
@@ -84,7 +76,7 @@ header {
                 margin-right: 90px;
                 nav {
                     ul {
-                        @include horizontal-list(7.5px);
+                        //@include horizontal-list(7.5px);
                         a {
                             color: $baseColor;
                         }
@@ -94,12 +86,12 @@ header {
         }
     }
 }
-
+*/
 a.btn {
     background: $baseColor !important;
     color: #ffffff !important;
     padding: 8px 20px 12px 20px !important;
-    @include border-radius(5px);
+    //@include border-radius(5px);
     &.danger {
         background-color: $highlightColor !important;
     }
