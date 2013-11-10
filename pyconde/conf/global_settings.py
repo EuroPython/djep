@@ -20,7 +20,7 @@ DEFAULT_FROM_EMAIL = 'noreply@ep14.org'
 SERVER_EMAIL = 'noreply@ep14.org'
 
 TIME_ZONE = 'Europe/Berlin'
-LANGUAGE_CODE = 'de'
+LANGUAGE_CODE = 'en'
 
 USE_I18N = True
 USE_L10N = True
