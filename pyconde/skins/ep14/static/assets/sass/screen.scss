@@ -105,6 +105,22 @@ a.btn {
     }
 }
 
+.alert-block {
+    margin-bottom: 1em;
+    li {
+        padding: 10px;
+        text-align: center;
+        margin-top: 1px;
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+    &.alert-danger {
+        background-color: $highlightColor;
+        color: #FFF;
+    }
+}
+
 
 
 header .inner, section, footer {
