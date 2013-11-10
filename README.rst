@@ -58,6 +58,18 @@ complete, start the development-server on port 8000 with::
 As a final step you have to create a frontpage in the via
 http://localhost:8000/admin/cms/page/add/.
 
+
+Development
+-----------
+
+During development you will probably need a dummy mail server and other
+services that are usually run system-wide in production. To help you keep
+all these services under control the project provides a sample Procfile
+which you can use with `foreman`_::
+    
+    foreman start
+
+
 Deployment
 ----------
 
@@ -82,3 +94,4 @@ Every site using this component must either indicate this in the footer or
 in the imprint.
 
 .. _Paul Robert Lloyd: http://www.paulrobertlloyd.com/2009/06/social_media_icons/
+.. _foreman: https://github.com/ddollar/foreman

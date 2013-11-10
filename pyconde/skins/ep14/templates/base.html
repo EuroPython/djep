@@ -7,17 +7,17 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>{% block site_title %}PyCon DE{% endblock %}</title>
+        <title>{% block site_title %}EuroPython 2014{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- build:css assets/css/screen.css -->
         <link rel="stylesheet" href="{% static "assets/css/screen.css" %}">
         <!-- endbuild -->
         {% block site_meta %}
         <meta name="author" content="Python Software Verband e.V.">
-        <meta name="keywords" content="{% block meta_keywords %}Python, Pycon, Python Konferenz, Konferenz{% endblock %}">
+        <meta name="keywords" content="{% block meta_keywords %}Python, EuroPython, Conference{% endblock %}">
         <meta name="description" content="{% block meta_description %}{% endblock %}">
         <meta property="og:title" content="{% block og_title %}{% endblock %}" />
-        <meta property="og:site_name" content="PyCon DE" />
+        <meta property="og:site_name" content="EuroPython 2014" />
         <meta property="og:type" content="website" />
         <meta property="og:url" content="http://{{ request.get_host }}/" />
         <meta property="og:image" content="{% static "images/logo-pycon.png" %}" />
@@ -33,9 +33,7 @@
         <div class="container">
             <header>
                 <div class="inner">
-                    <div class="logo">
-                        <img src="{% static "assets/images/logo.png" %}" alt="EuroPython 2014" />
-                    </div>
+                    <a href="/" class="logo"><img src="{% static "assets/images/logo.png" %}" alt="EuroPython 2014" /></a>
                     <div class="menu left">
                         <nav>
                             {% show_menu 0 1 1 1 "cms/primary-navigation.html" %}
@@ -44,12 +42,18 @@
                     <div class="menu right">
                         <nav>
                             <ul>
+                                {% if not user.is_authenticated %}
                                 <li>
-                                    <a href="">{% trans "Login" %}</a>
+                                    <a href="{% url 'auth_login' %}">{% trans "Login" %}</a>
                                 </li>
                                 <li>
-                                    <a href="" class="btn danger">{% trans "Register now" %}</a>
+                                    <a href="{% url 'userprofiles_registration' %}" class="btn danger">{% trans "Register now" %}</a>
                                 </li>
+                                {% else %}
+                                <li>
+                                    <a href="{% url 'auth_logout' %}">{% trans "Logout" %}</a>
+                                </li>
+                                {% endif %}
                             </ul>
                         </nav>
                     </div>
@@ -59,7 +63,7 @@
                 <section id="info">
                     {% block abovepage %}{% placeholder abovepage %}{% endblock %}
                 </section>
-                <section id="content">
+                <section id="content" class="container">
                     {% block site_content %}
                         {% block content %}
                             {% placeholder site_content %}

@@ -8,11 +8,19 @@
 $highlightColor: #D65216;
 $baseColor: #648899;
 $infoColor: #00788C;
+$orange: #d65216;
 $background1: #F3F8F9;
 $baseFont: 'ff-mark-web-pro', 'Verdana', sans-serif;
 $footerFont: 'dejarip', 'Verdana', sans-serif;
-
+$primaryBtnBg: #1082c0;
+$primaryBtnFg: #fff;
+$inputBorder: #c1d0d2;
+$inputBorderHi: #58818a;
+$inputBorderErr: $orange;
 //-----------------------------------------------------------------------------
+
+@import "forms";
+
 
 html {
     font-size: 62.5%;
@@ -32,9 +40,9 @@ p {
 
 header {
     height: 170px;
+    background: $background1;
     .inner {
         height: 100%;
-        background: $background1;
         .logo, .menu {
             float: left;
         }
@@ -95,7 +103,7 @@ a.btn {
 
 
 header .inner, section, footer {
-    width: 1100px;
+    width: 1000px;
     margin: auto;
 }
 
@@ -105,7 +113,7 @@ header .inner, section, footer {
     padding: 60px 0;
     color: $infoColor;
     font-weight: 300;
-    width: 800px; // Override for styling purposes
+    text-align: center;
 }
 
 #get-notified {
@@ -168,10 +176,26 @@ strong {
     color: $highlightColor;
 }
 
+#main > #content {
+    width: 890px;
+    margin: auto;
+    text-align: left;
+    font-size: 16px;
+    font-size: 1.6rem;
+    line-height: 150%;
+    padding-bottom: 30px;
+}
+
 //-----------------------------------------------------------------------------
 
 @media (screen and max-width: 1000px) {
     header .inner, section, footer, #info {
+        width: 100%;
+    }
+}
+
+@media (screen and max-width: 890px) {
+    #main {
         width: 100%;
     }
 }

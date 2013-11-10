@@ -1,0 +1,75 @@
+fieldset {
+    background: $background1;
+    padding: 95px 35px 35px 35px;
+    margin-bottom: 20px;
+    position: relative;
+}
+
+legend {
+    display: block;
+    text-align: left;
+    border-radius: 10px;
+    position: absolute;
+    top: 35px;
+    left: 35px;
+    font-weight: 600;
+}
+
+label {
+    font-weight: normal;
+}
+
+.form-horizontal {
+    .form-group {
+        width: 100%;
+        overflow: hidden;
+        padding: 5px 0;
+    }
+    label, input {
+        text-align: left;
+    }
+    label {
+        float: left;
+        width: 18%;
+        padding-top: 16px;
+    }
+    .controls {
+        float: left;
+        width: 80%;
+        margin-left: 2%;
+        input[type=text], input[type=email], input[type=password] {
+            box-sizing: border-box;
+            width: 60%;
+            display: inline-block;
+            padding: 15px 1%;
+            line-height: 150%;
+            font-size: 16px;
+            font-size: 1.6rem;
+            border: 1px solid $inputBorder;
+            border-radius: 5px;
+        }
+        .help-block {
+            display: inline-block;
+            margin-left: 10px;
+        }
+    }
+}
+
+.form-group.has-error .controls input {
+    border-color: $inputBorderErr;
+}
+
+.form-actions {
+    text-align: right;
+}
+
+.btn {
+    border-radius: 5px;
+    padding: 15px;
+    font-size: 1.6rem;
+    border: none;
+}
+.btn-primary {
+    background: $primaryBtnBg;
+    color: $primaryBtnFg;
+}

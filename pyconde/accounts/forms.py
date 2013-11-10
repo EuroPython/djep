@@ -57,21 +57,15 @@ class ProfileRegistrationForm(RegistrationForm):
 
     def __init__(self, *args, **kwargs):
         super(ProfileRegistrationForm, self).__init__(*args, **kwargs)
-        account_fields = Fieldset(_('Account data'), Field('username', autofocus="autofocus"), 'email', 'password', 'password_repeat')
-        profile_fields = Fieldset(_('Profile'), 'first_name', 'last_name',
-                                  'avatar', 'short_info', 'organisation', 'twitter', 'website',
-                                   # children stuff
-                                   (Field('num_accompanying_children', disabled=True) 
-                                    if settings.CHILDREN_DATA_DISABLED else
-                                    Field('num_accompanying_children')),
-                                  (Field('age_accompanying_children', disabled=True) 
-                                   if settings.CHILDREN_DATA_DISABLED else                              
-                                   Field('age_accompanying_children')))
+        account_fields = Fieldset(_('Login information'), Field('username', autofocus="autofocus"), 'email', 'password', 'password_repeat')
+        profile_fields = Fieldset(_('Personal information'), 'first_name', 'last_name', 'gender',
+                                  'avatar', 'short_info')
+        profession_fields = Fieldset(_('Professional information'), 'organisation', 'twitter', 'website')
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
-                account_fields, profile_fields,
-                ButtonHolder(Submit('submit', _('Create account'), css_class='btn-primary'))
+                account_fields, profile_fields, profession_fields,
+                ButtonHolder(Submit('submit', _('Create account'), css_class='btn btn-primary'))
                 )
         if settings.ACCOUNTS_FALLBACK_TO_GRAVATAR:
             self.fields['avatar'].help_text = _("""Please upload an image with a side length of at least 300 pixels.<br />If you don't upload an avatar your Gravatar will be used instead.""")

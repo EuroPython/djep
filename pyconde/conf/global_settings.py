@@ -20,7 +20,7 @@ DEFAULT_FROM_EMAIL = 'noreply@ep14.org'
 SERVER_EMAIL = 'noreply@ep14.org'
 
 TIME_ZONE = 'Europe/Berlin'
-LANGUAGE_CODE = 'de'
+LANGUAGE_CODE = 'en'
 
 USE_I18N = True
 USE_L10N = True
@@ -60,7 +60,7 @@ COMPRESS_PRECOMPILERS = (
 
 ROOT_URLCONF = '%s.urls' % PROJECT_NAME
 
-INSTALLED_APPS = (
+INSTALLED_APPS = [
     # Skins
     'pyconde.skins.ep14',
     'pyconde.skins.default',
@@ -118,7 +118,13 @@ INSTALLED_APPS = (
     'pyconde.schedule',
     'pyconde.search',
     'pyconde.helpers',
-)
+]
+
+try:
+    import django_extensions
+    INSTALLED_APPS += ['django_extensions']
+except ImportError:
+    pass
 
 MIDDLEWARE_CLASSES = (
     'django.middleware.common.CommonMiddleware',
@@ -333,3 +339,4 @@ EXPORT_SECRET_KEY = os.environ.get('EXPORT_SECRET_KEY', '')  # Set this for prod
 
 
 CHILDREN_DATA_DISABLED = True
+CRISPY_TEMPLATE_PACK = 'bootstrap3'
