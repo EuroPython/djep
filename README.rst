@@ -29,7 +29,7 @@ SQLite be warned that there are some issues with the migration steps done
 for some of django-cms' plugins. Therefor you will most likely have to run
 this::
     
-    python manage.py syncdb --no-input --all
+    python manage.py syncdb --noinput --all
     python manage.py migrate --fake
 
 If you want to use PostgreSQL (which is also used in production for this site),
