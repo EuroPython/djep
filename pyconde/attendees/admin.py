@@ -4,8 +4,7 @@ from django.contrib import admin
 from django.http import HttpResponse
 from django.core.mail import send_mail
 from django.template.loader import render_to_string
-from django.utils.translation import gettext_lazy as _
-from django.utils.translation import ugettext
+from django.utils.translation import ugettext, ugettext_lazy as _
 
 from .models import (Customer, Purchase, Ticket, TicketType,
                      Voucher, VoucherType, TShirtSize)
