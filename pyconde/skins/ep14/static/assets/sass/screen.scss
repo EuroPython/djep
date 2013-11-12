@@ -14,6 +14,9 @@
 
 @import "forms";
 
+html {
+    font-size: 62.5%;
+}
 
 body {
     text-align: center;
@@ -23,24 +26,12 @@ a {
     color: $blue-light;
 }
 
-.contain-to-grid {
-    .top-bar {
-        a {
-            text-decoration: none;
-            &:not(.button) {
-                padding: 0 25px;
-            }
-        }
-    }
-}
-
-/*
 header {
     height: 170px;
     background: $background1;
     .inner {
         height: 100%;
-        .logo, .menu {
+        .logo {
             float: left;
         }
         .logo {
@@ -49,44 +40,49 @@ header {
                 height: 120px;
             }
         }
-        .menu {
-            margin: 63px 0 62px 0;
-            nav {
-                ul {
-                    //@include horizontal-list(25px);
-                    a {
-                        color: $infoColor;
-                        line-height: 45px;
-                        font-size: 16px;
-                        font-weight: bold;
-                        text-decoration: none;
-                    }
-                }
-            }
-            &.left {
-                margin: 64px 0 64px 0;
-                nav {
-                    ul {
-                        //@include horizontal-list(25px);
-                    }
-                }
-            }
-            &.right {
-                float: right;
-                margin-right: 90px;
-                nav {
-                    ul {
-                        //@include horizontal-list(7.5px);
-                        a {
-                            color: $baseColor;
-                        }
-                    }
+    }
+    .top-bar {
+        width: 665px;
+        margin-right: 55px;
+        margin-top: 60px;
+        float: right;
+
+        ul {
+            padding: 0;
+        }
+
+        ul.dropdown {
+            background: $topbar-link-bg-hover;
+        }
+        .top-bar-section > ul {
+            background: transparent;
+
+            // Let's make the buttons in the menu larger
+            > li > a {
+                line-height: 45px;
+                padding: 8px 15px 12px 15px;
+                &:after {
+                    top: 31px;
                 }
             }
         }
+
+        ul > li > a {
+            font-size: 16px;
+            font-size: 1.6rem;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    }
+    &:after {
+        content: "";
+        display: block;
+        clear: both;
     }
 }
-*/
+
 a.btn {
     background: $baseColor !important;
     color: #ffffff !important;

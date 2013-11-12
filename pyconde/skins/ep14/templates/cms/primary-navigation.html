@@ -1,6 +1,14 @@
 {% load menu_tags %}
 <ul class="left">
     {% for child in children %}
-        <li class="{% if child.selected or child.ancestor %}active{% endif %}"><a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a></li>
+        <li class="{% if child.children %}has-dropdown{% endif %} {% if child.selected or child.ancestor %}active{% endif %}"><a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
+            {% if child.children %}
+                <ul class="dropdown">
+                {% for child in child.children %}
+                <li class="{% if child.selected or child.ancestor %}active{% endif %}"><a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a></li>
+                {% endfor %}
+                </ul>
+            {% endif %}
+        </li>
     {% endfor %}
 </ul>

@@ -30,29 +30,20 @@
     </head>
     <body>
         {% cms_toolbar %}
-        <div class="contain-to-grid">
-            <nav class="top-bar">
-                <ul class="title-area">
-                    <li class="name"><img src="{% static "assets/images/logo.png" %}" alt="EuroPython 2014" /></li>
-                    <li class="toggle-topbar menu-icon"><a href="#"><span>Menu</span></a></li>
-                </ul>
-                <section class="top-bar-section">
-                    {% show_menu 0 1 1 1 "cms/primary-navigation.html" %}
-                </section>
-            </nav>
-        </div>
         <div class="container">
             <header>
                 <div class="inner">
                     <a href="/" class="logo"><img src="{% static "assets/images/logo.png" %}" alt="EuroPython 2014" /></a>
-                    <div class="menu left">
-                        <nav>
+                    <nav class="top-bar">
+<!--                         <ul class="title-area">
+                            <li class="name"></li>
+                            <li class="toggle-topbar menu-icon">
+                                <a href=""><span>Menu</span></a>
+                            </li>
+                        </ul> -->
+                        <section class="top-bar-section">
                             {% show_menu 0 1 1 1 "cms/primary-navigation.html" %}
-                        </nav>
-                    </div>
-                    <div class="menu right">
-                        <nav>
-                            <ul>
+                            <ul class="right">
                                 {% if not user.is_authenticated %}
                                 <li>
                                     <a href="{% url 'auth_login' %}">{% trans "Login" %}</a>
@@ -66,8 +57,8 @@
                                 </li>
                                 {% endif %}
                             </ul>
-                        </nav>
-                    </div>
+                        </section>
+                    </nav>
                 </div>
             </header>
             <div id="main">
@@ -86,16 +77,13 @@
             </footer>
         </div>
 
-
-
-
-
-
-
         <script type="text/javascript" src="//use.typekit.net/kxy0ijj.js"></script>
         <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+        <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
         {% compress js %}
         <!--<script src="{% static "js/pyconde.core.js" %}"></script>-->
+        <script type="text/javascript" src="{% static "assets/js/foundation/foundation.js"%}" />
+        <script type="text/javascript" src="{% static "assets/js/foundation/foundation.topbar.js"%}" />
         {% endcompress %}
         {% render_block "js" %}
         {% block extra_foot %}{% endblock %}
