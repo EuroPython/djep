@@ -27,6 +27,7 @@
         <link rel="shortcut icon" href="{% static "images/favicon.ico" %}">
         {% render_block "css" %}
         {% block extra_head %}{% endblock %}
+        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     </head>
     <body>
         {% cms_toolbar %}
@@ -78,12 +79,13 @@
         </div>
 
         <script type="text/javascript" src="//use.typekit.net/kxy0ijj.js"></script>
-        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
         <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+        <script src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
         {% compress js %}
-        <!--<script src="{% static "js/pyconde.core.js" %}"></script>-->
-        <script type="text/javascript" src="{% static "assets/js/foundation/foundation.js"%}" />
-        <script type="text/javascript" src="{% static "assets/js/foundation/foundation.topbar.js"%}" />
+            <script src="{% static "assets/js/ui.js" %}"></script>
+            <script type="text/javascript" src="{% static "assets/js/foundation/foundation.js"%}" />
+            <script type="text/javascript" src="{% static "assets/js/foundation/foundation.topbar.js"%}" />
         {% endcompress %}
         {% render_block "js" %}
         {% block extra_foot %}{% endblock %}

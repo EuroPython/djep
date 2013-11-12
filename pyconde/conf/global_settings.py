@@ -111,6 +111,7 @@ INSTALLED_APPS = [
     'pyconde.sponsorship',
 
     # Custom apps
+    'pyconde.core',
     'pyconde.accounts',
     'pyconde.attendees',
     'pyconde.events',
@@ -278,7 +279,7 @@ TINYMCE_DEFAULT_CONFIG = {
     ]
 }
 
-ACCOUNTS_FALLBACK_TO_GRAVATAR = True
+ACCOUNTS_FALLBACK_TO_GRAVATAR = False
 
 # For Elasticsearch you can use for instance following configuration in your
 # settings.py.

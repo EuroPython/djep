@@ -8,6 +8,9 @@ from django.contrib import admin
 admin.autodiscover()
 
 urlpatterns = i18n_patterns('',
+    url(r'^jsi18n/$', 'django.views.i18n.javascript_catalog', {
+        'packages': ('pyconde.core',)
+        }),
     url(r'^admin/', include(admin.site.urls)),
     url(r'^tickets/', include('pyconde.attendees.urls')),
     url(r'^accounts/', include('pyconde.accounts.urls')),

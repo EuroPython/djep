@@ -69,6 +69,32 @@ label {
     }
 }
 
+.file-outer-wrapper {
+    display: inline-block;
+
+    .input-wrapper {
+        float: left;
+        display: inline-block;
+        overflow: hidden;
+        position: relative;
+    }
+    .status {
+        display: inline-block;
+        padding: 15px 10px;
+        font-size: 80%;
+    }
+    input {
+        display: block;
+        opacity: 0;
+        min-width: 100%;
+        min-height: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        filter: alpha(opacity=0);
+    }
+}
+
 .form-group.has-error .controls input {
     border-color: $inputBorderErr;
 }
