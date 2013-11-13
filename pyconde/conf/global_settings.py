@@ -172,7 +172,7 @@ USERPROFILES_EMAIL_VERIFICATION_DONE_URL = 'userprofiles_profile_change'
 AUTH_PROFILE_MODULE = 'accounts.Profile'
 
 LOGIN_ERROR_URL = '/accounts/login/'
-LOGIN_REDIRECT_URL = '/'
+LOGIN_REDIRECT_URL = '/accounts/welcome/'
 LOGOUT_REDIRECT_URL = '/'
 
 CMS_TEMPLATES = (
