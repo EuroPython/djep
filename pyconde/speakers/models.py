@@ -27,7 +27,3 @@ def create_speaker_profile(sender, instance, created, raw, **kwargs):
     """
     if created:
         Speaker(user=instance).save()
-
-
-models.signals.post_save.connect(create_speaker_profile, sender=User,
-    dispatch_uid="create_speaker_profile")
