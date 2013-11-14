@@ -47,9 +47,6 @@
                             <ul class="right">
                                 {% if not user.is_authenticated %}
                                 <li>
-                                    <a href="{% url 'auth_login' %}">{% trans "Login" %}</a>
-                                </li>
-                                <li>
                                     <a href="{% url 'userprofiles_registration' %}" class="btn danger">{% trans "Register now" %}</a>
                                 </li>
                                 {% else %}
@@ -60,6 +57,11 @@
                             </ul>
                         </section>
                     </nav>
+                    {% if not user.is_authenticated %}
+                    <p id="login">
+                        You have already registered? <a href="{% url 'auth_login' %}">{% trans "Login" %}</a>
+                    </p>
+                    {% endif %}
                 </div>
             </header>
             <div id="main">

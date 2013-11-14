@@ -31,20 +31,21 @@ header {
     background: $background1;
     .inner {
         height: 100%;
+        position: relative;
         .logo {
             float: left;
         }
         .logo {
-            margin: 30px 45px 20px 90px;
+            margin: 30px 30px 20px 90px;
             img {
                 height: 120px;
             }
         }
     }
     .top-bar {
-        width: 665px;
+        width: 685px;
         margin-right: 55px;
-        margin-top: 60px;
+        margin-top: 70px;
         float: right;
 
         ul {
@@ -59,21 +60,35 @@ header {
 
             // Let's make the buttons in the menu larger
             > li > a {
-                line-height: 45px;
+                line-height: 25px;
                 padding: 8px 15px 12px 15px;
                 &:after {
-                    top: 31px;
+                    top: 23px;
                 }
             }
         }
 
         ul > li > a {
-            font-size: 16px;
-            font-size: 1.6rem;
+            font-size: 15px;
+            font-size: 1.5rem;
         }
 
         a {
             text-decoration: none;
+        }
+    }
+    #login {
+        position: absolute;
+        top: 10px;
+        right: 55px;
+        font-size: 14px;
+        font-size: 1.4rem;
+        a {
+            text-decoration: none;
+            color: $blue;
+            &:hover {
+                text-decoration: underline;
+            }
         }
     }
     &:after {
