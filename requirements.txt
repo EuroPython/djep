@@ -21,7 +21,7 @@ django-reversion==1.7.1
 django-sekizai==0.7
 django-social-auth==0.7.28
 django-taggit==0.10
-djangocms-admin-style==0.1.4
+djangocms-admin-style==0.2.0
 djangocms-text-ckeditor==2.0.2
 -e git+https://github.com/zerok/django-userprofiles.git@fe29d7feb2a1b0ca8a10be8032f235df5406267f#egg=django-userprofiles
 easy-thumbnails==1.4
