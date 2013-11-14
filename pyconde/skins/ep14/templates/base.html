@@ -74,7 +74,40 @@
                 </section>
             </div>
             <footer>
-                <p id="credits">The EuroPython is organized by the <a href="http://www.meetup.com/Python-Users-Berlin-PUB/">Python User Group Berlin</a>, <a href="http://www.meetup.com/django-user-group-berlin/">Django User Group Berlin</a>, <a href="http://www.meetup.com/PyLadies-Berlin/">PyLadies Berlin</a> &amp; <a href="http://python-verband.org/">Python Software Verband</a> in cooperation with the EuroPython Society for the Python community.</p>
+                <div class="doormat">
+                    <div id="footer-legal">
+                        <ul>
+                            <li><a href="">{% trans "Legal Notice" %}</a></li>
+                            <li><a href="">{% trans "Privacy Policy" %}</a></li>
+                            <li><a href="">{% trans "Code of Conduct" %}</a></li>
+                        </ul>
+                    </div>
+                    <div id="footer-social">
+                        <ul>
+                            <li><a href="https://twitter.com/europython" class="twitter">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                                {% trans "Follow @europython" %}</a></li>
+                            <li><a href="https://www.facebook.com/europython" class="facebook">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-facebook fa-stack-1x"></i>
+                                </span>
+                                {% trans "Like EuroPython" %}</a></li>
+                        </ul>
+                    </div>
+                    <div id="footer-donate">
+                        <h2>{% trans "Please Donate" %}</h2>
+                        <p>{% blocktrans %}EuroPython is organized by the Python Italia no-profit association. We are able to accept donations through PayPal and credit card, and we welcome any kind of contribution that will be exclusively used for improving the EuroPython event for everyone. Thanks!{% endblocktrans %}</p>
+                        <a class="btn" href="">{% trans "Donate now" %}</a>
+
+                    </div>
+                </div>
+                <div id="copyright">
+                    <p>{% blocktrans %}&copy; 2007-2013 Python, with some rights reserved.{% endblocktrans %}</p>
+                </div>
             </footer>
         </div>
 
