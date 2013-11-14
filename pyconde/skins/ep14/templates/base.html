@@ -24,6 +24,9 @@
         <meta property="og:description" content="{% block og_description %}{% endblock %}" />
         <link rel="alternate" href="/news/feed/" type="application/atom+xml" title="PyCon DE-News" />
         {% endblock %}
+        {# Typekit loading should happen before anything else to prevent FOUT #}
+        <script type="text/javascript" src="//use.typekit.net/kxy0ijj.js"></script>
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
         <link rel="shortcut icon" href="{% static "images/favicon.ico" %}">
         {% render_block "css" %}
         {% block extra_head %}{% endblock %}
@@ -113,9 +116,7 @@
             </footer>
         </div>
 
-        <script type="text/javascript" src="//use.typekit.net/kxy0ijj.js"></script>
         <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
         <script src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
         {% compress js %}
             <script src="{% static "assets/js/ui.js" %}"></script>
