@@ -36,15 +36,15 @@ header {
             float: left;
         }
         .logo {
-            margin: 30px 30px 20px 90px;
+            float: left;
+            margin: 30px 30px 20px -14px;
             img {
                 height: 120px;
             }
         }
     }
     .top-bar {
-        width: 685px;
-        margin-right: 55px;
+        width: 730px;
         margin-top: 70px;
         float: right;
 
@@ -80,7 +80,7 @@ header {
     #login {
         position: absolute;
         top: 10px;
-        right: 55px;
+        right: 10px;
         font-size: 14px;
         font-size: 1.4rem;
         a {
@@ -126,8 +126,8 @@ a.btn {
 
 
 
-header .inner, section {
-    width: 1000px;
+header .inner {
+    width: 890px;
     margin: auto;
 }
 
