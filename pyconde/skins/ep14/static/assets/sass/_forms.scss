@@ -102,11 +102,14 @@ label {
 
 .form-actions {
     text-align: right;
+    ul {
+        list-style: none;
+    }
 }
 
 .btn, .btn-primary {
     border-radius: 5px;
-    padding: 15px;
+    padding: 8px;
     font-size: 1.6rem;
     border: none;
 }
