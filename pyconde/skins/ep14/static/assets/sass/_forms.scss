@@ -28,7 +28,9 @@ label {
         padding: 5px 0;
         margin-bottom: 12px;
     }
-    label, input {
+    label,
+    input,
+    select {
         text-align: left;
     }
     label {
@@ -36,11 +38,18 @@ label {
         width: 18%;
         padding-top: 8px;
     }
+    select {
+        background-color: $background-color;
+    }
     .controls {
         float: left;
         width: 80%;
         margin-left: 2%;
-        input[type=text], input[type=email], input[type=password], textarea {
+        input[type=text],
+        input[type=email],
+        input[type=password],
+        select,
+        textarea {
             box-sizing: border-box;
             padding: 8px 1%;
             line-height: 150%;
@@ -53,7 +62,10 @@ label {
                 outline-color: lighten($baseColor, 30);
             }
         }
-        input[type=text], input[type=email], input[type=password] {
+        input[type=text],
+        input[type=email],
+        input[type=password],
+        select {
             width: 60%;
             display: inline-block;
         }
@@ -96,7 +108,8 @@ label {
     }
 }
 
-.form-group.has-error .controls input {
+.form-group.has-error .controls input,
+.form-group.has-error .controls select {
     border-color: $inputBorderErr;
 }
 
