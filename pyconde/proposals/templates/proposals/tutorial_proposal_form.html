@@ -1,22 +1,37 @@
 {% extends "proposals/proposal_form.html" %}
-{% load i18n crispy_forms_tags %}
+
+{% load i18n %}
+
 {% block title %}{% trans "Submit a tutorial" %}{% endblock %}
+
 {% block body %}
-<h1>{% trans "Submit a tutorial" %}</h1>
 <div class="intro">
-<p>Ein Tutorial ist kein langer Vortrag. Die Teilnehmer sollen die Möglichkeit
+<p>
+{% blocktrans %}
+Ein Tutorial ist kein langer Vortrag. Die Teilnehmer sollen die Möglichkeit
 bekommen am eigenen Laptop dem Trainer zu folgen. Übungen, die Teilnehmer
 im Tutorial lösen sind oft sehr sinnvoll. Dabei ist zu beachten, dass Übungen
 häufig wesentlich länger dauern als gedacht. Aufgaben, die der Trainer in
 wenigen Minuten löst, können bei den Teilnehmern oft die 5-10 fache Zeit
 dauern, da diese viele grundlegende Schritte nachvollziehen müssen.
-Das ist auch so wenn diese der Trainer direkt davor erklärt hat!</p>
+Das ist auch so wenn diese der Trainer direkt davor erklärt hat!
+{% endblocktrans %}
+</p>
 
-<p>Die Teilnehmer sollten Schulungsmaterialien entweder als PDF oder gedruckt
+<p>
+{% blocktrans %}
+Die Teilnehmer sollten Schulungsmaterialien entweder als PDF oder gedruckt
 erhalten. Diese sollten so ausführlich sein, dass ein Teilnehmer die
-Tutorial-Inhalte selbstständig nachvollziehen kann.</p>
+Tutorial-Inhalte selbstständig nachvollziehen kann.
+{% endblocktrans %}
+</p>
 
-<p>Fragen zu Tutorial-Inhalten und -Aufbau bitte an <a href="mailto:tutorials@de.pycon.org">tutorials@de.pycon.org</a>.</p>
+<p>
+{% blocktrans %}
+Fragen zu Tutorial-Inhalten und -Aufbau bitte an <a href="mailto:helpdesk@ep14.org">helpdesk@ep14.org</a>.
+{% endblocktrans %}
+</p>
 </div>
-{% crispy form %}
+
+{{ block.super }}
 {% endblock %}
