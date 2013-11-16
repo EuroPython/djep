@@ -1,7 +1,6 @@
 # -*- encoding: utf-8 -*-
 from django import forms
-from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ugettext
+from django.utils.translation import ugettext, ugettext_lazy as _
 from django.template.loader import render_to_string
 from django.core.exceptions import ValidationError
 
@@ -55,29 +54,30 @@ class ProposalSubmissionForm(forms.ModelForm):
 
         instance = kwargs.get('instance')
         if instance:
-            button_text = ugettext("Save changes")
+            button_text = _("Save changes")
         else:
-            button_text = ugettext("Submit proposal")
+            button_text = _("Submit proposal")
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
             Fieldset(_('General'),
                 Field('kind', autofocus="autofocus"),
-                'title',
+                Field('title'),
                 Field('description'),
                 Field('abstract'),
-                'agree_to_terms'),
+                Field('agree_to_terms')),
             Fieldset(_('Details'),
-                'language',
-                'available_timeslots',
+                Field('language'),
+                Field('available_timeslots'),
                 ExtendedHelpField('track', render_to_string('proposals/tracks-help.html', {'tracks': tracks})),
-                'tags',
-                'duration',
-                'audience_level',
+                Field('tags'),
+                Field('duration'),
+                Field('audience_level'),
                 Field('additional_speakers', css_class='multiselect-user'),
-                'notes'),
-            ButtonHolder(Submit('submit', button_text, css_class="btn-primary"))
-            )
+                Field('notes')),
+            ButtonHolder(
+                Submit('submit', button_text, css_class="btn-primary"))
+        )
 
     def customize_fields(self, instance=None, form=None, tracks=None):
         if form is None:
@@ -92,16 +92,16 @@ class ProposalSubmissionForm(forms.ModelForm):
                 additional_speakers = instance.additional_speakers.all()
             else:
                 additional_speakers = speaker_models.Speaker.objects.none()
-            form.fields['additional_speakers'] = HiddenSpeakersMultipleChoiceField(label=_("additional speakers"),
+            form.fields['additional_speakers'] = HiddenSpeakersMultipleChoiceField(label=_("Additional speakers"),
                 queryset=additional_speakers, required=False)
         if 'kind' in self.fields:
-            form.fields['kind'] = forms.ModelChoiceField(label=_("kind"),
+            form.fields['kind'] = forms.ModelChoiceField(label=_("Kind"),
                 queryset=conference_models.SessionKind.current_objects.filter_open_kinds())
         if 'audience_level' in self.fields:
-            form.fields['audience_level'] = forms.ModelChoiceField(label=_("audience level"),
+            form.fields['audience_level'] = forms.ModelChoiceField(label=_("Audience level"),
                 queryset=conference_models.AudienceLevel.current_objects.all())
         if 'duration' in self.fields:
-            form.fields['duration'] = forms.ModelChoiceField(label=_("duration"),
+            form.fields['duration'] = forms.ModelChoiceField(label=_("Duration"),
                 queryset=conference_models.SessionDuration.current_objects.all())
         if 'track' in self.fields:
             form.fields['track'] = forms.ModelChoiceField(label=_("Track"), required=True, initial=None,
@@ -116,14 +116,17 @@ class ProposalSubmissionForm(forms.ModelForm):
             form.fields['additional_speakers'].help_text = _("""If you want to present with others, please enter their names here.""")
         if 'available_timeslots' in form.fields:
             form.fields['available_timeslots'] = forms.ModelMultipleChoiceField(
-                label=_("available timeslots"),
+                label=_("Available timeslots"),
                 queryset=models.TimeSlot.objects.select_related('section').filter(section__conference=conference_models.current_conference()).order_by('date', 'slot'),
                 widget=forms.CheckboxSelectMultiple,
                 required=False
             )
-            form.fields['available_timeslots'].help_text += ugettext("""<br /><br />Please pick alle the times that should be considered for your presentation/tutorial. If possible these will be used for the final timeslot.""")
+            form.fields['available_timeslots'].help_text += ugettext(
+                """<br /><br />Please pick alle the times that should be considered for your """
+                """presentation/tutorial. If possible these will be used for the final timeslot.""")
         if 'notes' in form.fields:
-            form.fields['notes'].help_text = _("""Add notes or comments here that can only be seen by reviewers and the organizing team.""")
+            form.fields['notes'].help_text = _(
+                """Add notes or comments here that can only be seen by reviewers and the organizing team.""")
 
     def clean(self):
         cleaned_data = super(ProposalSubmissionForm, self).clean()
@@ -177,9 +180,9 @@ class TypedSubmissionForm(ProposalSubmissionForm):
         tracks = conference_models.Track.current_objects.all()
         instance = kwargs.get('instance')
         if instance:
-            button_text = u"Änderungen speichern"
+            button_text = _("Save changes")
         else:
-            button_text = u"Vortrag einreichen"
+            button_text = _("Submit proposal")
             # Also select all available timeslots by default
             if 'available_timeslots' in self.fields:
                 self.initial['available_timeslots'] = [ts.pk for ts in self.fields['available_timeslots'].queryset]
@@ -189,12 +192,16 @@ class TypedSubmissionForm(ProposalSubmissionForm):
                      Field('description'),
                      Field('abstract')),
             Fieldset(_('Details'),
-                     'language',
-                     'available_timeslots',
+                     Field('language'),
+                     Field('available_timeslots'),
                      ExtendedHelpField('track', render_to_string('proposals/tracks-help.html', {'tracks': tracks})),
-                     'tags', 'duration', 'audience_level', Field('additional_speakers', css_class='multiselect-user'),
-                     'notes'),
-            ButtonHolder(Submit('submit', button_text, css_class="btn-primary"))
+                     Field('tags'),
+                     Field('duration'),
+                     Field('audience_level'),
+                     Field('additional_speakers', css_class='multiselect-user'),
+                     Field('notes')),
+            ButtonHolder(
+                Submit('submit', button_text, css_class="btn-primary"))
         )
 
     def save(self, commit=True):
@@ -239,10 +246,14 @@ class TutorialSubmissionForm(TypedSubmissionForm):
                 Field('abstract')),
             Fieldset(
                 _('Details'),
-                'language', 'available_timeslots', 'tags', 'audience_level',
+                Field('language'),
+                Field('available_timeslots'),
+                Field('tags'),
+                Field('audience_level'),
                 Field('additional_speakers', css_class='multiselect-user'),
-                'notes'),
-            ButtonHolder(Submit('submit', button_text, css_class="btn-primary")),
+                Field('notes')),
+            ButtonHolder(
+                Submit('submit', button_text, css_class="btn-primary")),
         )
 
     def customize_fields(self, instance=None, form=None, tracks=None):
@@ -251,10 +262,18 @@ class TutorialSubmissionForm(TypedSubmissionForm):
             form = self
         form.fields['description'].label = _("Description")
         form.fields['description'].validators.append(validators.MaxWordsValidator(300))
-        form.fields['description'].help_text = ugettext("""This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> input.""") + ugettext("""<br />< 300 words""")
-        form.fields['abstract'].label = ugettext("Structure")
-        form.fields['abstract'].help_text = ugettext("""This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> input.""") + ugettext(
-            """<br /><br />Please provide details about the structure including the timing. The sum of these structural points has to be 180 minutes. Please also list any software (incl. version information) that attendees should install beforehand. The tutorial examples should work on Linux, Mac OSX and Windows. If they don't, please mark them accordingly.""")
+        form.fields['description'].help_text = ugettext(
+            """This field supports <a href="http://daringfireball.net/projects/markdown/syntax" """
+            """target="_blank" rel="external">Markdown</a> input.""") + ugettext(
+            """<br />< 300 words""")
+        form.fields['abstract'].label = _("Structure")
+        form.fields['abstract'].help_text = ugettext(
+            """This field supports <a href="http://daringfireball.net/projects/markdown/syntax" """
+            """target="_blank" rel="external">Markdown</a> input.""") + ugettext(
+            """<br /><br />Please provide details about the structure including the timing. The """
+            """sum of these structural points has to be 180 minutes. Please also list any software """
+            """(incl. version information) that attendees should install beforehand. The tutorial """
+            """examples should work on Linux, Mac OSX and Windows. If they don't, please mark them accordingly.""")
         if 'available_timeslots' in form.fields:
             form.fields['available_timeslots'].queryset = form.fields['available_timeslots'].queryset.filter(section__slug='tutorials')
 
@@ -265,14 +284,18 @@ class TutorialSubmissionForm(TypedSubmissionForm):
 class TalkSubmissionForm(TypedSubmissionForm):
     def __init__(self, *args, **kwargs):
         super(TalkSubmissionForm, self).__init__(*args, **kwargs)
-        self.helper.layout.fields.insert(-1, Fieldset(_('Video recording'), HTML(ugettext("""<p class="control-group">Optionally, presentatons can be video recorded. During the conference there will be a paper form available where you can allow this recording. You can find out more <a href="/vortragende/">here</a>.</p>"""))))
+        record_fs = Fieldset(_('Video recording'),
+            HTML(_("""<p class="control-group">Optionally, presentatons can be video recorded. """
+                   """During the conference there will be a paper form available where you can """
+                   """allow this recording. You can find out more <a href="/vortragende/">here</a>.</p>""")))
+        self.helper.layout.fields.insert(-1, record_fs)
 
     def customize_fields(self, instance=None, form=None, tracks=None):
         super(TalkSubmissionForm, self).customize_fields(instance, form, tracks)
         if form is None:
             form = self
-        form.fields['duration'] = forms.ModelChoiceField(label=_("duration"),
+        form.fields['duration'] = forms.ModelChoiceField(label=_("Duration"),
                 queryset=conference_models.SessionDuration.current_objects.exclude(slug='tutorial').all())
         if 'available_timeslots' in form.fields:
-            form.fields['available_timeslots'].queryset = form.fields['available_timeslots']\
+            form.fields['available_timeslots'].queryset = form.fields['available_timeslots'] \
                 .queryset.filter(section__slug='konferenz')
