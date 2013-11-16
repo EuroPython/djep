@@ -65,13 +65,17 @@ label {
         input[type=text],
         input[type=email],
         input[type=password],
-        select {
-            width: 60%;
+        select,
+        textarea {
+            width: 50%;
             display: inline-block;
         }
         .help-block {
-            display: inline-block;
+            //display: inline-block;
             margin-left: 10px;
+            &.error {
+                color: $highlightColor;
+            }
         }
         p[id^="hint_"] {
             display: block;
