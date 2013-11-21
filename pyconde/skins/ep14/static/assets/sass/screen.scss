@@ -141,42 +141,6 @@ header .inner {
     text-align: center;
 }
 
-#get-notified {
-    width: 782px;
-    border-radius: 5px;
-    background: $background1;
-    padding: 38px;
-    box-sizing: border-box;
-    font-size: 24px;
-    font-size: 2.4rem;
-    p {
-        a {
-            font-weight: 600;
-            color: $baseColor;
-            text-decoration: none;
-            &:hover {
-                text-decoration: underline;
-            }
-        }
-    }
-}
-
-#social {
-    padding: 40px 0;
-    font-size: 32px;
-    font-size: 3.2rem;
-    font-weight: 300;
-    color: $infoColor;
-
-    ul {
-        margin-top: 20px;
-    }
-
-    li {
-        display: inline-block;
-    }
-}
-
 footer {
     font-size: 14px;
     font-size: 1.4rem;
@@ -265,6 +229,10 @@ strong {
     padding-bottom: 30px;
 }
 
+#site-title {
+    padding: 0;
+    margin: 50px auto;
+}
 //-----------------------------------------------------------------------------
 
 @media (screen and max-width: 1000px) {

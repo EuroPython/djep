@@ -70,7 +70,7 @@
             <div id="main">
                 {% block site_teaser %}{% endblock %}
                 <section id="content" class="container">
-                    {% block site_title %}<h1>{% block title %}{% endblock %}</h1>{% endblock %}
+                    {% block site_title %}<h1 id="site-title">{% block title %}{% endblock %}</h1>{% endblock %}
                     {% block site_content %}
                         {% block content %}
                             {% placeholder site_content %}
