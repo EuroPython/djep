@@ -113,7 +113,8 @@ label {
 }
 
 .form-group.has-error .controls input,
-.form-group.has-error .controls select {
+.form-group.has-error .controls select,
+.form-group.has-error .controls textarea {
     border-color: $inputBorderErr;
 }
 
