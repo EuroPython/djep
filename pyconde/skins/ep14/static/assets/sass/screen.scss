@@ -1,46 +1,29 @@
-@import "compass/reset";
-@import "compass/css3/border-radius";
-@import "compass/css3/inline-block";
-@import "compass/typography/lists/horizontal-list";
+// Make sure the charset is set appropriately
+@charset "UTF-8";
 
-//-----------------------------------------------------------------------------
+// This includes all of the foundation global elements that are needed to work with any of the other files.
+@import "foundation/variables";
 
-$highlightColor: #D65216;
-$baseColor: #648899;
-$infoColor: #00788C;
-$orange: #d65216;
-$blue: #0095cc;
-$background1: #F3F8F9;
-$baseFont: 'ff-mark-web-pro', 'Verdana', sans-serif;
-$footerFont: 'dejarip', 'Verdana', sans-serif;
-$primaryBtnBg: #1082c0;
-$primaryBtnFg: #fff;
-$inputBorder: #c1d0d2;
-$inputBorderHi: #58818a;
-$inputBorderErr: $orange;
+@import "settings";
+@import "normalize";
+@import "foundation/components/global";
+@import "foundation/components/grid";
+@import "foundation/components/top-bar";
+
 //-----------------------------------------------------------------------------
 
 @import "forms";
 
-
 html {
     font-size: 62.5%;
-    font-family: $baseFont;
-    line-height: 150%;
 }
 
 body {
-    color: $baseColor;
-    background: #FFFFFF;
     text-align: center;
 }
 
-p {
-    line-height: 140%;
-}
-
 a {
-    color: $blue;
+    color: $blue-light;
 }
 
 header {
@@ -48,59 +31,80 @@ header {
     background: $background1;
     .inner {
         height: 100%;
-        .logo, .menu {
+        position: relative;
+        background: url(../images/headerbg.png) 6% 100% no-repeat;
+        .logo {
             float: left;
         }
         .logo {
-            margin: 30px 45px 20px 90px;
+            float: left;
+            margin: 30px 30px 20px -14px;
             img {
                 height: 120px;
             }
         }
-        .menu {
-            margin: 63px 0 62px 0;
-            nav {
-                ul {
-                    @include horizontal-list(25px);
-                    a {
-                        color: $infoColor;
-                        line-height: 45px;
-                        font-size: 16px;
-                        font-weight: bold;
-                        text-decoration: none;
-                    }
-                }
-            }
-            &.left {
-                margin: 64px 0 64px 0;
-                nav {
-                    ul {
-                        @include horizontal-list(25px);
-                    }
-                }
-            }
-            &.right {
-                float: right;
-                margin-right: 90px;
-                nav {
-                    ul {
-                        @include horizontal-list(7.5px);
-                        a {
-                            color: $baseColor;
-                        }
-                    }
+    }
+    .top-bar {
+        width: 730px;
+        margin-top: 70px;
+        float: right;
+
+        ul {
+            padding: 0;
+        }
+
+        ul.dropdown {
+            background: $topbar-link-bg-hover;
+        }
+        .top-bar-section > ul {
+            background: transparent;
+
+            // Let's make the buttons in the menu larger
+            > li > a {
+                line-height: 25px;
+                padding: 8px 15px 12px 15px;
+                &:after {
+                    top: 23px;
                 }
             }
         }
+
+        ul > li > a {
+            font-size: 15px;
+            font-size: 1.5rem;
+        }
+
+        a {
+            text-decoration: none;
+        }
+    }
+    #login {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+        font-size: 14px;
+        font-size: 1.4rem;
+        a {
+            text-decoration: none;
+            color: $blue;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    &:after {
+        content: "";
+        display: block;
+        clear: both;
     }
 }
 
 a.btn {
-    background: $baseColor !important;
-    color: #ffffff !important;
-    padding: 8px 20px 12px 20px !important;
-    @include border-radius(5px);
+    background: $baseColor;
+    color: #ffffff;
+    padding: 8px 20px 12px 20px;
     &.danger {
+        color: #FFF !important;
         background-color: $highlightColor !important;
     }
 }
@@ -123,8 +127,8 @@ a.btn {
 
 
 
-header .inner, section, footer {
-    width: 1000px;
+header .inner {
+    width: 890px;
     margin: auto;
 }
 
@@ -174,21 +178,75 @@ header .inner, section, footer {
 }
 
 footer {
-    border-top: 1px solid #bcc7cb;
-    padding-top: 30px;
-    margin-bottom: 60px;
-    font-size: 16px;
-    font-size: 1.6rem;
+    font-size: 14px;
+    font-size: 1.4rem;
+    line-height: 150%;
     font-family: $footerFont;
+    text-align: left;
+    background: $dark-grey;
+    color: $background-color;
 
     a {
-        font-weight: bold;
-        color: $baseColor;
+        color: $background-color;
         text-decoration: none;
 
         &:hover {
             text-decoration: underline;
         }
+    }
+
+    h2 {
+        font-size: 15px;
+        font-size: 1.5rem;
+    }
+
+    .doormat, #copyright {
+        @include grid-row();
+    }
+
+    .doormat {
+        padding-top: 30px;
+        padding-bottom: 30px;
+
+        > div {
+            @include grid-column($columns: 4);
+        }
+    }
+
+    #footer-donate {
+        p {
+            margin-bottom: 2rem;
+        }
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        li {
+            line-height: 200%;
+        }
+    }
+
+    #copyright {
+        border-top: 1px solid $grey2;
+        padding: 19px 0;
+        color: $grey;
+        p {
+            @include grid-column($columns: 12);
+            padding-top: 0;
+            padding-bottom: 0;
+            line-height: 100%;
+            margin: 0;
+        }
+    }
+
+    .fa-circle {
+        opacity: 0.2;
+    }
+
+    a.btn {
+        background: #FFF;
+        color: $blue;
     }
 }
 

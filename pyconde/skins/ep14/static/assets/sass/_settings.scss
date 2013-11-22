@@ -1,0 +1,21 @@
+@import "theme";
+
+// default content width
+$row-width: 890px;
+
+$body-font-family: $baseFont;
+$body-font-color: $baseColor;
+
+$header-font-family: $baseFont;
+
+$topbar-bg-color: $background-color-light;
+$topbar-dropdown-bg: darken($topbar-bg-color, 3%);
+$topbar-dropdown-link-color: $body-font-color;
+$topbar-dropdown-link-bg: $topbar-dropdown-bg;
+$topbar-dropdown-toggle-color: $blue;
+$topbar-link-bg-hover: darken($topbar-bg-color, 3%);
+$topbar-link-bg-active: darken($topbar-bg-color, 3%);
+
+$topbar-link-color: $blue;
+$topbar-link-color-hover: $topbar-link-color;
+$topbar-link-color-active: $topbar-link-color;

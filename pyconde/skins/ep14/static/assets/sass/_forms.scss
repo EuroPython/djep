@@ -3,6 +3,7 @@ fieldset {
     padding: 95px 35px 35px 35px;
     margin-bottom: 20px;
     position: relative;
+    border: none;
 }
 
 legend {
@@ -27,7 +28,9 @@ label {
         padding: 5px 0;
         margin-bottom: 12px;
     }
-    label, input {
+    label,
+    input,
+    select {
         text-align: left;
     }
     label {
@@ -35,11 +38,18 @@ label {
         width: 18%;
         padding-top: 8px;
     }
+    select {
+        background-color: $background-color;
+    }
     .controls {
         float: left;
         width: 80%;
         margin-left: 2%;
-        input[type=text], input[type=email], input[type=password], textarea {
+        input[type=text],
+        input[type=email],
+        input[type=password],
+        select,
+        textarea {
             box-sizing: border-box;
             padding: 8px 1%;
             line-height: 150%;
@@ -52,13 +62,20 @@ label {
                 outline-color: lighten($baseColor, 30);
             }
         }
-        input[type=text], input[type=email], input[type=password] {
-            width: 60%;
+        input[type=text],
+        input[type=email],
+        input[type=password],
+        select,
+        textarea {
+            width: 50%;
             display: inline-block;
         }
         .help-block {
-            display: inline-block;
+            //display: inline-block;
             margin-left: 10px;
+            &.error {
+                color: $highlightColor;
+            }
         }
         p[id^="hint_"] {
             display: block;
@@ -95,17 +112,22 @@ label {
     }
 }
 
-.form-group.has-error .controls input {
+.form-group.has-error .controls input,
+.form-group.has-error .controls select,
+.form-group.has-error .controls textarea {
     border-color: $inputBorderErr;
 }
 
 .form-actions {
     text-align: right;
+    ul {
+        list-style: none;
+    }
 }
 
 .btn, .btn-primary {
     border-radius: 5px;
-    padding: 15px;
+    padding: 8px;
     font-size: 1.6rem;
     border: none;
 }

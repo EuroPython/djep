@@ -24,6 +24,9 @@
         <meta property="og:description" content="{% block og_description %}{% endblock %}" />
         <link rel="alternate" href="/news/feed/" type="application/atom+xml" title="PyCon DE-News" />
         {% endblock %}
+        {# Typekit loading should happen before anything else to prevent FOUT #}
+        <script type="text/javascript" src="//use.typekit.net/kxy0ijj.js"></script>
+        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
         <link rel="shortcut icon" href="{% static "images/favicon.ico" %}">
         {% render_block "css" %}
         {% block extra_head %}{% endblock %}
@@ -35,18 +38,17 @@
             <header>
                 <div class="inner">
                     <a href="/" class="logo"><img src="{% static "assets/images/logo.png" %}" alt="EuroPython 2014" /></a>
-                    <div class="menu left">
-                        <nav>
+                    <nav class="top-bar">
+<!--                         <ul class="title-area">
+                            <li class="name"></li>
+                            <li class="toggle-topbar menu-icon">
+                                <a href=""><span>Menu</span></a>
+                            </li>
+                        </ul> -->
+                        <section class="top-bar-section">
                             {% show_menu 0 1 1 1 "cms/primary-navigation.html" %}
-                        </nav>
-                    </div>
-                    <div class="menu right">
-                        <nav>
-                            <ul>
+                            <ul class="right">
                                 {% if not user.is_authenticated %}
-                                <li>
-                                    <a href="{% url 'auth_login' %}">{% trans "Login" %}</a>
-                                </li>
                                 <li>
                                     <a href="{% url 'userprofiles_registration' %}" class="btn danger">{% trans "Register now" %}</a>
                                 </li>
@@ -56,8 +58,13 @@
                                 </li>
                                 {% endif %}
                             </ul>
-                        </nav>
-                    </div>
+                        </section>
+                    </nav>
+                    {% if not user.is_authenticated %}
+                    <p id="login">
+                        You have already registered? <a href="{% url 'auth_login' %}">{% trans "Login" %}</a>
+                    </p>
+                    {% endif %}
                 </div>
             </header>
             <div id="main">
@@ -72,22 +79,49 @@
                 </section>
             </div>
             <footer>
-                <p id="credits">The EuroPython is organized by the <a href="http://www.meetup.com/Python-Users-Berlin-PUB/">Python User Group Berlin</a>, <a href="http://www.meetup.com/django-user-group-berlin/">Django User Group Berlin</a>, <a href="http://www.meetup.com/PyLadies-Berlin/">PyLadies Berlin</a> &amp; <a href="http://python-verband.org/">Python Software Verband</a> in cooperation with the EuroPython Society for the Python community.</p>
+                <div class="doormat">
+                    <div id="footer-legal">
+                        <ul>
+                            <li><a href="">{% trans "Legal Notice" %}</a></li>
+                            <li><a href="">{% trans "Privacy Policy" %}</a></li>
+                            <li><a href="">{% trans "Code of Conduct" %}</a></li>
+                        </ul>
+                    </div>
+                    <div id="footer-social">
+                        <ul>
+                            <li><a href="https://twitter.com/europython" class="twitter">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+                                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                                </span>
+                                {% trans "Follow @europython" %}</a></li>
+                            <li><a href="https://www.facebook.com/europython" class="facebook">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-facebook fa-stack-1x"></i>
+                                </span>
+                                {% trans "Like EuroPython" %}</a></li>
+                        </ul>
+                    </div>
+                    <div id="footer-donate">
+                        <h2>{% trans "Please Donate" %}</h2>
+                        <p>{% blocktrans %}EuroPython is organized by the Python Italia no-profit association. We are able to accept donations through PayPal and credit card, and we welcome any kind of contribution that will be exclusively used for improving the EuroPython event for everyone. Thanks!{% endblocktrans %}</p>
+                        <a class="btn" href="">{% trans "Donate now" %}</a>
+
+                    </div>
+                </div>
+                <div id="copyright">
+                    <p>{% blocktrans %}&copy; 2007-2013 Python, with some rights reserved.{% endblocktrans %}</p>
+                </div>
             </footer>
         </div>
 
-
-
-
-
-
-
-        <script type="text/javascript" src="//use.typekit.net/kxy0ijj.js"></script>
-        <script src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-        <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
+        <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
         <script src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
         {% compress js %}
             <script src="{% static "assets/js/ui.js" %}"></script>
+            <script type="text/javascript" src="{% static "assets/js/foundation/foundation.js"%}" />
+            <script type="text/javascript" src="{% static "assets/js/foundation/foundation.topbar.js"%}" />
         {% endcompress %}
         {% render_block "js" %}
         {% block extra_foot %}{% endblock %}
