@@ -134,6 +134,7 @@ class AudienceLevel(models.Model):
     class Meta(object):
         verbose_name = _("audience level")
         verbose_name_plural = _("audience levels")
+        ordering = ['level']
 
     def __unicode__(self):
         return self.name
