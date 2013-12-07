@@ -866,7 +866,7 @@ msgstr "Mögliche Zeiten"
 
 #: proposals/forms.py:124
 msgid ""
-"<br /><br />Please pick alle the times that should be considered for your "
+"<br /><br />Please pick all the times that should be considered for your "
 "presentation/tutorial. If possible these will be used for the final timeslot."
 msgstr ""
 "<br /><br />Bitte geben Sie hier alle Zeiten an, die für Ihren Vortrag/Ihr "

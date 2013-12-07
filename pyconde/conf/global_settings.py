@@ -239,7 +239,7 @@ ATTENDEES_PRODUCT_NUMBER_START = 1000
 
 PROPOSALS_SUPPORT_ADDITIONAL_SPEAKERS = True
 PROPOSALS_TYPED_SUBMISSION_FORMS = {
-    'tutorial': 'pyconde.proposals.forms.TutorialSubmissionForm',
+    'training': 'pyconde.proposals.forms.TrainingSubmissionForm',
     'talk': 'pyconde.proposals.forms.TalkSubmissionForm',
 }
 PROPOSAL_LANGUAGES = (

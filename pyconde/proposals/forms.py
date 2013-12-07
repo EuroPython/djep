@@ -122,7 +122,7 @@ class ProposalSubmissionForm(forms.ModelForm):
                 required=False
             )
             form.fields['available_timeslots'].help_text += ugettext(
-                """<br /><br />Please pick alle the times that should be considered for your """
+                """<br /><br />Please pick all the times that should be considered for your """
                 """presentation/tutorial. If possible these will be used for the final timeslot.""")
         if 'notes' in form.fields:
             form.fields['notes'].help_text = _(
@@ -216,7 +216,7 @@ class TypedSubmissionForm(ProposalSubmissionForm):
         pass
 
 
-class TutorialSubmissionForm(TypedSubmissionForm):
+class TrainingSubmissionForm(TypedSubmissionForm):
     class Meta(object):
         model = models.Proposal
         fields = [
@@ -232,12 +232,12 @@ class TutorialSubmissionForm(TypedSubmissionForm):
         ]
 
     def __init__(self, *args, **kwargs):
-        super(TutorialSubmissionForm, self).__init__(*args, **kwargs)
+        super(TrainingSubmissionForm, self).__init__(*args, **kwargs)
         instance = kwargs.get('instance')
         if instance:
             button_text = _("Save changes")
         else:
-            button_text = _("Submit tutorial")
+            button_text = _("Submit training")
         self.helper.layout = Layout(
             Fieldset(
                 _('General'),
@@ -257,7 +257,7 @@ class TutorialSubmissionForm(TypedSubmissionForm):
         )
 
     def customize_fields(self, instance=None, form=None, tracks=None):
-        super(TutorialSubmissionForm, self).customize_fields(instance, form, tracks)
+        super(TrainingSubmissionForm, self).customize_fields(instance, form, tracks)
         if form is None:
             form = self
         form.fields['description'].label = _("Description")
@@ -275,10 +275,10 @@ class TutorialSubmissionForm(TypedSubmissionForm):
             """(incl. version information) that attendees should install beforehand. The tutorial """
             """examples should work on Linux, Mac OSX and Windows. If they don't, please mark them accordingly.""")
         if 'available_timeslots' in form.fields:
-            form.fields['available_timeslots'].queryset = form.fields['available_timeslots'].queryset.filter(section__slug='tutorials')
+            form.fields['available_timeslots'].queryset = form.fields['available_timeslots'].queryset.filter(section__slug='trainings')
 
     def customize_save(self, instance):
-        instance.duration = conference_models.SessionDuration.current_objects.get(slug='tutorial')
+        instance.duration = conference_models.SessionDuration.current_objects.get(slug='training')
 
 
 class TalkSubmissionForm(TypedSubmissionForm):
@@ -295,7 +295,7 @@ class TalkSubmissionForm(TypedSubmissionForm):
         if form is None:
             form = self
         form.fields['duration'] = forms.ModelChoiceField(label=_("Duration"),
-                queryset=conference_models.SessionDuration.current_objects.exclude(slug='tutorial').all())
+                queryset=conference_models.SessionDuration.current_objects.exclude(slug='training').all())
         if 'available_timeslots' in form.fields:
             form.fields['available_timeslots'].queryset = form.fields['available_timeslots'] \
                 .queryset.filter(section__slug='konferenz')
