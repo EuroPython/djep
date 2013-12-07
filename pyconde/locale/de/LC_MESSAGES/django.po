@@ -1823,6 +1823,21 @@ msgstr ""
 msgid "custom CSS classes"
 msgstr ""
 
+msgid "Novice"
+msgstr "Anfänger"
+
+msgid "Advanced"
+msgstr "Fortgeschritten"
+
+msgid "Expert"
+msgstr "Experte"
+
+msgid "Long talk"
+msgstr "Langer Vortrag"
+
+msgid "Short talk"
+msgstr "Kurzer Vortrag"
+
 #, fuzzy
 #~ msgid "Sorry, but you're not allowed to access this proposal."
 #~ msgstr ""

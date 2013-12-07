@@ -4,6 +4,7 @@ from django.db import models
 from django.db.models import Q
 from django import forms
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext
 
 from timezones.fields import TimeZoneField
 
@@ -137,7 +138,7 @@ class AudienceLevel(models.Model):
         ordering = ['level']
 
     def __unicode__(self):
-        return self.name
+        return ugettext(self.name)
 
 
 class SessionDuration(models.Model):
@@ -160,7 +161,7 @@ class SessionDuration(models.Model):
         verbose_name_plural = _("session durations")
 
     def __unicode__(self):
-        return u"%s (%d min.)" % (self.label, self.minutes)
+        return u"%s (%d min.)" % (ugettext(self.label), self.minutes)
 
 
 class ActiveSessionKindManager(CurrentConferenceManager):

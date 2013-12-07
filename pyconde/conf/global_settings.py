@@ -340,6 +340,8 @@ EXPORT_SECRET_KEY = os.environ.get('EXPORT_SECRET_KEY', '')  # Set this for prod
 
 CHILDREN_DATA_DISABLED = True
 
+LOCALE_PATHS = (os.path.join(PROJECT_ROOT, 'locale'),)
+
 # TODO: As soon as we move to foundation use
 # https://pypi.python.org/pypi/crispy-forms-foundation
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
