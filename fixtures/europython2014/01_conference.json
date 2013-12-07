@@ -1,0 +1,16 @@
+[
+{
+    "pk": 1, 
+    "model": "conference.conference", 
+    "fields": {
+        "reviews_active": false, 
+        "end_date": "2014-07-27", 
+        "title": "EuroPython 2014", 
+        "reviews_end_date": null, 
+        "anonymize_proposal_author": true, 
+        "reviews_start_date": null, 
+        "timezone": "Europe/Berlin", 
+        "start_date": "2014-07-21"
+    }
+}
+]

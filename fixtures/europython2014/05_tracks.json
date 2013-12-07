@@ -1,0 +1,134 @@
+[
+{
+    "pk": 1, 
+    "model": "conference.track", 
+    "fields": {
+        "conference": 1, 
+        "description": "", 
+        "slug": "best-practices", 
+        "visible": true, 
+        "order": 1, 
+        "name": "best practices"
+    }
+},
+{
+    "pk": 2, 
+    "model": "conference.track", 
+    "fields": {
+        "conference": 1, 
+        "description": "", 
+        "slug": "education", 
+        "visible": true, 
+        "order": 2, 
+        "name": "education"
+    }
+},
+{
+    "pk": 3, 
+    "model": "conference.track", 
+    "fields": {
+        "conference": 1, 
+        "description": "", 
+        "slug": "embedded-devices", 
+        "visible": true, 
+        "order": 3, 
+        "name": "embedded devices"
+    }
+},
+{
+    "pk": 4, 
+    "model": "conference.track", 
+    "fields": {
+        "conference": 1, 
+        "description": "", 
+        "slug": "gaming", 
+        "visible": true, 
+        "order": 4, 
+        "name": "gaming"
+    }
+},
+{
+    "pk": 5, 
+    "model": "conference.track", 
+    "fields": {
+        "conference": 1, 
+        "description": "", 
+        "slug": "other", 
+        "visible": true, 
+        "order": 5, 
+        "name": "other"
+    }
+},
+{
+    "pk": 6, 
+    "model": "conference.track", 
+    "fields": {
+        "conference": 1, 
+        "description": "", 
+        "slug": "python-core", 
+        "visible": true, 
+        "order": 6, 
+        "name": "Python core"
+    }
+},
+{
+    "pk": 7, 
+    "model": "conference.track", 
+    "fields": {
+        "conference": 1, 
+        "description": "", 
+        "slug": "science", 
+        "visible": true, 
+        "order": 7, 
+        "name": "science"
+    }
+},
+{
+    "pk": 8, 
+    "model": "conference.track", 
+    "fields": {
+        "conference": 1, 
+        "description": "", 
+        "slug": "security", 
+        "visible": true, 
+        "order": 8, 
+        "name": "security"
+    }
+},
+{
+    "pk": 9, 
+    "model": "conference.track", 
+    "fields": {
+        "conference": 1, 
+        "description": "", 
+        "slug": "system-administration", 
+        "visible": true, 
+        "order": 9, 
+        "name": "system administration"
+    }
+},
+{
+    "pk": 10, 
+    "model": "conference.track", 
+    "fields": {
+        "conference": 1, 
+        "description": "", 
+        "slug": "testing", 
+        "visible": true, 
+        "order": 10, 
+        "name": "testing"
+    }
+},
+{
+    "pk": 11, 
+    "model": "conference.track", 
+    "fields": {
+        "conference": 1, 
+        "description": "", 
+        "slug": "web", 
+        "visible": true, 
+        "order": 11, 
+        "name": "web"
+    }
+}
+]

@@ -1,0 +1,38 @@
+[
+{
+    "pk": 1, 
+    "model": "conference.sessionkind", 
+    "fields": {
+        "conference": 1, 
+        "name": "Talk", 
+        "end_date": null, 
+        "slug": "talk", 
+        "closed": false, 
+        "start_date": null
+    }
+},
+{
+    "pk": 2, 
+    "model": "conference.sessionkind", 
+    "fields": {
+        "conference": 1, 
+        "name": "Training", 
+        "end_date": null, 
+        "slug": "training", 
+        "closed": false, 
+        "start_date": null
+    }
+},
+{
+    "pk": 3, 
+    "model": "conference.sessionkind", 
+    "fields": {
+        "conference": 1, 
+        "name": "Poster", 
+        "end_date": null, 
+        "slug": "poster", 
+        "closed": false, 
+        "start_date": null
+    }
+}
+]
