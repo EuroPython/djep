@@ -54,10 +54,6 @@ COMPRESS_CSS_FILTERS = (
     'compressor.filters.cssmin.CSSMinFilter',
 )
 
-COMPRESS_PRECOMPILERS = (
-   ('text/less', 'lessc -x {infile} {outfile}'),
-)
-
 ROOT_URLCONF = '%s.urls' % PROJECT_NAME
 
 INSTALLED_APPS = [
@@ -345,3 +341,8 @@ LOCALE_PATHS = (os.path.join(PROJECT_ROOT, 'locale'),)
 # TODO: As soon as we move to foundation use
 # https://pypi.python.org/pypi/crispy-forms-foundation
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True
+}

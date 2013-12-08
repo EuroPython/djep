@@ -3,8 +3,8 @@ module.exports = function(grunt) {
         pkg: grunt.file.readJSON('package.json'),
         compass: {
             options: {
-                basePath: 'pyconde/skins/ep14/',
-                config: 'pyconde/skins/ep14/config.rb',
+                basePath: 'pyconde/skins/ep14/static/assets/',
+                config: 'pyconde/skins/ep14/static/assets/config.rb',
             },
             server: {},
             dist: {
@@ -37,7 +37,7 @@ module.exports = function(grunt) {
         connect: {
             livereload: {
                 options: {
-                    open: true
+                    open: false
                 }
             },
             options: {
