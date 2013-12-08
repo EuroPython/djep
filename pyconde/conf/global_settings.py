@@ -54,10 +54,6 @@ COMPRESS_CSS_FILTERS = (
     'compressor.filters.cssmin.CSSMinFilter',
 )
 
-COMPRESS_PRECOMPILERS = (
-   ('text/less', 'lessc -x {infile} {outfile}'),
-)
-
 ROOT_URLCONF = '%s.urls' % PROJECT_NAME
 
 INSTALLED_APPS = [

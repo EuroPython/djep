@@ -53,6 +53,17 @@ As a final step you have to create a frontpage in the via
 http://localhost:8000/admin/cms/page/add/.
 
 
+Style integration
+-----------------
+
+Right now this project doesn't come with compiled css files but relies on
+Grunt and Compass to generate them. Once you have Compass installed, run
+following command to install all the other requirements::
+    
+    npm install
+    cd pyconde/skins/ep14/static/assets && ../../../../../node_modules/bower/bin/bower install
+
+
 Development
 -----------
 
