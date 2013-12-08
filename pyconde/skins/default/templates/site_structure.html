@@ -27,12 +27,6 @@
 
     <link rel="shortcut icon" href="{{ STATIC_URL }}images/favicon.ico">
 
-    {% if debug and use_dynamic_less_in_debug %}
-        <link rel="stylesheet/less" href="{{ STATIC_URL }}css/style.less" />
-        <script type="text/javascript" src="{{ STATIC_URL }}js/less-1.3.0.min.js"></script>
-    {% else %}
-        <link rel="stylesheet" href="{{ STATIC_URL }}css/style.css" />
-    {% endif %}
 
     {% render_block "css" %}
 
@@ -48,26 +42,8 @@
       {% block content %}{% endblock %}
     {% endblock %}
 
-    {% compress js %}
-    <script src="{{ STATIC_URL }}js/modernizr-2.0.6.js"></script>
-    <script src="{{ STATIC_URL }}js/jquery-1.7.1.min.js"></script>
-    <script src="{{ STATIC_URL }}js/jquery.slides.min.js"></script>
-    <script src="{{ STATIC_URL }}js/jquery.hammer.js"></script>
-    <script src="{{ STATIC_URL }}js/pyconde.core.js"></script>
-    <script src="{{ STATIC_URL }}css/bootstrap/js/bootstrap-collapse.js"></script>
-    {% endcompress %}
     {% render_block "js" %}
     {% block extra_foot %}{% endblock %}
-    <script type="text/javascript">
-        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
-        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
-        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
-        })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
 
-        ga('create', 'UA-40229326-1', 'pycon.org');
-        ga('set', 'anonymizeIp', true);
-        ga('send', 'pageview');
-
-    </script>
 </body>
 </html>
