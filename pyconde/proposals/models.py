@@ -28,9 +28,11 @@ class TimeSlot(models.Model):
     the speaker can do his/her talk. We just split this up into morning
     and afternoon.
     """
-    date = models.DateField(_("Date"))
-    slot = models.IntegerField(_("Timeslot"), choices=DATE_SLOT_CHOICES)
-    section = models.ForeignKey('conference.Section', verbose_name=_("Section"))
+    date = models.DateField(_("date"))
+    slot = models.IntegerField(_("timeslot"), choices=DATE_SLOT_CHOICES)
+    section = models.ForeignKey(
+        'conference.Section',
+        verbose_name=_("section"))
 
     def __unicode__(self):
         return "{0}, {1}".format(
@@ -38,8 +40,8 @@ class TimeSlot(models.Model):
 
     class Meta(object):
         unique_together = (('date', 'slot', 'section',),)
-        verbose_name = _("Timeslot")
-        verbose_name_plural = _("Timeslots")
+        verbose_name = _("timeslot")
+        verbose_name_plural = _("timeslots")
 
 
 class AbstractProposal(models.Model):
@@ -50,33 +52,35 @@ class AbstractProposal(models.Model):
     audience level and proposed duration.
     """
     conference = models.ForeignKey("conference.Conference",
-        verbose_name=_("Conference"))
-    title = models.CharField(_("Title"), max_length=100)
-    description = models.TextField(_("Description"), max_length=400)
-    abstract = models.TextField(_("Abstract"))
-    notes = models.TextField(_("Notes"), blank=True)
+        verbose_name="conference")
+    title = models.CharField(_("title"), max_length=100)
+    description = models.TextField(_("description"), max_length=400)
+    abstract = models.TextField(_("abstract"))
+    notes = models.TextField(_("notes"), blank=True)
     speaker = models.ForeignKey("speakers.Speaker", related_name="%(class)ss",
-        verbose_name=_("Speaker"))
+        verbose_name=_("speaker"))
     additional_speakers = models.ManyToManyField("speakers.Speaker",
         blank=True, null=True, related_name="%(class)s_participations",
-        verbose_name=_("Additional speakers"))
-    submission_date = models.DateTimeField(_("Submission date"), editable=False,
+        verbose_name=_("additional speakers"))
+    submission_date = models.DateTimeField(_("submission date"), editable=False,
         default=datetime.datetime.utcnow)
-    modified_date = models.DateTimeField(_("Nodification date"), blank=True,
+    modified_date = models.DateTimeField(_("modification date"), blank=True,
         null=True)
     kind = models.ForeignKey("conference.SessionKind",
-        verbose_name=_("Kind"))
+        verbose_name=_("kind"))
     audience_level = models.ForeignKey("conference.AudienceLevel",
-        verbose_name=_("Audience level"))
+        verbose_name=_("audience level"))
     duration = models.ForeignKey("conference.SessionDuration",
-        verbose_name=_("Duration"))
+        verbose_name=_("duration"))
     track = models.ForeignKey("conference.Track",
-        verbose_name=_("Track"), blank=True, null=True)
+        verbose_name=_("track"), blank=True, null=True)
     available_timeslots = models.ManyToManyField(
         TimeSlot,
-        verbose_name=_("Available timeslots"), null=True, blank=True)
-    language = models.CharField(_('Language'), max_length=5, blank=False,
-        default=LANGUAGES_CHOICES[0][0], choices=LANGUAGES_CHOICES)
+        verbose_name=_("available timeslots"), null=True, blank=True)
+    language = models.CharField(
+        _('Language'),
+        max_length=5, blank=False, default=LANGUAGES_CHOICES[0][0],
+        choices=LANGUAGES_CHOICES)
     tags = TaggableManager(blank=True)
 
     objects = models.Manager()
@@ -105,5 +109,5 @@ class AbstractProposal(models.Model):
 
 class Proposal(AbstractProposal):
     class Meta(object):
-        verbose_name = _("Proposal")
-        verbose_name_plural = _("Proposals")
+        verbose_name = _("proposal")
+        verbose_name_plural = _("proposals")
