@@ -127,9 +127,14 @@ label {
 
 .btn, .btn-primary {
     border-radius: 5px;
-    padding: 8px;
+    padding: 8px 20px 12px 20px;
     font-size: 1.6rem;
     border: none;
+    text-decoration: none;
+    display: inline-block;
+    &:hover {
+        background: $primaryBtnBg;
+    }
 }
 .btn-primary {
     background: $primaryBtnBg;
