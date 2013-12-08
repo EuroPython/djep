@@ -4,6 +4,7 @@
 
 .sass-cache
 node_modules
+bower_components
 
 pyconde/site_media/
 pyconde/deployed_static_media/
