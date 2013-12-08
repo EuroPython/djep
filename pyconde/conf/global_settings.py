@@ -343,3 +343,8 @@ CHILDREN_DATA_DISABLED = True
 # TODO: As soon as we move to foundation use
 # https://pypi.python.org/pypi/crispy-forms-foundation
 CRISPY_TEMPLATE_PACK = 'bootstrap3'
+
+LOGGING = {
+    'version': 1,
+    'disable_existing_loggers': True
+}
