@@ -3,6 +3,7 @@ Django==1.5.5
 Markdown==2.2.0
 Pillow==2.1.0
 South==0.8.2
+Whoosh==2.5.5
 cmsplugin-filer==0.9.5
 cmsplugin-news==0.4.2
 django-braces==1.2.2
