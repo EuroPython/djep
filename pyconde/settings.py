@@ -208,9 +208,7 @@ class Base(Configuration):
         'compressor.finders.CompressorFinder',
     )
 
-    STATICFILES_DIRS = (
-        os.path.join(BASE_DIR, 'static_media'),
-    )
+    STATICFILES_DIRS = values.ListValue()
 
     COMPRESS_CSS_FILTERS = (
         'compressor.filters.css_default.CssAbsoluteFilter',
