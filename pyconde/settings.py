@@ -96,7 +96,6 @@ class Base(Configuration):
         'userprofiles.contrib.profiles',
         'taggit',
         'haystack',
-        'django_extensions',
         #'tinymce', # If you want tinymce, add it in the settings.py file.
         'django_gravatar',
         'social_auth',
@@ -469,4 +468,15 @@ class Dev(Base):
 
     INSTALLED_APPS = Base.INSTALLED_APPS + ['debug_toolbar']
 
-    MIDDLEWARE_CLASSES = ['debug_toolbar.middleware.DebugToolbarMiddleware'] + Base.MIDDLEWARE_CLASSES
+    MIDDLEWARE_CLASSES = [
+        'django_extensions',
+        'debug_toolbar.middleware.DebugToolbarMiddleware'
+    ] + Base.MIDDLEWARE_CLASSES
+
+
+class Staging(Base):
+    pass
+
+
+class Production(Base):
+    pass
