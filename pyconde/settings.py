@@ -100,6 +100,7 @@ class Base(Configuration):
         #'tinymce', # If you want tinymce, add it in the settings.py file.
         'django_gravatar',
         'social_auth',
+        'gunicorn',
 
         'cms.plugins.inherit',
         'cms.plugins.googlemap',
