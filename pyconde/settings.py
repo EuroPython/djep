@@ -184,7 +184,7 @@ class Base(Configuration):
 
     @property
     def TEMPLATE_DEBUG(self):
-        return True  #self.DEBUG
+        return self.DEBUG
 
     @property
     def THUMBNAIL_DEBUG(self):
