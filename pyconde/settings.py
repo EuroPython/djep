@@ -29,10 +29,12 @@ class Base(Configuration):
     @property
     def MANAGERS(self):
         return self.ADMINS
+
+    EMAIL_HOST = values.Value()
     
-    DEFAULT_FROM_EMAIL = 'noreply@ep14.org'
+    DEFAULT_FROM_EMAIL = values.EmailValue('noreply@ep14.org')
     
-    SERVER_EMAIL = 'noreply@ep14.org'
+    SERVER_EMAIL = values.EmailValue('noreply@ep14.org')
     
     TIME_ZONE = 'Europe/Berlin'
     
@@ -40,7 +42,7 @@ class Base(Configuration):
     
     SECRET_KEY = values.SecretValue()
     
-    EMAIL_SUBJECT_PREFIX = '[EuroPython 2014] '
+    EMAIL_SUBJECT_PREFIX = values.Value('[EuroPython 2014] ')
     
     USE_I18N = True
     
@@ -192,9 +194,13 @@ class Base(Configuration):
     #
     # File settings
     #
-    MEDIA_URL = '/site_media/'
+    MEDIA_ROOT = values.Value()
 
-    STATIC_URL = '/static_media/'
+    STATIC_ROOT = values.Value()
+
+    MEDIA_URL = values.Value('/site_media/')
+
+    STATIC_URL = values.Value('/static_media/')
 
     STATICFILES_FINDERS = Configuration.STATICFILES_FINDERS + (
         'pyconde.helpers.static.AppMediaDirectoriesFinder',
