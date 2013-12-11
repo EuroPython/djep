@@ -1,5 +1,3 @@
-.. image:: https://secure.travis-ci.org/zerok/pyconde-website-mirror.png
-
 Installation
 ------------
 
@@ -32,6 +30,13 @@ If you want to use a different database system than PostgreSQL and a different
 database than "djep", set the ``DJANGO_DATABASE_URL`` environment variable.
 You can find some examples in the `dj-database-url <https://github.com/kennethreitz/dj-database-url/blob/master/test_dj_database_url.py>`_ 
 test module.
+
+Another environment variable you absolutely *have to set* is
+``DJANGO_SECRET_KEY``::
+    
+    export DJANGO_SECRET_KEY=...
+
+Not that this value should be constant for your local installation.
 
 Everything should be in place now to initialize the database. If you want to use
 SQLite be warned that there are some issues with the migration steps done
