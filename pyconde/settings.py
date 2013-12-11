@@ -152,7 +152,7 @@ class Base(Configuration):
     )
 
     DATABASES = values.DatabaseURLValue('postgresql://localhost/djep',
-        prefix='DJANGO')
+        environ_prefix='DJANGO')
 
     # Disable south migrations during unittests
     SOUTH_TESTS_MIGRATE = False
