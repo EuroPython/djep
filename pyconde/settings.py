@@ -151,7 +151,8 @@ class Base(Configuration):
         'social_auth.context_processors.social_auth_backends',
     )
 
-    DATABASES = values.DatabaseURLValue('postgresql://localhost/djep')
+    DATABASES = values.DatabaseURLValue('postgresql://localhost/djep',
+        prefix='DJANGO')
 
     # Disable south migrations during unittests
     SOUTH_TESTS_MIGRATE = False
@@ -466,10 +467,12 @@ class Dev(Base):
 
     STATIC_ROOT = os.path.join(Base.BASE_DIR, 'deployed_static_media')
 
-    INSTALLED_APPS = Base.INSTALLED_APPS + ['debug_toolbar']
+    INSTALLED_APPS = Base.INSTALLED_APPS + [
+        'debug_toolbar',
+        'django_extensions',
+    ]
 
     MIDDLEWARE_CLASSES = [
-        'django_extensions',
         'debug_toolbar.middleware.DebugToolbarMiddleware'
     ] + Base.MIDDLEWARE_CLASSES
 
