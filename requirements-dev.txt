@@ -1,9 +1,7 @@
 -r requirements.txt
 
-django-debug-toolbar==0.10.2
+django-debug-toolbar==0.11.0
 django-extensions==1.2.5
-
-Whoosh==2.5.4
 
 # Documentation
 Sphinx==1.1.3

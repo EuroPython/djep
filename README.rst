@@ -1,5 +1,3 @@
-.. image:: https://secure.travis-ci.org/zerok/pyconde-website-mirror.png
-
 Installation
 ------------
 
@@ -18,11 +16,27 @@ For development you have to install the development requirements as well::
 
     pip install -r requirements-dev.txt
 
-Now that this is complete, prepare the settings::
+Now that this is complete, you can optionally change some settings. To get an
+overview of what settings are available, take a look at the pyconde.settings
+module.
 
-    cd pyconde
-    cp settings.py.dist settings.py
-    cd ..
+We are using `django-configurations`_ to manage all settings and try to expose
+all relevant settings as environment variables. By default you will probably
+want to set following variables::
+    
+    export DJANGO_CONFIGURATION=Dev
+
+If you want to use a different database system than PostgreSQL and a different
+database than "djep", set the ``DJANGO_DATABASE_URL`` environment variable.
+You can find some examples in the `dj-database-url <https://github.com/kennethreitz/dj-database-url/blob/master/test_dj_database_url.py>`_ 
+test module.
+
+Another environment variable you absolutely *have to set* is
+``DJANGO_SECRET_KEY``::
+    
+    export DJANGO_SECRET_KEY=...
+
+Not that this value should be constant for your local installation.
 
 Everything should be in place now to initialize the database. If you want to use
 SQLite be warned that there are some issues with the migration steps done
@@ -101,3 +115,4 @@ in the imprint.
 
 .. _Paul Robert Lloyd: http://www.paulrobertlloyd.com/2009/06/social_media_icons/
 .. _foreman: https://github.com/ddollar/foreman
+.. _django-configurations: http://django-configurations.readthedocs.org/en/latest/
