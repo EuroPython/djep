@@ -12,7 +12,8 @@
         <p>{% blocktrans with url=change_email_url %}You haven't set an e-mail address for notifications yet. To do so click <a href="{{ url }}">here</a>.{% endblocktrans %}</p>
     {% endif %}
     {% if not social_auth.associated %}
-        <p>{% blocktrans %}<a href="{% url 'auth_password_change' %}">Change your password</a>.{% endblocktrans %}</p>
+        {% url 'auth_password_change' as auth_password_change_url %}
+        <p>{% blocktrans %}<a href="{{ auth_password_change_url }}">Change your password</a>.{% endblocktrans %}</p>
     {% else %}
         <p>{% blocktrans with provider=social_auth.associated.0.provider.title %}Your account is based on the data provided by your {{ provider }} account.{% endblocktrans %}</p>
     {% endif %}
