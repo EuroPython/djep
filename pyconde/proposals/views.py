@@ -103,7 +103,11 @@ class SubmitProposalView(TypedProposalFormMixin, NextRedirectMixin, generic_view
                 session_kinds.append(kind)
             if not open_session_kinds:
                 return TemplateResponse(request=request, template='proposals/closed.html', context={})
-            return TemplateResponse(request=request, template='proposals/submission_intro.html', context={'session_kinds': session_kinds, 'open_kinds': open_session_kinds})
+            return TemplateResponse(request=request, template='proposals/submission_intro.html',
+                context={
+                    'session_kinds': session_kinds,
+                    'open_kinds': open_session_kinds
+                })
         return super(SubmitProposalView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
