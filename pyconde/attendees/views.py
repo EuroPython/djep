@@ -10,7 +10,6 @@ The purchase process consists of the following steps:
    emails.
 
 """
-import datetime
 import logging
 import hashlib
 from collections import OrderedDict
@@ -22,6 +21,7 @@ from django.core.urlresolvers import reverse
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
+from django.utils.timezone import now
 import django.views.generic as generic_views
 
 from braces.views import LoginRequiredMixin
@@ -285,7 +285,7 @@ class HandlePaymentView(LoginRequiredMixin, PurchaseMixin,
         data = super(HandlePaymentView, self).get_context_data(*args, **kwargs)
         data['public_key'] = settings.PAYMILL_PUBLIC_KEY
         data['amount_in_cent'] = self.purchase.payment_total_in_cents
-        this_year = datetime.datetime.now().year
+        this_year = now().year
         data['exp_years'] = range(this_year, this_year + 10)
         data['error'] = self.error
         data['purchase'] = self.purchase
