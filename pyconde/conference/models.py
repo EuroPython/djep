@@ -1,14 +1,15 @@
-import datetime
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from django.db import models
 from django.db.models import Q
 from django import forms
-from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ugettext
+from django.utils.timezone import now
+from django.utils.translation import ugettext, ugettext_lazy as _
 
 from timezones.fields import TimeZoneField
 
-from pyconde import south_rules
+from pyconde import south_rules  # keep to make South still work
 
 
 CONFERENCE_CACHE = {}
@@ -54,9 +55,8 @@ class Conference(models.Model):
     def get_reviews_active(self):
         if self.reviews_active is not None:
             return self.reviews_active
-        now = datetime.datetime.now()
         if self.reviews_start_date and self.reviews_end_date:
-            return self.reviews_start_date <= now <= self.reviews_end_date
+            return self.reviews_start_date <= now() <= self.reviews_end_date
         return False
 
     class Meta(object):
@@ -166,10 +166,10 @@ class SessionDuration(models.Model):
 
 class ActiveSessionKindManager(CurrentConferenceManager):
     def filter_open_kinds(self):
-        now = datetime.datetime.utcnow()
+        _now = now()
         return self.get_query_set().filter(
             Q(closed=False)
-            | Q(Q(closed=None) & Q(start_date__lt=now) & Q(end_date__gte=now))
+            | Q(Q(closed=None) & Q(start_date__lt=_now) & Q(end_date__gte=_now))
             )
 
 
@@ -208,12 +208,12 @@ class SessionKind(models.Model):
     def accepts_proposals(self):
         if self.conference.get_reviews_active():
             return False
-        now = datetime.datetime.utcnow()
+        _now = now()
         if self.conference.start_date is not None:
-            if self.conference.start_date < now.date():
+            if self.conference.start_date < _now.date():
                 return False
         if self.closed is None:
-            return self.start_date <= now <= self.end_date
+            return self.start_date <= _now <= self.end_date
         return not self.closed
 
 

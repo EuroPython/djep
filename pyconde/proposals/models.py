@@ -1,8 +1,9 @@
+# -*- coding: utf-8 -*-
 from __future__ import unicode_literals
-import datetime
 
 from django.db import models
 from django.conf import settings
+from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django import forms
@@ -63,7 +64,7 @@ class AbstractProposal(models.Model):
         blank=True, null=True, related_name="%(class)s_participations",
         verbose_name=_("additional speakers"))
     submission_date = models.DateTimeField(_("submission date"), editable=False,
-        default=datetime.datetime.utcnow)
+        default=now)
     modified_date = models.DateTimeField(_("modification date"), blank=True,
         null=True)
     kind = models.ForeignKey("conference.SessionKind",
