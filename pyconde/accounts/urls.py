@@ -5,7 +5,9 @@ from . import views
 
 
 urlpatterns = patterns('django.contrib.auth.views',
-        url(r'^login/$', 'login', {'template_name': 'userprofiles/login.html', 'authentication_form': forms.AuthenticationForm},
+        url(r'^login/$', 'login',
+            {'template_name': 'userprofiles/login.html',
+             'authentication_form': forms.AuthenticationForm},
             name='auth_login'),
         url(r'^password/reset/$', 'password_reset',
             {'template_name': 'userprofiles/password_reset.html',

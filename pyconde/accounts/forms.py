@@ -181,6 +181,7 @@ class ProfileForm(BaseProfileForm):
             del self.fields['num_accompanying_children']
             del self.fields['age_accompanying_children']
 
+
 class LoginEmailRequestForm(forms.Form):
     email = forms.EmailField(required=True)
 
