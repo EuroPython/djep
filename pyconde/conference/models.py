@@ -208,6 +208,7 @@ class SessionKind(models.Model):
     current_objects = ActiveSessionKindManager()
 
     class Meta(object):
+        ordering = ('start_date', 'end_date', 'name')
         verbose_name = _("session kind")
         verbose_name_plural = _("session kinds")
 
