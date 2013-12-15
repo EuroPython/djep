@@ -8,7 +8,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 from django import forms
 
-from pyconde.conference.models import CurrentConferenceManager
+from pyconde.conference.models import CurrentConferenceManager, current_conference
 from pyconde.tagging import TaggableManager
 
 
@@ -31,9 +31,8 @@ class TimeSlot(models.Model):
     """
     date = models.DateField(_("date"))
     slot = models.IntegerField(_("timeslot"), choices=DATE_SLOT_CHOICES)
-    section = models.ForeignKey(
-        'conference.Section',
-        verbose_name=_("section"))
+    section = models.ForeignKey('conference.Section', verbose_name=_("section"),
+        limit_choices_to={'conference': current_conference()})
 
     def __unicode__(self):
         return "{0}, {1}".format(
@@ -49,17 +48,17 @@ class AbstractProposal(models.Model):
     """
     A proposal represents a possible future session as it will be used before
     and during the review process. It has one mandatory speaker and possible
-    additional speakers as well as a certain kind (tutorial, session, ...),
+    additional speakers as well as a certain kind (training, session, ...),
     audience level and proposed duration.
     """
     conference = models.ForeignKey("conference.Conference",
-        verbose_name="conference")
+        verbose_name="conference", on_delete=models.PROTECT)
     title = models.CharField(_("title"), max_length=100)
     description = models.TextField(_("description"), max_length=400)
     abstract = models.TextField(_("abstract"))
     notes = models.TextField(_("notes"), blank=True)
     speaker = models.ForeignKey("speakers.Speaker", related_name="%(class)ss",
-        verbose_name=_("speaker"))
+        verbose_name=_("speaker"), on_delete=models.PROTECT)
     additional_speakers = models.ManyToManyField("speakers.Speaker",
         blank=True, null=True, related_name="%(class)s_participations",
         verbose_name=_("additional speakers"))
@@ -67,21 +66,18 @@ class AbstractProposal(models.Model):
         default=now)
     modified_date = models.DateTimeField(_("modification date"), blank=True,
         null=True)
-    kind = models.ForeignKey("conference.SessionKind",
-        verbose_name=_("kind"))
+    kind = models.ForeignKey("conference.SessionKind", verbose_name=_("kind"),
+        on_delete=models.PROTECT)
     audience_level = models.ForeignKey("conference.AudienceLevel",
-        verbose_name=_("audience level"))
+        verbose_name=_("audience level"), on_delete=models.PROTECT)
     duration = models.ForeignKey("conference.SessionDuration",
-        verbose_name=_("duration"))
-    track = models.ForeignKey("conference.Track",
-        verbose_name=_("track"), blank=True, null=True)
-    available_timeslots = models.ManyToManyField(
-        TimeSlot,
+        verbose_name=_("duration"), on_delete=models.PROTECT)
+    track = models.ForeignKey("conference.Track", verbose_name=_("track"),
+        blank=True, null=True, on_delete=models.PROTECT)
+    available_timeslots = models.ManyToManyField(TimeSlot,
         verbose_name=_("available timeslots"), null=True, blank=True)
-    language = models.CharField(
-        _('Language'),
-        max_length=5, blank=False, default=LANGUAGES_CHOICES[0][0],
-        choices=LANGUAGES_CHOICES)
+    language = models.CharField(_('Language'), max_length=5, blank=False,
+        default=LANGUAGES_CHOICES[0][0], choices=LANGUAGES_CHOICES)
     tags = TaggableManager(blank=True)
 
     objects = models.Manager()
