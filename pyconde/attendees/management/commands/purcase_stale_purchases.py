@@ -1,7 +1,10 @@
+# -*- coding: utf-8 -*-
 from __future__ import print_function
-import datetime
+
+from datetime import timedelta
 
 from django.core.management.base import BaseCommand, make_option
+from django.utils.timezone import now
 
 from ... import models
 
@@ -18,7 +21,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         print("Purging orders older than {0} day(s):".format(options['days']))
-        date = datetime.datetime.now() - datetime.timedelta(days=options['days'])
+        date = now() - timedelta(days=options['days'])
         for purchase in models.Purchase.objects.filter(state='incomplete', date_added__lt=date):
             print(purchase, purchase.date_added)
             purchase.delete()

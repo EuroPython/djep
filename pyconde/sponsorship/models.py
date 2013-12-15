@@ -1,6 +1,5 @@
-import datetime
-
 from django.db import models
+from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
 from cms.models import CMSPlugin
@@ -39,7 +38,7 @@ class Sponsor(models.Model):
     contact_email = models.EmailField(_(u"Contact e\u2011mail"), blank=True, null=True)
     logo = models.ImageField(_("logo"), upload_to="sponsor_logos/")
     level = models.ForeignKey(SponsorLevel, verbose_name=_("level"))
-    added = models.DateTimeField(_("added"), default=datetime.datetime.now)
+    added = models.DateTimeField(_("added"), default=now)
     active = models.BooleanField(_("active"), default=False)
 
     def __unicode__(self):
