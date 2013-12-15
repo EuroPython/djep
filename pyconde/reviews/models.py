@@ -1,9 +1,10 @@
-import datetime
+# -*- coding: utf-8 -*-
 import logging
 
 from django.db import models
 from django.db.models import signals
 from django.utils.translation import ugettext_lazy as _
+from django.utils.timezone import now
 from django.contrib.auth import models as auth_models
 from django.core.urlresolvers import reverse
 from django.core.cache import cache
@@ -142,7 +143,7 @@ class Review(models.Model):
     rating = models.CharField(choices=RATING_CHOICES, max_length=2,
         verbose_name=_("rating"))
     summary = models.TextField(verbose_name=_("summary"))
-    pub_date = models.DateTimeField(default=datetime.datetime.now,
+    pub_date = models.DateTimeField(default=now,
         verbose_name=_("publication date"))
     proposal = models.ForeignKey(Proposal, related_name="reviews",
         verbose_name=_("proposal"))
@@ -166,7 +167,7 @@ class Comment(models.Model):
     """
     author = models.ForeignKey(auth_models.User, verbose_name=_("author"))
     content = models.TextField(verbose_name=_("content"))
-    pub_date = models.DateTimeField(default=datetime.datetime.now,
+    pub_date = models.DateTimeField(default=now,
         verbose_name=_("publication date"))
     proposal = models.ForeignKey(Proposal, verbose_name=_("proposal"),
         related_name="comments")
@@ -188,7 +189,7 @@ class Comment(models.Model):
         """
         self.deleted = True
         self.deleted_by = user
-        self.deleted_date = datetime.datetime.now()
+        self.deleted_date = now()
         self.deleted_reason = reason
 
     def get_absolute_url(self):

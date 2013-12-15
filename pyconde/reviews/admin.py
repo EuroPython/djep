@@ -1,9 +1,9 @@
 # -*- encoding: utf-8 -*-
-import datetime
 
 from django.contrib import admin
 from django.http import HttpResponse
 from django.utils.translation import ugettext_lazy as _
+from django.utils.timezone import now
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth import models as auth_models
 
@@ -12,8 +12,7 @@ from . import utils
 
 
 def mark_comment_as_deleted(modeladmin, request, queryset):
-    queryset.update(deleted=True, deleted_date=datetime.datetime.now(),
-        deleted_by=request.user)
+    queryset.update(deleted=True, deleted_date=now(), deleted_by=request.user)
 mark_comment_as_deleted.short_description = _("Mark comment(s) as deleted")
 
 
