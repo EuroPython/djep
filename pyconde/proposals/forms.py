@@ -48,6 +48,7 @@ class ProposalSubmissionForm(forms.ModelForm):
         ]
 
     def __init__(self, *args, **kwargs):
+        self.kind_instance = kwargs.pop('kind_instance', None)
         super(ProposalSubmissionForm, self).__init__(*args, **kwargs)
         tracks = conference_models.Track.current_objects.all()
         self.customize_fields(form=None, tracks=tracks, instance=kwargs.get('instance', None))
@@ -123,7 +124,7 @@ class ProposalSubmissionForm(forms.ModelForm):
             )
             form.fields['available_timeslots'].help_text += ugettext(
                 """<br /><br />Please pick all the times that should be considered for your """
-                """presentation/tutorial. If possible these will be used for the final timeslot.""")
+                """presentation/training. If possible these will be used for the final timeslot.""")
         if 'notes' in form.fields:
             form.fields['notes'].help_text = _(
                 """Add notes or comments here that can only be seen by reviewers and the organizing team.""")
@@ -204,6 +205,14 @@ class TypedSubmissionForm(ProposalSubmissionForm):
                 Submit('submit', button_text, css_class="btn-primary"))
         )
 
+    def customize_fields(self, instance=None, form=None, tracks=None):
+        super(TypedSubmissionForm, self).customize_fields(instance, form, tracks)
+        if form is None:
+            form = self
+        if 'available_timeslots' in form.fields:
+            form.fields['available_timeslots'].queryset = form.fields['available_timeslots'] \
+                .queryset.filter(section__in=self.kind_instance.sections.all())
+
     def save(self, commit=True):
         instance = super(TypedSubmissionForm, self).save(False)
         instance.kind = self.kind_instance
@@ -272,10 +281,8 @@ class TrainingSubmissionForm(TypedSubmissionForm):
             """target="_blank" rel="external">Markdown</a> input.""") + ugettext(
             """<br /><br />Please provide details about the structure including the timing. The """
             """sum of these structural points has to be 180 minutes. Please also list any software """
-            """(incl. version information) that attendees should install beforehand. The tutorial """
+            """(incl. version information) that attendees should install beforehand. The training """
             """examples should work on Linux, Mac OSX and Windows. If they don't, please mark them accordingly.""")
-        if 'available_timeslots' in form.fields:
-            form.fields['available_timeslots'].queryset = form.fields['available_timeslots'].queryset.filter(section__slug='trainings')
 
     def customize_save(self, instance):
         instance.duration = conference_models.SessionDuration.current_objects.get(slug='training')
@@ -295,7 +302,4 @@ class TalkSubmissionForm(TypedSubmissionForm):
         if form is None:
             form = self
         form.fields['duration'] = forms.ModelChoiceField(label=_("Duration"),
-                queryset=conference_models.SessionDuration.current_objects.exclude(slug='training').all())
-        if 'available_timeslots' in form.fields:
-            form.fields['available_timeslots'].queryset = form.fields['available_timeslots'] \
-                .queryset.filter(section__slug='konferenz')
+                queryset=conference_models.SessionDuration.current_objects.exclude(slug='talk').all())

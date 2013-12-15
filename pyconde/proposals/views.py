@@ -45,7 +45,7 @@ class TypedProposalFormMixin(object):
         if settings.UNIFIED_SUBMISSION_FORM:
             return forms.ProposalSubmissionForm
         type_slug = None
-        if getattr(self, 'object') and isinstance(self.object, models.Proposal):
+        if hasattr(self, 'object') and isinstance(self.object, models.Proposal):
             type_slug = self.object.kind.slug
         elif 'type' in self.kwargs:
             type_slug = self.kwargs['type']
@@ -60,11 +60,11 @@ class TypedProposalFormMixin(object):
                     return form_cls
         return forms.TypedSubmissionForm
 
-    def get_form(self, form_class):
-        form = super(TypedProposalFormMixin, self).get_form(form_class)
+    def get_form_kwargs(self):
+        kwargs = super(TypedProposalFormMixin, self).get_form_kwargs()
         if hasattr(self, 'proposal_kind'):
-            setattr(form, 'kind_instance', self.proposal_kind)
-        return form
+            kwargs['kind_instance'] = self.proposal_kind
+        return kwargs
 
     def get_template_names(self):
         """
