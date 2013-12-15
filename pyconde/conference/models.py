@@ -15,6 +15,24 @@ from pyconde import south_rules  # keep to make South still work
 CONFERENCE_CACHE = {}
 
 
+def current_conference():
+    from django.conf import settings
+    try:
+        conf_id = settings.CONFERENCE_ID
+    except AttributeError:
+        from django.core.exceptions import ImproperlyConfigured
+        raise ImproperlyConfigured("You must set the CONFERENCE_ID setting.")
+    try:
+        current_conf = CONFERENCE_CACHE[conf_id]
+    except KeyError:
+        try:
+            current_conf = Conference.objects.get(pk=conf_id)
+        except Conference.DoesNotExist:
+            return None
+        CONFERENCE_CACHE[conf_id] = current_conf
+    return current_conf
+
+
 class Conference(models.Model):
     """
     the full conference for a specific year, e.g. US PyCon 2012.
@@ -260,21 +278,3 @@ class Location(models.Model):
         verbose_name = _("location")
         verbose_name_plural = _("locations")
         ordering = ['order']
-
-
-def current_conference():
-    from django.conf import settings
-    try:
-        conf_id = settings.CONFERENCE_ID
-    except AttributeError:
-        from django.core.exceptions import ImproperlyConfigured
-        raise ImproperlyConfigured("You must set the CONFERENCE_ID setting.")
-    try:
-        current_conf = CONFERENCE_CACHE[conf_id]
-    except KeyError:
-        try:
-            current_conf = Conference.objects.get(pk=conf_id)
-        except Conference.DoesNotExist:
-            return None
-        CONFERENCE_CACHE[conf_id] = current_conf
-    return current_conf
