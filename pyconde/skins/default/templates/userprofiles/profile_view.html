@@ -1,25 +1,27 @@
 {% extends "site_base.html" %}
 {% load i18n account_tags thumbnail markup %}
+
 {% block title %}{% trans "User profile:" %} {{ userobj|account_name }}{% endblock %}
+{% block page_title %}{% trans "User profile:" %} {{ userobj|account_name }}{% endblock %}
+
 {% block bodycls %}profilepage{% endblock %}
 {% block body %}
-    <h1>{% trans "User profile:" %} {{ userobj|account_name }}</h1>
-    {% avatar profile %}
-    <div id="info">
-        {% if profile.short_info %}
-        {{ profile.short_info|markdown:"safe" }}
-        {% else %}
-        <p class="empty">{% trans "No info available" %}</p>
-        {% endif %}
-    </div>
-    {% if sessions %}
-    <section id="sessions">
-        <h1>Sessions</h1>
-        <ul>
-            {% for session in sessions %}
-            <li><a href="{{ session.get_absolute_url }}">{{ session.title }}</a></li>
-            {% endfor %}
-        </ul>
-    </section>
+  {% avatar profile %}
+  <div id="info">
+    {% if profile.short_info %}
+      {{ profile.short_info|markdown:"safe" }}
+    {% else %}
+      <p class="empty">{% trans "No info available" %}</p>
     {% endif %}
+  </div>
+  {% if sessions %}
+    <section id="sessions">
+      <h1>{% trans "Sessions" %}</h1>
+      <ul>
+        {% for session in sessions %}
+          <li><a href="{{ session.get_absolute_url }}">{{ session.title }}</a></li>
+        {% endfor %}
+      </ul>
+    </section>
+  {% endif %}
 {% endblock %}
