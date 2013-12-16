@@ -78,6 +78,7 @@ class AbstractProposal(models.Model):
         verbose_name=_("available timeslots"), null=True, blank=True)
     language = models.CharField(_('Language'), max_length=5, blank=False,
         default=LANGUAGES_CHOICES[0][0], choices=LANGUAGES_CHOICES)
+    accept_recording = models.BooleanField(default=False, blank=True)
     tags = TaggableManager(blank=True)
 
     objects = models.Manager()

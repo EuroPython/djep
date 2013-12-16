@@ -289,12 +289,32 @@ class TrainingSubmissionForm(TypedSubmissionForm):
 
 
 class TalkSubmissionForm(TypedSubmissionForm):
+
+    class Meta(object):
+        model = models.Proposal
+        fields = [
+            "title",
+            "description",
+            "abstract",
+            "additional_speakers",
+            "audience_level",
+            "tags",
+            "track",
+            "duration",
+            "available_timeslots",
+            "language",
+            "notes",
+            "accept_recording",
+        ]
+
     def __init__(self, *args, **kwargs):
         super(TalkSubmissionForm, self).__init__(*args, **kwargs)
         record_fs = Fieldset(_('Video recording'),
-            HTML(_("""<p class="control-group">Optionally, presentatons can be video recorded. """
-                   """During the conference there will be a paper form available where you can """
-                   """allow this recording. You can find out more <a href="/vortragende/">here</a>.</p>""")))
+            HTML(_('{% load cms_tags %}<p class="control-group">Optionally, presentatons can be video '
+                   'recorded. Due to data protection regulations you need to explicitly accept our '
+                   '<a href="{% page_url "privacy-policy" %}">privacy policy</a>.</p>')),
+            Field('accept_recording')
+        )
         self.helper.layout.fields.insert(-1, record_fs)
 
     def customize_fields(self, instance=None, form=None, tracks=None):
