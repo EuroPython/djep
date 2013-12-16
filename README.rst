@@ -96,6 +96,13 @@ live: fab -c live.ini upgrade
 staging: fab -c staging.ini upgrade
 
 
+Base data
+---------
+
+Add a CMS page with the ID ``accounts`` and attach the ``Accounts Menu``. Make
+sure to *not* display the page in the menu!
+
+
 Symposion
 ---------
 

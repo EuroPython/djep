@@ -17,9 +17,10 @@ class AccountsMenu(CMSAttachMenu):
     def get_nodes(self, request):
         nodes = []
         if request.user.is_authenticated():
-            nodes.append(NavigationNode(_("Your profile"), reverse('account_profile', kwargs={'uid': request.user.pk}), 'account-profile'))
+            # nodes.append(NavigationNode(_("Your profile"), reverse('account_profile', kwargs={'uid': request.user.pk}), 'account-profile'))
             nodes.append(NavigationNode(_("Change your profile"), reverse('userprofiles_profile_change'), 'account-change-profile'))
             nodes.append(NavigationNode(_("Change your password"), reverse('auth_password_change'), 'account-change-password'))
+            nodes.append(NavigationNode(_("Logout"), reverse('auth_logout'), 'account-logout'))
         return nodes
 
 menu_pool.register_menu(AccountsMenu)

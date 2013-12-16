@@ -39,12 +39,6 @@
                 <div class="inner">
                     <a href="/" class="logo"><img src="{% static "assets/images/logo.png" %}" alt="EuroPython 2014" /></a>
                     <nav class="top-bar">
-<!--                         <ul class="title-area">
-                            <li class="name"></li>
-                            <li class="toggle-topbar menu-icon">
-                                <a href=""><span>Menu</span></a>
-                            </li>
-                        </ul> -->
                         <section class="top-bar-section">
                             {% show_menu 0 1 1 1 "cms/primary-navigation.html" %}
                             <ul class="right">
@@ -53,8 +47,11 @@
                                     <a href="{% url 'userprofiles_registration' %}" class="btn danger">{% trans "Register now" %}</a>
                                 </li>
                                 {% else %}
-                                <li>
-                                    <a href="{% url 'auth_logout' %}">{% trans "Logout" %}</a>
+                                <li class="has-dropdown">
+                                    <a href="{% url 'auth_logout' %}">{% trans "Your profile" %}</a>
+                                    <ul class="dropdown">
+                                        {% show_menu_below_id "accounts" %}
+                                    </ul>
                                 </li>
                                 {% endif %}
                             </ul>
