@@ -5,20 +5,21 @@ from os.path import join, splitext
 from fabric.api import *
 
 if not env.get('branch'):
-    abort("Please select a config file (staging.ini | live.ini)")
+    abort("Please select a config file (staging.ini | production.ini)")
 env.hosts = ['pyep00.gocept.net', ]
 env.srv_user = 'pyep'
 env.proj_name = 'pyconde'
 env.www_root = join(env.root, 'htdocs')
 env.proj_root = join(env.root, 'djep')
-env.pip_files = (
-    join(env.proj_root, 'requirements.txt'),
-)
 env.manage_py = join(env.proj_root, 'manage.py')
 
 
 def srv_run(cmd):
-    return sudo(cmd, user=env.srv_user)
+    return sudo("{envdirbin} {envdir} {cmd}".format(
+        envdirbin=join(env.root, 'bin', 'envdir'),
+        envdir=join(env.root, 'env'),
+        cmd=cmd
+        ), user=env.srv_user)
 
 
 def srv_open_shellfa(cmd):
@@ -81,8 +82,9 @@ def update_requirements():
     Updates the project's requirements based on the requirements.txt file.
     """
     pip = join(env.root, 'bin', 'pip')
-    for reqfile in env.pip_files:
-        srv_run('%s install -q --use-mirrors -r %s' % (pip, reqfile))
+    requirements = join(env.proj_root, 'requirements', '{0}.txt'.format(
+        env.environment))
+    srv_run('%s install -q --use-mirrors -r %s' % (pip, requirements))
 
 
 @task
