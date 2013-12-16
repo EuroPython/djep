@@ -60,3 +60,6 @@ class SponsorListPlugin(CMSPlugin):
     custom_css_classes = models.CharField(
         _("custom CSS classes"), max_length=100, blank=True,
         help_text=u"Use slides-2rows if your row actually consists of two rows.")
+
+    def copy_relations(self, oldinstance):
+        self.levels = oldinstance.levels.all()
