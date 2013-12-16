@@ -37,12 +37,20 @@ label {
         float: left;
         width: 18%;
         padding-top: 8px;
+        &.checkbox {
+            width: 100%;
+            display: block;
+            float: none;
+            > input {
+                display: inline-block;
+                margin-right: 10px;
+            }
+        }
     }
     .checkbox label {
         width: 100%;
         display: block;
         float: none;
-
         > input {
             display: inline-block;
             margin-right: 10px;
