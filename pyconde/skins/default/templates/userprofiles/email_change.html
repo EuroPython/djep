@@ -1,17 +1,9 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n crispy_forms_tags %}
 
 {% block title %}{% trans "Change e-mail address" %}{% endblock %}
 {% block page_title %}{% trans "Change e-mail address" %}{% endblock %}
 
 {% block content %}
-    <form action="." method="post">
-        {% csrf_token %}
-        <fieldset>
-            {{ form.as_p }}
-        </fieldset>
-        <fieldset class="submit-row">
-            <p><button type="submit">{% trans "Change e-mail address" %}</button></p>
-        </fieldset>
-    </form>
+    {% crispy form %}
 {% endblock %}

@@ -7,6 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
 
 from userprofiles.forms import RegistrationForm
+from userprofiles.contrib.emailverification.forms import ChangeEmailForm as BaseChangeEmailForm
 from userprofiles.contrib.profiles.forms import ProfileForm as BaseProfileForm
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Fieldset, Div, Field, HTML
@@ -192,3 +193,14 @@ class LoginEmailRequestForm(forms.Form):
         self.helper.layout = Layout(
             'email',
             ButtonHolder(Submit('save', _("Continue"), css_class='btn btn-primary')))
+
+
+class ChangeEmailForm(BaseChangeEmailForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ChangeEmailForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.layout = Layout(
+            'new_email',
+            ButtonHolder(Submit('save', _("Change e-mail address"), css_class='btn btn-primary')))

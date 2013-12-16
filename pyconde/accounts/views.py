@@ -7,6 +7,7 @@ from django.db.models import Q
 from django.shortcuts import get_object_or_404
 
 from userprofiles.contrib.emailverification.models import EmailVerification
+from userprofiles.contrib.emailverification.views import EmailChangeView as BaseEmailChangeView
 
 from . import forms
 
@@ -87,3 +88,7 @@ class LoginEmailRequestView(generic_views.FormView):
                 user, form.cleaned_data['email'])
         self.request.session['_email_passed_{0}'.format(user_pk)] = True
         return HttpResponseRedirect('/complete/{0}/'.format(backend))
+
+
+class EmailChangeView(BaseEmailChangeView):
+    form_class = forms.ChangeEmailForm
