@@ -38,6 +38,16 @@ label {
         width: 18%;
         padding-top: 8px;
     }
+    .checkbox label {
+        width: 100%;
+        display: block;
+        float: none;
+
+        > input {
+            display: inline-block;
+            margin-right: 10px;
+        }
+    }
     select {
         background-color: $background-color;
     }
