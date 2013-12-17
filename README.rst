@@ -10,11 +10,15 @@ Next create a virtualenv and install all the requirments into it. In this
 example we are using virtualenvwrapper to manage the virtualenv::
     
     mkvirtualenv djep
-    pip install -r requirements.txt
 
-For development you have to install the development requirements as well::
+This repository provides requirements and configurations for various
+environments. Each environment (dev, staging and production) has its own
+requirements.txt.
 
-    pip install -r requirements-dev.txt
+For local development, install the requirements specified in
+requirements/dev.txt::
+
+    pip install -r requirements/dev.txt
 
 Now that this is complete, you can optionally change some settings. To get an
 overview of what settings are available, take a look at the pyconde.settings

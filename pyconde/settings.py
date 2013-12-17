@@ -151,8 +151,9 @@ class Base(Configuration):
         'social_auth.context_processors.social_auth_backends',
     )
 
-    DATABASES = values.DatabaseURLValue('postgresql://localhost/djep',
-        environ_prefix='DJANGO')
+    DATABASES = values.DatabaseURLValue(
+            'sqlite:///{0}/djep.db'.format(BASE_DIR),
+            environ_prefix='DJANGO')
 
     # Disable south migrations during unittests
     SOUTH_TESTS_MIGRATE = False

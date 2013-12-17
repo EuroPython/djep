@@ -1,8 +1,7 @@
--r requirements.txt
+-r base.txt
 
 django-debug-toolbar==0.11.0
 django-extensions==1.2.5
 
 # Documentation
 Sphinx==1.1.3
-
