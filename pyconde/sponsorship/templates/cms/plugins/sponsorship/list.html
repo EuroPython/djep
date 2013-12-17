@@ -2,43 +2,39 @@
     <section class="cmsplugin cmsplugin-sponsorlist placeholder-{{ placeholder }} {% if instance.group %}grouped{% endif %} {{ instance.custom_css_classes }} {% if instance.split_list_length %}split{% endif %}">
         {% if instance.title %}<h2>{{ instance.title }}</h2>{% endif %}
         <div class="cmsplugin-content">
-        {% if instance.group %}
-            {% for group in groups %}
-            <h3>{{ group.level.name }}</h3>
-            <ul>
-                {% for sponsor in group.sponsors %}
-                <li>
-                    <a rel="external" target="_blank" title="{{ sponsor.name }}" href="{{ sponsor.external_url }}"><img alt="Logo: {{sponsor.name}}" src="{{ sponsor.logo.url }}" /></a>
-                </li>
+            {% if instance.group %}
+                {% for level, level_sponsors in groups %}
+                    <h3>{{ level.name }}</h3>
+                    <ul>
+                        {% for sponsor in level_sponsors %}
+                        <li>
+                            <a rel="external" target="_blank" title="{{ sponsor.name }}" href="{{ sponsor.external_url }}"><img alt="Logo: {{ sponsor.name }}" src="{{ sponsor.logo.url }}" /></a>
+                        </li>
+                        {% endfor %}
+                    </ul>
                 {% endfor %}
-            </ul>
-            {% endfor %}
-        {% else %}
-            {% if sublists %}
+            {% elif sublists %}
                 {% for list in sublists %}
+                    <ul>
+                        {% for sponsor in list %}
+                            {% ifchanged sponsor.level.name %}
+                                <li><strong>{{ sponsor.level.name }}</strong></li>
+                            {% endifchanged %}
+                            <li>
+                                <a rel="external" target="_blank" title="{{ sponsor.name }}" href="{{ sponsor.external_url }}"><img alt="Logo: {{sponsor.name}}" src="{{ sponsor.logo.url }}" /></a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endfor %}
+            {% else %}
                 <ul>
-                    {% for sponsor in list %}
-                        {% ifchanged sponsor.level.name %}
-                        <li><strong>{{ sponsor.level.name }}</strong></li>
-                        {% endifchanged %}
+                    {% for sponsor in sponsors %}
                         <li>
                             <a rel="external" target="_blank" title="{{ sponsor.name }}" href="{{ sponsor.external_url }}"><img alt="Logo: {{sponsor.name}}" src="{{ sponsor.logo.url }}" /></a>
                         </li>
                     {% endfor %}
                 </ul>
-                {% endfor %}
-            {% else %}
-                {% if sponsors %}
-                <ul>
-                {% for sponsor in sponsors %}
-                    <li>
-                        <a rel="external" target="_blank" title="{{ sponsor.name }}" href="{{ sponsor.external_url }}"><img alt="Logo: {{sponsor.name}}" src="{{ sponsor.logo.url }}" /></a>
-                    </li>
-                {% endfor %}
-                </ul>
-                {% endif %}
             {% endif %}
-        {% endif %}
         </div>
     </section>
 {% endif %}

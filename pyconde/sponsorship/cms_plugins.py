@@ -1,3 +1,8 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
+from itertools import groupby
+
 from django.utils.translation import ugettext as _
 
 from cms.plugin_base import CMSPluginBase
@@ -18,21 +23,10 @@ class SponsorListPlugin(CMSPluginBase):
         groups = None
         sublists = None
         if instance.group:
-            groups = []
-            current_level = None
-            current_level_items = []
-            for sponsor in sponsors:
-                if current_level is None:
-                    current_level = sponsor.level
-                if current_level.pk is not sponsor.level.pk:
-                    groups.append({'level': current_level, 'sponsors': current_level_items})
-                    current_level = sponsor.level
-                    current_level_items = []
-                current_level_items.append(sponsor)
-            if current_level_items:
-                groups.append({'level': current_level, 'sponsors': current_level_items})
+            groups = [(k, list(v)) for k, v in groupby(sponsors, key=lambda x: x.level)]
         elif instance.split_list_length is not None:
             sponsor_list = list(sponsors)
+            # partition sponsors list: http://stackoverflow.com/a/1751478
             sublists = [sponsor_list[i:i+instance.split_list_length] for i in range(0, len(sponsor_list), instance.split_list_length)]
         context.update({
             'instance': instance,
