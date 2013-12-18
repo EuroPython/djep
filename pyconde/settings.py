@@ -477,8 +477,14 @@ class Dev(Base):
 
 
 class Staging(Base):
-    pass
+    INSTALLED_APPS = Base.INSTALLED_APPS + [
+        'raven.contrib.django.raven_compat',
+    ]
+    RAVEN_CONFIG = values.DictValue()
 
 
 class Production(Base):
-    pass
+    INSTALLED_APPS = Base.INSTALLED_APPS + [
+        'raven.contrib.django.raven_compat',
+    ]
+    RAVEN_CONFIG = values.DictValue()
