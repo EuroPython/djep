@@ -1,0 +1,36 @@
+{% extends "proposals/proposal_form.html" %}
+
+{% load i18n %}
+
+{% block title %}{% trans "Submit a training" %}{% endblock %}
+
+{% block body %}
+<div class="intro">
+<p>
+{% blocktrans %}
+A training is not a long talk. A training is more a hands-on workshop where
+participants get the opportunity to do something on their own, following a
+coach. You should keep in mind that exercises, you solve in a few minutes,
+often take 5 to 10 times longer since beginners need to learn the very first
+steps.
+{% endblocktrans %}
+</p>
+
+<p>
+{% blocktrans %}
+Participants should receive courseware as either PDF or printed copy. This
+should be as detailed that a participant can understand the training content
+independently.
+{% endblocktrans %}
+</p>
+
+<p>
+{% blocktrans %}
+For questions about training content or how to create a training please contact
+<a href="mailto:helpdesk@ep14.org">helpdesk@ep14.org</a>.
+{% endblocktrans %}
+</p>
+</div>
+
+{{ block.super }}
+{% endblock %}

@@ -3,8 +3,6 @@
 {% block title %}{% trans "Proposal" %}: {{ proposal.title }}{% endblock %}
 {% block body %}
 <article class="proposal">
-<h1>{% trans "Proposal" %}: {{ proposal.title }}{% if proposal.track %} ({{ proposal.track.name }}){% endif %}</h1>
-
 <div class="meta">
 {% if current_conference.anonymize_proposal_author %}
 {% blocktrans with submission_date=proposal.submission_date|date:"DATE_FORMAT" %}

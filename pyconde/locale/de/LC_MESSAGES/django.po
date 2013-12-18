@@ -866,7 +866,7 @@ msgstr "Mögliche Zeiten"
 
 #: proposals/forms.py:124
 msgid ""
-"<br /><br />Please pick alle the times that should be considered for your "
+"<br /><br />Please pick all the times that should be considered for your "
 "presentation/tutorial. If possible these will be used for the final timeslot."
 msgstr ""
 "<br /><br />Bitte geben Sie hier alle Zeiten an, die für Ihren Vortrag/Ihr "
@@ -1822,6 +1822,21 @@ msgstr ""
 #: sponsorship/models.py:62
 msgid "custom CSS classes"
 msgstr ""
+
+msgid "Novice"
+msgstr "Anfänger"
+
+msgid "Advanced"
+msgstr "Fortgeschritten"
+
+msgid "Expert"
+msgstr "Experte"
+
+msgid "Long talk"
+msgstr "Langer Vortrag"
+
+msgid "Short talk"
+msgstr "Kurzer Vortrag"
 
 #, fuzzy
 #~ msgid "Sorry, but you're not allowed to access this proposal."

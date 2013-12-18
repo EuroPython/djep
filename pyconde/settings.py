@@ -343,7 +343,7 @@ class Base(Configuration):
     # This configures the form that is used for each proposal type identified
     # by their respective slug.
     PROPOSALS_TYPED_SUBMISSION_FORMS = {
-        'tutorial': 'pyconde.proposals.forms.TutorialSubmissionForm',
+        'training': 'pyconde.proposals.forms.TrainingSubmissionForm',
         'talk': 'pyconde.proposals.forms.TalkSubmissionForm',
     }
 
