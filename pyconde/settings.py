@@ -416,7 +416,7 @@ class Base(Configuration):
         backends = ['django.contrib.auth.backends.ModelBackend']
         if self.GITHUB_APP_ID and self.GITHUB_API_SECRET:
             backends.insert(-1, 'social_auth.backends.contrib.github.GithubBackend')
-        if self.TWITTER_CONSUMER_KEY and Tself.WITTER_CONSUMER_SECRET:
+        if self.TWITTER_CONSUMER_KEY and self.WITTER_CONSUMER_SECRET:
             backends.insert(-1, 'social_auth.backends.twitter.TwitterBackend')
         if self.FACEBOOK_API_SECRET and self.FACEBOOK_APP_ID:
             backends.insert(-1, 'social_auth.backends.facebook.FacebookBackend')
