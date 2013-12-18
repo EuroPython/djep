@@ -11,9 +11,38 @@ body.start-tmpl {
     .cmsplugin {
         @include grid-row();
     }
+
+    h2 {
+        font-size: 20px;
+        font-size: 2.0rem;
+        font-weight: normal;
+    }
+
+    .area-1 {
+        padding-top: 70px;
+
+        h2 {
+            color: $grey;
+            margin-bottom: 25px;
+        }
+    }
     .area-2, .area-3 h2 {
         background-color: $dark-grey;
         color: #FFF;
+    }
+
+    .area-3 {
+        background-color: $background-color-light;
+
+        h2 {
+            margin-top: -22px;
+            padding: 10px 0 40px 0;
+            background: url(../images/area-3-bubble.png) bottom center no-repeat;
+        }
+    }
+
+    .area-4 {
+        background: #FFF;
     }
 
     blockquote {
@@ -41,6 +70,26 @@ body.start-tmpl {
         .info {
             float: right;
             width: 200px;
+        }
+    }
+
+    .social {
+        padding-bottom: 50px;
+
+        h2 {
+            margin-top: 40px;
+            font-size: 2.4rem;
+            margin-bottom: 25px;
+            padding-bottom: 0;
+            color: $red-blue;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            display: inline-block;
+            margin: 0 10px;
         }
     }
 
@@ -82,7 +131,7 @@ body.start-tmpl {
             img {
                 display: block;
                 border-radius: 50%;
-                border: 3px solid white;
+                border: 5px solid white;
                 max-width: 130px;
             }
         }
