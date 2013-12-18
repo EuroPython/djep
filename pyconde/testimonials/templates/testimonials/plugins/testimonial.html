@@ -1,0 +1,18 @@
+{% load thumbnail %}
+<div class="img">
+    {% if instance.author_image %}
+    <img src="{% thumbnail instance.author_image 130x130 crop %}" alt="">
+    {% endif %}
+</div>
+<blockquote>
+    <p>{{ instance.content }}</p>
+    <footer>
+        <cite>
+            {% if instance.author_url %}
+                <a href="{{ instance.author_url }}">{{ instance.author }}{% if instance.author_description %}, {{ instance.author_description }}{% endif %}</a>
+            {% else %}
+                {{ instance.author }}{% if instance.author_description %}, {{ instance.author_description }}{% endif %}
+            {% endif %}
+        </cite>
+    </footer>
+</blockquote>

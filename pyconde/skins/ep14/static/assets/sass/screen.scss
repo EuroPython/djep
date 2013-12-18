@@ -7,6 +7,7 @@
 @import "foundation/components/global";
 @import "foundation/components/grid";
 @import "foundation/components/top-bar";
+@import "foundation/components/orbit";
 
 //-----------------------------------------------------------------------------
 
@@ -231,6 +232,9 @@ strong {
     padding: 0;
     margin: 50px auto;
 }
+
+@import "frontpage";
+
 //-----------------------------------------------------------------------------
 
 @media (screen and max-width: 1000px) {
