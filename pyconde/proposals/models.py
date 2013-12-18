@@ -76,7 +76,7 @@ class AbstractProposal(models.Model):
         blank=True, null=True, on_delete=models.PROTECT)
     available_timeslots = models.ManyToManyField(TimeSlot,
         verbose_name=_("available timeslots"), null=True, blank=True)
-    language = models.CharField(_('Language'), max_length=5, blank=False,
+    language = models.CharField(_('language'), max_length=5, blank=False,
         default=LANGUAGES_CHOICES[0][0], choices=LANGUAGES_CHOICES)
     accept_recording = models.BooleanField(default=False, blank=True)
     tags = TaggableManager(blank=True)
