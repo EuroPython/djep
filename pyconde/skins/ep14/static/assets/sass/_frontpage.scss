@@ -33,6 +33,7 @@ body.start-tmpl {
 
     .area-3 {
         background-color: $background-color-light;
+        padding-bottom: 45px;
 
         h2 {
             margin-top: -22px;
@@ -63,13 +64,37 @@ body.start-tmpl {
         }
     }
 
-    #location {
-        img {
+    .location {
+        .img {
             float: left;
         }
         .info {
-            float: right;
-            width: 200px;
+            float: left;
+            margin-left: 30px;
+            text-align: left;
+            .name {font-size:2rem; font-weight: bold}
+            .addr {font-size:1.8rem}
+            .actions {
+                margin-top: 40px;
+                min-width: 250px;
+                list-style: none;
+                padding: 0;
+                li a {
+                    display: block;
+                    background: #FFF;
+                    border-radius: 5px;
+                    line-height: 40px;
+                    padding: 0 12px;
+                    text-decoration: none;
+                    font-size: 1.5rem;
+                }
+                li {
+                    margin-top: 10px;
+                    &:first-child {
+                        margin-top: 0;
+                    }
+                }
+            }
         }
     }
 
