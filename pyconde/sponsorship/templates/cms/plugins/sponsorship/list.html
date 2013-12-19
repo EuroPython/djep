@@ -7,9 +7,7 @@
                     <h3>{{ level.name }}</h3>
                     <ul>
                         {% for sponsor in level_sponsors %}
-                        <li>
-                            <a rel="external" target="_blank" title="{{ sponsor.name }}" href="{{ sponsor.external_url }}"><img alt="Logo: {{ sponsor.name }}" src="{{ sponsor.logo.url }}" /></a>
-                        </li>
+                            {% include "cms/plugins/sponsorship/_listitem.html" %}
                         {% endfor %}
                     </ul>
                 {% endfor %}
@@ -20,18 +18,14 @@
                             {% ifchanged sponsor.level.name %}
                                 <li><strong>{{ sponsor.level.name }}</strong></li>
                             {% endifchanged %}
-                            <li>
-                                <a rel="external" target="_blank" title="{{ sponsor.name }}" href="{{ sponsor.external_url }}"><img alt="Logo: {{sponsor.name}}" src="{{ sponsor.logo.url }}" /></a>
-                            </li>
+                            {% include "cms/plugins/sponsorship/_listitem.html" %}
                         {% endfor %}
                     </ul>
                 {% endfor %}
             {% else %}
                 <ul>
                     {% for sponsor in sponsors %}
-                        <li>
-                            <a rel="external" target="_blank" title="{{ sponsor.name }}" href="{{ sponsor.external_url }}"><img alt="Logo: {{sponsor.name}}" src="{{ sponsor.logo.url }}" /></a>
-                        </li>
+                        {% include "cms/plugins/sponsorship/_listitem.html" %}
                     {% endfor %}
                 </ul>
             {% endif %}
