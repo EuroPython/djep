@@ -37,6 +37,24 @@ label {
         float: left;
         width: 18%;
         padding-top: 8px;
+        &.checkbox {
+            width: 100%;
+            display: block;
+            float: none;
+            > input {
+                display: inline-block;
+                margin-right: 10px;
+            }
+        }
+    }
+    .checkbox label {
+        width: 100%;
+        display: block;
+        float: none;
+        > input {
+            display: inline-block;
+            margin-right: 10px;
+        }
     }
     select {
         background-color: $background-color;
@@ -127,9 +145,14 @@ label {
 
 .btn, .btn-primary {
     border-radius: 5px;
-    padding: 8px;
+    padding: 8px 20px 12px 20px;
     font-size: 1.6rem;
     border: none;
+    text-decoration: none;
+    display: inline-block;
+    &:hover {
+        background: $primaryBtnBg;
+    }
 }
 .btn-primary {
     background: $primaryBtnBg;

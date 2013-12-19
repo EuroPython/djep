@@ -345,7 +345,7 @@ class Base(Configuration):
     # This configures the form that is used for each proposal type identified
     # by their respective slug.
     PROPOSALS_TYPED_SUBMISSION_FORMS = {
-        'tutorial': 'pyconde.proposals.forms.TutorialSubmissionForm',
+        'training': 'pyconde.proposals.forms.TrainingSubmissionForm',
         'talk': 'pyconde.proposals.forms.TalkSubmissionForm',
     }
 
@@ -418,7 +418,7 @@ class Base(Configuration):
         backends = ['django.contrib.auth.backends.ModelBackend']
         if self.GITHUB_APP_ID and self.GITHUB_API_SECRET:
             backends.insert(-1, 'social_auth.backends.contrib.github.GithubBackend')
-        if self.TWITTER_CONSUMER_KEY and Tself.WITTER_CONSUMER_SECRET:
+        if self.TWITTER_CONSUMER_KEY and self.WITTER_CONSUMER_SECRET:
             backends.insert(-1, 'social_auth.backends.twitter.TwitterBackend')
         if self.FACEBOOK_API_SECRET and self.FACEBOOK_APP_ID:
             backends.insert(-1, 'social_auth.backends.facebook.FacebookBackend')
@@ -479,8 +479,14 @@ class Dev(Base):
 
 
 class Staging(Base):
-    pass
+    INSTALLED_APPS = Base.INSTALLED_APPS + [
+        'raven.contrib.django.raven_compat',
+    ]
+    RAVEN_CONFIG = values.DictValue()
 
 
 class Production(Base):
-    pass
+    INSTALLED_APPS = Base.INSTALLED_APPS + [
+        'raven.contrib.django.raven_compat',
+    ]
+    RAVEN_CONFIG = values.DictValue()

@@ -1,4 +1,4 @@
-{% load cms_tags sekizai_tags menu_tags compress event_tags i18n static %}
+{% load cms_tags sekizai_tags menu_tags compress i18n static %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -49,7 +49,7 @@
                                 </li>
                                 {% else %}
                                 <li class="has-dropdown">
-                                    <a href="{% url 'auth_logout' %}">{% trans "Your profile" %}</a>
+                                    <a href="{% url 'account_profile' uid=user.pk %}">{% trans "Your profile" %}</a>
                                     <ul class="dropdown">
                                         {% show_menu_below_id "accounts" %}
                                     </ul>

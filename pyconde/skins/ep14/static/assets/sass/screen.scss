@@ -102,7 +102,6 @@ header {
 a.btn {
     background: $baseColor;
     color: #ffffff;
-    padding: 8px 20px 12px 20px;
     &.danger {
         color: #FFF !important;
         background-color: $highlightColor !important;
@@ -232,6 +231,32 @@ strong {
 #site-title {
     padding: 0;
     margin: 50px auto;
+}
+
+table {
+    width: 100%;
+    td, th {
+        border-bottom: 1px solid $table-border;
+        padding: 5px 7px;
+    }
+    tr:hover td {
+        background: $background-color-light;
+    }
+    .actions {
+        a {
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 2rem;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+div.actions {
+    margin-top: 30px;
+    display: block;
 }
 
 @import "frontpage";

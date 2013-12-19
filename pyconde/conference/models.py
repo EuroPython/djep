@@ -1,16 +1,36 @@
-import datetime
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 from django.db import models
 from django.db.models import Q
 from django import forms
-from django.utils.translation import ugettext_lazy as _
+from django.utils.timezone import now
+from django.utils.translation import ugettext, ugettext_lazy as _
 
 from timezones.fields import TimeZoneField
 
-from pyconde import south_rules
+from pyconde import south_rules  # keep to make South still work
 
 
 CONFERENCE_CACHE = {}
+
+
+def current_conference():
+    from django.conf import settings
+    try:
+        conf_id = settings.CONFERENCE_ID
+    except AttributeError:
+        from django.core.exceptions import ImproperlyConfigured
+        raise ImproperlyConfigured("You must set the CONFERENCE_ID setting.")
+    try:
+        current_conf = CONFERENCE_CACHE[conf_id]
+    except KeyError:
+        try:
+            current_conf = Conference.objects.get(pk=conf_id)
+        except Conference.DoesNotExist:
+            return None
+        CONFERENCE_CACHE[conf_id] = current_conf
+    return current_conf
 
 
 class Conference(models.Model):
@@ -53,9 +73,8 @@ class Conference(models.Model):
     def get_reviews_active(self):
         if self.reviews_active is not None:
             return self.reviews_active
-        now = datetime.datetime.now()
         if self.reviews_start_date and self.reviews_end_date:
-            return self.reviews_start_date <= now <= self.reviews_end_date
+            return self.reviews_start_date <= now() <= self.reviews_end_date
         return False
 
     class Meta(object):
@@ -134,9 +153,10 @@ class AudienceLevel(models.Model):
     class Meta(object):
         verbose_name = _("audience level")
         verbose_name_plural = _("audience levels")
+        ordering = ['level']
 
     def __unicode__(self):
-        return self.name
+        return ugettext(self.name)
 
 
 class SessionDuration(models.Model):
@@ -159,15 +179,15 @@ class SessionDuration(models.Model):
         verbose_name_plural = _("session durations")
 
     def __unicode__(self):
-        return u"%s (%d min.)" % (self.label, self.minutes)
+        return u"%s (%d min.)" % (ugettext(self.label), self.minutes)
 
 
 class ActiveSessionKindManager(CurrentConferenceManager):
     def filter_open_kinds(self):
-        now = datetime.datetime.utcnow()
+        _now = now()
         return self.get_query_set().filter(
             Q(closed=False)
-            | Q(Q(closed=None) & Q(start_date__lt=now) & Q(end_date__gte=now))
+            | Q(Q(closed=None) & Q(start_date__lt=_now) & Q(end_date__gte=_now))
             )
 
 
@@ -178,6 +198,8 @@ class SessionKind(models.Model):
     closed = models.NullBooleanField()
     start_date = models.DateTimeField(blank=True, null=True)
     end_date = models.DateTimeField(blank=True, null=True)
+    sections = models.ManyToManyField(Section, verbose_name=_("section"),
+        limit_choices_to=Q(id__in=Section.current_objects.values_list('id', flat=True)))
 
     # TODO: available_durations = models.ManyToManyField('SessionDuration', blank=True, null=True)
     # TODO: available_tracks = models.ManyToManyField('Track', blank=True, null=True)
@@ -186,6 +208,7 @@ class SessionKind(models.Model):
     current_objects = ActiveSessionKindManager()
 
     class Meta(object):
+        ordering = ('start_date', 'end_date', 'name')
         verbose_name = _("session kind")
         verbose_name_plural = _("session kinds")
 
@@ -206,12 +229,12 @@ class SessionKind(models.Model):
     def accepts_proposals(self):
         if self.conference.get_reviews_active():
             return False
-        now = datetime.datetime.utcnow()
+        _now = now()
         if self.conference.start_date is not None:
-            if self.conference.start_date < now.date():
+            if self.conference.start_date < _now.date():
                 return False
         if self.closed is None:
-            return self.start_date <= now <= self.end_date
+            return self.start_date <= _now <= self.end_date
         return not self.closed
 
 
@@ -258,21 +281,3 @@ class Location(models.Model):
         verbose_name = _("location")
         verbose_name_plural = _("locations")
         ordering = ['order']
-
-
-def current_conference():
-    from django.conf import settings
-    try:
-        conf_id = settings.CONFERENCE_ID
-    except AttributeError:
-        from django.core.exceptions import ImproperlyConfigured
-        raise ImproperlyConfigured("You must set the CONFERENCE_ID setting.")
-    try:
-        current_conf = CONFERENCE_CACHE[conf_id]
-    except KeyError:
-        try:
-            current_conf = Conference.objects.get(pk=conf_id)
-        except Conference.DoesNotExist:
-            return None
-        CONFERENCE_CACHE[conf_id] = current_conf
-    return current_conf
