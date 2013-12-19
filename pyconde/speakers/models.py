@@ -17,7 +17,7 @@ class Speaker(models.Model):
 
     def __unicode__(self):
         if self.user.first_name and self.user.last_name:
-            return u"{0} {1}".format(self.user.first_name, self.user.last_name)
+            return "{0} {1}".format(self.user.first_name, self.user.last_name)
         return self.user.username
 
     def get_absolute_url(self):
