@@ -1,6 +1,11 @@
-from django.db import models
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 from django.contrib.auth.models import User
 from django.core.urlresolvers import reverse
+from django.db import models
+from django.db.models.signals import post_save
+from django.dispatch.dispatcher import receiver
 
 
 class Speaker(models.Model):
@@ -19,6 +24,7 @@ class Speaker(models.Model):
         return reverse('account_profile', kwargs={'uid': self.user.id})
 
 
+@receiver(post_save, sender=User)
 def create_speaker_profile(sender, instance, created, raw, **kwargs):
     """
     Every user also is a potential speaker in the current implemention so we
