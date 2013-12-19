@@ -48,7 +48,7 @@
                                 </li>
                                 {% else %}
                                 <li class="has-dropdown">
-                                    <a href="{% url 'auth_logout' %}">{% trans "Your profile" %}</a>
+                                    <a href="{% url 'account_profile' uid=user.pk %}">{% trans "Your profile" %}</a>
                                     <ul class="dropdown">
                                         {% show_menu_below_id "accounts" %}
                                     </ul>
