@@ -12,7 +12,7 @@ from . import models
 
 class SponsorListPlugin(CMSPluginBase):
     model = models.SponsorListPlugin
-    name = _("sponsor list plugin")
+    name = _("Sponsor list plugin")
     render_template = "cms/plugins/sponsorship/list.html"
 
     def render(self, context, instance, placeholder):

@@ -108,7 +108,9 @@ class Base(Configuration):
         #'cms.plugins.twitter',
         #'cms.plugins.text',
         'cmsplugin_filer_image',
+        'djangocms_style',
         #'cmsplugin_news',
+        'pyconde.testimonials',
 
         # Symposion apps
         'pyconde.conference',

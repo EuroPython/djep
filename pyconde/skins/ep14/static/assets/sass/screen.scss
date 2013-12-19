@@ -7,10 +7,12 @@
 @import "foundation/components/global";
 @import "foundation/components/grid";
 @import "foundation/components/top-bar";
+@import "foundation/components/orbit";
 
 //-----------------------------------------------------------------------------
 
 @import "forms";
+@import "cmsplugins";
 
 html {
     font-size: 62.5%;
@@ -256,6 +258,9 @@ div.actions {
     margin-top: 30px;
     display: block;
 }
+
+@import "frontpage";
+
 //-----------------------------------------------------------------------------
 
 @media (screen and max-width: 1000px) {
