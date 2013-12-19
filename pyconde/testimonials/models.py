@@ -6,7 +6,7 @@ from cms.models import CMSPlugin
 
 class TestimonialPlugin(CMSPlugin):
     """
-    Lists all testimonials currently active.
+    Represents a single testimonial.
     """
     content = models.TextField(_("content"))
     author = models.CharField(_("author"), max_length=255)
@@ -16,6 +16,12 @@ class TestimonialPlugin(CMSPlugin):
     author_description = models.CharField(_("author's description"),
         max_length=100, blank=True)
 
+    def __unicode__(self):
+        return self.author
+
 
 class TestimonialCollectionPlugin(CMSPlugin):
+    """
+    Container for testimonials that is rendered as as slider.
+    """
     pass
