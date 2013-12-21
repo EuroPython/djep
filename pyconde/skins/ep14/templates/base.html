@@ -116,8 +116,8 @@
             </footer>
         </div>
 
-        {% render_block "js" %}
         <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
+        {% render_block "js" %}
         <script src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
         {% compress js %}
             <script type="text/javascript" src="{% static "assets/bower_components/foundation/js/foundation/foundation.js"%}"></script>
@@ -125,6 +125,7 @@
             <script type="text/javascript" src="{% static "assets/bower_components/foundation/js/foundation/foundation.orbit.js"%}"></script>
             <script>$(document).foundation();</script>
             <script src="{% static "assets/js/ui.js" %}"></script>
+            <script src="{% static "assets/js/ui.multiuserselect.js" %}"></script>
         {% endcompress %}
         {% block extra_foot %}{% endblock %}
         <!--<script type="text/javascript">

@@ -10,6 +10,7 @@ from userprofiles.contrib.emailverification.models import EmailVerification
 from userprofiles.contrib.emailverification.views import EmailChangeView as BaseEmailChangeView
 
 from . import forms
+from . import models
 
 
 class AutocompleteUser(generic_views.View):
@@ -17,9 +18,9 @@ class AutocompleteUser(generic_views.View):
     This view is used for instance within the proposals application to support
     the autocompletion widget in there.
 
-    The current implementation matches users with either their firstname or
-    lastname being equal to the given "term" parameter and returns their
-    speaker pk as JSON object.
+    The current implementation matches users with the dipslay namee being
+    equal to the given "term" parameter and returns their speaker pk as JSON
+    object.
 
     TODO: Evaluation if this might be better placed somewhere within the
           speakers application.
@@ -28,21 +29,24 @@ class AutocompleteUser(generic_views.View):
     def get_matching_users(self, term):
         """
         Returns a list of dicts containing a user's name ("label") and her
-        speaker pk ("value"). The name is a concatination of first and last
-        name.
+        speaker pk ("value").
         """
         result = []
-        for user in auth_models.User.objects.filter(
-                Q(first_name__iexact=term) | Q(last_name__iexact=term)):
+        for profile in models.Profile.objects.filter(
+                display_name__icontains=term):
+            user = profile.user
             result.append({
-                'label': u'{0} {1}'.format(user.first_name, user.last_name),
+                'label': u'{0} ({1})'.format(profile.display_name,
+                    user.username),
                 'value': user.speaker_profile.pk
             })
         return result
 
     def get(self, request):
         term = request.GET['term']
-        result = self.get_matching_users(term)
+        result = []
+        if term and len(term) >= 2:
+            result = self.get_matching_users(term)
         return HttpResponse(json.dumps(result))
 
 

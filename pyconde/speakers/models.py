@@ -6,6 +6,8 @@ from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import signals
 
+import pyconde.accounts.utils as account_utils
+
 
 class Speaker(models.Model):
     """
@@ -15,9 +17,7 @@ class Speaker(models.Model):
     user = models.OneToOneField(User, related_name='speaker_profile')
 
     def __unicode__(self):
-        if self.user.first_name and self.user.last_name:
-            return "{0} {1}".format(self.user.first_name, self.user.last_name)
-        return self.user.username
+        return account_utils.get_display_name(self.user)
 
     def get_absolute_url(self):
         return reverse('account_profile', kwargs={'uid': self.user.id})

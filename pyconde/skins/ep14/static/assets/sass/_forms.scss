@@ -158,3 +158,8 @@ label {
     background: $primaryBtnBg;
     color: $primaryBtnFg;
 }
+
+.ui-menu-item a {
+    text-align: left;
+    font-size: 1.3rem;
+}
