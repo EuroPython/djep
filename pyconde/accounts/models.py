@@ -39,6 +39,10 @@ class Profile(models.Model):
     addressed_as = models.CharField(_("Addressed as"), max_length=255,
         help_text=_('How should we call you in mails and dialogs throughout the website?'),
         blank=True)
+    accept_pysv_conferences = models.BooleanField(_('Allow copying to PySV conferences'),
+        default=False, blank=True)
+    accept_ep_conferences = models.BooleanField(_('Allow copying to EuroPython conferences'),
+        default=False, blank=True)
 
 
 @receiver(user_logged_in)
