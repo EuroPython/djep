@@ -82,9 +82,9 @@
                 <div class="doormat">
                     <div id="footer-legal">
                         <ul>
-                            <li><a href="">{% trans "Legal Notice" %}</a></li>
-                            <li><a href="">{% trans "Privacy Policy" %}</a></li>
-                            <li><a href="">{% trans "Code of Conduct" %}</a></li>
+                            <li><a href="{% page_url "legal-notice" %}">{% page_attribute "title" "legal-notice" %}</a></li>
+                            <li><a href="{% page_url "privacy-policy" %}">{% page_attribute "title" "privacy-policy" %}</a></li>
+                            <li><a href="{% page_url "code-of-conduct" %}">{% page_attribute "title" "code-of-conduct" %}</a></li>
                         </ul>
                     </div>
                     <div id="footer-social">
@@ -101,6 +101,12 @@
                                     <i class="fa fa-facebook fa-stack-1x"></i>
                                 </span>
                                 {% trans "Like EuroPython" %}</a></li>
+                            <li><a href="https://plus.google.com/+Ep14Org" class="google-plus">
+                                <span class="fa-stack fa-lg">
+                                    <i class="fa fa-circle fa-stack-2x"></i>
+                                    <i class="fa fa-google-plus fa-stack-1x"></i>
+                                </span>
+                                {% trans "+1 EuroPython" %}</a></li>
                         </ul>
                     </div>
                     <div id="footer-donate">
@@ -111,7 +117,7 @@
                     </div>
                 </div>
                 <div id="copyright">
-                    <p>{% blocktrans %}&copy; 2007-2013 Python, with some rights reserved.{% endblocktrans %}</p>
+                    <p>&copy; 2007-{% now "Y" %} Python Software Verband e.V.</p>
                 </div>
             </footer>
         </div>
