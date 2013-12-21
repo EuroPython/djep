@@ -310,7 +310,7 @@ class TalkSubmissionForm(TypedSubmissionForm):
     def __init__(self, *args, **kwargs):
         super(TalkSubmissionForm, self).__init__(*args, **kwargs)
         record_fs = Fieldset(_('Video recording'),
-            HTML(_('{% load cms_tags %}<p class="control-group">Optionally, presentatons may be '
+            HTML(_('{% load cms_tags %}<p class="control-group">Optionally, presentations may be '
                    'recorded. Due to data protection regulations you need to explicitly accept our '
                    '<a href="{% page_url "privacy-policy" %}">privacy policy</a>.</p>')),
             Field('accept_recording')
