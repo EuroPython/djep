@@ -163,10 +163,13 @@ class ProfileForm(BaseProfileForm):
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
+        profile_fields = Fieldset(_('Personal information'), 'full_name',
+                                  'display_name', 'addressed_as',
+                                  'avatar', 'short_info')
+        profession_fields = Fieldset(_('Professional information'), 'organisation', 'twitter', 'website')
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
-            Div(Field('first_name', autofocus="autofocus"), 'last_name',
-                'avatar', 'short_info', 'organisation', 'twitter', 'website'),
+            profile_fields, profession_fields,
             (Div(Field('num_accompanying_children', disabled=True),
                  Field('age_accompanying_children', disabled=True))
              if settings.CHILDREN_DATA_DISABLED else
