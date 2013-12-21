@@ -140,7 +140,7 @@ class AudienceLevel(models.Model):
 
     To make custom styling of these levels a bit more flexible, the audience
     level also comes with a slug field for use as CSS-class, while the level
-    property is used to sort the audience level.
+    property is used to sort the target-audience.
     """
     conference = models.ForeignKey(Conference, verbose_name=_("conference"))
     name = models.CharField(_("name"), max_length=100)
@@ -151,8 +151,8 @@ class AudienceLevel(models.Model):
     current_objects = CurrentConferenceManager()
 
     class Meta(object):
-        verbose_name = _("audience level")
-        verbose_name_plural = _("audience levels")
+        verbose_name = _("target-audience")
+        verbose_name_plural = _("target-audiences")
         ordering = ['level']
 
     def __unicode__(self):
@@ -209,8 +209,8 @@ class SessionKind(models.Model):
 
     class Meta(object):
         ordering = ('start_date', 'end_date', 'name')
-        verbose_name = _("session kind")
-        verbose_name_plural = _("session kinds")
+        verbose_name = _("session type")
+        verbose_name_plural = _("session types")
 
     def __unicode__(self):
         return self.name
@@ -222,7 +222,7 @@ class SessionKind(models.Model):
         super(SessionKind, self).clean()
         if self.closed is None:
             if self.start_date is None or self.end_date is None:
-                raise forms.ValidationError(_("You have to specify a start and end date if you leave the 'closed' status undetermined"))
+                raise forms.ValidationError(_("You have to specify a start and end date if you don't change the 'closed' status"))
             if self.start_date >= self.end_date:
                 raise forms.ValidationError(_("The end date has to be after the start date"))
 

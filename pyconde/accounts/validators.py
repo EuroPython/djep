@@ -8,7 +8,7 @@ def twitter_username(value):
     """
     if len(value) > 15:
         raise ValidationError(
-            _("Twitter usernames only have 15 or less characters"))
+            _("Twitter usernames have only 15 characters or less"))
     if value.startswith("@"):
         raise ValidationError(
             _("Please omit the @ at the start of the twitter username"))

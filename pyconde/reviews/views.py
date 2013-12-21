@@ -524,7 +524,7 @@ class UpdateProposalView(TemplateResponseMixin, generic_views.View):
             return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.object.pk}))
         self.proposal_version = models.ProposalVersion.objects.get_latest_for(self.object)
         if not utils.is_proposal_author(request.user, self.object):
-            return create_403(_("You have to be the author of this review to access this page"))
+            return create_403(_("You have to be the author of this review in order to access this page"))
         return super(UpdateProposalView, self).dispatch(request, *args, **kwargs)
 
     def get_form_class(self):

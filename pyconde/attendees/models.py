@@ -99,7 +99,7 @@ class TicketType(models.Model):
     fee = models.FloatField(_('Fee'), default=0)
 
     max_purchases = models.PositiveIntegerField(
-        _('Max purchases'),
+        _('Max. purchases'),
         default=0, help_text=_('0 means no limit'))
 
     is_active = models.BooleanField(_('Is active'), default=False)

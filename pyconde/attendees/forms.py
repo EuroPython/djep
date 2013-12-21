@@ -78,7 +78,7 @@ class TicketQuantityForm(forms.Form):
         value = self.cleaned_data['quantity']
         if value > 0:
             if self.ticket_type.available_tickets < 1:
-                raise forms.ValidationError(_('Ticket sold out.'))
+                raise forms.ValidationError(_('Tickets sold out.'))
 
             if value > self.ticket_type.available_tickets:
                 raise forms.ValidationError(_('Not enough tickets left.'))
