@@ -1,8 +1,8 @@
 {% extends "site_base.html" %}
 {% load i18n account_tags thumbnail markup %}
 
-{% block title %}{% trans "User profile:" %} {{ userobj|account_name }}{% endblock %}
-{% block page_title %}{% trans "User profile:" %} {{ userobj|account_name }}{% endblock %}
+{% block title %}{{ userobj|display_name }}{% endblock %}
+{% block page_title %}{% trans "User profile:" %} {{ userobj|display_name }}{% endblock %}
 
 {% block bodycls %}profilepage{% endblock %}
 {% block body %}
