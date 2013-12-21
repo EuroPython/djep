@@ -133,6 +133,21 @@ class PasswordResetForm(auth_forms.PasswordResetForm):
             )
 
 
+class SetPasswordForm(auth_forms.SetPasswordForm):
+    """
+    Override for the default password reset form which acts as entrypoint
+    for crispy forms.
+    """
+    def __init__(self, *args, **kwargs):
+        super(SetPasswordForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.layout = Layout(
+                Div(Field('new_password1', autofocus="autofocus"), 'new_password2'),
+                ButtonHolder(Submit('reset', _('Set password'), css_class='btn-primary'))
+            )
+
+
 class PasswordChangeForm(auth_forms.PasswordChangeForm):
     """
     Override for the default password change form which acts as entrypoint
