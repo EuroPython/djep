@@ -107,6 +107,19 @@ header {
                 }
             }
         }
+        .title.js-generated.back a:before {
+            content: "";
+            display: block;
+            width: 0;
+            height: 0;
+            border: inset 5px;
+            border-color: transparent rgba(0, 179, 225, 0.4) transparent transparent;
+            border-right-style: solid;
+            margin-left: 15px;
+            margin-top: 6.25px;
+            position: absolute;
+            left: 0;
+        }
     }
     #login {
         position: absolute;
