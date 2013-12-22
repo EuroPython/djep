@@ -8,8 +8,8 @@ msgstr ""
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2013-12-21 21:32+0100\n"
 "PO-Revision-Date: 2013-12-21 21:30+0100\n"
-"Last-Translator: Markus Holtermann <inyoka@markusholtermann.eu>\n"
-"Language-Team: German <webteam@ubuntuusers.de>\n"
+"Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
+"Language-Team: German <webmaster@ep14.org>\n"
 "Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -1475,7 +1475,7 @@ msgid "deleted"
 msgstr "Löschen"
 
 #: reviews/models.py:178
-msgid "deleted on"
+msgid "deleted at"
 msgstr "Gelöscht am"
 
 #: reviews/models.py:180
@@ -1664,7 +1664,7 @@ msgid "sessions"
 msgstr "Sessions"
 
 #: schedule/models.py:104
-msgid "is paused"
+msgid "is break"
 msgstr "Pause"
 
 #: schedule/models.py:105

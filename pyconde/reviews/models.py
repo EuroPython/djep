@@ -175,7 +175,7 @@ class Comment(models.Model):
         verbose_name=_("proposal version"))
     deleted = models.BooleanField(default=False, verbose_name=_("deleted"))
     deleted_date = models.DateTimeField(null=True, blank=True,
-        verbose_name=_("deleted on"))
+        verbose_name=_("deleted at"))
     deleted_by = models.ForeignKey(auth_models.User, null=True, blank=True,
         verbose_name=_("deleted by"),
         related_name='deleted_comments')
