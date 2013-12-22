@@ -67,6 +67,7 @@ body.start-tmpl {
     .location {
         .img {
             float: left;
+            max-width: 100%;
         }
         .info {
             float: left;
@@ -146,26 +147,38 @@ body.start-tmpl {
             padding: 0 40px;
             overflow: hidden;
         }
-
-        .img {
-            float: left;
-            width: 130px;
-            height: 130px;
-            position: relative;
-            margin-top: 10px;
-
-            img {
+        @media #{$small-up} {
+            .img {
                 display: block;
-                border-radius: 50%;
-                border: 5px solid white;
-                max-width: 130px;
+                height: 130px;
+                position: relative;
+                margin-top: 10px;
+                text-align: center;
+
+                img {
+                    display: block;
+                    border-radius: 50%;
+                    border: 5px solid white;
+                    max-width: 130px;
+                    margin: auto;
+                }
+            }
+
+            blockquote {
+                margin-left: 0px;
+                float: right;
             }
         }
 
-        blockquote {
-            margin-left: 30px;
-            float: right;
-            width: 650px;
+        @media #{$medium-up} {
+            .img {
+                float: left;
+                width: 130px;
+            }
+            blockquote {
+                margin-left: 30px;
+                max-width: 650px;
+            }
         }
     }
 }

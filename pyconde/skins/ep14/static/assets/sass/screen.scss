@@ -27,55 +27,85 @@ a {
 }
 
 header {
-    height: 170px;
+    @media screen and (min-width: 890px) {
+        height: 170px;
+    }
     background: $background1;
     .inner {
         height: 100%;
         position: relative;
-        background: url(../images/headerbg.png) 6% 100% no-repeat;
+        @media screen and (min-width: 890px) {
+            background: url(../images/headerbg.png) 6% 100% no-repeat;
+        }
         .logo {
             float: left;
         }
         .logo {
             float: left;
-            margin: 30px 30px 20px -14px;
-            img {
-                height: 120px;
+            @media screen and (max-width: 889px) {
+                height: 45px;
+                img {
+                    max-height: 100%;
+                }
+            }
+            @media screen and (min-width: 890px) {
+                margin: 30px 30px 20px -14px;
+                img {
+                    height: 120px;
+                }
             }
         }
     }
     .top-bar {
-        width: 730px;
-        margin-top: 70px;
-        float: right;
-
-        ul {
-            padding: 0;
-        }
-
-        ul.dropdown {
-            background: $topbar-link-bg-hover;
-        }
-        .top-bar-section > ul {
-            background: transparent;
-
-            // Let's make the buttons in the menu larger
-            > li > a {
-                line-height: 25px;
-                padding: 8px 15px 12px 15px;
-                &:after {
-                    top: 23px;
-                }
-            }
-        }
-
-        ul > li > a {
+        ul > li > a, .title-area a {
             font-size: 15px;
             font-size: 1.5rem;
+            background: transparent;
         }
-
+        ul {
+            padding: 0;
+            background: transparent;
+        }
         a {
             text-decoration: none;
+        }
+        .toggle-topbar.menu-icon {
+            text-align: right;
+            a {
+                color: $blue;
+                margin-top: 1px;
+            }
+            span {
+                text-indent: -5000px;
+                box-shadow: none;
+                -webkit-box-shadow: none;
+            }
+        }
+        @media (screen and min-width: 890px) {
+            width: 730px;
+
+            margin-top: 70px;
+            float: right;
+
+            .title-area {
+                display: none;
+            }
+
+            ul.dropdown {
+                background: $topbar-link-bg-hover;
+            }
+            .top-bar-section > ul {
+                background: transparent;
+
+                // Let's make the buttons in the menu larger
+                > li > a {
+                    line-height: 25px;
+                    padding: 8px 15px 12px 15px;
+                    &:after {
+                        top: 23px;
+                    }
+                }
+            }
         }
     }
     #login {
@@ -172,7 +202,13 @@ footer {
         padding-bottom: 30px;
 
         > div {
-            @include grid-column($columns: 4);
+
+            @media #{$small-up} {
+                @include grid-column($columns: 12);
+            }
+            @media #{$medium-up} {
+                @include grid-column($columns: 6);
+            }
         }
     }
 
