@@ -19,3 +19,6 @@ $topbar-link-bg-active: darken($topbar-bg-color, 3%);
 $topbar-link-color: $blue;
 $topbar-link-color-hover: $topbar-link-color;
 $topbar-link-color-active: $topbar-link-color;
+
+$topbar-breakpoint: rem-calc(890px);
+$topbar-media-query: "screen and (min-width: 890px)";
