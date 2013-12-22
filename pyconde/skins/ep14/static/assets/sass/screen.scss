@@ -62,13 +62,24 @@ header {
             font-size: 1.5rem;
             background: transparent;
         }
+
         ul {
             padding: 0;
             background: transparent;
         }
+
         a {
             text-decoration: none;
         }
+
+        .top-bar-section ul li.active > a:hover {
+            background: darken($topbar-link-bg-hover, 10);
+            color: #FFF;
+            &:after {
+                border-top-color: #FFF;
+            }
+        }
+
         .toggle-topbar.menu-icon {
             text-align: right;
             a {
