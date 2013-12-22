@@ -28,7 +28,8 @@
         {# Typekit loading should happen before anything else to prevent FOUT #}
         <script type="text/javascript" src="//use.typekit.net/kxy0ijj.js"></script>
         <script type="text/javascript">try{Typekit.load();}catch(e){}</script>
-        <link rel="shortcut icon" href="{% static "images/favicon.ico" %}">
+        <link rel="icon" href="{% static "assets/images/favicon.ico" %}">
+        <link rel="apple-touch-icon-precomposed" href="{% static "assets/images/favicon-152.png" %}">
         {% render_block "css" %}
         {% block extra_head %}{% endblock %}
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
