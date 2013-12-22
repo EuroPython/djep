@@ -101,7 +101,7 @@ class SideEvent(models.Model):
     location = models.ForeignKey(conference_models.Location, blank=True,
         null=True, verbose_name=_("location"))
     is_global = models.BooleanField(_("is global"), default=False)
-    is_pause = models.BooleanField(_("is pause"), default=False)
+    is_pause = models.BooleanField(_("is break"), default=False)
     is_recordable = models.BooleanField(_("is recordable"), default=False)
     conference = models.ForeignKey(conference_models.Conference,
         verbose_name=_("conference"))
