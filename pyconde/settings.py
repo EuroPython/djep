@@ -280,7 +280,6 @@ class Base(Configuration):
                 'code': 'en',
                 'name': ugettext('English'),
                 'public': True,
-                'hide_untranslated': True,
             },
             {
                 'code': 'de',
