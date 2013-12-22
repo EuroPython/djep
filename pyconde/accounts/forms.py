@@ -67,7 +67,7 @@ class ProfileRegistrationForm(RegistrationForm):
     accept_pysv_conferences = forms.BooleanField(required=False,
         label=_('I hereby allow the Python Software Verband e.V. to re-use my profile information for upcoming conferences.'))
     accept_ep_conferences = forms.BooleanField(required=False,
-        label=_('I hereby allow the EuroPython Society to re-use my profile information for upcoming conferences'))
+        label=_('I hereby allow the EuroPython Society to re-use my profile information for upcoming conferences.'))
 
 
     def __init__(self, *args, **kwargs):

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-21 21:32+0100\n"
+"POT-Creation-Date: 2013-12-22 13:32+0100\n"
 "PO-Revision-Date: 2013-12-21 21:30+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -57,39 +57,39 @@ msgstr "ohne Kinder"
 msgid "Accounts app"
 msgstr "Accounts-Anwendung"
 
-#: accounts/forms.py:48 accounts/models.py:22
+#: accounts/forms.py:49 accounts/models.py:22
 msgid "short info"
 msgstr "Steckbrief"
 
-#: accounts/forms.py:49 accounts/models.py:34
+#: accounts/forms.py:50 accounts/models.py:34
 msgid "Organisation"
 msgstr "Organisation"
 
-#: accounts/forms.py:50 accounts/models.py:31
+#: accounts/forms.py:51 accounts/models.py:31
 msgid "Twitter"
 msgstr "Twitter"
 
-#: accounts/forms.py:52 accounts/models.py:33
+#: accounts/forms.py:53 accounts/models.py:33
 msgid "Website"
 msgstr "Webseite"
 
-#: accounts/forms.py:54 accounts/forms.py:173 accounts/models.py:26
+#: accounts/forms.py:55 accounts/forms.py:195 accounts/models.py:26
 msgid "Number of accompanying children"
 msgstr "Voraussichtliche Anzahl mitkommender Kinder"
 
-#: accounts/forms.py:57 accounts/forms.py:175 accounts/models.py:30
+#: accounts/forms.py:58 accounts/forms.py:197 accounts/models.py:30
 msgid "Age of accompanying children"
 msgstr "Alter der mitkommenden Kinder"
 
-#: accounts/forms.py:60 accounts/models.py:37
+#: accounts/forms.py:61 accounts/models.py:37
 msgid "What name should be displayed to other people?"
 msgstr "Welchen Namen sollen wir anderen Anderen anzeigen"
 
-#: accounts/forms.py:61 accounts/models.py:39
+#: accounts/forms.py:62 accounts/models.py:39
 msgid "Address me as"
 msgstr "Anrede"
 
-#: accounts/forms.py:62
+#: accounts/forms.py:63
 msgid ""
 "How should we call you in mails and dialogs throughout the website? If you "
 "leave this field blank, we will fallback to your display name."
@@ -98,22 +98,56 @@ msgstr ""
 "Wenn du dieses Feld leer lässt nutzen wir deinen Anzeigenamen"
 
 #: accounts/forms.py:66
+msgid "I hereby agree to the privacy policy."
+msgstr "Ich akzeptiere die Datenschutzerklärung"
+
+#: accounts/forms.py:68
+msgid ""
+"I hereby allow the Python Software Verband e.V. to re-use my profile "
+"information for upcoming conferences."
+msgstr ""
+"Ich erlaube dem Python Software Verband e.V. meine Profildaten für "
+"zukünftige Konferenzen wiederzuverwenden."
+
+#: accounts/forms.py:70
+msgid ""
+"I hereby allow the EuroPython Society to re-use my profile information for "
+"upcoming conferences."
+msgstr ""
+"Ich erlaube der EuroPython Society meine Profildaten für zukünftige "
+"Konferenzen wiederzuverwenden."
+
+#: accounts/forms.py:75
 msgid "Login information"
 msgstr "Logindaten"
 
-#: accounts/forms.py:67 accounts/forms.py:181
+#: accounts/forms.py:76 accounts/forms.py:203
 msgid "Personal information"
 msgstr "Persönliche Daten"
 
-#: accounts/forms.py:70 accounts/forms.py:184
+#: accounts/forms.py:79 accounts/forms.py:206
 msgid "Professional information"
 msgstr "Weitere Daten"
 
-#: accounts/forms.py:75
+#: accounts/forms.py:80
+msgid "Privacy Policy"
+msgstr "Datenschutzerklärung"
+
+#: accounts/forms.py:81
+msgid ""
+"{% load cms_tags %}<p class=\"control-group\">Due to data protection "
+"regulations you need to explicitly accept our <a href=\"{% page_url "
+"\"privacy-policy\" %}\">privacy policy</a>.</p>"
+msgstr ""
+"{% load cms_tags %}<p class=\"control-group\">Aus Datenschutzgründen "
+"benötigen wir dazu eine explizite Freigabe und eine Anerkennung unserer <a "
+"href=\"{% page_url \"privacy-policy\" %}\">Datenschutzerklärung</a>.</p>"
+
+#: accounts/forms.py:91
 msgid "Create account"
 msgstr "Konto anlegen"
 
-#: accounts/forms.py:78 accounts/forms.py:196
+#: accounts/forms.py:94 accounts/forms.py:218
 msgid ""
 "Please upload an image with a side length of at least 300 pixels.<br />If "
 "you don't upload an avatar your Gravatar will be used instead."
@@ -122,7 +156,7 @@ msgstr ""
 ">Falls Sie keinen Avatar hochladen, wird versucht, Ihren Gravatar zu "
 "verwenden."
 
-#: accounts/forms.py:112
+#: accounts/forms.py:134
 #, python-format
 msgid ""
 "<ul><li><a href=\"%(register_url)s\">Don't have an account yet?</a></"
@@ -131,11 +165,11 @@ msgstr ""
 "<ul><li><a href=\"%(register_url)s\">Noch kein Konto?</a></li><li><a href="
 "\"%(password_reset_url)s\">Passwort vergessen?</a></li></ul>"
 
-#: accounts/forms.py:116
+#: accounts/forms.py:138
 msgid "Log in"
 msgstr "Anmelden"
 
-#: accounts/forms.py:132
+#: accounts/forms.py:154
 #: skins/default/templates/userprofiles/password_reset.html:4
 #: skins/default/templates/userprofiles/password_reset.html:5
 #: skins/default/templates/userprofiles/password_reset_complete.html:4
@@ -147,11 +181,11 @@ msgstr "Anmelden"
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
-#: accounts/forms.py:147
+#: accounts/forms.py:169
 msgid "Set password"
 msgstr "Passwort zurücksetzen"
 
-#: accounts/forms.py:162
+#: accounts/forms.py:184
 #: skins/default/templates/userprofiles/password_change.html:4
 #: skins/default/templates/userprofiles/password_change.html:5
 #: skins/default/templates/userprofiles/password_change_done.html:4
@@ -159,19 +193,19 @@ msgstr "Passwort zurücksetzen"
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: accounts/forms.py:171
+#: accounts/forms.py:193
 msgid "organisation"
 msgstr "Organisation"
 
-#: accounts/forms.py:193
+#: accounts/forms.py:215
 msgid "Change"
 msgstr "Ändern"
 
-#: accounts/forms.py:213
+#: accounts/forms.py:235
 msgid "Continue"
 msgstr "Weiter"
 
-#: accounts/forms.py:224
+#: accounts/forms.py:246
 #: skins/default/templates/userprofiles/email_change.html:4
 #: skins/default/templates/userprofiles/email_change.html:5
 #: skins/default/templates/userprofiles/email_change_requested.html:4
@@ -216,7 +250,15 @@ msgid "How should we call you in mails and dialogs throughout the website?"
 msgstr ""
 "Wie sollen wir dich in E-Mails und Dialogen auf der Webseite ansprechen?"
 
-#: accounts/models.py:46
+#: accounts/models.py:42
+msgid "Allow copying to PySV conferences"
+msgstr "Daten für zukünftige PySV Konferenzen wiederverwenden"
+
+#: accounts/models.py:44
+msgid "Allow copying to EPS conferences"
+msgstr "Daten für zukünftige EPS Konferenzen wiederverwenden"
+
+#: accounts/models.py:50
 msgid "You've logged in successfully."
 msgstr "Sie haben sich erfolgreich angemeldet."
 
@@ -1821,7 +1863,7 @@ msgstr "Abgemeldet"
 
 #: skins/default/templates/userprofiles/login.html:4
 #: skins/default/templates/userprofiles/login.html:5
-#: skins/ep14/templates/base.html:63
+#: skins/ep14/templates/base.html:67
 msgid "Login"
 msgstr "Anmelden"
 
@@ -1847,7 +1889,7 @@ msgstr ""
 
 #: skins/default/templates/userprofiles/profile.html:4
 #: skins/default/templates/userprofiles/profile.html:5
-#: skins/ep14/templates/base.html:52
+#: skins/ep14/templates/base.html:56
 msgid "Your profile"
 msgstr "Ihre Profil"
 
@@ -1958,19 +2000,19 @@ msgstr "Konto-Aktivierung"
 msgid "E-mail confirmation"
 msgstr "E-Mail-Bestätigung"
 
-#: skins/ep14/templates/base.html:48
+#: skins/ep14/templates/base.html:52
 msgid "Register now"
 msgstr "Neues Konto anlegen"
 
-#: skins/ep14/templates/base.html:97
+#: skins/ep14/templates/base.html:101
 msgid "Follow @europython"
 msgstr "@europython folgen"
 
-#: skins/ep14/templates/base.html:103
+#: skins/ep14/templates/base.html:107
 msgid "Like EuroPython"
 msgstr "Like EuroPython"
 
-#: skins/ep14/templates/base.html:109
+#: skins/ep14/templates/base.html:113
 msgid "+1 EuroPython"
 msgstr "+1 EuroPython"
 

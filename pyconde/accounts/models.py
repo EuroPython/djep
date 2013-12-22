@@ -41,7 +41,7 @@ class Profile(models.Model):
         blank=True)
     accept_pysv_conferences = models.BooleanField(_('Allow copying to PySV conferences'),
         default=False, blank=True)
-    accept_ep_conferences = models.BooleanField(_('Allow copying to EuroPython conferences'),
+    accept_ep_conferences = models.BooleanField(_('Allow copying to EPS conferences'),
         default=False, blank=True)
 
 
