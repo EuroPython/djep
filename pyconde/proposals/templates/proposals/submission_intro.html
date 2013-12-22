@@ -2,7 +2,7 @@
 {% load i18n %}
 {% block body %}
 {% block title %}{% trans "Submit a proposal" %}{% endblock %}
-<p>{% trans "Please choose what kind of proposal you want to submit:" %}</p>
+<p>{% trans "Please choose what type of proposal you want to submit:" %}</p>
 <ol>
   {% for kind in open_kinds %}
     <li><a href="{% url 'typed_submit_proposal' type=kind.slug %}">{{ kind.name }}</a></li>

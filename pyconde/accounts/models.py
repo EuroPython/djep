@@ -36,7 +36,7 @@ class Profile(models.Model):
     display_name = models.CharField(_("Display name"), max_length=255,
         help_text=_('What name should be displayed to other people?'),
         blank=True)
-    addressed_as = models.CharField(_("Addressed as"), max_length=255,
+    addressed_as = models.CharField(_("Address me as"), max_length=255,
         help_text=_('How should we call you in mails and dialogs throughout the website?'),
         blank=True)
     accept_pysv_conferences = models.BooleanField(_('Allow copying to PySV conferences'),

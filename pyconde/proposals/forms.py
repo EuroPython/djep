@@ -96,10 +96,10 @@ class ProposalSubmissionForm(forms.ModelForm):
             form.fields['additional_speakers'] = HiddenSpeakersMultipleChoiceField(label=_("Additional speakers"),
                 queryset=additional_speakers, required=False)
         if 'kind' in self.fields:
-            form.fields['kind'] = forms.ModelChoiceField(label=_("Kind"),
+            form.fields['kind'] = forms.ModelChoiceField(label=_("Type"),
                 queryset=conference_models.SessionKind.current_objects.filter_open_kinds())
         if 'audience_level' in self.fields:
-            form.fields['audience_level'] = forms.ModelChoiceField(label=_("Audience level"),
+            form.fields['audience_level'] = forms.ModelChoiceField(label=_("Target-audience"),
                 queryset=conference_models.AudienceLevel.current_objects.all())
         if 'duration' in self.fields:
             form.fields['duration'] = forms.ModelChoiceField(label=_("Duration"),
@@ -108,7 +108,7 @@ class ProposalSubmissionForm(forms.ModelForm):
             form.fields['track'] = forms.ModelChoiceField(label=_("Track"), required=True, initial=None,
                 queryset=tracks)
         if 'description' in form.fields:
-            form.fields['description'].help_text = _("""Up to around 50 words. Appears in the printed programem. <br />This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> input.""")
+            form.fields['description'].help_text = _("""Up to around 50 words. Appears in the printed program. <br />This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> input.""")
             form.fields['description'].validators = [validators.MaxLengthValidator(2000)]
         if 'abstract' in self.fields:
             form.fields['abstract'].help_text = _("""Describe your presentation in detail. This is what will be reviewed during the review phase.<br />This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> input.""")
@@ -133,13 +133,13 @@ class ProposalSubmissionForm(forms.ModelForm):
         cleaned_data = super(ProposalSubmissionForm, self).clean()
         kind = cleaned_data.get('kind')
         if kind is not None and not kind.accepts_proposals():
-            raise forms.ValidationError(_("The selected session kind doesn't accept any proposals anymore."))
+            raise forms.ValidationError(_("The selected session type is no longer accepting proposals."))
         return cleaned_data
 
     def clean_audience_level(self):
         value = self.cleaned_data["audience_level"]
         if value.conference != current_conference():
-            raise forms.ValidationError(_("Please select a valid audience level."))
+            raise forms.ValidationError(_("Please select a valid target-audience."))
         return value
 
     def clean_duration(self):
@@ -151,7 +151,7 @@ class ProposalSubmissionForm(forms.ModelForm):
     def clean_kind(self):
         value = self.cleaned_data["kind"]
         if value.conference != current_conference():
-            raise forms.ValidationError(_("Please select a valid session kind."))
+            raise forms.ValidationError(_("Please select a valid session type."))
         return value
 
 
@@ -310,7 +310,7 @@ class TalkSubmissionForm(TypedSubmissionForm):
     def __init__(self, *args, **kwargs):
         super(TalkSubmissionForm, self).__init__(*args, **kwargs)
         record_fs = Fieldset(_('Video recording'),
-            HTML(_('{% load cms_tags %}<p class="control-group">Optionally, presentatons can be video '
+            HTML(_('{% load cms_tags %}<p class="control-group">Optionally, presentations may be '
                    'recorded. Due to data protection regulations you need to explicitly accept our '
                    '<a href="{% page_url "privacy-policy" %}">privacy policy</a>.</p>')),
             Field('accept_recording')

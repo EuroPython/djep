@@ -10,7 +10,7 @@ This proposal was submitted on <span class="submission-date">{{ submission_date 
 {% endblocktrans %}
 {% else %}
 {% blocktrans with speaker_url=proposal.speaker.get_absolute_url speaker=proposal.speaker submission_date=proposal.submission_date|date:"DATE_FORMAT" %}
-<a class="speaker user" href="{{ speaker_url }}">{{ speaker }}</a> submitted this proposal at <span class="submission-date">{{ submission_date }}</span>.
+<a class="speaker user" href="{{ speaker_url }}">{{ speaker }}</a> submitted this proposal on <span class="submission-date">{{ submission_date }}</span>.
 {% endblocktrans %}
 {% endif %}
 {% if proposal.tags %}

@@ -49,7 +49,7 @@ class AbstractProposal(models.Model):
     A proposal represents a possible future session as it will be used before
     and during the review process. It has one mandatory speaker and possible
     additional speakers as well as a certain kind (training, session, ...),
-    audience level and proposed duration.
+    target-audience and proposed duration.
     """
     conference = models.ForeignKey("conference.Conference",
         verbose_name="conference", on_delete=models.PROTECT)
@@ -66,10 +66,10 @@ class AbstractProposal(models.Model):
         default=now)
     modified_date = models.DateTimeField(_("modification date"), blank=True,
         null=True)
-    kind = models.ForeignKey("conference.SessionKind", verbose_name=_("kind"),
+    kind = models.ForeignKey("conference.SessionKind", verbose_name=_("type"),
         on_delete=models.PROTECT)
     audience_level = models.ForeignKey("conference.AudienceLevel",
-        verbose_name=_("audience level"), on_delete=models.PROTECT)
+        verbose_name=_("target-audience"), on_delete=models.PROTECT)
     duration = models.ForeignKey("conference.SessionDuration",
         verbose_name=_("duration"), on_delete=models.PROTECT)
     track = models.ForeignKey("conference.Track", verbose_name=_("track"),

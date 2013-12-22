@@ -3,6 +3,7 @@ from django import forms
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.auth import forms as auth_forms
+from django.db import transaction
 from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
 
@@ -91,6 +92,10 @@ class ProfileRegistrationForm(RegistrationForm):
                 )
         if settings.ACCOUNTS_FALLBACK_TO_GRAVATAR:
             self.fields['avatar'].help_text = _("""Please upload an image with a side length of at least 300 pixels.<br />If you don't upload an avatar your Gravatar will be used instead.""")
+
+    def save(self, *args, **kwargs):
+        with transaction.commit_on_success():
+            super(ProfileRegistrationForm, self).save(*args, **kwargs)
 
     def save_profile(self, new_user, *args, **kwargs):
         """

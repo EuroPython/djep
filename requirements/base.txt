@@ -7,7 +7,7 @@ cmsplugin-filer==0.9.5
 cmsplugin-news==0.4.2
 django-braces==1.2.2
 django-classy-tags==0.4
--e git+https://github.com/divio/django-cms.git@3d396c8c1e83478eaf0013f7f2c47925022e1021#egg=django-cms
+-e git+https://github.com/divio/django-cms.git@7115d5d05487fbf71ccd36325aed69856dd32bfb#egg=django-cms
 django-crispy-forms==1.4.0
 django-compressor==1.3
 django-filer==0.9.5
