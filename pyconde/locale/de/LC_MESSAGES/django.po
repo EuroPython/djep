@@ -106,7 +106,7 @@ msgid ""
 "I hereby allow the Python Software Verband e.V. to re-use my profile "
 "information for upcoming conferences."
 msgstr ""
-"Ich erlaube dem Python Software Verband e.V. meine Profildaten für "
+"Ich erlaube dem Python Software Verband e.V., meine Profildaten für "
 "zukünftige Konferenzen wiederzuverwenden."
 
 #: accounts/forms.py:70
