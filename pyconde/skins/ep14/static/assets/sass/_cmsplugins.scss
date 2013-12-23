@@ -21,11 +21,16 @@
             -webkit-filter: none;
         }
     }
-    a, img {
-        display: block;
+    a {
+        display: table-cell;
+        width: 112px;
+        height: 55px;
+        text-align: center;
+        vertical-align: middle;
     }
     img {
         max-width: 112px;
         max-height: 55px;
+        vertical-align: middle;
     }
 }
