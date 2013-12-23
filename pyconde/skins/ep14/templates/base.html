@@ -9,10 +9,10 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>EuroPython 2014 - {% block page_title %}Welcome{% endblock %}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
-        {% compress "js" %}
+        {% compress js %}
         <script type="text/javascript" src="{% static "assets/bower_components/modernizr/modernizr.js"%}"></script>
         {% endcompress %}
-        {% compress "css" %}
+        {% compress css %}
         <link rel="stylesheet" href="{% static "assets/css/screen.css" %}">
         {% endcompress %}
         {% block site_meta %}
