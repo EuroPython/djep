@@ -33,6 +33,7 @@
         <link rel="icon" href="{% static "assets/images/favicon.ico" %}">
         <link rel="apple-touch-icon-precomposed" href="{% static "assets/images/favicon-152.png" %}">
         {% render_block "css" postprocessor "compressor.contrib.sekizai.compress" %}
+        {% render_block "css_external" %}
         {% block extra_head %}{% endblock %}
         <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     </head>
@@ -127,6 +128,7 @@
 
         <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
         {% render_block "js" postprocessor "compressor.contrib.sekizai.compress" %}
+        {% render_block "js_external" %}
         <script src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
         {% compress js %}
             <script type="text/javascript" src="{% static "assets/bower_components/foundation/js/foundation/foundation.js"%}"></script>

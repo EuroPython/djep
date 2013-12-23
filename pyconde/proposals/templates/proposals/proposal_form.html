@@ -8,10 +8,10 @@
 {% block title %}{% trans "Submit a proposal" %}{% endblock %}
 
 {% block body %}
-{% addtoblock "css" %}
+{% addtoblock "css_external" %}
     <link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
 {% endaddtoblock %}
-{% addtoblock "js" %}
+{% addtoblock "js_external" %}
     <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
 {% endaddtoblock %}
 {% crispy form %}
