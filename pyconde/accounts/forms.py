@@ -107,6 +107,8 @@ class ProfileRegistrationForm(RegistrationForm):
             avatar=self.cleaned_data['avatar'],
             short_info=self.cleaned_data['short_info'],
             organisation=self.cleaned_data['organisation'],
+            twitter=self.cleaned_data['twitter'],
+            website=self.cleaned_data['website'],
             num_accompanying_children=self.cleaned_data['num_accompanying_children'] or 0,
             age_accompanying_children=self.cleaned_data['age_accompanying_children'] or '',
             full_name=self.cleaned_data['full_name'],
