@@ -255,11 +255,14 @@ footer {
         padding: 19px 0;
         color: $grey;
         p {
-            @include grid-column($columns: 12);
+            @include grid-column($columns: 6);
             padding-top: 0;
             padding-bottom: 0;
             line-height: 100%;
             margin: 0;
+            &:last-child {
+                text-align: right;
+            }
         }
     }
 
