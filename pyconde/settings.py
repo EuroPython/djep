@@ -457,7 +457,7 @@ class Dev(Base):
     These settings are intended for the locaton development environment.
     """
 
-    DEBUG = True
+    DEBUG = values.BooleanValue(True)
 
     EMAIL_HOST = 'localhost'
 
@@ -466,6 +466,8 @@ class Dev(Base):
     MEDIA_ROOT = os.path.join(Base.BASE_DIR, 'site_media')
 
     STATIC_ROOT = os.path.join(Base.BASE_DIR, 'deployed_static_media')
+
+    DEBUG_TOOLBAR_PATCH_SETTINGS = False
 
     INSTALLED_APPS = Base.INSTALLED_APPS + [
         'debug_toolbar',
