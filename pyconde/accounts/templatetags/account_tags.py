@@ -9,15 +9,6 @@ register = Library()
 
 
 @register.filter
-def account_name(user):
-    """
-    Helper filter for rendering a user object independently of the
-    unicode-version of that object.
-    """
-    return utils.get_account_name(user)
-
-
-@register.filter
 def display_name(user):
     return utils.get_display_name(user)
 
