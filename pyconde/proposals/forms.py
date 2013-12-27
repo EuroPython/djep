@@ -323,3 +323,24 @@ class TalkSubmissionForm(TypedSubmissionForm):
             form = self
         form.fields['duration'] = forms.ModelChoiceField(label=_("Duration"),
                 queryset=conference_models.SessionDuration.current_objects.exclude(slug='talk').all())
+
+
+class PosterSubmissionForm(TypedSubmissionForm):
+    class Meta(object):
+        model = models.Proposal
+        fields = [
+            "title",
+            "description",
+            "abstract",
+            "additional_speakers",
+            "tags",
+            "track",
+            "language",
+            "notes",
+        ]
+
+    def customize_save(self, instance):
+        instance.audience_level = conference_models.AudienceLevel.\
+            current_objects.get(slug='novice')
+        instance.duration = conference_models.SessionDuration.\
+            current_objects.get(slug='poster')

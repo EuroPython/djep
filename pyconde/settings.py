@@ -346,6 +346,7 @@ class Base(Configuration):
     PROPOSALS_TYPED_SUBMISSION_FORMS = {
         'training': 'pyconde.proposals.forms.TrainingSubmissionForm',
         'talk': 'pyconde.proposals.forms.TalkSubmissionForm',
+        'poster': 'pyconde.proposals.forms.PosterSubmissionForm',
     }
 
     # These languages should be available when making a session proposal.
