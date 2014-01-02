@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2013-12-22 13:32+0100\n"
+"POT-Creation-Date: 2014-01-02 17:09+0100\n"
 "PO-Revision-Date: 2013-12-21 21:30+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Generator: Lokalize 1.5\n"
 
-#: settings.py:56 settings.py:287 settings.py:354 proposals/models.py:21
+#: settings.py:56 settings.py:286 settings.py:353 proposals/models.py:21
 msgid "German"
 msgstr "Deutsch"
 
-#: settings.py:57 settings.py:281 settings.py:355 proposals/models.py:22
+#: settings.py:57 settings.py:281 settings.py:354 proposals/models.py:22
 msgid "English"
 msgstr "Englisch"
 
@@ -57,39 +57,42 @@ msgstr "ohne Kinder"
 msgid "Accounts app"
 msgstr "Accounts-Anwendung"
 
-#: accounts/forms.py:49 accounts/models.py:22
+#: accounts/forms.py:50 accounts/models.py:22
 msgid "short info"
 msgstr "Steckbrief"
 
-#: accounts/forms.py:50 accounts/models.py:34
+#: accounts/forms.py:51 accounts/models.py:34
+#: skins/default/templates/userprofiles/profile_view.html:28
 msgid "Organisation"
 msgstr "Organisation"
 
-#: accounts/forms.py:51 accounts/models.py:31
+#: accounts/forms.py:52 accounts/models.py:31
+#: skins/default/templates/userprofiles/profile_view.html:16
 msgid "Twitter"
 msgstr "Twitter"
 
-#: accounts/forms.py:53 accounts/models.py:33
+#: accounts/forms.py:54 accounts/models.py:33
+#: skins/default/templates/userprofiles/profile_view.html:22
 msgid "Website"
 msgstr "Webseite"
 
-#: accounts/forms.py:55 accounts/forms.py:195 accounts/models.py:26
+#: accounts/forms.py:56 accounts/forms.py:198 accounts/models.py:26
 msgid "Number of accompanying children"
 msgstr "Voraussichtliche Anzahl mitkommender Kinder"
 
-#: accounts/forms.py:58 accounts/forms.py:197 accounts/models.py:30
+#: accounts/forms.py:59 accounts/forms.py:200 accounts/models.py:30
 msgid "Age of accompanying children"
 msgstr "Alter der mitkommenden Kinder"
 
-#: accounts/forms.py:61 accounts/models.py:37
+#: accounts/forms.py:62 accounts/models.py:37
 msgid "What name should be displayed to other people?"
 msgstr "Welchen Namen sollen wir anderen Anderen anzeigen"
 
-#: accounts/forms.py:62 accounts/models.py:39
+#: accounts/forms.py:63 accounts/models.py:39
 msgid "Address me as"
 msgstr "Anrede"
 
-#: accounts/forms.py:63
+#: accounts/forms.py:64
 msgid ""
 "How should we call you in mails and dialogs throughout the website? If you "
 "leave this field blank, we will fallback to your display name."
@@ -97,11 +100,11 @@ msgstr ""
 "Wie sollen wir dich in E-Mails und Dialogen auf der Webseite ansprechen? "
 "Wenn du dieses Feld leer lässt nutzen wir deinen Anzeigenamen"
 
-#: accounts/forms.py:66
+#: accounts/forms.py:67
 msgid "I hereby agree to the privacy policy."
 msgstr "Ich akzeptiere die Datenschutzerklärung"
 
-#: accounts/forms.py:68
+#: accounts/forms.py:69
 msgid ""
 "I hereby allow the Python Software Verband e.V. to re-use my profile "
 "information for upcoming conferences."
@@ -109,7 +112,7 @@ msgstr ""
 "Ich erlaube dem Python Software Verband e.V., meine Profildaten für "
 "zukünftige Konferenzen wiederzuverwenden."
 
-#: accounts/forms.py:70
+#: accounts/forms.py:71
 msgid ""
 "I hereby allow the EuroPython Society to re-use my profile information for "
 "upcoming conferences."
@@ -117,23 +120,23 @@ msgstr ""
 "Ich erlaube der EuroPython Society meine Profildaten für zukünftige "
 "Konferenzen wiederzuverwenden."
 
-#: accounts/forms.py:75
+#: accounts/forms.py:76
 msgid "Login information"
 msgstr "Logindaten"
 
-#: accounts/forms.py:76 accounts/forms.py:203
+#: accounts/forms.py:77 accounts/forms.py:206
 msgid "Personal information"
 msgstr "Persönliche Daten"
 
-#: accounts/forms.py:79 accounts/forms.py:206
+#: accounts/forms.py:80 accounts/forms.py:209
 msgid "Professional information"
 msgstr "Weitere Daten"
 
-#: accounts/forms.py:80
+#: accounts/forms.py:81 accounts/forms.py:211
 msgid "Privacy Policy"
 msgstr "Datenschutzerklärung"
 
-#: accounts/forms.py:81
+#: accounts/forms.py:82
 msgid ""
 "{% load cms_tags %}<p class=\"control-group\">Due to data protection "
 "regulations you need to explicitly accept our <a href=\"{% page_url "
@@ -143,11 +146,11 @@ msgstr ""
 "benötigen wir dazu eine explizite Freigabe und eine Anerkennung unserer <a "
 "href=\"{% page_url \"privacy-policy\" %}\">Datenschutzerklärung</a>.</p>"
 
-#: accounts/forms.py:91
+#: accounts/forms.py:92
 msgid "Create account"
 msgstr "Konto anlegen"
 
-#: accounts/forms.py:94 accounts/forms.py:218
+#: accounts/forms.py:95 accounts/forms.py:225
 msgid ""
 "Please upload an image with a side length of at least 300 pixels.<br />If "
 "you don't upload an avatar your Gravatar will be used instead."
@@ -156,7 +159,7 @@ msgstr ""
 ">Falls Sie keinen Avatar hochladen, wird versucht, Ihren Gravatar zu "
 "verwenden."
 
-#: accounts/forms.py:134
+#: accounts/forms.py:137
 #, python-format
 msgid ""
 "<ul><li><a href=\"%(register_url)s\">Don't have an account yet?</a></"
@@ -165,11 +168,11 @@ msgstr ""
 "<ul><li><a href=\"%(register_url)s\">Noch kein Konto?</a></li><li><a href="
 "\"%(password_reset_url)s\">Passwort vergessen?</a></li></ul>"
 
-#: accounts/forms.py:138
+#: accounts/forms.py:141
 msgid "Log in"
 msgstr "Anmelden"
 
-#: accounts/forms.py:154
+#: accounts/forms.py:157
 #: skins/default/templates/userprofiles/password_reset.html:4
 #: skins/default/templates/userprofiles/password_reset.html:5
 #: skins/default/templates/userprofiles/password_reset_complete.html:4
@@ -181,11 +184,11 @@ msgstr "Anmelden"
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
-#: accounts/forms.py:169
+#: accounts/forms.py:172
 msgid "Set password"
 msgstr "Passwort zurücksetzen"
 
-#: accounts/forms.py:184
+#: accounts/forms.py:187
 #: skins/default/templates/userprofiles/password_change.html:4
 #: skins/default/templates/userprofiles/password_change.html:5
 #: skins/default/templates/userprofiles/password_change_done.html:4
@@ -193,19 +196,23 @@ msgstr "Passwort zurücksetzen"
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: accounts/forms.py:193
+#: accounts/forms.py:196
 msgid "organisation"
 msgstr "Organisation"
 
-#: accounts/forms.py:215
+#: accounts/forms.py:222
 msgid "Change"
 msgstr "Ändern"
 
-#: accounts/forms.py:235
+#: accounts/forms.py:235 accounts/forms.py:242
+msgid "You previously agreed to this option which can no longer be revoked."
+msgstr "Sie haben zuvor dieser Bedingung zugestimmt. Dies kann nachträglich nicht mehr revidiert werden."
+
+#: accounts/forms.py:256
 msgid "Continue"
 msgstr "Weiter"
 
-#: accounts/forms.py:246
+#: accounts/forms.py:267
 #: skins/default/templates/userprofiles/email_change.html:4
 #: skins/default/templates/userprofiles/email_change.html:5
 #: skins/default/templates/userprofiles/email_change_requested.html:4
@@ -1344,15 +1351,15 @@ msgid ""
 "can solve in a few minutes often take 5 to 10 times longer for beginners, "
 "since\n"
 "they need to learn the basic steps first.\n"
-msgstr "\n"
+msgstr ""
+"\n"
 "Ein Training ist kein langer Vortrag. Die Teilnehmer sollen die Möglichkeit "
 "bekommen am eigenen Laptop dem Trainer zu folgen. Übungen, die Teilnehmer im "
 "Training lösen sind oft sehr sinnvoll. Dabei ist zu beachten, dass Übungen "
 "häufig wesentlich länger dauern als gedacht. Aufgaben, die der Trainer in "
 "wenigen Minuten löst, können bei den Teilnehmern oft die 5-10 fache Zeit "
 "dauern, da diese viele grundlegende Schritte nachvollziehen müssen. Das ist "
-"auch so wenn diese der Trainer direkt davor erklärt hat!"
-"\n"
+"auch so wenn diese der Trainer direkt davor erklärt hat!\n"
 
 #: proposals/templates/proposals/training_proposal_form.html:20
 msgid ""
@@ -1366,8 +1373,7 @@ msgstr ""
 "\n"
 "Die Teilnehmer sollten Schulungsmaterialien entweder als PDF oder gedruckt "
 "erhalten. Diese sollten so ausführlich sein, dass ein Teilnehmer die "
-"Training-Inhalte selbstständig nachvollziehen kann."
-"\n"
+"Training-Inhalte selbstständig nachvollziehen kann.\n"
 
 #: proposals/templates/proposals/training_proposal_form.html:28
 msgid ""
@@ -1378,8 +1384,7 @@ msgid ""
 msgstr ""
 "\n"
 "Fragen zu Training-Inhalten und -Aufbau bitte an <a href=\"mailto:"
-"helpdesk@ep14.org\">helpdesk@ep14.org</a>."
-"\n"
+"helpdesk@ep14.org\">helpdesk@ep14.org</a>.\n"
 
 #: reviews/admin.py:16
 msgid "Mark comment(s) as deleted"
@@ -1868,7 +1873,7 @@ msgstr "Abgemeldet"
 
 #: skins/default/templates/userprofiles/login.html:4
 #: skins/default/templates/userprofiles/login.html:5
-#: skins/ep14/templates/base.html:67
+#: skins/ep14/templates/base.html:71
 msgid "Login"
 msgstr "Anmelden"
 
@@ -1894,7 +1899,7 @@ msgstr ""
 
 #: skins/default/templates/userprofiles/profile.html:4
 #: skins/default/templates/userprofiles/profile.html:5
-#: skins/ep14/templates/base.html:56
+#: skins/ep14/templates/base.html:60
 msgid "Your profile"
 msgstr "Ihre Profil"
 
@@ -1940,11 +1945,11 @@ msgstr "Ihr Konto basiert auf Ihrem %(provider)s Konto."
 msgid "User profile:"
 msgstr "Benutzerprofil:"
 
-#: skins/default/templates/userprofiles/profile_view.html:14
+#: skins/default/templates/userprofiles/profile_view.html:37
 msgid "No info available"
 msgstr "Keine weiteren Informationen verfügbar"
 
-#: skins/default/templates/userprofiles/profile_view.html:19
+#: skins/default/templates/userprofiles/profile_view.html:42
 msgid "Sessions"
 msgstr "Sessions"
 
@@ -2005,21 +2010,38 @@ msgstr "Konto-Aktivierung"
 msgid "E-mail confirmation"
 msgstr "E-Mail-Bestätigung"
 
-#: skins/ep14/templates/base.html:52
+#: skins/ep14/templates/base.html:56
 msgid "Register now"
 msgstr "Neues Konto anlegen"
 
-#: skins/ep14/templates/base.html:101
+#: skins/ep14/templates/base.html:105
 msgid "Follow @europython"
 msgstr "@europython folgen"
 
-#: skins/ep14/templates/base.html:107
+#: skins/ep14/templates/base.html:111
 msgid "Like EuroPython"
 msgstr "Like EuroPython"
 
-#: skins/ep14/templates/base.html:113
+#: skins/ep14/templates/base.html:117
 msgid "+1 EuroPython"
 msgstr "+1 EuroPython"
+
+#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:37
+#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:40
+msgid "CMS Plugins"
+msgstr ""
+
+#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:38
+msgid "Add CMS Plugin"
+msgstr ""
+
+#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:39
+msgid "Edit CMS Plugin"
+msgstr ""
+
+#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:45
+msgid "Standard Plugins"
+msgstr ""
 
 #: skins/pyconde2013/templates/userprofiles/registration.html:8
 msgid ""

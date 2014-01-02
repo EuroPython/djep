@@ -58,6 +58,11 @@ label {
             margin-right: 10px;
         }
     }
+
+    .checkbox .help-block {
+        display: block;
+    }
+
     select {
         background-color: $background-color;
     }

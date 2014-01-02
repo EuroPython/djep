@@ -2,6 +2,7 @@
 from django import forms
 from django.conf import settings
 from django.core.urlresolvers import reverse
+from django.core.exceptions import ValidationError
 from django.contrib.auth import forms as auth_forms
 from django.db import transaction
 from django.utils.translation import ugettext_lazy as _
@@ -206,9 +207,13 @@ class ProfileForm(BaseProfileForm):
                                   'display_name', 'addressed_as',
                                   'avatar', 'short_info')
         profession_fields = Fieldset(_('Professional information'), 'organisation', 'twitter', 'website')
+        privacy_fields = Fieldset(
+            _('Privacy Policy'),
+            'accept_pysv_conferences',
+            'accept_ep_conferences')
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
-            profile_fields, profession_fields,
+            profile_fields, profession_fields, privacy_fields,
             (Div(Field('num_accompanying_children', disabled=True),
                  Field('age_accompanying_children', disabled=True))
              if settings.CHILDREN_DATA_DISABLED else
@@ -223,6 +228,20 @@ class ProfileForm(BaseProfileForm):
         if settings.CHILDREN_DATA_DISABLED:
             del self.fields['num_accompanying_children']
             del self.fields['age_accompanying_children']
+
+    def clean_accept_pysv_conferences(self):
+        value = self.cleaned_data['accept_pysv_conferences']
+        if not value and self.instance.accept_pysv_conferences:
+            raise ValidationError(_("You previously agreed to this option"
+                                    " which can no longer be revoked."))
+        return value
+
+    def clean_accept_ep_conferences(self):
+        value = self.cleaned_data['accept_ep_conferences']
+        if not value and self.instance.accept_ep_conferences:
+            raise ValidationError(_("You previously agreed to this option"
+                                    " which can no longer be revoked."))
+        return value
 
 
 class LoginEmailRequestForm(forms.Form):
