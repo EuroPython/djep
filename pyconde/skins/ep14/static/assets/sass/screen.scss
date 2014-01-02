@@ -328,6 +328,33 @@ div.actions {
     display: block;
 }
 
+// Foundation overrides
+.orbit-container {
+    .orbit-prev, .orbit-next {
+        i {
+            font-size: 54px;
+            position: relative;
+            top: -28px;
+            color: #a8b1b5;
+            &:hover {
+                color: #FFF;
+            }
+        }
+    }
+    .orbit-prev {
+        text-indent: -19px !important;
+        > span {
+            border-right: none !important;
+        }
+    }
+    .orbit-next {
+        text-indent: -19px !important;
+        > span {
+            border-left: none !important;
+        }
+    }
+}
+
 @import "frontpage";
 
 //-----------------------------------------------------------------------------

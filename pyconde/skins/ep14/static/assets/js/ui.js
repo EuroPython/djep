@@ -1,6 +1,6 @@
 /*global gettext, $*/
 var ep = ep || {};
-ep.ui = (function() {
+ep.ui = (function($) {
     function wrapFileUploads() {
         $('input[type=file]').each(function() {
             var statusLine = $('<span>').addClass('status');
@@ -20,9 +20,24 @@ ep.ui = (function() {
         });
     }
 
+    function overrideOrbitUi() {
+        $('.orbit-list').each(function(idx, container) {
+            $(container).on('ready.fndtn.orbit', function(evt) {
+                // Now we replace the previous and next buttons with custom
+                // icons.
+                var container = $(this).parent(),
+                    next = container.find('.orbit-next > span'),
+                    prev = container.find('.orbit-prev > span');
+                prev.append('<i class="fa fa-fw fa-angle-left">');
+                next.append('<i class="fa fa-fw fa-angle-right">');
+            });
+        });
+    }
+
     function init() {
         wrapFileUploads();
+        overrideOrbitUi();
     }
 
     init();
-}());
+}(jQuery));
