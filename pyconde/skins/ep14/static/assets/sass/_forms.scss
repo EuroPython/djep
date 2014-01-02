@@ -34,8 +34,10 @@ label {
         text-align: left;
     }
     label {
-        float: left;
-        width: 18%;
+        @media #{$medium-up} {
+            float: left;
+            width: 18%;
+        }
         padding-top: 8px;
         &.checkbox {
             width: 100%;
@@ -60,9 +62,11 @@ label {
         background-color: $background-color;
     }
     .controls {
-        float: left;
-        width: 80%;
-        margin-left: 2%;
+        @media #{$medium-up} {
+            float: left;
+            width: 80%;
+            margin-left: 2%;
+        }
         input[type=text],
         input[type=email],
         input[type=password],
@@ -85,8 +89,11 @@ label {
         input[type=password],
         select,
         textarea {
-            width: 50%;
-            display: inline-block;
+            width: 100%;
+            @media #{$medium-up} {
+                width: 50%;
+                display: inline-block;
+            }
         }
         .help-block {
             //display: inline-block;

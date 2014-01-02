@@ -133,9 +133,15 @@ header {
         }
     }
     #login {
-        position: absolute;
-        top: 10px;
-        right: 10px;
+        @media (screen and min-width: 890px) {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        @media (screen and max-width: 889px) {
+            margin: 0 0 0 51px;
+            padding: 5px 0;
+        }
         font-size: 14px;
         font-size: 1.4rem;
         a {
@@ -341,13 +347,6 @@ div.actions {
 @media (screen and max-width: 782px) {
     #get-notified {
         width: 100%;
-    }
-}
-
-@media (screen and max-width: 550px) {
-    header p {
-        // We hide the info text because it would overlap with the logo
-        display: none;
     }
 }
 
