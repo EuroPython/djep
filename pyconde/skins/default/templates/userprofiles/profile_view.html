@@ -4,10 +4,33 @@
 {% block title %}{{ userobj|display_name }}{% endblock %}
 {% block page_title %}{% trans "User profile:" %} {{ userobj|display_name }}{% endblock %}
 
-{% block bodycls %}profilepage{% endblock %}
+{% block bodyclass %}profilepage{% endblock %}
 {% block body %}
-  {% avatar profile %}
-  <div id="info">
+<div class="profile">
+  <div class="misc">
+    <div class="avatar">
+    {% avatar profile %}
+    </div>
+    {% if profile.twitter %}
+    <dl>
+      <dt>{% trans "Twitter" %}:</dt>
+      <dd><a href="https://twitter.com/{{ profile.twitter }}">@{{ profile.twitter }}</a>
+    </dl>
+    {% endif %}
+    {% if profile.website %}
+    <dl>
+      <dt>{% trans "Website" %}:</dt>
+      <dd><a href="{{ profile.website }}">{{ profile.website }}</a></dd>
+    </dl>
+    {% endif %}
+    {% if profile.website %}
+    <dl>
+      <dt>{% trans "Organisation" %}:</dt>
+      <dd>{{ profile.organisation }}</dd>
+    </dl>
+    {% endif %}
+  </div>
+  <div class="info">
     {% if profile.short_info %}
       {{ profile.short_info|markdown:"safe" }}
     {% else %}
@@ -15,7 +38,7 @@
     {% endif %}
   </div>
   {% if sessions %}
-    <section id="sessions">
+    <section class="sessions">
       <h1>{% trans "Sessions" %}</h1>
       <ul>
         {% for session in sessions %}
@@ -24,4 +47,5 @@
       </ul>
     </section>
   {% endif %}
+</div>
 {% endblock %}
