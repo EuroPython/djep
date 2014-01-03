@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-02 17:09+0100\n"
+"POT-Creation-Date: 2014-01-03 15:15+0100\n"
 "PO-Revision-Date: 2013-12-21 21:30+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Generator: Lokalize 1.5\n"
 
-#: settings.py:56 settings.py:286 settings.py:353 proposals/models.py:21
+#: settings.py:56 settings.py:286 settings.py:354 proposals/models.py:21
 msgid "German"
 msgstr "Deutsch"
 
-#: settings.py:57 settings.py:281 settings.py:354 proposals/models.py:22
+#: settings.py:57 settings.py:281 settings.py:355 proposals/models.py:22
 msgid "English"
 msgstr "Englisch"
 
@@ -206,7 +206,9 @@ msgstr "Ändern"
 
 #: accounts/forms.py:235 accounts/forms.py:242
 msgid "You previously agreed to this option which can no longer be revoked."
-msgstr "Sie haben zuvor dieser Bedingung zugestimmt. Dies kann nachträglich nicht mehr revidiert werden."
+msgstr ""
+"Sie haben zuvor dieser Bedingung zugestimmt. Dies kann nachträglich nicht "
+"mehr revidiert werden."
 
 #: accounts/forms.py:256
 msgid "Continue"
@@ -1066,11 +1068,11 @@ msgstr ""
 "Betriebssystemen (Linux, Mac OS X und Windows) funktionieren. Wenn nicht, "
 "bitte explizit darauf hinweisen."
 
-#: proposals/forms.py:312
+#: proposals/forms.py:312 proposals/forms.py:345
 msgid "Video recording"
 msgstr "Videoaufzeichnung"
 
-#: proposals/forms.py:313
+#: proposals/forms.py:313 proposals/forms.py:346
 msgid ""
 "{% load cms_tags %}<p class=\"control-group\">Optionally, presentations may "
 "be recorded. Due to data protection regulations you need to explicitly "
@@ -1247,6 +1249,10 @@ msgid ""
 msgstr ""
 "Sie müssen Autor dieses Vorschlages oder Reviewer sein, um auf diese Seite "
 "zugreifen zu können."
+
+#: proposals/templates/proposals/poster_proposal_form.html:5
+msgid "Submit a poster"
+msgstr "Reichen Sie ein Poster ein"
 
 #: proposals/templates/proposals/proposal_cancel_confirm.html:4
 msgid "Do you really want to cancel this proposal?"
