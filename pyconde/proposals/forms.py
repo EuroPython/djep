@@ -323,3 +323,35 @@ class TalkSubmissionForm(TypedSubmissionForm):
             form = self
         form.fields['duration'] = forms.ModelChoiceField(label=_("Duration"),
                 queryset=conference_models.SessionDuration.current_objects.exclude(slug='talk').all())
+
+
+class PosterSubmissionForm(TypedSubmissionForm):
+    class Meta(object):
+        model = models.Proposal
+        fields = [
+            "title",
+            "description",
+            "abstract",
+            "additional_speakers",
+            "tags",
+            "track",
+            "language",
+            "notes",
+            "accept_recording",
+        ]
+
+    def __init__(self, *args, **kwargs):
+        super(PosterSubmissionForm, self).__init__(*args, **kwargs)
+        record_fs = Fieldset(_('Video recording'),
+            HTML(_('{% load cms_tags %}<p class="control-group">Optionally, presentations may be '
+                   'recorded. Due to data protection regulations you need to explicitly accept our '
+                   '<a href="{% page_url "privacy-policy" %}">privacy policy</a>.</p>')),
+            Field('accept_recording')
+        )
+        self.helper.layout.fields.insert(-1, record_fs)
+
+    def customize_save(self, instance):
+        instance.audience_level = conference_models.AudienceLevel.\
+            current_objects.get(slug='novice')
+        instance.duration = conference_models.SessionDuration.\
+            current_objects.get(slug='poster')

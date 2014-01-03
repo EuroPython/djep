@@ -28,5 +28,15 @@
         "slug": "training", 
         "label": "Training"
     }
+},
+{
+    "pk": 4, 
+    "model": "conference.sessionduration", 
+    "fields": {
+        "conference": 1, 
+        "minutes": 0, 
+        "slug": "poster", 
+        "label": "Poster"
+    }
 }
 ]
