@@ -44,23 +44,46 @@ header {
             float: left;
             @media screen and (max-width: 889px) {
                 height: 45px;
+                .small {display: block;}
+                .big {display: none;}
                 img {
                     max-height: 100%;
                 }
             }
             @media screen and (min-width: 890px) {
-                margin: 30px 30px 20px -14px;
+                margin: 40px 30px 20px -14px;
+                .small {display: none;}
+                .big {display: block;}
                 img {
-                    height: 120px;
+                    height: 110px;
                 }
             }
         }
     }
     .top-bar {
         ul > li > a, .title-area a {
-            font-size: 15px;
-            font-size: 1.5rem;
+            font-size: 16px;
+            font-size: 1.6rem;
             background: transparent;
+        }
+
+        .top-bar-section {
+            text-align: right;
+            > ul {
+                display: inline-block;
+
+                li {
+                    text-align: left;
+                }
+
+                li.active > a:hover {
+                    background: darken($topbar-link-bg-hover, 10);
+                    color: #FFF;
+                    &:after {
+                        border-top-color: #FFF;
+                    }
+                }
+            }
         }
 
         ul {
@@ -72,11 +95,10 @@ header {
             text-decoration: none;
         }
 
-        .top-bar-section ul li.active > a:hover {
-            background: darken($topbar-link-bg-hover, 10);
-            color: #FFF;
-            &:after {
-                border-top-color: #FFF;
+        ul.left {
+            float: none !important;
+            > li {
+                margin-right: 15px;
             }
         }
 
@@ -93,9 +115,9 @@ header {
             }
         }
         @media (screen and min-width: 890px) {
-            width: 730px;
+            width: 540px;
 
-            margin-top: 70px;
+            margin-top: 65px;
             float: right;
 
             .title-area {
