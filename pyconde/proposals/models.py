@@ -31,8 +31,7 @@ class TimeSlot(models.Model):
     """
     date = models.DateField(_("date"))
     slot = models.IntegerField(_("timeslot"), choices=DATE_SLOT_CHOICES)
-    section = models.ForeignKey('conference.Section', verbose_name=_("section"),
-        limit_choices_to={'conference': current_conference()})
+    section = models.ForeignKey('conference.Section', verbose_name=_("section"))
 
     def __unicode__(self):
         return "{0}, {1}".format(

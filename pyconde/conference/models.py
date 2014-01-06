@@ -198,8 +198,7 @@ class SessionKind(models.Model):
     closed = models.NullBooleanField()
     start_date = models.DateTimeField(blank=True, null=True)
     end_date = models.DateTimeField(blank=True, null=True)
-    sections = models.ManyToManyField(Section, verbose_name=_("section"),
-        limit_choices_to=Q(id__in=Section.current_objects.values_list('id', flat=True)))
+    sections = models.ManyToManyField(Section, verbose_name=_("section"))
 
     # TODO: available_durations = models.ManyToManyField('SessionDuration', blank=True, null=True)
     # TODO: available_tracks = models.ManyToManyField('Track', blank=True, null=True)
