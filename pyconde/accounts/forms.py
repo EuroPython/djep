@@ -47,11 +47,11 @@ class ProfileRegistrationForm(RegistrationForm):
     """
     avatar = forms.ImageField(widget=forms.FileInput, required=False,
         help_text=Profile()._meta.get_field_by_name('avatar')[0].help_text)
-    short_info = forms.CharField(_("short info"), widget=forms.Textarea, required=False)
+    short_info = forms.CharField(label=_("short info"), widget=forms.Textarea, required=False)
     organisation = forms.CharField(label=_("Organisation"), required=False)
-    twitter = forms.CharField(_("Twitter"), required=False,
+    twitter = forms.CharField(label=_("Twitter"), required=False,
         validators=[validators.twitter_username])
-    website = forms.URLField(_("Website"), required=False)
+    website = forms.URLField(label=_("Website"), required=False)
     num_accompanying_children = forms.IntegerField(required=False,
                                                    label=_('Number of accompanying children'),
                                                    widget=forms.Select(choices=NUM_ACCOMPANYING_CHILDREN_CHOICES))
