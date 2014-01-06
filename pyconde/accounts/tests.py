@@ -37,7 +37,7 @@ class DisplayNameFilterTests(TransactionTestCase):
         self.assertEquals("username", account_tags.display_name(user))
 
 
-class AddressedAsFilterTest(TransactionTestCase):
+class AddressedAsFilterTests(TransactionTestCase):
     def test_empty_parameter(self):
         self.assertIsNone(account_tags.addressed_as(None))
 
@@ -178,3 +178,42 @@ class TwitterUsernameValidatorTest(TestCase):
     def test_too_long(self):
         with self.assertRaises(ValidationError):
             validators.twitter_username("test test test t")
+
+
+class ProfileRegistrationFormTests(TestCase):
+    def _required_data(self, **kwargs):
+        """
+        Build a dict of required data for the ProfileRegistrationForm and
+        update it with the given kwargs.
+        """
+        required = {
+            'username': 'foo',
+            'password': 'foo',
+            'password_repeat': 'foo',
+            'display_name': 'foo',
+            'email': 'foo@example.com',
+            'accept_privacy_policy': '1',
+        }
+        required.update(kwargs)
+        return required
+
+    def test_twitter_handle_leading_at(self):
+        data = self._required_data(twitter='@foo')
+        f = forms.ProfileRegistrationForm(data)
+        self.assertTrue(f.is_valid())
+        self.assertEqual(f.cleaned_data['twitter'], 'foo')
+
+    def test_twitter_handle_too_long(self):
+        handle = 16 * 'a'
+        data = self._required_data(twitter=handle)
+        f = forms.ProfileRegistrationForm(data)
+        self.assertFalse(f.is_valid())
+        errors = f['twitter'].errors
+        self.assertEqual(len(errors), 1)
+        self.assertEqual(errors[0], 'Twitter usernames have only 15 characters or less')
+
+    def test_twitter_handle_15_chars_with_leading_at(self):
+        handle = '@' + 15 * 'a'
+        data = self._required_data(twitter=handle)
+        f = forms.ProfileRegistrationForm(data)
+        self.assertTrue(f.is_valid())

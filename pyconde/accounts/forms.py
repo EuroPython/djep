@@ -49,8 +49,7 @@ class ProfileRegistrationForm(RegistrationForm):
         help_text=Profile()._meta.get_field_by_name('avatar')[0].help_text)
     short_info = forms.CharField(label=_("short info"), widget=forms.Textarea, required=False)
     organisation = forms.CharField(label=_("Organisation"), required=False)
-    twitter = forms.CharField(label=_("Twitter"), required=False,
-        validators=[validators.twitter_username])
+    twitter = forms.CharField(label=_("Twitter"), required=False)
     website = forms.URLField(label=_("Website"), required=False)
     num_accompanying_children = forms.IntegerField(required=False,
                                                    label=_('Number of accompanying children'),
@@ -118,6 +117,15 @@ class ProfileRegistrationForm(RegistrationForm):
             accept_pysv_conferences=self.cleaned_data['accept_pysv_conferences'],
             accept_ep_conferences=self.cleaned_data['accept_ep_conferences']
         )
+
+    def clean_twitter(self):
+        """
+        Allow the user to enter either "@foo" or "foo" as their twitter handle.
+        """
+        value = self.cleaned_data.get('twitter', '')
+        value = value.lstrip('@')
+        validators.twitter_username(value)  # validates the max_length
+        return value
 
 
 class AuthenticationForm(auth_forms.AuthenticationForm):
