@@ -128,6 +128,8 @@ class ProposalSubmissionForm(forms.ModelForm):
         if 'notes' in form.fields:
             form.fields['notes'].help_text = _(
                 """Add notes or comments here that can only be seen by reviewers and the organizing team.""")
+        if 'language' in form.fields:
+            form.fields['language'].initial = settings.DEFAULT_LANGUAGE
 
     def clean(self):
         cleaned_data = super(ProposalSubmissionForm, self).clean()
