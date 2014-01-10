@@ -355,6 +355,10 @@ class Base(Configuration):
         ('en', ugettext('English')),
     )
 
+    # This setting defines the language that should be pre-selected in the
+    # proposal submission form.
+    PROPOSAL_DEFAULT_LANGUAGE = 'en'
+
 
     ###########################################################################
     #
