@@ -1,4 +1,6 @@
 # -*- encoding: utf-8 -*-
+from __future__ import unicode_literals
+
 from django import forms
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.template.loader import render_to_string
@@ -35,8 +37,8 @@ class ProposalSubmissionForm(forms.ModelForm):
         fields = [
             "kind",
             "title",
-            "description",
             "abstract",
+            "description",
             "additional_speakers",
             "audience_level",
             "duration",
@@ -64,8 +66,8 @@ class ProposalSubmissionForm(forms.ModelForm):
             Fieldset(_('General'),
                 Field('kind', autofocus="autofocus"),
                 Field('title'),
-                Field('description'),
                 Field('abstract'),
+                Field('description'),
                 Field('agree_to_terms')),
             Fieldset(_('Details'),
                 Field('language'),
@@ -107,12 +109,12 @@ class ProposalSubmissionForm(forms.ModelForm):
         if 'track' in self.fields:
             form.fields['track'] = forms.ModelChoiceField(label=_("Track"), required=True, initial=None,
                 queryset=tracks)
-        if 'description' in form.fields:
-            form.fields['description'].help_text = _("""Up to around 50 words. Appears in the printed program. <br />This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> input.""")
-            form.fields['description'].validators = [validators.MaxLengthValidator(2000)]
         if 'abstract' in self.fields:
-            form.fields['abstract'].help_text = _("""Describe your presentation in detail. This is what will be reviewed during the review phase.<br />This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> input.""")
-            form.fields['abstract'].validators = [validators.MaxLengthValidator(3000)]
+            form.fields['abstract'].help_text = _("""Up to around 50 words. Appears in the printed program. <br />This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> input.""")
+            # form.fields['abstract'].validators = [validators.MaxLengthValidator(3000)]
+        if 'description' in form.fields:
+            form.fields['description'].help_text = _("""Describe your presentation in detail. This is what will be reviewed during the review phase.<br />This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> input.""")
+            # form.fields['description'].validators = [validators.MaxLengthValidator(2000)]
         if 'additional_speakers' in form.fields:
             form.fields['additional_speakers'].help_text = _("""If you want to present with others, please enter their names here.""")
         if 'available_timeslots' in form.fields:
@@ -128,6 +130,9 @@ class ProposalSubmissionForm(forms.ModelForm):
         if 'notes' in form.fields:
             form.fields['notes'].help_text = _(
                 """Add notes or comments here that can only be seen by reviewers and the organizing team.""")
+        if 'accept_recording' in form.fields:
+            form.fields['accept_recording'].label =_(
+                """I agree to allow the Python Software Verband e.V. to record my presentation on EuroPython 2014 in Berlin.""")
         if 'language' in form.fields:
             form.fields['language'].initial = settings.DEFAULT_LANGUAGE
 
@@ -166,8 +171,8 @@ class TypedSubmissionForm(ProposalSubmissionForm):
         model = models.Proposal
         fields = [
             "title",
-            "description",
             "abstract",
+            "description",
             "additional_speakers",
             "audience_level",
             "tags",
@@ -192,8 +197,8 @@ class TypedSubmissionForm(ProposalSubmissionForm):
         self.helper.layout = Layout(
             Fieldset(_('General'),
                      Field('title', autofocus="autofocus"),
-                     Field('description'),
-                     Field('abstract')),
+                     Field('abstract'),
+                     Field('description')),
             Fieldset(_('Details'),
                      Field('language'),
                      Field('available_timeslots'),
@@ -296,8 +301,8 @@ class TalkSubmissionForm(TypedSubmissionForm):
         model = models.Proposal
         fields = [
             "title",
-            "description",
             "abstract",
+            "description",
             "additional_speakers",
             "audience_level",
             "tags",
@@ -312,9 +317,10 @@ class TalkSubmissionForm(TypedSubmissionForm):
     def __init__(self, *args, **kwargs):
         super(TalkSubmissionForm, self).__init__(*args, **kwargs)
         record_fs = Fieldset(_('Video recording'),
-            HTML(_('{% load cms_tags %}<p class="control-group">Optionally, presentations may be '
-                   'recorded. Due to data protection regulations you need to explicitly accept our '
-                   '<a href="{% page_url "privacy-policy" %}">privacy policy</a>.</p>')),
+            HTML(_('{% load cms_tags %}<p class="control-group">EuroPython talks are recorded on video. '
+                   'Due to data protection regulations you need to explicitly accept our '
+                   '<a href="{% page_url "privacy-policy" %}">privacy policy</a>. If you cannot agree to '
+                   'your talk being recorded, please elaborate in the “Notes” above.</p>')),
             Field('accept_recording')
         )
         self.helper.layout.fields.insert(-1, record_fs)
@@ -332,25 +338,14 @@ class PosterSubmissionForm(TypedSubmissionForm):
         model = models.Proposal
         fields = [
             "title",
-            "description",
             "abstract",
+            "description",
             "additional_speakers",
             "tags",
             "track",
             "language",
             "notes",
-            "accept_recording",
         ]
-
-    def __init__(self, *args, **kwargs):
-        super(PosterSubmissionForm, self).__init__(*args, **kwargs)
-        record_fs = Fieldset(_('Video recording'),
-            HTML(_('{% load cms_tags %}<p class="control-group">Optionally, presentations may be '
-                   'recorded. Due to data protection regulations you need to explicitly accept our '
-                   '<a href="{% page_url "privacy-policy" %}">privacy policy</a>.</p>')),
-            Field('accept_recording')
-        )
-        self.helper.layout.fields.insert(-1, record_fs)
 
     def customize_save(self, instance):
         instance.audience_level = conference_models.AudienceLevel.\
