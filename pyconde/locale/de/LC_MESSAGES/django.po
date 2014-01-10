@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-10 12:45+0100\n"
+"POT-Creation-Date: 2014-01-10 13:15+0100\n"
 "PO-Revision-Date: 2013-12-21 21:30+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -915,21 +915,21 @@ msgstr "Keine geplanten Events"
 msgid "Proposals app"
 msgstr "Proposals-Anwendung"
 
-#: proposals/forms.py:60 proposals/forms.py:186 proposals/forms.py:249
+#: proposals/forms.py:60 proposals/forms.py:189 proposals/forms.py:252
 #: reviews/forms.py:150
 msgid "Save changes"
 msgstr "Änderungen speichern"
 
-#: proposals/forms.py:62 proposals/forms.py:188
+#: proposals/forms.py:62 proposals/forms.py:191
 msgid "Submit proposal"
 msgstr "Vortrag einreichen"
 
-#: proposals/forms.py:66 proposals/forms.py:193 proposals/forms.py:254
+#: proposals/forms.py:66 proposals/forms.py:196 proposals/forms.py:257
 #: reviews/forms.py:32 reviews/forms.py:97
 msgid "General"
 msgstr "Allgemeines"
 
-#: proposals/forms.py:72 proposals/forms.py:197 proposals/forms.py:259
+#: proposals/forms.py:72 proposals/forms.py:200 proposals/forms.py:262
 #: reviews/forms.py:37 reviews/forms.py:102
 msgid "Details"
 msgstr "Details"
@@ -948,7 +948,7 @@ msgstr "Typ"
 msgid "Target-audience"
 msgstr "Zielgruppe"
 
-#: proposals/forms.py:107 proposals/forms.py:329
+#: proposals/forms.py:107 proposals/forms.py:330
 #: schedule/templates/schedule/session.html:32
 #: schedule/templates/schedule/sideevent.html:16
 msgid "Duration"
@@ -1009,33 +1009,41 @@ msgstr ""
 "Hier können Sie Anmerkungen und Kommentare eintragen, die nur für die "
 "Reviewer und Organisatoren sichtbar sind."
 
-#: proposals/forms.py:138
+#: proposals/forms.py:135
+msgid ""
+"I agree to allow the Python Software Verband e.V. to record my presentation "
+"on EuroPython 2014 in Berlin."
+msgstr ""
+"Ich erlaube dem Python Software Verband e.V., meinen Vortrag während der "
+"EuroPython 2014 in Berlin aufzuzeichnen."
+
+#: proposals/forms.py:141
 msgid "The selected session type is no longer accepting proposals."
 msgstr ""
 "Für die ausgewähle Session-Art können leider keine neuen Vorträge mehr "
 "eingereicht werden."
 
-#: proposals/forms.py:144
+#: proposals/forms.py:147
 msgid "Please select a valid target-audience."
 msgstr "Bitte wählen Sie eine gültige Teilnehmerstufe aus."
 
-#: proposals/forms.py:150
+#: proposals/forms.py:153
 msgid "Please select a valid duration."
 msgstr "Bitte wählen Sie eine gültige Vortragsdauer aus."
 
-#: proposals/forms.py:156
+#: proposals/forms.py:159
 msgid "Please select a valid session type."
 msgstr "Bitte wählen Sie eine gültige Session-Art aus."
 
-#: proposals/forms.py:251
+#: proposals/forms.py:254
 msgid "Submit training"
 msgstr "Trainingsvorschlag einreichen"
 
-#: proposals/forms.py:274 schedule/forms.py:19
+#: proposals/forms.py:277 schedule/forms.py:19
 msgid "Description"
 msgstr "Kurzbeschreibung"
 
-#: proposals/forms.py:277 proposals/forms.py:282
+#: proposals/forms.py:280 proposals/forms.py:285
 msgid ""
 "This field supports <a href=\"http://daringfireball.net/projects/markdown/"
 "syntax\" target=\"_blank\" rel=\"external\">Markdown</a> input."
@@ -1043,15 +1051,15 @@ msgstr ""
 "Dieses Feld unterstützt <a href=\"http://daringfireball.net/projects/"
 "markdown/syntax\" target=\"_blank\" rel=\"external\">Markdown</a>."
 
-#: proposals/forms.py:279
+#: proposals/forms.py:282
 msgid "<br />< 300 words"
 msgstr "<br />< 300 Wörter"
 
-#: proposals/forms.py:280
+#: proposals/forms.py:283
 msgid "Structure"
 msgstr "Gliederung"
 
-#: proposals/forms.py:284
+#: proposals/forms.py:287
 msgid ""
 "<br /><br />Please provide details about the structure including the timing. "
 "The sum of these structural points has to be 180 minutes. Please also list "
@@ -1068,11 +1076,11 @@ msgstr ""
 "Betriebssystemen (Linux, Mac OS X und Windows) funktionieren. Wenn nicht, "
 "bitte explizit darauf hinweisen."
 
-#: proposals/forms.py:314 proposals/forms.py:350
+#: proposals/forms.py:317 proposals/forms.py:351
 msgid "Video recording"
 msgstr "Videoaufzeichnung"
 
-#: proposals/forms.py:315 proposals/forms.py:351
+#: proposals/forms.py:318 proposals/forms.py:352
 msgid ""
 "{% load cms_tags %}<p class=\"control-group\">EuroPython talks are recorded "
 "on video. Due to data protection regulations you need to explicitly accept "
@@ -1085,14 +1093,6 @@ msgstr ""
 "eine explizite Freigabe und eine Anerkennung unserer <a href=\"{% page_url "
 "\"privacy-policy\" %}\">Datenschutzerklärung</a>. Solltest du diesen nicht "
 "zustimmen können, vermerke dies bitte in den „Anmerkungen“ oben.</p>"
-
-#: proposals/forms.py:327 proposals/forms.py:363
-msgid ""
-"I agree to allow the Python Software Verband e.V. to record my presentation "
-"on EuroPython 2014 in Berlin."
-msgstr ""
-"Ich erlaube dem Python Software Verband e.V., meinen Vortrag während der "
-"EuroPython 2014 in Berlin aufzuzeichnen."
 
 #: proposals/menu.py:14
 msgid "Proposals menu"

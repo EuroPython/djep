@@ -130,6 +130,9 @@ class ProposalSubmissionForm(forms.ModelForm):
         if 'notes' in form.fields:
             form.fields['notes'].help_text = _(
                 """Add notes or comments here that can only be seen by reviewers and the organizing team.""")
+        if 'accept_recording' in form.fields:
+            form.fields['accept_recording'].label =_(
+                """I agree to allow the Python Software Verband e.V. to record my presentation on EuroPython 2014 in Berlin.""")
 
     def clean(self):
         cleaned_data = super(ProposalSubmissionForm, self).clean()
@@ -324,8 +327,6 @@ class TalkSubmissionForm(TypedSubmissionForm):
         super(TalkSubmissionForm, self).customize_fields(instance, form, tracks)
         if form is None:
             form = self
-        form.fields['accept_recording'].label = _('I agree to allow the Python Software Verband e.V. to '
-                                                  'record my presentation on EuroPython 2014 in Berlin.')
         form.fields['duration'] = forms.ModelChoiceField(label=_("Duration"),
                 queryset=conference_models.SessionDuration.current_objects.exclude(slug='talk').all())
 
@@ -355,13 +356,6 @@ class PosterSubmissionForm(TypedSubmissionForm):
             Field('accept_recording')
         )
         self.helper.layout.fields.insert(-1, record_fs)
-
-    def customize_fields(self, instance=None, form=None, tracks=None):
-        super(PosterSubmissionForm, self).customize_fields(instance, form, tracks)
-        if form is None:
-            form = self
-        form.fields['accept_recording'].label = _('I agree to allow the Python Software Verband e.V. to '
-                                                  'record my presentation on EuroPython 2014 in Berlin.')
 
     def customize_save(self, instance):
         instance.audience_level = conference_models.AudienceLevel.\
