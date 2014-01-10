@@ -1,4 +1,6 @@
 # -*- encoding: utf-8 -*-
+from __future__ import unicode_literals
+
 from django import forms
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.template.loader import render_to_string
@@ -310,9 +312,10 @@ class TalkSubmissionForm(TypedSubmissionForm):
     def __init__(self, *args, **kwargs):
         super(TalkSubmissionForm, self).__init__(*args, **kwargs)
         record_fs = Fieldset(_('Video recording'),
-            HTML(_('{% load cms_tags %}<p class="control-group">Optionally, presentations may be '
-                   'recorded. Due to data protection regulations you need to explicitly accept our '
-                   '<a href="{% page_url "privacy-policy" %}">privacy policy</a>.</p>')),
+            HTML(_('{% load cms_tags %}<p class="control-group">EuroPython talks are recorded on video. '
+                   'Due to data protection regulations you need to explicitly accept our '
+                   '<a href="{% page_url "privacy-policy" %}">privacy policy</a>. If you cannot agree to '
+                   'your talk being recorded, please elaborate in the “Notes” above.</p>')),
             Field('accept_recording')
         )
         self.helper.layout.fields.insert(-1, record_fs)
@@ -321,6 +324,8 @@ class TalkSubmissionForm(TypedSubmissionForm):
         super(TalkSubmissionForm, self).customize_fields(instance, form, tracks)
         if form is None:
             form = self
+        form.fields['accept_recording'].label = _('I agree to allow the Python Software Verband e.V. to '
+                                                  'record my presentation on EuroPython 2014 in Berlin.')
         form.fields['duration'] = forms.ModelChoiceField(label=_("Duration"),
                 queryset=conference_models.SessionDuration.current_objects.exclude(slug='talk').all())
 
