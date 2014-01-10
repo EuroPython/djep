@@ -345,19 +345,7 @@ class PosterSubmissionForm(TypedSubmissionForm):
             "track",
             "language",
             "notes",
-            "accept_recording",
         ]
-
-    def __init__(self, *args, **kwargs):
-        super(PosterSubmissionForm, self).__init__(*args, **kwargs)
-        record_fs = Fieldset(_('Video recording'),
-            HTML(_('{% load cms_tags %}<p class="control-group">EuroPython talks are recorded on video. '
-                   'Due to data protection regulations you need to explicitly accept our '
-                   '<a href="{% page_url "privacy-policy" %}">privacy policy</a>. If you cannot agree to '
-                   'your talk being recorded, please elaborate in the “Notes” above.</p>')),
-            Field('accept_recording')
-        )
-        self.helper.layout.fields.insert(-1, record_fs)
 
     def customize_save(self, instance):
         instance.audience_level = conference_models.AudienceLevel.\
