@@ -37,8 +37,8 @@ class ProposalSubmissionForm(forms.ModelForm):
         fields = [
             "kind",
             "title",
-            "description",
             "abstract",
+            "description",
             "additional_speakers",
             "audience_level",
             "duration",
@@ -66,8 +66,8 @@ class ProposalSubmissionForm(forms.ModelForm):
             Fieldset(_('General'),
                 Field('kind', autofocus="autofocus"),
                 Field('title'),
-                Field('description'),
                 Field('abstract'),
+                Field('description'),
                 Field('agree_to_terms')),
             Fieldset(_('Details'),
                 Field('language'),
@@ -109,12 +109,12 @@ class ProposalSubmissionForm(forms.ModelForm):
         if 'track' in self.fields:
             form.fields['track'] = forms.ModelChoiceField(label=_("Track"), required=True, initial=None,
                 queryset=tracks)
-        if 'description' in form.fields:
-            form.fields['description'].help_text = _("""Up to around 50 words. Appears in the printed program. <br />This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> input.""")
-            form.fields['description'].validators = [validators.MaxLengthValidator(2000)]
         if 'abstract' in self.fields:
-            form.fields['abstract'].help_text = _("""Describe your presentation in detail. This is what will be reviewed during the review phase.<br />This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> input.""")
-            form.fields['abstract'].validators = [validators.MaxLengthValidator(3000)]
+            form.fields['abstract'].help_text = _("""Up to around 50 words. Appears in the printed program. <br />This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> input.""")
+            # form.fields['abstract'].validators = [validators.MaxLengthValidator(3000)]
+        if 'description' in form.fields:
+            form.fields['description'].help_text = _("""Describe your presentation in detail. This is what will be reviewed during the review phase.<br />This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> input.""")
+            # form.fields['description'].validators = [validators.MaxLengthValidator(2000)]
         if 'additional_speakers' in form.fields:
             form.fields['additional_speakers'].help_text = _("""If you want to present with others, please enter their names here.""")
         if 'available_timeslots' in form.fields:
@@ -166,8 +166,8 @@ class TypedSubmissionForm(ProposalSubmissionForm):
         model = models.Proposal
         fields = [
             "title",
-            "description",
             "abstract",
+            "description",
             "additional_speakers",
             "audience_level",
             "tags",
@@ -192,8 +192,8 @@ class TypedSubmissionForm(ProposalSubmissionForm):
         self.helper.layout = Layout(
             Fieldset(_('General'),
                      Field('title', autofocus="autofocus"),
-                     Field('description'),
-                     Field('abstract')),
+                     Field('abstract'),
+                     Field('description')),
             Fieldset(_('Details'),
                      Field('language'),
                      Field('available_timeslots'),
@@ -296,8 +296,8 @@ class TalkSubmissionForm(TypedSubmissionForm):
         model = models.Proposal
         fields = [
             "title",
-            "description",
             "abstract",
+            "description",
             "additional_speakers",
             "audience_level",
             "tags",
@@ -335,8 +335,8 @@ class PosterSubmissionForm(TypedSubmissionForm):
         model = models.Proposal
         fields = [
             "title",
-            "description",
             "abstract",
+            "description",
             "additional_speakers",
             "tags",
             "track",
