@@ -54,11 +54,7 @@
                         <section class="top-bar-section">
                             {% show_menu 0 1 1 1 "cms/primary-navigation.html" %}
                             <ul class="right">
-                                {% if not user.is_authenticated %}
-                                <li>
-                                    <a href="{% url 'userprofiles_registration' %}" class="btn danger">{% trans "Register now" %}</a>
-                                </li>
-                                {% else %}
+                                {% if user.is_authenticated %}
                                 <li class="has-dropdown">
                                     <a href="{% url 'account_profile' uid=user.pk %}">{% trans "Your profile" %}</a>
                                     <ul class="dropdown">
@@ -71,7 +67,7 @@
                     </nav>
                     {% if not user.is_authenticated %}
                     <p id="login">
-                        You have already registered? <a href="{% url 'auth_login' %}">{% trans "Login" %}</a>
+                        <a href="{% url 'auth_login' %}">{% trans "Login" %}</a> or <a href="{% url 'userprofiles_registration' %}">{% trans "Sign up" %}</a>
                     </p>
                     {% endif %}
                 </div>
