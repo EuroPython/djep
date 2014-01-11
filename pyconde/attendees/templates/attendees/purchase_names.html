@@ -7,44 +7,43 @@
     <form class="form-horizontal" method="post">
         {% csrf_token %}
         <fieldset class="attendees">
-            <legend>Teilnehmer</legend>
-            <p style="padding-top:10px">Zur korrekten Zuordnung der Konferenz- und Tutorial-Tickets
-             benötigen wir die vollständigen Namen der Personen, die die Tickets in Anspruch nehmen werden. 
-             Bitte geben Sie die Namen in die untenstehenden Felder ein.</p>
+            <legend>{% trans "Attendee(s)" %}</legend>
+            <p class="info">{% blocktrans %}Please enter the name and other information relevant for
+            the specific ticket(s) in the fields below.{% endblocktrans %}</p>
             {% for name_form in name_forms %}
               <fieldset>
                 <legend>{{ forloop.counter }}. Ticket ({{ name_form.instance.ticket_type.name }})</legend>
-                <div class="control-group {% if name_form.first_name.errors %}error{% endif %}">
+                <div class="form-group {% if name_form.first_name.errors %}has-error{% endif %}">
                   <label class="control-label" for="{{ name_form.first_name.id }}" class="requiredField">
                     {{ name_form.first_name.label }} <span class="asteriskField">*</span>:
                   </label>
                   <div class="controls">
                     {{ name_form.first_name }}
                     {% for error in name_form.first_name.errors %}
-                      <span class="help-inline"><strong>{{ error }}</strong></span>
+                      <span class="help-block error"><strong><i class="fa fa-times"></i></strong> {{ error }}</span>
                     {% endfor %}
                   </div>
                 </div>
-                <div class="control-group {% if name_form.last_name.errors %}error{% endif %}">
+                <div class="form-group {% if name_form.last_name.errors %}has-error{% endif %}">
                   <label class="control-label" for="{{ name_form.last_name.id }}" class="requiredField">
                     {{ name_form.last_name.label }} <span class="asteriskField">*</span>:
                   </label>
                   <div class="controls">
                     {{ name_form.last_name }}
                     {% for error in name_form.last_name.errors %}
-                      <span class="help-inline"><strong>{{ error }}</strong></span>
+                      <span class="help-block error"><strong><i class="fa fa-times"></i></strong> {{ error }}</span>
                     {% endfor %}
                   </div>
                 </div>
                 {% if not name_form.instance.ticket_type.tutorial_ticket %}
-                  <div class="control-group {% if name_form.shirtsize.errors %}error{% endif %}">
+                  <div class="form-group {% if name_form.shirtsize.errors %}has-error{% endif %}">
                     <label class="control-label" for="{{ name_form.shirtsize.id }}">
                       {{ name_form.shirtsize.label }}:
                     </label>
                     <div class="controls">
                       {{ name_form.shirtsize }}
                       {% for error in name_form.shirtsize.errors %}
-                        <span class="help-inline"><strong>{{ error }}</strong></span>
+                        <span class="help-block error"><strong><i class="fa fa-times"></i></strong> {{ error }}</span>
                       {% endfor %}
                     </div>
                   </div>
@@ -86,7 +85,7 @@
         </fieldset>
         {% endif %}
         <div class="form-actions">
-            <input type="submit" name="submit" value="Weiter zur Bestellübersicht" class="submit btn-primary btn" id="submit-id-submit">
+            <input type="submit" name="submit" value="{% trans "Continue" %}" class="submit btn-primary btn" id="submit-id-submit">
             <a class="back" href="{% url 'attendees_purchase' %}">{% trans "Back" %}</a>
         </div>
     </form>

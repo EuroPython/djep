@@ -13,7 +13,7 @@
     <input class="card-amount-int" type="hidden" value="{{ amount_in_cent }}" />
     <input class="card-currency" type="hidden" value="EUR" />
 
-    <div class="control-group">
+    <div class="form-group">
         <label for="cc-number" class="control-label">{% if purchase.payment_method == 'creditcard' %}{% trans "Card number" %}{% else %}{% trans "Account number" %}{% endif %}</label>
         <div class="controls">
             <input id="cc-number" class="card-number" type="text" size="20" />
@@ -21,7 +21,7 @@
     </div>
 
     {% if purchase.payment_method == 'creditcard' %}
-    <div class="control-group">
+    <div class="form-group">
         <label for="cc-cvc" class="control-label">{% trans "CVC" %}</label>
         <div class="controls">
             <input id="cc-cvc" class="card-cvc" type="text" size="4" />
@@ -30,7 +30,7 @@
     {% endif %}
 
     {% if purchase.payment_method == 'elv' %}
-    <div class="control-group">
+    <div class="form-group">
         <label for="bank" class="control-label">{% trans "Bank (BLZ)" %}</label>
         <div class="controls">
             <input id="bank" class="bank" type="text" size="4" />
@@ -38,7 +38,7 @@
     </div>
     {% endif %}
 
-    <div class="control-group">
+    <div class="form-group">
         <label for="cc-name" class="control-label">{% trans "Name" %}</label>
         <div class="controls">
             <input id="cc-name" class="card-holdername" type="text" size="4" />
@@ -46,7 +46,7 @@
     </div>
 
     {% if purchase.payment_method == 'creditcard' %}
-    <div class="control-group">
+    <div class="form-group">
         <label for="cc-exp-month" class="control-label">{% trans "Expiration date" %}</label>
         <div class="controls controls-row">
             <select id="cc-exp-month" class="card-exp-month input-small">
@@ -74,7 +74,7 @@
     </div>
     {% endif %}
 
-    <div class="control-group">
+    <div class="form-group">
         <div class="controls">
             <button class="btn-primary" type="submit">{% trans "Pay &amp; Complete purchase" %}</button>
             <a class="back" href="{% url 'attendees_purchase_confirm' %}">{% trans "Back" %}</a>
@@ -90,5 +90,5 @@ var PAYMILL_PUBLIC_KEY = '{{ public_key }}';
 $('form#payment-form').preventDoubleSubmission();
 </script>
 <script type="text/javascript" src="https://bridge.paymill.de/"></script>
-<script type="text/javascript" src="{{ STATIC_URL }}js/paymill.js"></script>
+<script type="text/javascript" src="{{ STATIC_URL }}assets/js/paymill.js"></script>
 {% endblock extra_foot %}

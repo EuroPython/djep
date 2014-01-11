@@ -20,6 +20,7 @@ terms_of_use_url = (settings.PURCHASE_TERMS_OF_USE_URL
                     if (hasattr(settings, 'PURCHASE_TERMS_OF_USE_URL')
                     and settings.PURCHASE_TERMS_OF_USE_URL) else '#')
 
+
 class PurchaseForm(forms.ModelForm):
     email = forms.EmailField(label=_('E-Mail'), required=True)
 
@@ -34,10 +35,10 @@ class PurchaseForm(forms.ModelForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.form_tag = False
         self.helper.layout = Layout(
-            Fieldset(_('Invoice address'), 'first_name', 'last_name',
+            Fieldset(_('Billing address'), 'first_name', 'last_name',
                 'company_name', 'email', 'street', 'zip_code', 'city',
                 'country', 'vat_id', 'comments'),
-            ButtonHolder(Submit('submit', _('Purchase tickets'), css_class='btn-primary'))
+            ButtonHolder(Submit('submit', _('Continue'), css_class='btn-primary'))
         )
 
     def save(self, *args, **kwargs):
@@ -153,7 +154,7 @@ class TicketVoucherForm(forms.ModelForm):
 
 
 class PurchaseOverviewForm(forms.Form):
-    accept_terms=forms.BooleanField(
+    accept_terms = forms.BooleanField(
         label=_("I've read and agree to the terms and conditions."),
         help_text=_('You must accept the <a target="_blank" href="%s">terms and conditions</a>.') % terms_of_use_url,
         error_messages={'required': _('You must accept the terms and conditions.')})
@@ -176,7 +177,7 @@ class PurchaseOverviewForm(forms.Form):
             ButtonHolder(
                 Submit('submit', _('Complete purchase'),
                        css_class='btn-primary'),
-                HTML('{% load i18n %}<a class="back" href="{% url attendees_purchase_names %}">{% trans "Back" %}</a>')
+                HTML('{% load i18n %}<a class="back" href="{% url \'attendees_purchase_names\' %}">{% trans "Back" %}</a>')
             )
         )
         if hasattr(settings, 'PAYMENT_METHODS') and settings.PAYMENT_METHODS:
