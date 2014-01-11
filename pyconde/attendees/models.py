@@ -6,7 +6,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.timezone import now
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext, ugettext_lazy as _
 
 
 PURCHASE_STATES = (
@@ -68,7 +68,7 @@ class Voucher(models.Model):
         verbose_name_plural = _('Vouchers')
 
     def __unicode__(self):
-        return '%s %s' % (_('Voucher'), self.code)
+        return '%s %s' % (ugettext('Voucher'), self.code)
 
     def save(self, *args, **kwargs):
         if len(self.code) < 1:
