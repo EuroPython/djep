@@ -24,6 +24,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
 import django.views.generic as generic_views
 
+from pyconde.conference.models import current_conference
 from braces.views import LoginRequiredMixin
 
 from .models import TicketType, Ticket, Purchase
@@ -113,7 +114,7 @@ class StartPurchaseView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
         if self.quantity_forms is None:
             self.quantity_forms = [
                 forms.TicketQuantityForm(ticket_type=ticket_type)
-                for ticket_type in TicketType.objects.available().select_related('vouchertype_needed')
+                for ticket_type in TicketType.objects.available().filter(conference=current_conference()).select_related('vouchertype_needed')
             ]
 
         return render(self.request, 'attendees/purchase.html', {
@@ -131,7 +132,7 @@ class StartPurchaseView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
         self.quantity_forms = []
         self.all_quantity_forms_valid = True
         self.total_ticket_num = 0
-        for ticket_type in TicketType.objects.available():
+        for ticket_type in TicketType.objects.available().filter(conference=current_conference()):
             quantity_form = forms.TicketQuantityForm(
                 data=self.request.POST,
                 ticket_type=ticket_type)
@@ -150,6 +151,7 @@ class StartPurchaseView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
             purchase = self.form.save(commit=False)
             if self.request.user.is_authenticated():
                 purchase.user = self.request.user
+            purchase.conference = current_conference()
             purchase.save()
 
             # Create a ticket for each ticket type and amount

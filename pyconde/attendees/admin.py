@@ -11,17 +11,18 @@ from .models import (Customer, Purchase, Ticket, TicketType,
 from . import utils
 from . import exporters
 
+
 def export_tickets(modeladmin, request, queryset):
     return HttpResponse(utils.create_tickets_export(queryset).csv, mimetype='text/csv')
 export_tickets.short_description = _("Export as CSV")
 
 
 class TicketTypeAdmin(admin.ModelAdmin):
-    list_display = ('product_number', '__unicode__', 'fee', 'is_active',
-                    'tutorial_ticket', 'purchases_count',
+    list_display = ('product_number', '__unicode__', 'conference',
+                    'fee', 'is_active', 'tutorial_ticket', 'purchases_count',
                     'max_purchases', 'date_valid_from', 'date_valid_to')
     list_display_links = ('product_number', '__unicode__')
-    list_filter = ('is_active',)
+    list_filter = ('is_active', 'conference')
 
 admin.site.register(TicketType, TicketTypeAdmin)
 
@@ -33,7 +34,9 @@ admin.site.register(TShirtSize, ShirtSizeAdmin)
 
 
 class VoucherTypeAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'conference')
+    list_filter = ('conference',)
+
 
 admin.site.register(VoucherType, VoucherTypeAdmin)
 
@@ -63,10 +66,11 @@ class PurchaseAdmin(admin.ModelAdmin):
     list_display = (
         '__unicode__', 'payment_total', 'first_name', 'last_name',
         'company_name', 'street', 'city', 'date_added', 'payment_method',
-        'state', 'exported',
+        'state', 'exported', 'conference',
     )
     list_editable = ('state',)
-    list_filter = ('state', 'date_added', 'payment_method', 'exported',)
+    list_filter = ('state', 'date_added', 'payment_method', 'exported',
+                   'conference',)
     inlines = [TicketInline]
     actions = ['send_purchase_confirmation', 'send_payment_confirmation',
                'email_export']

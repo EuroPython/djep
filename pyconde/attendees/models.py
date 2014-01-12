@@ -32,6 +32,9 @@ class VoucherTypeManager(models.Manager):
 
 
 class VoucherType(models.Model):
+    conference = models.ForeignKey(
+        "conference.Conference", verbose_name="conference", null=True,
+        on_delete=models.PROTECT)
     name = models.CharField(_('voucher type'), max_length=50)
 
     objects = VoucherTypeManager()
@@ -91,8 +94,11 @@ class TicketTypeManager(models.Manager):
 
 
 class TicketType(models.Model):
+    conference = models.ForeignKey(
+        "conference.Conference", verbose_name="conference", null=True,
+        on_delete=models.PROTECT)
     product_number = models.IntegerField(
-        _('Product number'), blank=True, unique=True,
+        _('Product number'), blank=True,
         help_text=_('Will be created when you save the first time.'))
 
     name = models.CharField(_('Name'), max_length=50)
@@ -117,6 +123,7 @@ class TicketType(models.Model):
         ordering = ('tutorial_ticket', 'product_number', 'vouchertype_needed',)
         verbose_name = _('Ticket type')
         verbose_name_plural = _('Ticket type')
+        unique_together = [('product_number', 'conference')]
 
     def __unicode__(self):
         return '%s (%.2f EUR)' % (self.name, self.fee)
@@ -151,8 +158,11 @@ class CustomerManager(models.Manager):
 
 
 class Customer(models.Model):
+    conference = models.ForeignKey(
+        "conference.Conference", verbose_name="conference", null=True,
+        on_delete=models.PROTECT)
     customer_number = models.IntegerField(
-        _('Customer number'), blank=True, unique=True,
+        _('Customer number'), blank=True,
         help_text=_('Will be created when you save the first time.'))
 
     email = models.EmailField(_('E-Mail'), max_length=250, blank=False)
@@ -167,6 +177,7 @@ class Customer(models.Model):
         ordering = ('customer_number', 'email')
         verbose_name = _('Customer')
         verbose_name_plural = _('Customers')
+        unique_together = [('customer_number', 'conference')]
 
     def __unicode__(self):
         return '%s (%s)' % (self.email, self.customer_number)
@@ -185,6 +196,9 @@ class PurchaseManager(models.Manager):
 
 
 class Purchase(models.Model):
+    conference = models.ForeignKey(
+        "conference.Conference", verbose_name="conference", null=True,
+        on_delete=models.PROTECT)
     customer = models.ForeignKey(Customer, verbose_name=_('Customer'))
     user = models.ForeignKey(User, null=True, verbose_name=_('User'))
 
@@ -250,6 +264,9 @@ class Purchase(models.Model):
 
 
 class TShirtSize(models.Model):
+    conference = models.ForeignKey(
+        "conference.Conference", verbose_name="conference", null=True,
+        on_delete=models.PROTECT)
     size = models.CharField(max_length=100, verbose_name=_('Size'))
     sort = models.IntegerField(default=999, verbose_name=_('Sort order'))
 
@@ -265,7 +282,7 @@ class TShirtSize(models.Model):
 class Ticket(models.Model):
     purchase = models.ForeignKey(Purchase)
     ticket_type = models.ForeignKey(TicketType, verbose_name=_('Ticket type'))
-    
+
     # TODO: organisation - for badges should have asked for org name of visitor!
     first_name = models.CharField(_('First name'), max_length=250, blank=True)
     last_name = models.CharField(_('Last name'), max_length=250, blank=True)

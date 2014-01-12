@@ -6,6 +6,7 @@ from django.utils.translation import ugettext_lazy as _
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, HTML
 
+from pyconde.conference.models import current_conference
 from pyconde.attendees.models import Purchase, Customer, Ticket, Voucher
 from pyconde.forms import Submit
 
@@ -43,6 +44,7 @@ class PurchaseForm(forms.ModelForm):
 
     def save(self, *args, **kwargs):
         customer, created = Customer.objects.get_or_create(
+            conference=current_conference(),
             email=self.cleaned_data['email'])
 
         purchase = super(PurchaseForm, self).save(commit=False)
@@ -101,6 +103,8 @@ class TicketNameForm(forms.ModelForm):
 
         self.fields['first_name'].required = True
         self.fields['last_name'].required = True
+        self.fields['shirtsize'].queryset = self.fields['shirtsize']\
+            .queryset.filter(conference=current_conference())
 
     class Meta:
         model = Ticket
@@ -143,7 +147,8 @@ class TicketVoucherForm(forms.ModelForm):
 
     def save(self, *args, **kwargs):
         # Mark voucher as used.
-        voucher = Voucher.objects.get(code=self.cleaned_data['code'])
+        voucher = Voucher.objects.get(type__conference=current_conference(),
+                                      code=self.cleaned_data['code'])
         voucher.is_used = True
         voucher.save()
 
