@@ -102,7 +102,8 @@ class PurchaseAdmin(admin.ModelAdmin):
 
             send_mail(ugettext('Payment receipt confirmation'),
                 render_to_string('attendees/mail_payment_received.html', {
-                    'purchase': purchase
+                    'purchase': purchase,
+                    'conference': purchase.conference
                 }),
                 settings.DEFAULT_FROM_EMAIL,
                 [purchase.customer.email, settings.DEFAULT_FROM_EMAIL],
@@ -120,7 +121,7 @@ class PurchaseAdmin(admin.ModelAdmin):
 
         self.message_user(request, ugettext('%s successfully sent.') % message_bit)
     send_payment_confirmation.short_description = _(
-        'Send confirmation for selected %(verbose_name_plural)s')
+        'Send payment confirmation for selected %(verbose_name_plural)s')
 
 admin.site.register(Purchase, PurchaseAdmin)
 

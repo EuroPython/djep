@@ -53,6 +53,7 @@ def send_purchase_confirmation_mail(purchase, recipients=None):
         _('Ticket successfully purchased'),
         render_to_string('attendees/mail_purchase_completed.html', {
             'purchase': purchase,
+            'conference': purchase.conference,
             'rounded_vat': round_money_value(purchase.payment_tax),
             'payment_method': dict(models.PAYMENT_METHOD_CHOICES).get(
                 purchase.payment_method),
