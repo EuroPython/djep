@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-10 13:15+0100\n"
+"POT-Creation-Date: 2014-01-12 21:30+0100\n"
 "PO-Revision-Date: 2013-12-21 21:30+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -2029,6 +2029,10 @@ msgstr "E-Mail-Bestätigung"
 #: skins/ep14/templates/base.html:59
 msgid "Register now"
 msgstr "Neues Konto anlegen"
+
+#: skins/ep14/templates/base.html:99
+msgid "Get in touch"
+msgstr "Hilfe und Support"
 
 #: skins/ep14/templates/base.html:108
 msgid "Follow @europython"
