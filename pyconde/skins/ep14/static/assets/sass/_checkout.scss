@@ -49,3 +49,14 @@
         }
     }
 }
+
+.paymill {
+    .input-small {
+        width: 171px !important;
+        display: inline-block;
+        margin-left: 10px;
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+}
