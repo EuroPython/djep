@@ -150,6 +150,9 @@ label {
 
 .form-actions {
     text-align: right;
+    > *, .controls > * {
+        margin-left: 10px;
+    }
     ul {
         list-style: none;
     }
