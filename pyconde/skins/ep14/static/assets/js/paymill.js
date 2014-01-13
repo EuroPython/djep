@@ -23,9 +23,12 @@
         };
 
     function setError(msg) {
+        console.log(msg);
         paymentForm.find('.alert').remove();
         paymentForm.prepend($('<p>').text(msg).addClass('alert').addClass('alert-error'));
-        btn.removeAttr('disabled');
+        paymentForm.data('disabled', false);
+        paymentForm.data('spinner').stop();
+        paymentForm.data('spinner', null);
     }
 
     function handleResponse(error, result) {
@@ -51,11 +54,25 @@
                 ccCvc = that.find('.card-cvc').val(),
                 amount = that.find('.card-amount-int').val(),
                 currency = that.find('.card-currency').val(),
-                bank = mode === 'elv' ? that.find('.bank').val() : null;
+                bank = mode === 'elv' ? that.find('.bank').val() : null,
+                btn = that.find('button.btn-primary'),
+                spinContainer = btn.prepend('<span>'),
+                spinner;
             paymentForm = that;
             backendForm  = $('#backend-form');
-            btn = that.find('button');
-            btn.attr('disabled', 'disabled');
+            if (paymentForm.data('disabled')) {
+                return;
+            }
+            paymentForm.data('disabled', true);
+            spinner = new Spinner({
+                length: 7,
+                radius: 4,
+                width: 2,
+                left: -60,
+                lines: 9,
+                color: btn.css('background-color')
+            }).spin(spinContainer[0]);
+            paymentForm.data('spinner', spinner);
 
             // Validate the input using PayMill's helper methods
             if (mode === 'creditcard') {
