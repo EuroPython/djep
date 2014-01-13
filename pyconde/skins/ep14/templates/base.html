@@ -96,6 +96,7 @@
                             <li><a href="{% page_url "legal-notice" %}">{% page_attribute "title" "legal-notice" %}</a></li>
                             <li><a href="{% page_url "privacy-policy" %}">{% page_attribute "title" "privacy-policy" %}</a></li>
                             <li><a href="{% page_url "code-of-conduct" %}">{% page_attribute "title" "code-of-conduct" %}</a></li>
+                            <li><a href="#" id="get-in-touch">{% trans "Get in touch" %}</a></li>
                         </ul>
                     </div>
                     <div id="footer-social">
@@ -140,8 +141,10 @@
             <script type="text/javascript" src="{% static "assets/bower_components/foundation/js/foundation/foundation.orbit.js"%}"></script>
             <script src="{% static "assets/js/ui.js" %}"></script>
             <script src="{% static "assets/js/ui.multiuserselect.js" %}"></script>
+            <script src="{% static "assets/js/jira.js" %}"></script>
             <script>$(document).foundation();</script>
         {% endcompress %}
+        <script type="text/javascript" src="https://ep14-jira.veit-schiele.de/s/en_USr0x7pf-1988229788/6109/2/1.4.0-m3/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=969306e4"></script>
         {% block extra_foot %}{% endblock %}
     </body>
 </html>
