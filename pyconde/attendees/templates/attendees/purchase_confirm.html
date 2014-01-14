@@ -26,7 +26,7 @@
             <th>{% trans "Last name" %}</th>
             <th>{% trans "Price" %}</th>
         </thead>
-        {% for ticket in purchase.ticket_set.all %}
+        {% for ticket in tickets %}
         <tr>
             <td>{{ ticket.ticket_type.name }}</td>
             <td>{{ ticket.first_name }}</td>

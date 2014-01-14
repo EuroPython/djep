@@ -50,25 +50,33 @@ class PurchaseMixin(object):
         ('done', 'attendees_purchase_done'),
     ])
     step = None
+    tickets = []
 
     def save_state(self, step=None):
+        # Warning: To keep the form interaction as simple as possible
+        #          we are storing a temporary pk with each ticket if non
+        #          has been set yet.
+        if self.tickets:
+            for idx, ticket in enumerate(self.tickets):
+                if ticket.pk is None:
+                    ticket.pk = idx
         self.request.session['purchase_state'] = {
-            'purchase_pk': self.purchase.pk,
+            'purchase': self.purchase,
             'previous_step': step if step is not None else self.step,
+            'tickets': self.tickets,
         }
 
     def get_previous_state(self):
+        # TODO: If the checkout took too long, invalidate it and force the
+        #       user to start again.
         state = self.request.session.get('purchase_state')
         if state is None:
             return None
         self.previous_step = state['previous_step']
+        self.purchase = state['purchase']
+        self.tickets = state['tickets']
         if self.request.user.is_authenticated():
-            self.purchase = get_object_or_404(Purchase,
-                                              pk=state['purchase_pk'],
-                                              user=self.request.user)
-        else:
-            self.purchase = get_object_or_404(Purchase,
-                                              pk=state['purchase_pk'])
+            self.purchase.user = self.request.user
         return state
 
     def clear_purchase_info(self):
@@ -76,6 +84,22 @@ class PurchaseMixin(object):
             del self.request.session['purchase_state']
         if 'paymentform' in self.request.session:
             del self.request.session['paymentform']
+        self.tickets = []
+        self.purchase = None
+        self.previous_step = None
+
+    def persist_purchase(self):
+        self.purchase.save()
+        for ticket in self.tickets:
+            # TODO: We have to check one more time if the ticket is still
+            #       available.
+            # NOTE: At this point the ticket availability is decreased.
+            #       This is corrected by the "purge_stale_purchases"
+            #       command.
+            #       Vouchers are invalidated by complete_purchase().
+            ticket.pk = None
+            ticket.purchase = self.purchase
+            ticket.save()
 
     def setup(self):
         if self.step != 'start':
@@ -96,11 +120,15 @@ class PurchaseMixin(object):
 
 
 class StartPurchaseView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
+    """
+    This first step of the checkout process presents the user with a list of
+    available ticket types as well as a form to enter their payment address
+    details.
+    """
     step = 'start'
     form = None
 
     quantity_forms = None
-    all_quantity_forms_valid = True
     total_ticket_num = 0
 
     def get(self, *args, **kwargs):
@@ -111,10 +139,14 @@ class StartPurchaseView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
                 'last_name': self.request.user.last_name,
                 'email': self.request.user.email,
             })
+
+        ticket_types = TicketType.objects.available()\
+            .filter(conference=current_conference)\
+            .select_related('vouchertype_needed')
         if self.quantity_forms is None:
             self.quantity_forms = [
                 forms.TicketQuantityForm(ticket_type=ticket_type)
-                for ticket_type in TicketType.objects.available().filter(conference=current_conference()).select_related('vouchertype_needed')
+                for ticket_type in ticket_types
             ]
 
         return render(self.request, 'attendees/purchase.html', {
@@ -130,9 +162,11 @@ class StartPurchaseView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
 
         # Create a quantity for for each available ticket type.
         self.quantity_forms = []
-        self.all_quantity_forms_valid = True
+        all_quantity_forms_valid = True
         self.total_ticket_num = 0
-        for ticket_type in TicketType.objects.available().filter(conference=current_conference()):
+        ticket_types = TicketType.objects.available().filter(
+            conference=current_conference())
+        for ticket_type in ticket_types:
             quantity_form = forms.TicketQuantityForm(
                 data=self.request.POST,
                 ticket_type=ticket_type)
@@ -141,36 +175,45 @@ class StartPurchaseView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
                 self.total_ticket_num += quantity_form.cleaned_data.get(
                     'quantity', 0)
             else:
-                self.all_quantity_forms_valid = False
+                all_quantity_forms_valid = False
 
             self.quantity_forms.append(quantity_form)
 
         # Address, quantities (limits) and at least one ticket must be bought
-        if self.form.is_valid() and self.all_quantity_forms_valid\
+        if self.form.is_valid() and all_quantity_forms_valid\
                 and self.total_ticket_num > 0:
             purchase = self.form.save(commit=False)
             if self.request.user.is_authenticated():
                 purchase.user = self.request.user
             purchase.conference = current_conference()
-            purchase.save()
 
             # Create a ticket for each ticket type and amount
             for quantity_form in self.quantity_forms:
                 for _i in range(0,
-                               quantity_form.cleaned_data.get('quantity', 0)):
-                    Ticket.objects.create(
-                        purchase=purchase,
-                        ticket_type=quantity_form.ticket_type)
-            purchase.payment_total = purchase.calculate_payment_total()
-            purchase.save()
+                                quantity_form.cleaned_data.get('quantity', 0)):
+                    self.tickets.append(
+                        Ticket(purchase=purchase,
+                               ticket_type=quantity_form.ticket_type))
+            purchase.payment_total = purchase.calculate_payment_total(
+                tickets=self.tickets)
             self.purchase = purchase
+
+            # Please note that we don't save the purchase object nor the
+            # freshly created tickets yet but instead put them just into
+            # the session.
             self.save_state()
+
             return redirect('attendees_purchase_names')
 
         return self.get(*args, **kwargs)
 
 
 class PurchaseNamesView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
+    """
+    The second step of the checkout offers the customer a form to enter
+    details for the tickets themselves (first name, last name, ...) as well
+    as provide a voucher form for tickets that require it.
+    """
     step = 'names'
 
     no_double_voucher = True
@@ -181,13 +224,12 @@ class PurchaseNamesView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
         if self.name_forms is None:
             self.name_forms = [
                 forms.TicketNameForm(instance=ticket)
-                for ticket in self.purchase.ticket_set.all()
+                for ticket in self.tickets
             ]
         if self.voucher_forms is None:
             self.voucher_forms = [
                 forms.TicketVoucherForm(instance=ticket)
-                for ticket in self.purchase.ticket_set.filter(
-                    ticket_type__vouchertype_needed__isnull=False)
+                for ticket in self._get_tickets_for_voucher()
             ]
 
         return render(self.request, 'attendees/purchase_names.html', {
@@ -200,13 +242,14 @@ class PurchaseNamesView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
 
     def post(self, *args, **kwargs):
         self.name_forms = []
-        self.all_name_forms_valid = True
-        for ticket in self.purchase.ticket_set.all():
+        all_name_forms_valid = True
+
+        for ticket in self.tickets:
             name_form = forms.TicketNameForm(
                 data=self.request.POST, instance=ticket)
 
             if not name_form.is_valid():
-                self.all_name_forms_valid = False
+                all_name_forms_valid = False
 
             self.name_forms.append(name_form)
 
@@ -214,8 +257,8 @@ class PurchaseNamesView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
         self.used_vouchers = []
         self.all_voucher_forms_valid = True
 
-        for ticket in self.purchase.ticket_set.filter(
-                ticket_type__vouchertype_needed__isnull=False):
+        # TODO: Fix voucher association with ticket
+        for ticket in self._get_tickets_for_voucher():
             voucher_form = forms.TicketVoucherForm(
                 data=self.request.POST, instance=ticket)
 
@@ -232,17 +275,21 @@ class PurchaseNamesView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
 
         # All name forms, voucher forms must be valid, voucher codes must not
         # be used twice
-        if self.all_name_forms_valid and self.all_voucher_forms_valid\
+        if all_name_forms_valid and self.all_voucher_forms_valid\
                 and self.no_double_voucher:
-            for name_form in self.name_forms:
-                name_form.save()
+            for idx, name_form in enumerate(self.name_forms):
+                self.tickets[idx] = name_form.save(commit=False)
             for voucher_form in self.voucher_forms:
-                voucher_form.save()
+                voucher_form.save(commit=False)
 
             # Redirect to confirm page.
             self.save_state()
             return redirect('attendees_purchase_confirm')
         return self.get(*args, **kwargs)
+
+    def _get_tickets_for_voucher(self):
+        return [t for t in self.tickets
+                if t.ticket_type.vouchertype_needed is not None]
 
 
 class PurchaseOverviewView(LoginRequiredMixin, PurchaseMixin,
@@ -260,13 +307,14 @@ class PurchaseOverviewView(LoginRequiredMixin, PurchaseMixin,
                                                                   **kwargs)
         data['purchase'] = self.purchase
         data['step'] = self.step
+        data['tickets'] = self.tickets
         return data
 
     def form_valid(self, form):
         purchase = self.purchase
         purchase.payment_method = form.cleaned_data['payment_method']
-        purchase.save()
         if purchase.payment_method == 'invoice':
+            self.persist_purchase()
             resp = utils.complete_purchase(purchase)
             self.save_state('payment')  # We can skip this step
             return resp
@@ -300,14 +348,18 @@ class HandlePaymentView(LoginRequiredMixin, PurchaseMixin,
         # generate hash on purchase and store in session to avoid double POST
         # of payment form for same user/purchase (note that different tokens
         # may be generated in case of parallel POST of payment form)
-        paymenthash=hashlib.md5()
+        # To have all the data available for the generation we finally have
+        # to save the purchase object and the associated tickets.
+        self.persist_purchase()
+        paymenthash = hashlib.md5()
         paymenthash.update(utils.get_purchase_number(purchase))
         paymenthash = paymenthash.hexdigest()
-        if (self.request.session.get('paymentform')!=paymenthash and
-            not purchase.payment_transaction):
+
+        if (self.request.session.get('paymentform') != paymenthash
+                and not purchase.payment_transaction):
             self.request.session['paymentform'] = paymenthash
             purchase.payment_transaction = paymenthash
-            purchase.save()  # set 'lock'
+            purchase.save()
             api = pymill.Pymill(settings.PAYMILL_PRIVATE_KEY)
             try:
                 resp = api.transact(

@@ -18,6 +18,7 @@ LOG = logging.getLogger(__name__)
 
 
 def validate_vatid(own_vatid, other_vatid):
+    # TODO: Replace evatr or make it optional using a setting
     try:
         server = xmlrpclib.Server('https://evatr.bff-online.de/')
         data = {}
@@ -31,12 +32,23 @@ def validate_vatid(own_vatid, other_vatid):
 
 
 def complete_purchase(purchase):
+    """
+    This method finalizes a purchase, clears voucher locks and sends the
+    confirmation email.
+    """
     if purchase.payment_method == 'invoice':
         purchase.state = 'new'
     else:
         # Credit card payments are automatically marked as payment received
         # if they enter this stage.
         purchase.state = 'payment_received'
+
+    # TODO: Generate invoice number
+    # TODO: Cleanup voucher locks
+    for ticket in purchase.ticket_set.filter(voucher__isnull=False).all():
+        voucher = ticket.voucher
+        voucher.is_used = True
+        voucher.save()
     purchase.save()
     send_purchase_confirmation_mail(purchase)
     return HttpResponseRedirect(reverse('attendees_purchase_done'))

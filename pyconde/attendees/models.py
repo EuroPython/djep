@@ -136,8 +136,12 @@ class TicketType(models.Model):
 
     @property
     def available_tickets(self):
+        """
+        Returns a number of still purchasable tickets or None if there is no
+        limit.
+        """
         if self.max_purchases < 1:
-            return 999
+            return None
         else:
             available_tickets = self.max_purchases - self.purchases_count
             return available_tickets if available_tickets > 0 else 0
@@ -237,14 +241,21 @@ class Purchase(models.Model):
         verbose_name = _('Purchase')
         verbose_name_plural = _('Purchases')
 
-    def calculate_payment_total(self):
+    def calculate_payment_total(self, tickets=None):
+        # TODO: Externalize this into a utils method to be usable "offline"
         # TODO Maybe it's necessary to add VAT to payment_total.
         # TKO: Nope: in 2013 at least all ticket prices have been including VAT
         # However this may be different if people from foreign countries purchase
         # a ticket because then no VAT may be added (depends on country...)
         # so remains TODO for EuroPython
-        fee_sum = self.ticket_set.aggregate(models.Sum('ticket_type__fee'))
-        return fee_sum['ticket_type__fee__sum']
+        fee_sum = 0.0
+        if tickets is None:
+            fee_sum = self.ticket_set.aggregate(models.Sum('ticket_type__fee'))
+            return fee_sum['ticket_type__fee__sum']
+        else:
+            for ticket in tickets:
+                fee_sum += ticket.ticket_type.fee
+            return fee_sum
 
     @property
     def payment_total_in_cents(self):

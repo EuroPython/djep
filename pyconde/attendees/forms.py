@@ -65,7 +65,8 @@ class TicketQuantityForm(forms.Form):
         super(TicketQuantityForm, self).__init__(
             prefix='tq-%s' % ticket_type.pk, *args, **kwargs)
 
-        if self.ticket_type.available_tickets < 10:
+        if self.ticket_type.available_tickets is not None and \
+                self.ticket_type.available_tickets < 10:
             max_value = self.ticket_type.available_tickets
         else:
             max_value = 10
@@ -79,7 +80,8 @@ class TicketQuantityForm(forms.Form):
 
     def clean_quantity(self):
         value = self.cleaned_data['quantity']
-        if value > 0:
+        available = self.ticket_type.available_tickets
+        if value > 0 and available is not None:
             if self.ticket_type.available_tickets < 1:
                 raise forms.ValidationError(_('Tickets sold out.'))
 
@@ -98,6 +100,8 @@ class TicketNameForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         assert 'instance' in kwargs, 'instance is required.'
 
+        # TODO: At this point we don't yet have a pk, so we have to find
+        #       another way to enumerate here.
         super(TicketNameForm, self).__init__(
             prefix='tn-%s' % kwargs['instance'].pk, *args, **kwargs)
 
@@ -111,12 +115,12 @@ class TicketNameForm(forms.ModelForm):
         fields = ('first_name', 'last_name', 'shirtsize')
 
     def save(self, *args, **kwargs):
-        # Update, save would overwrite other flags too (even if not in `fields`)
-        Ticket.objects.filter(pk=self.instance.pk).update(
-            first_name=self.cleaned_data['first_name'],
-            last_name=self.cleaned_data['last_name'],
-            shirtsize=self.cleaned_data['shirtsize']
-        )
+        # Update, save would overwrite other flags too (even if not in
+        # `fields`)
+        self.instance.first_name = self.cleaned_data['first_name']
+        self.instance.last_name = self.cleaned_data['last_name']
+        self.instance.shirtsize = self.cleaned_data['shirtsize']
+        return self.instance
 
 
 class TicketVoucherForm(forms.ModelForm):
@@ -133,9 +137,10 @@ class TicketVoucherForm(forms.ModelForm):
         fields = ('code',)
 
     def clean_code(self):
+        # TODO: Check the cache if the voucher is not in use already
         try:
             code = self.cleaned_data['code']
-            ticket = Ticket.objects.get(pk=self.instance.pk)
+            ticket = self.instance
             if not ticket.voucher or ticket.voucher.code != code:
                 Voucher.objects.valid().get(
                     code=code,
@@ -146,16 +151,10 @@ class TicketVoucherForm(forms.ModelForm):
         return code
 
     def save(self, *args, **kwargs):
-        # Mark voucher as used.
         voucher = Voucher.objects.get(type__conference=current_conference(),
                                       code=self.cleaned_data['code'])
-        voucher.is_used = True
-        voucher.save()
-
-        # Update, save would overwrite other flags too (even if not in `fields`)
-        Ticket.objects.filter(pk=self.instance.pk).update(
-            voucher=voucher,
-        )
+        self.instance.voucher = voucher
+        # TODO: Save the voucher in the cache (pk) to prevent double use.
 
 
 class PurchaseOverviewForm(forms.Form):

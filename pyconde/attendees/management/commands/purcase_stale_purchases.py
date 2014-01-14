@@ -16,12 +16,15 @@ class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
         make_option('-d', '--days', action='store', dest='days', default=7,
                     type='int',
-                    help='Number of days prior to which purchases should be purged'),
+                    help='Number of days prior to which purchases should be'
+                         ' purged'),
     )
 
     def handle(self, *args, **options):
         print("Purging orders older than {0} day(s):".format(options['days']))
         date = now() - timedelta(days=options['days'])
-        for purchase in models.Purchase.objects.filter(state='incomplete', date_added__lt=date):
+        for purchase in models.Purchase.objects.filter(
+                state='incomplete',
+                date_added__lt=date):
             print(purchase, purchase.date_added)
             purchase.delete()
