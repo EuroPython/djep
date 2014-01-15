@@ -68,9 +68,10 @@ class TicketQuantityForm(forms.Form):
         super(TicketQuantityForm, self).__init__(
             prefix='tq-%s' % ticket_type.pk, *args, **kwargs)
 
-        if self.ticket_type.available_tickets is not None and \
-                self.ticket_type.available_tickets < 10:
-            max_value = self.ticket_type.available_tickets
+        self.ticket_limit = self.ticket_type.available_tickets
+
+        if self.ticket_limit is not None and self.ticket_limit < 10:
+            max_value = self.ticket_limit
         else:
             max_value = 10
 

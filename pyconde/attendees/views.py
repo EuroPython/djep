@@ -19,6 +19,7 @@ import pymill
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
+from django.contrib import messages
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
@@ -31,6 +32,7 @@ from braces.views import LoginRequiredMixin
 from .models import TicketType, Ticket, Purchase
 from . import forms
 from . import utils
+from . import exceptions
 
 
 LOG = logging.getLogger(__name__)
@@ -82,7 +84,20 @@ class PurchaseMixin(object):
             return None
         self.previous_step = state['previous_step']
         self.purchase = state['purchase']
-        self.tickets = state['tickets']
+        self.tickets = state.get('tickets', [])
+
+        self.limited_tickets = []
+        if self.step != 'done':
+            for ticket in self.tickets:
+                ticket_type = TicketType.objects.get(pk=ticket.ticket_type.pk)
+                available = ticket_type.available_tickets
+                if available is not None:
+                    if available <= 0:
+                        raise exceptions.TicketNotAvailable(ticket_type)
+                    self.limited_tickets.append({
+                        'ticket': ticket,
+                        'limit': available
+                        })
         if self.request.user.is_authenticated():
             self.purchase.user = self.request.user
         return state
@@ -99,8 +114,6 @@ class PurchaseMixin(object):
     def persist_purchase(self):
         self.purchase.save()
         for ticket in self.tickets:
-            # TODO: We have to check one more time if the ticket is still
-            #       available.
             # NOTE: At this point the ticket availability is decreased.
             #       This is corrected by the "purge_stale_purchases"
             #       command.
@@ -121,7 +134,12 @@ class PurchaseMixin(object):
 
     def dispatch(self, request, *args, **kwargs):
         self.request = request
-        resp = self.setup()
+        try:
+            resp = self.setup()
+        except exceptions.TicketNotAvailable, e:
+            messages.error(request, _("Sorry, following ticket is no longer available: %s" % e.ticket_type))
+            return HttpResponseRedirect(
+                reverse(self.steps[self.steps.keys()[0]]))
         if resp is not None:
             return resp
         return super(PurchaseMixin, self).dispatch(request, *args, **kwargs)
@@ -248,6 +266,7 @@ class PurchaseNamesView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
             and self.request.POST,
             'voucher_forms': self.voucher_forms,
             'step': self.step,
+            'limited_tickets': self.limited_tickets,
         })
 
     def post(self, *args, **kwargs):
@@ -318,6 +337,7 @@ class PurchaseOverviewView(LoginRequiredMixin, PurchaseMixin,
         data['purchase'] = self.purchase
         data['step'] = self.step
         data['tickets'] = self.tickets
+        data['limited_tickets'] = self.limited_tickets
         return data
 
     def form_valid(self, form):

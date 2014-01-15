@@ -1,0 +1,22 @@
+.alert {
+    padding: 5px;
+    font-weight: bold;
+    border-radius: 5px;
+    text-align: center;
+    margin: 5px 0;
+
+    &.alert-error {
+        background: $red;
+        color: #FFF;
+    }
+
+    &.alert-success {
+        background: $green;
+        color: darken($green, 30);
+    }
+
+    &.alert-warn {
+        background: lighten(#E1E04A, 10);
+        color: darken(#E1E04A, 30);
+    }
+}
