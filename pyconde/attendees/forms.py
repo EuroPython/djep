@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 from django import forms
+from django.core.cache import get_cache
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
@@ -9,6 +10,8 @@ from crispy_forms.layout import Layout, Fieldset, ButtonHolder, HTML
 from pyconde.conference.models import current_conference
 from pyconde.attendees.models import Purchase, Customer, Ticket, Voucher
 from pyconde.forms import Submit
+
+from . import utils
 
 
 PAYMENT_METHOD_CHOICES = (
@@ -100,8 +103,6 @@ class TicketNameForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         assert 'instance' in kwargs, 'instance is required.'
 
-        # TODO: At this point we don't yet have a pk, so we have to find
-        #       another way to enumerate here.
         super(TicketNameForm, self).__init__(
             prefix='tn-%s' % kwargs['instance'].pk, *args, **kwargs)
 
@@ -137,14 +138,21 @@ class TicketVoucherForm(forms.ModelForm):
         fields = ('code',)
 
     def clean_code(self):
-        # TODO: Check the cache if the voucher is not in use already
         try:
             code = self.cleaned_data['code']
             ticket = self.instance
+            voucher = None
             if not ticket.voucher or ticket.voucher.code != code:
-                Voucher.objects.valid().get(
+                voucher = Voucher.objects.valid().get(
                     code=code,
                     type=ticket.ticket_type.vouchertype_needed)
+
+            # Make sure that the found voucher is not one of the locked ones.
+            cache = get_cache('default')
+            if cache.get('voucher_lock:{0}'.format(voucher.pk)) and\
+                    not utils.voucher_is_locked_for_session(
+                        self.request, voucher):
+                raise Voucher.DoesNotExist()
         except Voucher.DoesNotExist:
             raise forms.ValidationError(_('Voucher verification failed.'))
 
@@ -154,7 +162,7 @@ class TicketVoucherForm(forms.ModelForm):
         voucher = Voucher.objects.get(type__conference=current_conference(),
                                       code=self.cleaned_data['code'])
         self.instance.voucher = voucher
-        # TODO: Save the voucher in the cache (pk) to prevent double use.
+        utils.lock_voucher(self.request, voucher)
 
 
 class PurchaseOverviewForm(forms.Form):

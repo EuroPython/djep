@@ -10,6 +10,7 @@ The purchase process consists of the following steps:
    emails.
 
 """
+import datetime
 import logging
 import hashlib
 from collections import OrderedDict
@@ -41,7 +42,6 @@ class PurchaseMixin(object):
     and that the user doesn't jump ahead from view to view when not all
     the required steps have been visited.
     """
-    purchase = None
     steps = OrderedDict([
         ('start', 'attendees_purchase'),
         ('names', 'attendees_purchase_names'),
@@ -50,7 +50,10 @@ class PurchaseMixin(object):
         ('done', 'attendees_purchase_done'),
     ])
     step = None
-    tickets = []
+
+    def __init__(self, *args, **kwargs):
+        self.purchase = None
+        self.tickets = []
 
     def save_state(self, step=None):
         # Warning: To keep the form interaction as simple as possible
@@ -60,17 +63,22 @@ class PurchaseMixin(object):
             for idx, ticket in enumerate(self.tickets):
                 if ticket.pk is None:
                     ticket.pk = idx
+        expires = self.request.session.get('purchase_state', {}).get('expires')
+        if expires is None:
+            expires = datetime.datetime.utcnow() + datetime.timedelta(
+                seconds=settings.MAX_CHECKOUT_DURATION)
         self.request.session['purchase_state'] = {
             'purchase': self.purchase,
             'previous_step': step if step is not None else self.step,
             'tickets': self.tickets,
+            'expires': expires,
         }
 
     def get_previous_state(self):
-        # TODO: If the checkout took too long, invalidate it and force the
-        #       user to start again.
         state = self.request.session.get('purchase_state')
         if state is None:
+            return None
+        if datetime.datetime.utcnow() > state['expires']:
             return None
         self.previous_step = state['previous_step']
         self.purchase = state['purchase']
@@ -132,6 +140,8 @@ class StartPurchaseView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
     total_ticket_num = 0
 
     def get(self, *args, **kwargs):
+        # TODO: If available (because a checkout was not finished) reuse the
+        #       purchase object for initial data.
         self.clear_purchase_info()
         if self.form is None:
             self.form = forms.PurchaseForm(initial={
@@ -257,10 +267,10 @@ class PurchaseNamesView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
         self.used_vouchers = []
         self.all_voucher_forms_valid = True
 
-        # TODO: Fix voucher association with ticket
         for ticket in self._get_tickets_for_voucher():
             voucher_form = forms.TicketVoucherForm(
                 data=self.request.POST, instance=ticket)
+            voucher_form.request = self.request
 
             if voucher_form.is_valid():
                 if voucher_form.cleaned_data['code'] in self.used_vouchers:
@@ -315,7 +325,7 @@ class PurchaseOverviewView(LoginRequiredMixin, PurchaseMixin,
         purchase.payment_method = form.cleaned_data['payment_method']
         if purchase.payment_method == 'invoice':
             self.persist_purchase()
-            resp = utils.complete_purchase(purchase)
+            resp = utils.complete_purchase(self.request, purchase)
             self.save_state('payment')  # We can skip this step
             return resp
         else:
@@ -381,7 +391,7 @@ class HandlePaymentView(LoginRequiredMixin, PurchaseMixin,
                     return self.get(*args, **kwargs)
                 purchase.payment_transaction = transaction.id
                 self.save_state()
-                return utils.complete_purchase(purchase)
+                return utils.complete_purchase(self.request, purchase)
         else:
             if purchase.payment_transaction:
                 self.error = _("Transaction already processed.")  # + purchase.payment_transaction

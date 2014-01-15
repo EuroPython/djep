@@ -1,9 +1,11 @@
 # -*- coding: utf-8 -*-
 import xmlrpclib
+import datetime
 import decimal
 import tablib
 import logging
 
+from django.core.cache import get_cache
 from django.conf import settings
 from django.core.mail import send_mail
 from django.core.urlresolvers import reverse
@@ -31,7 +33,7 @@ def validate_vatid(own_vatid, other_vatid):
         return False
 
 
-def complete_purchase(purchase):
+def complete_purchase(request, purchase):
     """
     This method finalizes a purchase, clears voucher locks and sends the
     confirmation email.
@@ -43,12 +45,11 @@ def complete_purchase(purchase):
         # if they enter this stage.
         purchase.state = 'payment_received'
 
-    # TODO: Generate invoice number
-    # TODO: Cleanup voucher locks
     for ticket in purchase.ticket_set.filter(voucher__isnull=False).all():
         voucher = ticket.voucher
         voucher.is_used = True
         voucher.save()
+        unlock_voucher(request, voucher)
     purchase.save()
     send_purchase_confirmation_mail(purchase)
     return HttpResponseRedirect(reverse('attendees_purchase_done'))
@@ -111,3 +112,45 @@ def create_tickets_export(queryset):
                      ticket.purchase.state, ticket.purchase.pk,
                      ticket.purchase.customer.email))
     return data
+
+
+def lock_voucher(request, voucher):
+    """
+    This marks a voucher as locked with the user's session as well as in the
+    global cache to prevent other sessions from using it while keeping it
+    available in the current session (if the user restarts the checkout).
+    """
+    cache = get_cache('default')
+    expires = request.session['purchase_state']['expires']
+    timeout = expires - datetime.datetime.utcnow()
+    cache_key = 'voucher_lock:{0}'.format(voucher.pk)
+    cache.set(cache_key, True,
+              timeout.total_seconds())
+    locked_vouchers = request.session.get('locked_vouchers', [])
+    locked_vouchers.append(voucher.pk)
+    request.session[cache_key] = expires
+
+
+def voucher_is_locked_for_session(request, voucher):
+    """
+    This checks if the a given voucher is marked as locked (available only
+    in this session) for the given session.
+    """
+    cache_key = 'voucher_lock:{0}'.format(voucher.pk)
+    expires = request.session.get(cache_key)
+    if expires is None:
+        return False
+    if expires < datetime.datetime.utcnow():
+        return False
+    return True
+
+
+def unlock_voucher(request, voucher):
+    """
+    Unlocks the voucher in the global cache as well as in the current session.
+    """
+    cache = get_cache('default')
+    cache_key = 'voucher_lock:{0}'.format(voucher.pk)
+    if cache_key in request.session:
+        del request.session[cache_key]
+    cache.delete(cache_key)

@@ -341,6 +341,8 @@ class Base(Configuration):
 
     PROPOSALS_SUPPORT_ADDITIONAL_SPEAKERS = True
 
+    MAX_CHECKOUT_DURATION = 1800  # 30 minutes
+
     # This configures the form that is used for each proposal type identified
     # by their respective slug.
     PROPOSALS_TYPED_SUBMISSION_FORMS = {
@@ -455,6 +457,16 @@ class Base(Configuration):
     # This key is used for generating a checksum over the transmitted export
     # data. Only relevant for prduction
     EXPORT_SECRET_KEY = values.Value('')
+
+    CACHES = values.DictValue({
+        'default': {
+            'BACKEND': 'redis_cache.cache.RedisCache',
+            'LOCATION': 'localhost:6379:0',
+            'OPTIONS': {
+                'PARSER_CLASS': 'redis.connection.HiredisParser'
+            },
+        },
+    })
 
 
 class Dev(Base):
