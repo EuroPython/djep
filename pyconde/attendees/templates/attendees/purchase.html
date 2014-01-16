@@ -32,6 +32,9 @@
                         {% for error in quantity_form.quantity.errors %}
                             <span class="help-inline"><strong>{{ error }}</strong></span>
                         {% endfor %}
+                        {% if quantity_form.ticket_limit == 0 %}
+                            <span class="help-block error"><strong><i class="fa fa-times"></i></strong> {% trans "Sold out!" %}</span>
+                        {% endif %}
                     </div>
                     <div class="remark">{{ quantity_form.ticket_type.remarks|markdown:"safe" }}</div>
                 </div>

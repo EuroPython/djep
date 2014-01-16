@@ -9,7 +9,7 @@
         <p>{% trans "You are about to purchase following limited tickets:" %}</p>
         <ul>
             {% for ticket in limited_tickets %}
-            <li>{{ ticket.ticket.ticket_type.name }}: {% blocktrans with limit=ticket.limit %}only {{ limit }} left!{% endblocktrans %}</li>
+            <li>{{ticket.qty }} {{ ticket.type.name }}: {% blocktrans with limit=ticket.available %}only {{ limit }} left (incl. yours)!{% endblocktrans %}</li>
             {% endfor %}
         </ul>
     </div>

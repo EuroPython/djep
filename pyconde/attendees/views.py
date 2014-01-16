@@ -88,16 +88,31 @@ class PurchaseMixin(object):
 
         self.limited_tickets = []
         if self.step != 'done':
+            # For steps before the confirmation we calculate the number of
+            # available tickets to be rendered to the user. If we at this
+            # point run into the situation that the requested quantity can
+            # no longer be fulfilled, the checkout is aborted.
+            ticket_types = {}
             for ticket in self.tickets:
-                ticket_type = TicketType.objects.get(pk=ticket.ticket_type.pk)
-                available = ticket_type.available_tickets
-                if available is not None:
+                if ticket.ticket_type.pk not in ticket_types:
+                    ticket_type = TicketType.objects.get(
+                        pk=ticket.ticket_type.pk)
+                    available = ticket_type.available_tickets
+                    if available is None:
+                        continue
                     if available <= 0:
                         raise exceptions.TicketNotAvailable(ticket_type)
-                    self.limited_tickets.append({
-                        'ticket': ticket,
-                        'limit': available
-                        })
+                    ticket_types[ticket_type.pk] = {
+                        'type': ticket_type,
+                        'qty': 0,
+                        'available': available
+                    }
+                ticket_types[ticket.ticket_type.pk]['qty'] += 1
+            for _, ticket_type in ticket_types.items():
+                if ticket_type['available'] - ticket_type['qty'] < 0:
+                    raise exceptions.TicketNotAvailable(ticket_type['type'])
+                self.limited_tickets.append(ticket_type)
+
         if self.request.user.is_authenticated():
             self.purchase.user = self.request.user
         return state
@@ -137,7 +152,7 @@ class PurchaseMixin(object):
         try:
             resp = self.setup()
         except exceptions.TicketNotAvailable, e:
-            messages.error(request, _("Sorry, following ticket is no longer available: %s" % e.ticket_type))
+            messages.error(request, _("Sorry, following ticket is no longer available in your requested quantity: %s" % e.ticket_type))
             return HttpResponseRedirect(
                 reverse(self.steps[self.steps.keys()[0]]))
         if resp is not None:
@@ -186,6 +201,7 @@ class StartPurchaseView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
         })
 
     def post(self, *args, **kwargs):
+        self.clear_purchase_info()
         self.form = forms.PurchaseForm(self.request.POST)
 
         # Create a quantity for for each available ticket type.
