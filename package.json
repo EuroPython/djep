@@ -1,6 +1,10 @@
 {
   "name": "ep2014",
   "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/EuroPython/djep"
+  },
   "devDependencies": {
     "grunt-contrib-compass": "~0.6.0",
     "grunt-contrib-connect": "~0.5.0",
