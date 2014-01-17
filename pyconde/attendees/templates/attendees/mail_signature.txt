@@ -12,7 +12,7 @@ The {{ conference_name }} team
 
 Python Software Verband e.V.
 Schulstraße 20
-15366 Neuenhagen bei Berlin
+15366 Neuenhagen bei Berlin, Germany
 USt-ID: DE287430795
 
 info@de.pycon.org
