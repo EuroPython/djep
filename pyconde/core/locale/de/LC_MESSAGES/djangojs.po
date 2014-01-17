@@ -19,3 +19,42 @@ msgstr ""
 
 msgid "Choose a file"
 msgstr "Datei wählen"
+
+#
+# PayMill integration
+#
+#: skins/ep14/static/assets/js/paymill.js:9
+msgid "An error has occurred. Please try again."
+msgstr "Es ist ein Fehler aufgetreten, bitte versuchen Sie es erneut."
+
+#: skins/ep14/static/assets/js/paymill.js:10
+msgid "Invalid name."
+msgstr "Ungültiger Name."
+
+#: skins/ep14/static/assets/js/paymill.js:11
+msgid "Please verify the expiration date of your credit card."
+msgstr "Bitte überprüfen Sie das Ablaufdatum ihrer Karte."
+
+#: skins/ep14/static/assets/js/paymill.js:15
+msgid "3D Secure check has been aborted."
+msgstr "3D-Secure-Check wurde abgebrochen."
+
+#: skins/ep14/static/assets/js/paymill.js:16
+msgid "Please enter a valid credit card number."
+msgstr "Bitte geben Sie eine gültige Kartennummer an."
+
+#: skins/ep14/static/assets/js/paymill.js:17
+msgid "Please enter a valid bank account number."
+msgstr "Bitte geben Sie eine gültige Kontonummer an."
+
+#: skins/ep14/static/assets/js/paymill.js:18
+msgid "Please enter a valid bank routing number."
+msgstr "Bitte geben Sie eine BLZ ein."
+
+#: skins/ep14/static/assets/js/paymill.js:21
+msgid "This card is not valid."
+msgstr "Diese Karte ist nicht gültig."
+
+#: skins/ep14/static/assets/js/paymill.js:22
+msgid "Invalid CVC."
+msgstr "Ungültige Prüfziffer."

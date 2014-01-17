@@ -1,4 +1,4 @@
-/*global jQuery:true, paymill:true */
+/*global jQuery:true, paymill:true, gettext */
 (function($) {
     "use strict";
 
@@ -6,20 +6,23 @@
     var mode = $('#payment-form').data('mode') || 'creditcard';
 
     var backendForm, btn, paymentForm,
+        generalError = gettext("An error has occurred. Please try again."),
+        nameError = gettext("Invalid name."),
+        dateError = gettext("Please verify the expiration date of your credit card."),
         errorMapping = {
-            'internal_server_error': 'Es ist ein Fehler aufgetreten, bitte versuchen Sie es erneut.',
-            'unknown_error': 'Es ist ein Fehler aufgetreten, bitte versuchen Sie es erneut.',
-            '3ds_cancelled': '3D-Secure-Check wurde abgebrochen.',
-            'field_invalid_card_number': 'Bitte geben Sie eine gültige Kartennummer an.',
-            'field_invalid_account_number': 'Bitte geben Sie eine gültige Kontonummer an.',
-            'field_invalid_bank_code': 'Bitte geben Sie eine BLZ ein.',
-            'field_invalid_card_exp_year': 'Bitte überprüfen Sie das Ablaufdatum ihrer Karte.',
-            'field_invalid_card_exp_month': 'Bitte überprüfen Sie das Ablaufdatum ihrer Karte.',
-            'field_invalid_card_exp': 'Diese Karte ist nicht gültig.',
-            'field_invalid_card_cvc': 'Ungültige Prüfziffer',
-            'field_invalid_card_holder': 'Ungültiger Karteninhaber',
-            'field_invalid_account_holder': 'Ungültiger Name',
-            'field_invalid_holder': 'Ungültiger Name'
+            'internal_server_error': generalError,
+            'unknown_error': generalError,
+            '3ds_cancelled': gettext("3D Secure check has been aborted."),
+            'field_invalid_card_number': gettext("Please enter a valid credit card number."),
+            'field_invalid_account_number': gettext("Please enter a valid bank account number."),
+            'field_invalid_bank_code': gettext("Please enter a valid bank routing number."),
+            'field_invalid_card_exp_year': dateError,
+            'field_invalid_card_exp_month': dateError,
+            'field_invalid_card_exp': gettext("This card is not valid."),
+            'field_invalid_card_cvc': gettext("Invalid CVC."),
+            'field_invalid_card_holder': nameError,
+            'field_invalid_account_holder': nameError,
+            'field_invalid_holder': nameError
         };
 
     function setError(msg) {
@@ -33,7 +36,7 @@
 
     function handleResponse(error, result) {
         if (error) {
-            setError(errorMapping[error.apierror] || "Es ist leider ein Fehler aufgetreten. Bitte versuchen Sie es erneut.");
+            setError(errorMapping[error.apierror] || generalError);
         } else {
             backendForm.append($('<input>').attr({
                 'name': 'token',

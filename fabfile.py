@@ -43,6 +43,9 @@ def compilemessages():
     """Compile the i18n messages."""
     with cd(join(env.proj_root, env.proj_name)):
         manage_py('compilemessages')
+    # We have to compile the JavaScript messages within their respective app.
+    with cd(join(env.proj_root, env.proj_name, 'core')):
+        manage_py('compilemessages')
 
 
 @task
