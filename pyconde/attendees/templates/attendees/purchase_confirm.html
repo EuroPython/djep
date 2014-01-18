@@ -15,8 +15,7 @@
 {% block content %}
     {{ block.super }}
 
-    {% blocktrans %}<p>Please check your billing address as well as the ticket data in
-    the overview below.<p>{% endblocktrans %}
+    <p>{% trans "Please check your billing address as well as the ticket data in the overview below." %}</p>
 
     <h2>{% trans "Order overview" %}</h2>
     <table>
@@ -35,12 +34,12 @@
         </tr>
         {% endfor %}
         <tr>
-            <td colspan="3" style="text-align:right">Gesamt:</td>
+            <td colspan="3" style="text-align:right">{% trans "Total:" %}</td>
             <td>{{ purchase.payment_total|floatformat:2 }} EUR</td>
         </tr>
     </table>
 
-    {% blocktrans %}<p>All prices include 19% VAT.</p>{% endblocktrans %}
+    <p>{% trans "All prices include 19% VAT." %}</p>
 
     <h2>{% trans "Billing address" %}</h2>
     <p>
@@ -55,11 +54,8 @@
     <form class="form-horizontal" method="post">
         <h2>{% trans "Payment method and terms of service" %}</h2>
 
-        {% blocktrans %}
-        <p>Please select a payment method and click "Complete purchase". You will receive
-        an order confirmation via e-mail at the end of the order process.</p>
-        <p>The ticket purchase requires you to agree to the terms of service.</p>
-        {% endblocktrans %}
+        {% blocktrans %}<p>Please select a payment method and click "Complete purchase". You will receive an order confirmation via e-mail at the end of the order process.</p>
+        <p>The ticket purchase requires you to agree to the terms of service.</p>{% endblocktrans %}
 
         {% csrf_token %}
         {% crispy form %}

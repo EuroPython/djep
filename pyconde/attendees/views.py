@@ -152,7 +152,7 @@ class PurchaseMixin(object):
         try:
             resp = self.setup()
         except exceptions.TicketNotAvailable, e:
-            messages.error(request, _("Sorry, following ticket is no longer available in your requested quantity: %s" % e.ticket_type))
+            messages.error(request, _("Sorry, the following ticket is no longer available in your requested quantity: %s" % e.ticket_type))
             return HttpResponseRedirect(
                 reverse(self.steps[self.steps.keys()[0]]))
         if resp is not None:
