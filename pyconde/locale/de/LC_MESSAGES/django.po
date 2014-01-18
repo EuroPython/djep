@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-18 12:36+0100\n"
+"POT-Creation-Date: 2014-01-18 13:52+0100\n"
 "PO-Revision-Date: 2013-12-21 21:30+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -250,8 +250,7 @@ msgstr ""
 #: accounts/models.py:27
 #, python-format
 msgid ""
-"Please upload an image with a side length between of at lease %(min_w)dx"
-"%(min_h)d px."
+"Please upload an image with a side length of at lease %(min_w)dx%(min_h)d px."
 msgstr ""
 "Bitte ein Bild mit einer Größe von mindestens %(min_w)dx%(min_h)d px "
 "hochladen."
@@ -259,8 +258,7 @@ msgstr ""
 #: accounts/models.py:30
 #, python-format
 msgid ""
-"Please upload an image with a side length between of at most %(max_w)dx"
-"%(max_h)d px."
+"Please upload an image with a side length of at most %(max_w)dx%(max_h)d px."
 msgstr ""
 "Bitte ein Bild mit einer Größe von höchsten %(max_w)dx%(max_h)d px hochladen."
 
