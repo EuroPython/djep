@@ -28,15 +28,16 @@
 
 {% if purchase.payment_method == 'invoice' %}
 {% blocktrans %}
-During the next couple of days you will receive an invoice via e-mail. Please send confirmation for your
-money transfer via e-mail to Daniel.Szoska@python-verband.org, via fax to 03342/2119995 or show it to us
-on-site. Payment at the registration desk is only possible in CASH. Unfortunately, we can't accept EC- or
-credit cards.
+During the next couple of days you will receive an invoice via e-mail. Please
+send confirmation for your money transfer via e-mail to
+daniel.szoska@python-verband.org, via fax to +49 (0)3342 2119995 or show it to
+us on-site. Payment at the registration desk is only possible in CASH.
+Unfortunately, we can't accept EC- or credit cards.
 
 Conference material will be handed out at the conference.
 {% endblocktrans %}
 
-{% blocktrans %}If you have any problems with the payment, please contact us ASAP!{% endblocktrans %}
+{% trans "If you have any problems with the payment, please contact us ASAP!" %}
 
 {% elif purchase.payment_method == 'credit_card' %}
 {% trans "As soon as your purchase has been processed you will receive another e-mail." %}

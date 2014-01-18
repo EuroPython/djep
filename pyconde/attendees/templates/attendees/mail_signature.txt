@@ -2,7 +2,7 @@
 If you have any questions please contact use!
 
 Twitter: @europython
-E-mail:  info@python-verband.org
+E-mail:  helpdesk@ep14.org
 
 
 Thank you very much!
@@ -14,5 +14,3 @@ Python Software Verband e.V.
 Schulstraße 20
 15366 Neuenhagen bei Berlin, Germany
 USt-ID: DE287430795
-
-info@de.pycon.org
