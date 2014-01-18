@@ -11,6 +11,32 @@ from easy_thumbnails.fields import ThumbnailerImageField
 from . import validators
 
 
+avatar_min_max_dimension = {}
+if validators.AVATAR_MIN_DIMENSION:
+    avatar_min_max_dimension.update({
+        'min_w': validators.AVATAR_MIN_DIMENSION[0],
+        'min_h': validators.AVATAR_MIN_DIMENSION[1]
+    })
+    if validators.AVATAR_MAX_DIMENSION:
+        avatar_help_text = _('Please upload an image with a side length between %(min_w)dx%(min_h)d px and %(max_w)dx%(max_h)d px.')
+        avatar_min_max_dimension.update({
+            'max_w': validators.AVATAR_MAX_DIMENSION[0],
+            'max_h': validators.AVATAR_MAX_DIMENSION[1]
+        })
+    else:
+        avatar_help_text = _('Please upload an image with a side length between of at lease %(min_w)dx%(min_h)d px.')
+else:
+    if validators.AVATAR_MAX_DIMENSION:
+        avatar_help_text = _('Please upload an image with a side length between of at most %(max_w)dx%(max_h)d px.')
+        avatar_min_max_dimension.update({
+            'max_w': validators.AVATAR_MAX_DIMENSION[0],
+            'max_h': validators.AVATAR_MAX_DIMENSION[1]
+        })
+    else:
+        avatar_help_text = ''
+avatar_help_text = avatar_help_text % avatar_min_max_dimension
+
+
 class Profile(models.Model):
     """
     A userprofile model that provides a short_info, twitter handle, website URL, avatar
@@ -20,13 +46,10 @@ class Profile(models.Model):
     """
     user = models.OneToOneField(User)
     short_info = models.TextField(_('short info'), blank=True)
-    avatar = ThumbnailerImageField(_('avatar'), upload_to='avatars', null=True,
-                                   blank=True,
-                                   help_text=_('Please upload an image with a side length of at least 300 pixels.'))
+    avatar = ThumbnailerImageField(_('avatar'), upload_to='avatars', null=True,blank=True,
+        help_text=avatar_help_text, validators=[validators.avatar_dimension])
     num_accompanying_children = models.PositiveIntegerField(_('Number of accompanying children'),
-                                                            null=True,
-                                                            blank=True,
-                                                            default=0)
+        null=True, blank=True, default=0)
     age_accompanying_children = models.CharField(_("Age of accompanying children"), blank=True, max_length=20)
     twitter = models.CharField(_("Twitter"), blank=True, max_length=20,
         validators=[validators.twitter_username])

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-13 12:51+0100\n"
+"POT-Creation-Date: 2014-01-18 12:36+0100\n"
 "PO-Revision-Date: 2013-12-21 21:30+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -17,11 +17,11 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Generator: Lokalize 1.5\n"
 
-#: settings.py:56 settings.py:286 settings.py:354 proposals/models.py:21
+#: settings.py:56 settings.py:286 settings.py:361 proposals/models.py:21
 msgid "German"
 msgstr "Deutsch"
 
-#: settings.py:57 settings.py:281 settings.py:355 proposals/models.py:22
+#: settings.py:57 settings.py:281 settings.py:362 proposals/models.py:22
 msgid "English"
 msgstr "Englisch"
 
@@ -57,38 +57,38 @@ msgstr "ohne Kinder"
 msgid "Accounts app"
 msgstr "Accounts-Anwendung"
 
-#: accounts/forms.py:50 accounts/models.py:22
+#: accounts/forms.py:50 accounts/models.py:48
 msgid "short info"
 msgstr "Steckbrief"
 
-#: accounts/forms.py:51 accounts/models.py:34
+#: accounts/forms.py:51 accounts/models.py:57
 #: skins/default/templates/userprofiles/profile_view.html:28
 msgid "Organisation"
 msgstr "Organisation"
 
-#: accounts/forms.py:52 accounts/models.py:31
+#: accounts/forms.py:52 accounts/models.py:54
 #: skins/default/templates/userprofiles/profile_view.html:16
 msgid "Twitter"
 msgstr "Twitter"
 
-#: accounts/forms.py:53 accounts/models.py:33
+#: accounts/forms.py:53 accounts/models.py:56
 #: skins/default/templates/userprofiles/profile_view.html:22
 msgid "Website"
 msgstr "Webseite"
 
-#: accounts/forms.py:55 accounts/forms.py:206 accounts/models.py:26
+#: accounts/forms.py:55 accounts/forms.py:206 accounts/models.py:51
 msgid "Number of accompanying children"
 msgstr "Voraussichtliche Anzahl mitkommender Kinder"
 
-#: accounts/forms.py:58 accounts/forms.py:208 accounts/models.py:30
+#: accounts/forms.py:58 accounts/forms.py:208 accounts/models.py:53
 msgid "Age of accompanying children"
 msgstr "Alter der mitkommenden Kinder"
 
-#: accounts/forms.py:61 accounts/models.py:37
+#: accounts/forms.py:61 accounts/models.py:60
 msgid "What name should be displayed to other people?"
 msgstr "Welchen Namen sollen wir anderen Anderen anzeigen"
 
-#: accounts/forms.py:62 accounts/models.py:39
+#: accounts/forms.py:62 accounts/models.py:62
 msgid "Address me as"
 msgstr "Anrede"
 
@@ -238,46 +238,86 @@ msgstr "Passwort ändern"
 msgid "Logout"
 msgstr "Abmelden"
 
-#: accounts/models.py:23 accounts/widgets.py:45
+#: accounts/models.py:21
+#, python-format
+msgid ""
+"Please upload an image with a side length between %(min_w)dx%(min_h)d px and "
+"%(max_w)dx%(max_h)d px."
+msgstr ""
+"Bitte ein Bild mit einer Größe zwischen %(min_w)dx%(min_h)d px und %(max_w)dx"
+"%(max_h)d px hochladen."
+
+#: accounts/models.py:27
+#, python-format
+msgid ""
+"Please upload an image with a side length between of at lease %(min_w)dx"
+"%(min_h)d px."
+msgstr ""
+"Bitte ein Bild mit einer Größe von mindestens %(min_w)dx%(min_h)d px "
+"hochladen."
+
+#: accounts/models.py:30
+#, python-format
+msgid ""
+"Please upload an image with a side length between of at most %(max_w)dx"
+"%(max_h)d px."
+msgstr ""
+"Bitte ein Bild mit einer Größe von höchsten %(max_w)dx%(max_h)d px hochladen."
+
+#: accounts/models.py:49 accounts/widgets.py:45
 msgid "avatar"
 msgstr "Profilbild"
 
-#: accounts/models.py:25
-msgid "Please upload an image with a side length of at least 300 pixels."
-msgstr "Bitte ein Bild mit einer Breite von mindestens 300 Pixeln hochladen."
-
-#: accounts/models.py:35
+#: accounts/models.py:58
 msgid "Full name"
 msgstr "Name"
 
-#: accounts/models.py:36
+#: accounts/models.py:59
 msgid "Display name"
 msgstr "Anzeigename"
 
-#: accounts/models.py:40
+#: accounts/models.py:63
 msgid "How should we call you in mails and dialogs throughout the website?"
 msgstr ""
 "Wie sollen wir dich in E-Mails und Dialogen auf der Webseite ansprechen?"
 
-#: accounts/models.py:42
+#: accounts/models.py:65
 msgid "Allow copying to PySV conferences"
 msgstr "Daten für zukünftige PySV Konferenzen wiederverwenden"
 
-#: accounts/models.py:44
+#: accounts/models.py:67
 msgid "Allow copying to EPS conferences"
 msgstr "Daten für zukünftige EPS Konferenzen wiederverwenden"
 
-#: accounts/models.py:50
+#: accounts/models.py:73
 msgid "You've logged in successfully."
 msgstr "Sie haben sich erfolgreich angemeldet."
 
-#: accounts/validators.py:11
+#: accounts/validators.py:19
 msgid "Twitter usernames have only 15 characters or less"
 msgstr "Twitter-Benutzernamen haben 15 Zeichen oder weniger"
 
-#: accounts/validators.py:14
+#: accounts/validators.py:22
 msgid "Please omit the @ at the start of the twitter username"
 msgstr "Bitte schreiben Sie Ihren Twitter-Namen ohne @ am Anfang"
+
+#: accounts/validators.py:31
+#, python-format
+msgid ""
+"Minimum avatar size is %(min_w)dx%(min_h)d px. Yours is %(yours_w)dx"
+"%(yours_h)d px"
+msgstr ""
+"Das Profilbild ist zu klein (%(yours_w)dx%(yours_h)d px). Minimum: %(min_w)dx"
+"%(min_h)d px"
+
+#: accounts/validators.py:38
+#, python-format
+msgid ""
+"Maximum avatar size is %(max_w)dx%(max_h)d px. Yours is %(yours_w)dx"
+"%(yours_h)d px"
+msgstr ""
+"Das Profilbild ist zu groß (%(yours_w)dx%(yours_h)d px). Maximum: %(max_w)dx"
+"%(max_h)d px"
 
 #: accounts/templates/accounts/login-email-request.html:3
 #: accounts/templates/accounts/login-email-request.html:4
