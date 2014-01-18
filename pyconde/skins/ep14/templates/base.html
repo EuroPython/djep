@@ -54,11 +54,7 @@
                         <section class="top-bar-section">
                             {% show_menu 0 1 1 1 "cms/primary-navigation.html" %}
                             <ul class="right">
-                                {% if not user.is_authenticated %}
-                                <li>
-                                    <a href="{% url 'userprofiles_registration' %}" class="btn danger">{% trans "Register now" %}</a>
-                                </li>
-                                {% else %}
+                                {% if user.is_authenticated %}
                                 <li class="has-dropdown">
                                     <a href="{% url 'account_profile' uid=user.pk %}">{% trans "Your profile" %}</a>
                                     <ul class="dropdown">
@@ -71,7 +67,7 @@
                     </nav>
                     {% if not user.is_authenticated %}
                     <p id="login">
-                        You have already registered? <a href="{% url 'auth_login' %}">{% trans "Login" %}</a>
+                        <a href="{% url 'auth_login' %}">{% trans "Login" %}</a> or <a href="{% url 'userprofiles_registration' %}">{% trans "Sign up" %}</a>
                     </p>
                     {% endif %}
                 </div>
@@ -101,6 +97,7 @@
                             <li><a href="{% page_url "legal-notice" %}">{% page_attribute "title" "legal-notice" %}</a></li>
                             <li><a href="{% page_url "privacy-policy" %}">{% page_attribute "title" "privacy-policy" %}</a></li>
                             <li><a href="{% page_url "code-of-conduct" %}">{% page_attribute "title" "code-of-conduct" %}</a></li>
+                            <li><a href="#" id="get-in-touch">{% trans "Get in touch" %}</a></li>
                         </ul>
                     </div>
                     <div id="footer-social">
@@ -146,8 +143,10 @@
             <script type="text/javascript" src="{% static "assets/bower_components/spinjs/spin.js"%}"></script>
             <script src="{% static "assets/js/ui.js" %}"></script>
             <script src="{% static "assets/js/ui.multiuserselect.js" %}"></script>
+            <script src="{% static "assets/js/jira.js" %}"></script>
             <script>$(document).foundation();</script>
         {% endcompress %}
+        <script type="text/javascript" src="https://ep14-jira.veit-schiele.de/s/en_USr0x7pf-1988229788/6109/2/1.4.0-m3/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=969306e4"></script>
         {% block extra_foot %}{% endblock %}
     </body>
 </html>

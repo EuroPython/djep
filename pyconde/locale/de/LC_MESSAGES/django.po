@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-18 18:43+0100\n"
+"POT-Creation-Date: 2014-01-18 18:47+0100\n"
 "PO-Revision-Date: 2013-12-21 21:30+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -2097,7 +2097,7 @@ msgstr "Abgemeldet"
 
 #: skins/default/templates/userprofiles/login.html:4
 #: skins/default/templates/userprofiles/login.html:5
-#: skins/ep14/templates/base.html:74
+#: skins/ep14/templates/base.html:70
 msgid "Login"
 msgstr "Anmelden"
 
@@ -2123,7 +2123,7 @@ msgstr ""
 
 #: skins/default/templates/userprofiles/profile.html:4
 #: skins/default/templates/userprofiles/profile.html:5
-#: skins/ep14/templates/base.html:63
+#: skins/ep14/templates/base.html:59
 msgid "Your profile"
 msgstr "Ihre Profil"
 
@@ -2234,19 +2234,23 @@ msgstr "Konto-Aktivierung"
 msgid "E-mail confirmation"
 msgstr "E-Mail-Bestätigung"
 
-#: skins/ep14/templates/base.html:59
-msgid "Register now"
-msgstr "Neues Konto anlegen"
+#: skins/ep14/templates/base.html:70
+msgid "Sign up"
+msgstr "Anmelden"
 
-#: skins/ep14/templates/base.html:113
+#: skins/ep14/templates/base.html:100
+msgid "Get in touch"
+msgstr "Hilfe und Support"
+
+#: skins/ep14/templates/base.html:110
 msgid "Follow @europython"
 msgstr "@europython folgen"
 
-#: skins/ep14/templates/base.html:119
+#: skins/ep14/templates/base.html:116
 msgid "Like EuroPython"
 msgstr "Like EuroPython"
 
-#: skins/ep14/templates/base.html:125
+#: skins/ep14/templates/base.html:122
 msgid "+1 EuroPython"
 msgstr "+1 EuroPython"
 
