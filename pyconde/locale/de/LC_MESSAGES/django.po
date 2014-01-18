@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-18 18:47+0100\n"
+"POT-Creation-Date: 2014-01-18 22:17+0100\n"
 "PO-Revision-Date: 2013-12-21 21:30+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -235,7 +235,11 @@ msgstr "Profil ändern"
 msgid "Change your password"
 msgstr "Passwort ändern"
 
-#: accounts/menu.py:23
+#: accounts/menu.py:23 attendees/models.py:242
+msgid "Purchases"
+msgstr "Einkäufe"
+
+#: accounts/menu.py:24
 msgid "Logout"
 msgstr "Abmelden"
 
@@ -372,6 +376,7 @@ msgstr "E-mail"
 #: attendees/forms.py:42
 #: attendees/templates/attendees/mail_purchase_completed.html:15
 #: attendees/templates/attendees/purchase_confirm.html:44
+#: attendees/templates/attendees/user_purchases.html:17
 msgid "Billing address"
 msgstr "Rechnungsadresse"
 
@@ -627,10 +632,6 @@ msgstr "Exportiert"
 msgid "Purchase"
 msgstr "Kauf"
 
-#: attendees/models.py:242
-msgid "Purchases"
-msgstr "Einkäufe"
-
 #: attendees/models.py:281
 msgid "Size"
 msgstr "Größe"
@@ -657,6 +658,7 @@ msgid "Ticket"
 msgstr "Ticket"
 
 #: attendees/models.py:312 attendees/templates/attendees/purchase.html:18
+#: attendees/templates/attendees/user_purchases.html:25
 msgid "Tickets"
 msgstr "Tickets"
 
@@ -731,6 +733,7 @@ msgid ""
 "\n"
 "Conference material will be handed out at the conference.\n"
 msgstr ""
+"\n"
 "Während der nächsten Tage wirst du eine Rechnung via E-Mail erhalten. Bitte\n"
 "seine eine Überweisungsbeleg via E-Mail and daniel.szoska@python-verband."
 "org,\n"
@@ -952,6 +955,24 @@ msgctxt "purchase-step"
 msgid "Complete"
 msgstr "Fertig"
 
+#: attendees/templates/attendees/user_purchases.html:4
+#: attendees/templates/attendees/user_purchases.html:5
+msgid "Your purchases"
+msgstr "Ihre Einkäufe"
+
+#: attendees/templates/attendees/user_purchases.html:11 events/models.py:10
+msgid "Date"
+msgstr "Datum"
+
+#: attendees/templates/attendees/user_purchases.html:13
+#, python-format
+msgid "Total price (incl. 19%% VAT)"
+msgstr "Gesamtsumme (inkl. 19%% MwSt.)"
+
+#: attendees/templates/attendees/user_purchases.html:37
+msgid "You haven't made any purchases yet."
+msgstr "Sie haben noch keine Einkäufe getätigt. "
+
 #: conference/models.py:41 proposals/models.py:55 sponsorship/models.py:53
 msgid "title"
 msgstr "Titel"
@@ -1094,10 +1115,6 @@ msgstr "Konferenz"
 #: schedule/templates/schedule/session_listing.html:9
 msgid "Title"
 msgstr "Titel"
-
-#: events/models.py:10
-msgid "Date"
-msgstr "Datum"
 
 #: events/models.py:11
 msgid "End date"
@@ -2253,6 +2270,23 @@ msgstr "Like EuroPython"
 #: skins/ep14/templates/base.html:122
 msgid "+1 EuroPython"
 msgstr "+1 EuroPython"
+
+#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:37
+#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:40
+msgid "CMS Plugins"
+msgstr ""
+
+#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:38
+msgid "Add CMS Plugin"
+msgstr ""
+
+#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:39
+msgid "Edit CMS Plugin"
+msgstr ""
+
+#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:45
+msgid "Standard Plugins"
+msgstr ""
 
 #: skins/pyconde2013/templates/userprofiles/registration.html:8
 msgid ""

@@ -446,3 +446,20 @@ class ConfirmationView(LoginRequiredMixin, PurchaseMixin,
         data = super(ConfirmationView, self).get_context_data(*args, **kwargs)
         data['step'] = self.step
         return data
+
+
+class UserPurchasesView(LoginRequiredMixin, generic_views.TemplateView):
+    """
+    This view lists all the purchases done by the currently logged-in user.
+    """
+    template_name = 'attendees/user_purchases.html'
+
+    def get_context_data(self):
+        return {
+            'tickets': Ticket.objects
+                             .filter(purchase__user=self.request.user)
+                             .exclude(purchase__state='incomplete')
+                             .select_related('purchase', 'purchase__user',
+                                             'ticket_type')
+                             .order_by('-purchase__date_added')
+        }
