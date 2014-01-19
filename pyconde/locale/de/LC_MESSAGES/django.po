@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-18 22:17+0100\n"
+"POT-Creation-Date: 2014-01-19 20:38+0100\n"
 "PO-Revision-Date: 2013-12-21 21:30+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -235,7 +235,7 @@ msgstr "Profil ändern"
 msgid "Change your password"
 msgstr "Passwort ändern"
 
-#: accounts/menu.py:23 attendees/models.py:242
+#: accounts/menu.py:23 attendees/models.py:248
 msgid "Purchases"
 msgstr "Einkäufe"
 
@@ -398,7 +398,7 @@ msgid ""
 msgstr "Die maximale Menge dieses Produkts für diesen Einkauf ist erreicht."
 
 #: attendees/forms.py:129 attendees/models.py:70 attendees/models.py:74
-#: attendees/models.py:306
+#: attendees/models.py:312
 #: attendees/templates/attendees/purchase_names.html:56
 msgid "Voucher"
 msgstr "Gutschein"
@@ -546,7 +546,7 @@ msgstr "Erforderlicher Gutscheintyp"
 msgid "Tutorial ticket"
 msgstr "Tutorial-Ticket"
 
-#: attendees/models.py:124 attendees/models.py:125 attendees/models.py:295
+#: attendees/models.py:124 attendees/models.py:125 attendees/models.py:301
 msgid "Ticket type"
 msgstr "Tickettyp"
 
@@ -554,7 +554,7 @@ msgstr "Tickettyp"
 msgid "Customer number"
 msgstr "Kundennummer"
 
-#: attendees/models.py:175 attendees/models.py:221 attendees/models.py:304
+#: attendees/models.py:175 attendees/models.py:221 attendees/models.py:310
 msgid "Date (added)"
 msgstr "Hinzugefügt am"
 
@@ -578,12 +578,12 @@ msgstr "Benutzer"
 msgid "Company"
 msgstr "Firma"
 
-#: attendees/models.py:211 attendees/models.py:298
+#: attendees/models.py:211 attendees/models.py:304
 #: attendees/templates/attendees/purchase_confirm.html:24
 msgid "First name"
 msgstr "Vorname"
 
-#: attendees/models.py:212 attendees/models.py:299
+#: attendees/models.py:212 attendees/models.py:305
 #: attendees/templates/attendees/purchase_confirm.html:25
 msgid "Last name"
 msgstr "Nachname"
@@ -628,41 +628,49 @@ msgstr "Gesamtsumme"
 msgid "Exported"
 msgstr "Exportiert"
 
+#: attendees/models.py:239
+msgid "Invoice number"
+msgstr "Rechnungsnummer"
+
 #: attendees/models.py:241
+msgid "Invoice filename"
+msgstr "Rechnungsdateiname"
+
+#: attendees/models.py:247
 msgid "Purchase"
 msgstr "Kauf"
 
-#: attendees/models.py:281
+#: attendees/models.py:287
 msgid "Size"
 msgstr "Größe"
 
-#: attendees/models.py:282
+#: attendees/models.py:288
 msgid "Sort order"
 msgstr "Reihenfolge"
 
-#: attendees/models.py:285
+#: attendees/models.py:291
 msgid "T-Shirt size"
 msgstr "T-Shirt Größe"
 
-#: attendees/models.py:286
+#: attendees/models.py:292
 msgid "T-Shirt sizes"
 msgstr "T-Shirt Größen"
 
-#: attendees/models.py:301
+#: attendees/models.py:307
 msgid "Desired T-Shirt size"
 msgstr "Gewünschte T-Shirt Größe"
 
-#: attendees/models.py:311
+#: attendees/models.py:317
 #: attendees/templates/attendees/purchase_confirm.html:23
 msgid "Ticket"
 msgstr "Ticket"
 
-#: attendees/models.py:312 attendees/templates/attendees/purchase.html:18
+#: attendees/models.py:318 attendees/templates/attendees/purchase.html:18
 #: attendees/templates/attendees/user_purchases.html:25
 msgid "Tickets"
 msgstr "Tickets"
 
-#: attendees/utils.py:66
+#: attendees/utils.py:70
 msgid "Ticket successfully purchased"
 msgstr "Ticket erfolgreich gekauft"
 
