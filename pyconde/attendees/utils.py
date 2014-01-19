@@ -13,6 +13,8 @@ from django.http import HttpResponseRedirect
 from django.template.loader import render_to_string
 from django.utils.translation import gettext_lazy as _
 
+from redis_cache import get_redis_connection
+
 from . import exporters
 
 
@@ -50,6 +52,8 @@ def complete_purchase(request, purchase):
         voucher.is_used = True
         voucher.save()
         unlock_voucher(request, voucher)
+    purchase.save()
+    purchase.invoice_number = generate_invoice_number()
     purchase.save()
     send_purchase_confirmation_mail(purchase)
     return HttpResponseRedirect(reverse('attendees_purchase_done'))
@@ -154,3 +158,15 @@ def unlock_voucher(request, voucher):
     if cache_key in request.session:
         del request.session[cache_key]
     cache.delete(cache_key)
+
+
+def generate_invoice_number(sequence_name=None):
+    """
+    WARNING: This method changes the state in Redis!
+    """
+    if sequence_name is None:
+        sequence_name = getattr(settings,
+                                'PURCHASE_INVOICE_NUMBER_SEQUENCE_NAME',
+                                'invoice_number')
+    conn = get_redis_connection()
+    return int(conn.incr(sequence_name))

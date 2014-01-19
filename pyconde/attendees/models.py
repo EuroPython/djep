@@ -235,6 +235,12 @@ class Purchase(models.Model):
 
     exported = models.BooleanField(_('Exported'), default=False)
 
+    # Invoicing fields
+    invoice_number = models.IntegerField(_('Invoice number'), null=True,
+                                         blank=True)
+    invoice_filename = models.CharField(_('Invoice filename'), null=True,
+                                        blank=True, max_length=255)
+
     objects = PurchaseManager()
 
     class Meta:
