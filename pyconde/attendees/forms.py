@@ -146,6 +146,7 @@ class TicketVoucherForm(forms.ModelForm):
             if not ticket.voucher or ticket.voucher.code != code:
                 voucher = Voucher.objects.valid().get(
                     code=code,
+                    type__conference=current_conference(),
                     type=ticket.ticket_type.vouchertype_needed)
 
             # Make sure that the found voucher is not one of the locked ones.
