@@ -451,13 +451,15 @@ class Base(Configuration):
 
     PURCHASE_INVOICE_NUMBER_FORMAT = 'EP14-{0:05d}'
 
-    # List of emails to be notified when a purchase has been made. The export
-    # JSON dataset is sent to these addresses
+    # List of emails to be notified when a purchase has been made. PDF is send
+    # to these addresses, too.
     PURCHASE_EXPORT_RECIPIENTS = values.ListValue([])
 
     PURCHASE_EXPORT_SUBJECT = 'Purchase-export: {purchase_number}'
 
     PURCHASE_TERMS_OF_USE_URL = "https://ep14.org/participate/register/terms/"
+
+    PURCHASE_INVOICE_ROOT = values.Value()
 
     # This key is used for generating a checksum over the transmitted export
     # data. Only relevant for prduction
@@ -501,6 +503,8 @@ class Dev(Base):
     MIDDLEWARE_CLASSES = [
         'debug_toolbar.middleware.DebugToolbarMiddleware'
     ] + Base.MIDDLEWARE_CLASSES
+
+    PURCHASE_INVOICE_ROOT = os.path.join(Base.BASE_DIR, 'invoices')
 
 
 class Staging(Base):
