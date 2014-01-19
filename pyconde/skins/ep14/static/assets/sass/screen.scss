@@ -216,6 +216,8 @@ header .inner {
 #info, h1 {
     font-size: 32px;
     font-size: 3.2rem;
+    line-height: 36px;
+    line-height: 3.6rem;
     padding: 60px 0;
     color: $infoColor;
     font-weight: 300;
@@ -316,7 +318,7 @@ strong {
     font-size: 16px;
     font-size: 1.6rem;
     line-height: 150%;
-    padding-bottom: 30px;
+    padding: 0 10px 30px 10px;
 }
 
 #site-title {
