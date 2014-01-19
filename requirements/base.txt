@@ -50,3 +50,6 @@ django-redis==3.4.0
 hiredis==0.1.2
 redis==2.9.0
 
+# Celery for async tasks (pdf generation)
+celery==3.1.8
+

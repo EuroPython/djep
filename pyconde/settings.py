@@ -473,6 +473,8 @@ class Base(Configuration):
         },
     })
 
+    BROKER_URL = values.Value('redis://localhost:6379/0')
+
 
 class Dev(Base):
     """
