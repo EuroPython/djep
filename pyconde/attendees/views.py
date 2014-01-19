@@ -398,7 +398,8 @@ class HandlePaymentView(LoginRequiredMixin, PurchaseMixin,
         # to save the purchase object and the associated tickets.
         self.persist_purchase()
         paymenthash = hashlib.md5()
-        paymenthash.update(utils.get_purchase_number(purchase))
+        paymenthash.update("{0}:{1}".format(purchase.conference.pk,
+                                            purchase.pk))
         paymenthash = paymenthash.hexdigest()
 
         if (self.request.session.get('paymentform') != paymenthash

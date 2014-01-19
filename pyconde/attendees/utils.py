@@ -91,10 +91,6 @@ def generate_transaction_description(purchase):
         purchase_pk=purchase.pk)
 
 
-def get_purchase_number(purchase):
-    return settings.PURCHASE_NUMBER_FORMAT.format(purchase.pk)
-
-
 def round_money_value(val):
     return decimal.Decimal(val).quantize(decimal.Decimal('.01'),
                                          rounding=decimal.ROUND_HALF_UP)

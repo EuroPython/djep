@@ -442,7 +442,7 @@ class Base(Configuration):
 
     PAYMENT_METHODS = values.ListValue(['invoice', 'creditcard'])
 
-    PURCHASE_NUMBER_FORMAT = 'EP14-{0:05d}'
+    PURCHASE_INVOICE_NUMBER_FORMAT = 'EP14-{0:05d}'
 
     # List of emails to be notified when a purchase has been made. The export
     # JSON dataset is sent to these addresses

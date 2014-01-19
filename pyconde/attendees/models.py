@@ -2,11 +2,12 @@
 import decimal
 import uuid
 
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.timezone import now
 from django.utils.translation import ugettext, ugettext_lazy as _
+
+from . import settings
 
 
 PURCHASE_STATES = (
@@ -22,8 +23,6 @@ PAYMENT_METHOD_CHOICES = (
     ('creditcard', _('Credit card')),
     ('elv', _('ELV')),
 )
-
-PRODUCT_NUMBER_START = getattr(settings, 'ATTENDEES_PRODUCT_NUMBER_START', 1)
 
 
 class VoucherTypeManager(models.Manager):
@@ -89,7 +88,7 @@ class TicketTypeManager(models.Manager):
             last = self.aggregate(models.Max('product_number'))
             return last['product_number__max'] + 1
         else:
-            return PRODUCT_NUMBER_START
+            return settings.PRODUCT_NUMBER_START
 
 
 class TicketType(models.Model):
@@ -233,6 +232,12 @@ class Purchase(models.Model):
     @property
     def payment_tax(self):
         return self.payment_total - (self.payment_total / 1.19)
+
+    @property
+    def full_invoice_number(self):
+        if self.invoice_number is None:
+            return None
+        return settings.INVOICE_NUMBER_FORMAT.format(self.invoice_number)
 
     def __unicode__(self):
         return '%s - %s' % (self.pk, self.get_state_display())
