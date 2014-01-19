@@ -24,7 +24,6 @@ PAYMENT_METHOD_CHOICES = (
 )
 
 PRODUCT_NUMBER_START = getattr(settings, 'ATTENDEES_PRODUCT_NUMBER_START', 1)
-CUSTOMER_NUMBER_START = getattr(settings, 'ATTENDEES_CUSTOMER_NUMBER_START', 1)
 
 
 class VoucherTypeManager(models.Manager):
@@ -152,49 +151,9 @@ class TicketType(models.Model):
         super(TicketType, self).save(*args, **kwargs)
 
 
-class CustomerManager(models.Manager):
-    def get_next_customer_number(self):
-        if self.count() > 0:
-            last = self.aggregate(models.Max('customer_number'))
-            return last['customer_number__max'] + 1
-        else:
-            return CUSTOMER_NUMBER_START
-
-
-class Customer(models.Model):
-    conference = models.ForeignKey(
-        "conference.Conference", verbose_name="conference", null=True,
-        on_delete=models.PROTECT)
-    customer_number = models.IntegerField(
-        _('Customer number'), blank=True,
-        help_text=_('Will be created when you save the first time.'))
-
-    email = models.EmailField(_('E-Mail'), max_length=250, blank=False)
-
-    date_added = models.DateTimeField(
-        _('Date (added)'), blank=False, default=now)
-    is_exported = models.BooleanField(_('Is exported'), default=False)
-
-    objects = CustomerManager()
-
-    class Meta:
-        ordering = ('customer_number', 'email')
-        verbose_name = _('Customer')
-        verbose_name_plural = _('Customers')
-        unique_together = [('customer_number', 'conference')]
-
-    def __unicode__(self):
-        return '%s (%s)' % (self.email, self.customer_number)
-
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            self.customer_number = Customer.objects.get_next_customer_number()
-        super(Customer, self).save(*args, **kwargs)
-
-
 class PurchaseManager(models.Manager):
     def get_exportable_purchases(self):
-        return self.select_related('customer').filter(
+        return self.filter(
             exported=False,
             state__in=['payment_received', 'new', 'invoice_created'])
 
@@ -203,13 +162,13 @@ class Purchase(models.Model):
     conference = models.ForeignKey(
         "conference.Conference", verbose_name="conference", null=True,
         on_delete=models.PROTECT)
-    customer = models.ForeignKey(Customer, verbose_name=_('Customer'))
     user = models.ForeignKey(User, null=True, verbose_name=_('User'))
 
     # Address in purchase because a user maybe wants to different invoices.
     company_name = models.CharField(_('Company'), max_length=100, blank=True)
     first_name = models.CharField(_('First name'), max_length=250, blank=False)
     last_name = models.CharField(_('Last name'), max_length=250, blank=False)
+    email = models.EmailField(_('E-mail'), blank=False)
 
     street = models.CharField(_('Street and house number'), max_length=100)
     zip_code = models.CharField(_('Zip code'), max_length=5)
@@ -276,8 +235,7 @@ class Purchase(models.Model):
         return self.payment_total - (self.payment_total / 1.19)
 
     def __unicode__(self):
-        return '%s - %s - %s' % (self.pk, self.customer,
-                                 self.get_state_display())
+        return '%s - %s' % (self.pk, self.get_state_display())
 
 
 class TShirtSize(models.Model):

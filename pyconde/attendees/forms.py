@@ -8,7 +8,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, HTML
 
 from pyconde.conference.models import current_conference
-from pyconde.attendees.models import Purchase, Customer, Ticket, Voucher
+from pyconde.attendees.models import Purchase, Ticket, Voucher
 from pyconde.forms import Submit
 
 from . import utils
@@ -46,12 +46,7 @@ class PurchaseForm(forms.ModelForm):
         )
 
     def save(self, *args, **kwargs):
-        customer, created = Customer.objects.get_or_create(
-            conference=current_conference(),
-            email=self.cleaned_data['email'])
-
         purchase = super(PurchaseForm, self).save(commit=False)
-        purchase.customer = customer
 
         if (kwargs.get('commit', True)):
             purchase.save()

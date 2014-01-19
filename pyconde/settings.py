@@ -335,8 +335,6 @@ class Base(Configuration):
     #
     # Proposal and schedule settings
     #
-    ATTENDEES_CUSTOMER_NUMBER_START = 20000
-
     ATTENDEES_PRODUCT_NUMBER_START = 1000
 
     PROPOSALS_SUPPORT_ADDITIONAL_SPEAKERS = True

@@ -6,7 +6,7 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from .models import (Customer, Purchase, Ticket, TicketType,
+from .models import (Purchase, Ticket, TicketType,
                      Voucher, VoucherType, TShirtSize)
 from . import utils
 from . import exporters
@@ -47,14 +47,6 @@ class VoucherAdmin(admin.ModelAdmin):
     search_fields = ('code', 'remarks')
 
 admin.site.register(Voucher, VoucherAdmin)
-
-
-class CustomerAdmin(admin.ModelAdmin):
-    list_display = ('customer_number', 'email', 'date_added', 'is_exported')
-    list_filter = ('is_exported',)
-    search_fields = ('email',)
-
-admin.site.register(Customer, CustomerAdmin)
 
 
 class TicketInline(admin.TabularInline):
@@ -106,7 +98,7 @@ class PurchaseAdmin(admin.ModelAdmin):
                     'conference': purchase.conference
                 }),
                 settings.DEFAULT_FROM_EMAIL,
-                [purchase.customer.email, settings.DEFAULT_FROM_EMAIL],
+                [purchase.email, settings.DEFAULT_FROM_EMAIL],
                 fail_silently=True
             )
             if purchase.state == 'invoice_created':
@@ -130,7 +122,7 @@ class TicketAdmin(admin.ModelAdmin):
     list_display = ('purchase', 'first_name', 'last_name', 'ticket_type',
                     'shirtsize', 'date_added')
     list_filter = ('ticket_type', 'date_added', 'purchase__state')
-    search_fields = ('first_name', 'last_name', 'purchase__customer__email')
+    search_fields = ('first_name', 'last_name', 'purchase__email')
     actions = [export_tickets]
 
 admin.site.register(Ticket, TicketAdmin)
