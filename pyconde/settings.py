@@ -333,6 +333,13 @@ class Base(Configuration):
 
     ###########################################################################
     #
+    # Account and profile settings
+    #
+    AVATAR_MIN_DIMENSION = values.TupleValue()
+    AVATAR_MAX_DIMENSION = values.TupleValue()
+
+    ###########################################################################
+    #
     # Proposal and schedule settings
     #
     ATTENDEES_CUSTOMER_NUMBER_START = 20000
