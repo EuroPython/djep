@@ -16,6 +16,7 @@ from django.utils.translation import gettext_lazy as _
 from redis_cache import get_redis_connection
 
 from . import exporters
+from . import settings as app_settings
 
 
 LOG = logging.getLogger(__name__)
@@ -165,8 +166,6 @@ def generate_invoice_number(sequence_name=None):
     WARNING: This method changes the state in Redis!
     """
     if sequence_name is None:
-        sequence_name = getattr(settings,
-                                'PURCHASE_INVOICE_NUMBER_SEQUENCE_NAME',
-                                'invoice_number')
+        sequence_name = app_settings.INVOICE_NUMBER_SEQUENCE_NAME
     conn = get_redis_connection()
     return int(conn.incr(sequence_name))
