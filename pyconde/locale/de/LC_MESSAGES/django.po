@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-18 13:52+0100\n"
+"POT-Creation-Date: 2014-01-19 15:11+0100\n"
 "PO-Revision-Date: 2013-12-21 21:30+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -61,34 +61,34 @@ msgstr "Accounts-Anwendung"
 msgid "short info"
 msgstr "Steckbrief"
 
-#: accounts/forms.py:51 accounts/models.py:57
+#: accounts/forms.py:51 accounts/models.py:61
 #: skins/default/templates/userprofiles/profile_view.html:28
 msgid "Organisation"
 msgstr "Organisation"
 
-#: accounts/forms.py:52 accounts/models.py:54
+#: accounts/forms.py:52 accounts/models.py:58
 #: skins/default/templates/userprofiles/profile_view.html:16
 msgid "Twitter"
 msgstr "Twitter"
 
-#: accounts/forms.py:53 accounts/models.py:56
+#: accounts/forms.py:53 accounts/models.py:60
 #: skins/default/templates/userprofiles/profile_view.html:22
 msgid "Website"
 msgstr "Webseite"
 
-#: accounts/forms.py:55 accounts/forms.py:206 accounts/models.py:51
+#: accounts/forms.py:55 accounts/forms.py:206 accounts/models.py:55
 msgid "Number of accompanying children"
 msgstr "Voraussichtliche Anzahl mitkommender Kinder"
 
-#: accounts/forms.py:58 accounts/forms.py:208 accounts/models.py:53
+#: accounts/forms.py:58 accounts/forms.py:208 accounts/models.py:57
 msgid "Age of accompanying children"
 msgstr "Alter der mitkommenden Kinder"
 
-#: accounts/forms.py:61 accounts/models.py:60
+#: accounts/forms.py:61 accounts/models.py:64
 msgid "What name should be displayed to other people?"
 msgstr "Welchen Namen sollen wir anderen Anderen anzeigen"
 
-#: accounts/forms.py:62 accounts/models.py:62
+#: accounts/forms.py:62 accounts/models.py:66
 msgid "Address me as"
 msgstr "Anrede"
 
@@ -262,44 +262,48 @@ msgid ""
 msgstr ""
 "Bitte ein Bild mit einer Größe von höchsten %(max_w)dx%(max_h)d px hochladen."
 
-#: accounts/models.py:49 accounts/widgets.py:45
+#: accounts/models.py:50 accounts/widgets.py:45
 msgid "avatar"
 msgstr "Profilbild"
 
-#: accounts/models.py:58
+#: accounts/models.py:62
 msgid "Full name"
 msgstr "Name"
 
-#: accounts/models.py:59
+#: accounts/models.py:63
 msgid "Display name"
 msgstr "Anzeigename"
 
-#: accounts/models.py:63
+#: accounts/models.py:67
 msgid "How should we call you in mails and dialogs throughout the website?"
 msgstr ""
 "Wie sollen wir dich in E-Mails und Dialogen auf der Webseite ansprechen?"
 
-#: accounts/models.py:65
+#: accounts/models.py:69
 msgid "Allow copying to PySV conferences"
 msgstr "Daten für zukünftige PySV Konferenzen wiederverwenden"
 
-#: accounts/models.py:67
+#: accounts/models.py:71
 msgid "Allow copying to EPS conferences"
 msgstr "Daten für zukünftige EPS Konferenzen wiederverwenden"
 
-#: accounts/models.py:73
+#: accounts/models.py:77
 msgid "You've logged in successfully."
 msgstr "Sie haben sich erfolgreich angemeldet."
 
-#: accounts/validators.py:19
+#: accounts/validators.py:21
 msgid "Twitter usernames have only 15 characters or less"
 msgstr "Twitter-Benutzernamen haben 15 Zeichen oder weniger"
 
-#: accounts/validators.py:22
+#: accounts/validators.py:24
 msgid "Please omit the @ at the start of the twitter username"
 msgstr "Bitte schreiben Sie Ihren Twitter-Namen ohne @ am Anfang"
 
-#: accounts/validators.py:31
+#: accounts/validators.py:32
+msgid "It was not possible to determine the avatar dimensions."
+msgstr "Die Abmessungen des Profilbildes konnten nicht bestimmt werden."
+
+#: accounts/validators.py:36
 #, python-format
 msgid ""
 "Minimum avatar size is %(min_w)dx%(min_h)d px. Yours is %(yours_w)dx"
@@ -308,7 +312,7 @@ msgstr ""
 "Das Profilbild ist zu klein (%(yours_w)dx%(yours_h)d px). Minimum: %(min_w)dx"
 "%(min_h)d px"
 
-#: accounts/validators.py:38
+#: accounts/validators.py:43
 #, python-format
 msgid ""
 "Maximum avatar size is %(max_w)dx%(max_h)d px. Yours is %(yours_w)dx"
@@ -316,6 +320,10 @@ msgid ""
 msgstr ""
 "Das Profilbild ist zu groß (%(yours_w)dx%(yours_h)d px). Maximum: %(max_w)dx"
 "%(max_h)d px"
+
+#: accounts/validators.py:56
+msgid "Your avatar has to be either a PNG, JPEG or GIF file."
+msgstr "Das Profilbild muss entweder ein PNG, JPEG oder GIF sein."
 
 #: accounts/templates/accounts/login-email-request.html:3
 #: accounts/templates/accounts/login-email-request.html:4
@@ -2083,6 +2091,23 @@ msgstr "Like EuroPython"
 #: skins/ep14/templates/base.html:117
 msgid "+1 EuroPython"
 msgstr "+1 EuroPython"
+
+#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:37
+#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:40
+msgid "CMS Plugins"
+msgstr ""
+
+#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:38
+msgid "Add CMS Plugin"
+msgstr ""
+
+#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:39
+msgid "Edit CMS Plugin"
+msgstr ""
+
+#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:45
+msgid "Standard Plugins"
+msgstr ""
 
 #: skins/pyconde2013/templates/userprofiles/registration.html:8
 msgid ""

@@ -3,6 +3,8 @@ from django.conf import settings
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext as _
 
+from os.path import splitext
+
 from PIL import Image
 
 
@@ -24,16 +26,19 @@ def twitter_username(value):
 
 def avatar_dimension(value):
     if value and (AVATAR_MIN_DIMENSION or AVATAR_MAX_DIMENSION):
-        img = Image.open(value)
-        size = img.size
-        if AVATAR_MIN_DIMENSION and size < AVATAR_MIN_DIMENSION:
+        try:
+            size = [value.width, value.height]
+        except Exception:
+            raise ValidationError(_("It was not possible to determine the "
+                                    "avatar dimensions."))
+        if AVATAR_MIN_DIMENSION and size < list(AVATAR_MIN_DIMENSION):
             raise ValidationError(_(
                 'Minimum avatar size is %(min_w)dx%(min_h)d px. Yours is %(yours_w)dx%(yours_h)d px') % {
                     'min_w': AVATAR_MIN_DIMENSION[0],
                     'min_h': AVATAR_MIN_DIMENSION[1],
                     'yours_w': size[0],
                     'yours_h': size[1]})
-        if AVATAR_MAX_DIMENSION and size > AVATAR_MAX_DIMENSION:
+        if AVATAR_MAX_DIMENSION and size > list(AVATAR_MAX_DIMENSION):
             raise ValidationError(_(
                 'Maximum avatar size is %(max_w)dx%(max_h)d px. Yours is %(yours_w)dx%(yours_h)d px') % {
                     'max_w': AVATAR_MAX_DIMENSION[0],
@@ -41,3 +46,21 @@ def avatar_dimension(value):
                     'yours_w': size[0],
                     'yours_h': size[1]})
     return value
+
+
+def avatar_format(value):
+    """
+    Checks the actual image file if it is of a supported format
+    (JPG, PNG or GIF).
+    """
+    error_msg = _("Your avatar has to be either a PNG, JPEG or GIF file.")
+    if value is None or value == "":
+        return
+    image = None
+    try:
+        image = Image.open(value)
+    except Exception:
+        raise ValidationError(error_msg)
+
+    if image.format not in ('PNG', 'JPEG', 'GIF'):
+        raise ValidationError(error_msg)

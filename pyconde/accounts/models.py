@@ -46,8 +46,12 @@ class Profile(models.Model):
     """
     user = models.OneToOneField(User)
     short_info = models.TextField(_('short info'), blank=True)
-    avatar = ThumbnailerImageField(_('avatar'), upload_to='avatars', null=True,blank=True,
-        help_text=avatar_help_text, validators=[validators.avatar_dimension])
+    avatar = ThumbnailerImageField(
+        _('avatar'), upload_to='avatars', null=True, blank=True,
+        help_text=avatar_help_text, validators=[
+            validators.avatar_dimension,
+            validators.avatar_format,
+            ])
     num_accompanying_children = models.PositiveIntegerField(_('Number of accompanying children'),
         null=True, blank=True, default=0)
     age_accompanying_children = models.CharField(_("Age of accompanying children"), blank=True, max_length=20)
