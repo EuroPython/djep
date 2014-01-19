@@ -250,7 +250,7 @@ msgstr ""
 #: accounts/models.py:27
 #, python-format
 msgid ""
-"Please upload an image with a side length of at lease %(min_w)dx%(min_h)d px."
+"Please upload an image with a side length of at least %(min_w)dx%(min_h)d px."
 msgstr ""
 "Bitte ein Bild mit einer Größe von mindestens %(min_w)dx%(min_h)d px "
 "hochladen."

@@ -24,7 +24,7 @@ if validators.AVATAR_MIN_DIMENSION:
             'max_h': validators.AVATAR_MAX_DIMENSION[1]
         })
     else:
-        avatar_help_text = _('Please upload an image with a side length of at lease %(min_w)dx%(min_h)d px.')
+        avatar_help_text = _('Please upload an image with a side length of at least %(min_w)dx%(min_h)d px.')
 else:
     if validators.AVATAR_MAX_DIMENSION:
         avatar_help_text = _('Please upload an image with a side length of at most %(max_w)dx%(max_h)d px.')
