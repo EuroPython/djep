@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-19 20:38+0100\n"
+"POT-Creation-Date: 2014-01-20 22:53+0100\n"
 "PO-Revision-Date: 2013-12-21 21:30+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -235,7 +235,7 @@ msgstr "Profil ändern"
 msgid "Change your password"
 msgstr "Passwort ändern"
 
-#: accounts/menu.py:23 attendees/models.py:248
+#: accounts/menu.py:23 attendees/models.py:206
 msgid "Purchases"
 msgstr "Einkäufe"
 
@@ -363,36 +363,36 @@ msgstr ""
 msgid "Export as CSV"
 msgstr "Als CSV exportieren"
 
-#: attendees/admin.py:85 attendees/admin.py:118
+#: attendees/admin.py:77 attendees/admin.py:110
 msgid "1 mail was"
 msgstr "1 E-Mail wurde"
 
-#: attendees/admin.py:87 attendees/admin.py:120
+#: attendees/admin.py:79 attendees/admin.py:112
 #, python-format
 msgid "%s mails were"
 msgstr "%s E-Mails wurden"
 
-#: attendees/admin.py:88 attendees/admin.py:122
+#: attendees/admin.py:80 attendees/admin.py:114
 #, python-format
 msgid "%s successfully sent."
 msgstr "%s erfolgreich versandt."
 
-#: attendees/admin.py:90
+#: attendees/admin.py:82
 #, python-format
 msgid "Send purchase confirmation for selected %(verbose_name_plural)s"
 msgstr ""
 "Versende Bestellungsbest&auml;tigungen f&uuml;r ausgew&auml;hlte "
 "%(verbose_name_plural)s"
 
-#: attendees/admin.py:96
+#: attendees/admin.py:88
 msgid "Send export e-mails"
 msgstr "Export-E-Mails versenden"
 
-#: attendees/admin.py:103
+#: attendees/admin.py:95
 msgid "Payment receipt confirmation"
 msgstr "Bestätigung des Zahlungseingangs"
 
-#: attendees/admin.py:124
+#: attendees/admin.py:116
 #, python-format
 msgid "Send payment confirmation for selected %(verbose_name_plural)s"
 msgstr ""
@@ -403,21 +403,21 @@ msgstr ""
 msgid "Attendees App"
 msgstr "Teilnehmer App"
 
-#: attendees/forms.py:18 attendees/models.py:21
+#: attendees/forms.py:18 attendees/models.py:22
 msgid "Invoice"
 msgstr "Rechnung"
 
-#: attendees/forms.py:19 attendees/models.py:22
+#: attendees/forms.py:19 attendees/models.py:23
 msgid "Credit card"
 msgstr "Kreditkarte"
 
-#: attendees/forms.py:20 attendees/models.py:23
+#: attendees/forms.py:20 attendees/models.py:24
 msgid "ELV"
 msgstr "ELV"
 
-#: attendees/forms.py:29 attendees/models.py:172
-msgid "E-Mail"
-msgstr "E-mail"
+#: attendees/forms.py:29 attendees/models.py:170
+msgid "E-mail"
+msgstr "E-Mail"
 
 #: attendees/forms.py:42
 #: attendees/templates/attendees/mail_purchase_completed.html:15
@@ -426,38 +426,38 @@ msgstr "E-mail"
 msgid "Billing address"
 msgstr "Rechnungsadresse"
 
-#: attendees/forms.py:63
+#: attendees/forms.py:58
 msgid "Quantity"
 msgstr "Anzahl"
 
-#: attendees/forms.py:90
+#: attendees/forms.py:85
 msgid "Tickets sold out."
 msgstr "Tickets ausverkauft."
 
-#: attendees/forms.py:93
+#: attendees/forms.py:88
 msgid "Not enough tickets left."
 msgstr "Nicht genug Tickets mehr verfügbar."
 
-#: attendees/forms.py:96
+#: attendees/forms.py:91
 msgid ""
 "You've exceeded the maximum number of items of this type for this purchase"
 msgstr "Die maximale Menge dieses Produkts für diesen Einkauf ist erreicht."
 
-#: attendees/forms.py:129 attendees/models.py:70 attendees/models.py:74
-#: attendees/models.py:312
+#: attendees/forms.py:124 attendees/models.py:68 attendees/models.py:72
+#: attendees/models.py:275
 #: attendees/templates/attendees/purchase_names.html:56
 msgid "Voucher"
 msgstr "Gutschein"
 
-#: attendees/forms.py:158
+#: attendees/forms.py:154
 msgid "Voucher verification failed."
 msgstr "Gutschein-Verifikation fehlgeschlagen."
 
-#: attendees/forms.py:171
+#: attendees/forms.py:167
 msgid "I've read and agree to the terms and conditions."
 msgstr "Ich habe die allgemeinen Geschäftsbedingungen gelesen und akzeptiert."
 
-#: attendees/forms.py:172
+#: attendees/forms.py:168
 #, python-format
 msgid ""
 "You must accept the <a target=\"_blank\" href=\"%s\">terms and conditions</"
@@ -466,16 +466,16 @@ msgstr ""
 "Sie müssen die <a target=\"_blank\" href=\"%s\">allgemeinen "
 "Geschäftsbedingungen</a> akzeptieren."
 
-#: attendees/forms.py:173
+#: attendees/forms.py:169
 msgid "You must accept the terms and conditions."
 msgstr "Sie müssen die allgemeinen Geschäftsbedingungen akzeptieren."
 
-#: attendees/forms.py:175 attendees/models.py:228
+#: attendees/forms.py:171 attendees/models.py:186
 #: attendees/templates/attendees/mail_purchase_completed.html:13
 msgid "Payment method"
 msgstr "Zahlungsart"
 
-#: attendees/forms.py:177
+#: attendees/forms.py:173
 msgid ""
 "If you choose invoice you will receive an invoice from us. After we receive "
 "your money transfer your purchase will be finanized.<br /><br />Credit card "
@@ -487,236 +487,220 @@ msgstr ""
 "Zahlungen werden durch <a href=\"http://www.paymill.com\">PayMill</a> "
 "durchgeführt."
 
-#: attendees/forms.py:191
+#: attendees/forms.py:187
 msgid "Complete purchase"
 msgstr "Bestellung abschlie&szlig;en"
 
-#: attendees/models.py:13
+#: attendees/models.py:14
 msgid "Purchase incomplete"
 msgstr "Kauf unvollständig"
 
-#: attendees/models.py:14
+#: attendees/models.py:15
 msgid "new"
 msgstr "neu"
 
-#: attendees/models.py:15
+#: attendees/models.py:16
 msgid "invoice created"
 msgstr "Rechnung erstellt"
 
-#: attendees/models.py:16
+#: attendees/models.py:17
 msgid "payment received"
 msgstr "Zahlung eingegangen"
 
-#: attendees/models.py:17
+#: attendees/models.py:18
 msgid "canceled"
 msgstr "Zurückgezogen"
 
-#: attendees/models.py:38 attendees/models.py:46 attendees/models.py:64
+#: attendees/models.py:36 attendees/models.py:44 attendees/models.py:62
 msgid "voucher type"
 msgstr "Gutscheintyp"
 
-#: attendees/models.py:47
+#: attendees/models.py:45
 msgid "voucher types"
 msgstr "Gutscheintypen"
 
-#: attendees/models.py:57
+#: attendees/models.py:55
 msgid "Code"
 msgstr "Code"
 
-#: attendees/models.py:58
+#: attendees/models.py:56
 msgid "Can be left blank, code will be created when you save."
 msgstr "Kann leer gelassen werden. Code wird beim Speichern generiert."
 
-#: attendees/models.py:59 attendees/models.py:118
+#: attendees/models.py:57 attendees/models.py:116
 msgid "Remarks"
 msgstr "Bemerkungen"
 
-#: attendees/models.py:61
+#: attendees/models.py:59
 msgid "Date (valid)"
 msgstr "Gültigkeitsdatum"
 
-#: attendees/models.py:62
+#: attendees/models.py:60
 msgid "The voucher is valid until this date"
 msgstr "Der Gutschein ist bis zu diesem Datum gültig"
 
-#: attendees/models.py:63
+#: attendees/models.py:61
 msgid "Is used"
 msgstr "Wird verwendet"
 
-#: attendees/models.py:71
+#: attendees/models.py:69
 msgid "Vouchers"
 msgstr "Gutscheine"
 
-#: attendees/models.py:101
+#: attendees/models.py:99
 msgid "Product number"
 msgstr "Produktnummer"
 
-#: attendees/models.py:102 attendees/models.py:170
+#: attendees/models.py:100
 msgid "Will be created when you save the first time."
 msgstr "Wird bei erstmaliger Speicherung erstellt."
 
-#: attendees/models.py:104
+#: attendees/models.py:102
 #: attendees/templates/attendees/payment_paymill.html:43
 msgid "Name"
 msgstr "Name"
 
-#: attendees/models.py:105
+#: attendees/models.py:103
 msgid "Fee"
 msgstr "Gebühr"
 
-#: attendees/models.py:108
+#: attendees/models.py:106
 msgid "Max. purchases"
 msgstr "Max. Verfügbar"
 
-#: attendees/models.py:109
+#: attendees/models.py:107
 msgid "0 means no limit"
 msgstr "0 bedeutet kein Limit"
 
-#: attendees/models.py:111
+#: attendees/models.py:109
 msgid "Is active"
 msgstr "Aktiv"
 
-#: attendees/models.py:112
+#: attendees/models.py:110
 msgid "Date (valid from)"
 msgstr "Gültig ab"
 
-#: attendees/models.py:113
+#: attendees/models.py:111
 msgid "Date (valid to)"
 msgstr "Gültig bis"
 
-#: attendees/models.py:115
+#: attendees/models.py:113
 msgid "voucher type needed"
 msgstr "Erforderlicher Gutscheintyp"
 
-#: attendees/models.py:116
+#: attendees/models.py:114
 msgid "Tutorial ticket"
 msgstr "Tutorial-Ticket"
 
-#: attendees/models.py:124 attendees/models.py:125 attendees/models.py:301
+#: attendees/models.py:122 attendees/models.py:123 attendees/models.py:264
 msgid "Ticket type"
 msgstr "Tickettyp"
 
-#: attendees/models.py:169
-msgid "Customer number"
-msgstr "Kundennummer"
-
-#: attendees/models.py:175 attendees/models.py:221 attendees/models.py:310
-msgid "Date (added)"
-msgstr "Hinzugefügt am"
-
-#: attendees/models.py:176
-msgid "Is exported"
-msgstr "Exportiert"
-
-#: attendees/models.py:182 attendees/models.py:206
-msgid "Customer"
-msgstr "Kunde"
-
-#: attendees/models.py:183
-msgid "Customers"
-msgstr "Kunden"
-
-#: attendees/models.py:207
+#: attendees/models.py:164
 msgid "User"
 msgstr "Benutzer"
 
-#: attendees/models.py:210
+#: attendees/models.py:167
 msgid "Company"
 msgstr "Firma"
 
-#: attendees/models.py:211 attendees/models.py:304
+#: attendees/models.py:168 attendees/models.py:267
 #: attendees/templates/attendees/purchase_confirm.html:24
 msgid "First name"
 msgstr "Vorname"
 
-#: attendees/models.py:212 attendees/models.py:305
+#: attendees/models.py:169 attendees/models.py:268
 #: attendees/templates/attendees/purchase_confirm.html:25
 msgid "Last name"
 msgstr "Nachname"
 
-#: attendees/models.py:214
+#: attendees/models.py:172
 msgid "Street and house number"
 msgstr "Straße und Hausnummer"
 
-#: attendees/models.py:215
+#: attendees/models.py:173
 msgid "Zip code"
 msgstr "Postleitzahl"
 
-#: attendees/models.py:216
+#: attendees/models.py:174
 msgid "City"
 msgstr "Ort"
 
-#: attendees/models.py:217
+#: attendees/models.py:175
 msgid "Country"
 msgstr "Land"
 
-#: attendees/models.py:218
+#: attendees/models.py:176
 msgid "VAT-ID"
 msgstr "Steuernummer"
 
-#: attendees/models.py:223
+#: attendees/models.py:179 attendees/models.py:273
+msgid "Date (added)"
+msgstr "Hinzugefügt am"
+
+#: attendees/models.py:181
 msgid "Status"
 msgstr "Status"
 
-#: attendees/models.py:226
+#: attendees/models.py:184
 msgid "Comments"
 msgstr "Kommentare"
 
-#: attendees/models.py:231
+#: attendees/models.py:189
 msgid "Transaction ID"
 msgstr "TransaktionsID"
 
-#: attendees/models.py:233
+#: attendees/models.py:191
 msgid "Payment total"
 msgstr "Gesamtsumme"
 
-#: attendees/models.py:236
+#: attendees/models.py:194
 msgid "Exported"
 msgstr "Exportiert"
 
-#: attendees/models.py:239
+#: attendees/models.py:197
 msgid "Invoice number"
 msgstr "Rechnungsnummer"
 
-#: attendees/models.py:241
+#: attendees/models.py:199
 msgid "Invoice filename"
 msgstr "Rechnungsdateiname"
 
-#: attendees/models.py:247
+#: attendees/models.py:205
 msgid "Purchase"
 msgstr "Kauf"
 
-#: attendees/models.py:287
+#: attendees/models.py:250
 msgid "Size"
 msgstr "Größe"
 
-#: attendees/models.py:288
+#: attendees/models.py:251
 msgid "Sort order"
 msgstr "Reihenfolge"
 
-#: attendees/models.py:291
+#: attendees/models.py:254
 msgid "T-Shirt size"
 msgstr "T-Shirt Größe"
 
-#: attendees/models.py:292
+#: attendees/models.py:255
 msgid "T-Shirt sizes"
 msgstr "T-Shirt Größen"
 
-#: attendees/models.py:307
+#: attendees/models.py:270
 msgid "Desired T-Shirt size"
 msgstr "Gewünschte T-Shirt Größe"
 
-#: attendees/models.py:317
+#: attendees/models.py:280
 #: attendees/templates/attendees/purchase_confirm.html:23
 msgid "Ticket"
 msgstr "Ticket"
 
-#: attendees/models.py:318 attendees/templates/attendees/purchase.html:18
+#: attendees/models.py:281 attendees/templates/attendees/purchase.html:18
 #: attendees/templates/attendees/user_purchases.html:25
 msgid "Tickets"
 msgstr "Tickets"
 
-#: attendees/utils.py:70
+#: attendees/utils.py:71
 msgid "Ticket successfully purchased"
 msgstr "Ticket erfolgreich gekauft"
 
@@ -728,15 +712,15 @@ msgid ""
 msgstr ""
 "Das folgende Ticket ist nicht mehr in ausreichender Menge verfügbar: %s"
 
-#: attendees/views.py:421
+#: attendees/views.py:422
 msgid "Payment failed. Please check your data."
 msgstr "Zahlung fehlgeschlagen. Bitte überprüfen Sie die Daten."
 
-#: attendees/views.py:433
+#: attendees/views.py:434
 msgid "Transaction already processed."
 msgstr "Transaktion wurde bereits ausgeführt."
 
-#: attendees/views.py:435
+#: attendees/views.py:436
 msgid "Purchase already handled."
 msgstr "Bezahlung wurde bereits bearbeitet."
 
@@ -950,11 +934,21 @@ msgstr "Kauf abgeschlossen!"
 
 #: attendees/templates/attendees/purchase_done.html:8
 msgid ""
-"Thank you for purchasing a conference ticket! Soon you will receive a "
+"Thank you for purchasing a EuroPython 2014 ticket! Soon you will receive a "
 "confirmation e-mail with further information."
 msgstr ""
-"Danke für den Kauf eines Konferenz Tickets! Du wirst in Kürze eine "
+"Danke für den Kauf eines EuroPython 2014 Tickets! Du wirst in Kürze eine "
 "Bestätigungsemail mit weiteren Informationen erhalten."
+
+#: attendees/templates/attendees/purchase_done.html:10
+msgid ""
+"If you like to show your support to the EuroPython you can apply for a free "
+"EuroPython Society (EPS) Membership by email to <a href=\"mailto:"
+"board@europython.eu\">board@europython.eu</a>."
+msgstr ""
+"Wenn du die EuroPython unterstützen möchtest kann du ein kostenlose "
+"Mitgliedschaft bei der EuroPython Society (EPS) beantragen. Sende dazu eine "
+"E-Mail an <a href=\"mailto:board@europython.eu\">board@europython.eu</a>."
 
 #: attendees/templates/attendees/purchase_names.html:10
 msgid "Attendee(s)"
@@ -2168,7 +2162,7 @@ msgstr "Abgemeldet"
 
 #: skins/default/templates/userprofiles/login.html:4
 #: skins/default/templates/userprofiles/login.html:5
-#: skins/ep14/templates/base.html:70
+#: skins/ep14/templates/base.html:68
 msgid "Login"
 msgstr "Anmelden"
 
@@ -2194,7 +2188,7 @@ msgstr ""
 
 #: skins/default/templates/userprofiles/profile.html:4
 #: skins/default/templates/userprofiles/profile.html:5
-#: skins/ep14/templates/base.html:59
+#: skins/ep14/templates/base.html:57
 msgid "Your profile"
 msgstr "Ihre Profil"
 
@@ -2305,42 +2299,25 @@ msgstr "Konto-Aktivierung"
 msgid "E-mail confirmation"
 msgstr "E-Mail-Bestätigung"
 
-#: skins/ep14/templates/base.html:70
+#: skins/ep14/templates/base.html:68
 msgid "Sign up"
 msgstr "Anmelden"
 
-#: skins/ep14/templates/base.html:100
+#: skins/ep14/templates/base.html:98
 msgid "Get in touch"
 msgstr "Hilfe und Support"
 
-#: skins/ep14/templates/base.html:110
+#: skins/ep14/templates/base.html:108
 msgid "Follow @europython"
 msgstr "@europython folgen"
 
-#: skins/ep14/templates/base.html:116
+#: skins/ep14/templates/base.html:114
 msgid "Like EuroPython"
 msgstr "Like EuroPython"
 
-#: skins/ep14/templates/base.html:122
+#: skins/ep14/templates/base.html:120
 msgid "+1 EuroPython"
 msgstr "+1 EuroPython"
-
-#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:37
-#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:40
-msgid "CMS Plugins"
-msgstr ""
-
-#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:38
-msgid "Add CMS Plugin"
-msgstr ""
-
-#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:39
-msgid "Edit CMS Plugin"
-msgstr ""
-
-#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:45
-msgid "Standard Plugins"
-msgstr ""
 
 #: skins/pyconde2013/templates/userprofiles/registration.html:8
 msgid ""

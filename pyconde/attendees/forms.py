@@ -26,7 +26,7 @@ terms_of_use_url = (settings.PURCHASE_TERMS_OF_USE_URL
 
 
 class PurchaseForm(forms.ModelForm):
-    email = forms.EmailField(label=_('E-Mail'), required=True)
+    email = forms.EmailField(label=_('E-mail'), required=True)
 
     class Meta:
         model = Purchase
