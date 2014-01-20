@@ -12,9 +12,7 @@
         {% compress js %}
         <script type="text/javascript" src="{% static "assets/bower_components/modernizr/modernizr.js"%}"></script>
         {% endcompress %}
-        {% compress css %}
         <link rel="stylesheet" href="{% static "assets/css/screen.css" %}">
-        {% endcompress %}
         {% block site_meta %}
         <meta name="author" content="Python Software Verband e.V.">
         <meta name="keywords" content="{% block meta_keywords %}Python, EuroPython, Conference{% endblock %}">
