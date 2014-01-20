@@ -43,10 +43,10 @@ label {
             width: 100%;
             display: block;
             float: none;
-            > input {
-                display: inline-block;
-                margin-right: 10px;
-            }
+        }
+        > input {
+            display: inline-block;
+            margin-right: 10px;
         }
     }
     .checkbox label {
@@ -150,6 +150,9 @@ label {
 
 .form-actions {
     text-align: right;
+    > *, .controls > * {
+        margin-left: 10px;
+    }
     ul {
         list-style: none;
     }

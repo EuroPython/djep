@@ -1,6 +1,17 @@
 {% extends "attendees/base.html" %}
-{% block title %}Tickets kaufen{% endblock %}
-{% block page_title %}Tickets kaufen{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "Purchase tickets" %}{% endblock %}
+{% block page_title %}{% trans "Purchase tickets" %}{% endblock %}
 {% block content %}
     {% include "attendees/purchase_progressbar.html" %}
+    {% if limited_tickets %}
+    <div id="limitinfo" class="alert alert-warn">
+        <p>{% trans "You are about to purchase following limited tickets:" %}</p>
+        <ul>
+            {% for ticket in limited_tickets %}
+            <li>{{ticket.qty }} {{ ticket.type.name }}: {% blocktrans with limit=ticket.available %}only {{ limit }} left (incl. yours)!{% endblocktrans %}</li>
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
 {% endblock %}

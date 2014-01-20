@@ -1,18 +1,8 @@
-{# This is a plaintext email #}{% autoescape off %}Hallo {{ purchase.first_name }} {{ purchase.last_name }},
+{# This is a plaintext email #}{% load i18n %}{% autoescape off %}{% blocktrans with first_name=purchase.first_name last_name=purchase.last_name %}Hello {{ first_name }} {{ last_name }},{% endblocktrans %}
 
-die Zahlung der folgenden Ticketkäufe für die PyCon DE 2013 ist bei uns eingegangen:
+{% blocktrans with conference_name=conference.title %}We just received the payment for your {{ conference_name }} tickets:{% endblocktrans %}
 {% for ticket in purchase.ticket_set.all %}
 - {{ ticket.ticket_type.name }} ({{ ticket.first_name }} {{ ticket.last_name }}){% endfor %}
-
-Falls es Fragen gibt, können Sie uns auf folgenden Wegen erreichen:
-
-* billing@de.pycon.org
-* @pyconde (Twitter)
-
-
-Vielen Dank!
-
-Das PyCon.DE Team
 
 --{% endautoescape %}
 {% include "attendees/mail_signature.txt" %}

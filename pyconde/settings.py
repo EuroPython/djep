@@ -342,11 +342,11 @@ class Base(Configuration):
     #
     # Proposal and schedule settings
     #
-    ATTENDEES_CUSTOMER_NUMBER_START = 20000
-
     ATTENDEES_PRODUCT_NUMBER_START = 1000
 
     PROPOSALS_SUPPORT_ADDITIONAL_SPEAKERS = True
+
+    MAX_CHECKOUT_DURATION = 1800  # 30 minutes
 
     # This configures the form that is used for each proposal type identified
     # by their respective slug.
@@ -449,7 +449,7 @@ class Base(Configuration):
 
     PAYMENT_METHODS = values.ListValue(['invoice', 'creditcard'])
 
-    PURCHASE_NUMBER_FORMAT = 'EP14-{0:05d}'
+    PURCHASE_INVOICE_NUMBER_FORMAT = 'EP14-{0:05d}'
 
     # List of emails to be notified when a purchase has been made. The export
     # JSON dataset is sent to these addresses
@@ -462,6 +462,16 @@ class Base(Configuration):
     # This key is used for generating a checksum over the transmitted export
     # data. Only relevant for prduction
     EXPORT_SECRET_KEY = values.Value('')
+
+    CACHES = values.DictValue({
+        'default': {
+            'BACKEND': 'redis_cache.cache.RedisCache',
+            'LOCATION': 'localhost:6379:0',
+            'OPTIONS': {
+                'PARSER_CLASS': 'redis.connection.HiredisParser'
+            },
+        },
+    })
 
 
 class Dev(Base):

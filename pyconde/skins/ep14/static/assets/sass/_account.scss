@@ -1,0 +1,52 @@
+.user_purchases {
+    h3 {
+        color: $blue;
+    }
+    .purchase {
+        @include grid-row();
+        background: $background1;
+        margin-bottom: 30px;
+        > .details {
+            @include grid-column($columns:12);
+            > * {
+                margin: 0;
+                padding: 0;
+                border-bottom: 1px dotted $blue;
+            }
+            dt {
+                clear: left;
+                float: left;
+                width: 35%;
+                font-weight: bold;
+                color: $blue;
+            }
+            dd {
+                float: right;
+                width: 65%;
+            }
+        }
+
+        > .paymentaddress {
+            @media #{$medium-up} {
+                @include grid-column($columns:6);
+            }
+        }
+
+        > .tickets {
+            @media #{$medium-up} {
+                @include grid-column($columns:6);
+            }
+
+            .details {
+                margin-top: 0;
+                font-size: 80%;
+                display: inline-block;
+            }
+
+            ul {
+                list-style: none;
+                padding: 0;
+            }
+        }
+    }
+}

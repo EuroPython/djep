@@ -1,0 +1,73 @@
+.progressbar {
+    h2 {
+        text-indent: -5000px;
+        height: 1px;
+        margin: 0;
+    }
+    ol {
+        width: 100%;
+        overflow: hidden;
+        list-style: none;
+        padding-left: 0;
+        counter-reset: progress;
+        @media #{$medium-up} {
+            height: 50px;
+        }
+        line-height: 50px;
+
+        li {
+            text-indent: -5000px;
+            width: 20%;
+            float: left;
+            display: block;
+            @media #{$medium-up} {
+                text-indent: 0;
+            }
+            padding-left: 45px;
+            position: relative;
+            font-weight: bold;
+
+            &:before {
+                width: 40px;
+                height: 40px;
+                border: 5px solid lighten($baseColor, 40);
+                border-radius: 25px;
+                position: absolute;
+                left: 25%;
+                @media #{$medium-up} {
+                    left: 0px;
+                }
+                top: 5px;
+                text-indent: 0;
+                line-height: 30px;
+                background: $baseColor;
+                content: counter(progress, decimal);
+                counter-increment: progress;
+                text-align: center;
+                vertical-align: middle;
+                color: white;
+                font-weight: bold;
+
+            }
+            
+            &.active {
+                color: $blue;
+                &:before {
+                    background: $blue;
+                    border-color: lighten($blue, 50);
+                }
+            }
+        }
+    }
+}
+
+.paymill {
+    .input-small {
+        width: 171px !important;
+        display: inline-block;
+        margin-left: 10px;
+        &:first-child {
+            margin-left: 0;
+        }
+    }
+}

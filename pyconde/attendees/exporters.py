@@ -25,12 +25,11 @@ class PurchaseEmailExporter(object):
             self.recipients = settings.PURCHASE_EXPORT_RECIPIENTS
 
     def __call__(self, purchase):
-        from . import utils
         if not self.recipients:
             LOG.warn("No recipients specified. Order won't be exported!")
             return
         json_data = self._purchase_to_json(purchase)
-        order_number = utils.get_purchase_number(purchase)
+        order_number = purchase.full_invoice_number
         msg = EmailMessage(
             settings.PURCHASE_EXPORT_SUBJECT.format(
                 purchase_number=order_number),
@@ -48,9 +47,8 @@ class PurchaseEmailExporter(object):
         return hashlib.sha1(settings.EXPORT_SECRET_KEY + data).hexdigest()
 
     def _purchase_to_json(self, purchase):
-        from . import utils
         result = {
-            'id': utils.get_purchase_number(purchase),
+            'id': purchase.full_invoice_number,
             'pk': purchase.pk,
             'tickets': [],
             'total': purchase.payment_total,
@@ -59,7 +57,7 @@ class PurchaseEmailExporter(object):
             'comments': purchase.comments if purchase.comments else None,
             'date_added': purchase.date_added.replace(microsecond=0),
             'payment_address': {
-                'email': purchase.customer.email,
+                'email': purchase.email,
                 'first_name': purchase.first_name,
                 'last_name': purchase.last_name,
                 'company': purchase.company_name,

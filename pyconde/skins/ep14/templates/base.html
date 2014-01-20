@@ -76,6 +76,11 @@
             {% block main %}
                 {% block site_teaser %}{% endblock %}
                 <section id="content" class="container">
+                    {% for message in messages %}
+                      <div id="message_{{ forloop.counter }}"{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
+                        {{ message }}
+                      </div>
+                    {% endfor %}
                     {% block site_title %}<h1 id="site-title">{% block title %}{% endblock %}</h1>{% endblock %}
                     {% block site_content %}
                         {% block content %}
@@ -135,6 +140,7 @@
             <script type="text/javascript" src="{% static "assets/bower_components/foundation/js/foundation/foundation.js"%}"></script>
             <script type="text/javascript" src="{% static "assets/bower_components/foundation/js/foundation/foundation.topbar.js"%}"></script>
             <script type="text/javascript" src="{% static "assets/bower_components/foundation/js/foundation/foundation.orbit.js"%}"></script>
+            <script type="text/javascript" src="{% static "assets/bower_components/spinjs/spin.js"%}"></script>
             <script src="{% static "assets/js/ui.js" %}"></script>
             <script src="{% static "assets/js/ui.multiuserselect.js" %}"></script>
             <script src="{% static "assets/js/jira.js" %}"></script>

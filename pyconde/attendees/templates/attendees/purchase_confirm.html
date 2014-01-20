@@ -14,24 +14,18 @@
 
 {% block content %}
     {{ block.super }}
-    <p>Bitte kontrollieren Sie Ihre Rechnungsadresse sowie die 
-    Bestellung der Tickets auf der nachfolgenden Übersicht.
-    Neben den Gesamtkosten ist auch die Zuordnung der Tickets zu den Personen, die 
-    diese dann in Anspruch nehmen werden, ersichtlich.
-    <br />
-    <br />
-    Sollten die Angaben nicht korrekt sein, so beginnen Sie den Bestellvorgang 
-    bitte <a href="/tickets/">von vorn</a>.
-    </p>
-    <h2>Bestellungsübersicht</h2>
+
+    <p>{% trans "Please check your billing address as well as the ticket data in the overview below." %}</p>
+
+    <h2>{% trans "Order overview" %}</h2>
     <table>
         <thead>
-            <th>Ticket</th>
-            <th>Vorname</th>
-            <th>Nachname</th>
-            <th>Preis</th>
+            <th>{% trans "Ticket" %}</th>
+            <th>{% trans "First name" %}</th>
+            <th>{% trans "Last name" %}</th>
+            <th>{% trans "Price" %}</th>
         </thead>
-        {% for ticket in purchase.ticket_set.all %}
+        {% for ticket in tickets %}
         <tr>
             <td>{{ ticket.ticket_type.name }}</td>
             <td>{{ ticket.first_name }}</td>
@@ -40,13 +34,14 @@
         </tr>
         {% endfor %}
         <tr>
-            <td colspan="3" style="text-align:right">Gesamt:</td>
+            <td colspan="3" style="text-align:right">{% trans "Total:" %}</td>
             <td>{{ purchase.payment_total|floatformat:2 }} EUR</td>
         </tr>
     </table>
-    <p>Alle Preise sind <b>Bruttopreise</b>, also inklusive der gesetzlichen Mehrwertsteuer von 19%. 
-    Sie erhalten selbstverständlich eine Rechnung mit ausgewiesener Mehrwertsteuer.</p>
-    <h2>Rechnungsadresse</h2>
+
+    <p>{% trans "All prices include 19% VAT." %}</p>
+
+    <h2>{% trans "Billing address" %}</h2>
     <p>
     {% filter linebreaksbr %}{{ purchase.company_name }}
         {{ purchase.first_name }} {{ purchase.last_name }}
@@ -55,16 +50,13 @@
         {{ purchase.country }}
     {% endfilter %}
     </p>
-    <p>Wenn alle Angaben korrekt sind, wählen Sie bitte nachfolgend die gewünschte Zahlungsart
-    und klicken Sie dann auf "Bestellung abschließen", um die Daten zu speichern.
-    Sie erhalten am Ende des Bestellvorgangs eine Bestellbestätigung per E-Mail.</p>
-    
-    <p>Die Abwicklung des Verkaufs von Eintrittskarten (Tickets) für die PyCon.DE 2013 
-    erfolgt ausschließlich zu den allgemeinen Geschäftsbedingungen der PyCon.DE 2013, die 
-    Sie mit der Bestellung akzeptieren müssen.
-    </p>
+
     <form class="form-horizontal" method="post">
-        <h2>Zahlungsart und AGB</h2>
+        <h2>{% trans "Payment method and terms of service" %}</h2>
+
+        {% blocktrans %}<p>Please select a payment method and click "Complete purchase". You will receive an order confirmation via e-mail at the end of the order process.</p>
+        <p>The ticket purchase requires you to agree to the terms of service.</p>{% endblocktrans %}
+
         {% csrf_token %}
         {% crispy form %}
     </form>

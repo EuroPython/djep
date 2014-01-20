@@ -2,11 +2,12 @@
 import decimal
 import uuid
 
-from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
 from django.utils.timezone import now
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext, ugettext_lazy as _
+
+from . import settings
 
 
 PURCHASE_STATES = (
@@ -23,15 +24,15 @@ PAYMENT_METHOD_CHOICES = (
     ('elv', _('ELV')),
 )
 
-PRODUCT_NUMBER_START = getattr(settings, 'ATTENDEES_PRODUCT_NUMBER_START', 1)
-CUSTOMER_NUMBER_START = getattr(settings, 'ATTENDEES_CUSTOMER_NUMBER_START', 1)
-
 
 class VoucherTypeManager(models.Manager):
     pass
 
 
 class VoucherType(models.Model):
+    conference = models.ForeignKey(
+        "conference.Conference", verbose_name="conference", null=True,
+        on_delete=models.PROTECT)
     name = models.CharField(_('voucher type'), max_length=50)
 
     objects = VoucherTypeManager()
@@ -68,7 +69,7 @@ class Voucher(models.Model):
         verbose_name_plural = _('Vouchers')
 
     def __unicode__(self):
-        return '%s %s' % (_('Voucher'), self.code)
+        return '%s %s' % (ugettext('Voucher'), self.code)
 
     def save(self, *args, **kwargs):
         if len(self.code) < 1:
@@ -87,12 +88,15 @@ class TicketTypeManager(models.Manager):
             last = self.aggregate(models.Max('product_number'))
             return last['product_number__max'] + 1
         else:
-            return PRODUCT_NUMBER_START
+            return settings.PRODUCT_NUMBER_START
 
 
 class TicketType(models.Model):
+    conference = models.ForeignKey(
+        "conference.Conference", verbose_name="conference", null=True,
+        on_delete=models.PROTECT)
     product_number = models.IntegerField(
-        _('Product number'), blank=True, unique=True,
+        _('Product number'), blank=True,
         help_text=_('Will be created when you save the first time.'))
 
     name = models.CharField(_('Name'), max_length=50)
@@ -117,6 +121,7 @@ class TicketType(models.Model):
         ordering = ('tutorial_ticket', 'product_number', 'vouchertype_needed',)
         verbose_name = _('Ticket type')
         verbose_name_plural = _('Ticket type')
+        unique_together = [('product_number', 'conference')]
 
     def __unicode__(self):
         return '%s (%.2f EUR)' % (self.name, self.fee)
@@ -129,8 +134,12 @@ class TicketType(models.Model):
 
     @property
     def available_tickets(self):
+        """
+        Returns a number of still purchasable tickets or None if there is no
+        limit.
+        """
         if self.max_purchases < 1:
-            return 999
+            return None
         else:
             available_tickets = self.max_purchases - self.purchases_count
             return available_tickets if available_tickets > 0 else 0
@@ -141,57 +150,24 @@ class TicketType(models.Model):
         super(TicketType, self).save(*args, **kwargs)
 
 
-class CustomerManager(models.Manager):
-    def get_next_customer_number(self):
-        if self.count() > 0:
-            last = self.aggregate(models.Max('customer_number'))
-            return last['customer_number__max'] + 1
-        else:
-            return CUSTOMER_NUMBER_START
-
-
-class Customer(models.Model):
-    customer_number = models.IntegerField(
-        _('Customer number'), blank=True, unique=True,
-        help_text=_('Will be created when you save the first time.'))
-
-    email = models.EmailField(_('E-Mail'), max_length=250, blank=False)
-
-    date_added = models.DateTimeField(
-        _('Date (added)'), blank=False, default=now)
-    is_exported = models.BooleanField(_('Is exported'), default=False)
-
-    objects = CustomerManager()
-
-    class Meta:
-        ordering = ('customer_number', 'email')
-        verbose_name = _('Customer')
-        verbose_name_plural = _('Customers')
-
-    def __unicode__(self):
-        return '%s (%s)' % (self.email, self.customer_number)
-
-    def save(self, *args, **kwargs):
-        if not self.pk:
-            self.customer_number = Customer.objects.get_next_customer_number()
-        super(Customer, self).save(*args, **kwargs)
-
-
 class PurchaseManager(models.Manager):
     def get_exportable_purchases(self):
-        return self.select_related('customer').filter(
+        return self.filter(
             exported=False,
             state__in=['payment_received', 'new', 'invoice_created'])
 
 
 class Purchase(models.Model):
-    customer = models.ForeignKey(Customer, verbose_name=_('Customer'))
+    conference = models.ForeignKey(
+        "conference.Conference", verbose_name="conference", null=True,
+        on_delete=models.PROTECT)
     user = models.ForeignKey(User, null=True, verbose_name=_('User'))
 
     # Address in purchase because a user maybe wants to different invoices.
     company_name = models.CharField(_('Company'), max_length=100, blank=True)
     first_name = models.CharField(_('First name'), max_length=250, blank=False)
     last_name = models.CharField(_('Last name'), max_length=250, blank=False)
+    email = models.EmailField(_('E-mail'), blank=False)
 
     street = models.CharField(_('Street and house number'), max_length=100)
     zip_code = models.CharField(_('Zip code'), max_length=5)
@@ -217,20 +193,33 @@ class Purchase(models.Model):
 
     exported = models.BooleanField(_('Exported'), default=False)
 
+    # Invoicing fields
+    invoice_number = models.IntegerField(_('Invoice number'), null=True,
+                                         blank=True)
+    invoice_filename = models.CharField(_('Invoice filename'), null=True,
+                                        blank=True, max_length=255)
+
     objects = PurchaseManager()
 
     class Meta:
         verbose_name = _('Purchase')
         verbose_name_plural = _('Purchases')
 
-    def calculate_payment_total(self):
+    def calculate_payment_total(self, tickets=None):
+        # TODO: Externalize this into a utils method to be usable "offline"
         # TODO Maybe it's necessary to add VAT to payment_total.
         # TKO: Nope: in 2013 at least all ticket prices have been including VAT
         # However this may be different if people from foreign countries purchase
         # a ticket because then no VAT may be added (depends on country...)
         # so remains TODO for EuroPython
-        fee_sum = self.ticket_set.aggregate(models.Sum('ticket_type__fee'))
-        return fee_sum['ticket_type__fee__sum']
+        fee_sum = 0.0
+        if tickets is None:
+            fee_sum = self.ticket_set.aggregate(models.Sum('ticket_type__fee'))
+            return fee_sum['ticket_type__fee__sum']
+        else:
+            for ticket in tickets:
+                fee_sum += ticket.ticket_type.fee
+            return fee_sum
 
     @property
     def payment_total_in_cents(self):
@@ -244,12 +233,20 @@ class Purchase(models.Model):
     def payment_tax(self):
         return self.payment_total - (self.payment_total / 1.19)
 
+    @property
+    def full_invoice_number(self):
+        if self.invoice_number is None:
+            return None
+        return settings.INVOICE_NUMBER_FORMAT.format(self.invoice_number)
+
     def __unicode__(self):
-        return '%s - %s - %s' % (self.pk, self.customer,
-                                 self.get_state_display())
+        return '%s - %s' % (self.pk, self.get_state_display())
 
 
 class TShirtSize(models.Model):
+    conference = models.ForeignKey(
+        "conference.Conference", verbose_name="conference", null=True,
+        on_delete=models.PROTECT)
     size = models.CharField(max_length=100, verbose_name=_('Size'))
     sort = models.IntegerField(default=999, verbose_name=_('Sort order'))
 
@@ -265,7 +262,7 @@ class TShirtSize(models.Model):
 class Ticket(models.Model):
     purchase = models.ForeignKey(Purchase)
     ticket_type = models.ForeignKey(TicketType, verbose_name=_('Ticket type'))
-    
+
     # TODO: organisation - for badges should have asked for org name of visitor!
     first_name = models.CharField(_('First name'), max_length=250, blank=True)
     last_name = models.CharField(_('Last name'), max_length=250, blank=True)

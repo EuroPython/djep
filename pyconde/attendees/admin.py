@@ -6,10 +6,11 @@ from django.core.mail import send_mail
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext, ugettext_lazy as _
 
-from .models import (Customer, Purchase, Ticket, TicketType,
+from .models import (Purchase, Ticket, TicketType,
                      Voucher, VoucherType, TShirtSize)
 from . import utils
 from . import exporters
+
 
 def export_tickets(modeladmin, request, queryset):
     return HttpResponse(utils.create_tickets_export(queryset).csv, mimetype='text/csv')
@@ -17,11 +18,11 @@ export_tickets.short_description = _("Export as CSV")
 
 
 class TicketTypeAdmin(admin.ModelAdmin):
-    list_display = ('product_number', '__unicode__', 'fee', 'is_active',
-                    'tutorial_ticket', 'purchases_count',
+    list_display = ('product_number', '__unicode__', 'conference',
+                    'fee', 'is_active', 'tutorial_ticket', 'purchases_count',
                     'max_purchases', 'date_valid_from', 'date_valid_to')
     list_display_links = ('product_number', '__unicode__')
-    list_filter = ('is_active',)
+    list_filter = ('is_active', 'conference')
 
 admin.site.register(TicketType, TicketTypeAdmin)
 
@@ -33,7 +34,9 @@ admin.site.register(TShirtSize, ShirtSizeAdmin)
 
 
 class VoucherTypeAdmin(admin.ModelAdmin):
-    pass
+    list_display = ('name', 'conference')
+    list_filter = ('conference',)
+
 
 admin.site.register(VoucherType, VoucherTypeAdmin)
 
@@ -46,14 +49,6 @@ class VoucherAdmin(admin.ModelAdmin):
 admin.site.register(Voucher, VoucherAdmin)
 
 
-class CustomerAdmin(admin.ModelAdmin):
-    list_display = ('customer_number', 'email', 'date_added', 'is_exported')
-    list_filter = ('is_exported',)
-    search_fields = ('email',)
-
-admin.site.register(Customer, CustomerAdmin)
-
-
 class TicketInline(admin.TabularInline):
     model = Ticket
     extra = 0
@@ -63,10 +58,11 @@ class PurchaseAdmin(admin.ModelAdmin):
     list_display = (
         '__unicode__', 'payment_total', 'first_name', 'last_name',
         'company_name', 'street', 'city', 'date_added', 'payment_method',
-        'state', 'exported',
+        'state', 'exported', 'conference',
     )
     list_editable = ('state',)
-    list_filter = ('state', 'date_added', 'payment_method', 'exported',)
+    list_filter = ('state', 'date_added', 'payment_method', 'exported',
+                   'conference',)
     inlines = [TicketInline]
     actions = ['send_purchase_confirmation', 'send_payment_confirmation',
                'email_export']
@@ -98,10 +94,11 @@ class PurchaseAdmin(admin.ModelAdmin):
 
             send_mail(ugettext('Payment receipt confirmation'),
                 render_to_string('attendees/mail_payment_received.html', {
-                    'purchase': purchase
+                    'purchase': purchase,
+                    'conference': purchase.conference
                 }),
                 settings.DEFAULT_FROM_EMAIL,
-                [purchase.customer.email, settings.DEFAULT_FROM_EMAIL],
+                [purchase.email, settings.DEFAULT_FROM_EMAIL],
                 fail_silently=True
             )
             if purchase.state == 'invoice_created':
@@ -116,7 +113,7 @@ class PurchaseAdmin(admin.ModelAdmin):
 
         self.message_user(request, ugettext('%s successfully sent.') % message_bit)
     send_payment_confirmation.short_description = _(
-        'Send confirmation for selected %(verbose_name_plural)s')
+        'Send payment confirmation for selected %(verbose_name_plural)s')
 
 admin.site.register(Purchase, PurchaseAdmin)
 
@@ -125,7 +122,7 @@ class TicketAdmin(admin.ModelAdmin):
     list_display = ('purchase', 'first_name', 'last_name', 'ticket_type',
                     'shirtsize', 'date_added')
     list_filter = ('ticket_type', 'date_added', 'purchase__state')
-    search_fields = ('first_name', 'last_name', 'purchase__customer__email')
+    search_fields = ('first_name', 'last_name', 'purchase__email')
     actions = [export_tickets]
 
 admin.site.register(Ticket, TicketAdmin)

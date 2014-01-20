@@ -1,0 +1,39 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block bodyclass %}user_purchases{% endblock %}
+{% block title %}{% trans "Your purchases" %}{% endblock %}
+{% block page_title %}{% trans "Your purchases" %}{% endblock %}
+{% block content %}
+    {% regroup tickets by purchase as purchase_list %}
+    {% for purchase in purchase_list %}
+    <div class="purchase">
+        <dl class="details">
+            <dt>{% trans "Date" %}:</dt>
+            <dd>{{ purchase.grouper.date_added|date }}</dd>
+            <dt>{% trans "Total price (incl. 19% VAT)" %}:</dt>
+            <dd>{{ purchase.grouper.payment_total|floatformat:2 }} EUR</dd>
+        </dl>
+        <div class="paymentaddress">
+            <h3>{% trans "Billing address" %}</h3>
+            <p>
+                {{ purchase.grouper.first_name }} {{ purchase.grouper.last_name }}<br>
+                {{ purchase.grouper.street }}<br>
+                {{ purchase.grouper.zip_code }} {{ purchase.grouper.country }}
+            </p>
+        </div>
+        <div class="tickets">
+            <h3>{% trans "Tickets" %}</h3>
+            <ul>
+                {% for ticket in purchase.list %}
+                <li>
+                    <span class="type">{{ ticket.ticket_type.name }}:</span>
+                    <p class="details">{{ ticket.first_name }} {{ ticket.last_name }}</p>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </div>
+    {% empty %}
+    <p>{% trans "You haven't made any purchases yet." %}
+    {% endfor %}
+{% endblock %}
