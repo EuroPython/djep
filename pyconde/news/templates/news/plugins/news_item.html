@@ -1,0 +1,8 @@
+{% load i18n cms_tags %}
+<header><h2><a href="#{{ child.url_target }}" name="{{ child.url_target }}">{{ instance.title }}</a></h2></header>
+<section>
+    {% for child in instance.child_plugin_instances %}
+        {% render_plugin child %}
+    {% endfor %}
+</section>
+<footer>{% blocktrans with publish_date=instance.publish_date %}Published on {{ publish_date }}{% endblocktrans %}</footer>
