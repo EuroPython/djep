@@ -131,7 +131,7 @@
         </div>
 
         <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
-        {% render_block "js" postprocessor "compressor.contrib.sekizai.compress" %}
+        {% render_block "js" %}
         {% render_block "js_external" %}
         <script src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
         {% compress js %}
