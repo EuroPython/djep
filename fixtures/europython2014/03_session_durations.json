@@ -1,0 +1,42 @@
+[
+{
+    "pk": 1, 
+    "model": "conference.sessionduration", 
+    "fields": {
+        "conference": 1, 
+        "minutes": 30, 
+        "slug": "talk-short", 
+        "label": "Short talk"
+    }
+},
+{
+    "pk": 2, 
+    "model": "conference.sessionduration", 
+    "fields": {
+        "conference": 1, 
+        "minutes": 45, 
+        "slug": "long-talk", 
+        "label": "Long talk"
+    }
+},
+{
+    "pk": 3, 
+    "model": "conference.sessionduration", 
+    "fields": {
+        "conference": 1, 
+        "minutes": 180, 
+        "slug": "training", 
+        "label": "Training"
+    }
+},
+{
+    "pk": 4, 
+    "model": "conference.sessionduration", 
+    "fields": {
+        "conference": 1, 
+        "minutes": 0, 
+        "slug": "poster", 
+        "label": "Poster"
+    }
+}
+]

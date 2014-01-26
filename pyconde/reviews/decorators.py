@@ -15,7 +15,7 @@ def reviewer_required(func):
     """
     def _wrapper(request, *args, **kwargs):
         if not utils.can_review_proposal(request.user):
-            return create_403(request, _("You have to be a reviewer to access this page."))
+            return create_403(request, _("You have to be a reviewer in order to access this page."))
         return func(request, *args, **kwargs)
     return _wrapper
 
@@ -23,7 +23,7 @@ def reviewer_required(func):
 def reviewer_or_staff_required(func):
     def _wrapper(request, *args, **kwargs):
         if not (utils.can_review_proposal(request.user) or request.user.is_staff):
-            return create_403(request, _("You have to be a reviewer or staff member to access this page."))
+            return create_403(request, _("You have to be a reviewer or staff member in order to access this page."))
         return func(request, *args, **kwargs)
     return _wrapper
 
@@ -33,6 +33,6 @@ def reviews_active_required(func):
         if not current_conference().get_reviews_active():
             if not request.user.is_staff:
                 raise Http404()
-            messages.warning(request, _("The review period has ended. Only staff members can see this page."))
+            messages.warning(request, _("The review period has ended. Only staff members may access this page."))
         return func(request, *args, **kwargs)
     return _wrapper

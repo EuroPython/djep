@@ -1,0 +1,187 @@
+body.start-tmpl {
+    .orbit-timer {
+        display: none;
+    }
+    .orbit-next > span {
+        border-left-color: $grey;
+    }
+    .orbit-prev > span {
+        border-right-color: $grey;
+    }
+    .cmsplugin {
+        @include grid-row();
+    }
+
+    h2 {
+        font-size: 20px;
+        font-size: 2.0rem;
+        font-weight: normal;
+    }
+
+    .area-1 {
+        padding-top: 70px;
+
+        h2 {
+            color: $grey;
+            margin-bottom: 25px;
+        }
+    }
+    .area-2, .area-3 h2 {
+        background-color: $dark-grey;
+        color: #FFF;
+    }
+
+    .area-3 {
+        background-color: $background-color-light;
+        padding-bottom: 45px;
+
+        h2 {
+            margin-top: -22px;
+            padding: 10px 0 40px 0;
+            background: url(../images/area-3-bubble.png) bottom center no-repeat;
+        }
+    }
+
+    .area-4 {
+        background: #FFF;
+    }
+
+    blockquote {
+        font-size: 23px;
+        font-size: 2.3rem;
+        line-height: 150%;
+        padding: 0;
+        margin: 0;
+        text-align: left;
+        > p {
+            padding: 0;
+            margin: 0;
+            &:before {
+                content: "\201C";
+            }
+            &:after {
+                content: "\201D";
+            }
+        }
+    }
+
+    .location {
+        .img {
+            float: left;
+            max-width: 100%;
+        }
+        .info {
+            float: left;
+            margin-left: 30px;
+            text-align: left;
+            .name {font-size:2.4rem; margin-bottom: 0;}
+            .addr {font-size:1.9rem}
+            .actions {
+                margin-top: 40px;
+                min-width: 250px;
+                list-style: none;
+                padding: 0;
+                li a {
+                    display: block;
+                    background: #FFF;
+                    border-radius: 5px;
+                    line-height: 40px;
+                    padding: 0 12px;
+                    text-decoration: none;
+                    font-size: 1.7rem;
+                }
+                li {
+                    margin-top: 10px;
+                    &:first-child {
+                        margin-top: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    .social {
+        padding-bottom: 50px;
+
+        h2 {
+            margin-top: 40px;
+            font-size: 3.0rem;
+            margin-bottom: 25px;
+            padding-bottom: 0;
+            color: $red-blue;
+        }
+        ul {
+            list-style: none;
+            padding: 0;
+        }
+        li {
+            display: inline-block;
+            margin: 0 10px;
+        }
+    }
+
+    .testimonial-collection {
+        &.cmsplugin {
+            padding: 35px 0px;
+        }
+
+        cite {
+            color: $grey;
+            font-style: normal;
+            display: block;
+            margin-top: 15px;
+            font-size: 17px;
+            font-size: 1.7rem;
+
+            a {
+                color: $grey;
+            }
+        }
+
+        ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        li {
+            width: 100%;
+            box-sizing: border-box;
+            padding: 0 40px;
+            overflow: hidden;
+        }
+        @media #{$small-up} {
+            .img {
+                display: block;
+                height: 130px;
+                position: relative;
+                margin-top: 10px;
+                text-align: center;
+
+                img {
+                    display: block;
+                    border-radius: 50%;
+                    border: 5px solid white;
+                    max-width: 130px;
+                    margin: auto;
+                }
+            }
+
+            blockquote {
+                margin-left: 0px;
+                float: right;
+            }
+        }
+
+        @media #{$medium-up} {
+            .img {
+                float: left;
+                width: 130px;
+            }
+            blockquote {
+                margin-left: 30px;
+                max-width: 650px;
+            }
+        }
+    }
+}

@@ -1,0 +1,409 @@
+// Make sure the charset is set appropriately
+@charset "UTF-8";
+
+// This includes all of the foundation global elements that are needed to work with any of the other files.
+@import "settings";
+@import "normalize";
+@import "foundation/components/global";
+@import "foundation/components/grid";
+@import "foundation/components/top-bar";
+@import "foundation/components/orbit";
+
+//-----------------------------------------------------------------------------
+
+@import "forms";
+@import "cmsplugins";
+
+html {
+    font-size: 62.5%;
+}
+
+body {
+    text-align: center;
+}
+
+a {
+    color: $blue-light;
+}
+
+header {
+    @media screen and (min-width: 890px) {
+        height: 170px;
+    }
+    background: $background1;
+    .inner {
+        height: 100%;
+        position: relative;
+        @media screen and (min-width: 890px) {
+            background: url(../images/headerbg.png) 6% 100% no-repeat;
+        }
+        .logo {
+            float: left;
+        }
+        .logo {
+            float: left;
+            @media screen and (max-width: 889px) {
+                height: 45px;
+                .small {display: block;}
+                .big {display: none;}
+                img {
+                    max-height: 100%;
+                }
+            }
+            @media screen and (min-width: 890px) {
+                margin: 40px 30px 20px -14px;
+                .small {display: none;}
+                .big {display: block;}
+                img {
+                    height: 110px;
+                }
+            }
+        }
+    }
+    .top-bar {
+        ul > li > a, .title-area a {
+            font-size: 16px;
+            font-size: 1.6rem;
+            background: transparent;
+        }
+
+        .top-bar-section {
+            text-align: right;
+            > ul {
+                display: inline-block;
+
+                li {
+                    text-align: left;
+                }
+
+                li.active > a:hover {
+                    background: darken($topbar-link-bg-hover, 10);
+                    color: #FFF;
+                    &:after {
+                        border-top-color: #FFF;
+                    }
+                }
+            }
+        }
+
+        ul {
+            padding: 0;
+            background: transparent;
+        }
+
+        a {
+            text-decoration: none;
+        }
+
+        ul.left {
+            float: none !important;
+            > li {
+                margin-right: 15px;
+            }
+        }
+
+        .toggle-topbar.menu-icon {
+            text-align: right;
+            a {
+                color: $blue;
+                margin-top: 1px;
+            }
+            span {
+                text-indent: -5000px;
+                box-shadow: none;
+                -webkit-box-shadow: none;
+            }
+        }
+        @media (screen and min-width: 890px) {
+            width: 540px;
+
+            margin-top: 65px;
+            float: right;
+
+            .title-area {
+                display: none;
+            }
+
+            ul.dropdown {
+                background: $topbar-link-bg-hover;
+            }
+            .top-bar-section > ul {
+                background: transparent;
+
+                // Let's make the buttons in the menu larger
+                > li > a {
+                    line-height: 25px;
+                    padding: 8px 15px 12px 15px;
+                    &:after {
+                        top: 23px;
+                    }
+                }
+            }
+        }
+        .title.js-generated.back a:before {
+            content: "";
+            display: block;
+            width: 0;
+            height: 0;
+            border: inset 5px;
+            border-color: transparent rgba(0, 179, 225, 0.4) transparent transparent;
+            border-right-style: solid;
+            margin-left: 15px;
+            margin-top: 6.25px;
+            position: absolute;
+            left: 0;
+        }
+    }
+    #login {
+        @media (screen and min-width: 890px) {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+        }
+        @media (screen and max-width: 889px) {
+            margin: 0 0 0 51px;
+            padding: 5px 0;
+        }
+        font-size: 14px;
+        font-size: 1.4rem;
+        a {
+            text-decoration: none;
+            color: $blue;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+    &:after {
+        content: "";
+        display: block;
+        clear: both;
+    }
+}
+
+a.btn {
+    background: $baseColor;
+    color: #ffffff;
+    &.danger {
+        color: #FFF !important;
+        background-color: $highlightColor !important;
+    }
+}
+
+.alert-block {
+    margin-bottom: 1em;
+    li {
+        padding: 10px;
+        text-align: center;
+        margin-top: 1px;
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+    &.alert-danger {
+        background-color: $highlightColor;
+        color: #FFF;
+    }
+}
+
+
+
+header .inner {
+    width: 890px;
+    margin: auto;
+}
+
+#info, h1 {
+    font-size: 32px;
+    font-size: 3.2rem;
+    line-height: 36px;
+    line-height: 3.6rem;
+    padding: 60px 0;
+    color: $infoColor;
+    font-weight: 300;
+    text-align: center;
+}
+
+footer {
+    font-size: 14px;
+    font-size: 1.4rem;
+    line-height: 150%;
+    font-family: $footerFont;
+    text-align: left;
+    background: $dark-grey;
+    color: $background-color;
+
+    a {
+        color: $background-color;
+        text-decoration: none;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+
+    h2 {
+        font-size: 15px;
+        font-size: 1.5rem;
+    }
+
+    .doormat, #copyright {
+        @include grid-row();
+    }
+
+    .doormat {
+        padding-top: 30px;
+        padding-bottom: 30px;
+
+        > div {
+
+            @media #{$small-up} {
+                @include grid-column($columns: 12);
+            }
+            @media #{$medium-up} {
+                @include grid-column($columns: 6);
+            }
+        }
+    }
+
+    #footer-donate {
+        p {
+            margin-bottom: 2rem;
+        }
+    }
+
+    ul {
+        list-style: none;
+        padding: 0;
+        li {
+            line-height: 200%;
+        }
+    }
+
+    #copyright {
+        border-top: 1px solid $grey2;
+        padding: 19px 0;
+        color: $grey;
+        p {
+            @include grid-column($columns: 6);
+            padding-top: 0;
+            padding-bottom: 0;
+            line-height: 100%;
+            margin: 0;
+            &:last-child {
+                text-align: right;
+            }
+        }
+    }
+
+    .fa-circle {
+        opacity: 0.2;
+    }
+
+    a.btn {
+        background: #FFF;
+        color: $blue;
+    }
+}
+
+strong {
+    font-weight: bold;
+    color: $highlightColor;
+}
+
+#main > #content {
+    max-width: 890px;
+    margin: auto;
+    text-align: left;
+    font-size: 16px;
+    font-size: 1.6rem;
+    line-height: 150%;
+    padding: 0 10px 30px 10px;
+}
+
+#site-title {
+    padding: 0;
+    margin: 50px auto;
+}
+
+table {
+    width: 100%;
+    td, th {
+        border-bottom: 1px solid $table-border;
+        padding: 5px 7px;
+    }
+    tr:hover td {
+        background: $background-color-light;
+    }
+    .actions {
+        a {
+            text-decoration: none;
+            display: inline-block;
+            margin-right: 2rem;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+div.actions {
+    margin-top: 30px;
+    display: block;
+}
+
+// Foundation overrides
+.orbit-container {
+    .orbit-prev, .orbit-next {
+        i {
+            font-size: 54px;
+            position: relative;
+            top: -28px;
+            color: #a8b1b5;
+            &:hover {
+                color: #FFF;
+            }
+        }
+    }
+    .orbit-prev {
+        text-indent: -19px !important;
+        > span {
+            border-right: none !important;
+        }
+    }
+    .orbit-next {
+        text-indent: -19px !important;
+        > span {
+            border-left: none !important;
+        }
+    }
+}
+
+@import "frontpage";
+@import "userprofile";
+
+//-----------------------------------------------------------------------------
+
+@media (screen and max-width: 1000px) {
+    header .inner, section, footer, #info {
+        width: 100%;
+    }
+}
+
+@media (screen and max-width: 890px) {
+    #main {
+        width: 100%;
+    }
+}
+
+@media (screen and max-width: 782px) {
+    #get-notified {
+        width: 100%;
+    }
+}
+
+@media (screen and max-width: 400px) {
+    html {
+        font-size: 50%;
+    }
+}

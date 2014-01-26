@@ -3,7 +3,7 @@
 {% block bodycls %}review-overview{% endblock %}
 {% block title %}Reviews von {{ proposal.title }}{% endblock %}
 {% block content %}
-    <h1>Reviews von <a href="{% url reviews-proposal-details pk=proposal.pk %}">{{ proposal.title }}</a></h1>
+    <h1>Reviews von <a href="{% url 'reviews-proposal-details' pk=proposal.pk %}">{{ proposal.title }}</a></h1>
 
     {% if not object_list %}
     <p class="empty">Dieser Vorschlag wurde bisher nicht bewertet.</p>
@@ -14,14 +14,14 @@
             {% if proposal_version != review.proposal_version %}
             <p class="warning">{% trans "This review is based on an old version of the proposal:" %}
                 {% if review.proposal_version %}
-                    <a href="{% url reviews-version-details proposal_pk=proposal.pk pk=review.proposal_version.pk %}">{{ review.proposal_version.pub_date }}</a>
+                    <a href="{% url 'reviews-version-details' proposal_pk=proposal.pk pk=review.proposal_version.pk %}">{{ review.proposal_version.pub_date }}</a>
                 {% else %}
                     <a href="{{ proposal.get_absolute_url }}">{% trans "Original" %}</a>
                 {% endif %}</p>
             {% endif %}
             <span class="score">{{ review.rating }}</span>
             <div class="summary">{{ review.summary|markdown:"safe" }}</div>
-            <cite>-- {{ review.user|account_name }} ({{ review.pub_date }})</cite>
+            <cite>-- {{ review.user|display_name }} ({{ review.pub_date }})</cite>
         </li>
         {% endfor %}
     </ul>

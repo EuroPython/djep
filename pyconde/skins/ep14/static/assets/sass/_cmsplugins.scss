@@ -1,0 +1,36 @@
+.cmsplugin-sponsorlist {
+    padding: 50px 0;
+
+    ul {
+        list-style: none;
+        padding: 0;
+    }
+
+    li {
+        padding: 0 14px;
+        width: 140px;
+        height: 55px;
+        display: inline-block;
+        opacity: 0.3;
+        filter: url(../images/filters.svg#grayscale);
+        filter: gray; /* IE6-9 */
+        -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+        &:hover {
+            opacity: 1;
+            filter: none;
+            -webkit-filter: none;
+        }
+    }
+    a {
+        display: table-cell;
+        width: 112px;
+        height: 55px;
+        text-align: center;
+        vertical-align: middle;
+    }
+    img {
+        max-width: 112px;
+        max-height: 55px;
+        vertical-align: middle;
+    }
+}

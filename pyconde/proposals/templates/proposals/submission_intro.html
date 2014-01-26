@@ -1,10 +1,11 @@
 {% extends "proposals/base.html" %}
 {% load i18n %}
 {% block body %}
-<h1>{% trans "Submit a session" %}</h1>
-<p>Sie können mehrere Arten von Vorschlägen einreichen:</p>
+{% block title %}{% trans "Submit a proposal" %}{% endblock %}
+<p>{% trans "Please choose what type of proposal you want to submit:" %}</p>
 <ol>
-    <li>einen <a href="{% url typed_submit_proposal type='talk' %}">Vortrag</a> oder</li>
-    <li>ein <a href="{% url typed_submit_proposal type='tutorial' %}">Tutorial</a></li>
+  {% for kind in open_kinds %}
+    <li><a href="{% url 'typed_submit_proposal' type=kind.slug %}">{{ kind.name }}</a></li>
+  {% endfor %}
 </ol>
 {% endblock %}

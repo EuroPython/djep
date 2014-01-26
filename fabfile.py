@@ -5,20 +5,21 @@ from os.path import join, splitext
 from fabric.api import *
 
 if not env.get('branch'):
-    abort("Please select a config file (staging.ini | live.ini)")
-env.hosts = ['pyconde00.gocept.net', ]
-env.srv_user = 'pyconde'
+    abort("Please select a config file (staging.ini | production.ini)")
+env.hosts = ['pyep00.gocept.net', ]
+env.srv_user = 'pyep'
 env.proj_name = 'pyconde'
 env.www_root = join(env.root, 'htdocs')
-env.proj_root = join(env.root, 'pycon_de_website')
-env.pip_files = (
-    join(env.proj_root, 'requirements.txt'),
-)
+env.proj_root = join(env.root, 'djep')
 env.manage_py = join(env.proj_root, 'manage.py')
 
 
 def srv_run(cmd):
-    return sudo(cmd, user=env.srv_user)
+    return sudo("{envdirbin} {envdir} {cmd}".format(
+        envdirbin=join(env.root, 'bin', 'envdir'),
+        envdir=join(env.root, 'env'),
+        cmd=cmd
+        ), user=env.srv_user)
 
 
 def srv_open_shellfa(cmd):
@@ -56,7 +57,7 @@ def upgrade():
     build_static_files()
     compilemessages()
     restart_worker()
-    build_docs()
+    # build_docs()
 
 
 @task
@@ -64,7 +65,7 @@ def syncdb():
     """
     Executes python manage.py syncdb on the server.
     """
-    manage_py('syncdb --noinput')
+    manage_py('syncdb -v 0 --noinput')
 
 
 @task
@@ -72,7 +73,7 @@ def migrate():
     """
     Executes python manage.py migrate on the server.
     """
-    manage_py('migrate')
+    manage_py('migrate -v 0')
 
 
 @task
@@ -81,8 +82,9 @@ def update_requirements():
     Updates the project's requirements based on the requirements.txt file.
     """
     pip = join(env.root, 'bin', 'pip')
-    for reqfile in env.pip_files:
-        srv_run('%s install --use-mirrors -r %s' % (pip, reqfile))
+    requirements = join(env.proj_root, 'requirements', '{0}.txt'.format(
+        env.environment))
+    srv_run('%s install -q --use-mirrors -r %s' % (pip, requirements))
 
 
 @task
@@ -93,18 +95,6 @@ def update_proj():
     with cd(env.proj_root):
         srv_run('git pull')
         srv_run('git checkout -f %s' % env.branch)
-        srv_run('git submodule init')
-        srv_run('git submodule update')
-
-
-def _find_style_less(cmd):
-    """Helper that returns the path to style.less suitable for lessc.
-
-    cmd is either functools.partial(local, capture=True), sudo or run.
-    """
-    output = cmd('{0}/bin/python manage.py findstatic css/style.less'.format(env.root))
-    fname = output.splitlines()[1].strip()  # first line contains header
-    return '%s.{less,css}' % splitext(fname)[0]
 
 
 @task
@@ -112,22 +102,14 @@ def build_static_files():
     """
     Compiles less files into css, runs collectstatic and compress.
     """
-    with path('/srv/pyconde/local/bin', behavior="prepend"):
-        manage_py('collectstatic --noinput -v1')
-        with cd(env.root + '/htdocs/static_media/css'):
-            srv_run('/srv/pyconde/local/bin/lessc -x {0}'.format('style.{less,css}'))
-        manage_py('compress')
-
-
-@task
-def build_statics():
-    """
-    Compiles files locally.
-    """
-    less = _find_style_less(functools.partial(local, capture=True))
-    local('lessc -x %s' % less)
-    local('python manage.py collectstatic --noinput -v1 -i bootstrap -i \'*.less\'')
-    local('python manage.py compress --force')
+    with cd(env.proj_root):
+        srv_run('npm install')
+        with cd(env.proj_root + '/pyconde/skins/ep14/static/assets'):
+            srv_run('../../../../../node_modules/bower/bin/bower install')
+        with path('/srv/pyep/.gem/ruby/1.8/bin/', behavior='prepend'):
+            srv_run('./node_modules/grunt-cli/bin/grunt compass:dist')
+    manage_py('collectstatic --noinput -v1')
+    manage_py('compress --force')
 
 
 @task
@@ -135,7 +117,7 @@ def restart_worker():
     """
     Restarts the gunicorn workers managed by supervisord.
     """
-    return supervisorctl('restart pyconde')
+    return supervisorctl('restart site')
 
 
 @task

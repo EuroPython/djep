@@ -12,7 +12,7 @@ class ScheduleMenu(CMSAttachMenu):
 
     def get_nodes(self, request):
         nodes = []
-        nodes.append(NavigationNode("Schedule", reverse('schedule'), 'schedule'))
+        nodes.append(NavigationNode(_("Schedule"), reverse('schedule'), 'schedule'))
         return nodes
 
 menu_pool.register_menu(ScheduleMenu)

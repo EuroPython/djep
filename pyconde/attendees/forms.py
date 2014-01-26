@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.conf import settings
-from django.utils.translation import gettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, HTML
@@ -78,7 +78,7 @@ class TicketQuantityForm(forms.Form):
         value = self.cleaned_data['quantity']
         if value > 0:
             if self.ticket_type.available_tickets < 1:
-                raise forms.ValidationError(_('Ticket sold out.'))
+                raise forms.ValidationError(_('Tickets sold out.'))
 
             if value > self.ticket_type.available_tickets:
                 raise forms.ValidationError(_('Not enough tickets left.'))

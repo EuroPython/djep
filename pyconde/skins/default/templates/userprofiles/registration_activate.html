@@ -1,20 +1,16 @@
 {% extends "base.html" %}
-{% load i18n %}
-{% load thumbnail %}
+{% load i18n thumbnail account_tags %}
 
 {% block title %}{% trans "Registration" %}{% endblock %}
 {% block page_title %}{% trans "Registration" %}{% endblock %}
+
 {% block bodycls %}registration-activate{% endblock %}
 
 {% block content %}
-    {% if account %}
-        <p>{% trans "Hi" %} {{ account.username }}!</p>
-        <p>
-            {% blocktrans %}We activated your account. You are now able to log in. Have fun!{% endblocktrans %}
-        </p>
-    {% else %}
-        <p>
-            {% blocktrans %}The submitted activation code is invalid. Activation is not possible.{% endblocktrans %}
-        </p>
-    {% endif %}
+  {% if account %}
+    <p>{% trans "Hi" %} {{ account|addressed_as }}!</p>
+    <p>{% blocktrans %}We have activated your account. You are now able to log in. Have fun!{% endblocktrans %}</p>
+  {% else %}
+    <p>{% blocktrans %}The submitted activation code is invalid. Activation is not possible.{% endblocktrans %}</p>
+  {% endif %}
 {% endblock %}

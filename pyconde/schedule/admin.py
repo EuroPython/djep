@@ -4,6 +4,7 @@ from django import forms
 from django.contrib import admin
 from django.contrib import messages
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext
 from django.http import HttpResponse
 
 from ..proposals import models as proposal_models
@@ -83,7 +84,7 @@ class SessionAdminForm(forms.ModelForm):
 
     def clean_location(self):
         if not self.cleaned_data['location']:
-            raise forms.ValidationError(u'Der Ort muss angegeben werden.')
+            raise forms.ValidationError(ugettext('The location is mandatory.'))
         return self.cleaned_data['location']
 
 

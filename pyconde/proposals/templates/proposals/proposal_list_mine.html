@@ -2,7 +2,6 @@
 {% load i18n %}
 {% block title %}{% trans "My proposals" %}{% endblock %}
 {% block body %}
-<h1>{% trans "My proposals" %}</h1>
 {% if proposals %}
     <section>
         <h2>{% trans "... as primary speaker" %}</h2>
@@ -10,7 +9,7 @@
             <thead>
                 <tr>
                     <th>{% trans "Title" %}</th>
-                    <th>{% trans "Kind" %}</th>
+                    <th>{% trans "Type" %}</th>
                     <th>{% trans "Track" %}</th>
                     <th></th>
                 </tr>
@@ -22,8 +21,8 @@
                         <td>{{ proposal.kind.name }}</td>
                         <td>{{ proposal.track.name }}</td>
                         <td class="actions">
-                            <a class="btn" href="{% url edit_proposal proposal.pk %}?next={% url my_proposals %}"><i class="icon-edit"></i> {% trans "Edit" %}</a>
-                            <a class="btn" href="{% url cancel_proposal proposal.pk %}?next={% url my_proposals %}"><i class="icon-remove"></i> {% trans "Cancel" %}</a>
+                            <a href="{% url 'edit_proposal' proposal.pk %}?next={% url 'my_proposals' %}"><i class="fa-fw fa fa-pencil"></i> {% trans "Edit" %}</a>
+                            <a href="{% url 'cancel_proposal' proposal.pk %}?next={% url 'my_proposals' %}"><i class="fa-fw fa fa-times"></i> {% trans "Cancel" %}</a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -41,7 +40,7 @@
             <thead>
                 <tr>
                     <th>{% trans "Title" %}</th>
-                    <th>{% trans "Kind" %}</th>
+                    <th>{% trans "Type" %}</th>
                     <th>{% trans "Track" %}</th>
                     <th></th>
                 </tr>
@@ -53,7 +52,7 @@
                         <td>{{ proposal.kind.name }}</td>
                         <td>{{ proposal.track.name }}</td>
                         <td class="actions">
-                            <a class="btn" href="{% url leave_proposal proposal.pk %}?next={% url my_proposals %}"><i class="icon-remove"></i>{% trans "Leave" %}</a>
+                            <a class="btn" href="{% url 'leave_proposal' proposal.pk %}?next={% url 'my_proposals' %}"><i class="icon-remove"></i>{% trans "Leave" %}</a>
                         </td>
                     </tr>
                 {% endfor %}
@@ -61,7 +60,8 @@
         </table>
     </section>
 {% endif %}
-
-<a class="btn" href="{% url submit_proposal %}"><i class="icon-plus"></i> {% trans "Submit a session proposal " %}</a>
+<div class="actions">
+    <a class="btn" href="{% url 'submit_proposal' %}"><i class="icon-plus"></i> {% trans "Submit a session proposal " %}</a>
+</div>
 
 {% endblock %}

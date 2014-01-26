@@ -1,5 +1,4 @@
 # -*- encoding: utf-8 -*-
-import datetime
 
 from django.views import generic as generic_views
 from django.views.generic.base import TemplateResponseMixin
@@ -11,6 +10,7 @@ from django.core.urlresolvers import reverse
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
 from django.contrib.admin.views.decorators import staff_member_required
+from django.utils.timezone import now
 from django.utils.importlib import import_module
 
 from . import models, forms, utils, decorators, settings
@@ -501,7 +501,7 @@ class UpdateProposalView(TemplateResponseMixin, generic_views.View):
         # Set the fields we don't want people to be able to modify right now
         new_version.original = self.object
         new_version.creator = request.user
-        new_version.pub_date = datetime.datetime.now()
+        new_version.pub_date = now()
         new_version.conference = self.object.conference
         new_version.kind = self.object.kind
         new_version.speaker = self.object.speaker
@@ -524,7 +524,7 @@ class UpdateProposalView(TemplateResponseMixin, generic_views.View):
             return HttpResponseRedirect(reverse('reviews-proposal-details', kwargs={'pk': self.object.pk}))
         self.proposal_version = models.ProposalVersion.objects.get_latest_for(self.object)
         if not utils.is_proposal_author(request.user, self.object):
-            return create_403(_("You have to be the author of this review to access this page"))
+            return create_403(_("You have to be the author of this review in order to access this page"))
         return super(UpdateProposalView, self).dispatch(request, *args, **kwargs)
 
     def get_form_class(self):

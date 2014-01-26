@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% load i18n %}
+
+{% block title %}{% trans "Registration" %}{% endblock %}
+{% block page_title %}{% trans "Registration" %}{% endblock %}
+
+{% block content %}
+  {% if account_verification_active %}
+    <p>{% blocktrans %}Your registration was successful. We send you a e-mail including a link.<br />
+      Please click the link to activate your account. Thank you!<br />
+      <br />
+      The link is valid for {{ expiration_days }} days.{% endblocktrans %}</p>
+  {% else %}
+    <p>{% blocktrans %}Your registration was successful.{% endblocktrans %}</p>
+  {% endif %}
+{% endblock %}

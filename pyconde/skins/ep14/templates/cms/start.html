@@ -1,0 +1,9 @@
+{% extends "base.html" %}
+{% load cms_tags static %}
+{% block bodyclass %}start-tmpl {% endblock %}
+
+{% block main %}
+<div class="container">
+    {% placeholder main_content %}
+</div>
+{% endblock %}

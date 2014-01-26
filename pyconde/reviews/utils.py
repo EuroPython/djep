@@ -97,7 +97,7 @@ def send_comment_notification(comment, notify_author=False):
     else:
         subject = _("[REVIEW] %(author)s commented on \"%(title)s\"")
     msg = EmailMessage(subject=subject % {
-            'author': account_utils.get_account_name(comment.author),
+            'author': account_utils.get_display_name(comment.author),
             'title': proposal.title},
         bcc=[u.email for u in get_people_to_notify(proposal, current_user)
              if has_valid_mailaddr(u)],
@@ -129,7 +129,7 @@ def send_proposal_update_notification(version, notify_author=False):
     else:
         subject = _("[REVIEW] %(author)s updated %(title)s")
     msg = EmailMessage(subject=subject % {
-            'author': account_utils.get_account_name(version.creator),
+            'author': account_utils.get_display_name(version.creator),
             'title': proposal.title},
         bcc=[u.email for u in get_people_to_notify(proposal, current_user)],
         body=body)

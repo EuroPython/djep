@@ -1,4 +1,4 @@
-{% load account_tags %}{% if hide_author %}Es wurde{% else %}{{ comment.author|account_name }} hat{% endif %} ein neues Kommentar zum Session-Vorschlag "{{ proposal.title }}"
+{% load account_tags %}{% if hide_author %}Es wurde{% else %}{{ comment.author|display_name }} hat{% endif %} ein neues Kommentar zum Session-Vorschlag "{{ proposal.title }}"
 angelegt:
 
 -------------------

@@ -43,11 +43,11 @@
                     {% block user_menu %}
                       {% if user.is_authenticated %}
                         {% show_menu_below_id "proposals" %}
-                        <li><a href="{% url userprofiles_profile_change %}">Mein Konto</a></li>
-                        <li><a href="{% url auth_logout %}?next={{ request.path }}">Abmelden</a></li>
+                        <li><a href="{% url 'userprofiles_profile_change' %}">Mein Konto</a></li>
+                        <li><a href="{% url 'auth_logout' %}?next={{ request.path }}">Abmelden</a></li>
                       {% else %}
-                        <li><a href="{% url auth_login %}?next={{ request.path }}">Anmelden</a></li>
-                        <li><a href="{% url userprofiles_registration %}">Konto anlegen</a></li>
+                        <li><a href="{% url 'auth_login' %}?next={{ request.path }}">Anmelden</a></li>
+                        <li><a href="{% url 'userprofiles_registration' %}">Konto anlegen</a></li>
                     {% endif %}
                   {% endblock %}
                   </ul>

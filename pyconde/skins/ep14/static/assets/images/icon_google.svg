@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 16.0.4, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd">
+<svg version="1.1" id="Ebene_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 width="88.926px" height="93.935px" viewBox="0 0 88.926 93.935" enable-background="new 0 0 88.926 93.935" xml:space="preserve">
+<rect y="-0.363" opacity="0" width="88.926" height="93.935"/>
+<g>
+	<defs>
+		<rect id="SVGID_17_" width="88.926" height="93.935"/>
+	</defs>
+	<clipPath id="SVGID_2_">
+		<use xlink:href="#SVGID_17_"  overflow="visible"/>
+	</clipPath>
+	<g opacity="0.15" clip-path="url(#SVGID_2_)" enable-background="new    ">
+		<g>
+			<defs>
+				<rect id="SVGID_19_" y="-0.429" width="89" height="94"/>
+			</defs>
+			<clipPath id="SVGID_4_">
+				<use xlink:href="#SVGID_19_"  overflow="visible"/>
+			</clipPath>
+			<g clip-path="url(#SVGID_4_)">
+				<defs>
+					<rect id="SVGID_21_" y="-0.429" width="89" height="94"/>
+				</defs>
+				<clipPath id="SVGID_6_">
+					<use xlink:href="#SVGID_21_"  overflow="visible"/>
+				</clipPath>
+				<g clip-path="url(#SVGID_6_)">
+					<defs>
+						<rect id="SVGID_23_" y="-0.429" width="89" height="94"/>
+					</defs>
+					<clipPath id="SVGID_8_">
+						<use xlink:href="#SVGID_23_"  overflow="visible"/>
+					</clipPath>
+					<path clip-path="url(#SVGID_8_)" fill-rule="evenodd" clip-rule="evenodd" fill="#00A0D9" d="M42.57,93.571
+						c0,0-9.59-18.732-7.523-23.304c2.066-4.573,6.933-1.107,20.65-2.877c13.72-1.77,30.168-6.785,32.971-25.591
+						C91.473,22.994,76.424,0.797,45.963-0.383C15.502-1.563,2.507,20.406,0.676,32.065C-1.156,43.727-2.497,69.973,42.57,93.571"/>
+				</g>
+			</g>
+		</g>
+	</g>
+</g>
+<path fill="#0098B3" d="M51.34,24.841l-1.959,1.146h-1.959c1.436,0.899,2.162,2.655,2.162,4.281c0,3.845-3.251,4.135-3.251,6.051
+	c0,1.872,4.354,2.612,4.354,6.675c0,1.669-0.798,3.019-2.032,4.093c-1.668,1.437-3.946,1.9-6.094,1.9
+	c-2.714,0-6.632-1.161-6.632-4.527c0-0.682,0.231-1.35,0.536-1.959c1.292-2.612,5.326-3.279,7.924-3.353
+	c-0.479-0.623-0.929-1.349-0.929-2.162c0-0.479,0.174-0.798,0.319-1.247c-0.349,0.043-0.682,0.072-1.016,0.072
+	c-2.815,0-5.254-2.075-5.254-4.992c0-2.757,2.134-5.107,4.775-5.688c0.885-0.188,1.799-0.29,2.713-0.29H51.34z M45.26,40.049
+	c-0.247-0.029-0.479-0.029-0.727-0.029c-2.379,0-5.92,0.755-5.92,3.772c0,2.786,3.135,3.86,5.456,3.86
+	c2.162,0,4.571-0.871,4.571-3.41C48.641,42.211,46.739,41.079,45.26,40.049z M43.024,25.886c-1.901,0-2.829,1.684-2.829,3.396
+	c0,2.206,1.451,5.659,4.033,5.659c1.988,0,2.67-1.437,2.67-3.207C46.898,29.528,45.709,25.886,43.024,25.886z M60.075,30.413H56.36
+	v3.715h-1.857v-3.715h-3.715v-1.857h3.715v-3.715h1.857v3.715h3.715V30.413z"/>
+</svg>

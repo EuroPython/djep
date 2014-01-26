@@ -1,0 +1,177 @@
+fieldset {
+    background: $background1;
+    padding: 95px 35px 35px 35px;
+    margin-bottom: 20px;
+    position: relative;
+    border: none;
+}
+
+legend {
+    color: $infoColor;
+    display: block;
+    text-align: left;
+    border-radius: 10px;
+    position: absolute;
+    top: 35px;
+    left: 35px;
+    font-weight: 600;
+}
+
+label {
+    font-weight: normal;
+}
+
+.form-horizontal {
+    .form-group {
+        width: 100%;
+        overflow: hidden;
+        padding: 5px 0;
+        margin-bottom: 12px;
+    }
+    label,
+    input,
+    select {
+        text-align: left;
+    }
+    label {
+        @media #{$medium-up} {
+            float: left;
+            width: 18%;
+        }
+        padding-top: 8px;
+        &.checkbox {
+            width: 100%;
+            display: block;
+            float: none;
+            > input {
+                display: inline-block;
+                margin-right: 10px;
+            }
+        }
+    }
+    .checkbox label {
+        width: 100%;
+        display: block;
+        float: none;
+        > input {
+            display: inline-block;
+            margin-right: 10px;
+        }
+    }
+
+    .checkbox .help-block {
+        display: block;
+    }
+
+    select {
+        background-color: $background-color;
+    }
+    .controls {
+        @media #{$medium-up} {
+            float: left;
+            width: 80%;
+            margin-left: 2%;
+        }
+        input[type=text],
+        input[type=email],
+        input[type=password],
+        select,
+        textarea {
+            box-sizing: border-box;
+            padding: 8px 1%;
+            line-height: 150%;
+            font-size: 16px;
+            font-size: 1.6rem;
+            border: 1px solid $inputBorder;
+            border-radius: 5px;
+            &:focus {
+                border-color: $baseColor;
+                outline-color: lighten($baseColor, 30);
+            }
+        }
+        input[type=text],
+        input[type=email],
+        input[type=password],
+        select,
+        textarea {
+            width: 100%;
+            @media #{$medium-up} {
+                width: 50%;
+                display: inline-block;
+            }
+        }
+        .help-block {
+            //display: inline-block;
+            margin-left: 10px;
+            &.error {
+                color: $highlightColor;
+            }
+        }
+        p[id^="hint_"] {
+            display: block;
+            margin-left: 0;
+            margin-top: 5px;
+            font-size: 90%;
+        }
+    }
+}
+
+.file-outer-wrapper {
+    display: inline-block;
+
+    .input-wrapper {
+        float: left;
+        display: inline-block;
+        overflow: hidden;
+        position: relative;
+    }
+    .status {
+        display: inline-block;
+        padding: 15px 10px;
+        font-size: 80%;
+    }
+    input {
+        display: block;
+        opacity: 0;
+        min-width: 100%;
+        min-height: 100%;
+        position: absolute;
+        top: 0;
+        right: 0;
+        filter: alpha(opacity=0);
+    }
+}
+
+.form-group.has-error .controls input,
+.form-group.has-error .controls select,
+.form-group.has-error .controls textarea {
+    border-color: $inputBorderErr;
+}
+
+.form-actions {
+    text-align: right;
+    ul {
+        list-style: none;
+    }
+}
+
+.btn, .btn-primary {
+    border-radius: 5px;
+    padding: 8px 20px 12px 20px;
+    font-size: 1.6rem;
+    border: none;
+    text-decoration: none;
+    display: inline-block;
+    &:hover {
+        background: $primaryBtnBg;
+    }
+}
+.btn-primary {
+    background: $primaryBtnBg;
+    color: $primaryBtnFg;
+}
+
+.ui-menu-item a {
+    text-align: left;
+    font-size: 1.3rem;
+}

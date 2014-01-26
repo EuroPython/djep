@@ -1,12 +1,12 @@
 # -*- coding: utf-8 -*-
-from datetime import datetime
 import decimal
 import uuid
 
 from django.conf import settings
 from django.contrib.auth.models import User
 from django.db import models
-from django.utils.translation import gettext_lazy as _
+from django.utils.timezone import now
+from django.utils.translation import ugettext_lazy as _
 
 
 PURCHASE_STATES = (
@@ -46,7 +46,7 @@ class VoucherType(models.Model):
 
 class VoucherManager(models.Manager):
     def valid(self):
-        return self.filter(date_valid__gte=datetime.now, is_used=False)
+        return self.filter(date_valid__gte=now(), is_used=False)
 
 
 class Voucher(models.Model):
@@ -78,8 +78,8 @@ class Voucher(models.Model):
 
 class TicketTypeManager(models.Manager):
     def available(self):
-        return self.filter(date_valid_from__lte=datetime.now,
-                           date_valid_to__gte=datetime.now, is_active=True)
+        return self.filter(date_valid_from__lte=now(),
+                           date_valid_to__gte=now(), is_active=True)
 
     def get_next_product_number(self):
         """Returns the next product number."""
@@ -99,7 +99,7 @@ class TicketType(models.Model):
     fee = models.FloatField(_('Fee'), default=0)
 
     max_purchases = models.PositiveIntegerField(
-        _('Max purchases'),
+        _('Max. purchases'),
         default=0, help_text=_('0 means no limit'))
 
     is_active = models.BooleanField(_('Is active'), default=False)
@@ -158,7 +158,7 @@ class Customer(models.Model):
     email = models.EmailField(_('E-Mail'), max_length=250, blank=False)
 
     date_added = models.DateTimeField(
-        _('Date (added)'), blank=False, default=datetime.now)
+        _('Date (added)'), blank=False, default=now)
     is_exported = models.BooleanField(_('Is exported'), default=False)
 
     objects = CustomerManager()
@@ -200,7 +200,7 @@ class Purchase(models.Model):
     vat_id = models.CharField(_('VAT-ID'), max_length=16, blank=True)
 
     date_added = models.DateTimeField(
-        _('Date (added)'), blank=False, default=datetime.now)
+        _('Date (added)'), blank=False, default=now)
     state = models.CharField(
         _('Status'), max_length=25, choices=PURCHASE_STATES,
         default=PURCHASE_STATES[0][0], blank=False)
@@ -254,8 +254,8 @@ class TShirtSize(models.Model):
     sort = models.IntegerField(default=999, verbose_name=_('Sort order'))
 
     class Meta:
-        verbose_name = _(u'T-Shirt Size')
-        verbose_name_plural = _(u'T-Shirt Sizes')
+        verbose_name = _('T-Shirt size')
+        verbose_name_plural = _('T-Shirt sizes')
         ordering = ('sort',)
 
     def __unicode__(self):
@@ -273,7 +273,7 @@ class Ticket(models.Model):
                                   verbose_name=_('Desired T-Shirt size'))
 
     date_added = models.DateTimeField(
-        _('Date (added)'), blank=False, default=datetime.now)
+        _('Date (added)'), blank=False, default=now)
     voucher = models.ForeignKey(
         'Voucher', verbose_name=_('Voucher'), blank=True, null=True)
 

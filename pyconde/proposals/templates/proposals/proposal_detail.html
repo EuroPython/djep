@@ -3,8 +3,6 @@
 {% block title %}{% trans "Proposal" %}: {{ proposal.title }}{% endblock %}
 {% block body %}
 <article class="proposal">
-<h1>{% trans "Proposal" %}: {{ proposal.title }}{% if proposal.track %} ({{ proposal.track.name }}){% endif %}</h1>
-
 <div class="meta">
 {% if current_conference.anonymize_proposal_author %}
 {% blocktrans with submission_date=proposal.submission_date|date:"DATE_FORMAT" %}
@@ -12,7 +10,7 @@ This proposal was submitted on <span class="submission-date">{{ submission_date 
 {% endblocktrans %}
 {% else %}
 {% blocktrans with speaker_url=proposal.speaker.get_absolute_url speaker=proposal.speaker submission_date=proposal.submission_date|date:"DATE_FORMAT" %}
-<a class="speaker user" href="{{ speaker_url }}">{{ speaker }}</a> submitted this proposal at <span class="submission-date">{{ submission_date }}</span>.
+<a class="speaker user" href="{{ speaker_url }}">{{ speaker }}</a> submitted this proposal on <span class="submission-date">{{ submission_date }}</span>.
 {% endblocktrans %}
 {% endif %}
 {% if proposal.tags %}
@@ -27,13 +25,13 @@ This proposal was submitted on <span class="submission-date">{{ submission_date 
 <div class="actions">
     {% if proposal.kind.accepts_proposals %}
         {% if can_leave %}
-        <a class="btn" href="{% url leave_proposal pk=proposal.pk %}"><i class="icon-remove"></i> {% trans "Leave" %}</a>
+        <a class="btn" href="{% url 'leave_proposal' pk=proposal.pk %}"><i class="icon-remove"></i> {% trans "Leave" %}</a>
         {% endif %}
         {% if can_edit %}
-        <a class="btn" href="{% url edit_proposal pk=proposal.pk %}"><i class="icon-edit"></i> {% trans "Edit" %}</a>
+        <a class="btn" href="{% url 'edit_proposal' pk=proposal.pk %}"><i class="icon-edit"></i> {% trans "Edit" %}</a>
         {% endif %}
         {% if can_delete %}
-        <a class="btn" href="{% url cancel_proposal pk=proposal.pk %}"><i class="icon-remove"></i> {% trans "Delete" %}</a>
+        <a class="btn" href="{% url 'cancel_proposal' pk=proposal.pk %}"><i class="icon-remove"></i> {% trans "Delete" %}</a>
         {% endif %}
     {% endif %}
 </div>

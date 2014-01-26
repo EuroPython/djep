@@ -1,0 +1,12 @@
+{% load cms_tags %}
+{% if instance.child_plugin_instances %}
+<div class="cmsplugin testimonial-collection">
+<ul data-orbit data-options="bullets:false;slide_number:false" class="orbit-list">
+    {% for child in instance.child_plugin_instances %}
+    <li>
+        {% render_plugin child %}
+    </li>
+    {% endfor %}
+</ul>
+</div>
+{% endif %}

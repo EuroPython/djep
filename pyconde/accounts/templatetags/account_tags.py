@@ -9,12 +9,13 @@ register = Library()
 
 
 @register.filter
-def account_name(user):
-    """
-    Helper filter for rendering a user object independently of the
-    unicode-version of that object.
-    """
-    return utils.get_account_name(user)
+def display_name(user):
+    return utils.get_display_name(user)
+
+
+@register.filter
+def addressed_as(user):
+    return utils.get_addressed_as(user)
 
 
 @register.inclusion_tag('accounts/tags/avatar.html')
@@ -24,6 +25,8 @@ def avatar(user, width=80):
     an avatar attached to his profile, gravatar will be used if enabled in
     the settings.
     """
+    if user is None:
+        raise ValueError("A user or profile has to be passed as argument")
     profile = None
     email = None
     if isinstance(user, models.Profile):

@@ -1,6 +1,6 @@
 {% load thumbnail account_tags %}
 <div class="speaker-box">
-    <a href="{% url account_profile uid=user.pk %}">
+    <a href="{% url 'account_profile' uid=user.pk %}">
     {% avatar profile %}
     <span class="name">{{ name }}</span>
     </a>

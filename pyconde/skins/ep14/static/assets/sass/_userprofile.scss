@@ -1,0 +1,29 @@
+body.profilepage {
+    .profile {
+        @include grid-row;
+    }
+
+    img.avatar {
+        border: 3px solid $background1;
+        padding: 2px;
+    }
+
+    div.misc {
+        @include grid-column($columns: 3);
+    }
+
+    .info {
+        @include grid-column($columns: 9);
+        p:first-child {
+            margin-top: 0;
+        }
+    }
+
+    dt {
+        font-weight: bold;
+    }
+
+    dd {
+        margin: 0;
+    }
+}

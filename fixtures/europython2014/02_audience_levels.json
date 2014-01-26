@@ -1,0 +1,32 @@
+[
+{
+    "pk": 1, 
+    "model": "conference.audiencelevel", 
+    "fields": {
+        "conference": 1, 
+        "level": 1, 
+        "name": "Novice", 
+        "slug": "novice"
+    }
+},
+{
+    "pk": 2, 
+    "model": "conference.audiencelevel", 
+    "fields": {
+        "conference": 1, 
+        "level": 2, 
+        "name": "Advanced", 
+        "slug": "advanced"
+    }
+},
+{
+    "pk": 3, 
+    "model": "conference.audiencelevel", 
+    "fields": {
+        "conference": 1, 
+        "level": 3, 
+        "name": "Expert", 
+        "slug": "expert"
+    }
+}
+]

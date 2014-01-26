@@ -1,26 +1,22 @@
 {% extends "base.html" %}
 {% load crispy_forms_tags i18n %}
 
-{% block title %}Profil ändern{% endblock %}
-{% block page_title %}Profil ändern{% endblock %}
+{% block title %}{% trans "Change profile" %}{% endblock %}
+{% block page_title %}Change profile{% endblock %}
 
 {% block content %}
-    {% url userprofiles_email_change as change_email_url %}
-    {% if request.user.email %}
-    <p>
-        Deine aktuelle E-Mail-Adresse lautet <em>{{ request.user.email }}</em>,<br />
-        <a href="{{ change_email_url }}">um deine E-Mail-Adresse zu ändern, klicke bitte hier</a>.
-    </p>
-    {% else %}
-        <p>{% blocktrans with url=change_email_url %}You haven't set an e-mail address for notifications yet. To do so click <a href="{{ url }}">here</a>.{% endblocktrans %}</p>
-    {% endif %}
-    {% if not social_auth.associated %}
-    <p>
-        Um dein Passwort zu ändern, <a href="{% url auth_password_change %}">klicke bitte hier</a>.
-    </p>
-    {% else %}
-        <p>{% blocktrans with provider=social_auth.associated.0.provider.title %}Your account is based on the data provided by your {{ provider }} account.{% endblocktrans %}</p>
-    {% endif %}
+  {% url 'userprofiles_email_change' as change_email_url %}
+  {% if request.user.email %}
+    <p>{% blocktrans with email=request.user.email %}Your current e-mail address is <em>{{ email }}</em>. <a href="{{ change_email_url }}">Change</a>.{% endblocktrans %}</p>
+  {% else %}
+    <p>{% blocktrans with url=change_email_url %}You haven't set an e-mail address for notifications yet. To do so click <a href="{{ url }}">here</a>.{% endblocktrans %}</p>
+  {% endif %}
+  {% if not social_auth.associated %}
+    {% url 'auth_password_change' as auth_password_change_url %}
+    <p>{% blocktrans %}<a href="{{ auth_password_change_url }}">Change your password</a>.{% endblocktrans %}</p>
+  {% else %}
+    <p>{% blocktrans with provider=social_auth.associated.0.provider.title %}Your account is based on the data provided by your {{ provider }} account.{% endblocktrans %}</p>
+  {% endif %}
 
-    {% crispy form %}
+  {% crispy form %}
 {% endblock %}

@@ -1,9 +1,9 @@
-{% load thumbnail gravatar %}
+{% load thumbnail gravatar static %}
 {% if profile.avatar %}
     <img class="avatar" src="{% thumbnail profile.avatar avatar_dimensions crop %}" alt="" style="width: {{ width }}px; height: {{ width }}px" />
 {% else %}
     {% if not use_gravatar %}
-        <img class="avatar gravatar" src="{{ STATIC_URL }}images/noavatar{{ width }}.png" alt="" style="width: {{ width }}px; height: {{ width }}px"/>
+        <img class="avatar gravatar" src="{% static "assets/images/noavatar80.png" %}" alt="" style="width: {{ width }}px; height: {{ width }}px"/>
     {% else %}
         <img class="avatar default" src="{% gravatar_url email width %}" alt="" style="width: {{ width }}px; height: {{ width }}px" />
     {% endif %}

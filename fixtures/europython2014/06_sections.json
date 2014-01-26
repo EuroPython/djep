@@ -1,0 +1,41 @@
+[
+{
+    "pk": 1, 
+    "model": "conference.section", 
+    "fields": {
+        "conference": 1, 
+        "name": "Talk", 
+        "end_date": "2014-07-25", 
+        "order": 1, 
+        "start_date": "2014-07-22", 
+        "slug": "", 
+        "description": ""
+    }
+},
+{
+    "pk": 2, 
+    "model": "conference.section", 
+    "fields": {
+        "conference": 1, 
+        "name": "Training", 
+        "end_date": "2014-07-25", 
+        "order": 2, 
+        "start_date": "2014-07-22", 
+        "slug": "", 
+        "description": ""
+    }
+},
+{
+    "pk": 3, 
+    "model": "conference.section", 
+    "fields": {
+        "conference": 1, 
+        "name": "Poster", 
+        "end_date": "2014-07-25", 
+        "order": 3, 
+        "start_date": "2014-07-25", 
+        "slug": "", 
+        "description": ""
+    }
+}
+]
