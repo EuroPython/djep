@@ -473,6 +473,10 @@ class Base(Configuration):
         },
     })
 
+    LOCALE_PATHS = (
+        os.path.join(BASE_DIR, PROJECT_NAME, 'locale'),
+    )
+
 
 class Dev(Base):
     """
