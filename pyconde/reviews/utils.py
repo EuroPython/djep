@@ -1,16 +1,16 @@
 import tablib
 import logging
-from tablib.compat import csv, StringIO
 import re
 
-from django.core.mail import EmailMessage
-from django.template.loader import render_to_string
-from django.contrib.sites.models import Site
-from django.core.urlresolvers import reverse
-from django.utils.translation import ugettext_lazy as _
-from django.core.cache import cache
 from django.contrib.auth import models as auth_models
+from django.contrib.contenttypes.models import ContentType
+from django.contrib.sites.models import Site
+from django.core.cache import cache
+from django.core.mail import EmailMessage
+from django.core.urlresolvers import reverse
 from django.db.models import Q
+from django.template.loader import render_to_string
+from django.utils.translation import ugettext_lazy as _
 
 from pyconde.conference import models as conference_models
 from pyconde.accounts import utils as account_utils
@@ -26,7 +26,9 @@ def can_review_proposal(user, proposal=None, reset_cache=False):
     if user.is_anonymous() or not hasattr(user, 'pk'):
         return False
     if reset_cache or reviewer_pks is None:
-        perm = auth_models.Permission.objects.get(codename='add_review')
+        from .models import Review
+        review_ct = ContentType.objects.get_for_model(Review)
+        perm = auth_models.Permission.objects.get(content_type_id=review_ct.pk, codename='add_review')
         reviewer_pks = set(u['pk'] for u in auth_models.User.objects.filter(Q(is_superuser=True) | Q(user_permissions=perm) | Q(groups__permissions=perm)).values('pk'))
         cache.set(cache_key, reviewer_pks)
         logger.debug("reviewer_pks cache has been rebuilt")
