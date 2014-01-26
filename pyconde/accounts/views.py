@@ -1,13 +1,16 @@
-from django.views import generic as generic_views
 import json
-from django.http import HttpResponse, HttpResponseRedirect
-from django.contrib.auth import models as auth_models
+
 from django.conf import settings
-from django.db.models import Q
+from django.contrib import messages
+from django.contrib.auth import models as auth_models
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
+from django.utils.translation import ugettext_lazy as _
+from django.views import generic as generic_views
 
 from userprofiles.contrib.emailverification.models import EmailVerification
 from userprofiles.contrib.emailverification.views import EmailChangeView as BaseEmailChangeView
+from userprofiles.contrib.profiles.views import ProfileChangeView as BaseProfileChangeView
 
 from . import forms
 from . import models
@@ -96,3 +99,9 @@ class LoginEmailRequestView(generic_views.FormView):
 
 class EmailChangeView(BaseEmailChangeView):
     form_class = forms.ChangeEmailForm
+
+
+class ProfileChangeView(BaseProfileChangeView):
+    def form_invalid(self, form):
+        messages.error(self.request, _('An error occurred while saving the form.'))
+        return super(ProfileChangeView, self).form_invalid(form)
