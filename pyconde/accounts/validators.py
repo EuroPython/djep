@@ -27,18 +27,20 @@ def twitter_username(value):
 def avatar_dimension(value):
     if value and (AVATAR_MIN_DIMENSION or AVATAR_MAX_DIMENSION):
         try:
-            size = [value.width, value.height]
+            size = (value.width, value.height)
         except Exception:
             raise ValidationError(_("It was not possible to determine the "
                                     "avatar dimensions."))
-        if AVATAR_MIN_DIMENSION and size < list(AVATAR_MIN_DIMENSION):
+        if AVATAR_MIN_DIMENSION and (size[0] < AVATAR_MIN_DIMENSION[0] or
+                                     size[1] < AVATAR_MIN_DIMENSION[1]):
             raise ValidationError(_(
                 'Minimum avatar size is %(min_w)dx%(min_h)d px. Yours is %(yours_w)dx%(yours_h)d px') % {
                     'min_w': AVATAR_MIN_DIMENSION[0],
                     'min_h': AVATAR_MIN_DIMENSION[1],
                     'yours_w': size[0],
                     'yours_h': size[1]})
-        if AVATAR_MAX_DIMENSION and size > list(AVATAR_MAX_DIMENSION):
+        if AVATAR_MAX_DIMENSION and (size[0] > AVATAR_MAX_DIMENSION[0] or
+                                     size[1] > AVATAR_MAX_DIMENSION[1]):
             raise ValidationError(_(
                 'Maximum avatar size is %(max_w)dx%(max_h)d px. Yours is %(yours_w)dx%(yours_h)d px') % {
                     'max_w': AVATAR_MAX_DIMENSION[0],
