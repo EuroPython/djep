@@ -2,9 +2,7 @@
 {% if instance.child_plugin_instances %}
     <div class="cmsplugin news-collection">
         {% for child in instance.child_plugin_instances %}
-            <article>
-                {% render_plugin child %}
-            </article>
+            {% render_plugin child %}
         {% endfor %}
     </div>
 {% endif %}

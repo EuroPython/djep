@@ -13,7 +13,6 @@ class CMSNewsItemPlugin(CMSPluginBase):
     model = models.NewsItemPlugin
     name = _('News item')
     render_template = "news/plugins/news_item.html"
-    allow_children = True
 
 
 class CMSNewsCollectionPlugin(CMSPluginBase):

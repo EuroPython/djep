@@ -7,15 +7,17 @@ from django.utils.translation import ugettext_lazy as _
 
 from cms.utils.page_resolver import get_page_queryset
 
+from pyconde.conference.models import current_conference
+
 from .models import NewsItemPlugin
 
 
 class LatestNewsItemsFeed(Feed):
     feed_type = Atom1Feed
 
-    title = _("EuroPython 2014 News")
+    title = current_conference().title
     link = "/news/"
-    description = _("Latest news from EuroPython 2014")
+    description = _("Latest news from %(conference_title)s") % {'conference_title': title}
 
     def __call__(self, request, *args, **kwargs):
         self.request = request
@@ -30,17 +32,10 @@ class LatestNewsItemsFeed(Feed):
         return item.title
 
     def item_description(self, item):
-        # TODO: We should do some crazy stuff here
-        # return item.render_plugin()
-        return ""
+        return item.description
 
-
-    # item_link = link
     def item_link(self, item):
-        ilink = item.get_absolute_url()
-        if ilink is None:
-            ilink = self.link
-        return ilink
+        return item.link or item.get_absolute_url() or self.link
 
     def item_pubdate(self, item):
         return item.publish_date
