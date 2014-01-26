@@ -369,6 +369,12 @@ class Base(Configuration):
 
     ###########################################################################
     #
+    # Review settings
+    #
+    REVIEWER_APPLICATION_OPEN = values.BooleanValue(False)
+
+    ###########################################################################
+    #
     # Search configuration
     #    If no other search backend is specified, Whoosh is used to make the setup
     #    as simple as possible. In production we will be using a Lucene-based

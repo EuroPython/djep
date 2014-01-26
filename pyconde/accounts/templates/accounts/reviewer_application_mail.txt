@@ -1,0 +1,7 @@
+{% load i18n %}{% blocktrans %}Hello {{ receiver }},
+
+the user {{ applicant_username }} ({{ applicant_display_name }}) requested to become a reviewer. You can visit {{ reviewer_list_url }} to process the request.
+
+Thank you very much!
+The {{ conference_title }} team
+{% endblocktrans %}

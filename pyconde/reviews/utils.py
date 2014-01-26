@@ -20,15 +20,19 @@ EMAIL_REGEX = re.compile(r"[^@]+@[^@]+\.[^@]+")
 logger = logging.getLogger(__name__)
 
 
+def get_review_permission():
+    from .models import Review
+    review_ct = ContentType.objects.get_for_model(Review)
+    return auth_models.Permission.objects.get(content_type_id=review_ct.pk, codename='add_review')
+
+
 def can_review_proposal(user, proposal=None, reset_cache=False):
     cache_key = 'reviewer_pks'
     reviewer_pks = cache.get(cache_key)
     if user.is_anonymous() or not hasattr(user, 'pk'):
         return False
     if reset_cache or reviewer_pks is None:
-        from .models import Review
-        review_ct = ContentType.objects.get_for_model(Review)
-        perm = auth_models.Permission.objects.get(content_type_id=review_ct.pk, codename='add_review')
+        perm = get_review_permission()
         reviewer_pks = set(u['pk'] for u in auth_models.User.objects.filter(Q(is_superuser=True) | Q(user_permissions=perm) | Q(groups__permissions=perm)).values('pk'))
         cache.set(cache_key, reviewer_pks)
         logger.debug("reviewer_pks cache has been rebuilt")
