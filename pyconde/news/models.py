@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+from django.conf import settings
 from django.db import models
+from django.utils import dateformat
 from django.utils.translation import ugettext_lazy as _
 
 from cms.models import CMSPlugin, Page
@@ -22,6 +24,8 @@ class NewsItemPlugin(CMSPlugin):
         null=True, help_text=_("A link to a page has priority over a text link."))
 
     def __unicode__(self):
+        if self.publish_date:
+            return '%s (%s)' % (self.title, dateformat.format(self.publish_date, settings.DATETIME_FORMAT))
         return self.title
 
     def get_absolute_url(self):
