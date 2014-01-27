@@ -1,4 +1,4 @@
-{% load cms_tags sekizai_tags menu_tags compress i18n static %}
+{% load cms_tags sekizai_tags menu_tags compress i18n static statici18n %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -133,7 +133,11 @@
         <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
         {% render_block "js" %}
         {% render_block "js_external" %}
+        {% if debug %}
         <script src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
+        {% else %}
+        <script type="text/javascript" src="{% statici18n LANGUAGE_CODE %}"></script>
+        {% endif %}
         {% compress js %}
             <script type="text/javascript" src="{% static "assets/bower_components/foundation/js/foundation/foundation.js"%}"></script>
             <script type="text/javascript" src="{% static "assets/bower_components/foundation/js/foundation/foundation.topbar.js"%}"></script>

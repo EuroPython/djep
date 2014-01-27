@@ -100,6 +100,7 @@ class Base(Configuration):
         'django_gravatar',
         'social_auth',
         'gunicorn',
+        'statici18n',
 
         'cms.plugins.inherit',
         'cms.plugins.googlemap',
@@ -212,6 +213,8 @@ class Base(Configuration):
     )
 
     STATICFILES_DIRS = values.ListValue()
+
+    STATICI18N_ROOT = os.path.join(BASE_DIR, PROJECT_NAME, "core", "static")
 
     COMPRESS_CSS_FILTERS = (
         'compressor.filters.css_default.CssAbsoluteFilter',
