@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-26 12:53+0100\n"
+"POT-Creation-Date: 2014-01-27 23:25+0100\n"
 "PO-Revision-Date: 2013-12-21 21:30+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -763,39 +763,23 @@ msgstr ""
 "Geschäftsbedingungen. Diese sind unter folgender URL nachzulesen:"
 
 #: attendees/templates/attendees/mail_purchase_completed.html:30
-msgid ""
-"\n"
-"During the next couple of days you will receive an invoice via e-mail. "
-"Please\n"
-"send confirmation for your money transfer via e-mail to\n"
-"daniel.szoska@python-verband.org, via fax to +49 (0)3342 2119995 or show it "
-"to\n"
-"us on-site. Payment at the registration desk is only possible in CASH.\n"
-"Unfortunately, we can't accept EC- or credit cards.\n"
-"\n"
-"Conference material will be handed out at the conference.\n"
-msgstr ""
-"\n"
-"Während der nächsten Tage wirst du eine Rechnung via E-Mail erhalten. Bitte\n"
-"seine eine Überweisungsbeleg via E-Mail and daniel.szoska@python-verband."
-"org,\n"
-"via Fax an +49 (0)3342 2119995 oder zeige es beim Check-in bei der "
-"Konferenz\n"
-"vor. Eine Bezahlung vor Ort ist ausschließlich in BAR möglich. Wir können\n"
-"keine EC- oder Kreditkarten akzeptieren!\n"
-"\n"
-"Konferenzmaterial wird beim Check-in verteilt.\n"
+msgid "During the next couple of days you will receive an invoice via e-mail."
+msgstr "Während der nächsten Tage wirst du eine Rechnung via E-Mail erhalten."
 
-#: attendees/templates/attendees/mail_purchase_completed.html:40
+#: attendees/templates/attendees/mail_purchase_completed.html:32
 msgid "If you have any problems with the payment, please contact us ASAP!"
 msgstr ""
 "Bei Problemen während des Bezahlvorgangs bitte schnellstmöglich melden!"
 
-#: attendees/templates/attendees/mail_purchase_completed.html:43
+#: attendees/templates/attendees/mail_purchase_completed.html:34
 msgid ""
 "As soon as your purchase has been processed you will receive another e-mail."
 msgstr ""
 "Sobald die Buchung abgeschlossen wurde wirst du eine weitere E-Mail erhalten."
+
+#: attendees/templates/attendees/mail_purchase_completed.html:37
+msgid "Conference material will be handed out at the conference."
+msgstr "Konferenzmaterial wird beim Check-in verteilt."
 
 #: attendees/templates/attendees/mail_signature.txt:1
 #, python-format
