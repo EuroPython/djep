@@ -133,7 +133,7 @@
         <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
         {% render_block "js" %}
         {% render_block "js_external" %}
-        {% if not debug %}
+        {% if debug %}
             <script src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
         {% else %}
             {# We have to configure the URLs statically because django-compressor operates offline. #}
