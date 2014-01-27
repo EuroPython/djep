@@ -9,12 +9,14 @@ from django.conf import settings
 from django.core.mail import EmailMessage
 from django.utils.translation import ugettext as _
 
+from invoicegenerator import generate_invoice
+
 from pyconde.celery import app
 
 
-def render(filename, data):
+def render(filepath, data):
     from django.core.serializers.json import DjangoJSONEncoder
-    with open(filename, 'w') as f:
+    with open(filepath, 'w') as f:
         f.write(DjangoJSONEncoder(indent=2).encode(data))
     return True, ''
 
@@ -40,7 +42,7 @@ def render_invoice(purchase_id):
     while not success and iteration < 3:
         try:
             # TODO: Replace with call to pyinvoice
-            success, error = render(filename=filepath, data=data)
+            success, error = generate_invoice.render(filepath=filepath, data=data)
         except Exception as e:
             error = e
         finally:
