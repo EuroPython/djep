@@ -22,7 +22,12 @@ app = Celery('pyconde')
 app.config_from_object('django.conf:settings')
 app.autodiscover_tasks(lambda: settings.INSTALLED_APPS)
 
-LOG = logging.getLogger('celery.task')
+logger = logging.getLogger('celery.task')
+try:
+    from raven.contrib.django.handlers import SentryHandler
+    logger.addHandler(SentryHandler())
+except ImportError:
+    logger.info("No raven/sentry available")
 
 
 @app.task(bind=True)
@@ -35,7 +40,7 @@ def process_failure_signal(sender=None, task_id=None, exception=None,
         args=None, kwargs=None, traceback=None, einfo=None, **akwargs):
     # From https://groups.google.com/d/msg/celery-users/lb3_5aAFesA/E1R4TIUiAwgJ
     exc_info = (type(exception), exception, traceback)
-    LOG.error(
+    logger.error(
         'Celery job exception: %s (%s)' % (exception.__class__.__name__, exception),
         exc_info=exc_info,
         extra={

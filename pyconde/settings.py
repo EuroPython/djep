@@ -459,7 +459,11 @@ class Base(Configuration):
 
     PURCHASE_TERMS_OF_USE_URL = "https://ep14.org/participate/register/terms/"
 
-    PURCHASE_INVOICE_ROOT = values.Value()
+    PURCHASE_INVOICE_NUMBER_FORMAT = 'EP14-{0:05d}'
+
+    PURCHASE_INVOICE_ROOT = values.Value()  # absolute path on the filesystem
+
+    PURCHASE_INVOICE_TEMPLATE_PATH = values.Value()  # absolute path to invoice template
 
     # This key is used for generating a checksum over the transmitted export
     # data. Only relevant for prduction

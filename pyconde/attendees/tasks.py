@@ -42,7 +42,8 @@ def render_invoice(purchase_id):
     while not success and iteration < 3:
         try:
             # TODO: Replace with call to pyinvoice
-            success, error = generate_invoice.render(filepath=filepath, data=data)
+            success, error = generate_invoice.render(filepath=filepath,
+                data=data, basepdf=settings.PURCHASE_INVOICE_TEMPLATE_PATH)
         except Exception as e:
             error = e
         finally:
@@ -54,7 +55,7 @@ def render_invoice(purchase_id):
         if isinstance(error, Exception):
             raise error
         else:
-            raise RuntimeError('Error exporting purchase pk %d: %s' % (purchase_id, error))
+            raise Exception('Error exporting purchase pk %d: %s' % (purchase_id, error))
     else:
         purchase.exported = True
         purchase.save(update_fields=['exported'])
@@ -91,7 +92,7 @@ def send_invoice(purchase_id, filepath, recipients):
     }
     msg = EmailMessage(subject, to=recipients)
     msg.encoding = 'utf-8'
-    filename = '%s.pdf' % purchase.full_invoice_number
+    filename = '%s.pdf' % purchase.full_invoice_number  # attachment filename
     with open(filepath, 'rb') as f:
         content = f.read()
     msg.attach(filename, content)
