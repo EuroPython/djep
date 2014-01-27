@@ -488,6 +488,8 @@ class Dev(Base):
 
     DEBUG = values.BooleanValue(True)
 
+    COMPRESS_ENABLED = values.BooleanValue(False)
+
     EMAIL_HOST = 'localhost'
 
     EMAIL_PORT = 1025

@@ -133,10 +133,21 @@
         <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
         {% render_block "js" %}
         {% render_block "js_external" %}
-        {% if debug %}
-        <script src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
+        {% if not debug %}
+            <script src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
         {% else %}
-        <script type="text/javascript" src="{% statici18n LANGUAGE_CODE %}"></script>
+            {# We have to configure the URLs statically because django-compressor operates offline. #}
+            {% if LANGUAGE_CODE == "de" %}
+                {% compress js %}
+                <script type="text/javascript" src="{% statici18n "de" %}"></script>
+                {% endcompress %}
+            {% else %}
+                {% if LANGUAGE_CODE == "en" %}
+                {% compress js %}
+                <script type="text/javascript" src="{% statici18n "en" %}"></script>
+                {% endcompress %}
+                {% endif %}
+            {% endif %}
         {% endif %}
         {% compress js %}
             <script type="text/javascript" src="{% static "assets/bower_components/foundation/js/foundation/foundation.js"%}"></script>
