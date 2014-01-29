@@ -43,9 +43,15 @@ class Command(BaseCommand):
     )
 
     def handle(self, *args, **options):
+        self.jpegoptim_path = getattr(
+            settings, 'MEDIA_JPEGOPTIM_PATH', 'jpegoptim')
+        self.optipng_path = getattr(
+            settings, 'MEDIA_OPTIPNG_PATH', 'jpegoptim')
+
         quiet = int(options['verbosity']) == 0
         already_processed = self._load_state(options['state_filepath'])
         save_necessary = False
+
         for dirpath, dirnames, filenames in os.walk(settings.MEDIA_ROOT):
             for filename in filenames:
                 if filename.endswith(self.valid_suffixes):
@@ -63,11 +69,11 @@ class Command(BaseCommand):
 
     def _optimize(self, path, quiet):
         if path.endswith(('.jpg', '.JPG', '.jpeg', '.JPEG')):
-            cmd = ['jpegoptim', '--strip-all', path]
+            cmd = [self.jpegoptim_path, '--strip-all', path]
             if quiet:
                 cmd.insert(1, '--quiet')
         else:
-            cmd = ['optipng', path]
+            cmd = [self.optipng_path, path]
             if quiet:
                 cmd.insert(1, '-quiet')
         subprocess.check_call(cmd)
