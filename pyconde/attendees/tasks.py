@@ -7,18 +7,12 @@ from email.utils import formataddr
 
 from django.conf import settings
 from django.core.mail import EmailMessage
+from django.utils.crypto import get_random_string
 from django.utils.translation import ugettext as _
 
 from invoicegenerator import generate_invoice
 
 from pyconde.celery import app
-
-
-def render(filepath, data):
-    from django.core.serializers.json import DjangoJSONEncoder
-    with open(filepath, 'w') as f:
-        f.write(DjangoJSONEncoder(indent=2).encode(data))
-    return True, ''
 
 
 @app.task
@@ -41,9 +35,13 @@ def render_invoice(purchase_id):
     iteration = 0
     while not success and iteration < 3:
         try:
-            # TODO: Replace with call to pyinvoice
+            chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
+            password = bytes(get_random_string(32, chars))
             success, error = generate_invoice.render(filepath=filepath,
-                data=data, basepdf=settings.PURCHASE_INVOICE_TEMPLATE_PATH)
+                data=data, basepdf=settings.PURCHASE_INVOICE_TEMPLATE_PATH,
+                fontdir=settings.PURCHASE_INVOICE_FONT_ROOT,
+                fontconfig=settings.PURCHASE_INVOICE_FONT_CONFIG,
+                modify_password=password)
         except Exception as e:
             error = e
         finally:

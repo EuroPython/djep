@@ -465,6 +465,10 @@ class Base(Configuration):
 
     PURCHASE_INVOICE_TEMPLATE_PATH = values.Value()  # absolute path to invoice template
 
+    PURCHASE_INVOICE_FONT_ROOT = values.Value()
+
+    PURCHASE_INVOICE_FONT_CONFIG = values.DictValue({'de':{}, 'en':{}})
+
     # This key is used for generating a checksum over the transmitted export
     # data. Only relevant for prduction
     EXPORT_SECRET_KEY = values.Value('')
