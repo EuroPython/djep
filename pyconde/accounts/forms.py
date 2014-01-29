@@ -240,6 +240,7 @@ class ProfileForm(BaseProfileForm):
     def clean_accept_pysv_conferences(self):
         value = self.cleaned_data['accept_pysv_conferences']
         if not value and self.instance.accept_pysv_conferences:
+            self.data['accept_pysv_conferences'] = True
             raise ValidationError(_("You previously agreed to this option"
                                     " which can no longer be revoked."))
         return value
@@ -247,6 +248,7 @@ class ProfileForm(BaseProfileForm):
     def clean_accept_ep_conferences(self):
         value = self.cleaned_data['accept_ep_conferences']
         if not value and self.instance.accept_ep_conferences:
+            self.data['accept_ep_conferences'] = True
             raise ValidationError(_("You previously agreed to this option"
                                     " which can no longer be revoked."))
         return value

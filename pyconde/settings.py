@@ -100,6 +100,7 @@ class Base(Configuration):
         'django_gravatar',
         'social_auth',
         'gunicorn',
+        'statici18n',
 
         'cms.plugins.inherit',
         'cms.plugins.googlemap',
@@ -212,6 +213,8 @@ class Base(Configuration):
     )
 
     STATICFILES_DIRS = values.ListValue()
+
+    STATICI18N_ROOT = os.path.join(BASE_DIR, PROJECT_NAME, "core", "static")
 
     COMPRESS_CSS_FILTERS = (
         'compressor.filters.css_default.CssAbsoluteFilter',
@@ -465,9 +468,9 @@ class Base(Configuration):
 
     PURCHASE_INVOICE_TEMPLATE_PATH = values.Value()  # absolute path to invoice template
 
-    PURCHASE_INVOICE_FONT_ROOT = values.Value()
+    PURCHASE_INVOICE_FONT_ROOT = values.Value()  # absolute path on the filesystem
 
-    PURCHASE_INVOICE_FONT_CONFIG = values.DictValue({'de':{}, 'en':{}})
+    PURCHASE_INVOICE_FONT_CONFIG = values.DictValue({'de': {}, 'en': {}})
 
     # This key is used for generating a checksum over the transmitted export
     # data. Only relevant for prduction
@@ -485,6 +488,10 @@ class Base(Configuration):
 
     BROKER_URL = values.Value('redis://localhost:6379/0')
 
+    LOCALE_PATHS = (
+        os.path.join(BASE_DIR, PROJECT_NAME, 'locale'),
+    )
+
 
 class Dev(Base):
     """
@@ -492,6 +499,8 @@ class Dev(Base):
     """
 
     DEBUG = values.BooleanValue(True)
+
+    COMPRESS_ENABLED = values.BooleanValue(False)
 
     EMAIL_HOST = 'localhost'
 
