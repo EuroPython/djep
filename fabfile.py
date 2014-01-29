@@ -111,7 +111,7 @@ def build_static_files():
             srv_run('../../../../../node_modules/bower/bin/bower install')
         with path('/srv/pyep/.gem/ruby/1.8/bin/', behavior='prepend'):
             srv_run('./node_modules/grunt-cli/bin/grunt compass:dist')
-    manage_by('compilejsi18n')
+    manage_py('compilejsi18n')
     manage_py('collectstatic --noinput -v1')
     manage_py('compress --force')
 
