@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-27 23:25+0100\n"
+"POT-Creation-Date: 2014-01-30 20:26+0100\n"
 "PO-Revision-Date: 2013-12-21 21:30+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -17,23 +17,23 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Generator: Lokalize 1.5\n"
 
-#: settings.py:56 settings.py:286 settings.py:361 proposals/models.py:21
+#: settings.py:56 settings.py:289 settings.py:364 proposals/models.py:21
 msgid "German"
 msgstr "Deutsch"
 
-#: settings.py:57 settings.py:281 settings.py:362 proposals/models.py:22
+#: settings.py:57 settings.py:284 settings.py:365 proposals/models.py:22
 msgid "English"
 msgstr "Englisch"
 
-#: settings.py:271
+#: settings.py:274
 msgid "Default template"
 msgstr "Standardvorlage"
 
-#: settings.py:272
+#: settings.py:275
 msgid "Start page template"
 msgstr "Startseiten-Vorlage"
 
-#: settings.py:273
+#: settings.py:276
 msgid "Full page width (schedule, ...)"
 msgstr "Volle Seite"
 
@@ -1009,7 +1009,7 @@ msgstr "Gesamtsumme (inkl. 19%% MwSt.)"
 msgid "You haven't made any purchases yet."
 msgstr "Sie haben noch keine Einkäufe getätigt. "
 
-#: conference/models.py:41 proposals/models.py:55 sponsorship/models.py:53
+#: conference/models.py:41 proposals/models.py:55 sponsorship/models.py:83
 msgid "title"
 msgstr "Titel"
 
@@ -1031,7 +1031,7 @@ msgstr "Vorschlag-Autor anonymisieren"
 
 #: conference/models.py:81 conference/models.py:101 conference/models.py:145
 #: conference/models.py:169 conference/models.py:195 conference/models.py:241
-#: conference/models.py:266 schedule/models.py:107 sponsorship/models.py:11
+#: conference/models.py:266 schedule/models.py:107 sponsorship/models.py:14
 msgid "conference"
 msgstr "Konferenz"
 
@@ -1041,23 +1041,23 @@ msgstr "Konferenzen"
 
 #: conference/models.py:104 conference/models.py:146 conference/models.py:196
 #: conference/models.py:242 conference/models.py:267 schedule/models.py:95
-#: sponsorship/models.py:12 sponsorship/models.py:33
+#: sponsorship/models.py:15 sponsorship/models.py:36
 msgid "name"
 msgstr "Name"
 
 #: conference/models.py:110 conference/models.py:147 conference/models.py:171
 #: conference/models.py:197 conference/models.py:243 conference/models.py:268
-#: sponsorship/models.py:15
+#: sponsorship/models.py:18
 msgid "slug"
 msgstr "Slug"
 
 #: conference/models.py:111 conference/models.py:246 conference/models.py:269
-#: sponsorship/models.py:13
+#: sponsorship/models.py:16
 msgid "order"
 msgstr "Reihenfolge"
 
 #: conference/models.py:113 conference/models.py:244 proposals/models.py:56
-#: schedule/models.py:96 sponsorship/models.py:14 sponsorship/models.py:36
+#: schedule/models.py:96 sponsorship/models.py:17 sponsorship/models.py:39
 msgid "description"
 msgstr "Beschreibung"
 
@@ -1070,7 +1070,7 @@ msgstr "Abschnitt"
 msgid "sections"
 msgstr "Abschnitte"
 
-#: conference/models.py:148 sponsorship/models.py:40
+#: conference/models.py:148 sponsorship/models.py:43
 msgid "level"
 msgstr "Stufe"
 
@@ -2307,6 +2307,23 @@ msgstr "Like EuroPython"
 msgid "+1 EuroPython"
 msgstr "+1 EuroPython"
 
+#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:37
+#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:40
+msgid "CMS Plugins"
+msgstr ""
+
+#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:38
+msgid "Add CMS Plugin"
+msgstr ""
+
+#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:39
+msgid "Edit CMS Plugin"
+msgstr ""
+
+#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:45
+msgid "Standard Plugins"
+msgstr ""
+
 #: skins/pyconde2013/templates/userprofiles/registration.html:8
 msgid ""
 "You need to create a user account on this website if you want to buy tickets "
@@ -2319,59 +2336,75 @@ msgstr ""
 msgid "Sponsor list plugin"
 msgstr "Sponsoren-Plugin"
 
-#: sponsorship/models.py:22
+#: sponsorship/models.py:25
 msgid "sponsor level"
 msgstr "Sponsor-Stufe"
 
-#: sponsorship/models.py:23 sponsorship/models.py:56
+#: sponsorship/models.py:26 sponsorship/models.py:86
 msgid "sponsor levels"
 msgstr "Sponsor-Stufen"
 
-#: sponsorship/models.py:34
+#: sponsorship/models.py:37
 msgid "external URL"
 msgstr "Externe URL"
 
-#: sponsorship/models.py:35
+#: sponsorship/models.py:38
 msgid "annotation"
 msgstr "Anmerkungen"
 
-#: sponsorship/models.py:37
+#: sponsorship/models.py:40
 msgid "contact_name"
 msgstr "Kontakt-Name"
 
-#: sponsorship/models.py:38
+#: sponsorship/models.py:41
 msgid "Contact e‑mail"
 msgstr "Kontakt-EMail"
 
-#: sponsorship/models.py:39
+#: sponsorship/models.py:42
 msgid "logo"
 msgstr "Logo"
 
-#: sponsorship/models.py:41
+#: sponsorship/models.py:44
 msgid "added"
 msgstr "Hinzugefügt"
 
-#: sponsorship/models.py:42
+#: sponsorship/models.py:45
 msgid "active"
 msgstr "Aktiv"
 
-#: sponsorship/models.py:48
+#: sponsorship/models.py:50
+msgid "Custom logo size in listings"
+msgstr ""
+
+#: sponsorship/models.py:51
+msgid ""
+"Format: [width]x[height]. To get the maximum height out of a logo, use "
+"something like 300x55."
+msgstr "Format: [Breite]x[Höhe]. Um die maximale sichere höhe eines Logos zu bekommen, verwende etwas wie 300x55."
+
+#: sponsorship/models.py:73
+msgid ""
+"Please specify the custom logo size for listings in the format "
+"[width]x[height]."
+msgstr ""
+
+#: sponsorship/models.py:78
 msgid "sponsor"
 msgstr "Sponsor"
 
-#: sponsorship/models.py:49
+#: sponsorship/models.py:79
 msgid "sponsors"
 msgstr "Sponsoren"
 
-#: sponsorship/models.py:57
+#: sponsorship/models.py:87
 msgid "group by level"
 msgstr ""
 
-#: sponsorship/models.py:59
+#: sponsorship/models.py:89
 msgid "length of split splits"
 msgstr ""
 
-#: sponsorship/models.py:61
+#: sponsorship/models.py:91
 msgid "custom CSS classes"
 msgstr ""
 
