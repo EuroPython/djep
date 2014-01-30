@@ -2374,7 +2374,7 @@ msgstr "Aktiv"
 
 #: sponsorship/models.py:50
 msgid "Custom logo size in listings"
-msgstr ""
+msgstr "Benutzerdefinierte Logohöhe in Auflistungen"
 
 #: sponsorship/models.py:51
 msgid ""
@@ -2386,7 +2386,7 @@ msgstr "Format: [Breite]x[Höhe]. Um die maximale sichere höhe eines Logos zu b
 msgid ""
 "Please specify the custom logo size for listings in the format "
 "[width]x[height]."
-msgstr ""
+msgstr "Bitte gib die benutzerdefinierten Dimensionen im Format [Breite]x[Höhe] an."
 
 #: sponsorship/models.py:78
 msgid "sponsor"
