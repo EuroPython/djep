@@ -12,8 +12,8 @@ from easy_thumbnails.conf import settings as thumbnail_settings
 
 
 thumb_re = re.compile(
-    r'^%s(.*)\.\d{1,}x\d{1,}_[-\w]*q([1-9]\d?|100)(_crop)?\.(jpg|png)' %
-    thumbnail_settings.THUMBNAIL_PREFIX)
+    r'^%s(.*)\.\d{1,}x\d{1,}_[-\w]*q([1-9]\d?|100)(_crop)?\.(jpg|png)$' %
+    re.escape(thumbnail_settings.THUMBNAIL_PREFIX))
 
 
 def is_thumbnail(path):
