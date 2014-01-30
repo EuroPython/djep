@@ -14,6 +14,8 @@ from invoicegenerator import generate_invoice
 
 from pyconde.celery import app
 
+from . import settings as app_settings
+
 
 @app.task
 def render_invoice(purchase_id):
@@ -28,7 +30,7 @@ def render_invoice(purchase_id):
 
     generate_invoice_filename(purchase)
     filename = purchase.invoice_filename
-    filepath = os.path.join(settings.PURCHASE_INVOICE_ROOT, filename)
+    filepath = os.path.join(app_settings.INVOICE_ROOT, filename)
     data = PurchaseExporter(purchase).export()
 
     success, error = False, ''
@@ -37,10 +39,12 @@ def render_invoice(purchase_id):
         try:
             chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
             password = bytes(get_random_string(32, chars))
-            success, error = generate_invoice.render(filepath=filepath,
-                data=data, basepdf=settings.PURCHASE_INVOICE_TEMPLATE_PATH,
-                fontdir=settings.PURCHASE_INVOICE_FONT_ROOT,
-                fontconfig=settings.PURCHASE_INVOICE_FONT_CONFIG,
+            success, error = generate_invoice.render(
+                filepath=filepath,
+                data=data,
+                basepdf=app_settings.INVOICE_TEMPLATE_PATH,
+                fontdir=app_settings.INVOICE_FONT_ROOT,
+                fontconfig=app_settings.INVOICE_FONT_CONFIG,
                 modify_password=password)
         except Exception as e:
             error = e
