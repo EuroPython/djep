@@ -452,7 +452,7 @@ class Base(Configuration):
 
     PAYMENT_METHODS = values.ListValue(['invoice', 'creditcard'])
 
-    PURCHASE_TERMS_OF_USE_URL = "https://ep14.org/participate/register/terms/"
+    PURCHASE_TERMS_OF_USE_URL = values.Value("https://ep2014.europython.eu/en/registration/terms-conditions/")
 
     # List of emails to be notified when a purchase has been made. PDF is send
     # to these addresses, too.
