@@ -3,8 +3,6 @@ from __future__ import unicode_literals
 
 import os
 
-from email.utils import formataddr
-
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.utils.crypto import get_random_string
@@ -61,13 +59,11 @@ def render_invoice(purchase_id):
             raise RuntimeError('Error exporting purchase pk %d: %s' % (purchase_id, error))
     else:
         purchase.exported = True
-        purchase.save(update_fields=['exported'])
-
-    name = "%s %s" % (purchase.first_name, purchase.last_name)
-    recipient = (formataddr((name, purchase.email)),)  # Need a tuple
+        purchase.state = 'invoice_created'
+        purchase.save(update_fields=['exported', 'state'])
 
     # Send invoice to buyer
-    send_invoice.delay(purchase_id, recipient)
+    send_invoice.delay(purchase_id, (purchase.email_receiver,))
     # Send invoice to orga
     send_invoice.delay(purchase_id, settings.INVOICE_EXPORT_RECIPIENTS)
 

@@ -1,8 +1,6 @@
 # -* coding: utf-8 -*-
 from __future__ import unicode_literals
 
-from email.utils import formataddr
-
 from django.conf import settings
 from django.contrib import admin
 from django.http import HttpResponse
@@ -100,9 +98,7 @@ class PurchaseAdmin(admin.ModelAdmin):
     def send_invoice_to_customer(self, request, queryset):
         for purchase in queryset:
             if purchase.exported:
-                name = "%s %s" % (purchase.first_name, purchase.last_name)
-                recipients = (formataddr((name, purchase.email)),)  # Needs a tuple
-                tasks.send_invoice.delay(purchase.pk, recipients)
+                tasks.send_invoice.delay(purchase.pk, (purchase.email_receiver,))
             else:
                 self.message_user(request,
                     _('Purchase %(invoice_number)s has not been exported yet. '
