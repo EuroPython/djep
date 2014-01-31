@@ -38,6 +38,9 @@
     <body class="{% block bodyclass %}{% endblock %}">
         {% cms_toolbar %}
         <div class="container">
+            <nav class="site-bar">
+                {% show_menu 0 1 1 1 "cms/primary-navigation.html" %}
+            </nav>
             <header>
                 <div class="inner">
                     <a href="/" class="logo">
@@ -50,7 +53,6 @@
                             <li class="toggle-topbar menu-icon"><a href="#"><i class="fa fa-fw fa-list"></i><span></span></a></li>
                         </ul>
                         <section class="top-bar-section">
-                            {% show_menu 0 1 1 1 "cms/primary-navigation.html" %}
                             <ul class="right">
                                 {% if user.is_authenticated %}
                                 <li class="has-dropdown">
