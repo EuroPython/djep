@@ -5,8 +5,8 @@ import os
 
 from email.utils import formataddr
 
-from django.conf import settings
 from django.core.mail import EmailMessage
+from django.template.loader import render_to_string
 from django.utils.crypto import get_random_string
 from django.utils.translation import ugettext as _
 
@@ -14,10 +14,10 @@ from invoicegenerator import generate_invoice
 
 from pyconde.celery import app
 
-from . import settings as app_settings
+from . import settings as settings
 
 
-@app.task
+@app.task(ignore_result=True)
 def render_invoice(purchase_id):
     from .exporters import PurchaseExporter
     from .models import Purchase
@@ -26,11 +26,12 @@ def render_invoice(purchase_id):
     try:
         purchase = Purchase.objects.get_exportable_purchases().get(pk=purchase_id)
     except Purchase.DoesNotExist:
-        return None
+        raise RuntimeError('No exportable purchase found with pk %d' % purchase_id)
 
     generate_invoice_filename(purchase)
-    filename = purchase.invoice_filename
-    filepath = os.path.join(app_settings.INVOICE_ROOT, filename)
+    filepath = purchase.invoice_filepath
+    if not os.path.exists(settings.INVOICE_ROOT):
+        os.makedirs(settings.INVOICE_ROOT)
     data = PurchaseExporter(purchase).export()
 
     success, error = False, ''
@@ -42,9 +43,9 @@ def render_invoice(purchase_id):
             success, error = generate_invoice.render(
                 filepath=filepath,
                 data=data,
-                basepdf=app_settings.INVOICE_TEMPLATE_PATH,
-                fontdir=app_settings.INVOICE_FONT_ROOT,
-                fontconfig=app_settings.INVOICE_FONT_CONFIG,
+                basepdf=settings.INVOICE_TEMPLATE_PATH,
+                fontdir=settings.INVOICE_FONT_ROOT,
+                fontconfig=settings.INVOICE_FONT_CONFIG,
                 modify_password=password)
         except Exception as e:
             error = e
@@ -57,7 +58,7 @@ def render_invoice(purchase_id):
         if isinstance(error, Exception):
             raise error
         else:
-            raise Exception('Error exporting purchase pk %d: %s' % (purchase_id, error))
+            raise RuntimeError('Error exporting purchase pk %d: %s' % (purchase_id, error))
     else:
         purchase.exported = True
         purchase.save(update_fields=['exported'])
@@ -66,13 +67,13 @@ def render_invoice(purchase_id):
     recipient = (formataddr((name, purchase.email)),)  # Need a tuple
 
     # Send invoice to buyer
-    send_invoice.delay(purchase_id, filepath, recipient)
+    send_invoice.delay(purchase_id, recipient)
     # Send invoice to orga
-    send_invoice.delay(purchase_id, filepath, settings.PURCHASE_EXPORT_RECIPIENTS)
+    send_invoice.delay(purchase_id, settings.INVOICE_EXPORT_RECIPIENTS)
 
 
-@app.task
-def send_invoice(purchase_id, filepath, recipients):
+@app.task(ignore_result=True)
+def send_invoice(purchase_id, recipients):
     if not recipients:
         return
 
@@ -92,10 +93,15 @@ def send_invoice(purchase_id, filepath, recipients):
     subject = _('Your EuroPython 2014 Invoice %(full_invoice_number)s') % {
         'full_invoice_number': purchase.full_invoice_number,
     }
-    msg = EmailMessage(subject, to=recipients)
+    message = render_to_string('attendees/mail_payment_invoice.html', {
+        'first_name': purchase.first_name,
+        'last_name': purchase.last_name,
+        'conference': purchase.conference,
+    })
+    msg = EmailMessage(subject, message, to=recipients)
     msg.encoding = 'utf-8'
     filename = '%s.pdf' % purchase.full_invoice_number  # attachment filename
-    with open(filepath, 'rb') as f:
+    with open(purchase.invoice_filepath, 'rb') as f:
         content = f.read()
     msg.attach(filename, content)
     msg.send()

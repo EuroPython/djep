@@ -452,29 +452,21 @@ class Base(Configuration):
 
     PAYMENT_METHODS = values.ListValue(['invoice', 'creditcard'])
 
-    PURCHASE_INVOICE_NUMBER_FORMAT = 'EP14-{0:05d}'
+    PURCHASE_TERMS_OF_USE_URL = "https://ep14.org/participate/register/terms/"
 
     # List of emails to be notified when a purchase has been made. PDF is send
     # to these addresses, too.
-    PURCHASE_EXPORT_RECIPIENTS = values.ListValue([])
+    PURCHASE_INVOICE_EXPORT_RECIPIENTS = values.ListValue([])
 
-    PURCHASE_EXPORT_SUBJECT = 'Purchase-export: {purchase_number}'
+    PURCHASE_INVOICE_FONT_CONFIG = values.DictValue({'de': {}, 'en': {}})
 
-    PURCHASE_TERMS_OF_USE_URL = "https://ep14.org/participate/register/terms/"
+    PURCHASE_INVOICE_FONT_ROOT = values.Value()  # absolute path on the filesystem
 
     PURCHASE_INVOICE_NUMBER_FORMAT = 'EP14-{0:05d}'
 
     PURCHASE_INVOICE_ROOT = values.Value()  # absolute path on the filesystem
 
     PURCHASE_INVOICE_TEMPLATE_PATH = values.Value()  # absolute path to invoice template
-
-    PURCHASE_INVOICE_FONT_ROOT = values.Value()  # absolute path on the filesystem
-
-    PURCHASE_INVOICE_FONT_CONFIG = values.DictValue({'de': {}, 'en': {}})
-
-    # This key is used for generating a checksum over the transmitted export
-    # data. Only relevant for prduction
-    EXPORT_SECRET_KEY = values.Value('')
 
     CACHES = values.DictValue({
         'default': {

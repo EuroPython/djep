@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 import decimal
 import uuid
+import os
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -238,6 +239,12 @@ class Purchase(models.Model):
         if self.invoice_number is None:
             return None
         return settings.INVOICE_NUMBER_FORMAT.format(self.invoice_number)
+
+    @property
+    def invoice_filepath(self):
+        if self.invoice_filename:
+            return os.path.join(settings.INVOICE_ROOT, self.invoice_filename)
+        return None
 
     def __unicode__(self):
         return '%s - %s' % (self.pk, self.get_state_display())

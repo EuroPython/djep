@@ -1,6 +1,10 @@
 from django.conf import settings
 
 
+INVOICE_EXPORT_RECIPIENTS = getattr(settings,
+                                    'PURCHASE_INVOICE_EXPORT_RECIPIENTS',
+                                    [])
+
 INVOICE_FONT_CONFIG = getattr(settings,
                              'PURCHASE_INVOICE_FONT_CONFIG',
                              {'de':{}, 'en': {}})
