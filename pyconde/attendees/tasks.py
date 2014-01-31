@@ -15,6 +15,17 @@ from pyconde.celery import app
 from . import settings as settings
 
 
+if settings.INVOICE_DISABLE_RENDERING:
+    def do_render(filepath, data, **kwargs):
+        from django.core.serializers.json import DjangoJSONEncoder
+        with open(filepath, 'w') as f:
+            f.write(DjangoJSONEncoder(indent=2).encode(data))
+        return True, ''
+else:
+    def do_render(filepath, data, **kwargs):
+        return generate_invoice.render( filepath=filepath, data=data, **kwargs)
+
+
 @app.task(ignore_result=True)
 def render_invoice(purchase_id):
     from .exporters import PurchaseExporter
@@ -38,9 +49,7 @@ def render_invoice(purchase_id):
         try:
             chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
             password = bytes(get_random_string(32, chars))
-            success, error = generate_invoice.render(
-                filepath=filepath,
-                data=data,
+            success, error = do_render(filepath, data,
                 basepdf=settings.INVOICE_TEMPLATE_PATH,
                 fontdir=settings.INVOICE_FONT_ROOT,
                 fontconfig=settings.INVOICE_FONT_CONFIG,
@@ -96,7 +105,8 @@ def send_invoice(purchase_id, recipients):
     })
     msg = EmailMessage(subject, message, to=recipients)
     msg.encoding = 'utf-8'
-    filename = '%s.pdf' % purchase.full_invoice_number  # attachment filename
+    ext = '.json' if settings.INVOICE_DISABLE_RENDERING else '.pdf'
+    filename = '%s%s' % (purchase.full_invoice_number, ext)  # attachment filename
     with open(purchase.invoice_filepath, 'rb') as f:
         content = f.read()
     msg.attach(filename, content)

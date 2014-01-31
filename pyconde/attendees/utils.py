@@ -91,9 +91,10 @@ def generate_transaction_description(purchase):
 
 def generate_invoice_filename(purchase):
     from .models import Purchase
-    filename = str(uuid.uuid4()) + '.pdf'
+    ext = '.json' if app_settings.INVOICE_DISABLE_RENDERING else '.pdf'
+    filename = str(uuid.uuid4()) + ext
     while Purchase.objects.filter(invoice_filename=filename).exists():
-        filename = str(uuid.uuid4()) + '.pdf'
+        filename = str(uuid.uuid4()) + ext
     purchase.invoice_filename = filename
     purchase.save(update_fields=['invoice_filename'])
 

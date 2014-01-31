@@ -1,6 +1,10 @@
 from django.conf import settings
 
 
+INVOICE_DISABLE_RENDERING = getattr(settings,
+                                    'PURCHASE_INVOICE_DISABLE_RENDERING',
+                                    True)
+
 INVOICE_EXPORT_RECIPIENTS = getattr(settings,
                                     'PURCHASE_INVOICE_EXPORT_RECIPIENTS',
                                     [])

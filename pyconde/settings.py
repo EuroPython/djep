@@ -454,6 +454,7 @@ class Base(Configuration):
 
     PURCHASE_TERMS_OF_USE_URL = values.Value("https://ep2014.europython.eu/en/registration/terms-conditions/")
 
+    PURCHASE_INVOICE_DISABLE_RENDERING = values.BooleanValue(True)
     # List of emails to be notified when a purchase has been made. PDF is send
     # to these addresses, too.
     PURCHASE_INVOICE_EXPORT_RECIPIENTS = values.ListValue([])
