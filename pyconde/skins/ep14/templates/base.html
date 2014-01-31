@@ -1,4 +1,4 @@
-{% load cms_tags sekizai_tags menu_tags compress i18n static %}
+{% load cms_tags sekizai_tags menu_tags compress i18n static statici18n %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -135,7 +135,22 @@
         <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
         {% render_block "js" %}
         {% render_block "js_external" %}
-        <script src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
+        {% if debug %}
+            <script src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
+        {% else %}
+            {# We have to configure the URLs statically because django-compressor operates offline. #}
+            {% if LANGUAGE_CODE == "de" %}
+                {% compress js %}
+                <script type="text/javascript" src="{% statici18n "de" %}"></script>
+                {% endcompress %}
+            {% else %}
+                {% if LANGUAGE_CODE == "en" %}
+                {% compress js %}
+                <script type="text/javascript" src="{% statici18n "en" %}"></script>
+                {% endcompress %}
+                {% endif %}
+            {% endif %}
+        {% endif %}
         {% compress js %}
             <script type="text/javascript" src="{% static "assets/bower_components/foundation/js/foundation/foundation.js"%}"></script>
             <script type="text/javascript" src="{% static "assets/bower_components/foundation/js/foundation/foundation.topbar.js"%}"></script>
