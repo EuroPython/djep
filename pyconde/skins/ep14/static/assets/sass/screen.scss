@@ -26,6 +26,63 @@ a {
     color: $blue-light;
 }
 
+.site-bar {
+    display: block;
+    position: absolute;
+    width: 100%;
+    z-index: 9999;
+
+    div {
+        background: $background-nav;
+        padding: 1em;
+        text-align: center;
+
+        > ul {
+            display: inline-block;
+            position: relative;
+            margin: 0 auto;
+            min-width: 890px;
+            text-align: left;
+
+            > li {
+                display: block;
+		float: left;
+                min-width: 190px;
+                margin: 0 1em;
+
+                > a {
+                    color: $link-color-nav;
+                    font-size: 16px;
+                    font-size: 1.6rem;
+                    text-decoration: None;
+                    text-transform: uppercase;
+                }
+
+                ul {
+                    display: None;
+                    padding: 0;
+
+                    li {
+                        display: block;
+                        margin: 1em 0;
+
+                        a {
+                            color: $link-color-subnav;
+                            font-size: 16px;
+                            font-size: 1.6rem;
+                            text-decoration: None;
+
+                            &:hover {
+                                color: $link-color-subnavhover;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}
+
 header {
     @media screen and (min-width: 890px) {
         height: 170px;

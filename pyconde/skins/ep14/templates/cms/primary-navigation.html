@@ -1,14 +1,44 @@
-{% load menu_tags %}
-<ul class="left">
-    {% for child in children %}
-        <li class="{% if child.children %}has-dropdown{% endif %} {% if child.selected or child.ancestor %}active{% endif %}"><a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
-            {% if child.children %}
-                <ul class="dropdown">
-                {% for child in child.children %}
-                <li class="{% if child.selected or child.ancestor %}active{% endif %}"><a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a></li>
-                {% endfor %}
-                </ul>
-            {% endif %}
-        </li>
-    {% endfor %}
-</ul>
+{% load menu_tags i18n %}
+
+<div>
+    <ul>
+        {% for child in children %}
+            <li class="{% if child.children %}has-dropdown{% endif %} {% if child.selected or child.ancestor %}active{% endif %}">
+                <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
+                {% if child.children %}
+                    <ul class="dropdown">
+                        {% for child in child.children %}
+                            <li class="{% if child.selected or child.ancestor %}active{% endif %}">
+                                <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </li>
+        {% endfor %}
+        <li><a href="#" onclick="$('.dropdown').toggle('fast')"><span class="dropdown">&#9776;</span><span class="dropdown" style="display: none">&#10060;</span></a></li>
+    </ul>
+    <!--div class="socialmedia dropdown" style="display: none">
+        {% trans "Join the conversation:" %}
+        <a href="https://twitter.com/search?q=%23ep14">#ep14</a>
+        <a href="https://twitter.com/europython" class="twitter">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
+                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+            </span>
+        </a>
+        <a href="https://www.facebook.com/europython" class="facebook">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-facebook fa-stack-1x"></i>
+            </span>
+        </a>
+        <a href="https://plus.google.com/+Ep14Org" class="google-plus">
+            <span class="fa-stack fa-lg">
+                <i class="fa fa-circle fa-stack-2x"></i>
+                <i class="fa fa-google-plus fa-stack-1x"></i>
+            </span>
+        </a>
+    </div-->
+</div>
+
