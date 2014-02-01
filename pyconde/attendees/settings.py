@@ -19,7 +19,7 @@ INVOICE_FONT_ROOT = getattr(settings,
 
 INVOICE_NUMBER_FORMAT = getattr(settings,
                                 'PURCHASE_INVOICE_NUMBER_FORMAT',
-                                '{0}')
+                                'INVOICE-{0:d}')
 
 INVOICE_NUMBER_SEQUENCE_NAME = getattr(settings,
                                        'PURCHASE_INVOICE_NUMBER_SEQUENCE_NAME',

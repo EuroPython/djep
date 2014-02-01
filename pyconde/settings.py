@@ -467,7 +467,7 @@ class Base(Configuration):
 
     PURCHASE_INVOICE_FONT_ROOT = values.Value()  # absolute path on the filesystem
 
-    PURCHASE_INVOICE_NUMBER_FORMAT = 'EP14-{0:05d}'
+    PURCHASE_INVOICE_NUMBER_FORMAT = values.Value('INVOICE-{0:d}')
 
     PURCHASE_INVOICE_ROOT = values.Value()  # absolute path on the filesystem
 
