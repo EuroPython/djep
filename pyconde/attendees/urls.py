@@ -17,4 +17,7 @@ urlpatterns = patterns(
         name='attendees_purchase_payment'),
     url(r'^mine/$', views.UserPurchasesView.as_view(),
         name='attendees_user_purchases'),
+    url(r'^mine/resend/$',
+        views.UserResendInvoiceView.as_view(),
+        name='attendees_user_resend_invoice'),
 )

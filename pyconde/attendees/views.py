@@ -30,6 +30,7 @@ from pyconde.conference.models import current_conference
 from braces.views import LoginRequiredMixin
 
 from .models import TicketType, Ticket, Purchase
+from .tasks import send_invoice
 from . import forms
 from . import utils
 from . import exceptions
@@ -464,3 +465,26 @@ class UserPurchasesView(LoginRequiredMixin, generic_views.TemplateView):
                                              'ticket_type')
                              .order_by('-purchase__date_added')
         }
+
+
+class UserResendInvoiceView(LoginRequiredMixin, generic_views.View):
+    """
+    This view triggers a sending of the specified invoice.
+    """
+
+    http_method_names = ['post']
+
+    def post(self, request):
+        try:
+            purchase_id = int(request.POST.get('p'))
+            p = Purchase.objects.get(id=purchase_id, exported=True,
+                 user=request.user)
+            send_invoice(p.id, (p.email_receiver,))
+            messages.success(request,
+                _('The invoice has been sent to you.'))
+        except (Purchase.DoesNotExist, KeyError, ValueError):
+            messages.error(request,
+                _('The invoice for this purchase does not exist or has not '
+                  'yet been generated. You will receive a mail with the '
+                  'invoice soon.'))
+        return HttpResponseRedirect(reverse('attendees_user_purchases'))

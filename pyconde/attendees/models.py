@@ -1,6 +1,9 @@
 # -*- coding: utf-8 -*-
 import decimal
 import uuid
+import os
+
+from email.utils import formataddr
 
 from django.contrib.auth.models import User
 from django.db import models
@@ -152,9 +155,7 @@ class TicketType(models.Model):
 
 class PurchaseManager(models.Manager):
     def get_exportable_purchases(self):
-        return self.filter(
-            exported=False,
-            state__in=['payment_received', 'new', 'invoice_created'])
+        return self.filter(exported=False, state__in=['new', 'payment_received'])
 
 
 class Purchase(models.Model):
@@ -238,6 +239,17 @@ class Purchase(models.Model):
         if self.invoice_number is None:
             return None
         return settings.INVOICE_NUMBER_FORMAT.format(self.invoice_number)
+
+    @property
+    def invoice_filepath(self):
+        if self.invoice_filename:
+            return os.path.join(settings.INVOICE_ROOT, self.invoice_filename)
+        return None
+
+    @property
+    def email_receiver(self):
+        name = "%s %s" % (self.first_name, self.last_name)
+        return formataddr((name, self.email))
 
     def __unicode__(self):
         return '%s - %s' % (self.pk, self.get_state_display())

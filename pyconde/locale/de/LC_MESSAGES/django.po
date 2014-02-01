@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-27 23:25+0100\n"
+"POT-Creation-Date: 2014-02-01 13:55+0100\n"
 "PO-Revision-Date: 2013-12-21 21:30+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -17,23 +17,23 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Generator: Lokalize 1.5\n"
 
-#: settings.py:56 settings.py:286 settings.py:361 proposals/models.py:21
+#: settings.py:56 settings.py:289 settings.py:364 proposals/models.py:21
 msgid "German"
 msgstr "Deutsch"
 
-#: settings.py:57 settings.py:281 settings.py:362 proposals/models.py:22
+#: settings.py:57 settings.py:284 settings.py:365 proposals/models.py:22
 msgid "English"
 msgstr "Englisch"
 
-#: settings.py:271
+#: settings.py:274
 msgid "Default template"
 msgstr "Standardvorlage"
 
-#: settings.py:272
+#: settings.py:275
 msgid "Start page template"
 msgstr "Startseiten-Vorlage"
 
-#: settings.py:273
+#: settings.py:276
 msgid "Full page width (schedule, ...)"
 msgstr "Volle Seite"
 
@@ -447,21 +447,33 @@ msgid ""
 "You've exceeded the maximum number of items of this type for this purchase"
 msgstr "Die maximale Menge dieses Produkts für diesen Einkauf ist erreicht."
 
-#: attendees/forms.py:124 attendees/models.py:68 attendees/models.py:72
+#: attendees/forms.py:109
+msgid ""
+"Sizing charts: <a href=\"http://maxnosleeves.spreadshirt.com/shop/info/"
+"producttypedetails/Popup/Show/productType/813\" target=\"_blank\">Women</a>, "
+"<a href=\"http://maxnosleeves.spreadshirt.com/shop/info/producttypedetails/"
+"Popup/Show/productType/812\" target=\"_blank\">Men</a>"
+msgstr ""
+"Größentabellen: <a href=\"http://btn-shop.spreadshirt.de/shop/info/"
+"producttypedetails/Popup/Show/productType/813\" target=\"_blank\">Frauen</"
+"a>, <a href=\"http://btn-shop.spreadshirt.de/shop/info/producttypedetails/"
+"Popup/Show/productType/812\" target=\"_blank\">Männer</a>"
+
+#: attendees/forms.py:125 attendees/models.py:68 attendees/models.py:72
 #: attendees/models.py:275
-#: attendees/templates/attendees/purchase_names.html:56
+#: attendees/templates/attendees/purchase_names.html:57
 msgid "Voucher"
 msgstr "Gutschein"
 
-#: attendees/forms.py:154
+#: attendees/forms.py:155
 msgid "Voucher verification failed."
 msgstr "Gutschein-Verifikation fehlgeschlagen."
 
-#: attendees/forms.py:167
+#: attendees/forms.py:168
 msgid "I've read and agree to the terms and conditions."
 msgstr "Ich habe die allgemeinen Geschäftsbedingungen gelesen und akzeptiert."
 
-#: attendees/forms.py:168
+#: attendees/forms.py:169
 #, python-format
 msgid ""
 "You must accept the <a target=\"_blank\" href=\"%s\">terms and conditions</"
@@ -788,7 +800,7 @@ msgid ""
 "If you have any questions please contact use!\n"
 "\n"
 "Twitter: @europython\n"
-"E-mail:  helpdesk@ep14.org\n"
+"E-mail:  helpdesk@europython.eu\n"
 "\n"
 "\n"
 "Thank you very much!\n"
@@ -798,7 +810,7 @@ msgstr ""
 "Bei Fragen stehen wir selbstverständlich zur Verfügung!\n"
 "\n"
 "Twitter: @europython\n"
-"E-mail:  helpdesk@ep14.org\n"
+"E-mail:  helpdesk@europython.eu\n"
 "\n"
 "\n"
 "Vielen Dank!\n"
@@ -1009,7 +1021,7 @@ msgstr "Gesamtsumme (inkl. 19%% MwSt.)"
 msgid "You haven't made any purchases yet."
 msgstr "Sie haben noch keine Einkäufe getätigt. "
 
-#: conference/models.py:41 proposals/models.py:55 sponsorship/models.py:53
+#: conference/models.py:41 proposals/models.py:55 sponsorship/models.py:83
 msgid "title"
 msgstr "Titel"
 
@@ -1031,7 +1043,7 @@ msgstr "Vorschlag-Autor anonymisieren"
 
 #: conference/models.py:81 conference/models.py:101 conference/models.py:145
 #: conference/models.py:169 conference/models.py:195 conference/models.py:241
-#: conference/models.py:266 schedule/models.py:107 sponsorship/models.py:11
+#: conference/models.py:266 schedule/models.py:107 sponsorship/models.py:14
 msgid "conference"
 msgstr "Konferenz"
 
@@ -1041,23 +1053,23 @@ msgstr "Konferenzen"
 
 #: conference/models.py:104 conference/models.py:146 conference/models.py:196
 #: conference/models.py:242 conference/models.py:267 schedule/models.py:95
-#: sponsorship/models.py:12 sponsorship/models.py:33
+#: sponsorship/models.py:15 sponsorship/models.py:36
 msgid "name"
 msgstr "Name"
 
 #: conference/models.py:110 conference/models.py:147 conference/models.py:171
 #: conference/models.py:197 conference/models.py:243 conference/models.py:268
-#: sponsorship/models.py:15
+#: sponsorship/models.py:18
 msgid "slug"
 msgstr "Slug"
 
 #: conference/models.py:111 conference/models.py:246 conference/models.py:269
-#: sponsorship/models.py:13
+#: sponsorship/models.py:16
 msgid "order"
 msgstr "Reihenfolge"
 
 #: conference/models.py:113 conference/models.py:244 proposals/models.py:56
-#: schedule/models.py:96 sponsorship/models.py:14 sponsorship/models.py:36
+#: schedule/models.py:96 sponsorship/models.py:17 sponsorship/models.py:39
 msgid "description"
 msgstr "Beschreibung"
 
@@ -1070,7 +1082,7 @@ msgstr "Abschnitt"
 msgid "sections"
 msgstr "Abschnitte"
 
-#: conference/models.py:148 sponsorship/models.py:40
+#: conference/models.py:148 sponsorship/models.py:43
 msgid "level"
 msgstr "Stufe"
 
@@ -1657,11 +1669,11 @@ msgid ""
 "\n"
 "For questions about training content or how to create a training please "
 "contact\n"
-"<a href=\"mailto:helpdesk@ep14.org\">helpdesk@ep14.org</a>.\n"
+"<a href=\"mailto:helpdesk@europython.eu\">helpdesk@europython.eu</a>.\n"
 msgstr ""
 "\n"
 "Fragen zu Training-Inhalten und -Aufbau bitte an <a href=\"mailto:"
-"helpdesk@ep14.org\">helpdesk@ep14.org</a>.\n"
+"helpdesk@europython.eu\">helpdesk@europython.eu</a>.\n"
 
 #: reviews/admin.py:16
 msgid "Mark comment(s) as deleted"
@@ -2319,59 +2331,78 @@ msgstr ""
 msgid "Sponsor list plugin"
 msgstr "Sponsoren-Plugin"
 
-#: sponsorship/models.py:22
+#: sponsorship/models.py:25
 msgid "sponsor level"
 msgstr "Sponsor-Stufe"
 
-#: sponsorship/models.py:23 sponsorship/models.py:56
+#: sponsorship/models.py:26 sponsorship/models.py:86
 msgid "sponsor levels"
 msgstr "Sponsor-Stufen"
 
-#: sponsorship/models.py:34
+#: sponsorship/models.py:37
 msgid "external URL"
 msgstr "Externe URL"
 
-#: sponsorship/models.py:35
+#: sponsorship/models.py:38
 msgid "annotation"
 msgstr "Anmerkungen"
 
-#: sponsorship/models.py:37
+#: sponsorship/models.py:40
 msgid "contact_name"
 msgstr "Kontakt-Name"
 
-#: sponsorship/models.py:38
+#: sponsorship/models.py:41
 msgid "Contact e‑mail"
 msgstr "Kontakt-EMail"
 
-#: sponsorship/models.py:39
+#: sponsorship/models.py:42
 msgid "logo"
 msgstr "Logo"
 
-#: sponsorship/models.py:41
+#: sponsorship/models.py:44
 msgid "added"
 msgstr "Hinzugefügt"
 
-#: sponsorship/models.py:42
+#: sponsorship/models.py:45
 msgid "active"
 msgstr "Aktiv"
 
-#: sponsorship/models.py:48
+#: sponsorship/models.py:50
+msgid "Custom logo size in listings"
+msgstr "Benutzerdefinierte Logogröße in Auflistungen"
+
+#: sponsorship/models.py:51
+msgid ""
+"Format: [width]x[height]. To get the maximum height out of a logo, use "
+"something like 300x55."
+msgstr ""
+"Format: [Breite]x[Höhe]. Um die maximale sichere höhe eines Logos zu "
+"bekommen, verwende etwas wie 300x55."
+
+#: sponsorship/models.py:73
+msgid ""
+"Please specify the custom logo size for listings in the format "
+"[width]x[height]."
+msgstr ""
+"Bitte gib die benutzerdefinierten Dimensionen im Format [Breite]x[Höhe] an."
+
+#: sponsorship/models.py:78
 msgid "sponsor"
 msgstr "Sponsor"
 
-#: sponsorship/models.py:49
+#: sponsorship/models.py:79
 msgid "sponsors"
 msgstr "Sponsoren"
 
-#: sponsorship/models.py:57
+#: sponsorship/models.py:87
 msgid "group by level"
 msgstr ""
 
-#: sponsorship/models.py:59
+#: sponsorship/models.py:89
 msgid "length of split splits"
 msgstr ""
 
-#: sponsorship/models.py:61
+#: sponsorship/models.py:91
 msgid "custom CSS classes"
 msgstr ""
 
