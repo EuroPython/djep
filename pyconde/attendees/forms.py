@@ -106,6 +106,7 @@ class TicketNameForm(forms.ModelForm):
         self.fields['last_name'].required = True
         self.fields['shirtsize'].queryset = self.fields['shirtsize']\
             .queryset.filter(conference=current_conference())
+        self.fields['shirtsize'].help_text = _('''Sizing charts: <a href="http://maxnosleeves.spreadshirt.com/shop/info/producttypedetails/Popup/Show/productType/813" target="_blank">Women</a>, <a href="http://maxnosleeves.spreadshirt.com/shop/info/producttypedetails/Popup/Show/productType/812" target="_blank">Men</a>''')
 
     class Meta:
         model = Ticket
