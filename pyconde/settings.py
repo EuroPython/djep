@@ -205,6 +205,10 @@ class Base(Configuration):
 
     MEDIA_URL = values.Value('/site_media/')
 
+    MEDIA_OPTIPNG_PATH = values.Value('optipng')
+
+    MEDIA_JPEGOPTIM_PATH = values.Value('jpegoptim')
+
     STATIC_URL = values.Value('/static_media/')
 
     STATICFILES_FINDERS = Configuration.STATICFILES_FINDERS + (
