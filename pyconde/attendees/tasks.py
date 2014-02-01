@@ -23,7 +23,7 @@ if settings.INVOICE_DISABLE_RENDERING:
         return True, ''
 else:
     def do_render(filepath, data, **kwargs):
-        return generate_invoice.render( filepath=filepath, data=data, **kwargs)
+        return generate_invoice.render(filepath=filepath, data=data, **kwargs)
 
 
 @app.task(ignore_result=True)
