@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-30 20:26+0100\n"
+"POT-Creation-Date: 2014-02-01 13:55+0100\n"
 "PO-Revision-Date: 2013-12-21 21:30+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -2307,23 +2307,6 @@ msgstr "Like EuroPython"
 msgid "+1 EuroPython"
 msgstr "+1 EuroPython"
 
-#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:37
-#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:40
-msgid "CMS Plugins"
-msgstr ""
-
-#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:38
-msgid "Add CMS Plugin"
-msgstr ""
-
-#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:39
-msgid "Edit CMS Plugin"
-msgstr ""
-
-#: skins/ep14/templates/cms/plugins/widgets/ckeditor.html:45
-msgid "Standard Plugins"
-msgstr ""
-
 #: skins/pyconde2013/templates/userprofiles/registration.html:8
 msgid ""
 "You need to create a user account on this website if you want to buy tickets "
@@ -2380,13 +2363,16 @@ msgstr "Benutzerdefinierte Logohöhe in Auflistungen"
 msgid ""
 "Format: [width]x[height]. To get the maximum height out of a logo, use "
 "something like 300x55."
-msgstr "Format: [Breite]x[Höhe]. Um die maximale sichere höhe eines Logos zu bekommen, verwende etwas wie 300x55."
+msgstr ""
+"Format: [Breite]x[Höhe]. Um die maximale sichere höhe eines Logos zu "
+"bekommen, verwende etwas wie 300x55."
 
 #: sponsorship/models.py:73
 msgid ""
 "Please specify the custom logo size for listings in the format "
 "[width]x[height]."
-msgstr "Bitte gib die benutzerdefinierten Dimensionen im Format [Breite]x[Höhe] an."
+msgstr ""
+"Bitte gib die benutzerdefinierten Dimensionen im Format [Breite]x[Höhe] an."
 
 #: sponsorship/models.py:78
 msgid "sponsor"
