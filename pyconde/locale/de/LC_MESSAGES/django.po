@@ -2369,7 +2369,7 @@ msgstr "Aktiv"
 
 #: sponsorship/models.py:50
 msgid "Custom logo size in listings"
-msgstr "Benutzerdefinierte Logohöhe in Auflistungen"
+msgstr "Benutzerdefinierte Logogröße in Auflistungen"
 
 #: sponsorship/models.py:51
 msgid ""
