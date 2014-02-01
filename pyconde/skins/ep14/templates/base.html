@@ -38,10 +38,10 @@
     <body class="{% block bodyclass %}{% endblock %}">
         {% cms_toolbar %}
         <div class="container">
-            <nav class="site-bar">
-                {% show_menu 0 1 1 1 "cms/primary-navigation.html" %}
-            </nav>
             <header>
+	            <nav class="site-bar">
+	                {% show_menu 0 1 1 1 "cms/primary-navigation.html" %}
+	            </nav>
                 <div class="inner">
                     <a href="/" class="logo">
                         <img class="big" src="{% static "assets/images/logo-big.png" %}" alt="EuroPython 2014" />
