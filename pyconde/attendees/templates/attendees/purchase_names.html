@@ -44,6 +44,7 @@
                       {% for error in name_form.shirtsize.errors %}
                         <span class="help-block error"><strong><i class="fa fa-times"></i></strong> {{ error }}</span>
                       {% endfor %}
+                      <p class="help-block">{{ name_form.shirtsize.help_text|safe }}</p>
                     </div>
                   </div>
                 {% endif %}

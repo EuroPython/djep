@@ -447,21 +447,33 @@ msgid ""
 "You've exceeded the maximum number of items of this type for this purchase"
 msgstr "Die maximale Menge dieses Produkts für diesen Einkauf ist erreicht."
 
-#: attendees/forms.py:124 attendees/models.py:68 attendees/models.py:72
+#: attendees/forms.py:109
+msgid ""
+"Sizing charts: <a href=\"http://maxnosleeves.spreadshirt.com/shop/info/"
+"producttypedetails/Popup/Show/productType/813\" target=\"_blank\">Women</a>, "
+"<a href=\"http://maxnosleeves.spreadshirt.com/shop/info/producttypedetails/"
+"Popup/Show/productType/812\" target=\"_blank\">Men</a>"
+msgstr ""
+"Größentabellen: <a href=\"http://btn-shop.spreadshirt.de/shop/info/"
+"producttypedetails/Popup/Show/productType/813\" target=\"_blank\">Frauen</"
+"a>, <a href=\"http://btn-shop.spreadshirt.de/shop/info/producttypedetails/"
+"Popup/Show/productType/812\" target=\"_blank\">Männer</a>"
+
+#: attendees/forms.py:125 attendees/models.py:68 attendees/models.py:72
 #: attendees/models.py:275
-#: attendees/templates/attendees/purchase_names.html:56
+#: attendees/templates/attendees/purchase_names.html:57
 msgid "Voucher"
 msgstr "Gutschein"
 
-#: attendees/forms.py:154
+#: attendees/forms.py:155
 msgid "Voucher verification failed."
 msgstr "Gutschein-Verifikation fehlgeschlagen."
 
-#: attendees/forms.py:167
+#: attendees/forms.py:168
 msgid "I've read and agree to the terms and conditions."
 msgstr "Ich habe die allgemeinen Geschäftsbedingungen gelesen und akzeptiert."
 
-#: attendees/forms.py:168
+#: attendees/forms.py:169
 #, python-format
 msgid ""
 "You must accept the <a target=\"_blank\" href=\"%s\">terms and conditions</"
