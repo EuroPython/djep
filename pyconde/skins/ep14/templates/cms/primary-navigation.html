@@ -25,10 +25,12 @@
     </section>
 </nav>
 <div class="dropdown hide row">
-    <div class="small-1 columns lang"></div>
-    <div class="small-11 columns text-right socialmedia">
+    <div class="small-2 columns lang">
+        {% language_chooser "cms/language_chooser.html" %}
+    </div>
+    <div class="small-10 columns text-right socialmedia">
         <span>{% trans "Join the conversation" %}</span>
-        <span><a href="https://twitter.com/search?q=%23europython">#europython</a></span>
+        <span><a href="https://twitter.com/search?q=%23europython"><b>#europython</b></a></span>
         <span><a href="https://twitter.com/europython" class="twitter"><i class="fa fa-twitter fa-lg"></i></a></span>
         <span><a href="https://www.facebook.com/europython" class="facebook"><i class="fa fa-facebook fa-lg"></i></a></span>
         <span><a href="https://plus.google.com/+Ep14Org" class="google-plus"><i class="fa fa-google-plus fa-lg"></i></a></span>

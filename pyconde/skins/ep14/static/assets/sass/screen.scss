@@ -62,8 +62,25 @@ a {
         }
         .row {
             padding-bottom: 30px;
+            padding-top: 30px;
             .lang {
-
+                > span {
+                    font-size: 1.3rem;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    background-color: $link-color-nav;
+                    border-radius: 15px;
+                    padding: 4px 0 5px 0;
+                    > a {
+                        color: $background-color;
+                        padding: 4px 10px 5px 10px;
+                        border-radius: 15px;
+                        &.active {
+                            background-color: $background-color;
+                            color: $background-nav;
+                        }
+                    }
+                }
             }
             .socialmedia {
                 padding-right: 17px;
