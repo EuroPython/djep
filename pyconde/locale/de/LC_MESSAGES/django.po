@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-27 23:25+0100\n"
+"POT-Creation-Date: 2014-02-02 16:58+0100\n"
 "PO-Revision-Date: 2013-12-21 21:30+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -17,23 +17,23 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Generator: Lokalize 1.5\n"
 
-#: settings.py:56 settings.py:286 settings.py:361 proposals/models.py:21
+#: settings.py:56 settings.py:293 settings.py:368 proposals/models.py:21
 msgid "German"
 msgstr "Deutsch"
 
-#: settings.py:57 settings.py:281 settings.py:362 proposals/models.py:22
+#: settings.py:57 settings.py:288 settings.py:369 proposals/models.py:22
 msgid "English"
 msgstr "Englisch"
 
-#: settings.py:271
+#: settings.py:278
 msgid "Default template"
 msgstr "Standardvorlage"
 
-#: settings.py:272
+#: settings.py:279
 msgid "Start page template"
 msgstr "Startseiten-Vorlage"
 
-#: settings.py:273
+#: settings.py:280
 msgid "Full page width (schedule, ...)"
 msgstr "Volle Seite"
 
@@ -211,7 +211,7 @@ msgstr ""
 "mehr revidiert werden."
 
 #: accounts/forms.py:266 attendees/forms.py:45
-#: attendees/templates/attendees/purchase_names.html:85
+#: attendees/templates/attendees/purchase_names.html:86
 msgid "Continue"
 msgstr "Weiter"
 
@@ -482,16 +482,16 @@ msgstr ""
 "Sie müssen die <a target=\"_blank\" href=\"%s\">allgemeinen "
 "Geschäftsbedingungen</a> akzeptieren."
 
-#: attendees/forms.py:169
+#: attendees/forms.py:170
 msgid "You must accept the terms and conditions."
 msgstr "Sie müssen die allgemeinen Geschäftsbedingungen akzeptieren."
 
-#: attendees/forms.py:171 attendees/models.py:186
+#: attendees/forms.py:172 attendees/models.py:186
 #: attendees/templates/attendees/mail_purchase_completed.html:13
 msgid "Payment method"
 msgstr "Zahlungsart"
 
-#: attendees/forms.py:173
+#: attendees/forms.py:174
 msgid ""
 "If you choose invoice you will receive an invoice from us. After we receive "
 "your money transfer your purchase will be finanized.<br /><br />Credit card "
@@ -503,7 +503,7 @@ msgstr ""
 "Zahlungen werden durch <a href=\"http://www.paymill.com\">PayMill</a> "
 "durchgeführt."
 
-#: attendees/forms.py:187
+#: attendees/forms.py:188
 msgid "Complete purchase"
 msgstr "Bestellung abschlie&szlig;en"
 
@@ -854,7 +854,7 @@ msgid "Pay &amp; Complete purchase"
 msgstr "Bezahlen &amp; Bestellung abschlie&szlig;en"
 
 #: attendees/templates/attendees/payment_paymill.html:81
-#: attendees/templates/attendees/purchase_names.html:86
+#: attendees/templates/attendees/purchase_names.html:87
 msgid "Back"
 msgstr "Zurück"
 
@@ -960,7 +960,7 @@ msgid ""
 "ticket(s) in the fields below."
 msgstr "Bitte gib die Namen und übrigen Informationenen zu den Tickets an."
 
-#: attendees/templates/attendees/purchase_names.html:55
+#: attendees/templates/attendees/purchase_names.html:56
 msgid ""
 "Ticket discounts for students et al. are issued after receiving proof of "
 "this status. Please send us relevant documents to receive the necessary "
@@ -970,7 +970,7 @@ msgstr ""
 "ausgestellt. Bitte schicke uns das Dokument um einen Gutscheincodezu "
 "erhalten."
 
-#: attendees/templates/attendees/purchase_names.html:59
+#: attendees/templates/attendees/purchase_names.html:60
 msgid "A voucher can only redeemed once."
 msgstr "Ein Gutschein kann nur einmalig eingelöst werden."
 
@@ -1160,6 +1160,7 @@ msgstr "Konferenz"
 
 #: events/models.py:9 proposals/templates/proposals/proposal_list_mine.html:11
 #: proposals/templates/proposals/proposal_list_mine.html:42
+#: reviews/templates/reviews/reviewable_proposals.html:20
 #: schedule/templates/schedule/session_listing.html:9
 msgid "Title"
 msgstr "Titel"
@@ -1230,7 +1231,7 @@ msgstr "Dauer"
 #: proposals/forms.py:111
 #: proposals/templates/proposals/proposal_list_mine.html:13
 #: proposals/templates/proposals/proposal_list_mine.html:44
-#: reviews/forms.py:161
+#: reviews/forms.py:161 reviews/templates/reviews/reviewable_proposals.html:40
 msgid "Track"
 msgstr ""
 
@@ -1719,7 +1720,8 @@ msgstr "Vortragsart"
 msgid "Reviews menu"
 msgstr "Reviews-Menü"
 
-#: reviews/menu.py:19
+#: reviews/menu.py:19 reviews/templates/reviews/reviewable_proposals.html:3
+#: reviews/templates/reviews/reviewable_proposals.html:5
 msgid "Reviewable proposals"
 msgstr "Reviewbare Vorschläge"
 
@@ -1900,6 +1902,17 @@ msgstr ""
 msgid "Exports all reviews as CSV to stdout"
 msgstr "Exportiert alle Reviews als CSV nach STDOUT"
 
+#: reviews/templates/reviews/base.html:7
+msgid "The proposal has been updated after you've submitted your review."
+msgstr "Der Session-Vorschlag wurde geändert, nachdem Sie ihn bewertet haben."
+
+#: reviews/templates/reviews/base.html:12
+msgid ""
+"The review phase is over. You can no longer comment or review proposals."
+msgstr ""
+"Die Review-Phase ist abgeschlossen. Sie können kein weiteren Kommentare oder "
+"Bewertungen mehr abgeben."
+
 #: reviews/templates/reviews/proposal_details.html:57
 msgid "The author has updated the proposal."
 msgstr "Der Autor hat das Proposal aktualisiert."
@@ -1915,6 +1928,44 @@ msgstr ""
 #: reviews/templates/reviews/reviewable_proposals.html:9
 msgid "Filters"
 msgstr "Filter"
+
+#: reviews/templates/reviews/reviewable_proposals.html:15
+msgid ""
+"This page lists all reviewable proposals with their current rating and "
+"number of already submitted reviews."
+msgstr ""
+"Die Seite zeigt alle Session-Vorschläge, die bewertet werden können inkl. "
+"aktuellen Punkten und der Anzahl der bereits abgegebenen Bewertungen."
+
+#: reviews/templates/reviews/reviewable_proposals.html:22
+msgid "Reviews"
+msgstr "Reviews"
+
+#: reviews/templates/reviews/reviewable_proposals.html:29
+msgid "Recent activity"
+msgstr "Letzte Aktivität"
+
+#: reviews/templates/reviews/reviewable_proposals.html:32
+msgid "Score"
+msgstr "Bewertung"
+
+#: reviews/templates/reviews/reviewable_proposals.html:54
+msgid ""
+"<span class=\"legend kind-training\">Trainings</span> are presented like "
+"this."
+msgstr ""
+"<span class=\"legend kind-training\">Trainings</span> werden so dargestellt."
+
+#: reviews/templates/reviews/reviewable_proposals.html:55
+msgid "<span class=\"legend kind-talk\">Talks</span> are presented like this."
+msgstr ""
+"<span class=\"legend kind-talk\">Vorträge</span> werden so dargestellt."
+
+#: reviews/templates/reviews/reviewable_proposals.html:56
+msgid ""
+"<span class=\"legend kind-poster\">Posters</span> are presented like this."
+msgstr ""
+"<span class=\"legend kind-poster\">Poster</span> werden so dargestellt."
 
 #: schedule/admin.py:40
 #, python-format
@@ -2303,19 +2354,19 @@ msgstr "E-Mail-Bestätigung"
 msgid "Sign up"
 msgstr "Anmelden"
 
-#: skins/ep14/templates/base.html:98
+#: skins/ep14/templates/base.html:99
 msgid "Get in touch"
 msgstr "Hilfe und Support"
 
-#: skins/ep14/templates/base.html:108
+#: skins/ep14/templates/base.html:109
 msgid "Follow @europython"
 msgstr "@europython folgen"
 
-#: skins/ep14/templates/base.html:114
+#: skins/ep14/templates/base.html:115
 msgid "Like EuroPython"
 msgstr "Like EuroPython"
 
-#: skins/ep14/templates/base.html:120
+#: skins/ep14/templates/base.html:121
 msgid "+1 EuroPython"
 msgstr "+1 EuroPython"
 

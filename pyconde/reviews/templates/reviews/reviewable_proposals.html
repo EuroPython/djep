@@ -1,8 +1,8 @@
 {% extends "reviews/base.html" %}
 {% load i18n %}
-{% block title %}Reviewbare Vorschläge{% endblock %}
+{% block title %}{% trans "Reviewable proposals" %}{% endblock %}
 {% block bodycls %}reviews listing{% endblock %}
-{% block page_title %}Reviewbare Vorschläge{% endblock %}
+{% block page_title %}{% trans "Reviewable proposals" %}{% endblock %}
 {% block sidebar %}
     {{ block.super }}
     <section>
@@ -12,24 +12,23 @@
 {% endblock %}
 {% block content %}
     {% block description %}
-    <p>Diese Seite zeigt Ihnen alle Session-Vorschläge, die bewertet können, zusammen mit der Anzahl der
-        bereits abgegeben Bewertungen.</p>
+    <p>{% trans "This page lists all reviewable proposals with their current rating and number of already submitted reviews." %}</p>
     {% endblock %}
     <table>
         <thead>
             <tr>
-                <th class="title orderable"><a href="?order={% if order == 'title' %}-{% endif %}title">Titel</a>
+                <th class="title orderable"><a href="?order={% if order == 'title' %}-{% endif %}title">{% trans "Title" %}</a>
                     {% if order == "-title" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "title" %}<i class="icon-chevron-up"></i>{% endif %}</th>
-                <th class="reviews orderable"><a href="?order={% if order == 'reviews' %}-{% endif %}reviews">Reviews</a>
+                <th class="reviews orderable"><a href="?order={% if order == 'reviews' %}-{% endif %}reviews">{% trans "Reviews" %}</a>
                     {% if order == "-reviews" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "reviews" %}<i class="icon-chevron-up"></i>{% endif %}</th>
                 {% comment %}
-                <th class="comments orderable"><a href="?order={% if order == 'comments' %}-{% endif %}comments">Kommentare</a>
+                <th class="comments orderable"><a href="?order={% if order == 'comments' %}-{% endif %}comments">{% trans "Comments" %}</a>
                     {% if order == "-comments" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "comments" %}<i class="icon-chevron-up"></i>{% endif %}</th>
                 {% endcomment %}
-                <th class="activity orderable"><a href="?order={% if order == 'activity' %}-{% endif %}activity">Letzte Aktivität</a>
+                <th class="activity orderable"><a href="?order={% if order == 'activity' %}-{% endif %}activity">{% trans "Recent activity" %}</a>
                     {% if order == "-activity" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "activity" %}<i class="icon-chevron-up"></i>{% endif %}</th>
                 {% if user.is_staff %}
-                <th class="score orderable"><a href="?order={% if order == 'score' %}-{% endif %}score">Score</a>
+                <th class="score orderable"><a href="?order={% if order == 'score' %}-{% endif %}score">{% trans "Score" %}</a>
                     {% if order == "-score" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "score" %}<i class="icon-chevron-up"></i>{% endif %}</th>
                 {% endif %}
             </tr>
@@ -37,7 +36,7 @@
         <tbody>
             {% for proposal in proposals %}
             <tr class="{% if proposal.proposal.kind %}kind-{{ proposal.proposal.kind.slug }}{% endif %}">
-                <td class="title"><a href="{% url 'reviews-proposal-details' pk=proposal.proposal.pk %}">{{ proposal.title }}</a>{% if proposal.proposal.track %}<span class="track">Track: {{ proposal.proposal.track.name }}</span>{% endif %}</td>
+                <td class="title"><a href="{% url 'reviews-proposal-details' pk=proposal.proposal.pk %}">{{ proposal.title }}</a>{% if proposal.proposal.track %}<span class="track">{% trans "Track" %}: {{ proposal.proposal.track.name }}</span>{% endif %}</td>
                 <td class="reviews">{{ proposal.num_reviews }}</td>
                 {% comment %}
                 <td class="comments">{{ proposal.num_comments }}</td>
@@ -50,6 +49,7 @@
             {% endfor %}
         </tbody>
     </table>
-    <p class="legend">Tutorials werden <span class="legend kind-tutorial">so dargestellt</span>.<br />
-        Vorträge werden <span class="legend kind-talk">so dargestellt</span>.<br /></p>
+    <p class="legend">{% trans '<span class="legend kind-training">Trainings</span> are presented like this.' %}<br />
+        {% trans '<span class="legend kind-talk">Talks</span> are presented like this.' %}<br />
+        {% trans '<span class="legend kind-poster">Posters</span> are presented like this.' %}</p>
 {% endblock content %}

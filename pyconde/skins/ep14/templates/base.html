@@ -74,6 +74,7 @@
             {% block main %}
                 {% block site_teaser %}{% endblock %}
                 <section id="content" class="container">
+                    {% block top_notices %}{% endblock %}
                     {% for message in messages %}
                       <div id="message_{{ forloop.counter }}"{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
                         {{ message }}
