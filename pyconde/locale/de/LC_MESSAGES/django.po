@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-02 16:58+0100\n"
+"POT-Creation-Date: 2014-02-02 17:07+0100\n"
 "PO-Revision-Date: 2013-12-21 21:30+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -658,7 +658,7 @@ msgstr "Hinzugefügt am"
 msgid "Status"
 msgstr "Status"
 
-#: attendees/models.py:184
+#: attendees/models.py:184 reviews/templates/reviews/my_proposals.html:14
 msgid "Comments"
 msgstr "Kommentare"
 
@@ -1160,6 +1160,7 @@ msgstr "Konferenz"
 
 #: events/models.py:9 proposals/templates/proposals/proposal_list_mine.html:11
 #: proposals/templates/proposals/proposal_list_mine.html:42
+#: reviews/templates/reviews/my_proposals.html:12
 #: reviews/templates/reviews/reviewable_proposals.html:20
 #: schedule/templates/schedule/session_listing.html:9
 msgid "Title"
@@ -1913,6 +1914,42 @@ msgstr ""
 "Die Review-Phase ist abgeschlossen. Sie können kein weiteren Kommentare oder "
 "Bewertungen mehr abgeben."
 
+#: reviews/templates/reviews/my_proposals.html:3
+#: reviews/templates/reviews/my_proposals.html:4
+msgid "My reviewable proposals"
+msgstr "Meine Vorschläge in Review"
+
+#: reviews/templates/reviews/my_proposals.html:7
+msgid "Here you can see all your proposals that are out for review."
+msgstr ""
+"Hier sehen Sie alle Ihre Vorschläge, die derzeit bewertet werden können."
+
+#: reviews/templates/reviews/my_proposals.html:16
+#: reviews/templates/reviews/reviewable_proposals.html:29
+msgid "Recent activity"
+msgstr "Letzte Aktivität"
+
+#: reviews/templates/reviews/my_proposals.html:30
+#: reviews/templates/reviews/reviewable_proposals.html:54
+msgid ""
+"<span class=\"legend kind-training\">Trainings</span> are presented like "
+"this."
+msgstr ""
+"<span class=\"legend kind-training\">Trainings</span> werden so dargestellt."
+
+#: reviews/templates/reviews/my_proposals.html:31
+#: reviews/templates/reviews/reviewable_proposals.html:55
+msgid "<span class=\"legend kind-talk\">Talks</span> are presented like this."
+msgstr ""
+"<span class=\"legend kind-talk\">Vorträge</span> werden so dargestellt."
+
+#: reviews/templates/reviews/my_proposals.html:32
+#: reviews/templates/reviews/reviewable_proposals.html:56
+msgid ""
+"<span class=\"legend kind-poster\">Posters</span> are presented like this."
+msgstr ""
+"<span class=\"legend kind-poster\">Poster</span> werden so dargestellt."
+
 #: reviews/templates/reviews/proposal_details.html:57
 msgid "The author has updated the proposal."
 msgstr "Der Autor hat das Proposal aktualisiert."
@@ -1941,31 +1978,9 @@ msgstr ""
 msgid "Reviews"
 msgstr "Reviews"
 
-#: reviews/templates/reviews/reviewable_proposals.html:29
-msgid "Recent activity"
-msgstr "Letzte Aktivität"
-
 #: reviews/templates/reviews/reviewable_proposals.html:32
 msgid "Score"
 msgstr "Bewertung"
-
-#: reviews/templates/reviews/reviewable_proposals.html:54
-msgid ""
-"<span class=\"legend kind-training\">Trainings</span> are presented like "
-"this."
-msgstr ""
-"<span class=\"legend kind-training\">Trainings</span> werden so dargestellt."
-
-#: reviews/templates/reviews/reviewable_proposals.html:55
-msgid "<span class=\"legend kind-talk\">Talks</span> are presented like this."
-msgstr ""
-"<span class=\"legend kind-talk\">Vorträge</span> werden so dargestellt."
-
-#: reviews/templates/reviews/reviewable_proposals.html:56
-msgid ""
-"<span class=\"legend kind-poster\">Posters</span> are presented like this."
-msgstr ""
-"<span class=\"legend kind-poster\">Poster</span> werden so dargestellt."
 
 #: schedule/admin.py:40
 #, python-format
