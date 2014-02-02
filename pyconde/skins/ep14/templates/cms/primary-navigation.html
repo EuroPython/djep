@@ -6,7 +6,7 @@
             <li class="{% if child.children %}has-dropdown{% endif %} {% if child.selected or child.ancestor %}active{% endif %}">
                 <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
                 {% if child.children %}
-                    <ul class="dropdown">
+                    <ul class="dropdown main-menu">
                         {% for child in child.children %}
                             <li class="{% if child.selected or child.ancestor %}active{% endif %}">
                                 <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
@@ -16,9 +16,9 @@
                 {% endif %}
             </li>
         {% endfor %}
-        <li><a href="#" onclick="$('.dropdown').toggle('fast')"><span class="dropdown">&#9776;</span><span class="dropdown" style="display: none">&#10060;</span></a></li>
+        <li><a href="#" onclick="$('.dropdown.main-menu').toggle('fast')"><span class="dropdown main-menu">&#9776;</span><span class="dropdown main-menu" style="display: none">&#10060;</span></a></li>
     </ul>
-    <!--div class="socialmedia dropdown" style="display: none">
+    <!-- <div class="socialmedia dropdown" style="display: none">
         {% trans "Join the conversation:" %}
         <a href="https://twitter.com/search?q=%23ep14">#ep14</a>
         <a href="https://twitter.com/europython" class="twitter">
@@ -39,6 +39,6 @@
                 <i class="fa fa-google-plus fa-stack-1x"></i>
             </span>
         </a>
-    </div-->
+    </div> -->
 </div>
 

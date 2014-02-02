@@ -38,17 +38,25 @@ a {
         text-align: center;
 
         > ul {
-            display: inline-block;
-            position: relative;
+            @include grid-row($behavior: collapse);
             margin: 0 auto;
-            min-width: 890px;
+            max-width: $row-width;
             text-align: left;
+            list-style: none;
+            padding: 0;
 
             > li {
-                display: block;
-				float: left;
-                min-width: 190px;
-                margin: 0 1em;
+                @include grid-column(
+                    $columns: 2,
+                    $collapse: true
+                    );
+                &:last-child {
+                    margin-left: -(grid-calc(2, $total-columns));
+                    text-align: right;
+                }
+                &.active > a {
+                    color: $link-color-subnavhover;
+                }
 
                 > a {
                     color: $link-color-nav;
@@ -65,6 +73,10 @@ a {
                     li {
                         display: block;
                         margin: 1em 0;
+
+                        &.active > a {
+                            color: $link-color-subnavhover;
+                        }
 
                         a {
                             color: $link-color-subnav;
@@ -369,7 +381,7 @@ strong {
 }
 
 #main > #content {
-    max-width: 890px;
+    max-width: $row-width;
     margin: auto;
     text-align: left;
     font-size: 16px;
