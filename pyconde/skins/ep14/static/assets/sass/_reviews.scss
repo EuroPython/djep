@@ -1,0 +1,64 @@
+body.reviews {
+    table {
+        .track {
+            display: block;
+            font-size: 80%;
+        }
+    }
+
+    .kind-talk td.title a,
+    .legend .kind-talk {
+        color: $red;
+    }
+
+    .kind-training td.title a,
+    .legend .kind-training {
+        color: $blue;
+    }
+
+    .kind-poster td.title a,
+    .legend .kind-poster {
+        color: darken($green, 20);
+    }
+
+    #timeline {
+        list-style: none;
+        padding-left: 0;
+        li {
+            border: 1px solid darken($background-color-light, 10);
+            margin-bottom: 5px;
+        }
+
+        dl {
+            padding: 0;
+            margin: 0;
+        }
+
+        dt, dd {
+            padding: 5px;
+        }
+
+        dt {
+            background: $background-color-light;
+            a {
+                text-decoration: none;
+            }
+        }
+    }
+
+    &.proposaldetails,
+    &.versiondetails {
+        #details {
+            @media #{$medium-up} {
+                @include grid-column($columns:8);
+            }
+        }
+        #sidebar {
+            font-size: 80%;
+            opacity: 0.8;
+            @media #{$medium-up} {
+                @include grid-column($columns:4);
+            }
+        }
+    }
+}

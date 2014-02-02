@@ -1,7 +1,7 @@
 {% extends "reviews/proposal_base.html" %}
-{% load crispy_forms_tags %}
-{% block title %}Vorschlag "{{ proposal.title }}" editieren{% endblock %}
+{% load crispy_forms_tags i18n %}
+{% block title %}{% blocktrans with title=proposal.title %}Editing "{{ title }}" proposal {% endblocktrans %}{% endblock %}
+{% block page_title %}{% blocktrans with title=proposal.title %}Editing "{{ title }}" proposal {% endblocktrans %}{% endblock %}
 {% block content %}
-    <h1>Vorschlag "{{ proposal.title }}" editieren</h1>
     {% crispy form %}
 {% endblock content %}

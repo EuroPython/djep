@@ -25,6 +25,7 @@ class UpdateProposalForm(forms.ModelForm):
         ]
 
     def __init__(self, *args, **kwargs):
+        self.kind_instance = kwargs.pop('kind_instance', None)
         super(UpdateProposalForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
@@ -72,7 +73,7 @@ class UpdateProposalForm(forms.ModelForm):
             'duration': proposal.duration,
             'audience_level': proposal.audience_level,
             'available_timeslots': proposal.available_timeslots.all(),
-        })
+        }, kind_instance=proposal.kind)
         return form
 
 

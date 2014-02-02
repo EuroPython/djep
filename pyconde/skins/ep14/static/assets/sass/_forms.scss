@@ -149,9 +149,10 @@ label {
 }
 
 .form-actions {
-    text-align: right;
+    text-align: left;
+    padding-top: 10px;
     > *, .controls > * {
-        margin-left: 10px;
+        margin-right: 10px;
     }
     ul {
         list-style: none;

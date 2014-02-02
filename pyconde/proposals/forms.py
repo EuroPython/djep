@@ -218,9 +218,10 @@ class TypedSubmissionForm(ProposalSubmissionForm):
         super(TypedSubmissionForm, self).customize_fields(instance, form, tracks)
         if form is None:
             form = self
-        if 'available_timeslots' in form.fields:
+        if 'available_timeslots' in form.fields and \
+                form.kind_instance is not None:
             form.fields['available_timeslots'].queryset = form.fields['available_timeslots'] \
-                .queryset.filter(section__in=self.kind_instance.sections.all())
+                .queryset.filter(section__in=form.kind_instance.sections.all())
 
     def save(self, commit=True):
         instance = super(TypedSubmissionForm, self).save(False)
