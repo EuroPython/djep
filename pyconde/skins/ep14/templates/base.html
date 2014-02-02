@@ -39,15 +39,15 @@
         {% cms_toolbar %}
         <div class="container">
             <header>
-	            <nav class="site-bar">
-	                {% show_menu 0 1 1 1 "cms/primary-navigation.html" %}
-	            </nav>
+                <div class="contain-to-grid main-nav">
+                    {% show_menu 0 1 1 1 "cms/primary-navigation.html" %}
+                </div>
                 <div class="inner">
                     <a href="/" class="logo">
                         <img class="big" src="{% static "assets/images/logo-big.png" %}" alt="EuroPython 2014" />
                         <img class="small" src="{% static "assets/images/logo.png" %}" alt="EuroPython 2014" />
                     </a>
-                    <nav class="top-bar" data-topbar>
+                    <!--<nav class="top-bar" data-topbar>
                         <ul class="title-area">
                             <li class="name"><a href="#">EuroPython 2014</a></li>
                             <li class="toggle-topbar menu-icon"><a href="#"><i class="fa fa-fw fa-list"></i><span></span></a></li>
@@ -69,7 +69,7 @@
                     <p id="login">
                         <a href="{% url 'auth_login' %}">{% trans "Login" %}</a> or <a href="{% url 'userprofiles_registration' %}">{% trans "Sign up" %}</a>
                     </p>
-                    {% endif %}
+                    {% endif %} -->
                 </div>
             </header>
             <div id="main">

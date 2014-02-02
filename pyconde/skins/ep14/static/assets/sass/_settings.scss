@@ -8,17 +8,22 @@ $body-font-color: $baseColor;
 
 $header-font-family: $baseFont;
 
-$topbar-bg-color: $background-color-light;
-$topbar-dropdown-bg: darken($topbar-bg-color, 3%);
-$topbar-dropdown-link-color: $body-font-color;
-$topbar-dropdown-link-bg: $topbar-dropdown-bg;
-$topbar-dropdown-toggle-color: $blue;
-$topbar-link-bg-hover: darken($topbar-bg-color, 3%);
-$topbar-link-bg-active: darken($topbar-bg-color, 3%);
+$topbar-height: auto;
 
-$topbar-link-color: $blue;
-$topbar-link-color-hover: $topbar-link-color;
-$topbar-link-color-active: $topbar-link-color;
+$topbar-bg-color: $background-nav;
+$topbar-dropdown-bg: none;
+$topbar-dropdown-link-color: $link-color-subnav;
+$topbar-dropdown-link-bg: none;
+$topbar-dropdown-toggle-color: $link-color-subnav;
+
+$topbar-link-color: $link-color-nav;
+$topbar-link-color-hover: $link-color-nav-hover;
+$topbar-link-color-active: $link-color-nav-active;
+$topbar-link-font-size: 14px;
+$topbar-link-bg-hover: none;
+$topbar-link-bg-active: none;
+$topbar-link-bg-active-hover: none;
 
 $topbar-breakpoint: rem-calc(890px);
 $topbar-media-query: "screen and (min-width: 890px)";
+$topbar-arrows: false;

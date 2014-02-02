@@ -26,71 +26,59 @@ a {
     color: $blue-light;
 }
 
-.site-bar {
-    display: block;
-    position: relative;
-    width: 100%;
-    z-index: 9999;
-
-    div {
-        background: $background-nav;
-        padding: 1em;
-        text-align: center;
-
-        > ul {
-            @include grid-row($behavior: collapse);
-            margin: 0 auto;
-            max-width: $row-width;
-            text-align: left;
-            list-style: none;
-            padding: 0;
-
-            > li {
-                @include grid-column(
-                    $columns: 2,
-                    $collapse: true
-                    );
-                &:last-child {
-                    margin-left: -(grid-calc(2, $total-columns));
-                    text-align: right;
-                }
-                &.active > a {
-                    color: $link-color-subnavhover;
-                }
-
-                > a {
-                    color: $link-color-nav;
-                    font-size: 16px;
-                    font-size: 1.6rem;
-                    text-decoration: None;
-                    text-transform: uppercase;
-                }
-
-                ul {
-                    display: None;
+.main-nav {
+    background-color: $topbar-bg-color;
+    @media #{$topbar-media-query} {
+        .top-bar {
+            > .top-bar-section {
+                > ul {
+                    @include grid-row($behavior: collapse);
+                    margin-top: -($topbar-height);
+                    text-align: left;
                     padding: 0;
-
-                    li {
-                        display: block;
-                        margin: 1em 0;
-
-                        &.active > a {
-                            color: $link-color-subnavhover;
+                    > li.i {
+                        @include grid-column($columns: 2, $collapse: true);
+                        > a {
+                            text-transform: uppercase;
                         }
-
-                        a {
-                            color: $link-color-subnav;
-                            font-size: 16px;
-                            font-size: 1.6rem;
-                            text-decoration: None;
-
-                            &:hover {
-                                color: $link-color-subnavhover;
+                        > ul {
+                            padding: 0;
+                            position: relative;
+                        }
+                    }
+                    > li:last-child {
+                        margin-left: -1em;
+                        width: 1em;
+                        text-align: right;
+                        > a {
+                            background: none;
+                            &:active, &:hover {
+                                color: $link-color-nav
                             }
                         }
                     }
                 }
             }
+        }
+        .row {
+            padding-bottom: 30px;
+            .lang {
+
+            }
+            .socialmedia {
+                padding-right: 17px;
+                font-size: 14px;
+                font-size: 1.4rem;
+                > span {
+                    margin: 0 10px;
+                }
+            }
+            a {
+                color: $link-color-nav;
+            }
+        }
+        a {
+            text-decoration: none;
         }
     }
 }
@@ -129,7 +117,7 @@ header {
             }
         }
     }
-    .top-bar {
+    /* .top-bar {
         ul > li > a, .title-area a {
             font-size: 16px;
             font-size: 1.6rem;
@@ -222,7 +210,7 @@ header {
             position: absolute;
             left: 0;
         }
-    }
+    } */
     #login {
         @media (screen and min-width: 890px) {
             position: absolute;

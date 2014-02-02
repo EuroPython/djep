@@ -1,44 +1,36 @@
 {% load menu_tags i18n %}
 
-<div>
-    <ul>
-        {% for child in children %}
-            <li class="{% if child.children %}has-dropdown{% endif %} {% if child.selected or child.ancestor %}active{% endif %}">
-                <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
-                {% if child.children %}
-                    <ul class="dropdown main-menu">
-                        {% for child in child.children %}
-                            <li class="{% if child.selected or child.ancestor %}active{% endif %}">
-                                <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
-                            </li>
-                        {% endfor %}
-                    </ul>
-                {% endif %}
+<nav class="top-bar" data-topbar data-options="is_hover: false">
+    <ul class="title-area"><li class="name"></li><li class="toggle-topbar menu-icon"><a href="#">Menu</a></li></ul>
+    <section class="top-bar-section">
+        <ul class="left">
+            {% for child in children %}
+                <li class="i {% if child.children %}has-dropdown{% endif %} {% if child.selected or child.ancestor %} active{% endif %}">
+                    <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
+                    {% if child.children %}
+                        <ul class="dropdown">
+                            {% for child in child.children %}
+                                <li class="{% if child.children %}has-dropdown{% endif %} {% if child.selected or child.ancestor %} active{% endif %}">
+                                    <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    {% endif %}
+                </li>
+            {% endfor %}
+            <li>
+                <a href="#" onclick="$('.main-nav .dropdown').toggle()"><i class="fa fa-bars btn-toggle dropdown" style="display: block"></i><i class="fa fa-times btn-toggle dropdown"></i></a>
             </li>
-        {% endfor %}
-        <li><a href="#" onclick="$('.dropdown.main-menu').toggle('fast')"><span class="dropdown main-menu">&#9776;</span><span class="dropdown main-menu" style="display: none">&#10060;</span></a></li>
-    </ul>
-    <!-- <div class="socialmedia dropdown" style="display: none">
-        {% trans "Join the conversation:" %}
-        <a href="https://twitter.com/search?q=%23ep14">#ep14</a>
-        <a href="https://twitter.com/europython" class="twitter">
-            <span class="fa-stack fa-lg">
-                <i class="fa fa-circle fa-stack-2x fa-inverse"></i>
-                <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
-            </span>
-        </a>
-        <a href="https://www.facebook.com/europython" class="facebook">
-            <span class="fa-stack fa-lg">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-facebook fa-stack-1x"></i>
-            </span>
-        </a>
-        <a href="https://plus.google.com/+Ep14Org" class="google-plus">
-            <span class="fa-stack fa-lg">
-                <i class="fa fa-circle fa-stack-2x"></i>
-                <i class="fa fa-google-plus fa-stack-1x"></i>
-            </span>
-        </a>
-    </div> -->
+        </ul>
+    </section>
+</nav>
+<div class="dropdown hide row">
+    <div class="small-1 columns lang"></div>
+    <div class="small-11 columns text-right socialmedia">
+        <span>{% trans "Join the conversation" %}</span>
+        <span><a href="https://twitter.com/search?q=%23europython">#europython</a></span>
+        <span><a href="https://twitter.com/europython" class="twitter"><i class="fa fa-twitter fa-lg"></i></a></span>
+        <span><a href="https://www.facebook.com/europython" class="facebook"><i class="fa fa-facebook fa-lg"></i></a></span>
+        <span><a href="https://plus.google.com/+Ep14Org" class="google-plus"><i class="fa fa-google-plus fa-lg"></i></a></span>
+    </div>
 </div>
-
