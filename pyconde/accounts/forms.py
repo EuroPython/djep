@@ -288,4 +288,4 @@ class ReviewerApplicationForm(forms.Form):
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
             'apply',
-            ButtonHolder(Submit('save', _("Apply Now!"), css_class='btn btn-success')))
+            ButtonHolder(Submit('save', _("Apply now!"), css_class='btn btn-success')))

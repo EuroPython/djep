@@ -211,10 +211,14 @@ class Reviewer(models.Model):
         (STATE_DECLINED, _('request declined')),
     )
 
-    user = models.ForeignKey(auth_models.User, verbose_name=_("user"), unique=True)
+    conference = models.ForeignKey(conference_models.Conference, on_delete=models.CASCADE)
+    user = models.ForeignKey(auth_models.User, verbose_name=_("user"))
     state = models.PositiveSmallIntegerField(_("state"), default=STATE_PENDING, choices=STATE_CHOICES)
 
+    objects = conference_models.CurrentConferenceManager()
+
     class Meta:
+        unique_together = (('conference', 'user'),)
         verbose_name = _('reviewer')
         verbose_name_plural = _('reviewers')
 

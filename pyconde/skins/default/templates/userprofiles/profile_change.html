@@ -20,13 +20,14 @@
 
   {% if review_state == None and review_open and not request.user.is_superuser %}
     {% url 'reviewer_application' as reviewer_application_url %}
-    <p>{% blocktrans %}<a href="{{ reviewer_application_url}}">Apply now</a> to become a reviewer.{% endblocktrans %}
+    <p>{% blocktrans %}<a href="{{ reviewer_application_url}}">Apply now</a> to become a reviewer.{% endblocktrans %}</p>
+    <p>{% blocktrans %}A reviewer is a person that evaluates the talk, training and poster proposals and scores them. Based on the recommendataion by all reviews a proposal receives, the EuroPython 2014 program committee is going to select the presentations for the conference.{% endblocktrans %}</p>
   {% elif review_state == 0 %}
-    <p>{% blocktrans %}Your application as a reviewer is pending.{% endblocktrans %}
+    <p>{% blocktrans %}Your application as a reviewer is pending.{% endblocktrans %}</p>
   {% elif review_state == 1 %}
-    <p>{% blocktrans %}Congratulations, you are a reviewer.{% endblocktrans %}
+    <p>{% blocktrans %}Congratulations, you are a reviewer.{% endblocktrans %}</p>
   {% elif review_state == 2 %}
-    <p>{% blocktrans %}Sorry, but your appication as a reviewer has been declined.{% endblocktrans %}
+    <p>{% blocktrans %}Sorry, but your appication as a reviewer has been declined.{% endblocktrans %}</p>
   {% endif %}
 
   {% crispy form %}

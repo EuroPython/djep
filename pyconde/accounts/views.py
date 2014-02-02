@@ -154,7 +154,7 @@ class ReviewerApplication(LoginRequiredMixin, generic_views.FormView):
         mails = []
         subject = _('New reviewer application')
         from_email = settings.DEFAULT_FROM_EMAIL
-        url = 'https://' and self.request.is_secure() or 'http://'
+        url = 'https://' if self.request.is_secure() else 'http://'
         url += self.request.get_host()
         url += reverse('admin:reviews_reviewer_change', args=(reviewer_request.pk,))
         data_dict = {

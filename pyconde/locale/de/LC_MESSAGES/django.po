@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-26 12:53+0100\n"
+"POT-Creation-Date: 2014-02-02 16:04+0100\n"
 "PO-Revision-Date: 2013-12-21 21:30+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -223,6 +223,10 @@ msgstr "Weiter"
 msgid "Change e-mail address"
 msgstr "E-Mail-Adresse ändern"
 
+#: accounts/forms.py:291
+msgid "Apply now!"
+msgstr "Jetzt bewerben!"
+
 #: accounts/menu.py:15
 msgid "Accounts menu"
 msgstr "Accounts-Menü"
@@ -330,9 +334,21 @@ msgstr ""
 msgid "Your avatar has to be either a PNG, JPEG or GIF file."
 msgstr "Das Profilbild muss entweder ein PNG, JPEG oder GIF sein."
 
-#: accounts/views.py:106
+#: accounts/views.py:132
 msgid "An error occurred while saving the form."
 msgstr "Beim Speichern des Formulars trat ein Fehler auf."
+
+#: accounts/views.py:143
+msgid "The reviewer application is closed."
+msgstr "Die Bewerbung als Reviewer is geschlossen."
+
+#: accounts/views.py:146
+msgid "You already applied as a reviewer."
+msgstr "Du hast dich bereits als Reviewer beworben."
+
+#: accounts/views.py:155
+msgid "New reviewer application"
+msgstr "Neue Reviewer Bewerbung"
 
 #: accounts/templates/accounts/login-email-request.html:3
 #: accounts/templates/accounts/login-email-request.html:4
@@ -363,7 +379,33 @@ msgstr ""
 "können Ihre Adresse später im <em>Mein Konto</em>-Bereich jederzeit ändern.</"
 "p>"
 
-#: attendees/admin.py:17 reviews/admin.py:21 reviews/admin.py:27
+#: accounts/templates/accounts/reviewer_application_mail.txt:1
+#, python-format
+msgid ""
+"Hello %(receiver)s,\n"
+"\n"
+"the user %(applicant_username)s (%(applicant_display_name)s) requested to "
+"become a reviewer. You can visit %(reviewer_list_url)s to process the "
+"request.\n"
+"\n"
+"Thank you very much!\n"
+"The %(conference_title)s team\n"
+msgstr ""
+"Hallo %(receiver)s,\n"
+"\n"
+"der Benutzer %(applicant_username)s (%(applicant_display_name)s) hat sich "
+"als Reviewer beworben. Unter %(reviewer_list_url)s kannst du die Bewerbung "
+"an- bzw. ablehnen.\n"
+"\n"
+"Vielen Dank!\n"
+"Dein %(conference_name)s Team\n"
+
+#: accounts/templates/accounts/reviewer_apply.html:4
+#: accounts/templates/accounts/reviewer_apply.html:5
+msgid "Become a reviewer"
+msgstr "Bewirb dich als Reviewer"
+
+#: attendees/admin.py:17 reviews/admin.py:23 reviews/admin.py:29
 msgid "Export as CSV"
 msgstr "Als CSV exportieren"
 
@@ -1679,9 +1721,21 @@ msgstr ""
 "Fragen zu Training-Inhalten und -Aufbau bitte an <a href=\"mailto:"
 "helpdesk@ep14.org\">helpdesk@ep14.org</a>.\n"
 
-#: reviews/admin.py:16
+#: reviews/admin.py:18
 msgid "Mark comment(s) as deleted"
 msgstr "Kommentar(e) als gelöscht markieren"
+
+#: reviews/admin.py:39
+msgid "Accept selected user requests to become a reviewer."
+msgstr "Anträge der ausgewählen Benutzer annehmen"
+
+#: reviews/admin.py:49
+msgid "Decline selected user requests to become a reviewer."
+msgstr "Anträge der ausgewählen Benutzer ablehnen"
+
+#: reviews/admin.py:82
+msgid "Can review"
+msgstr "Kann bewerten"
 
 #: reviews/cms_app.py:10
 msgid "Reviews app"
@@ -1787,7 +1841,7 @@ msgstr "Vorschlagsversion"
 msgid "proposal versions"
 msgstr "Vorschlagsversionen"
 
-#: reviews/models.py:142
+#: reviews/models.py:142 reviews/models.py:215
 msgid "user"
 msgstr "Benutzer"
 
@@ -1839,22 +1893,46 @@ msgstr "Kommentar"
 msgid "comments"
 msgstr "Kommentare"
 
-#: reviews/utils.py:96
+#: reviews/models.py:209
+msgid "pending request"
+msgstr "Bewerbung läuft"
+
+#: reviews/models.py:210
+msgid "request accepted"
+msgstr "Bewerbung angenommen"
+
+#: reviews/models.py:211
+msgid "request declined"
+msgstr "Bewerbung abgelehnt"
+
+#: reviews/models.py:216
+msgid "state"
+msgstr "Status"
+
+#: reviews/models.py:222
+msgid "reviewer"
+msgstr "Reviewer"
+
+#: reviews/models.py:223
+msgid "reviewers"
+msgstr "Reviewer"
+
+#: reviews/utils.py:102
 #, python-format
 msgid "[REVIEW] The author has commented on \"%(title)s\""
 msgstr "[REVIEW] Der Autor hat \"%(title)s\" kommentiert"
 
-#: reviews/utils.py:98
+#: reviews/utils.py:104
 #, python-format
 msgid "[REVIEW] %(author)s commented on \"%(title)s\""
 msgstr "[REVIEW] %(author)s hat \"%(title)s\" kommentiert"
 
-#: reviews/utils.py:128
+#: reviews/utils.py:134
 #, python-format
 msgid "[REVIEW] The author updated %(title)s"
 msgstr "[REVIEW] Der Autor hat %(title)s bearbeitet"
 
-#: reviews/utils.py:130
+#: reviews/utils.py:136
 #, python-format
 msgid "[REVIEW] %(author)s updated %(title)s"
 msgstr "[REVIEW] %(author)s hat %(title)s bearbeitet"
@@ -2233,6 +2311,36 @@ msgstr "<a href=\"%(auth_password_change_url)s\">Passwort ändern</a>."
 msgid ""
 "Your account is based on the data provided by your %(provider)s account."
 msgstr "Ihr Konto basiert auf Ihrem %(provider)s Konto."
+
+#: skins/default/templates/userprofiles/profile_change.html:23
+#, python-format
+msgid ""
+"<a href=\"%(reviewer_application_url)s\">Apply now</a> to become a reviewer."
+msgstr ""
+"Jetzt als <a href=\"%(reviewer_application_url)s\">Reviewer bewerben</a>."
+
+#: skins/default/templates/userprofiles/profile_change.html:24
+msgid ""
+"A reviewer is a person that evaluates the talk, training and poster "
+"proposals and scores them. Based on the recommendataion by all reviews a "
+"proposal receives, the EuroPython 2014 program committee is going to select "
+"the presentations for the conference."
+msgstr
+"Ein Reviewer is eine Person, die die eingereichten Vorträge, Trainings und "
+"Poster bewertet. Auf Grundlage aller eingereichten Bewertung wird das "
+"Programm-Kommittee das Programm für die EuroPython 2014 zusammen stellen"
+
+#: skins/default/templates/userprofiles/profile_change.html:26
+msgid "Your application as a reviewer is pending."
+msgstr "Deine Bewerbung als Reviewer läuft noch."
+
+#: skins/default/templates/userprofiles/profile_change.html:28
+msgid "Congratulations, you are a reviewer."
+msgstr "Herzlichen Glückwunsch, du bist ein Reviewer."
+
+#: skins/default/templates/userprofiles/profile_change.html:30
+msgid "Sorry, but your appication as a reviewer has been declined."
+msgstr "Deine Bewerbung als Reviewer wurde leider abgelehnt."
 
 #: skins/default/templates/userprofiles/profile_view.html:5
 msgid "User profile:"
