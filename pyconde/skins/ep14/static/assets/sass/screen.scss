@@ -189,6 +189,7 @@ a {
                 }
             }
             > .top-bar-section {
+                word-wrap: break-word;
                 > ul {
                     @include grid-row($behavior: collapse);
                     margin-top: -($topbar-height);
@@ -196,12 +197,16 @@ a {
                     padding: 0;
                     > li {
                         @include grid-column($columns: 2, $collapse: true);
+                        padding-right: 5px;
                         > a {
                             text-transform: uppercase;
                         }
                         > ul {
                             padding: 0;
                             position: relative;
+                            a {
+                                white-space: normal;
+                            }
                         }
                     }
                     > li:last-child {
