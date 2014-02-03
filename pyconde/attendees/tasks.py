@@ -68,7 +68,10 @@ def render_invoice(purchase_id):
             raise RuntimeError('Error exporting purchase pk %d: %s' % (purchase_id, error))
     else:
         purchase.exported = True
-        purchase.state = 'invoice_created'
+        if purchase.payment_method == 'invoice' and purchase.state == 'new':
+            # We must not update the state for credit cards, as that would
+            # override the prior state.
+            purchase.state = 'invoice_created'
         purchase.save(update_fields=['exported', 'state'])
 
     # Send invoice to buyer
