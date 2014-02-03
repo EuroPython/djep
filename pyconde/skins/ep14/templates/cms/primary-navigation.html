@@ -1,6 +1,6 @@
 {% load menu_tags i18n static %}
 
-<nav class="top-bar" data-topbar data-options="is_hover: false">
+<nav class="top-bar" data-topbar>
     <ul class="title-area">
         <li class="name"><h1><a href="/"><img class="small" src="{% static "assets/images/logo.png" %}" alt="" /> EuroPython 2014</a></h1></li>
         <li class="toggle-topbar menu-icon"><a href="#"><i class="fa fa-bars fa-2x"></i></a></li>
@@ -8,7 +8,7 @@
     <section class="top-bar-section">
         <ul class="left">
             {% for child in children %}
-                <li class="i {% if child.children %}has-dropdown{% endif %} {% if child.selected or child.ancestor %} active{% endif %}">
+                <li class="{% if child.children %}has-dropdown{% endif %} {% if child.selected or child.ancestor %} active{% endif %}">
                     <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
                     {% if child.children %}
                         <ul class="dropdown">

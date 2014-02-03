@@ -194,7 +194,7 @@ a {
                     margin-top: -($topbar-height);
                     text-align: left;
                     padding: 0;
-                    > li.i {
+                    > li {
                         @include grid-column($columns: 2, $collapse: true);
                         > a {
                             text-transform: uppercase;
@@ -213,6 +213,13 @@ a {
                             &.active, &:hover {
                                 color: $link-color-nav
                             }
+                        }
+                    }
+                }
+                .has-dropdown {
+                    &.hover, &.not-click:hover {
+                        & > .dropdown {
+                            display: none;
                         }
                     }
                 }
