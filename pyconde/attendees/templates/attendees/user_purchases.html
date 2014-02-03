@@ -20,6 +20,15 @@
                 {{ purchase.grouper.street }}<br>
                 {{ purchase.grouper.zip_code }} {{ purchase.grouper.country }}
             </p>
+            {% if purchase.grouper.exported %}
+            <p>
+                <form action="{% url 'attendees_user_resend_invoice' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ purchase.grouper.id }}" name="p" />
+                    <input type="submit" value="{% trans "Resend invoice" %}" class="btn btn-primary" />
+                </form>
+            </p>
+            {% endif %}
         </div>
         <div class="tickets">
             <h3>{% trans "Tickets" %}</h3>
