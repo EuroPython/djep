@@ -2460,7 +2460,7 @@ msgstr "E-Mail-Bestätigung"
 
 #: skins/ep14/templates/base.html:51
 msgid "Sign up"
-msgstr "Anmelden"
+msgstr "Registrieren"
 
 #: skins/ep14/templates/base.html:88
 msgid "Get in touch"
