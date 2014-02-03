@@ -1,5 +1,5 @@
 {% load i18n %}{% blocktrans with conference_name=conference.title %}
-If you have any questions please contact use!
+If you have any questions please contact us!
 
 Twitter: @europython
 E-mail:  helpdesk@europython.eu

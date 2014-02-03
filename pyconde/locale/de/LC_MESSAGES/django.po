@@ -797,7 +797,7 @@ msgstr "Konferenzmaterial wird beim Check-in verteilt."
 #, python-format
 msgid ""
 "\n"
-"If you have any questions please contact use!\n"
+"If you have any questions please contact us!\n"
 "\n"
 "Twitter: @europython\n"
 "E-mail:  helpdesk@europython.eu\n"
