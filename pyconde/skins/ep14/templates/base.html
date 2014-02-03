@@ -39,34 +39,24 @@
         {% cms_toolbar %}
         <div class="container">
             <header>
+                <div class="contain-to-grid main-nav">
+                    {% show_menu 0 1 1 1 "cms/primary-navigation.html" %}
+                </div>
                 <div class="inner">
                     <a href="/" class="logo">
                         <img class="big" src="{% static "assets/images/logo-big.png" %}" alt="EuroPython 2014" />
-                        <img class="small" src="{% static "assets/images/logo.png" %}" alt="EuroPython 2014" />
                     </a>
-                    <nav class="top-bar" data-topbar>
-                        <ul class="title-area">
-                            <li class="name"><a href="#">EuroPython 2014</a></li>
-                            <li class="toggle-topbar menu-icon"><a href="#"><i class="fa fa-fw fa-list"></i><span></span></a></li>
-                        </ul>
-                        <section class="top-bar-section">
-                            {% show_menu 0 1 1 1 "cms/primary-navigation.html" %}
-                            <ul class="right">
-                                {% if user.is_authenticated %}
-                                <li class="has-dropdown">
-                                    <a href="{% url 'account_profile' uid=user.pk %}">{% trans "Your profile" %}</a>
-                                    <ul class="dropdown">
-                                        {% show_menu_below_id "accounts" %}
-                                    </ul>
-                                </li>
-                                {% endif %}
-                            </ul>
-                        </section>
-                    </nav>
                     {% if not user.is_authenticated %}
                     <p id="login">
                         <a href="{% url 'auth_login' %}">{% trans "Login" %}</a> or <a href="{% url 'userprofiles_registration' %}">{% trans "Sign up" %}</a>
                     </p>
+                    {% else %}
+                    <div id="accountbox">
+                    <a href="{% url 'account_profile' uid=user.pk %}">{% trans "Your profile" %} <i class="fa fa-fw fa-angle-left"></i></a>
+                    <ul class="dropdown">
+                        {% show_menu_below_id "accounts" %}
+                    </ul>
+                    </div>
                     {% endif %}
                 </div>
             </header>

@@ -34,9 +34,45 @@ ep.ui = (function($) {
         });
     }
 
+    function toggleMenuIcons() {
+        $('#accountbox').hover(function() {
+            $(this).find('> a > i')
+                .removeClass('fa-angle-left')
+                .addClass('fa-angle-down');
+        }, function() {
+            $(this).find('> a > i')
+                .removeClass('fa-angle-down')
+                .addClass('fa-angle-left');
+        });
+    }
+
+    function handleAccountMenuOnTouch() {
+        // We only need this on touch devices
+        if (!$('html').hasClass('touch')) {
+            return;
+        }
+        $('#accountbox > a').on('click', function(evt) {
+            if ($(window).width() < 889) {
+                evt.preventDefault();
+                var icon = $(this).find('> i');
+                if (icon.hasClass('fa-angle-down')) {
+                    icon.removeClass('fa-angle-down')
+                        .addClass('fa-angle-left');
+                } else {
+                    icon.removeClass('fa-angle-left')
+                        .addClass('fa-angle-down');
+                }
+                $('#accountbox > ul').toggle();
+                return;
+            }
+        });
+    }
+
     function init() {
         wrapFileUploads();
         overrideOrbitUi();
+        toggleMenuIcons();
+        handleAccountMenuOnTouch();
     }
 
     init();
