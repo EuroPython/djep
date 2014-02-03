@@ -26,6 +26,66 @@ a {
     color: $blue-light;
 }
 
+#accountbox {
+    float: right;
+    margin-top: 70px;
+    position: relative;
+
+    > a {
+        font-size: 16px;
+        font-size: 1.6rem;
+        line-height: 22px;
+        line-height: 2.2rem;
+        text-decoration: none;
+        display: block;
+        font-weight: bold;
+        text-transform: uppercase;
+
+        i {
+            font-weight: bold;
+            position: relative;
+            left: -2px;
+        }
+    }
+
+    &:hover > a {
+        color: $background-nav;
+        padding-bottom: 22px;
+        background: url(../images/profile-menu-arrow.png) bottom right no-repeat;
+    }
+
+    ul {
+        position: absolute;
+        top: 23px;
+        right: -25px;
+        display: none;
+        list-style: none;
+        background: $background-nav;
+        border-radius: 7px;
+        text-align: left;
+        padding: 5px 0px;
+        min-width: 250px;
+        margin-top: 20px;
+
+        a {
+            display: block;
+            color: $background-color;
+            font-size: 1.6rem;
+            line-height: 2.0rem;
+            padding: 7px 20px;
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+    }
+
+    &:hover ul,
+    ul:hover {
+        display: block;
+    }
+}
+
 .main-nav {
     background-color: $topbar-bg-color;
     a {

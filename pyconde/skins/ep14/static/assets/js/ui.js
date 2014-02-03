@@ -34,9 +34,22 @@ ep.ui = (function($) {
         });
     }
 
+    function toggleMenuIcons() {
+        $('#accountbox').hover(function() {
+            $(this).find('> a > i')
+                .removeClass('fa-angle-left')
+                .addClass('fa-angle-down');
+        }, function() {
+            $(this).find('> a > i')
+                .removeClass('fa-angle-down')
+                .addClass('fa-angle-left');
+        });
+    }
+
     function init() {
         wrapFileUploads();
         overrideOrbitUi();
+        toggleMenuIcons();
     }
 
     init();
