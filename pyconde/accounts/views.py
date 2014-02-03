@@ -148,7 +148,7 @@ class ReviewerApplication(LoginRequiredMixin, generic_views.FormView):
         return super(ReviewerApplication, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        reviewer_request = Reviewer.objects.create(user=self.request.user)
+        reviewer_request = Reviewer.objects.create(user=self.request.user, conference=current_conference())
         reviewer_ct = ContentType.objects.get_for_model(Reviewer)
         perm = auth_models.Permission.objects.get(content_type_id=reviewer_ct.pk, codename='change_reviewer')
         mails = []
