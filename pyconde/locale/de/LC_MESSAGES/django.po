@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-03 12:01+0100\n"
+"POT-Creation-Date: 2014-02-03 22:42+0100\n"
 "PO-Revision-Date: 2014-02-03 12:14+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -1108,7 +1108,7 @@ msgstr "Gesamtsumme (inkl. 19%% MwSt.)"
 
 #: attendees/templates/attendees/user_purchases.html:28
 msgid "Resend invoice"
-msgstr "Rechnung erstellen"
+msgstr "Rechnung zuschicken"
 
 #: attendees/templates/attendees/user_purchases.html:46
 msgid "You haven't made any purchases yet."
@@ -2291,7 +2291,7 @@ msgstr "Abgemeldet"
 
 #: skins/default/templates/userprofiles/login.html:4
 #: skins/default/templates/userprofiles/login.html:5
-#: skins/ep14/templates/base.html:68
+#: skins/ep14/templates/base.html:51
 msgid "Login"
 msgstr "Anmelden"
 
@@ -2317,7 +2317,7 @@ msgstr ""
 
 #: skins/default/templates/userprofiles/profile.html:4
 #: skins/default/templates/userprofiles/profile.html:5
-#: skins/ep14/templates/base.html:57
+#: skins/ep14/templates/base.html:55
 msgid "Your profile"
 msgstr "Ihre Profil"
 
@@ -2458,25 +2458,29 @@ msgstr "Konto-Aktivierung"
 msgid "E-mail confirmation"
 msgstr "E-Mail-Bestätigung"
 
-#: skins/ep14/templates/base.html:68
+#: skins/ep14/templates/base.html:51
 msgid "Sign up"
 msgstr "Anmelden"
 
-#: skins/ep14/templates/base.html:98
+#: skins/ep14/templates/base.html:88
 msgid "Get in touch"
 msgstr "Hilfe und Support"
 
-#: skins/ep14/templates/base.html:108
+#: skins/ep14/templates/base.html:98
 msgid "Follow @europython"
 msgstr "@europython folgen"
 
-#: skins/ep14/templates/base.html:114
+#: skins/ep14/templates/base.html:104
 msgid "Like EuroPython"
 msgstr "Like EuroPython"
 
-#: skins/ep14/templates/base.html:120
+#: skins/ep14/templates/base.html:110
 msgid "+1 EuroPython"
 msgstr "+1 EuroPython"
+
+#: skins/ep14/templates/cms/primary-navigation.html:35
+msgid "Join the conversation"
+msgstr ""
 
 #: skins/pyconde2013/templates/userprofiles/registration.html:8
 msgid ""
