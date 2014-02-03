@@ -2319,7 +2319,7 @@ msgstr ""
 #: skins/default/templates/userprofiles/profile.html:5
 #: skins/ep14/templates/base.html:55
 msgid "Your profile"
-msgstr "Ihre Profil"
+msgstr "Dein Profil"
 
 #: skins/default/templates/userprofiles/profile.html:8
 #, python-format
