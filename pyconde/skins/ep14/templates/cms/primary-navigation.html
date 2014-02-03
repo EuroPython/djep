@@ -1,7 +1,10 @@
 {% load menu_tags i18n %}
 
 <nav class="top-bar" data-topbar data-options="is_hover: false">
-    <ul class="title-area"><li class="name"></li><li class="toggle-topbar menu-icon"><a href="#">Menu</a></li></ul>
+    <ul class="title-area">
+        <li class="name"><h1><a href="#">EuroPython 2014</a></h1></li>
+        <li class="toggle-topbar menu-icon"><a href="#"><i class="fa fa-bars fa-2x"></i></a></li>
+    </ul>
     <section class="top-bar-section">
         <ul class="left">
             {% for child in children %}
@@ -18,7 +21,7 @@
                     {% endif %}
                 </li>
             {% endfor %}
-            <li>
+            <li class="menu-toggle">
                 <a href="#" onclick="$('.main-nav .dropdown').toggle()"><i class="fa fa-bars btn-toggle dropdown" style="display: block"></i><i class="fa fa-times btn-toggle dropdown"></i></a>
             </li>
         </ul>

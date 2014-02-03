@@ -28,8 +28,63 @@ a {
 
 .main-nav {
     background-color: $topbar-bg-color;
-    @media #{$topbar-media-query} {
+    a {
+        text-decoration: none;
+    }
+    @media screen and (max-width: 889px) {  // mobile
         .top-bar {
+            > .title-area {
+                h1 {
+                    padding: 3px 0 5px 0;
+                    font-size: 20px;
+                    font-size: 2rem;
+                }
+                .menu-icon a {
+                    color: $topbar-link-color;
+                    &:hover {
+                        color: $topbar-link-color-hover;
+                    }
+                }
+            }
+            > .top-bar-section {
+                display: none;
+            }
+            &.expanded > .top-bar-section {
+                display: block;
+                > ul {
+                    > li {
+                        &.menu-toggle {
+                            display: none;
+                        }
+                        > a {
+                            text-transform: uppercase;
+                        }
+                        > ul > li {
+                            a {
+                                color: $link-color-subnav;
+                            }
+                            &.active a {
+                                color: $link-color-subnav-active;
+                            }
+                            &:hover a {
+                                color: $link-color-subnav-hover;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @media #{$topbar-media-query} {  // desktop
+        .dropdown {
+            display: none;
+        }
+        .top-bar {
+            > .title-area {
+                h1 {
+                    display: none;
+                }
+            }
             > .top-bar-section {
                 > ul {
                     @include grid-row($behavior: collapse);
@@ -52,7 +107,7 @@ a {
                         text-align: right;
                         > a {
                             background: none;
-                            &:active, &:hover {
+                            &.active, &:hover {
                                 color: $link-color-nav
                             }
                         }
@@ -65,6 +120,7 @@ a {
             padding-top: 30px;
             .lang {
                 > span {
+                    font-size: 13px;
                     font-size: 1.3rem;
                     font-weight: bold;
                     text-transform: uppercase;
@@ -93,9 +149,6 @@ a {
             a {
                 color: $link-color-nav;
             }
-        }
-        a {
-            text-decoration: none;
         }
     }
 }
