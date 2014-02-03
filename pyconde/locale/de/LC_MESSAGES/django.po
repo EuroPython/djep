@@ -398,7 +398,7 @@ msgstr ""
 "an- bzw. ablehnen.\n"
 "\n"
 "Vielen Dank!\n"
-"Dein %(conference_name)s Team\n"
+"Dein %(conference_title)s Team\n"
 
 #: accounts/templates/accounts/reviewer_apply.html:4
 #: accounts/templates/accounts/reviewer_apply.html:5
