@@ -130,7 +130,7 @@ def restart_celery():
     """
     Restarts the gunicorn workers managed by supervisord.
     """
-    return supervisorctl('restart site')
+    return supervisorctl('restart celery')
 
 
 @task
