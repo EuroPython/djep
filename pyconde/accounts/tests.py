@@ -67,7 +67,7 @@ class AvatarTagTests(TransactionTestCase):
             tmpl.render(template.Context({'user': None}))
 
     def test_with_user_without_avatar(self):
-        expected = '''<img class="avatar gravatar" src="images/noavatar80.png" alt="" style="width: 80px; height: 80px"/>'''
+        expected = '''<img class="avatar gravatar" src="/static_media/assets/images/noavatar80.png" alt="" style="width: 80px; height: 80px"/>'''
         user = User.objects.create_user('testuser', 'test@test.com',
             password='test')
         profile = models.Profile(user=user)
@@ -79,7 +79,7 @@ class AvatarTagTests(TransactionTestCase):
                 tmpl.render(template.Context({'user': user})).lstrip().rstrip())
 
     def test_with_profile_without_avatar(self):
-        expected = '''<img class="avatar gravatar" src="images/noavatar80.png" alt="" style="width: 80px; height: 80px"/>'''
+        expected = '''<img class="avatar gravatar" src="/static_media/assets/images/noavatar80.png" alt="" style="width: 80px; height: 80px"/>'''
         user = User.objects.create_user('testuser', 'test@test.com',
             password='test')
         profile = models.Profile(user=user)
@@ -118,10 +118,9 @@ class AutocompleteUserViewTests(TestCase):
     def setUp(self):
         self.user = User.objects.create_user(
             'test', 'test@test.com', 'test')
-        self.user.first_name = "Firstname"
-        self.user.last_name = "Lastname"
         self.user.save()
         self.profile = models.Profile(user=self.user)
+        self.profile.display_name = "Firstname Lastname"
         self.profile.save()
         self.view = views.AutocompleteUser()
 
@@ -137,7 +136,7 @@ class AutocompleteUserViewTests(TestCase):
         result = self.view.get_matching_users('Firstname')
         self.assertIn('value', result[0])
         self.assertIn('label', result[0])
-        self.assertEquals('Firstname Lastname', result[0]['label'])
+        self.assertEquals('Firstname Lastname (test)', result[0]['label'])
         self.assertEquals(self.user.speaker_profile.pk, result[0]['value'])
 
     def test_firstname_matching(self):
@@ -146,7 +145,7 @@ class AutocompleteUserViewTests(TestCase):
         """
         result = self.view.get_matching_users('Firstname')
         self.assertEquals(1, len(result))
-        self.assertEquals('Firstname Lastname', result[0]['label'])
+        self.assertEquals('Firstname Lastname (test)', result[0]['label'])
 
     def test_lastname_matching(self):
         """
@@ -154,7 +153,7 @@ class AutocompleteUserViewTests(TestCase):
         """
         result = self.view.get_matching_users('Lastname')
         self.assertEquals(1, len(result))
-        self.assertEquals('Firstname Lastname', result[0]['label'])
+        self.assertEquals('Firstname Lastname (test)', result[0]['label'])
 
     def test_case_insensitive_search(self):
         """
@@ -163,11 +162,11 @@ class AutocompleteUserViewTests(TestCase):
         """
         result = self.view.get_matching_users('lastname')
         self.assertEquals(1, len(result))
-        self.assertEquals('Firstname Lastname', result[0]['label'])
+        self.assertEquals('Firstname Lastname (test)', result[0]['label'])
 
         result = self.view.get_matching_users('firstname')
         self.assertEquals(1, len(result))
-        self.assertEquals('Firstname Lastname', result[0]['label'])
+        self.assertEquals('Firstname Lastname (test)', result[0]['label'])
 
 
 class TwitterUsernameValidatorTest(TestCase):

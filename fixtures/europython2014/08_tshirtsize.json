@@ -1,0 +1,119 @@
+[
+{
+  "pk": 1, 
+  "model": "attendees.tshirtsize", 
+  "fields": {
+    "conference": 1, 
+    "sort": 1, 
+    "size": "Female S"
+  }
+},
+{
+  "pk": 2, 
+  "model": "attendees.tshirtsize", 
+  "fields": {
+    "conference": 1, 
+    "sort": 2, 
+    "size": "Female M"
+  }
+},
+{
+  "pk": 3, 
+  "model": "attendees.tshirtsize", 
+  "fields": {
+    "conference": 1, 
+    "sort": 3, 
+    "size": "Female L"
+  }
+},
+{
+  "pk": 4, 
+  "model": "attendees.tshirtsize", 
+  "fields": {
+    "conference": 1, 
+    "sort": 4, 
+    "size": "Female XL"
+  }
+},
+{
+  "pk": 5, 
+  "model": "attendees.tshirtsize", 
+  "fields": {
+    "conference": 1, 
+    "sort": 5, 
+    "size": "Female XXL"
+  }
+},
+{
+  "pk": 6, 
+  "model": "attendees.tshirtsize", 
+  "fields": {
+    "conference": 1, 
+    "sort": 6, 
+    "size": "Male S"
+  }
+},
+{
+  "pk": 7, 
+  "model": "attendees.tshirtsize", 
+  "fields": {
+    "conference": 1, 
+    "sort": 7, 
+    "size": "Male M"
+  }
+},
+{
+  "pk": 8, 
+  "model": "attendees.tshirtsize", 
+  "fields": {
+    "conference": 1, 
+    "sort": 8, 
+    "size": "Male L"
+  }
+},
+{
+  "pk": 9, 
+  "model": "attendees.tshirtsize", 
+  "fields": {
+    "conference": 1, 
+    "sort": 9, 
+    "size": "Male XL"
+  }
+},
+{
+  "pk": 10, 
+  "model": "attendees.tshirtsize", 
+  "fields": {
+    "conference": 1, 
+    "sort": 10, 
+    "size": "Male XXL"
+  }
+},
+{
+  "pk": 11, 
+  "model": "attendees.tshirtsize", 
+  "fields": {
+    "conference": 1, 
+    "sort": 11, 
+    "size": "Male 3XL"
+  }
+},
+{
+  "pk": 12, 
+  "model": "attendees.tshirtsize", 
+  "fields": {
+    "conference": 1, 
+    "sort": 12, 
+    "size": "Male 4XL"
+  }
+},
+{
+  "pk": 13, 
+  "model": "attendees.tshirtsize", 
+  "fields": {
+    "conference": 1, 
+    "sort": 13, 
+    "size": "Male 5XL"
+  }
+}
+]

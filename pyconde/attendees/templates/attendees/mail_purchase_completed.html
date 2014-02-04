@@ -1,46 +1,40 @@
-{# This is a plaintext email #}{% autoescape off %}Hallo {{ purchase.first_name }} {{ purchase.last_name }},
+{# This is a plaintext email #}{% load i18n %}{% autoescape off %}{% blocktrans with first_name=purchase.first_name last_name=purchase.last_name %}Hello {{ first_name }} {{ last_name }},{% endblocktrans %}
 
-Sie haben folgende Tickets für die PyCon DE 2013 gekauft:
+{% trans "You've purchased following tickets:" %}
 ---------------------------------------------------------
 {% for ticket in purchase.ticket_set.all %}- {{ ticket.ticket_type.name }} ({{ ticket.first_name }} {{ ticket.last_name }}), {{ ticket.ticket_type.fee|floatformat:2 }} EUR
 {% endfor %}
 --------------------------------------------------------
-Ust. (19%):  {{ rounded_vat }} EUR
+{% trans "VAT (19%)" %}:  {{ rounded_vat }} EUR
 --------------------------------------------------------
-Gesamtpreis: {{ purchase.payment_total|floatformat:2 }} EUR
+{% trans "Total" %}: {{ purchase.payment_total|floatformat:2 }} EUR
 ========================================================
 
-Zahlungsart: {{ payment_method }}
+{% trans "Payment method" %}: {{ payment_method }}
 
-Rechnungsadresse:
+{% trans "Billing address" %}:
 {{ purchase.company_name }}
 {{ purchase.first_name }} {{ purchase.last_name }}
 {{ purchase.street }}
 {{ purchase.zip_code }} {{ purchase.city }}
 {{ purchase.country }}
-{% if purchase.vat_id %}Steuernummer: {{ purchase.vat_id }}{% endif %}
+{% if purchase.vat_id %}{% trans "Tax ID" %}: {{ purchase.vat_id }}{% endif %}
 
-{% if purchase.comments %}Kommentar:
+{% if purchase.comments %}{% trans "Comment" %}:
 {{ purchase.comments}}{% endif %}
 
-{% if terms_of_use_url %}Die Abwicklung des Verkaufs von Eintrittskarten (Tickets) für die PyCon.DE 2013 erfolgt ausschließlich zu den allgemeinen Geschäftsbedingungen der PyCon.DE 2013, die Sie hier finden:
+{% if terms_of_use_url %}{% trans "Purchasing a ticket requires agreeing to the terms of service. These can be found here:" %}
 {{ terms_of_use_url }}{% endif %}
 
 {% if purchase.payment_method == 'invoice' %}
-Sie erhalten innerhalb der nächsten Tage eine Rechnung per E-Mail. Bitte senden sie uns einen Nachweis der Zahlung per E-Mail (Daniel.Szoska@python-verband.org), alternativ per Fax: 03342/2119995, oder bringen Sie eine Kopie zur Registrierung in Köln mit. Eine Begleichung der Rechnung vor Ort ist nur in BAR möglich, wir können keine EC-Karte, keine Kredit-Karte akzeptieren. Die Konferenzunterlagen werden vor Ort ausgegeben.
+{% trans "During the next couple of days you will receive an invoice via e-mail." %}
 
-Falls es Probleme mit der Bezahlung gibt, können Sie uns auf folgenden Wegen erreichen:
-
-* info@de.pycon.org
-* @pyconde (Twitter)
+{% trans "If you have any problems with the payment, please contact us ASAP!" %}
 {% elif purchase.payment_method == 'credit_card' %}
-Sobald die Zahlung auch durch unser Verrechnungssystem verarbeitet wurde, erhalten Sie nochmals eine Bestätigung per E-Mail.
+{% trans "As soon as your purchase has been processed you will receive another e-mail." %}
 {% endif %}
 
-
-Vielen Dank!
-
-Das PyCon.DE Team
+{% trans "Conference material will be handed out at the conference." %}
 
 --{% endautoescape %}
 {% include "attendees/mail_signature.txt" %}

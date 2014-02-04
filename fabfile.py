@@ -43,6 +43,9 @@ def compilemessages():
     """Compile the i18n messages."""
     with cd(join(env.proj_root, env.proj_name)):
         manage_py('compilemessages')
+    # We have to compile the JavaScript messages within their respective app.
+    with cd(join(env.proj_root, env.proj_name, 'core')):
+        manage_py('compilemessages')
 
 
 @task
@@ -56,6 +59,7 @@ def upgrade():
     migrate()
     build_static_files()
     compilemessages()
+    restart_celery()
     restart_worker()
     # build_docs()
 
@@ -108,6 +112,7 @@ def build_static_files():
             srv_run('../../../../../node_modules/bower/bin/bower install')
         with path('/srv/pyep/.gem/ruby/1.8/bin/', behavior='prepend'):
             srv_run('./node_modules/grunt-cli/bin/grunt compass:dist')
+    manage_py('compilejsi18n')
     manage_py('collectstatic --noinput -v1')
     manage_py('compress --force')
 
@@ -118,6 +123,14 @@ def restart_worker():
     Restarts the gunicorn workers managed by supervisord.
     """
     return supervisorctl('restart site')
+
+
+@task
+def restart_celery():
+    """
+    Restarts the gunicorn workers managed by supervisord.
+    """
+    return supervisorctl('restart celery')
 
 
 @task

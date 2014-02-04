@@ -26,33 +26,265 @@ a {
     color: $blue-light;
 }
 
-header {
-    @media screen and (min-width: 890px) {
-        height: 170px;
+#accountbox {
+
+    > a {
+        font-size: 16px;
+        font-size: 1.6rem;
+        line-height: 42px; // We want this height on every screen
+        text-decoration: none;
+        display: block;
+        font-weight: bold;
+        text-transform: uppercase;
+        position: relative;
+
+        i {
+            font-weight: bold;
+            position: absolute;
+            top: 14px;
+
+            @media #{$topbar-media-query} {
+                position: relative;
+                left: -2px;
+                top: auto;
+            }
+        }
     }
+
+    @media #{$topbar-media-query} {
+        float: right;
+        margin-top: 70px;
+        position: relative;
+
+        > a {
+            line-height: 22px;
+            line-height: 2.2rem;
+        }
+
+        &:hover > a {
+            color: $background-nav;
+            padding-bottom: 22px;
+            background: url(../images/profile-menu-arrow.png) bottom right no-repeat;
+        }
+    }
+
+    ul {
+        padding: 0px;
+        list-style: none;
+        display: none;
+        margin: 0;
+
+        @media #{$topbar-media-query} {
+            position: absolute;
+            padding: 5px 0px;
+            top: 23px;
+            right: -25px;
+            background: $background-nav;
+            border-radius: 7px;
+            text-align: left;
+            min-width: 250px;
+            margin-top: 20px;
+        }
+
+        a {
+            display: block;
+            color: $blue-light;
+            @media #{$topbar-media-query} {
+                color: $background-color;
+            }
+            font-size: 1.6rem;
+            line-height: 2.0rem;
+            padding: 7px 20px;
+            text-decoration: none;
+            &:hover {
+                text-decoration: underline;
+            }
+        }
+        li {
+            border-bottom: 1px dotted $background-nav;
+            &:first-child {
+                border-top: 1px dotted $background-nav;
+            }
+        }
+    }
+
+    &:hover ul,
+    ul:hover {
+        display: block;
+    }
+}
+
+.main-nav {
+    background-color: $topbar-bg-color;
+    a {
+        text-decoration: none;
+    }
+
+    // We position the .name element centered by default on smaller devices. On larger
+    // displays this section isn't rendered at all, so we can keep it globally.
+    .title-area {
+        padding-left: 0; // Webkit defaults to a padding of 40px otherwise.
+        .name h1 a {
+            width: auto;
+        }
+        .small {
+            margin-top: 2px;
+            height: 30px;
+            display: inline-block;
+            margin-right: 5px;
+        }
+    }
+    @media screen and (max-width: 889px) {  // mobile
+        .top-bar {
+            > .title-area {
+                h1 {
+                    padding: 3px 0 5px 0;
+                    font-size: 20px;
+                    font-size: 2rem;
+                }
+                .menu-icon a {
+                    color: $topbar-link-color;
+                    &:hover {
+                        color: $topbar-link-color-hover;
+                    }
+                }
+            }
+            > .top-bar-section {
+                display: none;
+            }
+            &.expanded > .top-bar-section {
+                display: block;
+                > ul {
+                    > li {
+                        &.menu-toggle {
+                            display: none;
+                        }
+                        > a {
+                            text-transform: uppercase;
+                        }
+                        > ul > li {
+                            a {
+                                color: $link-color-subnav;
+                            }
+                            &.active a {
+                                color: $link-color-subnav-active;
+                            }
+                            &:hover a {
+                                color: $link-color-subnav-hover;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    @media #{$topbar-media-query} {  // desktop
+        .dropdown {
+            display: none;
+        }
+        .top-bar {
+            > .title-area {
+                h1 {
+                    display: none;
+                }
+            }
+            > .top-bar-section {
+                word-wrap: break-word;
+                > ul {
+                    @include grid-row($behavior: collapse);
+                    margin-top: -($topbar-height);
+                    text-align: left;
+                    padding: 0;
+                    > li {
+                        @include grid-column($columns: 2, $collapse: true);
+                        padding-right: 5px;
+                        > a {
+                            text-transform: uppercase;
+                        }
+                        > ul {
+                            padding: 0;
+                            position: relative;
+                            a {
+                                white-space: normal;
+                            }
+                        }
+                    }
+                    > li:last-child {
+                        margin-left: -1em;
+                        width: 1em;
+                        text-align: right;
+                        > a {
+                            background: none;
+                            &.active, &:hover {
+                                color: $link-color-nav
+                            }
+                        }
+                    }
+                }
+                .has-dropdown {
+                    &.hover, &.not-click:hover {
+                        & > .dropdown {
+                            display: none;
+                        }
+                    }
+                }
+            }
+        }
+        .row {
+            padding-bottom: 30px;
+            padding-top: 30px;
+            .lang {
+                > span {
+                    font-size: 13px;
+                    font-size: 1.3rem;
+                    font-weight: bold;
+                    text-transform: uppercase;
+                    background-color: $link-color-nav;
+                    border-radius: 15px;
+                    padding: 4px 0 5px 0;
+                    > a {
+                        color: $background-color;
+                        padding: 4px 10px 5px 10px;
+                        border-radius: 15px;
+                        &.active {
+                            background-color: $background-color;
+                            color: $background-nav;
+                        }
+                    }
+                }
+            }
+            .socialmedia {
+                padding-right: 17px;
+                font-size: 14px;
+                font-size: 1.4rem;
+                > span {
+                    margin: 0 10px;
+                }
+            }
+            a {
+                color: $link-color-nav;
+            }
+        }
+    }
+}
+
+header {
     background: $background1;
     .inner {
-        height: 100%;
+        @media #{$topbar-media-query} {
+            height: 170px;
+        }
         position: relative;
         @media screen and (min-width: 890px) {
             background: url(../images/headerbg.png) 6% 100% no-repeat;
         }
         .logo {
             float: left;
-        }
-        .logo {
-            float: left;
             @media screen and (max-width: 889px) {
-                height: 45px;
-                .small {display: block;}
                 .big {display: none;}
-                img {
-                    max-height: 100%;
-                }
             }
             @media screen and (min-width: 890px) {
                 margin: 40px 30px 20px -14px;
-                .small {display: none;}
                 .big {display: block;}
                 img {
                     height: 110px;
@@ -60,112 +292,22 @@ header {
             }
         }
     }
-    .top-bar {
-        ul > li > a, .title-area a {
-            font-size: 16px;
-            font-size: 1.6rem;
-            background: transparent;
-        }
 
-        .top-bar-section {
-            text-align: right;
-            > ul {
-                display: inline-block;
-
-                li {
-                    text-align: left;
-                }
-
-                li.active > a:hover {
-                    background: darken($topbar-link-bg-hover, 10);
-                    color: #FFF;
-                    &:after {
-                        border-top-color: #FFF;
-                    }
-                }
-            }
-        }
-
-        ul {
-            padding: 0;
-            background: transparent;
-        }
-
-        a {
-            text-decoration: none;
-        }
-
-        ul.left {
-            float: none !important;
-            > li {
-                margin-right: 15px;
-            }
-        }
-
-        .toggle-topbar.menu-icon {
-            text-align: right;
-            a {
-                color: $blue;
-                margin-top: 1px;
-            }
-            span {
-                text-indent: -5000px;
-                box-shadow: none;
-                -webkit-box-shadow: none;
-            }
-        }
-        @media (screen and min-width: 890px) {
-            width: 540px;
-
-            margin-top: 65px;
-            float: right;
-
-            .title-area {
-                display: none;
-            }
-
-            ul.dropdown {
-                background: $topbar-link-bg-hover;
-            }
-            .top-bar-section > ul {
-                background: transparent;
-
-                // Let's make the buttons in the menu larger
-                > li > a {
-                    line-height: 25px;
-                    padding: 8px 15px 12px 15px;
-                    &:after {
-                        top: 23px;
-                    }
-                }
-            }
-        }
-        .title.js-generated.back a:before {
-            content: "";
-            display: block;
-            width: 0;
-            height: 0;
-            border: inset 5px;
-            border-color: transparent rgba(0, 179, 225, 0.4) transparent transparent;
-            border-right-style: solid;
-            margin-left: 15px;
-            margin-top: 6.25px;
-            position: absolute;
-            left: 0;
-        }
-    }
     #login {
+        margin: 0;
         @media (screen and min-width: 890px) {
             position: absolute;
             top: 10px;
             right: 10px;
+            font-size: 14px;
+            font-size: 1.4rem;
         }
         @media (screen and max-width: 889px) {
-            margin: 0 0 0 51px;
-            padding: 5px 0;
+            padding: 0;
+            line-height: 42px;
+            font-size: 16px;
+            font-size: 1.6rem;
         }
-        font-size: 14px;
-        font-size: 1.4rem;
         a {
             text-decoration: none;
             color: $blue;
@@ -312,7 +454,7 @@ strong {
 }
 
 #main > #content {
-    max-width: 890px;
+    max-width: $row-width;
     margin: auto;
     text-align: left;
     font-size: 16px;
@@ -381,6 +523,9 @@ div.actions {
 
 @import "frontpage";
 @import "userprofile";
+@import "account";
+@import "checkout";
+@import "alerts";
 
 //-----------------------------------------------------------------------------
 

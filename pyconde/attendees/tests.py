@@ -87,8 +87,6 @@ class TicketVoucherFormTests(TestCase):
     def setUp(self):
         now = datetime.datetime.now()
         self.user = auth_models.User.objects.create_user('test_user', 'test@test.com', 'test_password')
-        self.customer = models.Customer(email='test@test.com')
-        self.customer.save()
         self.voucher_type = models.VoucherType(name='type1')
         self.voucher_type.save()
         self.voucher_type2 = models.VoucherType(name='type2')
@@ -106,7 +104,7 @@ class TicketVoucherFormTests(TestCase):
         self.purchase = models.Purchase(
             user=self.user, first_name='First name', last_name='Last name',
             street='street 123', zip_code='1234', city='city',
-            country='country', customer=self.customer)
+            country='country', email='test@test.com')
         self.purchase.save()
         self.ticket_type = models.TicketType(
             name='test',

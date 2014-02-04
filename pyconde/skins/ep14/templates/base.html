@@ -1,4 +1,4 @@
-{% load cms_tags sekizai_tags menu_tags compress i18n static %}
+{% load cms_tags sekizai_tags menu_tags compress i18n static statici18n %}
 <!DOCTYPE html>
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
@@ -12,9 +12,7 @@
         {% compress js %}
         <script type="text/javascript" src="{% static "assets/bower_components/modernizr/modernizr.js"%}"></script>
         {% endcompress %}
-        {% compress css %}
         <link rel="stylesheet" href="{% static "assets/css/screen.css" %}">
-        {% endcompress %}
         {% block site_meta %}
         <meta name="author" content="Python Software Verband e.V.">
         <meta name="keywords" content="{% block meta_keywords %}Python, EuroPython, Conference{% endblock %}">
@@ -41,34 +39,24 @@
         {% cms_toolbar %}
         <div class="container">
             <header>
+                <div class="contain-to-grid main-nav">
+                    {% show_menu 0 1 1 1 "cms/primary-navigation.html" %}
+                </div>
                 <div class="inner">
                     <a href="/" class="logo">
                         <img class="big" src="{% static "assets/images/logo-big.png" %}" alt="EuroPython 2014" />
-                        <img class="small" src="{% static "assets/images/logo.png" %}" alt="EuroPython 2014" />
                     </a>
-                    <nav class="top-bar" data-topbar>
-                        <ul class="title-area">
-                            <li class="name"><a href="#">EuroPython 2014</a></li>
-                            <li class="toggle-topbar menu-icon"><a href="#"><i class="fa fa-fw fa-list"></i><span></span></a></li>
-                        </ul>
-                        <section class="top-bar-section">
-                            {% show_menu 0 1 1 1 "cms/primary-navigation.html" %}
-                            <ul class="right">
-                                {% if user.is_authenticated %}
-                                <li class="has-dropdown">
-                                    <a href="{% url 'account_profile' uid=user.pk %}">{% trans "Your profile" %}</a>
-                                    <ul class="dropdown">
-                                        {% show_menu_below_id "accounts" %}
-                                    </ul>
-                                </li>
-                                {% endif %}
-                            </ul>
-                        </section>
-                    </nav>
                     {% if not user.is_authenticated %}
                     <p id="login">
                         <a href="{% url 'auth_login' %}">{% trans "Login" %}</a> or <a href="{% url 'userprofiles_registration' %}">{% trans "Sign up" %}</a>
                     </p>
+                    {% else %}
+                    <div id="accountbox">
+                    <a href="{% url 'account_profile' uid=user.pk %}">{% trans "Your profile" %} <i class="fa fa-fw fa-angle-left"></i></a>
+                    <ul class="dropdown">
+                        {% show_menu_below_id "accounts" %}
+                    </ul>
+                    </div>
                     {% endif %}
                 </div>
             </header>
@@ -76,6 +64,11 @@
             {% block main %}
                 {% block site_teaser %}{% endblock %}
                 <section id="content" class="container">
+                    {% for message in messages %}
+                      <div id="message_{{ forloop.counter }}"{% if message.tags %} class="alert alert-{{ message.tags }}"{% endif %}>
+                        {{ message }}
+                      </div>
+                    {% endfor %}
                     {% block site_title %}<h1 id="site-title">{% block title %}{% endblock %}</h1>{% endblock %}
                     {% block site_content %}
                         {% block content %}
@@ -128,13 +121,29 @@
         </div>
 
         <script src="//code.jquery.com/jquery-2.0.3.min.js"></script>
-        {% render_block "js" postprocessor "compressor.contrib.sekizai.compress" %}
+        {% render_block "js" %}
         {% render_block "js_external" %}
-        <script src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
+        {% if debug %}
+            <script src="{% url 'django.views.i18n.javascript_catalog' %}"></script>
+        {% else %}
+            {# We have to configure the URLs statically because django-compressor operates offline. #}
+            {% if LANGUAGE_CODE == "de" %}
+                {% compress js %}
+                <script type="text/javascript" src="{% statici18n "de" %}"></script>
+                {% endcompress %}
+            {% else %}
+                {% if LANGUAGE_CODE == "en" %}
+                {% compress js %}
+                <script type="text/javascript" src="{% statici18n "en" %}"></script>
+                {% endcompress %}
+                {% endif %}
+            {% endif %}
+        {% endif %}
         {% compress js %}
             <script type="text/javascript" src="{% static "assets/bower_components/foundation/js/foundation/foundation.js"%}"></script>
             <script type="text/javascript" src="{% static "assets/bower_components/foundation/js/foundation/foundation.topbar.js"%}"></script>
             <script type="text/javascript" src="{% static "assets/bower_components/foundation/js/foundation/foundation.orbit.js"%}"></script>
+            <script type="text/javascript" src="{% static "assets/bower_components/spinjs/spin.js"%}"></script>
             <script src="{% static "assets/js/ui.js" %}"></script>
             <script src="{% static "assets/js/ui.multiuserselect.js" %}"></script>
             <script src="{% static "assets/js/jira.js" %}"></script>

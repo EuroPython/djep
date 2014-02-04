@@ -100,6 +100,7 @@ class Base(Configuration):
         'django_gravatar',
         'social_auth',
         'gunicorn',
+        'statici18n',
 
         'cms.plugins.inherit',
         'cms.plugins.googlemap',
@@ -107,6 +108,7 @@ class Base(Configuration):
         'cms.plugins.snippet',
         #'cms.plugins.twitter',
         #'cms.plugins.text',
+        'cmsplugin_filer_file',
         'cmsplugin_filer_image',
         'djangocms_style',
         #'cmsplugin_news',
@@ -204,6 +206,10 @@ class Base(Configuration):
 
     MEDIA_URL = values.Value('/site_media/')
 
+    MEDIA_OPTIPNG_PATH = values.Value('optipng')
+
+    MEDIA_JPEGOPTIM_PATH = values.Value('jpegoptim')
+
     STATIC_URL = values.Value('/static_media/')
 
     STATICFILES_FINDERS = Configuration.STATICFILES_FINDERS + (
@@ -212,6 +218,8 @@ class Base(Configuration):
     )
 
     STATICFILES_DIRS = values.ListValue()
+
+    STATICI18N_ROOT = os.path.join(BASE_DIR, PROJECT_NAME, "core", "static")
 
     COMPRESS_CSS_FILTERS = (
         'compressor.filters.css_default.CssAbsoluteFilter',
@@ -333,13 +341,20 @@ class Base(Configuration):
 
     ###########################################################################
     #
+    # Account and profile settings
+    #
+    AVATAR_MIN_DIMENSION = values.TupleValue(converter=int)
+    AVATAR_MAX_DIMENSION = values.TupleValue(converter=int)
+
+    ###########################################################################
+    #
     # Proposal and schedule settings
     #
-    ATTENDEES_CUSTOMER_NUMBER_START = 20000
-
     ATTENDEES_PRODUCT_NUMBER_START = 1000
 
     PROPOSALS_SUPPORT_ADDITIONAL_SPEAKERS = True
+
+    MAX_CHECKOUT_DURATION = 1800  # 30 minutes
 
     # This configures the form that is used for each proposal type identified
     # by their respective slug.
@@ -359,6 +374,12 @@ class Base(Configuration):
     # proposal submission form.
     PROPOSAL_DEFAULT_LANGUAGE = 'en'
 
+
+    ###########################################################################
+    #
+    # Review settings
+    #
+    REVIEWER_APPLICATION_OPEN = values.BooleanValue(False)
 
     ###########################################################################
     #
@@ -442,19 +463,38 @@ class Base(Configuration):
 
     PAYMENT_METHODS = values.ListValue(['invoice', 'creditcard'])
 
-    PURCHASE_NUMBER_FORMAT = 'EP14-{0:05d}'
+    PURCHASE_TERMS_OF_USE_URL = values.Value("https://ep2014.europython.eu/en/registration/terms-conditions/")
 
-    # List of emails to be notified when a purchase has been made. The export
-    # JSON dataset is sent to these addresses
-    PURCHASE_EXPORT_RECIPIENTS = values.ListValue([])
+    PURCHASE_INVOICE_DISABLE_RENDERING = values.BooleanValue(True)
+    # List of emails to be notified when a purchase has been made. PDF is send
+    # to these addresses, too.
+    PURCHASE_INVOICE_EXPORT_RECIPIENTS = values.ListValue([])
 
-    PURCHASE_EXPORT_SUBJECT = 'Purchase-export: {purchase_number}'
+    PURCHASE_INVOICE_FONT_CONFIG = values.DictValue({'de': {}, 'en': {}})
 
-    PURCHASE_TERMS_OF_USE_URL = "https://ep14.org/participate/register/terms/"
+    PURCHASE_INVOICE_FONT_ROOT = values.Value()  # absolute path on the filesystem
 
-    # This key is used for generating a checksum over the transmitted export
-    # data. Only relevant for prduction
-    EXPORT_SECRET_KEY = values.Value('')
+    PURCHASE_INVOICE_NUMBER_FORMAT = values.Value('INVOICE-{0:d}')
+
+    PURCHASE_INVOICE_ROOT = values.Value()  # absolute path on the filesystem
+
+    PURCHASE_INVOICE_TEMPLATE_PATH = values.Value()  # absolute path to invoice template
+
+    CACHES = values.DictValue({
+        'default': {
+            'BACKEND': 'redis_cache.cache.RedisCache',
+            'LOCATION': 'localhost:6379:0',
+            'OPTIONS': {
+                'PARSER_CLASS': 'redis.connection.HiredisParser'
+            },
+        },
+    })
+
+    BROKER_URL = values.Value('redis://localhost:6379/0')
+
+    LOCALE_PATHS = (
+        os.path.join(BASE_DIR, PROJECT_NAME, 'locale'),
+    )
 
 
 class Dev(Base):
@@ -463,6 +503,8 @@ class Dev(Base):
     """
 
     DEBUG = values.BooleanValue(True)
+
+    COMPRESS_ENABLED = values.BooleanValue(False)
 
     EMAIL_HOST = 'localhost'
 
@@ -482,6 +524,8 @@ class Dev(Base):
     MIDDLEWARE_CLASSES = [
         'debug_toolbar.middleware.DebugToolbarMiddleware'
     ] + Base.MIDDLEWARE_CLASSES
+
+    PURCHASE_INVOICE_ROOT = os.path.join(Base.BASE_DIR, 'invoices')
 
 
 class Staging(Base):

@@ -1,13 +1,17 @@
 # -*- coding: utf-8 -*-
 from django import forms
+from django.core.cache import get_cache
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, HTML
 
-from pyconde.attendees.models import Purchase, Customer, Ticket, Voucher
+from pyconde.conference.models import current_conference
+from pyconde.attendees.models import Purchase, Ticket, Voucher
 from pyconde.forms import Submit
+
+from . import utils
 
 
 PAYMENT_METHOD_CHOICES = (
@@ -20,8 +24,9 @@ terms_of_use_url = (settings.PURCHASE_TERMS_OF_USE_URL
                     if (hasattr(settings, 'PURCHASE_TERMS_OF_USE_URL')
                     and settings.PURCHASE_TERMS_OF_USE_URL) else '#')
 
+
 class PurchaseForm(forms.ModelForm):
-    email = forms.EmailField(label=_('E-Mail'), required=True)
+    email = forms.EmailField(label=_('E-mail'), required=True)
 
     class Meta:
         model = Purchase
@@ -34,18 +39,14 @@ class PurchaseForm(forms.ModelForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.form_tag = False
         self.helper.layout = Layout(
-            Fieldset(_('Invoice address'), 'first_name', 'last_name',
+            Fieldset(_('Billing address'), 'first_name', 'last_name',
                 'company_name', 'email', 'street', 'zip_code', 'city',
                 'country', 'vat_id', 'comments'),
-            ButtonHolder(Submit('submit', _('Purchase tickets'), css_class='btn-primary'))
+            ButtonHolder(Submit('submit', _('Continue'), css_class='btn-primary'))
         )
 
     def save(self, *args, **kwargs):
-        customer, created = Customer.objects.get_or_create(
-            email=self.cleaned_data['email'])
-
         purchase = super(PurchaseForm, self).save(commit=False)
-        purchase.customer = customer
 
         if (kwargs.get('commit', True)):
             purchase.save()
@@ -62,8 +63,10 @@ class TicketQuantityForm(forms.Form):
         super(TicketQuantityForm, self).__init__(
             prefix='tq-%s' % ticket_type.pk, *args, **kwargs)
 
-        if self.ticket_type.available_tickets < 10:
-            max_value = self.ticket_type.available_tickets
+        self.ticket_limit = self.ticket_type.available_tickets
+
+        if self.ticket_limit is not None and self.ticket_limit < 10:
+            max_value = self.ticket_limit
         else:
             max_value = 10
 
@@ -76,7 +79,8 @@ class TicketQuantityForm(forms.Form):
 
     def clean_quantity(self):
         value = self.cleaned_data['quantity']
-        if value > 0:
+        available = self.ticket_type.available_tickets
+        if value > 0 and available is not None:
             if self.ticket_type.available_tickets < 1:
                 raise forms.ValidationError(_('Tickets sold out.'))
 
@@ -100,18 +104,21 @@ class TicketNameForm(forms.ModelForm):
 
         self.fields['first_name'].required = True
         self.fields['last_name'].required = True
+        self.fields['shirtsize'].queryset = self.fields['shirtsize']\
+            .queryset.filter(conference=current_conference())
+        self.fields['shirtsize'].help_text = _('''Sizing charts: <a href="http://maxnosleeves.spreadshirt.com/shop/info/producttypedetails/Popup/Show/productType/813" target="_blank">Women</a>, <a href="http://maxnosleeves.spreadshirt.com/shop/info/producttypedetails/Popup/Show/productType/812" target="_blank">Men</a>''')
 
     class Meta:
         model = Ticket
         fields = ('first_name', 'last_name', 'shirtsize')
 
     def save(self, *args, **kwargs):
-        # Update, save would overwrite other flags too (even if not in `fields`)
-        Ticket.objects.filter(pk=self.instance.pk).update(
-            first_name=self.cleaned_data['first_name'],
-            last_name=self.cleaned_data['last_name'],
-            shirtsize=self.cleaned_data['shirtsize']
-        )
+        # Update, save would overwrite other flags too (even if not in
+        # `fields`)
+        self.instance.first_name = self.cleaned_data['first_name']
+        self.instance.last_name = self.cleaned_data['last_name']
+        self.instance.shirtsize = self.cleaned_data['shirtsize']
+        return self.instance
 
 
 class TicketVoucherForm(forms.ModelForm):
@@ -130,30 +137,34 @@ class TicketVoucherForm(forms.ModelForm):
     def clean_code(self):
         try:
             code = self.cleaned_data['code']
-            ticket = Ticket.objects.get(pk=self.instance.pk)
+            ticket = self.instance
+            voucher = None
             if not ticket.voucher or ticket.voucher.code != code:
-                Voucher.objects.valid().get(
+                voucher = Voucher.objects.valid().get(
                     code=code,
+                    type__conference=current_conference(),
                     type=ticket.ticket_type.vouchertype_needed)
+
+            # Make sure that the found voucher is not one of the locked ones.
+            cache = get_cache('default')
+            if cache.get('voucher_lock:{0}'.format(voucher.pk)) and\
+                    not utils.voucher_is_locked_for_session(
+                        self.request, voucher):
+                raise Voucher.DoesNotExist()
         except Voucher.DoesNotExist:
             raise forms.ValidationError(_('Voucher verification failed.'))
 
         return code
 
     def save(self, *args, **kwargs):
-        # Mark voucher as used.
-        voucher = Voucher.objects.get(code=self.cleaned_data['code'])
-        voucher.is_used = True
-        voucher.save()
-
-        # Update, save would overwrite other flags too (even if not in `fields`)
-        Ticket.objects.filter(pk=self.instance.pk).update(
-            voucher=voucher,
-        )
+        voucher = Voucher.objects.get(type__conference=current_conference(),
+                                      code=self.cleaned_data['code'])
+        self.instance.voucher = voucher
+        utils.lock_voucher(self.request, voucher)
 
 
 class PurchaseOverviewForm(forms.Form):
-    accept_terms=forms.BooleanField(
+    accept_terms = forms.BooleanField(
         label=_("I've read and agree to the terms and conditions."),
         help_text=_('You must accept the <a target="_blank" href="%s">terms and conditions</a>.') % terms_of_use_url,
         error_messages={'required': _('You must accept the terms and conditions.')})
@@ -176,7 +187,7 @@ class PurchaseOverviewForm(forms.Form):
             ButtonHolder(
                 Submit('submit', _('Complete purchase'),
                        css_class='btn-primary'),
-                HTML('{% load i18n %}<a class="back" href="{% url attendees_purchase_names %}">{% trans "Back" %}</a>')
+                HTML('{% load i18n %}<a class="back" href="{% url \'attendees_purchase_names\' %}">{% trans "Back" %}</a>')
             )
         )
         if hasattr(settings, 'PAYMENT_METHODS') and settings.PAYMENT_METHODS:

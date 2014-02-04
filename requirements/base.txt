@@ -15,6 +15,7 @@ django-gravatar2==1.1.3
 django-timezones==0.2
 django-configurations==0.7
 dj-database-url==0.2.2
+django-statici18n==1.1
 
 # Strict due to API compatibility issues
 django-mptt==0.5.2
@@ -44,3 +45,12 @@ django-haystack==2.1.0
 # For now we also include Whoosh here. In the future this will
 # be moved to dev.txt
 Whoosh==2.5.5
+
+# Redis as caching backend
+django-redis==3.4.0
+hiredis==0.1.2
+redis==2.9.0
+
+# Celery for async tasks (pdf generation)
+celery==3.1.8
+

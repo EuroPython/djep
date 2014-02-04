@@ -200,6 +200,46 @@ class Comment(models.Model):
         verbose_name_plural = _('comments')
 
 
+class Reviewer(models.Model):
+
+    STATE_PENDING = 0
+    STATE_ACCEPTED = 1
+    STATE_DECLINED = 2
+    STATE_CHOICES = (
+        (STATE_PENDING, _('pending request')),
+        (STATE_ACCEPTED, _('request accepted')),
+        (STATE_DECLINED, _('request declined')),
+    )
+
+    conference = models.ForeignKey(conference_models.Conference, on_delete=models.CASCADE)
+    user = models.ForeignKey(auth_models.User, verbose_name=_("user"))
+    state = models.PositiveSmallIntegerField(_("state"), default=STATE_PENDING, choices=STATE_CHOICES)
+
+    objects = conference_models.CurrentConferenceManager()
+
+    class Meta:
+        unique_together = (('conference', 'user'),)
+        verbose_name = _('reviewer')
+        verbose_name_plural = _('reviewers')
+
+    def __unicode__(self):
+        return "%s (%s)" % (self.user, self.get_state_display())
+
+    def save(self, *args, **kwargs):
+        from .utils import get_review_permission
+        perm = get_review_permission()
+        if self.state == Reviewer.STATE_ACCEPTED:
+            self.user.user_permissions.add(perm)
+        else:
+            self.user.user_permissions.remove(perm)
+        super(Reviewer, self).save(*args, **kwargs)
+
+    def delete(self):
+        from .utils import get_review_permission
+        self.user.user_permissions.remove(get_review_permission())
+        return super(Reviewer, self).delete()
+
+
 def create_proposal_metadata(sender, instance, **kwargs):
     """
     Checks if we have a metadata object and create it if it is missing.
@@ -303,3 +343,5 @@ signals.post_save.connect(clear_reviewer_cache, sender=auth_models.Permission, d
 signals.post_delete.connect(clear_reviewer_cache, sender=auth_models.Permission, dispatch_uid='reviews.clear_reviewer_cache_perm_del')
 signals.post_save.connect(clear_reviewer_cache, sender=auth_models.Group, dispatch_uid='reviews.clear_reviewer_group')
 signals.post_delete.connect(clear_reviewer_cache, sender=auth_models.Group, dispatch_uid='reviews.clear_reviewer_group_del')
+signals.post_save.connect(clear_reviewer_cache, sender=Reviewer, dispatch_uid='reviews.clear_reviewer_reviewer')
+signals.post_delete.connect(clear_reviewer_cache, sender=Reviewer, dispatch_uid='reviews.clear_reviewer_reviewer_del')

@@ -1,65 +1,33 @@
-import logging
-import hashlib
-
-from django.conf import settings
-from django.core.serializers.json import DjangoJSONEncoder
-from django.core.mail import EmailMessage
-
-from . import models
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 
 
-LOG = logging.getLogger(__name__)
-
-
-class PurchaseEmailExporter(object):
+class PurchaseExporter(object):
     """
-    This exporter sends an email to a globally specified address for every
-    purchase being made in the system. This email contains an attached JSON
-    file holding details of that purchase which are then used to generate
-    an invoice.
+    This exporter takes an pyconde.attendees.Purchase object and exports it,
+    including related tickets and payment information as Python dict. This dict
+    is intended to be usable by pyinvoice.
     """
 
-    def __init__(self, recipients=None):
-        self.recipients = recipients
-        if self.recipients is None:
-            self.recipients = settings.PURCHASE_EXPORT_RECIPIENTS
+    def __init__(self, purchase):
+        self.purchase = purchase
 
-    def __call__(self, purchase):
-        from . import utils
-        if not self.recipients:
-            LOG.warn("No recipients specified. Order won't be exported!")
-            return
-        json_data = self._purchase_to_json(purchase)
-        order_number = utils.get_purchase_number(purchase)
-        msg = EmailMessage(
-            settings.PURCHASE_EXPORT_SUBJECT.format(
-                purchase_number=order_number),
-            from_email=settings.DEFAULT_FROM_EMAIL, to=self.recipients,
-            headers={
-                'X-Data-Checksum': self._create_checksum(json_data)
-            })
-        msg.encoding = 'utf-8'
-        msg.attach('data-{0}.json'.format(order_number), json_data, 'application/json')
-        msg.send()
-        purchase.exported = True
-        purchase.save()
+    def export(self):
+        return self._export(self.purchase)
 
-    def _create_checksum(self, data):
-        return hashlib.sha1(settings.EXPORT_SECRET_KEY + data).hexdigest()
-
-    def _purchase_to_json(self, purchase):
-        from . import utils
+    def _export(self, purchase):
+        from .models import Ticket
         result = {
-            'id': utils.get_purchase_number(purchase),
+            'id': purchase.full_invoice_number,
             'pk': purchase.pk,
             'tickets': [],
             'total': purchase.payment_total,
             'currency': 'EUR',
             'status': purchase.state,
-            'comments': purchase.comments if purchase.comments else None,
+            'comments': purchase.comments,
             'date_added': purchase.date_added.replace(microsecond=0),
             'payment_address': {
-                'email': purchase.customer.email,
+                'email': purchase.email,
                 'first_name': purchase.first_name,
                 'last_name': purchase.last_name,
                 'company': purchase.company_name,
@@ -67,7 +35,7 @@ class PurchaseEmailExporter(object):
                 'postal_code': purchase.zip_code,
                 'country': purchase.country,
                 'city': purchase.city,
-                'vat_id': purchase.vat_id if purchase.vat_id else None
+                'vat_id': purchase.vat_id,
             },
             'payment_info': {
                 'method': purchase.payment_method,
@@ -75,13 +43,13 @@ class PurchaseEmailExporter(object):
             }
         }
 
-        for ticket in models.Ticket.objects.select_related(
-                'ticket_type', 'voucher').filter(purchase=purchase).all():
+        for ticket in Ticket.objects.select_related('ticket_type', 'voucher') \
+                                    .filter(purchase=purchase).all():
             result['tickets'].append({
                 'pk': ticket.pk,
                 'first_name': ticket.first_name,
                 'last_name': ticket.last_name,
-                'voucher': None,
+                'voucher': ticket.voucher and ticket.voucher.code or None,
                 'type': {
                     'product_number': ticket.ticket_type.product_number,
                     'name': ticket.ticket_type.name,
@@ -89,5 +57,4 @@ class PurchaseEmailExporter(object):
                 },
                 'price': ticket.ticket_type.fee
             })
-
-        return DjangoJSONEncoder(indent=2).encode(result)
+        return result

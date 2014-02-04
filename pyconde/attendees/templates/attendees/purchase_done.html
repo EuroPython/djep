@@ -4,12 +4,8 @@
 {% block content %}
     {{ block.super }}
 
-    <h2>Ticketkauf abgeschlossen</h2>
-    <p>Vielen Dank für den Kauf der Tickets für die Konferenz! Sie werden in Kürze eine Bestätigung mit weiteren Informationen per E-Mail erhalten.</p>
-    <p>Bei Rückfragen zur Bestellung, Rechnung oder zur Zahlung können Sie uns jederzeit erreichen:</p>
-    <ul>
-        <li>info@de.pycon.org</li>
-        <li>@pyconde (Twitter)</li>
-    </ul>
-    <p><br /></p>
+    <h2>{% trans "Purchase complete!" %}</h2>
+    <p>{% trans "Thank you for purchasing a EuroPython 2014 ticket! Soon you will receive a confirmation e-mail with further information." %}</p>
+    <p></p>
+    <p>{% trans 'If you like to show your support to the EuroPython you can apply for a free EuroPython Society (EPS) Membership by email to <a href="mailto:board@europython.eu">board@europython.eu</a>.' %}</p>
 {% endblock %}

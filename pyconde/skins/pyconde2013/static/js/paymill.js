@@ -53,7 +53,7 @@
                 currency = that.find('.card-currency').val(),
                 bank = mode === 'elv' ? that.find('.bank').val() : null;
             paymentForm = that;
-            backendForm  = $('#backend-form'),
+            backendForm  = $('#backend-form');
             btn = that.find('button');
             btn.attr('disabled', 'disabled');
 

@@ -1,4 +1,13 @@
 {% load thumbnail %}
 <li>
-    <a rel="external" target="_blank" title="{{ sponsor.name }}" href="{{ sponsor.external_url }}"><img alt="Logo: {{sponsor.name}}" src="{% thumbnail sponsor.logo 112x44 %}" /></a>
+    <a rel="external" target="_blank" title="{{ sponsor.name }}" href="{{ sponsor.external_url }}"
+        {% if sponsor.custom_logo_size_listing %}style="max-width: {{ sponsor.custom_logo_size_listing_width }}px; max-height: {{ sponsor.custom_logo_size_listing_height }}px"{% endif %}
+        >
+        {% if sponsor.custom_logo_size_listing %}
+        <img alt="Logo: {{sponsor.name}}" src="{% thumbnail sponsor.logo sponsor.custom_logo_size_listing %}"
+            style="max-width: {{ sponsor.custom_logo_size_listing_width }}px; max-height: {{ sponsor.custom_logo_size_listing_height }}px" />
+        {% else %}
+        <img alt="Logo: {{sponsor.name}}" src="{% thumbnail sponsor.logo 112x55 %}" />
+        {% endif %}
+    </a>
 </li>
