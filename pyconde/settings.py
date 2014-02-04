@@ -108,6 +108,7 @@ class Base(Configuration):
         'cms.plugins.snippet',
         #'cms.plugins.twitter',
         #'cms.plugins.text',
+        'cmsplugin_filer_file',
         'cmsplugin_filer_image',
         'djangocms_style',
         #'cmsplugin_news',
