@@ -58,6 +58,9 @@ def avatar_format(value):
     error_msg = _("Your avatar has to be either a PNG, JPEG or GIF file.")
     if value is None or value == "":
         return
+    if value.closed:
+        # No image was uploaded which is indicated by a closed file handler.
+        return
     image = None
     try:
         image = Image.open(value)
