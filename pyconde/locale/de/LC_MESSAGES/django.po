@@ -1105,8 +1105,8 @@ msgstr ""
 
 #: attendees/templates/attendees/purchase_done.html:10
 msgid ""
-"If you like to show your support to the EuroPython you can apply for a free "
-"EuroPython Society (EPS) Membership by email to <a href=\"mailto:"
+"If you'd like to show your support to the EuroPython you can apply for a "
+"free EuroPython Society (EPS) Membership by email to <a href=\"mailto:"
 "board@europython.eu\">board@europython.eu</a>."
 msgstr ""
 "Wenn du die EuroPython unterstützen möchtest kann du ein kostenlose "
