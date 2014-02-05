@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-03 22:42+0100\n"
-"PO-Revision-Date: 2014-02-03 12:14+0100\n"
+"POT-Creation-Date: 2014-02-05 14:24+0100\n"
+"PO-Revision-Date: 2014-02-05 14:24+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
 "Language: de\n"
@@ -17,23 +17,23 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n != 1)\n"
 "X-Generator: Lokalize 1.5\n"
 
-#: settings.py:56 settings.py:293 settings.py:368 proposals/models.py:21
+#: settings.py:56 settings.py:294 settings.py:369 proposals/models.py:21
 msgid "German"
 msgstr "Deutsch"
 
-#: settings.py:57 settings.py:288 settings.py:369 proposals/models.py:22
+#: settings.py:57 settings.py:289 settings.py:370 proposals/models.py:22
 msgid "English"
 msgstr "Englisch"
 
-#: settings.py:278
+#: settings.py:279
 msgid "Default template"
 msgstr "Standardvorlage"
 
-#: settings.py:279
+#: settings.py:280
 msgid "Start page template"
 msgstr "Startseiten-Vorlage"
 
-#: settings.py:280
+#: settings.py:281
 msgid "Full page width (schedule, ...)"
 msgstr "Volle Seite"
 
@@ -881,6 +881,59 @@ msgstr ""
 #: attendees/templates/attendees/mail_purchase_completed.html:37
 msgid "Conference material will be handed out at the conference."
 msgstr "Konferenzmaterial wird beim Check-in verteilt."
+
+#: attendees/templates/attendees/mail_purchase_completed.html:39
+msgid ""
+"Revocation Rights Notice\n"
+"\n"
+"Applications may be revoked by you, the applicant, within 14 days without "
+"stating any reason, in text form (e.g. letter, fax, email). The 14­ day "
+"period begins on receipt of this notice, earliest however on contract "
+"formation and not before fulfilment of the duty of information on the part "
+"of the Host.\n"
+"\n"
+"The revocation is effected on time if sent within the foregoing period for "
+"revocation. The revocation is to be sent to:\n"
+"\n"
+"by e­-mail to: helpdesk@europython.eu\n"
+"by post to:   Python Software Verband e.V., Schulstraße 20, 15366 Neuenhagen "
+"bei Berlin, Germany\n"
+"by fax to:    +49 3342 211999­5\n"
+"\n"
+"Consequences of revocation\n"
+"\n"
+"In the event of valid revocation, any performance already received by either "
+"party shall be returned along with the proceeds of any use thereof (e.g. "
+"interest). If you cannot return performance or proceeds of use, or only in "
+"deteriorated condition, then you must compensate us. The duty to return "
+"payments must be fulfilled within 30 days. For you, this period begins on "
+"sending your revocation; for us, on receipt thereof."
+msgstr ""
+"Widerrufsbelehrung\n"
+"\n"
+"Sie können Ihre Vertragserklärung innerhalb von 14 Tagen ohne Angabe von "
+"Gründen in Textform widerrufen. Die Frist beginnt nach Erhalt dieser "
+"Belehrung in Textform, jedoch nicht vor Vertragsschluss und auch nicht vor "
+"Erfüllung der Informationspflicht des Veranstalters.\n"
+"\n"
+"Zur Wahrung der Widerrufsfrist genügt die rechtzeitige Absendung des "
+"Widerrufs. Der Widerruf ist zu richten an:\n"
+"\n"
+"per E-Mail an: helpdesk@europython.eu\n"
+"per Post an:   Python Software Verband e.V., Schulstraße 20, 15366 "
+"Neuenhagen bei Berlin, Deutschland\n"
+"per Fax an:    +49 3342 211999-5\n"
+"\n"
+"Widerrufsfolgen\n"
+"\n"
+"Im Falle eines wirksamen Widerrufs sind die beiderseits empfangenen "
+"Leistungen zurück zu gewähren und ggf. gezogene Nutzungen (z.B. Zinsen) "
+"herauszugeben. Können Sie uns die empfangene Leistung sowie Nutzungen nicht "
+"oder nur in verschlechtertem Zustand zurückgewähren beziehungsweise "
+"herausgeben, müssen Sie uns insoweit Wertersatz leisten. Verpflichtungen zur "
+"Erstattung von Zahlungen müssen innerhalb von 30 Tagen erfüllt werden. Die "
+"Frist beginnt für Sie mit der Absendung Ihrer Widerrufserklärung, für uns "
+"mit deren Empfang."
 
 #: attendees/templates/attendees/mail_signature.txt:1
 #, python-format
