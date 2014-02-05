@@ -171,7 +171,7 @@ class Purchase(models.Model):
     email = models.EmailField(_('E-mail'), blank=False)
 
     street = models.CharField(_('Street and house number'), max_length=100)
-    zip_code = models.CharField(_('Zip code'), max_length=5)
+    zip_code = models.CharField(_('Zip code'), max_length=20)
     city = models.CharField(_('City'), max_length=100)
     country = models.CharField(_('Country'), max_length=100)
     vat_id = models.CharField(_('VAT-ID'), max_length=16, blank=True)
