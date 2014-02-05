@@ -12,6 +12,15 @@
 {% block content %}
     {{ block.super }}
 
+    <div id="message_adblockerwarning" class="alert alert-warn">
+        {% blocktrans %}
+        <p>If you intend to pay via <strong>credit card</strong> and have <em>3-D Secure</em> enabled (e.g. "Verified by VISA" or 
+        "MasterCard SecureCode"), please <strong>disable your ad-/JavaScript-blocker</strong> for the duration of the checkout as
+        this might interfer with the payment process.</p>
+        <noscript><p><strong>Please enable JavaScript in your Browser.</strong></p></noscript>
+        {% endblocktrans %}
+    </div>
+
     <form class="form-horizontal" method="post">
         {% csrf_token %}
         <fieldset class="tickets">

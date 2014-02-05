@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-05 20:03+0100\n"
+"POT-Creation-Date: 2014-02-05 20:24+0100\n"
 "PO-Revision-Date: 2014-02-05 14:24+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -774,7 +774,7 @@ msgstr "Gewünschte T-Shirt Größe"
 msgid "Ticket"
 msgstr "Ticket"
 
-#: attendees/models.py:293 attendees/templates/attendees/purchase.html:18
+#: attendees/models.py:293 attendees/templates/attendees/purchase.html:27
 #: attendees/templates/attendees/user_purchases.html:34
 msgid "Tickets"
 msgstr "Tickets"
@@ -1000,16 +1000,37 @@ msgstr "Bezahlen &amp; Bestellung abschlie&szlig;en"
 msgid "Back"
 msgstr "Zurück"
 
-#: attendees/templates/attendees/purchase.html:21
+#: attendees/templates/attendees/purchase.html:16
+msgid ""
+"\n"
+"        <p>If you intend to pay via <strong>credit card</strong> and have "
+"<em>3-D Secure</em> enabled (e.g. \"Verified by VISA\" or \n"
+"        \"MasterCard SecureCode\"), please <strong>disable your ad-/"
+"JavaScript-blocker</strong> for the duration of the checkout as\n"
+"        this might interfer with the payment process.</p>\n"
+"        <noscript><p><strong>Please enable JavaScript in your Browser.</"
+"strong></p></noscript>\n"
+"        "
+msgstr ""
+"\n"
+"<p>Falls Sie die Tickets mit einer <strong>Kreditkarte</strong>, für die "
+"<em>3-D Secure</em> (z.B. \"Verified by VISA\" oder \"MasterCard SecureCode"
+"\") aktiviert wurde, bezahlen möchten, <strong>deaktivieren Sie bitte</"
+"strong> für die Dauer des Einkaufs etwaige <strong>Werbe-/JavaScript-"
+"Blocker</strong>, da diese möglicherweise den Bezahlvorgang unterbrechen.</"
+"p><noscript><p><strong>Bitte aktivieren Sie JavaScript in Ihrem Browser.</"
+"strong></p></noscript>"
+
+#: attendees/templates/attendees/purchase.html:30
 msgid "You have to select at least one ticket."
 msgstr "Du musst mindestens ein Ticket auswählen"
 
-#: attendees/templates/attendees/purchase.html:28
+#: attendees/templates/attendees/purchase.html:37
 #, python-format
 msgid "Only %(limit)s left!"
 msgstr "Nur noch %(limit)s verfügbar!"
 
-#: attendees/templates/attendees/purchase.html:36
+#: attendees/templates/attendees/purchase.html:45
 msgid "Sold out!"
 msgstr "Ausverkauft"
 
