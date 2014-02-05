@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-05 14:24+0100\n"
+"POT-Creation-Date: 2014-02-05 20:03+0100\n"
 "PO-Revision-Date: 2014-02-05 14:24+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -1610,7 +1610,12 @@ msgstr "Session-Vorschläge"
 msgid "Proposal successfully changed"
 msgstr "Änderungen gespeichert"
 
-#: proposals/views.py:213
+#: proposals/views.py:207
+msgid "There has been a problem. Please check below for details."
+msgstr ""
+"Bitte überprüfen Sie nochmals Ihre Eingaben. Details finden Sie weiter unten."
+
+#: proposals/views.py:217
 msgid ""
 "You can no longer edit this proposal because the submission period has "
 "already ended."
@@ -1618,30 +1623,30 @@ msgstr ""
 "Sie können diesen Vorschlag nicht mehr bearbeiten, da die Einreichperiode "
 "vorbei ist."
 
-#: proposals/views.py:216
+#: proposals/views.py:220
 msgid ""
 "You have to be the primary speaker mentioned in the proposal in order to "
 "edit it."
 msgstr "Du musst der Hauptvortragende sein um den Vorschlag ändern zu können."
 
-#: proposals/views.py:273
+#: proposals/views.py:277
 msgid ""
 "You can no longer cancel this proposal because the submission period has "
 "already ended."
 msgstr ""
 "Du kannst den Vorschlag nicht bearbeiten, da die Frist dazu verstrichen ist."
 
-#: proposals/views.py:276
+#: proposals/views.py:280
 msgid ""
 "You have to be the primary speaker mentioned in the proposal in order to "
 "cancel it."
 msgstr "Du musst der Hauptvortragende sein um den Vorschlag zurückzuziehen."
 
-#: proposals/views.py:282
+#: proposals/views.py:286
 msgid "Proposal has been removed"
 msgstr "Vorschlag wurde entfernt"
 
-#: proposals/views.py:308
+#: proposals/views.py:312
 msgid ""
 "You can no longer leave this proposal because the submission period has "
 "already ended."
@@ -1649,11 +1654,11 @@ msgstr ""
 "Sie können diese Einreichung nicht mehr verlassen, da die Einreichungsfrist "
 "bereits verstrichen ist."
 
-#: proposals/views.py:311
+#: proposals/views.py:315
 msgid "Only secondary speakers can leave a proposal"
 msgstr "Nur Mitvortragende können eine Einreichung verlassen."
 
-#: proposals/views.py:317
+#: proposals/views.py:321
 msgid "You were successfully removed as secondary speaker."
 msgstr "Sie wurden erfolgreich als Mitvortragende(r) entfernt."
 
