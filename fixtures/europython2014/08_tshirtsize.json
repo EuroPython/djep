@@ -5,7 +5,7 @@
   "fields": {
     "conference": 1, 
     "sort": 1, 
-    "size": "Female S"
+    "size": "Women S"
   }
 },
 {
@@ -14,7 +14,7 @@
   "fields": {
     "conference": 1, 
     "sort": 2, 
-    "size": "Female M"
+    "size": "Women M"
   }
 },
 {
@@ -23,7 +23,7 @@
   "fields": {
     "conference": 1, 
     "sort": 3, 
-    "size": "Female L"
+    "size": "Women L"
   }
 },
 {
@@ -32,7 +32,7 @@
   "fields": {
     "conference": 1, 
     "sort": 4, 
-    "size": "Female XL"
+    "size": "Women XL"
   }
 },
 {
@@ -41,7 +41,7 @@
   "fields": {
     "conference": 1, 
     "sort": 5, 
-    "size": "Female XXL"
+    "size": "Women XXL"
   }
 },
 {
@@ -50,7 +50,7 @@
   "fields": {
     "conference": 1, 
     "sort": 6, 
-    "size": "Male S"
+    "size": "Women 3XL"
   }
 },
 {
@@ -59,7 +59,7 @@
   "fields": {
     "conference": 1, 
     "sort": 7, 
-    "size": "Male M"
+    "size": "Men S"
   }
 },
 {
@@ -68,7 +68,7 @@
   "fields": {
     "conference": 1, 
     "sort": 8, 
-    "size": "Male L"
+    "size": "Men M"
   }
 },
 {
@@ -77,7 +77,7 @@
   "fields": {
     "conference": 1, 
     "sort": 9, 
-    "size": "Male XL"
+    "size": "Men L"
   }
 },
 {
@@ -86,7 +86,7 @@
   "fields": {
     "conference": 1, 
     "sort": 10, 
-    "size": "Male XXL"
+    "size": "Men XL"
   }
 },
 {
@@ -95,7 +95,7 @@
   "fields": {
     "conference": 1, 
     "sort": 11, 
-    "size": "Male 3XL"
+    "size": "Men XXL"
   }
 },
 {
@@ -104,7 +104,7 @@
   "fields": {
     "conference": 1, 
     "sort": 12, 
-    "size": "Male 4XL"
+    "size": "Men 3XL"
   }
 },
 {
@@ -113,7 +113,16 @@
   "fields": {
     "conference": 1, 
     "sort": 13, 
-    "size": "Male 5XL"
+    "size": "Men 4XL"
+  }
+},
+{
+  "pk": 14, 
+  "model": "attendees.tshirtsize", 
+  "fields": {
+    "conference": 1, 
+    "sort": 14, 
+    "size": "Men 5XL"
   }
 }
 ]
