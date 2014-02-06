@@ -1,3 +1,5 @@
+import json
+
 from django import forms
 from django.contrib import admin
 from django.contrib import messages
@@ -53,6 +55,31 @@ def create_simple_session_export(modeladmin, request, queryset):
 create_simple_session_export.short_description = _("create simple export")
 
 
+def episodes_export(modeladmin, request, queryset):
+    exporter = exporters.SessionForEpisodesExporter()
+    return HttpResponse(json.dumps(exporter(), indent=4),
+                        mimetype='application/json')
+episodes_export.short_description = _("episodes export")
+
+
+class HasSelectedTimeslotsFilter(admin.SimpleListFilter):
+    title = _(u'Timeslot Preferences')
+    parameter_name = 'ts'
+
+    def lookups(self, request, model_admin):
+        return (
+            ('y', _(u'with preferences')),
+            ('n', _(u'w/o preferences'))
+        )
+
+    def queryset(self, request, queryset):
+        if self.value() == 'y':
+            return queryset.filter(proposal__available_timeslots__isnull=False).distinct()
+        elif self.value() == 'n':
+            return queryset.filter(proposal__available_timeslots__isnull=True)
+        return queryset
+
+
 class SessionAdminForm(forms.ModelForm):
 
     def clean_location(self):
@@ -62,10 +89,17 @@ class SessionAdminForm(forms.ModelForm):
 
 
 class SessionAdmin(admin.ModelAdmin):
-    list_display = ("title", "kind", "conference", "duration", "speaker", "track", "location")
-    list_filter = ("conference", "kind", "duration", "track", "location")
-    actions = [create_simple_session_export]
+    list_display = ("title", "kind", "conference", "duration", "speaker", "track", "location",
+                    "list_available_timeslots")
+    list_filter = ("conference", "kind", "duration", "track", "location",
+                   HasSelectedTimeslotsFilter)
+    actions = [create_simple_session_export, episodes_export]
     form = SessionAdminForm
+
+    def list_available_timeslots(self, obj):
+        return u'; '.join(
+            unicode(slot) for slot in obj.proposal.available_timeslots.all())
+    list_available_timeslots.short_description = _(u'Timeslot Preferences')
 
 
 class SideEventAdmin(admin.ModelAdmin):

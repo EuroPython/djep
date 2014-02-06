@@ -30,9 +30,13 @@
 {% if session.start or session.end %}
 <dl>
     <dt>{% trans "Duration" %}:</dt>
-    <dd>{{ session.start|date:"DATE_FORMAT" }} von {{ session.start|time:"TIME_FORMAT" }} - {{ session.end|time:"TIME_FORMAT" }}</dd>
+    <dd>{{ session.start|date:"DATE_FORMAT" }} von {{ session.start|time:"H:i" }} - {{ session.end|time:"H:i" }}</dd>
 </dl>
 {% endif %}
+<dl>
+    <dt>{% trans "Language" %}:</dt>
+    <dd>{{ session.get_language_display }}</dd>
+</dl>
 </div>
 
 {% if session.kind.slug == 'tutorial' and session.description %}
