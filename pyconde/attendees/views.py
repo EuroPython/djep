@@ -128,7 +128,14 @@ class PurchaseMixin(object):
         self.previous_step = None
 
     def persist_purchase(self):
+        # If we get into this method a second time because of a failed CC
+        # payment, we have to remove all elements attached to this purchase
+        # object and also reset things like the transaction ID.
+        self.purchase.ticket_set.all().delete()
+        self.purchase.payment_transaction = ""
         self.purchase.save()
+
+        # Now we create the actual tickets (again)
         for ticket in self.tickets:
             # NOTE: At this point the ticket availability is decreased.
             #       This is corrected by the "purge_stale_purchases"
@@ -389,6 +396,14 @@ class HandlePaymentView(LoginRequiredMixin, PurchaseMixin,
         data['step'] = self.step
         return data
 
+    def clean_purchase(self, purchase):
+        """
+        We have to reset the paymentform session element to allow a
+        resubmission of the payment form in case of an error during a prior
+        attempt.
+        """
+        del self.request.session['paymentform']
+
     def post(self, *args, **kwargs):
         purchase = self.purchase
         token = self.request.POST['token']
@@ -417,14 +432,17 @@ class HandlePaymentView(LoginRequiredMixin, PurchaseMixin,
                 )
             except Exception, e:
                 LOG.exception("Failed to handle purchase")
+                self.clean_purchase(purchase)
                 self.error = unicode(e)
                 return self.get(*args, **kwargs)
             if resp is None:
+                self.clean_purchase(purchase)
                 self.error = _("Payment failed. Please check your data.")
                 return self.get(*args, **kwargs)
             else:
                 transaction = resp
                 if transaction.response_code != 20000:
+                    self.clean_purchase(purchase)
                     self.error = _(api.response_code2text(transaction.response_code))
                     return self.get(*args, **kwargs)
                 purchase.payment_transaction = transaction.id
