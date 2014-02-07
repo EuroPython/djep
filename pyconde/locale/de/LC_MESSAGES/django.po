@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-05 22:48+0100\n"
+"POT-Creation-Date: 2014-02-07 04:18+0100\n"
 "PO-Revision-Date: 2014-02-05 14:24+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -489,7 +489,7 @@ msgstr "E-Mail"
 #: attendees/forms.py:42
 #: attendees/templates/attendees/mail_purchase_completed.html:15
 #: attendees/templates/attendees/purchase_confirm.html:44
-#: attendees/templates/attendees/user_purchases.html:17
+#: attendees/templates/attendees/user_purchases.html:24
 msgid "Billing address"
 msgstr "Rechnungsadresse"
 
@@ -718,6 +718,7 @@ msgid "Date (added)"
 msgstr "Hinzugefügt am"
 
 #: attendees/models.py:182
+#: attendees/templates/attendees/user_purchases.html:16
 msgid "Status"
 msgstr "Status"
 
@@ -775,7 +776,7 @@ msgid "Ticket"
 msgstr "Ticket"
 
 #: attendees/models.py:293 attendees/templates/attendees/purchase.html:27
-#: attendees/templates/attendees/user_purchases.html:34
+#: attendees/templates/attendees/user_purchases.html:41
 msgid "Tickets"
 msgstr "Tickets"
 
@@ -788,7 +789,7 @@ msgstr "Deine EuroPython 2014 Rechnung %(full_invoice_number)s"
 msgid "Ticket successfully purchased"
 msgstr "Ticket erfolgreich gekauft"
 
-#: attendees/views.py:156
+#: attendees/views.py:163
 #, python-format
 msgid ""
 "Sorry, the following ticket is no longer available in your requested "
@@ -796,23 +797,23 @@ msgid ""
 msgstr ""
 "Das folgende Ticket ist nicht mehr in ausreichender Menge verfügbar: %s"
 
-#: attendees/views.py:423
+#: attendees/views.py:440
 msgid "Payment failed. Please check your data."
 msgstr "Zahlung fehlgeschlagen. Bitte überprüfen Sie die Daten."
 
-#: attendees/views.py:435
+#: attendees/views.py:453
 msgid "Transaction already processed."
 msgstr "Transaktion wurde bereits ausgeführt."
 
-#: attendees/views.py:437
+#: attendees/views.py:455
 msgid "Purchase already handled."
 msgstr "Bezahlung wurde bereits bearbeitet."
 
-#: attendees/views.py:484
+#: attendees/views.py:504
 msgid "The invoice has been sent to you."
 msgstr "Die Rechnung wurde dir zugesandt."
 
-#: attendees/views.py:487
+#: attendees/views.py:507
 msgid ""
 "The invoice for this purchase does not exist or has not yet been generated. "
 "You will receive a mail with the invoice soon."
@@ -1180,11 +1181,23 @@ msgstr "Datum"
 msgid "Total price (incl. 19%% VAT)"
 msgstr "Gesamtsumme (inkl. 19%% MwSt.)"
 
-#: attendees/templates/attendees/user_purchases.html:28
+#: attendees/templates/attendees/user_purchases.html:17
+msgid "Payment pending"
+msgstr "Zahlung ausstehend"
+
+#: attendees/templates/attendees/user_purchases.html:21
+msgid ""
+"We have not yet received your payment. You can find account details on your "
+"invoice."
+msgstr ""
+"Wir haben Ihre Zahlung noch nicht erhalten. Die Konto-Daten finden Sie auf "
+"Ihrer Rechnung."
+
+#: attendees/templates/attendees/user_purchases.html:35
 msgid "Resend invoice"
 msgstr "Rechnung zuschicken"
 
-#: attendees/templates/attendees/user_purchases.html:46
+#: attendees/templates/attendees/user_purchases.html:53
 msgid "You haven't made any purchases yet."
 msgstr "Sie haben noch keine Einkäufe getätigt. "
 
@@ -1884,6 +1897,7 @@ msgstr ""
 "zugreifen zu können."
 
 #: reviews/forms.py:43 reviews/forms.py:106 schedule/forms.py:28
+#: schedule/forms.py:46
 msgid "Save"
 msgstr "Speichern"
 
@@ -2124,29 +2138,45 @@ msgstr ""
 msgid "Filters"
 msgstr "Filter"
 
-#: schedule/admin.py:40
+#: schedule/admin.py:42
 #, python-format
 msgid "%(counter)s proposal(s) converted to sessions"
 msgstr "%(counter)s Session-Vorschläge wurden in Sessions umgewandelt"
 
-#: schedule/admin.py:44
+#: schedule/admin.py:46
 #, python-format
 msgid "%(counter)s proposal(s) skipped"
 msgstr "%(counter)s Session-Vorschläge wurden übersprungen"
 
-#: schedule/admin.py:47
+#: schedule/admin.py:49
 msgid "convert to sessions"
 msgstr "Auswahl in Sessions umwandeln"
 
-#: schedule/admin.py:53
+#: schedule/admin.py:55
 msgid "create simple export"
 msgstr "Auswahl als CSV exportieren"
 
-#: schedule/admin.py:60
+#: schedule/admin.py:62
+msgid "episodes export"
+msgstr "Als Episoden exportieren"
+
+#: schedule/admin.py:66 schedule/admin.py:102
+msgid "Timeslot Preferences"
+msgstr "Bevorzugte Zeitfenster"
+
+#: schedule/admin.py:71
+msgid "with preferences"
+msgstr "Präferenzen"
+
+#: schedule/admin.py:72
+msgid "w/o preferences"
+msgstr "keine Präferenen"
+
+#: schedule/admin.py:87
 msgid "The location is mandatory."
 msgstr "Der Ort muss angegeben werden."
 
-#: schedule/admin.py:83 schedule/admin.py:93
+#: schedule/admin.py:117 schedule/admin.py:127
 msgid "is scheduled"
 msgstr "Hat Session"
 
@@ -2220,7 +2250,7 @@ msgstr "Pause"
 msgid "is recordable"
 msgstr "kann aufgenommen werden"
 
-#: schedule/views.py:121
+#: schedule/views.py:128
 msgid "Changes saved"
 msgstr "Änderungen wurden gespeichert"
 
@@ -2260,7 +2290,11 @@ msgstr "Ort:"
 msgid "Location"
 msgstr "Ort"
 
-#: schedule/templates/schedule/session.html:66
+#: schedule/templates/schedule/session.html:37
+msgid "Language"
+msgstr "Sprache"
+
+#: schedule/templates/schedule/session.html:70
 msgid "Speakers:"
 msgstr "Vortragende(r):"
 
