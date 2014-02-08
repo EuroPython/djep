@@ -8,8 +8,6 @@ from django.template.loader import render_to_string
 from django.utils.crypto import get_random_string
 from django.utils.translation import ugettext as _
 
-from invoicegenerator import generate_invoice
-
 from pyconde.celery import app
 
 from . import settings as settings
@@ -23,6 +21,7 @@ if settings.INVOICE_DISABLE_RENDERING:
         return True, ''
 else:
     def do_render(filepath, data, **kwargs):
+        from invoicegenerator import generate_invoice
         return generate_invoice.render(filepath=filepath, data=data, **kwargs)
 
 
