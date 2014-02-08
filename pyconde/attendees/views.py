@@ -479,6 +479,8 @@ class UserPurchasesView(LoginRequiredMixin, generic_views.TemplateView):
             'tickets': Ticket.objects
                              .filter(purchase__user=self.request.user)
                              .exclude(purchase__state='incomplete')
+                             .exclude(purchase__state='canceled')
+                             .exclude(purchase__state='new')
                              .select_related('purchase', 'purchase__user',
                                              'ticket_type')
                              .order_by('-purchase__date_added')

@@ -12,7 +12,14 @@
             <dd>{{ purchase.grouper.date_added|date }}</dd>
             <dt>{% trans "Total price (incl. 19% VAT)" %}:</dt>
             <dd>{{ purchase.grouper.payment_total|floatformat:2 }} EUR</dd>
+            {% if purchase.grouper.state %}
+            <dt>{% trans "Status" %}:</dt>
+            <dd>{% if purchase.grouper.state == 'invoice_created' %}{% trans "Payment pending" %}{% else %}{{ purchase.grouper.get_state_display|capfirst }}{% endif %}</dd>
+            {% endif %}
         </dl>
+        {% if purchase.grouper.state == 'invoice_created' %}
+        <p class="alert alert-warn">{% trans "We have not yet received your payment. You can find account details on your invoice." %}</p>
+        {% endif %}
         <div class="paymentaddress">
             <h3>{% trans "Billing address" %}</h3>
             <p>
