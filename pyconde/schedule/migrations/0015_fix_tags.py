@@ -6,8 +6,19 @@ from django.db import models
 
 class Migration(DataMigration):
 
+    depends_on = (
+        ("schedule", "0015_auto__add_field_session_accept_recording__chg_field_session_duration__"),
+    )
+
     def forwards(self, orm):
         "Write your forwards methods here."
+
+        # Make this migration a noop, as there is no way to access the
+        # ContentType during first migration. See:
+        # http://south.aeracode.org/ticket/1281
+
+        return
+
         # Note: Don't use "from appname.models import ModelName".
         # Use orm.ModelName to refer to models in this application,
         # and orm['appname.ModelName'] for models in other applications.
