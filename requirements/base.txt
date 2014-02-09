@@ -16,6 +16,7 @@ django-timezones==0.2
 django-configurations==0.7
 dj-database-url==0.2.2
 django-statici18n==1.1
+django-validatorchain==0.1
 
 # Strict due to API compatibility issues
 django-mptt==0.5.2
