@@ -12,7 +12,14 @@
             <dd>{{ purchase.grouper.date_added|date }}</dd>
             <dt>{% trans "Total price (incl. 19% VAT)" %}:</dt>
             <dd>{{ purchase.grouper.payment_total|floatformat:2 }} EUR</dd>
+            {% if purchase.grouper.state %}
+            <dt>{% trans "Status" %}:</dt>
+            <dd>{% if purchase.grouper.state == 'invoice_created' %}{% trans "Payment pending" %}{% else %}{{ purchase.grouper.get_state_display|capfirst }}{% endif %}</dd>
+            {% endif %}
         </dl>
+        {% if purchase.grouper.state == 'invoice_created' %}
+        <p class="alert alert-warn">{% trans "We have not yet received your payment. You can find account details on your invoice." %}</p>
+        {% endif %}
         <div class="paymentaddress">
             <h3>{% trans "Billing address" %}</h3>
             <p>
@@ -20,6 +27,15 @@
                 {{ purchase.grouper.street }}<br>
                 {{ purchase.grouper.zip_code }} {{ purchase.grouper.country }}
             </p>
+            {% if purchase.grouper.exported %}
+            <p>
+                <form action="{% url 'attendees_user_resend_invoice' %}" method="post">
+                    {% csrf_token %}
+                    <input type="hidden" value="{{ purchase.grouper.id }}" name="p" />
+                    <input type="submit" value="{% trans "Resend invoice" %}" class="btn btn-primary" />
+                </form>
+            </p>
+            {% endif %}
         </div>
         <div class="tickets">
             <h3>{% trans "Tickets" %}</h3>

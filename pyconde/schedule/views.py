@@ -1,4 +1,7 @@
 # -*- encoding: utf-8 -*-
+
+import datetime
+
 from django.shortcuts import get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 from django.http import HttpResponseRedirect, HttpResponse
@@ -112,16 +115,20 @@ def view_sideevent(request, pk):
 @login_required
 def edit_session(request, session_pk):
     session = get_object_or_404(models.Session, pk=session_pk)
+    if session.end < datetime.datetime.now():
+        form = forms.EditSessionCoverageForm
+    else:
+        form = forms.EditSessionForm
     if not utils.can_edit_session(request.user, session):
         return create_403()
     if request.method == 'POST':
-        form = forms.EditSessionForm(instance=session, data=request.POST)
+        form = form(instance=session, data=request.POST)
         if form.is_valid():
             form.save()
             messages.success(request, _("Changes saved"))
             return HttpResponseRedirect(session.get_absolute_url())
     else:
-        form = forms.EditSessionForm(instance=session)
+        form = form(instance=session)
     return TemplateResponse(
         request=request,
         context={

@@ -6,6 +6,9 @@
         @include grid-row();
         background: $background1;
         margin-bottom: 30px;
+        .alert {
+            border-radius: 0px;
+        }
         > .details {
             @include grid-column($columns:12);
             > * {

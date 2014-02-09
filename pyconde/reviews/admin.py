@@ -1,11 +1,13 @@
 # -*- encoding: utf-8 -*-
 
 from django.contrib import admin
-from django.http import HttpResponse
-from django.utils.translation import ugettext_lazy as _
-from django.utils.timezone import now
-from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.contrib.auth import models as auth_models
+from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
+from django.core.cache import cache
+from django.db.transaction import commit_on_success
+from django.http import HttpResponse
+from django.utils.timezone import now
+from django.utils.translation import ugettext_lazy as _
 
 from . import models
 from . import utils
@@ -27,6 +29,26 @@ def export_reviewed_proposals(modeladmin, request, queryset):
 export_reviewed_proposals.short_description = _("Export as CSV")
 
 
+def accept_reviewer_request(modeladmin, request, queryset):
+    with commit_on_success():
+        perm = utils.get_review_permission()
+        for reviewer in queryset.select_related('user').all():
+            reviewer.user.user_permissions.add(perm)
+        queryset.update(state=models.Reviewer.STATE_ACCEPTED)
+        cache.delete('reviewer_pks')
+accept_reviewer_request.short_description = _("Accept selected user requests to become a reviewer.")
+
+
+def decline_reviewer_request(modeladmin, request, queryset):
+    with commit_on_success():
+        perm = utils.get_review_permission()
+        for reviewer in queryset.select_related('user').all():
+            reviewer.user.user_permissions.remove(perm)
+        queryset.update(state=models.Reviewer.STATE_DECLINED)
+        cache.delete('reviewer_pks')
+decline_reviewer_request.short_description = _("Decline selected user requests to become a reviewer.")
+
+
 class ProposalMetaDataAdmin(admin.ModelAdmin):
     list_display = ['proposal', 'num_comments', 'num_reviews',
         'latest_activity_date', 'score']
@@ -44,6 +66,11 @@ admin.site.register(models.Comment,
     actions=[mark_comment_as_deleted])
 admin.site.register(models.ProposalMetaData, ProposalMetaDataAdmin)
 
+admin.site.register(models.Reviewer,
+    list_display=['user', 'state'],
+    list_filter=['state'],
+    actions=[accept_reviewer_request, decline_reviewer_request])
+
 
 # Add some more columns and filters to the user admin
 class UserAdmin(BaseUserAdmin):
@@ -52,7 +79,7 @@ class UserAdmin(BaseUserAdmin):
     def is_reviewer(self, instance):
         return utils.can_review_proposal(instance)
     is_reviewer.boolean = True
-    is_reviewer.short_description = u'Kann bewerten'
+    is_reviewer.short_description = _('Can review')
 
 admin.site.unregister(auth_models.User)
 admin.site.register(auth_models.User, UserAdmin)

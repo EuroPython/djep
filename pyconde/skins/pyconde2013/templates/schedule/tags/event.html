@@ -3,5 +3,10 @@
 {% if event.type == 'session' %}
 <br />
 {% if event.speakers %}von {{ event.speakers|join:', ' }}{% endif %}
-{% if event.level_name %}<div class="help-block"><small>Zielgruppe: {{ event.level_name }}</small></div>{% endif %}
+<div class="help-block">
+{% if event.level_name %}<small>Zielgruppe: {{ event.level_name }}</small>, {% endif %}
+{% if event.language %}
+<small>Sprache: {{ event.language }}</small>
+{% endif %}
+</div>
 {% endif %}

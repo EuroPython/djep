@@ -3,6 +3,7 @@ import xmlrpclib
 import datetime
 import decimal
 import tablib
+import uuid
 import logging
 
 from django.core.cache import get_cache
@@ -15,8 +16,8 @@ from django.utils.translation import gettext_lazy as _
 
 from redis_cache import get_redis_connection
 
-from . import exporters
 from . import settings as app_settings
+from . import tasks
 
 
 LOG = logging.getLogger(__name__)
@@ -57,13 +58,14 @@ def complete_purchase(request, purchase):
     purchase.invoice_number = generate_invoice_number()
     purchase.save()
     send_purchase_confirmation_mail(purchase)
+    tasks.render_invoice.delay(purchase_id=purchase.id)
     return HttpResponseRedirect(reverse('attendees_purchase_done'))
 
 
 def send_purchase_confirmation_mail(purchase, recipients=None):
     from . import models
     if recipients is None:
-        recipients = [purchase.email, settings.DEFAULT_FROM_EMAIL]
+        recipients = [purchase.email]
     terms_of_use_url = (settings.PURCHASE_TERMS_OF_USE_URL
                         if (hasattr(settings, 'PURCHASE_TERMS_OF_USE_URL')
                         and settings.PURCHASE_TERMS_OF_USE_URL) else '')
@@ -80,15 +82,21 @@ def send_purchase_confirmation_mail(purchase, recipients=None):
         settings.DEFAULT_FROM_EMAIL, recipients,
         fail_silently=True
     )
-    try:
-        exporters.PurchaseEmailExporter()(purchase)
-    except:
-        LOG.error("Failed to export the order", exc_info=True)
 
 
 def generate_transaction_description(purchase):
     return settings.PAYMILL_TRANSACTION_DESCRIPTION.format(
         purchase_pk=purchase.pk)
+
+
+def generate_invoice_filename(purchase):
+    from .models import Purchase
+    ext = '.json' if app_settings.INVOICE_DISABLE_RENDERING else '.pdf'
+    filename = str(uuid.uuid4()) + ext
+    while Purchase.objects.filter(invoice_filename=filename).exists():
+        filename = str(uuid.uuid4()) + ext
+    purchase.invoice_filename = filename
+    purchase.save(update_fields=['invoice_filename'])
 
 
 def round_money_value(val):

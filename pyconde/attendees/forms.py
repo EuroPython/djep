@@ -173,7 +173,7 @@ class PurchaseOverviewForm(forms.Form):
         choices=PAYMENT_METHOD_CHOICES, widget=forms.RadioSelect,
         help_text=_('If you choose invoice you will receive an invoice from us.'
                     ' After we receive your money transfer your purchase will'
-                    ' be finanized.<br /><br />Credit card payment is handled'
+                    ' be finalized.<br /><br />Credit card payment is handled'
                     ' through <a href="http://www.paymill.com">PayMill</a>.'))
 
     def __init__(self, *args, **kwargs):

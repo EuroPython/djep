@@ -108,3 +108,4 @@ class Proposal(AbstractProposal):
     class Meta(object):
         verbose_name = _("proposal")
         verbose_name_plural = _("proposals")
+        ordering = ['-pk']

@@ -31,4 +31,6 @@ urlpatterns = patterns('django.contrib.auth.views',
             name='login-email-request'),
         url(r'^email/$', views.EmailChangeView.as_view(),
             name='userprofiles_email_change'),
+        url(r'^profile/reviewer/apply/$', views.ReviewerApplication.as_view(),
+            name='reviewer_application'),
     )

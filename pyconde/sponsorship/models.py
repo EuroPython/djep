@@ -1,4 +1,7 @@
+import re
+
 from django.db import models
+from django.core.exceptions import ValidationError
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 
@@ -41,8 +44,35 @@ class Sponsor(models.Model):
     added = models.DateTimeField(_("added"), default=now)
     active = models.BooleanField(_("active"), default=False)
 
+    # For some sponsors due to different logo aspect rations we require a way
+    # to resize them in a different way on certain positions on the website.
+    custom_logo_size_listing = models.CharField(
+        _("Custom logo size in listings"), max_length=9, blank=True,
+        help_text=_("Format: [width]x[height]. To get the maximum height out "
+                    "of a logo, use something like 300x55."),
+        null=True)
+
+    @property
+    def custom_logo_size_listing_width(self):
+        if not self.custom_logo_size_listing:
+            return None
+        return self.custom_logo_size_listing.split("x")[0]
+
+    @property
+    def custom_logo_size_listing_height(self):
+        if not self.custom_logo_size_listing:
+            return None
+        return self.custom_logo_size_listing.split("x")[1]
+
     def __unicode__(self):
         return self.name
+
+    def clean(self):
+        if self.custom_logo_size_listing:
+            if not re.match('^\d+x\d+$', self.custom_logo_size_listing):
+                raise ValidationError(_("Please specify the custom logo size "
+                                        "for listings in the format "
+                                        "[width]x[height]."))
 
     class Meta:
         verbose_name = _("sponsor")

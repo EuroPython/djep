@@ -59,6 +59,7 @@ def upgrade():
     migrate()
     build_static_files()
     compilemessages()
+    restart_celery()
     restart_worker()
     # build_docs()
 
@@ -122,6 +123,14 @@ def restart_worker():
     Restarts the gunicorn workers managed by supervisord.
     """
     return supervisorctl('restart site')
+
+
+@task
+def restart_celery():
+    """
+    Restarts the gunicorn workers managed by supervisord.
+    """
+    return supervisorctl('restart celery')
 
 
 @task

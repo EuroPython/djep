@@ -212,6 +212,7 @@ class GridCell(object):
         self.start = None
         self.end = None
         self.level_name = None
+        self.language = None
         self.location = event.location if event else None
         self.event = None
         self.type = None
@@ -236,6 +237,8 @@ class GridCell(object):
                     self.track_name = event.track.name
                 if event.audience_level:
                     self.level_name = event.audience_level.name
+                if event.language:
+                    self.language = event.get_language_display()
             else:
                 self.type = 'sideevent'
                 self.is_global = event.is_global

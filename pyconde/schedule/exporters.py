@@ -36,13 +36,13 @@ class SimpleSessionExporter(AbstractExporter):
             'speaker', 'latest_proposalversion__track', 'audience_level')
         data = tablib.Dataset(headers=['ID', 'ProposalID', 'Title',
             'SpeakerUsername', 'SpeakerName', 'CoSpeakers', 'AudienceLevel',
-            'Duration', 'Track'])
+            'Duration', 'Start', 'End', 'Track', 'Timeslots'])
         for session in queryset:
             duration = session.duration
             audience_level = session.audience_level
             track = session.track
             cospeakers = [_format_cospeaker(s) for s in session.additional_speakers.all()]
-            data.append((
+            row = [
                 session.pk,
                 session.proposal.pk if session.proposal else "",
                 session.title,
@@ -51,8 +51,17 @@ class SimpleSessionExporter(AbstractExporter):
                 u"|".join(cospeakers),
                 unicode(audience_level) if audience_level else "",
                 unicode(duration) if duration else "",
+                unicode(session.start),
+                unicode(session.end),
                 unicode(track) if track else "",
-                ))
+            ]
+            if session.proposal:
+                row.append(
+                    u'|'.join(unicode(slot)
+                    for slot in session.proposal.available_timeslots.all()))
+            else:
+                row.append('')
+            data.append(row)
         return data
 
 

@@ -203,6 +203,10 @@ class EditProposalView(LoginRequiredMixin, TypedProposalFormMixin, PermissionChe
         messages.success(self.request, _("Proposal successfully changed"))
         return HttpResponseRedirect(self.get_success_url())
 
+    def form_invalid(self, form):
+        messages.error(self.request, _("There has been a problem. Please check below for details."))
+        return super(EditProposalView, self).form_invalid(form)
+
     def check_permissions(self):
         """
         Only the primary speaker and staff members can edit a proposal.

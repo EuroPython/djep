@@ -1,19 +1,28 @@
 import json
 
 from django.conf import settings
+from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
 from django.contrib.auth import models as auth_models
+from django.contrib.contenttypes.models import ContentType
+from django.core.mail import send_mass_mail
 from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
+from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
 from django.views import generic as generic_views
 
 from userprofiles.contrib.emailverification.models import EmailVerification
 from userprofiles.contrib.emailverification.views import EmailChangeView as BaseEmailChangeView
 from userprofiles.contrib.profiles.views import ProfileChangeView as BaseProfileChangeView
+from userprofiles.mixins import LoginRequiredMixin
+
+from pyconde.conference.models import current_conference
+from pyconde.reviews.models import Reviewer
 
 from . import forms
 from . import models
+from .utils import get_addressed_as, get_display_name
 
 
 class AutocompleteUser(generic_views.View):
@@ -102,6 +111,62 @@ class EmailChangeView(BaseEmailChangeView):
 
 
 class ProfileChangeView(BaseProfileChangeView):
+
+    def get_context_data(self, **kwargs):
+        ctx = super(ProfileChangeView, self).get_context_data(**kwargs)
+        review_state = None
+        if settings.REVIEWER_APPLICATION_OPEN:
+            user = self.request.user
+            if not user.is_superuser:
+                try:
+                    review_state = user.reviewer_set.only('state').get().state
+                except Reviewer.DoesNotExist:
+                    pass
+        ctx.update({
+            'review_open': settings.REVIEWER_APPLICATION_OPEN,
+            'review_state': review_state,
+        })
+        return ctx
+
     def form_invalid(self, form):
         messages.error(self.request, _('An error occurred while saving the form.'))
         return super(ProfileChangeView, self).form_invalid(form)
+
+
+class ReviewerApplication(LoginRequiredMixin, generic_views.FormView):
+    form_class = forms.ReviewerApplicationForm
+    success_url = reverse_lazy('account_profile_change')
+    template_name = 'accounts/reviewer_apply.html'
+
+    def dispatch(self, request, *args, **kwargs):
+        if not settings.REVIEWER_APPLICATION_OPEN:
+            messages.error(request, _('The reviewer application is closed.'))
+            return HttpResponseRedirect(self.get_success_url())
+        if Reviewer.objects.filter(user=self.request.user).exists():
+            messages.warning(request, _('You already applied as a reviewer.'))
+            return HttpResponseRedirect(self.get_success_url())
+        return super(ReviewerApplication, self).dispatch(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        reviewer_request = Reviewer.objects.create(user=self.request.user, conference=current_conference())
+        reviewer_ct = ContentType.objects.get_for_model(Reviewer)
+        perm = auth_models.Permission.objects.get(content_type_id=reviewer_ct.pk, codename='change_reviewer')
+        mails = []
+        subject = _('New reviewer application')
+        from_email = settings.DEFAULT_FROM_EMAIL
+        url = 'https://' if self.request.is_secure() else 'http://'
+        url += self.request.get_host()
+        url += reverse('admin:reviews_reviewer_change', args=(reviewer_request.pk,))
+        data_dict = {
+            'applicant_username': self.request.user.username,
+            'applicant_display_name': get_display_name(self.request.user),
+            'reviewer_list_url': url,
+            'conference_title': current_conference().title,
+        }
+        for user in perm.user_set.all():
+            data_dict['receiver'] = get_addressed_as(user)
+            message = render_to_string('accounts/reviewer_application_mail.txt', data_dict)
+            mails.append((subject, message, from_email, [user.email]))
+
+        send_mass_mail(mails)
+        return super(ReviewerApplication, self).form_valid(form)

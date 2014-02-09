@@ -275,3 +275,17 @@ class ChangeEmailForm(BaseChangeEmailForm):
         self.helper.layout = Layout(
             'new_email',
             ButtonHolder(Submit('save', _("Change e-mail address"), css_class='btn btn-primary')))
+
+
+class ReviewerApplicationForm(forms.Form):
+
+    class Meta:
+        fields = ()
+    
+    def __init__(self, *args, **kwargs):
+        super(ReviewerApplicationForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.layout = Layout(
+            'apply',
+            ButtonHolder(Submit('save', _("Apply now!"), css_class='btn btn-success')))
