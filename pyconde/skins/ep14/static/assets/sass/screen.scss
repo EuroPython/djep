@@ -403,7 +403,7 @@ footer {
                 @include grid-column($columns: 12);
             }
             @media #{$medium-up} {
-                @include grid-column($columns: 6);
+                @include grid-column($columns: 4);
             }
         }
     }
