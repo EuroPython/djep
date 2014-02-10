@@ -1,5 +1,6 @@
 {% extends "proposals/base.html" %}
 {% load i18n markup %}
+{% block bodyclass %}{{ block.super }} details{% endblock %}
 {% block title %}{% trans "Proposal" %}: {{ proposal.title }}{% endblock %}
 {% block body %}
 <article class="proposal">
@@ -13,14 +14,25 @@ This proposal was submitted on <span class="submission-date">{{ submission_date 
 <a class="speaker user" href="{{ speaker_url }}">{{ speaker }}</a> submitted this proposal on <span class="submission-date">{{ submission_date }}</span>.
 {% endblocktrans %}
 {% endif %}
-{% if proposal.tags %}
+{% if tags %}
 <dl class="tags"><dt>{% trans "Tags" %}:</dt><dd>
-    {% for tag in proposal.tags.all %}
+    {% for tag in tags %}
     <span class="tag">{{ tag.name }}</span>{% if not forloop.last %},  {% endif %}
     {% endfor %}
 </dd></dl>
 {% endif %}
 </div>
+
+<div class="description">
+    <h2>{% trans "Description" %}</h2>
+    {{ proposal.description|markdown:"safe" }}
+</div>
+
+<div class="abstract">
+    <h2>{% trans "Abstract" %}</h2>
+    {{ proposal.abstract|markdown:"safe" }}
+</div>
+
 
 <div class="actions">
     {% if proposal.kind.accepts_proposals %}
@@ -34,14 +46,6 @@ This proposal was submitted on <span class="submission-date">{{ submission_date 
         <a class="btn" href="{% url 'cancel_proposal' pk=proposal.pk %}"><i class="icon-remove"></i> {% trans "Delete" %}</a>
         {% endif %}
     {% endif %}
-</div>
-
-<div class="description">
-    {{ proposal.description|markdown:"safe" }}
-</div>
-
-<div class="abstract">
-    {{ proposal.abstract|markdown:"safe" }}
 </div>
 </article>
 {% endblock %}

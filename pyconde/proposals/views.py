@@ -151,6 +151,7 @@ class SingleProposalView(generic_views.DetailView):
 
     def get_context_data(self, **kwargs):
         data = super(SingleProposalView, self).get_context_data(**kwargs)
+        data['tags'] = self.object.tags.all()
         data['can_leave'] = self.request.user in [s.user for s in self.object.additional_speakers.all()]
         data['can_edit'] = self.request.user == self.object.speaker.user
         data['can_delete'] = self.request.user.is_staff or self.request.user == self.object.speaker.user
