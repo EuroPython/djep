@@ -3,9 +3,8 @@
 {% block bodyclass %}{{ block.super }} versiondetails{% endblock %}
 {% block title %}{% trans "Proposal" %} "{{ proposal.title }}" @ {{ version.pub_date }}{% endblock %}
 {% block page_title %}{% trans "Proposal" %} "{{ proposal.title }}" @ {{ version.pub_date }}{% endblock %}
-{% block content %}
-<div class="row">
-    <article id="details">
+{% block details %}
+    <article>
         <div class="description">
             {{ version.description|markdown:"safe" }}
         </div>
@@ -14,8 +13,8 @@
             {{ version.abstract|markdown:"safe" }}
         </div>
     </article>
-    <div id="sidebar">
+{% endblock %}
+{% block sidebar %}
+    {{ block.super }}
     {% include "reviews/partials/versions_box.html" %}
-    </div>
-</div>
 {% endblock %}

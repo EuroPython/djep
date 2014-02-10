@@ -1,6 +1,6 @@
 {% load account_tags i18n %}
 <div class="box" id="versions">
-    <h2>Versionen</h2>
+    <h2>{% trans "Versions" %}</h2>
     {% if not versions %}
     <p class="empty">{% trans "So far there is only the original proposal. If the author updates it, you will see different versions being listed here." %}</p>
     {% else %}

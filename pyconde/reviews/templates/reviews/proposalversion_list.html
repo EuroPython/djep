@@ -1,11 +1,11 @@
 {% extends "reviews/proposal_base.html" %}
-{% block title %}Versionen von "{{ original.title }}"{% endblock %}
-{% block content %}
-    <h1>Versionen von {{ original.title }}</h1>
-
+{% load i18n %}
+{% block bodyclass %}{{ block.super }} versions{% endblock %}
+{% block title %}{% blocktrans with title=original.title %}Versions of "{{ title }}" {% endblocktrans %}{% endblock %}
+{% block details %}
     <table>
         <tbody>
-            <tr><td {% if not current_conference.anonymize_proposal_author %}colspan="2"{% endif %}><a href="{{ original.get_absolute_url }}">Original</a></td></tr>
+            <tr><td {% if not current_conference.anonymize_proposal_author %}colspan="2"{% endif %}><a href="{{ original.get_absolute_url }}">{% trans "Original" %}</a></td></tr>
         {% for version in object_list %}
         <tr>
             <td><a href="{% url 'reviews-version-details' proposal_pk=version.original.pk pk=version.pk %}">{{ version.pub_date }}</a></td>

@@ -47,10 +47,12 @@ body.reviews {
     }
 
     &.proposaldetails,
-    &.versiondetails {
+    &.versiondetails,
+    &.versions {
         #details {
             @media #{$medium-up} {
                 @include grid-column($columns:8);
+                padding-right: 20px;
             }
         }
         #sidebar {

@@ -1,7 +1,7 @@
 {% extends "reviews/proposal_base.html" %}
 {% block title %}Review aktualisieren{% endblock %}
-{% load crispy_forms_tags %}
+{% load crispy_forms_tags i18n %}
 {% block content %}
-    <h1>Aktualisieren Sie Ihre Review</h1>
+    <h1>{% trans "Update your review" %}</h1>
     {% crispy form %}
 {% endblock content %}

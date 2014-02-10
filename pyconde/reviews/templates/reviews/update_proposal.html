@@ -2,6 +2,6 @@
 {% load crispy_forms_tags i18n %}
 {% block title %}{% blocktrans with title=proposal.title %}Editing "{{ title }}" proposal {% endblocktrans %}{% endblock %}
 {% block page_title %}{% blocktrans with title=proposal.title %}Editing "{{ title }}" proposal {% endblocktrans %}{% endblock %}
-{% block content %}
+{% block details %}
     {% crispy form %}
-{% endblock content %}
+{% endblock details %}

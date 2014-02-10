@@ -1,5 +1,4 @@
-{% load account_tags %}{% if hide_author %}Es wurde{% else %}{{ comment.author|display_name }} hat{% endif %} ein neues Kommentar zum Session-Vorschlag "{{ proposal.title }}"
-angelegt:
+{% load account_tags i18n %}{% if hide_author %}{% blocktrans with title=proposal.title %}A new comment to the session proposal "{{ title }}" has been created.{% endblocktrans %}{% else %}{% blocktrans with title=proposal.title author=comment.author|display_name %}{{ author }} has commented on the session proposal "{{ title }}".{% endblocktrans %}{% endif %}
 
 -------------------
 
@@ -7,4 +6,4 @@ angelegt:
 
 -------------------
 
-Link: <http://{{ site.domain }}{{ proposal_url }}#comment-{{ comment.pk }}>
+{% trans "Link" %}: <http://{{ site.domain }}{{ proposal_url }}#comment-{{ comment.pk }}>

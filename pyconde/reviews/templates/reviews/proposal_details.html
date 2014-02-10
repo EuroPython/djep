@@ -3,9 +3,7 @@
 {% block bodyclass %}{{ block.super }} proposaldetails{% endblock %}
 {% block page_title %}{% blocktrans with title=proposal.title %}Review info: {{ current_title }}{% endblocktrans %}{% endblock %}
 {% block title %}{% blocktrans with title=proposal.title %}Review info: {{ current_title }}{% endblocktrans %}{% endblock %}
-{% block content %}
-    <div class="row">
-    <div id="details">
+{% block details %}
     <article class="proposal">
     <h3>{% trans "Description" %}</h3>
     <div class="description">
@@ -76,8 +74,9 @@
     <h2>{% trans "Questions for the author / Comment:" %}</h2>
     {% crispy comment_form %}
     {% endif %}
-    </div>
-    <div id="sidebar">
+{% endblock %}
+{% block sidebar %}
+    {{ block.super }}
     {% include "reviews/partials/versions_box.html" %}
     {% if can_review %}
     <div class="box" id="review-box">
@@ -99,6 +98,4 @@
         {% endif %}
     </div>
     {% endif %}
-    </div>
-</div>
 {% endblock %}

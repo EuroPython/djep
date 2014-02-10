@@ -1,9 +1,16 @@
 {% extends "reviews/base.html" %}
-{% block sidebar %}
+{% load i18n %}
+{% block content %}
+<div class="row">
+    <div id="details">
+    {% block details %}{% endblock %}
+    </div>
+    <div id="sidebar">
+    {% block sidebar %}
     <div class="box" id="review-metadata">
-        <h2>Vorschlagsinfo</h2>
+        <h2>{% trans "Proposal info" %}</h2>
         <dl>
-            <dt>Titel:</dt>
+            <dt>{% trans "Title" %}:</dt>
             {% if proposal_version %}
             <dd><a href="{% url 'reviews-proposal-details' pk=proposal.pk %}">{{ proposal_version.title }}</a></dd>
             {% else %}
@@ -12,12 +19,12 @@
         </dl>
         {% if proposal_version and proposal_version.title != proposal.title %}
         <dl>
-            <dt>Original-Titel:</dt>
+            <dt>{% trans "Original title" %}:</dt>
             <dd>{{ proposal.title }}</dd>
         </dl>
         {% endif %}
         <dl>
-            <dt>Typ:</dt>
+            <dt>{% trans "Type" %}:</dt>
             <dd>
                 {% if proposal_version %}
                     {{ proposal_version.kind.name }}
@@ -27,7 +34,7 @@
             </dd>
         </dl>
         <dl>
-            <dt>Zielgruppe:</dt>
+            <dt>{% trans "Target audience" %}:</dt>
             <dd>
                 {% if proposal_version %}
                     {{ proposal_version.audience_level }}
@@ -37,7 +44,7 @@
             </dd>
         </dl>
         <dl>
-            <dt>Sprache:</dt>
+            <dt>{% trans "Language" %}:</dt>
             <dd>
                 {% if proposal_version %}
                     {{ proposal_version.get_language_display }}
@@ -48,7 +55,7 @@
         </dl>
         {% if not current_conference.anonymize_proposal_author %}
         <dl>
-            <dt>Vortragende(r):</dt>
+            <dt>{% trans "Speaker" %}:</dt>
             <dd>
                 {% if proposal_version %}
                     {{ proposal_version.speaker }}
@@ -58,7 +65,7 @@
             </dd>
         </dl>
         <dl>
-            <dt>Mitvortragende:</dt>
+            <dt>{% trans "Co-speaker(s)" %}:</dt>
             <dd>
                 {% if proposal_version %}
                     {{ proposal_version.additional_speakers.all|join:", " }}
@@ -69,7 +76,7 @@
         </dl>
         {% endif %}
         <dl>
-            <dt>Dauer:</dt>
+            <dt>{% trans "Duration" %}:</dt>
             <dd>
                 {% if proposal_version %}
                     {{ proposal_version.duration.label }}
@@ -80,7 +87,7 @@
         </dl>
         {% if proposal.track %}
         <dl>
-            <dt>Track:</dt>
+            <dt>{% trans "Track" %}:</dt>
             <dd>
                 {% if proposal_version %}
                     {{ proposal_version.track.name }}
@@ -91,4 +98,7 @@
         </dl>
         {% endif %}
     </div>
+    {% endblock %}
+    </div>
+</div>
 {% endblock %}
