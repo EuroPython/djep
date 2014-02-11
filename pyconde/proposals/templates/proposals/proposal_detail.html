@@ -23,14 +23,14 @@ This proposal was submitted on <span class="submission-date">{{ submission_date 
 {% endif %}
 </div>
 
-<div class="description">
-    <h2>{% trans "Description" %}</h2>
-    {{ proposal.description|markdown:"safe" }}
-</div>
-
 <div class="abstract">
     <h2>{% trans "Abstract" %}</h2>
     {{ proposal.abstract|markdown:"safe" }}
+</div>
+
+<div class="description">
+    <h2>{% trans "Description" %}</h2>
+    {{ proposal.description|markdown:"safe" }}
 </div>
 
 
