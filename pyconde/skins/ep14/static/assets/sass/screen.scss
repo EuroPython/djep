@@ -8,6 +8,7 @@
 @import "foundation/components/grid";
 @import "foundation/components/top-bar";
 @import "foundation/components/orbit";
+@import "font-awesome/scss/font-awesome";
 
 //-----------------------------------------------------------------------------
 
@@ -403,14 +404,14 @@ footer {
                 @include grid-column($columns: 12);
             }
             @media #{$medium-up} {
-                @include grid-column($columns: 6);
+                @include grid-column($columns: 4);
             }
         }
     }
 
-    #footer-donate {
-        p {
-            margin-bottom: 2rem;
+    #footer-ack {
+        a {
+            font-weight: bold;
         }
     }
 
@@ -524,6 +525,7 @@ div.actions {
 @import "frontpage";
 @import "userprofile";
 @import "account";
+@import "proposals";
 @import "checkout";
 @import "alerts";
 @import "reviews";

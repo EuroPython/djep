@@ -33,7 +33,6 @@
         {% render_block "css" postprocessor "compressor.contrib.sekizai.compress" %}
         {% render_block "css_external" %}
         {% block extra_head %}{% endblock %}
-        <link href="//netdna.bootstrapcdn.com/font-awesome/4.0.3/css/font-awesome.css" rel="stylesheet">
     </head>
     <body class="{% block bodyclass %}{% endblock %}">
         {% cms_toolbar %}
@@ -111,6 +110,9 @@
                                 {% trans "+1 EuroPython" %}</a></li>
                         </ul>
                     </div>
+                    <div id="footer-ack">
+                        <p>{% blocktrans %}EuroPython 2014 is organized by the <a href="http://www.meetup.com/Python-Users-Berlin-PUB/">Python User Group Berlin</a>, <a href="http://www.meetup.com/django-user-group-berlin/">Django User Group Berlin</a>, <a href="http://www.meetup.com/PyLadies-Berlin/">PyLadies Berlin</a> & <a href="http://python-verband.org/">Python Software Verband</a> in cooperation with the <a href="http://www.europython-society.org/">EuroPython Society</a> for the Python community.{% endblocktrans %}</p>
+                    </div>
                     <!-- <div id="footer-donate">
                     </div> -->
                 </div>
@@ -150,7 +152,7 @@
             <script src="{% static "assets/js/jira.js" %}"></script>
             <script>$(document).foundation();</script>
         {% endcompress %}
-        <script type="text/javascript" src="https://ep14-jira.veit-schiele.de/s/en_USr0x7pf-1988229788/6109/2/1.4.0-m3/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=969306e4"></script>
+        <script type="text/javascript" src="https://ep14-jira.veit-schiele.de/s/en_US3jboyq-1988229788/6109/2/1.4.0-m3/_/download/batch/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector/com.atlassian.jira.collector.plugin.jira-issue-collector-plugin:issuecollector.js?collectorId=258b53e8"></script>
         {% block extra_foot %}{% endblock %}
     </body>
 </html>

@@ -5,8 +5,12 @@
 .sass-cache
 node_modules
 bower_components
+CACHE
 
 pyconde/site_media/
 pyconde/deployed_static_media/
+pyconde/skins/ep14/static/assets/css/*.css
+pyconde/core/static/
+deployed_static_media
 pyconde/*.db
 docs/_build

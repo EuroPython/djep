@@ -1,0 +1,22 @@
+body.proposals {
+    &.details {
+        .meta {
+            text-align: center;
+            font-size: 90%;
+
+            dl {
+                margin-top: 5px;
+            }
+
+            dt, dd {
+                display: inline-block;
+                margin: 0;
+            }
+
+            dt {
+                font-weight: bold;
+                margin-right: 5px;
+            }
+        }
+    }
+}
