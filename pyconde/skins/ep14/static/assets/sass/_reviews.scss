@@ -48,10 +48,12 @@ body.reviews {
 
     &.proposaldetails,
     &.versiondetails,
+    &.reviewform,
+    &.update-proposal,
     &.versions {
         #details {
             @media #{$medium-up} {
-                @include grid-column($columns:8);
+                @include grid-column($columns:9);
                 padding-right: 20px;
             }
         }
@@ -59,7 +61,22 @@ body.reviews {
             font-size: 80%;
             opacity: 0.8;
             @media #{$medium-up} {
-                @include grid-column($columns:4);
+                @include grid-column($columns:3);
+            }
+        }
+    }
+
+    &.proposaldetails {
+        #review {
+            padding: 1rem;
+            background: $yellow;
+            border: 1px solid darken($yellow, 10);
+            h2 {
+                margin-top: 0;
+            }
+            &.reviewed {
+                background: lighten($green, 10);
+                border: 1px solid $green;
             }
         }
     }

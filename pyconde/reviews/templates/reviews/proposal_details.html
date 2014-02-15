@@ -26,12 +26,37 @@
     <div class="actions">
         {% if can_update %}
             {% if proposal.can_be_updated %}
-                <a class="btn" href="{% url 'reviews-update-proposal' pk=proposal.pk %}"><i class="icon-edit"></i> {% trans "Update" %}</a>
+                <a class="btn" href="{% url 'reviews-update-proposal' pk=proposal.pk %}"><i class="fa fa-fw fa-pencil"></i> {% trans "Update" %}</a>
             {% else %}
                 <a href="#">{% trans "Proposal can no longer be changed." %}</a>
             {% endif %}
         {% endif %}
     </div>
+    {% if can_review %}
+    <div id="review" class="{% if user_review %}reviewed{% endif %}">
+        {% if not user_review %}
+            <h2>{% trans "Not yet reviewed" %}</h2>
+            {% blocktrans %}
+            <p>You have not yet reviewed this proposal. Please do so by following the link below.</p>
+            <p>The review consists of a score and a review text. Both are only visible to the author
+            of the proposal and not to other reviewers.</p>
+            {% endblocktrans %}
+            {% if proposal.can_be_reviewed %}
+                <a class="btn" href="{% url 'reviews-review-proposal' pk=proposal.pk %}"><i class="fa fa-fw fa-pencil"></i> {% trans "Create review" %}</a>
+            {% else %}
+                <a href="#">{% trans "This proposal can no longer be reviewed." %}</a>
+            {% endif %}
+        {% else %}
+            <h2>{% trans "Your review" %}: <span class="rating">{{ user_review.rating }}</span></h2>
+            <div class="summary">{{ user_review.summary|markdown:"safe" }}</div>
+            {% if proposal.can_be_reviewed %}
+                <a class="btn" href="{% url 'reviews-update-review' pk=proposal.pk %}"><i class="fa fa-fw fa-pencil"></i> {% trans "Update your review" %}</a>
+            {% else %}
+                <a href="#">{% trans "Reviews can no longer be updated." %}</a>
+            {% endif %}
+        {% endif %}
+    </div>
+    {% endif %}
     {% if timeline %}
         <ul id="timeline">
         {% for item in timeline %}
@@ -78,24 +103,4 @@
 {% block sidebar %}
     {{ block.super }}
     {% include "reviews/partials/versions_box.html" %}
-    {% if can_review %}
-    <div class="box" id="review-box">
-        {% if not user_review %}
-            <h2>{% trans "Not yet reviewed" %}</h2>
-            {% if proposal.can_be_reviewed %}
-                <a href="{% url 'reviews-review-proposal' pk=proposal.pk %}">{% trans "Review" %}</a>
-            {% else %}
-                <a href="#">{% trans "This proposal can no longer be reviewed." %}</a>
-            {% endif %}
-        {% else %}
-            <h2>{% trans "Your review" %}: <span class="rating">{{ user_review.rating }}</span></h2>
-            <div class="summary">{{ user_review.summary|markdown:"safe" }}</div>
-            {% if proposal.can_be_reviewed %}
-                <a href="{% url 'reviews-update-review' pk=proposal.pk %}">{% trans "Update your review" %}</a>
-            {% else %}
-                <a href="#">{% trans "Reviews can no longer be updated." %}</a>
-            {% endif %}
-        {% endif %}
-    </div>
-    {% endif %}
 {% endblock %}

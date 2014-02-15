@@ -5,7 +5,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.translation import ugettext
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Layout, Field, ButtonHolder, HTML, Fieldset
+from crispy_forms.layout import Layout, Field, ButtonHolder, HTML, Fieldset, Button
 
 from taggit.utils import edit_string_for_tags
 
@@ -133,6 +133,7 @@ class ReviewForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(ReviewForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
             Field('rating'), Field('summary'),
             ButtonHolder(Submit('save', _("Save review"), css_class='btn-primary')))
@@ -144,11 +145,11 @@ class UpdateReviewForm(ReviewForm):
         self.helper.layout = Layout(
             Field('rating', autofocus="autofocus", tabindex=1), Field('summary', tabindex=2),
             ButtonHolder(
-                HTML(u"""<a tabindex="4" class="btn btn-danger" href="{0}"><i class="icon-white icon-remove-circle"></i> {1}</a>""".format(
+                HTML(u"""<a tabindex="4" class="btn" href="{0}"><i class="fa fa-fw fa-times"></i> {1}</a>""".format(
                     reverse('reviews-delete-review',
                         kwargs={'pk': kwargs.get('instance').proposal.pk}),
                     _("Delete"))),
-                Submit('save', _("Save changes"), css_class='btn-primary', tabindex=3)
+                Submit('save', _("Save changes"), css_class='btn-primary btn save', tabindex=3)
                 )
             )
 
