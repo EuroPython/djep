@@ -65,8 +65,16 @@
                     <dt><i class="fa fa-clock-o"></i> <a href="#{{ item.type }}-{{ item.item.pk }}">{{ item.item.pub_date }}</a></dt>
                     {% if item.type == 'comment' %}
                         {% if item.item.deleted %}
-                        <dd>Dieses Kommentar {% if not item.hide_author %}von {{ item.item.author|display_name }}{% endif %} wurde gelöscht.
-                            {% if item.item.author != item.item.deleted_by %}(durch {{ item.item.deleted_by }}){% endif %}</dd>
+                        <dd>
+                            {% if not item.hide_author %}
+                                {% blocktrans with author=item.item.author|display_name %}
+                                This comment by {{ author }} was deleted.
+                                {% endblocktrans %}
+                            {% else %}
+                                {% trans "This comment was deleted." %}
+                            {% endif %}
+                            {% if item.item.author != item.item.deleted_by %}{% blocktrans with deleter=item.item.deleted_by %}(by {{ deleter }}){% endblocktrans %}{% endif %}
+                        </dd>
                         {% else %}
                         <dd><div class="content">{{ item.item.content|markdown:"safe" }}</div><cite>-- {% if item.hide_author %}{% trans "Proposal's author" %}{% else %}{{ item.item.author|display_name }}{% endif %}
                             {% if item.item.proposal_version %}

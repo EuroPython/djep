@@ -1,0 +1,5 @@
+<button class="{{ input.field_classes }}" name="{% if input.name|wordcount > 1 %}{{ input.name|slugify }}{% else %}{{ input.name }}{% endif %}" {{ input.flat_attrs|safe }}>
+{% if "save" in input.field_classes %}<i class="fa fa-fw fa-save"></i>{% endif %}
+{% if "comment" in input.field_classes %}<i class="fa fa-fw fa-comment"></i>{% endif %}
+{{ input.value }}
+</button>

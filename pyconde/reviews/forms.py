@@ -121,7 +121,7 @@ class CommentForm(forms.ModelForm):
         self.helper = FormHelper()
         self.helper.layout = Layout(
             Field('content'),
-            ButtonHolder(Submit('comment', _("Send feedback"), css_class='btn btn-primary'))
+            ButtonHolder(Submit('comment', _("Send feedback"), css_class='btn btn-primary comment'))
             )
 
 

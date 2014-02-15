@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-15 15:04+0100\n"
+"POT-Creation-Date: 2014-02-15 20:39+0100\n"
 "PO-Revision-Date: 2014-02-05 14:24+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -1343,7 +1343,7 @@ msgstr "Konferenz"
 #: reviews/templates/reviews/my_proposals.html:12
 #: reviews/templates/reviews/my_reviews.html:10
 #: reviews/templates/reviews/proposal_base.html:14
-#: reviews/templates/reviews/reviewable_proposals.html:22
+#: reviews/templates/reviews/reviewable_proposals.html:23
 #: schedule/templates/schedule/session_listing.html:9
 msgid "Title"
 msgstr "Titel"
@@ -1419,7 +1419,7 @@ msgstr "Dauer"
 #: proposals/templates/proposals/proposal_list_mine.html:13
 #: proposals/templates/proposals/proposal_list_mine.html:44
 #: reviews/forms.py:163 reviews/templates/reviews/proposal_base.html:91
-#: reviews/templates/reviews/reviewable_proposals.html:42
+#: reviews/templates/reviews/reviewable_proposals.html:49
 msgid "Track"
 msgstr "Track"
 
@@ -1785,7 +1785,7 @@ msgid "Edit"
 msgstr "Ändern"
 
 #: proposals/templates/proposals/proposal_detail.html:46 reviews/forms.py:151
-#: reviews/templates/reviews/proposal_details.html:82
+#: reviews/templates/reviews/proposal_details.html:90
 msgid "Delete"
 msgstr "Löschen"
 
@@ -2170,7 +2170,7 @@ msgstr ""
 "Hier sehen Sie alle Ihre Vorschläge, die derzeit bewertet werden können."
 
 #: reviews/templates/reviews/my_proposals.html:16
-#: reviews/templates/reviews/reviewable_proposals.html:31
+#: reviews/templates/reviews/reviewable_proposals.html:32
 msgid "Recent activity"
 msgstr "Letzte Aktivität"
 
@@ -2179,7 +2179,7 @@ msgid "Author"
 msgstr "Autor"
 
 #: reviews/templates/reviews/my_reviews.html:16
-#: reviews/templates/reviews/reviewable_proposals.html:34
+#: reviews/templates/reviews/reviewable_proposals.html:35
 msgid "Score"
 msgstr "Bewertung"
 
@@ -2262,11 +2262,30 @@ msgstr "Aktualisieren Sie Ihre Review"
 msgid "Reviews can no longer be updated."
 msgstr "Reviews können nicht mehr aktualisiert werden."
 
-#: reviews/templates/reviews/proposal_details.html:71
+#: reviews/templates/reviews/proposal_details.html:70
+#, python-format
+msgid ""
+"\n"
+"                                This comment by %(author)s was deleted.\n"
+"                                "
+msgstr ""
+"\n"
+"Dieses Kommentar von %(author)s wurde gelöscht."
+
+#: reviews/templates/reviews/proposal_details.html:74
+msgid "This comment was deleted."
+msgstr "Dieses Kommentar wurde gelöscht."
+
+#: reviews/templates/reviews/proposal_details.html:76
+#, python-format
+msgid "(by %(deleter)s)"
+msgstr ""
+
+#: reviews/templates/reviews/proposal_details.html:79
 msgid "Proposal's author"
 msgstr "Autor des Session-Vorschlages"
 
-#: reviews/templates/reviews/proposal_details.html:74
+#: reviews/templates/reviews/proposal_details.html:82
 #, python-format
 msgid ""
 "\n"
@@ -2279,20 +2298,20 @@ msgstr ""
 "\">Version vom %(date)s</a>)\n"
 "                                "
 
-#: reviews/templates/reviews/proposal_details.html:78
+#: reviews/templates/reviews/proposal_details.html:86
 msgid "(based on the original proposal)"
 msgstr "(basierend auf dem Originalvorschlag)"
 
-#: reviews/templates/reviews/proposal_details.html:88
+#: reviews/templates/reviews/proposal_details.html:96
 msgid "The author has updated the proposal."
 msgstr "Der Autor hat das Proposal aktualisiert."
 
-#: reviews/templates/reviews/proposal_details.html:90
+#: reviews/templates/reviews/proposal_details.html:98
 #, python-format
 msgid "%(user)s has updated the proposal."
 msgstr "%(user)s hat das Proposal aktualisiert."
 
-#: reviews/templates/reviews/proposal_details.html:99
+#: reviews/templates/reviews/proposal_details.html:107
 msgid "Questions for the author / Comment:"
 msgstr "Fragen an den Autor / Kommentar:"
 
@@ -2345,7 +2364,12 @@ msgstr ""
 "Die Seite zeigt alle Session-Vorschläge, die bewertet werden können inkl. "
 "aktuellen Punkten und der Anzahl der bereits abgegebenen Bewertungen."
 
-#: reviews/templates/reviews/reviewable_proposals.html:24
+#: reviews/templates/reviews/reviewable_proposals.html:22
+#: reviews/templates/reviews/reviewable_proposals.html:46
+msgid "Reviewed by you"
+msgstr ""
+
+#: reviews/templates/reviews/reviewable_proposals.html:25
 msgid "Reviews"
 msgstr "Reviews"
 
@@ -3009,4 +3033,3 @@ msgstr "Webseite"
 #: testimonials/models.py:16
 msgid "author's description"
 msgstr "Beschreibung"
-
