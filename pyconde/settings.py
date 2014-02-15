@@ -459,7 +459,7 @@ class Base(Configuration):
 
     PAYMILL_PUBLIC_KEY = values.Value()
 
-    PAYMILL_TRANSACTION_DESCRIPTION = 'EuroPython 2014: Invoice {purchase_pk}'
+    PAYMILL_TRANSACTION_DESCRIPTION = 'EuroPython 2014: Purchase ID {purchase_pk}'
 
     PAYMENT_METHODS = values.ListValue(['invoice', 'creditcard'])
 
