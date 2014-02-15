@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-15 20:39+0100\n"
+"POT-Creation-Date: 2014-02-15 22:17+0100\n"
 "PO-Revision-Date: 2014-02-05 14:24+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -1222,8 +1222,8 @@ msgid "anonymize proposal author"
 msgstr "Vorschlag-Autor anonymisieren"
 
 #: conference/models.py:81 conference/models.py:101 conference/models.py:145
-#: conference/models.py:169 conference/models.py:195 conference/models.py:241
-#: conference/models.py:266 schedule/models.py:107 sponsorship/models.py:14
+#: conference/models.py:169 conference/models.py:195 conference/models.py:239
+#: conference/models.py:264 schedule/models.py:107 sponsorship/models.py:14
 msgid "conference"
 msgstr "Konferenz"
 
@@ -1232,23 +1232,23 @@ msgid "conferences"
 msgstr "Konferenzen"
 
 #: conference/models.py:104 conference/models.py:146 conference/models.py:196
-#: conference/models.py:242 conference/models.py:267 schedule/models.py:95
+#: conference/models.py:240 conference/models.py:265 schedule/models.py:95
 #: sponsorship/models.py:15 sponsorship/models.py:36
 msgid "name"
 msgstr "Name"
 
 #: conference/models.py:110 conference/models.py:147 conference/models.py:171
-#: conference/models.py:197 conference/models.py:243 conference/models.py:268
+#: conference/models.py:197 conference/models.py:241 conference/models.py:266
 #: sponsorship/models.py:18
 msgid "slug"
 msgstr "Slug"
 
-#: conference/models.py:111 conference/models.py:246 conference/models.py:269
+#: conference/models.py:111 conference/models.py:244 conference/models.py:267
 #: sponsorship/models.py:16
 msgid "order"
 msgstr "Reihenfolge"
 
-#: conference/models.py:113 conference/models.py:244 proposals/models.py:56
+#: conference/models.py:113 conference/models.py:242 proposals/models.py:56
 #: schedule/models.py:96 sponsorship/models.py:17 sponsorship/models.py:39
 msgid "description"
 msgstr "Beschreibung"
@@ -1310,27 +1310,27 @@ msgstr ""
 msgid "The end date has to be after the start date"
 msgstr "Das Ende muss nach dem Anfang sein"
 
-#: conference/models.py:245
+#: conference/models.py:243
 msgid "visible"
 msgstr "Sichtbar"
 
-#: conference/models.py:252 proposals/models.py:74
+#: conference/models.py:250 proposals/models.py:74
 msgid "track"
 msgstr "Track"
 
-#: conference/models.py:253
+#: conference/models.py:251
 msgid "tracks"
 msgstr "Tracks"
 
-#: conference/models.py:270
+#: conference/models.py:268
 msgid "used for sessions"
 msgstr "wird für Sessions verwendet"
 
-#: conference/models.py:280 schedule/models.py:37 schedule/models.py:102
+#: conference/models.py:278 schedule/models.py:37 schedule/models.py:102
 msgid "location"
 msgstr "Ort"
 
-#: conference/models.py:281
+#: conference/models.py:279
 msgid "locations"
 msgstr "Orte"
 
@@ -1651,16 +1651,20 @@ msgstr "Session-Vorschlag"
 msgid "proposals"
 msgstr "Session-Vorschläge"
 
-#: proposals/views.py:204
+#: proposals/views.py:115
+msgid "The proposal phase for this session type has already ended."
+msgstr "Die Einreichphase für diesen Session-Typ ist bereits beendet."
+
+#: proposals/views.py:211
 msgid "Proposal successfully changed"
 msgstr "Änderungen gespeichert"
 
-#: proposals/views.py:208
+#: proposals/views.py:215
 msgid "There has been a problem. Please check below for details."
 msgstr ""
 "Bitte überprüfen Sie nochmals Ihre Eingaben. Details finden Sie weiter unten."
 
-#: proposals/views.py:218
+#: proposals/views.py:225
 msgid ""
 "You can no longer edit this proposal because the submission period has "
 "already ended."
@@ -1668,30 +1672,46 @@ msgstr ""
 "Sie können diesen Vorschlag nicht mehr bearbeiten, da die Einreichperiode "
 "vorbei ist."
 
-#: proposals/views.py:221
+#: proposals/views.py:228
+msgid ""
+"This proposal is already out for review. Please update the proposal within "
+"the review system."
+msgstr ""
+"Dieser Vorschlag ist bereits zur Review freigegeben. Bitte aktualisieren Sie "
+"ihn innerhalb des Review-Systems."
+
+#: proposals/views.py:231
 msgid ""
 "You have to be the primary speaker mentioned in the proposal in order to "
 "edit it."
 msgstr "Du musst der Hauptvortragende sein um den Vorschlag ändern zu können."
 
-#: proposals/views.py:278
+#: proposals/views.py:288
 msgid ""
 "You can no longer cancel this proposal because the submission period has "
 "already ended."
 msgstr ""
 "Du kannst den Vorschlag nicht bearbeiten, da die Frist dazu verstrichen ist."
 
-#: proposals/views.py:281
+#: proposals/views.py:291
+msgid ""
+"You can no longer cancel this proposal because the review phase has already "
+"started."
+msgstr ""
+"Dieser Vorschlag kann nicht mehr zurückgezogen werden, da die Review-Phase "
+"bereits begonnen hat."
+
+#: proposals/views.py:294
 msgid ""
 "You have to be the primary speaker mentioned in the proposal in order to "
 "cancel it."
 msgstr "Du musst der Hauptvortragende sein um den Vorschlag zurückzuziehen."
 
-#: proposals/views.py:287
+#: proposals/views.py:300
 msgid "Proposal has been removed"
 msgstr "Vorschlag wurde entfernt"
 
-#: proposals/views.py:313
+#: proposals/views.py:326
 msgid ""
 "You can no longer leave this proposal because the submission period has "
 "already ended."
@@ -1699,11 +1719,19 @@ msgstr ""
 "Sie können diese Einreichung nicht mehr verlassen, da die Einreichungsfrist "
 "bereits verstrichen ist."
 
-#: proposals/views.py:316
+#: proposals/views.py:329
+msgid ""
+"You can no longer leave this proposal because the review phase has already "
+"started."
+msgstr ""
+"Sie können diese Einreichung nicht mehr verlassen, da die Review-Phase "
+"bereits begonnen hat."
+
+#: proposals/views.py:332
 msgid "Only secondary speakers can leave a proposal"
 msgstr "Nur Mitvortragende können eine Einreichung verlassen."
 
-#: proposals/views.py:322
+#: proposals/views.py:338
 msgid "You were successfully removed as secondary speaker."
 msgstr "Sie wurden erfolgreich als Mitvortragende(r) entfernt."
 
