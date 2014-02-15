@@ -49,6 +49,7 @@ body.reviews {
     &.proposaldetails,
     &.versiondetails,
     &.reviewform,
+    &.reviews,
     &.update-proposal,
     &.versions {
         #details {
@@ -77,6 +78,51 @@ body.reviews {
             &.reviewed {
                 background: lighten($green, 10);
                 border: 1px solid $green;
+            }
+        }
+    }
+
+    &.reviews {
+        #scorebox {
+            .score {
+                font-size: 3.2rem;
+                font-weight: bold;
+            }
+        }
+        ul.reviews {
+            list-style: none;
+            padding-left: 0;
+
+            li {
+                margin-top: 20px;
+                min-height: 100px;
+                border-top: 1px dotted $background-nav;
+                padding-top: 20px;
+                position: relative;
+
+                > .score {
+                    font-size: 3.2rem;
+                    line-height: 3.6rem;
+                    width: 100px;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    text-align: center;
+                    font-weight: bold;
+                    float: left;
+                    padding: 0 20px 20px 0;
+                }
+
+                > .summary, cite {
+                    display: block;
+                    margin-left: 100px;
+                }
+
+                &:first-child {
+                    margin-top: 0;
+                    padding-top: 0;
+                    border-top: none;
+                }
             }
         }
     }

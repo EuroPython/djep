@@ -136,7 +136,7 @@ class ReviewForm(forms.ModelForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
             Field('rating'), Field('summary'),
-            ButtonHolder(Submit('save', _("Save review"), css_class='btn-primary')))
+            ButtonHolder(Submit('save', _("Save review"), css_class='btn-primary btn save')))
 
 
 class UpdateReviewForm(ReviewForm):

@@ -38,8 +38,8 @@
             <h2>{% trans "Not yet reviewed" %}</h2>
             {% blocktrans %}
             <p>You have not yet reviewed this proposal. Please do so by following the link below.</p>
-            <p>The review consists of a score and a review text. Both are only visible to the author
-            of the proposal and not to other reviewers.</p>
+            <p>The review consists of a score and a review text. Both are only visible to you, staff
+            members, and the programme committee.</p>
             {% endblocktrans %}
             {% if proposal.can_be_reviewed %}
                 <a class="btn" href="{% url 'reviews-review-proposal' pk=proposal.pk %}"><i class="fa fa-fw fa-pencil"></i> {% trans "Create review" %}</a>
