@@ -1,6 +1,6 @@
 {% extends "reviews/proposal_base.html" %}
 {% load markup account_tags i18n %}
-{% block bodyclass %}{{ block.super }} reviews{% endblock %}
+{% block bodyclass %}{{ block.super }} reviewlist{% endblock %}
 {% block title %}{% blocktrans with title=proposal.title %}Reviews of "{{ title }}"{% endblocktrans %}{% endblock %}
 {% block page_title %}{% blocktrans with title=proposal.title %}Reviews of "{{ title }}"{% endblocktrans %}{% endblock %}
 {% block details %}

@@ -1,7 +1,7 @@
 {% extends "reviews/base.html" %}
 {% load i18n %}
 {% block title %}{% trans "Reviewable proposals" %}{% endblock %}
-{% block bodycls %}reviews listing{% endblock %}
+{% block bodyclass %}{{ block.super }} listing{% endblock %}
 {% block page_title %}{% trans "Reviewable proposals" %}{% endblock %}
 {% block sidebar %}
     {{ block.super }}
@@ -19,6 +19,7 @@
     <table>
         <thead>
             <tr>
+                <th class="reviewed">{% trans "Reviewed by you" %}</th>
                 <th class="title orderable"><a href="?order={% if order == 'title' %}-{% endif %}title">{% trans "Title" %}</a>
                     {% if order == "-title" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "title" %}<i class="icon-chevron-up"></i>{% endif %}</th>
                 <th class="reviews orderable"><a href="?order={% if order == 'reviews' %}-{% endif %}reviews">{% trans "Reviews" %}</a>
@@ -38,6 +39,12 @@
         <tbody>
             {% for proposal in proposals %}
             <tr class="{% if proposal.proposal.kind %}kind-{{ proposal.proposal.kind.slug }}{% endif %}">
+                <td class="reviewed">
+                    {% if proposal.reviewed %}
+                    <i class="fa fa-fw fa-check"></i>
+                    <span>{% trans "Reviewed by you" %}</span>
+                    {% endif %}
+                </td>
                 <td class="title"><a href="{% url 'reviews-proposal-details' pk=proposal.proposal.pk %}">{{ proposal.title }}</a>{% if proposal.proposal.track %}<span class="track">{% trans "Track" %}: {{ proposal.proposal.track.name }}</span>{% endif %}</td>
                 <td class="reviews">{{ proposal.num_reviews }}</td>
                 {% comment %}

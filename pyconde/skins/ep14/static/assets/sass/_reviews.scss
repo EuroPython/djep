@@ -82,7 +82,21 @@ body.reviews {
         }
     }
 
-    &.reviews {
+    &.listing {
+        th.reviewed {
+            text-indent: -5000px;
+        }
+        td.reviewed {
+            > span {
+                text-indent: -5000px;
+                display: inline-block;
+                width: 1px;
+                height: 1px;
+            }
+        }
+    }
+
+    &.reviewlist {
         #scorebox {
             .score {
                 font-size: 3.2rem;
