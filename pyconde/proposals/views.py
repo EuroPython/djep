@@ -9,6 +9,7 @@ from django.contrib import messages
 from django.template.response import TemplateResponse
 from django.utils.decorators import method_decorator
 from django.contrib.auth.decorators import login_required
+from django.shortcuts import get_object_or_404
 
 from braces.views import LoginRequiredMixin
 
@@ -108,6 +109,11 @@ class SubmitProposalView(TypedProposalFormMixin, NextRedirectMixin, generic_view
                     'session_kinds': session_kinds,
                     'open_kinds': open_session_kinds
                 })
+        elif not settings.UNIFIED_SUBMISSION_FORM:
+            kind = get_object_or_404(SessionKind.current_objects, slug=kwargs['type'])
+            if not kind.accepts_proposals():
+                messages.error(self.request, _("The proposal phase for this session type has already ended."))
+                return HttpResponseRedirect(reverse('submit_proposal'))
         return super(SubmitProposalView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
