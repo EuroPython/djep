@@ -155,7 +155,7 @@ class TicketType(models.Model):
 
 class PurchaseManager(models.Manager):
     def get_exportable_purchases(self):
-        return self.filter(exported=False, state__in=['new', 'payment_received'])
+        return self.filter(exported=False)
 
 
 class Purchase(models.Model):
