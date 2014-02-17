@@ -114,7 +114,6 @@ class SubmitProposalView(TypedProposalFormMixin, NextRedirectMixin, generic_view
             if not kind.accepts_proposals():
                 messages.error(self.request, _("The proposal phase for this session type has already ended."))
                 return HttpResponseRedirect(reverse('submit_proposal'))
-
         return super(SubmitProposalView, self).dispatch(request, *args, **kwargs)
 
     def get_success_url(self):
