@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-15 22:17+0100\n"
+"POT-Creation-Date: 2014-02-19 18:57+0100\n"
 "PO-Revision-Date: 2014-02-05 14:24+0100\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -1655,16 +1655,16 @@ msgstr "Session-Vorschläge"
 msgid "The proposal phase for this session type has already ended."
 msgstr "Die Einreichphase für diesen Session-Typ ist bereits beendet."
 
-#: proposals/views.py:211
+#: proposals/views.py:210
 msgid "Proposal successfully changed"
 msgstr "Änderungen gespeichert"
 
-#: proposals/views.py:215
+#: proposals/views.py:214
 msgid "There has been a problem. Please check below for details."
 msgstr ""
 "Bitte überprüfen Sie nochmals Ihre Eingaben. Details finden Sie weiter unten."
 
-#: proposals/views.py:225
+#: proposals/views.py:224
 msgid ""
 "You can no longer edit this proposal because the submission period has "
 "already ended."
@@ -1672,7 +1672,7 @@ msgstr ""
 "Sie können diesen Vorschlag nicht mehr bearbeiten, da die Einreichperiode "
 "vorbei ist."
 
-#: proposals/views.py:228
+#: proposals/views.py:227
 msgid ""
 "This proposal is already out for review. Please update the proposal within "
 "the review system."
@@ -1680,20 +1680,20 @@ msgstr ""
 "Dieser Vorschlag ist bereits zur Review freigegeben. Bitte aktualisieren Sie "
 "ihn innerhalb des Review-Systems."
 
-#: proposals/views.py:231
+#: proposals/views.py:230
 msgid ""
 "You have to be the primary speaker mentioned in the proposal in order to "
 "edit it."
 msgstr "Du musst der Hauptvortragende sein um den Vorschlag ändern zu können."
 
-#: proposals/views.py:288
+#: proposals/views.py:287
 msgid ""
 "You can no longer cancel this proposal because the submission period has "
 "already ended."
 msgstr ""
 "Du kannst den Vorschlag nicht bearbeiten, da die Frist dazu verstrichen ist."
 
-#: proposals/views.py:291
+#: proposals/views.py:290
 msgid ""
 "You can no longer cancel this proposal because the review phase has already "
 "started."
@@ -1701,17 +1701,17 @@ msgstr ""
 "Dieser Vorschlag kann nicht mehr zurückgezogen werden, da die Review-Phase "
 "bereits begonnen hat."
 
-#: proposals/views.py:294
+#: proposals/views.py:293
 msgid ""
 "You have to be the primary speaker mentioned in the proposal in order to "
 "cancel it."
 msgstr "Du musst der Hauptvortragende sein um den Vorschlag zurückzuziehen."
 
-#: proposals/views.py:300
+#: proposals/views.py:299
 msgid "Proposal has been removed"
 msgstr "Vorschlag wurde entfernt"
 
-#: proposals/views.py:326
+#: proposals/views.py:325
 msgid ""
 "You can no longer leave this proposal because the submission period has "
 "already ended."
@@ -1719,7 +1719,7 @@ msgstr ""
 "Sie können diese Einreichung nicht mehr verlassen, da die Einreichungsfrist "
 "bereits verstrichen ist."
 
-#: proposals/views.py:329
+#: proposals/views.py:328
 msgid ""
 "You can no longer leave this proposal because the review phase has already "
 "started."
@@ -1727,19 +1727,20 @@ msgstr ""
 "Sie können diese Einreichung nicht mehr verlassen, da die Review-Phase "
 "bereits begonnen hat."
 
-#: proposals/views.py:332
+#: proposals/views.py:331
 msgid "Only secondary speakers can leave a proposal"
 msgstr "Nur Mitvortragende können eine Einreichung verlassen."
 
-#: proposals/views.py:338
+#: proposals/views.py:337
 msgid "You were successfully removed as secondary speaker."
 msgstr "Sie wurden erfolgreich als Mitvortragende(r) entfernt."
 
+#: proposals/templates/proposals/closed.html:3
 #: proposals/templates/proposals/closed.html:4
 msgid "Submit a session"
 msgstr "Neuen Vorschlag einreichen"
 
-#: proposals/templates/proposals/closed.html:5
+#: proposals/templates/proposals/closed.html:6
 msgid "Sorry, but we are not currently accepting proposals."
 msgstr ""
 "Zum jetzigen Zeitpunkt können leider keine Vorträge eingereicht werden."
@@ -1799,7 +1800,7 @@ msgstr "Schlagwörter"
 #: proposals/templates/proposals/proposal_detail.html:27
 #: reviews/templates/reviews/proposal_details.html:17 schedule/forms.py:20
 msgid "Abstract"
-msgstr "Langbeschreibung"
+msgstr "Abstract"
 
 #: proposals/templates/proposals/proposal_detail.html:40
 #: proposals/templates/proposals/proposal_list_mine.html:55
@@ -2181,11 +2182,11 @@ msgid ""
 "The review phase is over. You can no longer comment or review proposals."
 msgstr ""
 "Die Review-Phase ist abgeschlossen. Sie können kein weiteren Kommentare oder "
-"Bewertungen mehr abgeben."
+"Reviews mehr abgeben."
 
 #: reviews/templates/reviews/comment_confirm_delete.html:4
 msgid "Are you sure that you want to delete this comment?"
-msgstr "Möchten sie wirklich Ihr Kommentar löschen?"
+msgstr "Möchten sie wirklich Ihren Kommentar löschen?"
 
 #: reviews/templates/reviews/my_proposals.html:3
 #: reviews/templates/reviews/my_proposals.html:4
@@ -2213,7 +2214,7 @@ msgstr "Bewertung"
 
 #: reviews/templates/reviews/my_reviews.html:34
 msgid "You have not reviewed any proposals."
-msgstr "Sie haben noch keine Bewertung abgegeben."
+msgstr "Sie haben noch keine Review abgegeben."
 
 #: reviews/templates/reviews/proposal_base.html:12
 msgid "Proposal info"
@@ -2307,11 +2308,11 @@ msgstr "Dieses Kommentar wurde gelöscht."
 #: reviews/templates/reviews/proposal_details.html:76
 #, python-format
 msgid "(by %(deleter)s)"
-msgstr ""
+msgstr "(von %(deleter)s)"
 
 #: reviews/templates/reviews/proposal_details.html:79
 msgid "Proposal's author"
-msgstr "Autor des Session-Vorschlages"
+msgstr "Autor des Vorschlages"
 
 #: reviews/templates/reviews/proposal_details.html:82
 #, python-format
@@ -2355,13 +2356,13 @@ msgstr ""
 
 #: reviews/templates/reviews/review_confirm_delete.html:4
 msgid "Do you really want to delete this review?"
-msgstr "Möchten Sie wirklich diese Bewertung löschen?"
+msgstr "Möchten Sie wirklich diese Review löschen?"
 
 #: reviews/templates/reviews/review_list.html:4
 #: reviews/templates/reviews/review_list.html:5
 #, python-format
 msgid "Reviews of \"%(title)s\""
-msgstr "Bewertungen von \"%(title)s\""
+msgstr "Reviews von \"%(title)s\""
 
 #: reviews/templates/reviews/review_list.html:8
 msgid "This proposal has not yet been reviewed."
@@ -2378,7 +2379,7 @@ msgid ""
 "        <span class=\"score\">%(score)s</span> after %(num_reviews)s "
 "Review(s)\n"
 "        "
-msgstr ""
+msgstr "<span class=\"score\">%(score)s</span> nach %(num_reviews)s Review(s)"
 
 #: reviews/templates/reviews/reviewable_proposals.html:9
 msgid "Filters"
@@ -2389,13 +2390,13 @@ msgid ""
 "This page lists all reviewable proposals with their current rating and "
 "number of already submitted reviews."
 msgstr ""
-"Die Seite zeigt alle Session-Vorschläge, die bewertet werden können inkl. "
-"aktuellen Punkten und der Anzahl der bereits abgegebenen Bewertungen."
+"Die Seite zeigt alle Vorschläge, die bewertet werden können inkl. aktuellen "
+"Punkten und der Anzahl der bereits abgegebenen Reviews."
 
 #: reviews/templates/reviews/reviewable_proposals.html:22
 #: reviews/templates/reviews/reviewable_proposals.html:46
 msgid "Reviewed by you"
-msgstr ""
+msgstr "Von Ihnen bewertet"
 
 #: reviews/templates/reviews/reviewable_proposals.html:25
 msgid "Reviews"
@@ -2418,26 +2419,25 @@ msgid ""
 "    "
 msgstr ""
 "\n"
-"<p>Hier können Sie den Session-Vorschlag bewerten. Während der "
-"gesamtenReview-Phase kann diese Bewertung abgeändert werden. Sie ist nur für "
-"Sie, die Organisatoren sowie Mitglieder des Programm-Kommittees sichtbar.</p>"
+"<p>Hier können Sie den Vorschlag bewerten. Während der gesamten Review-Phase "
+"kann diese Review abgeändert werden. Sie ist nur für Sie, die Organisatoren "
+"sowie Mitglieder des Programm-Kommittees sichtbar.</p>"
 
 #: reviews/templates/reviews/update_proposal.html:4
 #: reviews/templates/reviews/update_proposal.html:5
 #, python-format
 msgid "Editing \"%(title)s\" proposal "
-msgstr "Session editeren: %(title)s"
+msgstr "Vorschlag editeren: %(title)s"
 
 #: reviews/templates/reviews/emails/comment_notification.txt:1
 #, python-format
-msgid "A new comment to the session proposal \"%(title)s\" has been created."
-msgstr ""
-"Es wurde ein neuer Kommentar zum Session-Vorschlag \"%(title)s\" abgegeben."
+msgid "A new comment to the proposal \"%(title)s\" has been created."
+msgstr "Es wurde ein neuer Kommentar zum Vorschlag \"%(title)s\" abgegeben."
 
 #: reviews/templates/reviews/emails/comment_notification.txt:1
 #, python-format
-msgid "%(author)s has commented on the session proposal \"%(title)s\"."
-msgstr "%(author)s hat den Session-Vorschlag \"%(title)s\" kommentiert."
+msgid "%(author)s has commented on the proposal \"%(title)s\"."
+msgstr "%(author)s hat den Vorschlag \"%(title)s\" kommentiert."
 
 #: reviews/templates/reviews/emails/version_notification.txt:1
 #, python-format
@@ -2488,7 +2488,7 @@ msgid ""
 "So far there is only the original proposal. If the author updates it, you "
 "will see different versions being listed here."
 msgstr ""
-"Bis jetzt wurde dieser Vorschlag vom Autor nicht modifiziert. Wenn dies "
+"Bis jetzt wurde dieser Vorschlag vom Autor nicht aktualisiert. Wenn dies "
 "geschieht, sehen Sie hier eine Auflistung aller Versionen."
 
 #: reviews/templates/reviews/partials/versions_box.html:8
@@ -2836,8 +2836,8 @@ msgid ""
 "the presentations for the conference."
 msgstr ""
 "Ein Reviewer is eine Person, die die eingereichten Vorträge, Trainings und "
-"Poster bewertet. Auf Grundlage aller eingereichten Bewertung wird das "
-"Programm-Kommittee das Programm für die EuroPython 2014 zusammen stellen"
+"Poster bewertet. Auf Grundlage aller eingereichten Reviews wird das Programm-"
+"Kommittee das Programm für die EuroPython 2014 zusammen stellen"
 
 #: skins/default/templates/userprofiles/profile_change.html:26
 msgid "Your application as a reviewer is pending."
