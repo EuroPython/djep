@@ -496,6 +496,11 @@ class Base(Configuration):
         os.path.join(BASE_DIR, PROJECT_NAME, 'locale'),
     )
 
+    # Default settings for statici18n
+    STATICI18N_OUTPUT_DIR = 'jsi18n'
+    STATICI18N_DOMAIN = 'djangojs'
+    STATICI18N_FILENAME_FUNCTION = 'statici18n.utils.default_filename'
+
 
 class Dev(Base):
     """
@@ -526,6 +531,23 @@ class Dev(Base):
     ] + Base.MIDDLEWARE_CLASSES
 
     PURCHASE_INVOICE_ROOT = os.path.join(Base.BASE_DIR, 'invoices')
+
+
+class Testing(Dev):
+    CACHES = {
+        'default': {
+            'BACKEND': 'django.core.cache.backends.dummy.DummyCache'
+        },
+    }
+
+    DATABASES = {
+        'default': {
+            'ENGINE': 'django.db.backends.sqlite3',
+            'NAME': ':memory:',
+        }
+    }
+
+    SECRET_KEY = "testing_secret_key"
 
 
 class Staging(Base):

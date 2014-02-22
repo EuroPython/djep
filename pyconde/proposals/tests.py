@@ -1,4 +1,5 @@
 import datetime
+import urllib
 from datetime import timedelta
 
 from django.test import TestCase
@@ -161,14 +162,14 @@ class ListUserProposalsViewTests(ConferenceTestingMixin, TestCase):
         with self.settings(CONFERENCE_ID=self.conference.pk):
             self.client.login(username=self.user.username,
                               password='testpassword')
-            ctx = self.client.get('/proposals/mine/').context
+            ctx = self.client.get('/en/proposals/mine/').context
             self.assertEqual([current_proposal], list(ctx['proposals']))
 
         with self.settings(CONFERENCE_ID=self.other_conference.pk):
             self.client.login(username=self.user.username,
                               password='testpassword')
-            ctx = self.client.get('/proposals/mine/').context
-            self.assertEqual([previous_proposal], list(ctx['proposals']))
+            resp = self.client.get('/en/proposals/mine/')
+            self.assertEqual([previous_proposal], list(resp.context['proposals']))
 
     def test_login_required(self):
         """
@@ -176,48 +177,49 @@ class ListUserProposalsViewTests(ConferenceTestingMixin, TestCase):
         """
         self.client.logout()
         self.assertRedirects(
-            self.client.get('/proposals/mine/'),
-            '/accounts/login/?next=/proposals/mine/')
+            self.client.get('/en/proposals/mine/', follow=True),
+            '/en/accounts/login/?next=%2Fen%2Fproposals%2Fmine%2F')
 
 
 class SubmitProposalViewTests(TestCase):
     def test_login_required(self):
         self.client.logout()
         self.assertRedirects(
-            self.client.get('/proposals/submit/'),
-            '/accounts/login/?next=/proposals/submit/')
+            self.client.get('/en/proposals/submit/', follow=True),
+            '/en/accounts/login/?next=%2Fen%2Fproposals%2Fsubmit%2F')
 
 
 class SubmitTypedProposalViewTests(TestCase):
     def test_login_required(self):
         self.client.logout()
+        resp = self.client.get('/en/proposals/submit/testkind/', follow=True)
         self.assertRedirects(
-            self.client.get('/proposals/submit/testkind/'),
-            '/accounts/login/?next=/proposals/submit/testkind/')
+            resp,
+            '/en/accounts/login/?next=%2Fen%2Fproposals%2Fsubmit%2Ftestkind%2F')
 
 
 class EditProposalViewTests(TestCase):
     def test_login_required(self):
         self.client.logout()
         self.assertRedirects(
-            self.client.get('/proposals/edit/123/'),
-            '/accounts/login/?next=/proposals/edit/123/')
+            self.client.get('/en/proposals/edit/123/', follow=True),
+            '/en/accounts/login/?next=%2Fen%2Fproposals%2Fedit%2F123%2F')
 
 
 class CancelProposalViewTests(TestCase):
     def test_login_required(self):
         self.client.logout()
         self.assertRedirects(
-            self.client.get('/proposals/cancel/123/'),
-            '/accounts/login/?next=/proposals/cancel/123/')
+            self.client.get('/en/proposals/cancel/123/', follow=True),
+            '/en/accounts/login/?next=%2Fen%2Fproposals%2Fcancel%2F123%2F')
 
 
 class LeaveProposalViewTests(TestCase):
     def test_login_required(self):
         self.client.logout()
         self.assertRedirects(
-            self.client.get('/proposals/leave/123/'),
-            '/accounts/login/?next=/proposals/leave/123/')
+            self.client.get('/en/proposals/leave/123/', follow=True),
+            '/en/accounts/login/?next=%2Fen%2Fproposals%2Fleave%2F123%2F')
 
 
 class TimeslotModelTests(ConferenceTestingMixin, TestCase):

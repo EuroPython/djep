@@ -10,21 +10,28 @@ from . import forms
 from . import models
 
 
+def escape_redirect(s):
+    return s.replace('/', '%2F')
+
+
 class ViewTests(TestCase):
     def test_purchase_required_login(self):
         url = reverse('attendees_purchase')
         self.assertRedirects(
-            self.client.get(url), '/accounts/login/?next=' + url)
+            self.client.get(url, follow=True),
+            '/en/accounts/login/?next=' + escape_redirect(url))
 
     def test_purchase_confirm_required_login(self):
         url = reverse('attendees_purchase_confirm')
         self.assertRedirects(
-            self.client.get(url), '/accounts/login/?next=' + url)
+            self.client.get(url, follow=True),
+            '/en/accounts/login/?next=' + escape_redirect(url))
 
     def test_purchase_names_required_login(self):
         url = reverse('attendees_purchase_names')
         self.assertRedirects(
-            self.client.get(url), '/accounts/login/?next=' + url)
+            self.client.get(url, follow=True),
+            '/en/accounts/login/?next=' + escape_redirect(url))
 
 
 class PurchaseViewTests(TestCase):
@@ -77,7 +84,9 @@ class TicketQuantityFormTests(TestCase):
         self.ticket_type_with_voucher.delete()
 
     def test_max_amount_with_voucher(self):
-        """A ticket that requires a voucher can only have the qty of 1."""
+        """
+        A ticket that requires a voucher can only have the qty of 1.
+        """
         form = forms.TicketQuantityForm(
             self.ticket_type_with_voucher, data={'tq-{0}-quantity'.format(self.ticket_type_with_voucher.pk): 2})
         self.assertFalse(form.is_valid())

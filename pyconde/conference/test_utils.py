@@ -64,7 +64,10 @@ class ConferenceTestingMixin(object):
         if prefix not in self._registered_conference_setups:
             raise RuntimeError("Conference with prefix {0} doesn't exist!"
                                .format(prefix))
-        getattr(self, "{0}conference".format(prefix)).delete()
+        conference = getattr(self, "{0}conference".format(prefix))
+        if hasattr(conference, 'proposal_set'):
+            conference.proposal_set.all().delete()
+        conference.delete()
         getattr(self, "{0}audience_level".format(prefix)).delete()
         getattr(self, "{0}kind".format(prefix)).delete()
         getattr(self, "{0}duration".format(prefix)).delete()
