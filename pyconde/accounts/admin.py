@@ -22,10 +22,13 @@ class WithChildrenFilter(SimpleListFilter):
 
 
 class ProfileAdmin(admin.ModelAdmin):
-    list_display = ('pk', 'user', 'display_name', 'full_name', 
-                    'num_accompanying_children', 'age_accompanying_children')
+    list_display = ('pk', 'user', 'display_name', 'full_name',
+                    'accept_pysv_conferences', 'accept_ep_conferences',
+                    'twitter', 'organisation')
     list_display_links = ('pk', 'user')
-    list_filter = (WithChildrenFilter,)
+    list_filter = (WithChildrenFilter, 'accept_pysv_conferences',
+                   'accept_ep_conferences')
+    search_fields = ('user__username', 'full_name', 'display_name', 'twitter')
 
 
 admin.site.register(models.Profile, ProfileAdmin)
