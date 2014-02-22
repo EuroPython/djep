@@ -34,6 +34,7 @@ html5lib==0.99
 python-dateutil==2.2
 pytz==2013.7
 requests==2.0.1
+gunicorn==18.0
 
 # tablib for export support
 tablib==0.9.11
@@ -54,4 +55,3 @@ redis==2.9.0
 
 # Celery for async tasks (pdf generation)
 celery==3.1.8
-
