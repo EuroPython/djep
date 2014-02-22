@@ -73,23 +73,73 @@ class TicketQuantityFormTests(TestCase):
         self.voucher_type = models.VoucherType()
         self.voucher_type.save()
         self.ticket_type_with_voucher = models.TicketType(
+            name='with voucher',
             is_active=True,
             date_valid_from=now,
             date_valid_to=now + datetime.timedelta(days=365),
             vouchertype_needed=self.voucher_type)
+        self.ticket_type_without_limit = models.TicketType(
+            name='without limit',
+            is_active=True,
+            date_valid_from=now,
+            date_valid_to=now + datetime.timedelta(days=365),
+            max_purchases=0
+            )
+        self.ticket_type_with_limit = models.TicketType(
+            name='with limit',
+            is_active=True,
+            date_valid_from=now,
+            date_valid_to=now + datetime.timedelta(days=365),
+            max_purchases=2
+            )
+        self.ticket_type_without_limit.save()
+        self.ticket_type_with_limit.save()
         self.ticket_type_with_voucher.save()
 
     def tearDown(self):
         self.voucher_type.delete()
+        self.ticket_type_without_limit.delete()
+        self.ticket_type_with_limit.delete()
         self.ticket_type_with_voucher.delete()
 
     def test_max_amount_with_voucher(self):
         """
         A ticket that requires a voucher can only have the qty of 1.
         """
+        qty_key = 'tq-{0}-quantity'.format(self.ticket_type_with_voucher.pk)
         form = forms.TicketQuantityForm(
-            self.ticket_type_with_voucher, data={'tq-{0}-quantity'.format(self.ticket_type_with_voucher.pk): 2})
+            self.ticket_type_with_voucher,
+            data={qty_key: 2})
         self.assertFalse(form.is_valid())
+
+    def test_max_amount_without_limit(self):
+        """
+        A ticket that has a limit set should have this value be enforced.
+        """
+        qty_key = 'tq-{0}-quantity'.format(self.ticket_type_without_limit.pk)
+        form = forms.TicketQuantityForm(
+            self.ticket_type_without_limit,
+            data={qty_key: 2})
+        self.assertTrue(form.is_valid())
+
+    def test_max_amount_exceeded_with_limit(self):
+        """
+        A ticket that has a limit set should have this value be enforced.
+        """
+        form = forms.TicketQuantityForm(
+            self.ticket_type_with_limit,
+            data={'tq-{0}-quantity'.format(self.ticket_type_with_limit.pk): 3})
+        self.assertFalse(form.is_valid())
+
+    def test_max_amount_valid_with_limit(self):
+        """
+        If the request amount doesn't exceed the maximum amount then the
+        form is valid.
+        """
+        form = forms.TicketQuantityForm(
+            self.ticket_type_with_limit,
+            data={'tq-{0}-quantity'.format(self.ticket_type_with_limit.pk): 2})
+        self.assertTrue(form.is_valid())
 
 
 class TicketVoucherFormTests(TestCase):

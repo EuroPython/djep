@@ -80,6 +80,8 @@ class TicketQuantityForm(forms.Form):
     def clean_quantity(self):
         value = self.cleaned_data['quantity']
         available = self.ticket_type.available_tickets
+        max_value = self.fields['quantity'].max_value
+
         if value > 0 and available is not None:
             if self.ticket_type.available_tickets < 1:
                 raise forms.ValidationError(_('Tickets sold out.'))
@@ -87,7 +89,7 @@ class TicketQuantityForm(forms.Form):
             if value > self.ticket_type.available_tickets:
                 raise forms.ValidationError(_('Not enough tickets left.'))
 
-        if value > self.fields['quantity'].max_value:
+        if max_value is not None and value > max_value:
             raise forms.ValidationError(_("You've exceeded the maximum"
                                           " number of items of this type "
                                           "for this purchase"))
