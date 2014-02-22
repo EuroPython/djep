@@ -1,3 +1,6 @@
+.. image:: https://travis-ci.org/EuroPython/djep.png?branch=develop
+   :target: https://travis-ci.org/EuroPython/djep
+
 Installation
 ------------
 
