@@ -522,12 +522,22 @@ div.actions {
     }
 }
 
+#help {
+    font-style: italic;
+    em {
+        text-decoration: underline;
+    }
+    margin-bottom: 20px;
+    opacity: 0.8;
+}
+
 @import "frontpage";
 @import "userprofile";
 @import "account";
 @import "proposals";
 @import "checkout";
 @import "alerts";
+@import "reviews";
 
 //-----------------------------------------------------------------------------
 

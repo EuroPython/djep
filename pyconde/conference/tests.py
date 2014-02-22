@@ -123,3 +123,17 @@ class SessionKindTests(TestCase):
             self.fail()
         except Exception, _:
             pass
+
+    def test_sessionkind_accepts_proposals_during_review_phase(self):
+        """
+        It should be possible to still submit new proposals if the proposal
+        phase is not over yet but the review phase has already started.
+        """
+        conference = models.Conference(reviews_active=True)
+        kind = models.SessionKind(
+            name="Kind",
+            slug="kind",
+            conference=conference,
+            closed=False
+        )
+        self.assertTrue(kind.accepts_proposals())

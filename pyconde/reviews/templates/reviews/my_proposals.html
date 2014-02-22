@@ -1,18 +1,19 @@
 {% extends "reviews/base.html" %}
-{% block title %}Meine Vorschläge in Review{% endblock %}
-{% block page_title %}Meine Vorschläge in Review{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "My reviewable proposals" %}{% endblock %}
+{% block page_title %}{% trans "My reviewable proposals" %}{% endblock %}
 {% block content %}
     {% block description %}
-    <p>Hier sehen Sie alle Ihre Vorschläge im Review-Kontext.</p>
+    <p>{% trans "Here you can see all your proposals that are out for review." %}</p>
     {% endblock %}
     <table>
         <thead>
             <tr>
-                <th class="orderable"><a href="?order={% if order == 'title' %}-{% endif %}title">Titel</a>
+                <th class="orderable"><a href="?order={% if order == 'title' %}-{% endif %}title">{% trans "Title" %}</a>
                     {% if order == "-title" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "title" %}<i class="icon-chevron-up"></i>{% endif %}</th>
-                <th class="orderable"><a href="?order={% if order == 'comments' %}-{% endif %}comments">Kommentare</a>
+                <th class="orderable"><a href="?order={% if order == 'comments' %}-{% endif %}comments">{% trans "Comments" %}</a>
                     {% if order == "-comments" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "comments" %}<i class="icon-chevron-up"></i>{% endif %}</th>
-                <th class="orderable"><a href="?order={% if order == 'activity' %}-{% endif %}activity">Letzte Aktivität</a>
+                <th class="orderable"><a href="?order={% if order == 'activity' %}-{% endif %}activity">{% trans "Recent activity" %}</a>
                     {% if order == "-activity" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "activity" %}<i class="icon-chevron-up"></i>{% endif %}</th>
             </tr>
         </thead>
@@ -26,6 +27,5 @@
             {% endfor %}
         </tbody>
     </table>
-    <p class="legend">Tutorials werden <span class="legend kind-tutorial">so dargestellt</span>.<br />
-        Vorträge werden <span class="legend kind-talk">so dargestellt</span>.<br /></p>
+    {% include "reviews/partials/legend.html" %}
 {% endblock content %}

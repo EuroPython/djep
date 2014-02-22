@@ -4,6 +4,7 @@ from crispy_forms.utils import render_field
 
 class Submit(layout.Submit):
     field_classes = 'submit'
+    template = 'bootstrap3/layout/submit.html'
     tabindex = None
 
     def __init__(self, *args, **kwargs):

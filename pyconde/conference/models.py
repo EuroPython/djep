@@ -226,8 +226,6 @@ class SessionKind(models.Model):
                 raise forms.ValidationError(_("The end date has to be after the start date"))
 
     def accepts_proposals(self):
-        if self.conference.get_reviews_active():
-            return False
         _now = now()
         if self.conference.start_date is not None:
             if self.conference.start_date < _now.date():

@@ -1,13 +1,11 @@
 {% extends "reviews/proposal_base.html" %}
 {% load markup crispy_forms_tags i18n account_tags %}
-{% block title %}Review-Info: {{ proposal.title }}{% endblock %}
-{% block content %}
-    <h1>Review-Info: {% if proposal_version %}{{ proposal_version.title }}{% else %}{{ proposal.title }}{% endif %}</h1>
-    {% if proposal_version %}
-        <p class="original_notice">Dies ist eine modifizierte Fassung. <a href="{{ proposal.get_absolute_url }}">Zum Original</a>.</p>
-    {% endif %}
+{% block bodyclass %}{{ block.super }} proposaldetails{% endblock %}
+{% block page_title %}{% blocktrans with title=proposal.title %}Review info: {{ current_title }}{% endblocktrans %}{% endblock %}
+{% block title %}{% blocktrans with title=proposal.title %}Review info: {{ current_title }}{% endblocktrans %}{% endblock %}
+{% block details %}
     <article class="proposal">
-    <h3>Beschreibung</h3>
+    <h3>{% trans "Description" %}</h3>
     <div class="description">
         {% if proposal_version %}
             {{ proposal_version.description|markdown:"safe" }}
@@ -16,7 +14,7 @@
         {% endif %}
     </div>
 
-    <h3>Abstract</h3>
+    <h3>{% trans "Abstract" %}</h3>
     <div class="abstract">
         {% if proposal_version %}
             {{ proposal_version.abstract|markdown:"safe" }}
@@ -28,27 +26,68 @@
     <div class="actions">
         {% if can_update %}
             {% if proposal.can_be_updated %}
-                <a class="btn" href="{% url 'reviews-update-proposal' pk=proposal.pk %}"><i class="icon-edit"></i> Ändern</a>
+                <a class="btn" href="{% url 'reviews-update-proposal' pk=proposal.pk %}"><i class="fa fa-fw fa-pencil"></i> {% trans "Update" %}</a>
             {% else %}
-                <a href="#">Vorschläge können nicht mehr editiert werden.</a>
+                <a href="#">{% trans "Proposal can no longer be changed." %}</a>
             {% endif %}
         {% endif %}
     </div>
+    {% if can_review %}
+    <div id="review" class="{% if user_review %}reviewed{% endif %}">
+        {% if not user_review %}
+            <h2>{% trans "Not yet reviewed" %}</h2>
+            {% blocktrans %}
+            <p>You have not yet reviewed this proposal. Please do so by following the link below.</p>
+            <p>The review consists of a score and a review text. Both are only visible to you, staff
+            members, and the programme committee.</p>
+            {% endblocktrans %}
+            {% if proposal.can_be_reviewed %}
+                <a class="btn" href="{% url 'reviews-review-proposal' pk=proposal.pk %}"><i class="fa fa-fw fa-pencil"></i> {% trans "Create review" %}</a>
+            {% else %}
+                <a href="#">{% trans "This proposal can no longer be reviewed." %}</a>
+            {% endif %}
+        {% else %}
+            <h2>{% trans "Your review" %}: <span class="rating">{{ user_review.rating }}</span></h2>
+            <div class="summary">{{ user_review.summary|markdown:"safe" }}</div>
+            {% if proposal.can_be_reviewed %}
+                <a class="btn" href="{% url 'reviews-update-review' pk=proposal.pk %}"><i class="fa fa-fw fa-pencil"></i> {% trans "Update your review" %}</a>
+            {% else %}
+                <a href="#">{% trans "Reviews can no longer be updated." %}</a>
+            {% endif %}
+        {% endif %}
+    </div>
+    {% endif %}
     {% if timeline %}
         <ul id="timeline">
         {% for item in timeline %}
             <li id="{{ item.type }}-{{ item.item.pk }}" class="timeline-item timeline-item-{{ item.type }} {% if item.item.deleted %}deleted{% endif %}">
                 <dl>
-                    <dt><a href="#{{ item.type }}-{{ item.item.pk }}">{{ item.item.pub_date }}</a></dt>
+                    <dt><i class="fa fa-clock-o"></i> <a href="#{{ item.type }}-{{ item.item.pk }}">{{ item.item.pub_date }}</a></dt>
                     {% if item.type == 'comment' %}
                         {% if item.item.deleted %}
-                        <dd>Dieses Kommentar {% if not item.hide_author %}von {{ item.item.author|display_name }}{% endif %} wurde gelöscht.
-                            {% if item.item.author != item.item.deleted_by %}(durch {{ item.item.deleted_by }}){% endif %}</dd>
+                        <dd>
+                            {% if not item.hide_author %}
+                                {% blocktrans with author=item.item.author|display_name %}
+                                This comment by {{ author }} was deleted.
+                                {% endblocktrans %}
+                            {% else %}
+                                {% trans "This comment was deleted." %}
+                            {% endif %}
+                            {% if item.item.author != item.item.deleted_by %}{% blocktrans with deleter=item.item.deleted_by %}(by {{ deleter }}){% endblocktrans %}{% endif %}
+                        </dd>
                         {% else %}
-                        <dd><div class="content">{{ item.item.content|markdown:"safe" }}</div><cite>-- {% if item.hide_author %}Proposal-Autor{% else %}{{ item.item.author|display_name }}{% endif %}
-                            (basierend auf {% if item.item.proposal_version %} <a href="{% url 'reviews-version-details' proposal_pk=proposal.pk pk=item.item.proposal_version.pk %}">Version vom {{ item.item.proposal_version.pub_date }}</a>{% else %} dem Original-Vorschlag{% endif %})</cite>
+                        <dd><div class="content">{{ item.item.content|markdown:"safe" }}</div><cite>-- {% if item.hide_author %}{% trans "Proposal's author" %}{% else %}{{ item.item.author|display_name }}{% endif %}
+                            {% if item.item.proposal_version %}
+                                {% url 'reviews-version-details' proposal_pk=proposal.pk pk=item.item.proposal_version.pk as revurl %}
+                                {% blocktrans with url=revurl date=item.item.proposal_version.pub_date %}
+                                (based on the <a href="{{ url }}">version from {{ date }}</a>)
+                                {% endblocktrans %}
+                            {% else %}
+                                {% trans "(based on the original proposal)" %}
+                            {% endif %}
+                            </cite>
                             {% if item.item.author == user or user.is_staff or user.is_admin %}<p class="actions">
-                                <a href="{% url 'reviews-delete-comment' proposal_pk=proposal.pk pk=item.item.pk %}?next={{ request.get_full_path }}">Löschen</a>
+                                <a href="{% url 'reviews-delete-comment' proposal_pk=proposal.pk pk=item.item.pk %}?next={{ request.get_full_path }}">{% trans "Delete" %}</a>
                             </p>{% endif %}
                         </dd>
                         {% endif %}
@@ -56,7 +95,7 @@
                         {% if current_conference.anonymize_proposal_author %}
                             <dd>{% trans "The author has updated the proposal." %}
                         {% else %}
-                            <dd>{{ item.item.creator|display_name }} hat das Proposal aktualisiert.</dd>
+                            <dd>{% blocktrans with user=item.item.creator|display_name %}{{ user }} has updated the proposal.{% endblocktrans %}</dd>
                         {% endif %}
                     {% endif %}
                 </dl>
@@ -65,31 +104,11 @@
         </ul>
     {% endif %}
     {% if can_comment %}
-    <h2>Rückfrage an den Vortragenden / Kommentar:</h2>
+    <h2>{% trans "Questions for the author / Comment:" %}</h2>
     {% crispy comment_form %}
     {% endif %}
 {% endblock %}
 {% block sidebar %}
     {{ block.super }}
     {% include "reviews/partials/versions_box.html" %}
-    {% if can_review %}
-    <div class="box" id="review-box">
-        {% if not user_review %}
-            <h2>Nicht bewertet</h2>
-            {% if proposal.can_be_reviewed %}
-                <a href="{% url 'reviews-review-proposal' pk=proposal.pk %}">Bewerten</a>
-            {% else %}
-                <a href="#">Dieser Vorschlag kann nicht mehr bewertet werden.</a>
-            {% endif %}
-        {% else %}
-            <h2>Bewertung: <span class="rating">{{ user_review.rating }}</span></h2>
-            <div class="summary">{{ user_review.summary|markdown:"safe" }}</div>
-            {% if proposal.can_be_reviewed %}
-                <a href="{% url 'reviews-update-review' pk=proposal.pk %}">Bewertung aktualisieren</a>
-            {% else %}
-                <a href="#">Bewertungen können nicht mehr editiert werden.</a>
-            {% endif %}
-        {% endif %}
-    </div>
-    {% endif %}
 {% endblock %}

@@ -1,4 +1,5 @@
 {% extends "confirm.html" %}
+{% load i18n %}
 {% block question %}
-    <p>Sind Sie sicher, dass Sie Ihre Bewertung löschen möchten?</p>
+    <p>{% trans "Do you really want to delete this review?" %}</p>
 {% endblock %}

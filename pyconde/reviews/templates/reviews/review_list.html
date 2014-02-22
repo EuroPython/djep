@@ -1,12 +1,11 @@
-{% extends "reviews/base.html" %}
+{% extends "reviews/proposal_base.html" %}
 {% load markup account_tags i18n %}
-{% block bodycls %}review-overview{% endblock %}
-{% block title %}Reviews von {{ proposal.title }}{% endblock %}
-{% block content %}
-    <h1>Reviews von <a href="{% url 'reviews-proposal-details' pk=proposal.pk %}">{{ proposal.title }}</a></h1>
-
+{% block bodyclass %}{{ block.super }} reviewlist{% endblock %}
+{% block title %}{% blocktrans with title=proposal.title %}Reviews of "{{ title }}"{% endblocktrans %}{% endblock %}
+{% block page_title %}{% blocktrans with title=proposal.title %}Reviews of "{{ title }}"{% endblocktrans %}{% endblock %}
+{% block details %}
     {% if not object_list %}
-    <p class="empty">Dieser Vorschlag wurde bisher nicht bewertet.</p>
+    <p class="empty">{% trans "This proposal has not yet been reviewed." %}</p>
     {% else %}
     <ul class="reviews">
         {% for review in object_list %}
@@ -29,6 +28,10 @@
 {% endblock %}
 {% block sidebar %}
     <div id="scorebox" class="box">
-        <span class="score">{{ proposal.review_metadata.score }}</span> nach {{ proposal.review_metadata.num_reviews }} Review(s)
+        {% blocktrans with score=proposal.review_metadata.score num_reviews=proposal.review_metadata.num_reviews %}
+        <span class="score">{{ score }}</span> after {{ num_reviews }} Review(s)
+        {% endblocktrans %}
     </div>
+
+    {{ block.super }}
 {% endblock %}

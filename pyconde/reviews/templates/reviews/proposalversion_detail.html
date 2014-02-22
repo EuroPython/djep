@@ -1,17 +1,18 @@
 {% extends "reviews/proposal_base.html" %}
-{% load markup %}
-{% block title %}Vorschlag "{{ proposal.title }}" @ {{ version.pub_date }}{% endblock %}
-{% block content %}
-<article>
-    <h1>{{ version.title }}</h1>
-    <div class="description">
-        {{ version.description|markdown:"safe" }}
-    </div>
+{% load markup i18n %}
+{% block bodyclass %}{{ block.super }} versiondetails{% endblock %}
+{% block title %}{% trans "Proposal" %} "{{ proposal.title }}" @ {{ version.pub_date }}{% endblock %}
+{% block page_title %}{% trans "Proposal" %} "{{ proposal.title }}" @ {{ version.pub_date }}{% endblock %}
+{% block details %}
+    <article>
+        <div class="description">
+            {{ version.description|markdown:"safe" }}
+        </div>
 
-    <div class="abstract">
-        {{ version.abstract|markdown:"safe" }}
-    </div>
-</article>
+        <div class="abstract">
+            {{ version.abstract|markdown:"safe" }}
+        </div>
+    </article>
 {% endblock %}
 {% block sidebar %}
     {{ block.super }}

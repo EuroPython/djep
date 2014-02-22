@@ -1,6 +1,15 @@
 {% extends "reviews/proposal_base.html" %}
-{% load crispy_forms_tags %}
-{% block content %}
-    <h1>Vorschlag bewerten</h1>
+{% load crispy_forms_tags i18n %}
+{% block bodyclass %}{{ block.super }} reviewform{% endblock %}
+{% block title %}{% blocktrans with title=proposal.title %}Review "{{ title }}"{% endblocktrans %}{% endblock %}
+{% block page_title %}{% blocktrans with title=proposal.title %}Review "{{ title }}"{% endblocktrans %}{% endblock %}
+{% block details %}
+    <div id="help">
+    {% blocktrans %}
+    <p>Here you can give the proposal a rating and a review. During the review process you can update
+    what you've entered here at any time. Your review is only visible to you, staff members and
+    members of the programme committee.</p>
+    {% endblocktrans %}
+    </div>
     {% crispy form %}
-{% endblock content %}
+{% endblock details %}

@@ -37,6 +37,9 @@ label {
         @media #{$medium-up} {
             float: left;
             width: 18%;
+            body.with-sidebar & {
+                width: 25%;
+            }
         }
         padding-top: 8px;
         &.checkbox {
@@ -70,6 +73,9 @@ label {
         @media #{$medium-up} {
             float: left;
             width: 80%;
+            body.with-sidebar & {
+                width: 73%;
+            }
             margin-left: 2%;
         }
         input[type=text],
@@ -97,11 +103,17 @@ label {
             width: 100%;
             @media #{$medium-up} {
                 width: 50%;
+                body.with-sidebar & {
+                    width: 95%;
+                }
                 display: inline-block;
             }
         }
         .help-block {
             //display: inline-block;
+            body.with-sidebar & {
+                display: block;
+            }
             margin-left: 10px;
             &.error {
                 color: $highlightColor;
@@ -149,9 +161,10 @@ label {
 }
 
 .form-actions {
-    text-align: right;
+    text-align: left;
+    padding-top: 10px;
     > *, .controls > * {
-        margin-left: 10px;
+        margin-right: 10px;
     }
     ul {
         list-style: none;

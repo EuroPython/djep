@@ -1,13 +1,16 @@
-{% load account_tags %}
-{% if versions %}
+{% load account_tags i18n %}
 <div class="box" id="versions">
-    <h2>Versionen</h2>
+    <h2>{% trans "Versions" %}</h2>
+    {% if not versions %}
+    <p class="empty">{% trans "So far there is only the original proposal. If the author updates it, you will see different versions being listed here." %}</p>
+    {% else %}
     <ul>
+        <li><a href="{{ proposal.get_absolute_url }}">{% trans "Original proposal" %}</a></li>
         {% for v in versions %}
         <li class="{% if v == version %}active{% endif %}">
             <a href="{% url 'reviews-version-details' proposal_pk=proposal.pk pk=v.pk %}">{{ v.pub_date }}</a>{% if not current_conference.anonymize_proposal_author %} ({{ v.creator|display_name }}){% endif %}
         </li>
         {% endfor %}
     </ul>
+    {% endif %}
 </div>
-{% endif %}

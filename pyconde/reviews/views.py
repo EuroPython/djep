@@ -380,6 +380,7 @@ class ProposalDetailsView(generic_views.DetailView):
             data['review_outdated'] = review.proposal_version != data['proposal_version']
         except:
             pass
+        data['current_title'] = data['proposal_version'].title if data['proposal_version'] else self.object.title
         return data
 
     def get_object(self, queryset=None):

@@ -1,0 +1,143 @@
+body.reviews {
+    table {
+        .track {
+            display: block;
+            font-size: 80%;
+        }
+    }
+
+    .kind-talk td.title a,
+    .legend .kind-talk {
+        color: $red;
+    }
+
+    .kind-training td.title a,
+    .legend .kind-training {
+        color: $blue;
+    }
+
+    .kind-poster td.title a,
+    .legend .kind-poster {
+        color: darken($green, 20);
+    }
+
+    #timeline {
+        list-style: none;
+        padding-left: 0;
+        li {
+            border: 1px solid darken($background-color-light, 10);
+            margin-bottom: 5px;
+        }
+
+        dl {
+            padding: 0;
+            margin: 0;
+        }
+
+        dt, dd {
+            padding: 5px;
+        }
+
+        dt {
+            background: $background-color-light;
+            a {
+                text-decoration: none;
+            }
+        }
+    }
+
+    &.proposaldetails,
+    &.versiondetails,
+    &.reviewform,
+    &.reviews,
+    &.update-proposal,
+    &.versions {
+        #details {
+            @media #{$medium-up} {
+                @include grid-column($columns:9);
+                padding-right: 20px;
+            }
+        }
+        #sidebar {
+            font-size: 80%;
+            opacity: 0.8;
+            @media #{$medium-up} {
+                @include grid-column($columns:3);
+            }
+        }
+    }
+
+    &.proposaldetails {
+        #review {
+            padding: 1rem;
+            background: $yellow;
+            border: 1px solid darken($yellow, 10);
+            h2 {
+                margin-top: 0;
+            }
+            &.reviewed {
+                background: lighten($green, 10);
+                border: 1px solid $green;
+            }
+        }
+    }
+
+    &.listing {
+        th.reviewed {
+            text-indent: -5000px;
+        }
+        td.reviewed {
+            > span {
+                text-indent: -5000px;
+                display: inline-block;
+                width: 1px;
+                height: 1px;
+            }
+        }
+    }
+
+    &.reviewlist {
+        #scorebox {
+            .score {
+                font-size: 3.2rem;
+                font-weight: bold;
+            }
+        }
+        ul.reviews {
+            list-style: none;
+            padding-left: 0;
+
+            li {
+                margin-top: 20px;
+                min-height: 100px;
+                border-top: 1px dotted $background-nav;
+                padding-top: 20px;
+                position: relative;
+
+                > .score {
+                    font-size: 3.2rem;
+                    line-height: 3.6rem;
+                    width: 100px;
+                    position: absolute;
+                    top: 0;
+                    left: 0;
+                    text-align: center;
+                    font-weight: bold;
+                    float: left;
+                    padding: 0 20px 20px 0;
+                }
+
+                > .summary, cite {
+                    display: block;
+                    margin-left: 100px;
+                }
+
+                &:first-child {
+                    margin-top: 0;
+                    padding-top: 0;
+                    border-top: none;
+                }
+            }
+        }
+    }
+}

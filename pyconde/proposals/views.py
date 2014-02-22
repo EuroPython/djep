@@ -223,6 +223,9 @@ class EditProposalView(LoginRequiredMixin, TypedProposalFormMixin, PermissionChe
         if not kind.accepts_proposals():
             messages.error(self.request, _("You can no longer edit this proposal because the submission period has already ended."))
             return HttpResponseRedirect(self.object.get_absolute_url())
+        if kind.conference.get_reviews_active():
+            messages.error(self.request, _("This proposal is already out for review. Please update the proposal within the review system."))
+            return HttpResponseRedirect(self.object.get_absolute_url())
         if user != self.object.speaker.user and not user.is_staff:
             messages.error(self.request, _("You have to be the primary speaker mentioned in the proposal in order to edit it."))
             return HttpResponseRedirect(self.object.get_absolute_url())
@@ -283,6 +286,9 @@ class AbstractCancelProposalView(AbstractProposalAction):
         if not kind.accepts_proposals():
             messages.error(self.request, _("You can no longer cancel this proposal because the submission period has already ended."))
             return HttpResponseRedirect(self.object.get_absolute_url())
+        if kind.conference.get_reviews_active():
+            messages.error(self.request, _("You can no longer cancel this proposal because the review phase has already started."))
+            return HttpResponseRedirect(self.object.get_absolute_url())
         if user != self.object.speaker.user:
             messages.error(self.request, _("You have to be the primary speaker mentioned in the proposal in order to cancel it."))
             return HttpResponseRedirect(self.object.get_absolute_url())
@@ -317,6 +323,9 @@ class LeaveProposalView(LoginRequiredMixin, AbstractCancelProposalView):
         kind = self.object.kind
         if not kind.accepts_proposals():
             messages.error(self.request, _("You can no longer leave this proposal because the submission period has already ended."))
+            return HttpResponseRedirect(self.object.get_absolute_url())
+        if kind.conference.get_reviews_active():
+            messages.error(self.request, _("You can no longer leave this proposal because the review phase has already started."))
             return HttpResponseRedirect(self.object.get_absolute_url())
         if user not in [s.user for s in self.object.additional_speakers.all()]:
             messages.error(self.request, _("Only secondary speakers can leave a proposal"))

@@ -1,18 +1,19 @@
 {% extends "reviews/base.html" %}
-{% block title %}Meine Reviews{% endblock %}
+{% load i18n %}
+{% block title %}{% trans "My reviews" %}{% endblock %}
+{% block page_title %}{% trans "My reviews" %}{% endblock %}
 {% block content %}
-    <h1>Meine Reviews</h1>
     {% if object_list %}
     <table>
         <thead>
             <tr>
-                <th class="orderable"><a href="?order={% if order == 'title' %}-{% endif %}title">Titel</a>
+                <th class="orderable"><a href="?order={% if order == 'title' %}-{% endif %}title">{% trans "Title" %}</a>
                     {% if order == "-title" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "title" %}<i class="icon-chevron-up"></i>{% endif %}</th>
                 {% if not current_conference.anonymize_proposal_author %}
-                <th class="orderable"><a href="?order={% if order == 'speaker' %}-{% endif %}speaker">Vortragende(r)</a>
+                <th class="orderable"><a href="?order={% if order == 'speaker' %}-{% endif %}speaker">{% trans "Author" %}</a>
                     {% if order == "-speaker" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "speaker" %}<i class="icon-chevron-up"></i>{% endif %}</th>
                 {% endif %}
-                <th class="orderable"><a href="?order={% if order == 'rating' %}-{% endif %}rating">Bewertung</a>
+                <th class="orderable"><a href="?order={% if order == 'rating' %}-{% endif %}rating">{% trans "Score" %}</a>
                     {% if order == "-rating" %}<i class="icon-chevron-down"></i>{% endif %}{% if order == "rating" %}<i class="icon-chevron-up"></i>{% endif %}</th>
             </tr>
         </thead>
@@ -28,9 +29,8 @@
             {% endfor %}
         </tbody>
     </table>
-    <p class="legend">Tutorials werden <span class="legend kind-tutorial">so dargestellt</span>.<br />
-        Vorträge werden <span class="legend kind-talk">so dargestellt</span>.<br /></p>
+    {% include "reviews/partials/legend.html" %}
     {% else %}
-    <p class="empty">Sie haben noch keine Bewertung abgegeben.</p>
+    <p class="empty">{% trans "You have not reviewed any proposals." %}</p>
     {% endif %}
 {% endblock %}

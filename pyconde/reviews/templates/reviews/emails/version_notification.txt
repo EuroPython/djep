@@ -1,13 +1,13 @@
-{% if hide_author %}"{{ proposal.title }}" wurde aktualisiert:{% else %}{{ version.creator }} hat "{{ proposal.title }}" aktualisiert:{% endif %}
+{% load i18n %}{% if hide_author %}{% blocktrans with title=proposal %}"{{ title }}" has been updated:{% endblocktrans %}{% else %}{% blocktrans with author=version.creator title=proposal.title %}{{ author }} has updated "{{ title }}":{% endblocktrans %}{% endif %}
 
---------- TITEL ------------------
+--------- {% trans "TITLE" %} ------------------
 {{ version.title }}
 
---------- BESCHREIBUNG -----------
+--------- {% trans "DESCRIPTION" %} ------------
 {{ version.description }}
 
---------- ABSTRACT ---------------
+--------- {% trans "ABSTRACT" %} ---------------
 {{ version.abstract }}
 
 
-Link: <http://{{ site.domain }}{{ proposal_url }}#version-{{ version.pk }}>
+{% trans "Link" %}: <http://{{ site.domain }}{{ proposal_url }}#version-{{ version.pk }}>
