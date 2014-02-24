@@ -38,9 +38,11 @@
 
 {% blocktrans with purchase_id=purchase.id invoice_number=purchase.full_invoice_number %}Payment/Processing issues
 
-When you have any questions regarding your purchase please include the following information:
-	purchase ID: {{ purchase_id }}
-	invoice number: {{ invoice_number }}
+If you have any questions regarding your purchase please include the following information:
+
+    purchase ID: {{ purchase_id }}
+    invoice number: {{ invoice_number }}
+
 This allows us to quickly identify your purchase and assist you accordingly.
 {% endblocktrans %}
 
