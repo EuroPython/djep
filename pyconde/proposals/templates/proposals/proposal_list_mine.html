@@ -21,8 +21,10 @@
                         <td>{{ proposal.kind.name }}</td>
                         <td>{{ proposal.track.name }}</td>
                         <td class="actions">
-                            <a href="{% url 'edit_proposal' proposal.pk %}?next={% url 'my_proposals' %}"><i class="fa-fw fa fa-pencil"></i> {% trans "Edit" %}</a>
-                            <a href="{% url 'cancel_proposal' proposal.pk %}?next={% url 'my_proposals' %}"><i class="fa-fw fa fa-times"></i> {% trans "Cancel" %}</a>
+                            {% if proposal.kind.accepts_proposals %}
+                                <a href="{% url 'edit_proposal' proposal.pk %}?next={% url 'my_proposals' %}"><i class="fa-fw fa fa-pencil"></i> {% trans "Edit" %}</a>
+                                <a href="{% url 'cancel_proposal' proposal.pk %}?next={% url 'my_proposals' %}"><i class="fa-fw fa fa-times"></i> {% trans "Cancel" %}</a>
+                            {% endif %}
                         </td>
                     </tr>
                 {% endfor %}
