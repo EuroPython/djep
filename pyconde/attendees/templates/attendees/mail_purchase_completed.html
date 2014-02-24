@@ -28,7 +28,7 @@
 
 {% if purchase.payment_method == 'invoice' %}
 {% trans "During the next couple of days you will receive an invoice via e-mail." %}
-
+{% trans "You can check your payment status in your profile. The incoming payments are checked at least twice a week." %}
 {% trans "If you have any problems with the payment, please contact us ASAP!" %}
 {% elif purchase.payment_method == 'credit_card' %}
 {% trans "As soon as your purchase has been processed you will receive another e-mail." %}

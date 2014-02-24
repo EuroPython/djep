@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-24 20:08+0100\n"
-"PO-Revision-Date: 2014-02-24 20:11+0100\n"
+"POT-Creation-Date: 2014-02-24 20:18+0100\n"
+"PO-Revision-Date: 2014-02-24 20:19+0100\n"
 "Last-Translator: Stefan Richter <stefan@02strich.de>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
 "Language: de\n"
@@ -867,6 +867,14 @@ msgstr ""
 #: attendees/templates/attendees/mail_purchase_completed.html:30
 msgid "During the next couple of days you will receive an invoice via e-mail."
 msgstr "Während der nächsten Tage wirst du eine Rechnung via E-Mail erhalten."
+
+#: attendees/templates/attendees/mail_purchase_completed.html:31
+msgid ""
+"You can check your payment status in your profile. The incoming payments are "
+"checked at least twice a week."
+msgstr ""
+"Sie können Ihren Bezahlstatus in Ihrem Profil einsehen. Die eingehenden "
+"Überweisungen werden mindestens zweimal pro Woche überprüft."
 
 #: attendees/templates/attendees/mail_purchase_completed.html:32
 msgid "If you have any problems with the payment, please contact us ASAP!"
