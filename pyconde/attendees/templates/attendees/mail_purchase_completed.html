@@ -36,6 +36,14 @@
 
 {% trans "Conference material will be handed out at the conference." %}
 
+{% blocktrans with purchase_id=purchase.id invoice_number=purchase.full_invoice_number %}Payment/Processing issues
+
+When you have any questions regarding your purchase please include the following information:
+	purchase ID: {{ purchase_id }}
+	invoice number: {{ invoice_number }}
+This allows us to quickly identify your purchase and assist you accordingly.
+{% endblocktrans %}
+
 {% blocktrans %}Revocation Rights Notice
 
 Applications may be revoked by you, the applicant, within 14 days without stating any reason, in text form (e.g. letter, fax, email). The 14­ day period begins on receipt of this notice, earliest however on contract formation and not before fulfilment of the duty of information on the part of the Host.
