@@ -28,13 +28,23 @@
 
 {% if purchase.payment_method == 'invoice' %}
 {% trans "During the next couple of days you will receive an invoice via e-mail." %}
-
+{% trans "You can check your payment status in your profile. The incoming payments are checked at least twice a week." %}
 {% trans "If you have any problems with the payment, please contact us ASAP!" %}
 {% elif purchase.payment_method == 'credit_card' %}
 {% trans "As soon as your purchase has been processed you will receive another e-mail." %}
 {% endif %}
 
 {% trans "Conference material will be handed out at the conference." %}
+
+{% blocktrans with purchase_id=purchase.id invoice_number=purchase.full_invoice_number %}Payment/Processing issues
+
+If you have any questions regarding your purchase please include the following information:
+
+    Purchase ID: {{ purchase_id }}
+    Invoice Number: {{ invoice_number }}
+
+This allows us to quickly identify your purchase and assist you accordingly.
+{% endblocktrans %}
 
 {% blocktrans %}Revocation Rights Notice
 
