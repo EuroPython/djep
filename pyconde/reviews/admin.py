@@ -54,6 +54,17 @@ class ProposalMetaDataAdmin(admin.ModelAdmin):
         'latest_activity_date', 'score']
     actions = [export_reviewed_proposals]
 
+class ReviewerAdmin(admin.ModelAdmin):
+    list_display = ['user', 'user_display_name', 'user_email', 'state']
+    list_filter = ['state']
+    actions = [accept_reviewer_request, decline_reviewer_request]
+
+    def user_display_name(self, instance):
+        return instance.user.get_profile().display_name
+
+    def user_email(self, instance):
+        return instance.user.email
+
 
 admin.site.register(models.ProposalVersion,
     list_display=['original', 'pub_date', 'creator'])
@@ -66,10 +77,7 @@ admin.site.register(models.Comment,
     actions=[mark_comment_as_deleted])
 admin.site.register(models.ProposalMetaData, ProposalMetaDataAdmin)
 
-admin.site.register(models.Reviewer,
-    list_display=['user', 'state'],
-    list_filter=['state'],
-    actions=[accept_reviewer_request, decline_reviewer_request])
+admin.site.register(models.Reviewer, ReviewerAdmin)
 
 
 # Add some more columns and filters to the user admin
