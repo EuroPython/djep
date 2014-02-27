@@ -27,8 +27,7 @@ a {
     color: $blue-light;
 }
 
-#accountbox {
-
+#reviewbox, #accountbox {
     > a {
         font-size: 16px;
         font-size: 1.6rem;
@@ -112,6 +111,12 @@ a {
     &:hover ul,
     ul:hover {
         display: block;
+    }
+}
+
+#reviewbox {
+    @media #{$topbar-media-query} {
+        margin-right: 70px;
     }
 }
 

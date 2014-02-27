@@ -34,8 +34,8 @@ ep.ui = (function($) {
         });
     }
 
-    function toggleMenuIcons() {
-        $('#accountbox').hover(function() {
+    function toggleMenuIcons(holder) {
+        $(holder).hover(function() {
             $(this).find('> a > i')
                 .removeClass('fa-angle-left')
                 .addClass('fa-angle-down');
@@ -46,12 +46,12 @@ ep.ui = (function($) {
         });
     }
 
-    function handleAccountMenuOnTouch() {
+    function handleAccountMenuOnTouch(holder) {
         // We only need this on touch devices
         if (!$('html').hasClass('touch')) {
             return;
         }
-        $('#accountbox > a').on('click', function(evt) {
+        $(holder + ' > a').on('click', function(evt) {
             if ($(window).width() < 889) {
                 evt.preventDefault();
                 var icon = $(this).find('> i');
@@ -62,7 +62,7 @@ ep.ui = (function($) {
                     icon.removeClass('fa-angle-left')
                         .addClass('fa-angle-down');
                 }
-                $('#accountbox > ul').toggle();
+                $(holder + ' > ul').toggle();
                 return;
             }
         });
@@ -71,8 +71,10 @@ ep.ui = (function($) {
     function init() {
         wrapFileUploads();
         overrideOrbitUi();
-        toggleMenuIcons();
-        handleAccountMenuOnTouch();
+        toggleMenuIcons('#reviewbox');
+        handleAccountMenuOnTouch('#reviewbox');
+        toggleMenuIcons('#accountbox');
+        handleAccountMenuOnTouch('#accountbox');
     }
 
     init();

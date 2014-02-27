@@ -56,6 +56,14 @@
                     </ul>
                     </div>
                     {% endif %}
+                    {% if is_reviewer %}
+                    <div id="reviewbox">
+                    <a href="{% url 'reviews-available-proposals' %}">{% trans "Reviews" %} <i class="fa fa-fw fa-angle-left"></i></a>
+                    <ul class="dropdown">
+                        {% show_menu_below_id "reviews" %}
+                    </ul>
+                    </div>
+                    {% endif %}
                 </div>
             </header>
             <div id="main">
