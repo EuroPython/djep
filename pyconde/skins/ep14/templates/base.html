@@ -56,7 +56,7 @@
                     </ul>
                     </div>
                     {% endif %}
-                    {% if is_reviewer %}
+                    {% if current_conference.get_reviews_active and is_reviewer %}
                     <div id="reviewbox">
                     <a href="{% url 'reviews-available-proposals' %}">{% trans "Reviews" %} <i class="fa fa-fw fa-angle-left"></i></a>
                     <ul class="dropdown">
