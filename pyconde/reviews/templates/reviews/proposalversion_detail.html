@@ -4,14 +4,16 @@
 {% block title %}{% trans "Proposal" %} "{{ proposal.title }}" @ {{ version.pub_date }}{% endblock %}
 {% block page_title %}{% trans "Proposal" %} "{{ proposal.title }}" @ {{ version.pub_date }}{% endblock %}
 {% block details %}
-    <article>
-        <div class="description">
-            {{ version.description|markdown:"safe" }}
-        </div>
+    <article class="proposal">
+    <h3>{% trans "Abstract" %}</h3>
+    <div class="abstract">
+        {{ version.abstract|markdown:"safe" }}
+    </div>
 
-        <div class="abstract">
-            {{ version.abstract|markdown:"safe" }}
-        </div>
+    <h3>{% trans "Description" %}</h3>
+    <div class="description">
+        {{ version.description|markdown:"safe" }}
+    </div>
     </article>
 {% endblock %}
 {% block sidebar %}

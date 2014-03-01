@@ -20,8 +20,8 @@ class UpdateProposalForm(forms.ModelForm):
     class Meta(object):
         model = models.ProposalVersion
         fields = [
-            'title', 'description', 'abstract', 'duration', 'audience_level', 'tags',
-            'language',
+            'title', 'abstract', 'description', 'duration', 'audience_level',
+            'tags', 'language',
         ]
 
     def __init__(self, *args, **kwargs):
@@ -32,8 +32,8 @@ class UpdateProposalForm(forms.ModelForm):
         self.helper.layout = Layout(
             Fieldset(_('General'),
                 Field('title', autofocus='autofocus'),
-                Field('description'),
                 Field('abstract'),
+                Field('description'),
                 ),
             Fieldset(_('Details'),
                 Field('duration'),
@@ -63,8 +63,8 @@ class UpdateProposalForm(forms.ModelForm):
         # Right now this code smells a bit esp. with regards to tags
         form = cls(initial={
             'title': proposal.title,
-            'description': proposal.description,
             'abstract': proposal.abstract,
+            'description': proposal.description,
             'tags': edit_string_for_tags(proposal.tags.all()),
             'language': proposal.language,
             'speaker': proposal.speaker,
@@ -89,7 +89,7 @@ class UpdateTalkProposalForm(UpdateProposalForm):
 class UpdateTutorialProposalForm(UpdateProposalForm):
     class Meta(object):
         model = models.ProposalVersion
-        fields = ['title', 'description', 'abstract', 'audience_level', 'tags']
+        fields = ['title', 'abstract', 'description', 'audience_level', 'tags']
 
     def __init__(self, *args, **kwargs):
         super(UpdateTutorialProposalForm, self).__init__(*args, **kwargs)
@@ -97,8 +97,8 @@ class UpdateTutorialProposalForm(UpdateProposalForm):
         self.helper.layout = Layout(
             Fieldset(_('General'),
                 Field('title', autofocus='autofocus'),
-                Field('description'),
                 Field('abstract'),
+                Field('description'),
                 ),
             Fieldset(_('Details'),
                 Field('audience_level'),

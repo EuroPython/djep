@@ -5,21 +5,21 @@
 {% block title %}{% blocktrans with title=proposal.title %}Review info: {{ current_title }}{% endblocktrans %}{% endblock %}
 {% block details %}
     <article class="proposal">
-    <h3>{% trans "Description" %}</h3>
-    <div class="description">
-        {% if proposal_version %}
-            {{ proposal_version.description|markdown:"safe" }}
-        {% else %}
-            {{ proposal.description|markdown:"safe" }}
-        {% endif %}
-    </div>
-
     <h3>{% trans "Abstract" %}</h3>
     <div class="abstract">
         {% if proposal_version %}
             {{ proposal_version.abstract|markdown:"safe" }}
         {% else %}
             {{ proposal.abstract|markdown:"safe" }}
+        {% endif %}
+    </div>
+
+    <h3>{% trans "Description" %}</h3>
+    <div class="description">
+        {% if proposal_version %}
+            {{ proposal_version.description|markdown:"safe" }}
+        {% else %}
+            {{ proposal.description|markdown:"safe" }}
         {% endif %}
     </div>
     </article>
