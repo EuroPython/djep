@@ -119,8 +119,11 @@ class CommentForm(forms.ModelForm):
     def __init__(self, *args, **kwargs):
         super(CommentForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
-            Field('content'),
+            Fieldset(_('General'),
+                Field('content'),
+                ),
             ButtonHolder(Submit('comment', _("Send feedback"), css_class='btn btn-primary comment'))
             )
 
