@@ -56,7 +56,7 @@
                     </ul>
                     </div>
                     {% endif %}
-                    {% if current_conference.get_reviews_active and is_reviewer %}
+                    {% if current_conference.get_reviews_active and user.is_authenticated %}
                     <div id="reviewbox">
                     <a href="{% page_url "reviews" %}">{% page_attribute "menu_title" "reviews" %} <i class="fa fa-fw fa-angle-left"></i></a>
                     <ul class="dropdown">
