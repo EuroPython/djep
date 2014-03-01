@@ -67,9 +67,7 @@
                         {% if item.item.deleted %}
                         <dd>
                             {% if not item.hide_author %}
-                                {% blocktrans with author=item.item.author|display_name %}
-                                This comment by {{ author }} was deleted.
-                                {% endblocktrans %}
+                                {% blocktrans with author=item.item.author|display_name %}This comment by {{ author }} was deleted.{% endblocktrans %}
                             {% else %}
                                 {% trans "This comment was deleted." %}
                             {% endif %}
@@ -79,9 +77,7 @@
                         <dd><div class="content">{{ item.item.content|markdown:"safe" }}</div><cite>-- {% if item.hide_author %}{% trans "Proposal's author" %}{% else %}{{ item.item.author|display_name }}{% endif %}
                             {% if item.item.proposal_version %}
                                 {% url 'reviews-version-details' proposal_pk=proposal.pk pk=item.item.proposal_version.pk as revurl %}
-                                {% blocktrans with url=revurl date=item.item.proposal_version.pub_date %}
-                                (based on the <a href="{{ url }}">version from {{ date }}</a>)
-                                {% endblocktrans %}
+                                {% blocktrans with url=revurl date=item.item.proposal_version.pub_date %}(based on the <a href="{{ url }}">version from {{ date }}</a>){% endblocktrans %}
                             {% else %}
                                 {% trans "(based on the original proposal)" %}
                             {% endif %}

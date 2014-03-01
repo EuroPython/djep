@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-02-27 21:16+0100\n"
+"POT-Creation-Date: 2014-03-01 12:16+0100\n"
 "PO-Revision-Date: 2014-02-24 20:19+0100\n"
 "Last-Translator: Stefan Richter <stefan@02strich.de>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -405,7 +405,7 @@ msgstr ""
 msgid "Become a reviewer"
 msgstr "Bewirb dich als Reviewer"
 
-#: attendees/admin.py:18 reviews/admin.py:23 reviews/admin.py:29
+#: attendees/admin.py:18 reviews/admin.py:24 reviews/admin.py:30
 msgid "Export as CSV"
 msgstr "Als CSV exportieren"
 
@@ -1408,7 +1408,7 @@ msgid "Proposals app"
 msgstr "Proposals-Anwendung"
 
 #: proposals/forms.py:60 proposals/forms.py:192 proposals/forms.py:257
-#: reviews/forms.py:152
+#: reviews/forms.py:155
 msgid "Save changes"
 msgstr "Änderungen speichern"
 
@@ -1417,7 +1417,7 @@ msgid "Submit proposal"
 msgstr "Vortrag einreichen"
 
 #: proposals/forms.py:66 proposals/forms.py:199 proposals/forms.py:262
-#: reviews/forms.py:33 reviews/forms.py:98
+#: reviews/forms.py:33 reviews/forms.py:98 reviews/forms.py:124
 msgid "General"
 msgstr "Allgemeines"
 
@@ -1451,7 +1451,7 @@ msgstr "Dauer"
 #: proposals/forms.py:111
 #: proposals/templates/proposals/proposal_list_mine.html:13
 #: proposals/templates/proposals/proposal_list_mine.html:46
-#: reviews/forms.py:163 reviews/templates/reviews/proposal_base.html:91
+#: reviews/forms.py:166 reviews/templates/reviews/proposal_base.html:91
 #: reviews/templates/reviews/reviewable_proposals.html:49
 msgid "Track"
 msgstr "Track"
@@ -1536,7 +1536,9 @@ msgstr "Trainingsvorschlag einreichen"
 
 #: proposals/forms.py:282
 #: proposals/templates/proposals/proposal_detail.html:32
-#: reviews/templates/reviews/proposal_details.html:8 schedule/forms.py:19
+#: reviews/templates/reviews/proposal_details.html:17
+#: reviews/templates/reviews/proposalversion_detail.html:13
+#: schedule/forms.py:19
 msgid "Description"
 msgstr "Kurzbeschreibung"
 
@@ -1831,7 +1833,9 @@ msgid "Tags"
 msgstr "Schlagwörter"
 
 #: proposals/templates/proposals/proposal_detail.html:27
-#: reviews/templates/reviews/proposal_details.html:17 schedule/forms.py:20
+#: reviews/templates/reviews/proposal_details.html:8
+#: reviews/templates/reviews/proposalversion_detail.html:8
+#: schedule/forms.py:20
 msgid "Abstract"
 msgstr "Abstract"
 
@@ -1846,8 +1850,8 @@ msgstr "Teilnahme zurückziehen"
 msgid "Edit"
 msgstr "Ändern"
 
-#: proposals/templates/proposals/proposal_detail.html:46 reviews/forms.py:151
-#: reviews/templates/reviews/proposal_details.html:90
+#: proposals/templates/proposals/proposal_detail.html:46 reviews/forms.py:154
+#: reviews/templates/reviews/proposal_details.html:86
 msgid "Delete"
 msgstr "Löschen"
 
@@ -1941,19 +1945,23 @@ msgstr ""
 "Fragen zu Training-Inhalten und -Aufbau bitte an <a href=\"mailto:"
 "helpdesk@europython.eu\">helpdesk@europython.eu</a>.\n"
 
-#: reviews/admin.py:18
+#: reviews/admin.py:19
 msgid "Mark comment(s) as deleted"
 msgstr "Kommentar(e) als gelöscht markieren"
 
-#: reviews/admin.py:39
+#: reviews/admin.py:40
 msgid "Accept selected user requests to become a reviewer."
 msgstr "Anträge der ausgewählen Benutzer annehmen"
 
-#: reviews/admin.py:49
+#: reviews/admin.py:50
 msgid "Decline selected user requests to become a reviewer."
 msgstr "Anträge der ausgewählen Benutzer ablehnen"
 
-#: reviews/admin.py:90
+#: reviews/admin.py:75
+msgid "Link to profile"
+msgstr "Link zum Profil"
+
+#: reviews/admin.py:104
 msgid "Can review"
 msgstr "Kann bewerten"
 
@@ -1982,15 +1990,15 @@ msgstr ""
 msgid "Save"
 msgstr "Speichern"
 
-#: reviews/forms.py:124
+#: reviews/forms.py:127
 msgid "Send feedback"
 msgstr "Rückfrage/Kommentar senden"
 
-#: reviews/forms.py:139
+#: reviews/forms.py:142
 msgid "Save review"
 msgstr "Review speichern"
 
-#: reviews/forms.py:164
+#: reviews/forms.py:167
 msgid "Session type"
 msgstr "Vortragsart"
 
@@ -2326,54 +2334,41 @@ msgstr "Reviews können nicht mehr aktualisiert werden."
 
 #: reviews/templates/reviews/proposal_details.html:70
 #, python-format
-msgid ""
-"\n"
-"                                This comment by %(author)s was deleted.\n"
-"                                "
-msgstr ""
-"\n"
-"Dieses Kommentar von %(author)s wurde gelöscht."
+msgid "This comment by %(author)s was deleted."
+msgstr "Dieser Kommentar von %(author)s wurde gelöscht."
 
-#: reviews/templates/reviews/proposal_details.html:74
+#: reviews/templates/reviews/proposal_details.html:72
 msgid "This comment was deleted."
 msgstr "Dieses Kommentar wurde gelöscht."
 
-#: reviews/templates/reviews/proposal_details.html:76
+#: reviews/templates/reviews/proposal_details.html:74
 #, python-format
 msgid "(by %(deleter)s)"
 msgstr "(von %(deleter)s)"
 
-#: reviews/templates/reviews/proposal_details.html:79
+#: reviews/templates/reviews/proposal_details.html:77
 msgid "Proposal's author"
 msgstr "Autor des Vorschlages"
 
-#: reviews/templates/reviews/proposal_details.html:82
+#: reviews/templates/reviews/proposal_details.html:80
 #, python-format
-msgid ""
-"\n"
-"                                (based on the <a href=\"%(url)s\">version "
-"from %(date)s</a>)\n"
-"                                "
-msgstr ""
-"\n"
-"                                (basierend auf der <a href=\"%(url)s"
-"\">Version vom %(date)s</a>)\n"
-"                                "
+msgid "(based on the <a href=\"%(url)s\">version from %(date)s</a>)"
+msgstr "(basierend auf der <a href=\"%(url)s\">Version vom %(date)s</a>)"
 
-#: reviews/templates/reviews/proposal_details.html:86
+#: reviews/templates/reviews/proposal_details.html:82
 msgid "(based on the original proposal)"
 msgstr "(basierend auf dem Originalvorschlag)"
 
-#: reviews/templates/reviews/proposal_details.html:96
+#: reviews/templates/reviews/proposal_details.html:92
 msgid "The author has updated the proposal."
 msgstr "Der Autor hat das Proposal aktualisiert."
 
-#: reviews/templates/reviews/proposal_details.html:98
+#: reviews/templates/reviews/proposal_details.html:94
 #, python-format
 msgid "%(user)s has updated the proposal."
 msgstr "%(user)s hat das Proposal aktualisiert."
 
-#: reviews/templates/reviews/proposal_details.html:107
+#: reviews/templates/reviews/proposal_details.html:103
 msgid "Questions for the author / Comment:"
 msgstr "Fragen an den Autor / Kommentar:"
 
@@ -2412,7 +2407,9 @@ msgid ""
 "        <span class=\"score\">%(score)s</span> after %(num_reviews)s "
 "Review(s)\n"
 "        "
-msgstr "\n<span class=\"score\">%(score)s</span> nach %(num_reviews)s Review(s)"
+msgstr ""
+"\n"
+"<span class=\"score\">%(score)s</span> nach %(num_reviews)s Review(s)"
 
 #: reviews/templates/reviews/reviewable_proposals.html:9
 msgid "Filters"
@@ -2432,7 +2429,6 @@ msgid "Reviewed by you"
 msgstr "Von Ihnen bewertet"
 
 #: reviews/templates/reviews/reviewable_proposals.html:25
-#: skins/ep14/templates/base.html:61
 msgid "Reviews"
 msgstr "Reviews"
 
