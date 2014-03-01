@@ -4,6 +4,7 @@ from django.contrib import admin
 from django.contrib.auth import models as auth_models
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
 from django.core.cache import cache
+from django.core.urlresolvers import reverse
 from django.db.transaction import commit_on_success
 from django.http import HttpResponse
 from django.utils.timezone import now
@@ -55,7 +56,8 @@ class ProposalMetaDataAdmin(admin.ModelAdmin):
     actions = [export_reviewed_proposals]
 
 class ReviewerAdmin(admin.ModelAdmin):
-    list_display = ['user', 'user_display_name', 'user_email', 'state']
+    list_display = ['user', 'user_display_name', 'user_email', 'state',
+        'link_profile']
     list_filter = ['state']
     actions = [accept_reviewer_request, decline_reviewer_request]
 
@@ -64,6 +66,17 @@ class ReviewerAdmin(admin.ModelAdmin):
 
     def user_email(self, instance):
         return instance.user.email
+
+    def link_profile(self, instance):
+        url = reverse('account_profile', kwargs={'uid': instance.user.pk})
+        return '<a href="{url}">{url}</a>'.format(url=url)
+    link_profile.allow_tags = True
+    link_profile.short_description = _('Link to profile')
+
+    def queryset(self, request):
+        qs = super(ReviewerAdmin, self).queryset(request)
+        qs = qs.select_related('user__profile')
+        return qs
 
 
 admin.site.register(models.ProposalVersion,
