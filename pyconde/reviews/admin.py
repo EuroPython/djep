@@ -60,6 +60,7 @@ class ReviewerAdmin(admin.ModelAdmin):
         'link_profile']
     list_filter = ['state']
     actions = [accept_reviewer_request, decline_reviewer_request]
+    search_fields = ('user__username',)
 
     def user_display_name(self, instance):
         return instance.user.get_profile().display_name
