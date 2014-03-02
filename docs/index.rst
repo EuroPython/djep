@@ -7,9 +7,9 @@ Installation & configuration
 .. toctree::
     :maxdepth: 1
 
-    setup/entwickler
-    setup/deployment
+    setup/development
     setup/configuration
+    setup/deployment
     setup/skins
 
 Apps

@@ -2,4 +2,5 @@
 
 django-debug-toolbar==1.0.1
 django-extensions==1.2.5
+honcho==0.5.0
 
