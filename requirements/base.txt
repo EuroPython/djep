@@ -55,3 +55,7 @@ redis==2.9.0
 
 # Celery for async tasks (pdf generation)
 celery==3.1.8
+
+# Documentation
+Sphinx==1.2.1
+sphinx-rtd-theme==0.1.5

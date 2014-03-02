@@ -1,7 +1,7 @@
-Das PyCon DE-Website-System
-===========================
+The EuroPython conference software
+==================================
 
-Installation & Konfiguration
+Installation & configuration
 ----------------------------
 
 .. toctree::
@@ -15,25 +15,35 @@ Installation & Konfiguration
 Apps
 ----
 
-Das Website-Projekt ist in mehreren Phasen implementiert und orientiert sich
-hierbei stark an den einzelnen Zeiträumen, die zu einer Konferenz hinführen.
-Für jede dieser Phasen wurden entsprechende Apps implementiert, die im Folgende
-jeweils einen Einstiegspunkt darstellen:
+This project has been implemented and maintained each year (first as part of
+the PyConDE conference series and starting in 2014 also for the EuroPython
+conference of that year) in phases aligned with the respective conference
+milestones.
+
+For each of these phases we created a separate app described in the following
+chapters:
+
+.. toctree::
+   :maxdepth: 1
+
+   apps/proposals
+   apps/reviews
+   apps/schedule
+   apps/attendees
+
+There also exist a handful of supporting apps that either represent the basis
+of the phase-apps or provide global functionality for the website used
+throughout the site:
 
 .. toctree::
    :maxdepth: 1
 
    apps/conference
-   apps/proposals
-   apps/reviews
-   apps/schedule
-   apps/events
    apps/search
-   apps/attendees
+   apps/events
 
-
-Index und Tabellen
-==================
+Index & tables
+==============
 
 * :ref:`genindex`
 * :ref:`modindex`
