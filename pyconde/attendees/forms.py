@@ -176,7 +176,10 @@ class PurchaseOverviewForm(forms.Form):
         help_text=_('If you choose invoice you will receive an invoice from us.'
                     ' After we receive your money transfer your purchase will'
                     ' be finalized.<br /><br />Credit card payment is handled'
-                    ' through <a href="http://www.paymill.com">PayMill</a>.'))
+                    ' through <a href="http://www.paymill.com">PayMill</a>.'
+                    '<br><br>We accept following credit cards:&nbsp;'
+                    '<img src="/static_media/assets/images/cc/mastercard-curved-32px.png" alt="MasterCard">&nbsp;'
+                    '<img src="/static_media/assets/images/cc/visa-curved-32px.png" alt="VISA">'))
 
     def __init__(self, *args, **kwargs):
         super(PurchaseOverviewForm, self).__init__(*args, **kwargs)
