@@ -75,6 +75,11 @@
     </div>
     {% endif %}
 
+    <div><p>{% blocktrans %}We accept following credit cards:
+    <img src="{{ STATIC_URL }}assets/images/cc/mastercard-curved-32px.png" alt="MasterCard">&nbsp;
+    <img src="{{ STATIC_URL }}assets/images/cc/visa-curved-32px.png" alt="VISA">
+    {% endblocktrans %}</p></div>
+
     <div class="form-group form-actions">
         <div class="controls">
             <button class="btn-primary" type="submit">{% trans "Pay &amp; Complete purchase" %}</button>
