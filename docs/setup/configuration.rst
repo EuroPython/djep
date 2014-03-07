@@ -14,14 +14,14 @@ module as well as a file within the requirements folder.
 
 To work within one of these environments first install the necessary
 requirements::
-    
+
     $ pip install requirements/dev.txt
 
 Now you have to specify the environment with the ``DJANGO_CONFIGURATION``
 environment variables for Django to know what settings to use. To execute
 `syncdb`, for instance, within the "dev" environment you have to execute it
 like that::
-    
+
     $ DJANGO_CONFIGURATION=Dev python manage.py syncdb
 
 There also exists one mandatory setting that has to be injected using an
