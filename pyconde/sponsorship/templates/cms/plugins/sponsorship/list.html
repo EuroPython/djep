@@ -5,25 +5,26 @@
             {% if instance.group %}
                 {% for level, level_sponsors in groups %}
                     <h3>{{ level.name }}</h3>
-                    <ul>
+                    <ul class="sponsor-list">
                         {% for sponsor in level_sponsors %}
                             {% include "cms/plugins/sponsorship/_listitem.html" %}
                         {% endfor %}
                     </ul>
                 {% endfor %}
             {% elif sublists %}
-                {% for list in sublists %}
-                    <ul>
-                        {% for sponsor in list %}
-                            {% ifchanged sponsor.level.name %}
-                                <li><strong>{{ sponsor.level.name }}</strong></li>
-                            {% endifchanged %}
-                            {% include "cms/plugins/sponsorship/_listitem.html" %}
-                        {% endfor %}
-                    </ul>
-                {% endfor %}
+                <ul class="orbit-content" data-orbit data-options="animation:fade;slide_number:false;navigation_arrows:false;resume_on_mouseout:true;timer_speed:7000;animation_speed:250;">
+                    {% for list in sublists %}
+                        <li data-orbit-slide="sponsors-{{ forloop.counter }}">
+                            <ul class="sponsor-list">
+                                {% for sponsor in list %}
+                                    {% include "cms/plugins/sponsorship/_listitem.html" %}
+                                {% endfor %}
+                            </ul>
+                        </li>
+                    {% endfor %}
+                </ul>
             {% else %}
-                <ul>
+                <ul class="sponsor-list">
                     {% for sponsor in sponsors %}
                         {% include "cms/plugins/sponsorship/_listitem.html" %}
                     {% endfor %}
