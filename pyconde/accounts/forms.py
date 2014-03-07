@@ -222,8 +222,7 @@ class ProfileForm(BaseProfileForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
             profile_fields, profession_fields, privacy_fields,
-            (Div(Field('num_accompanying_children', disabled=True),
-                 Field('age_accompanying_children', disabled=True))
+            (HTML('')
              if settings.CHILDREN_DATA_DISABLED else
              Div(Field('num_accompanying_children'),
                  Field('age_accompanying_children'))),

@@ -532,6 +532,28 @@ class Dev(Base):
 
     PURCHASE_INVOICE_ROOT = os.path.join(Base.BASE_DIR, 'invoices')
 
+    LOGGING = {
+        'version': 1,
+        'disable_existing_loggers': False,
+        'formatters': {
+            'simple': {
+                'format': '%(levelname)s  %(module)s %(message)s'
+            },
+        },
+        'handlers': {
+            'console': {
+                'level': 'WARN',
+                'class': 'logging.StreamHandler',
+                'formatter': 'simple'
+            }
+        },
+        'loggers': {
+            '': {
+                'handlers': ['console'],
+            },
+        }
+    }
+
 
 class Testing(Dev):
     CACHES = {
