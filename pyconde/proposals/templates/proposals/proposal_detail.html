@@ -33,6 +33,12 @@ This proposal was submitted on <span class="submission-date">{{ submission_date 
     {{ proposal.description|markdown:"safe" }}
 </div>
 
+{% if proposal.notes %}
+<div class="notes">
+    <h2>{% trans "Notes" %}</h2>
+    {{ proposal.notes|markdown:"safe" }}
+</div>
+{% endif %}
 
 <div class="actions">
     {% if proposal.kind.accepts_proposals %}

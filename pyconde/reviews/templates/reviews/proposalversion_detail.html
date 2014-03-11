@@ -14,6 +14,13 @@
     <div class="description">
         {{ version.description|markdown:"safe" }}
     </div>
+
+    {% if version.notes %}
+        <h3>{% trans "Notes" %}</h3>
+        <div class="notes">
+            {{ version.notes|markdown:"safe" }}
+        </div>
+    {% endif %}
     </article>
 {% endblock %}
 {% block sidebar %}

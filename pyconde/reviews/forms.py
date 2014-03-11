@@ -73,6 +73,7 @@ class UpdateProposalForm(forms.ModelForm):
             'duration': proposal.duration,
             'audience_level': proposal.audience_level,
             'available_timeslots': proposal.available_timeslots.all(),
+            'notes': proposal.notes,
         }, kind_instance=proposal.kind)
         return form
 
@@ -86,14 +87,15 @@ class UpdateTalkProposalForm(UpdateProposalForm):
         del self.fields['track']
 
 
-class UpdateTutorialProposalForm(UpdateProposalForm):
+class UpdateTrainingProposalForm(UpdateProposalForm):
     class Meta(object):
         model = models.ProposalVersion
-        fields = ['title', 'abstract', 'description', 'audience_level', 'tags']
+        fields = ['title', 'abstract', 'description', 'audience_level',
+                  'tags', 'notes']
 
     def __init__(self, *args, **kwargs):
-        super(UpdateTutorialProposalForm, self).__init__(*args, **kwargs)
-        proposal_forms.TutorialSubmissionForm().customize_fields(form=self)
+        super(UpdateTrainingProposalForm, self).__init__(*args, **kwargs)
+        proposal_forms.TrainingSubmissionForm().customize_fields(form=self)
         self.helper.layout = Layout(
             Fieldset(_('General'),
                 Field('title', autofocus='autofocus'),
@@ -103,12 +105,13 @@ class UpdateTutorialProposalForm(UpdateProposalForm):
             Fieldset(_('Details'),
                 Field('audience_level'),
                 Field('tags'),
+                Field('notes'),
                 ),
             ButtonHolder(Submit('save', _("Save"), css_class="btn-primary"))
             )
 
     def customize_save(self, instance):
-        instance.duration = conference_models.SessionDuration.current_objects.get(slug='tutorial')
+        instance.duration = conference_models.SessionDuration.current_objects.get(slug='training')
 
 
 class CommentForm(forms.ModelForm):

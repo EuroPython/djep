@@ -22,6 +22,17 @@
             {{ proposal.description|markdown:"safe" }}
         {% endif %}
     </div>
+
+    {% if proposal_version and proposal_version.notes or proposal.notes %}
+        <h3>{% trans "Notes" %}</h3>
+        <div class="notes">
+            {% if proposal_version %}
+                {{ proposal_version.notes|markdown:"safe" }}
+            {% else %}
+                {{ proposal.notes|markdown:"safe" }}
+            {% endif %}
+        </div>
+    {% endif %}
     </article>
     <div class="actions">
         {% if can_update %}
