@@ -23,6 +23,17 @@ This proposal was submitted on <span class="submission-date">{{ submission_date 
 {% endif %}
 </div>
 
+{% if proposal.kind.slug == 'training' %}
+<div class="description">
+    <h2>{% trans "Description" %}</h2>
+    {{ proposal.description|markdown:"safe" }}
+</div>
+
+<div class="abstract">
+    <h2>{% trans "Structure" %}</h2>
+    {{ proposal.abstract|markdown:"safe" }}
+</div>
+{% else %}
 <div class="abstract">
     <h2>{% trans "Abstract" %}</h2>
     {{ proposal.abstract|markdown:"safe" }}
@@ -32,6 +43,7 @@ This proposal was submitted on <span class="submission-date">{{ submission_date 
     <h2>{% trans "Description" %}</h2>
     {{ proposal.description|markdown:"safe" }}
 </div>
+{% endif %}
 
 {% if proposal.notes %}
 <div class="notes">

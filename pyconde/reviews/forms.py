@@ -99,8 +99,8 @@ class UpdateTrainingProposalForm(UpdateProposalForm):
         self.helper.layout = Layout(
             Fieldset(_('General'),
                 Field('title', autofocus='autofocus'),
-                Field('abstract'),
                 Field('description'),
+                Field('abstract'),
                 ),
             Fieldset(_('Details'),
                 Field('audience_level'),

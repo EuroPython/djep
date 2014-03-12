@@ -5,6 +5,17 @@
 {% block page_title %}{% trans "Proposal" %} "{{ proposal.title }}" @ {{ version.pub_date }}{% endblock %}
 {% block details %}
     <article class="proposal">
+    {% if proposal.kind.slug == 'training' %}
+    <h3>{% trans "Description" %}</h3>
+    <div class="description">
+        {{ version.description|markdown:"safe" }}
+    </div>
+
+    <h3>{% trans "Structure" %}</h3>
+    <div class="abstract">
+        {{ version.abstract|markdown:"safe" }}
+    </div>
+    {% else %}
     <h3>{% trans "Abstract" %}</h3>
     <div class="abstract">
         {{ version.abstract|markdown:"safe" }}
@@ -14,6 +25,7 @@
     <div class="description">
         {{ version.description|markdown:"safe" }}
     </div>
+    {% endif %}
 
     {% if version.notes %}
         <h3>{% trans "Notes" %}</h3>
