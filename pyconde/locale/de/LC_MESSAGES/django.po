@@ -2738,6 +2738,11 @@ msgstr "Sessions mit Tag \"%(tag)s\""
 msgid "Yes"
 msgstr "Ja"
 
+#: skins/default/templates/confirm.html:9
+msgctxt "abort button"
+msgid "Cancel"
+msgstr "Abbrechen"
+
 #: skins/default/templates/bootstrap/whole_uni_form.html:17
 msgid "All fields marked with <b>*</b> are required."
 msgstr "Alle mit <b>*</b> markierten Felder sind Pflichtfelder."

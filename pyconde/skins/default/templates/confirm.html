@@ -6,8 +6,8 @@
     <form method="POST">
         {% csrf_token %}
         <div class="form-actions">
-            <button type="submit" class="btn btn-primary"><i class="icon-white icon-ok-circle"></i> {% trans "Yes" %}</button>
-            <a class="btn" href="{{ next }}"><i class="icon-ban-circle"></i> Abbrechen</a>
+            <button type="submit" class="btn btn-primary"><i class="fa fa-check"></i> {% trans "Yes" %}</button>
+            <a class="btn" href="{{ next }}"><i class="fa fa-ban"></i> {% trans "Cancel" context "abort button" %}</a>
         </div>
     </form>
 </div>
