@@ -20,7 +20,7 @@
         <tbody>
             {% for review in object_list %}
             <tr class="{% if review.proposal.kind %}kind-{{ review.proposal.kind.slug }}{% endif %}">
-                <td class="title"><a href="{% url 'reviews-proposal-details' pk=review.proposal.pk %}">{{ review.proposal.title }}</a></td>
+                <td class="title"><a href="{% url 'reviews-proposal-details' pk=review.proposal.pk %}">{% if review.proposal_version_id %}{{ review.proposal_version.title }}{% else %}{{ review.proposal.title }}{% endif %}</a></td>
                 {% if not current_conference.anonymize_proposal_author %}
                 <td>{{ review.proposal.speaker }}</td>
                 {% endif %}

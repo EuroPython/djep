@@ -42,7 +42,9 @@ class ListProposalsView(OrderMappingMixin, generic_views.TemplateView):
 
     def get_context_data(self, **kwargs):
         proposals = self.get_queryset()
-        my_reviews = models.Review.objects.filter(user=self.request.user).select_related('proposal', 'proposal__track')
+        my_reviews = models.Review.objects \
+                                  .filter(user=self.request.user) \
+                                  .select_related('proposal')
         reviewed_proposals = [rev.proposal for rev in my_reviews]
         for proposal in proposals:
             proposal.reviewed = proposal.proposal in reviewed_proposals
@@ -63,8 +65,19 @@ class ListProposalsView(OrderMappingMixin, generic_views.TemplateView):
         return order
 
     def get_queryset(self):
-        qs = models.ProposalMetaData.objects.select_related('proposal', 'proposal__track', 'proposal__kind').order_by(self.get_order()).all()
-        qs = qs.filter(proposal__conference=current_conference())
+        qs = models.ProposalMetaData.objects \
+                                    .select_related('proposal', 'proposal__track',
+                                                    'proposal__kind',
+                                                    'latest_proposalversion') \
+                                    .only('proposal__kind', 'proposal__track',
+                                          'proposal__title', 'proposal__id',
+                                          'score', 'num_reviews', 'num_comments',
+                                          'latest_proposalversion__id',
+                                          'latest_proposalversion__title',
+                                          'latest_activity_date',
+                                          'latest_comment_date') \
+                                    .order_by(self.get_order()) \
+                                    .filter(proposal__conference_id=current_conference().id)
         if self.filter_form.is_valid():
             track_slug = self.filter_form.cleaned_data['track']
             kind_slug = self.filter_form.cleaned_data['kind']
@@ -100,8 +113,10 @@ class ListMyProposalsView(ListProposalsView):
 
     def get_queryset(self):
         speaker = self.request.user.speaker_profile
-        my_proposals = models.Proposal.current_conference.filter(speaker=speaker) | models.Proposal.current_conference.filter(additional_speakers=speaker)
-        return models.ProposalMetaData.objects.select_related().filter(proposal__in=my_proposals).order_by(self.get_order()).all()
+        my_proposals = models.Proposal.current_conference.filter(speaker=speaker) \
+                     | models.Proposal.current_conference.filter(additional_speakers=speaker)
+        qs = super(ListMyProposalsView, self).get_queryset()
+        return qs.filter(proposal__in=my_proposals)
 
 
 class MyReviewsView(OrderMappingMixin, generic_views.ListView):
@@ -117,7 +132,16 @@ class MyReviewsView(OrderMappingMixin, generic_views.ListView):
     }
 
     def get_queryset(self):
-        return self.model.objects.filter(user=self.request.user).order_by(self.get_order()).select_related('proposal', 'proposal__kind', 'proposal__speaker')
+        return self.model.objects.filter(user=self.request.user) \
+                                 .order_by(self.get_order()) \
+                                 .select_related('proposal',
+                                                 'proposal_version',
+                                                 'proposal__kind',
+                                                 'proposal__speaker') \
+                                 .only('rating', 'proposal_version',
+                                       'proposal__id', 'proposal__title',
+                                       'proposal__kind',
+                                       'proposal__speaker')
 
     def get_template_names(self):
         return ['reviews/my_reviews.html']
