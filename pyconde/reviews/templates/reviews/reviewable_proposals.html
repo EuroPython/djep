@@ -45,7 +45,7 @@
                     <span>{% trans "Reviewed by you" %}</span>
                     {% endif %}
                 </td>
-                <td class="title"><a href="{% url 'reviews-proposal-details' pk=proposal.proposal.pk %}">{{ proposal.title }}</a>{% if proposal.proposal.track %}<span class="track">{% trans "Track" %}: {{ proposal.proposal.track.name }}</span>{% endif %}</td>
+                <td class="title"><a href="{% url 'reviews-proposal-details' pk=proposal.proposal.pk %}">{% if proposal.latest_proposalversion_id %}{{ proposal.latest_proposalversion.title }}{% else %}{{ proposal.title }}{% endif %}</a>{% if proposal.proposal.track %}<span class="track">{% trans "Track" %}: {{ proposal.proposal.track.name }}</span>{% endif %}</td>
                 <td class="reviews">{{ proposal.num_reviews }}</td>
                 {% comment %}
                 <td class="comments">{{ proposal.num_comments }}</td>

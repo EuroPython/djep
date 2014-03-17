@@ -20,7 +20,7 @@
         <tbody>
             {% for proposal in proposals %}
             <tr class="{% if proposal.proposal.kind %}kind-{{ proposal.proposal.kind.slug }}{% endif %}">
-                <td class="title"><a href="{% url 'reviews-proposal-details' pk=proposal.proposal.pk %}">{{ proposal.title }}</a></td>
+                <td class="title"><a href="{% url 'reviews-proposal-details' pk=proposal.proposal.pk %}">{% if proposal.latest_proposalversion_id %}{{ proposal.latest_proposalversion.title }}{% else %}{{ proposal.title }}{% endif %}</a></td>
                 <td>{{ proposal.num_comments }}</td>
                 <td>{% if proposal.latest_comment_date %}{{ proposal.latest_comment_date }}{% endif %}</td>
             </tr>
