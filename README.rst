@@ -84,17 +84,41 @@ following command to install all the other requirements::
     npm install
     cd pyconde/skins/ep14/static/assets && ../../../../../node_modules/bower/bin/bower install
 
-
 Development
 -----------
 
 During development you will probably need a dummy mail server and other
 services that are usually run system-wide in production. To help you keep
 all these services under control the project provides a sample Procfile
-which you can use with `foreman`_::
+which you can use with `foreman`_ or `honcho`_::
     
-    foreman start
+    $ foreman start
 
+or::
+    
+    $ honcho start
+
+Using Vagrant
+-------------
+
+If you have `Vagrant`_ and `VirtualBox`_ installed, you can also use the
+provided Vagrantfile to start a virtual machine with all the non-Python
+requirements already installed::
+    
+    $ vagrant up
+
+Once the virtual machine is running and you've ssh'd into it, you are already in a virtualenv
+into which you can install the Python-requirements::
+    
+    $ cd /vagrant
+    $ pip install -r requirements/dev.txt
+
+With this step also comes `honcho`_ which you can then start with ``honcho
+start`` which starts the dev server on port 8000 which is exposed to port 8080
+on your local host machine.
+
+Note that you will need a filled database before this provides you a working
+system. PostgreSQL is already available and running inside the virtual machine.
 
 Deployment
 ----------
@@ -130,3 +154,7 @@ in the imprint.
 .. _Paul Robert Lloyd: http://www.paulrobertlloyd.com/2009/06/social_media_icons/
 .. _foreman: https://github.com/ddollar/foreman
 .. _django-configurations: http://django-configurations.readthedocs.org/en/latest/
+.. _honcho: https://github.com/nickstenning/honcho
+.. _vagrant: http://www.vagrantup.com/
+.. _virtualbox: https://www.virtualbox.org/
+
