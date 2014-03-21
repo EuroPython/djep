@@ -111,6 +111,7 @@ Once the virtual machine is running and you've ssh'd into it, you are already in
 into which you can install the Python-requirements::
     
     $ cd /vagrant
+    $ npm install
     $ pip install -r requirements/dev.txt
 
 With this step also comes `honcho`_ which you can then start with ``honcho

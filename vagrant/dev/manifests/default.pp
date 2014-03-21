@@ -24,11 +24,8 @@ node default {
       ensure   => installed,
       require  => Package["nodejs"],
       provider => "npm";
-    "sass":
-      ensure   => "3.2.12",
-      provider => "gem";
     "compass":
-      ensure   => "0.12.2",
+      ensure   => "0.12.4",
       provider => "gem"
   }
 
