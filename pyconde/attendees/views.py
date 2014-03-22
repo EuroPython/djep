@@ -357,6 +357,11 @@ class PurchaseOverviewView(LoginRequiredMixin, PurchaseMixin,
     form_class = forms.PurchaseOverviewForm
     step = 'overview'
 
+    def get_form_kwargs(self):
+        result = super(PurchaseOverviewView, self).get_form_kwargs()
+        result['purchase'] = self.purchase
+        return result
+
     def get_context_data(self, *args, **kwargs):
         data = super(PurchaseOverviewView, self).get_context_data(*args,
                                                                   **kwargs)

@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-22 15:31+0100\n"
+"POT-Creation-Date: 2014-03-22 16:20+0100\n"
 "PO-Revision-Date: 2014-02-24 20:19+0100\n"
 "Last-Translator: Stefan Richter <stefan@02strich.de>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -210,7 +210,7 @@ msgstr ""
 "Sie haben zuvor dieser Bedingung zugestimmt. Dies kann nachträglich nicht "
 "mehr revidiert werden."
 
-#: accounts/forms.py:265 attendees/forms.py:47
+#: accounts/forms.py:265 attendees/forms.py:46
 #: attendees/templates/attendees/purchase_names.html:86
 msgid "Continue"
 msgstr "Weiter"
@@ -476,47 +476,47 @@ msgstr ""
 msgid "Attendees App"
 msgstr "Teilnehmer App"
 
-#: attendees/forms.py:20 attendees/models.py:26
+#: attendees/forms.py:21 attendees/models.py:26
 msgid "Invoice"
 msgstr "Rechnung"
 
-#: attendees/forms.py:21 attendees/models.py:27
+#: attendees/forms.py:22 attendees/models.py:27
 msgid "Credit card"
 msgstr "Kreditkarte"
 
-#: attendees/forms.py:22 attendees/models.py:28
+#: attendees/forms.py:23 attendees/models.py:28
 msgid "ELV"
 msgstr "ELV"
 
-#: attendees/forms.py:31 attendees/models.py:172
+#: attendees/forms.py:30 attendees/models.py:172
 msgid "E-mail"
 msgstr "E-Mail"
 
-#: attendees/forms.py:44
+#: attendees/forms.py:43
 #: attendees/templates/attendees/mail_purchase_completed.html:15
 #: attendees/templates/attendees/purchase_confirm.html:44
 #: attendees/templates/attendees/user_purchases.html:27
 msgid "Billing address"
 msgstr "Rechnungsadresse"
 
-#: attendees/forms.py:60
+#: attendees/forms.py:59
 msgid "Quantity"
 msgstr "Anzahl"
 
-#: attendees/forms.py:89
+#: attendees/forms.py:88
 msgid "Tickets sold out."
 msgstr "Tickets ausverkauft."
 
-#: attendees/forms.py:92
+#: attendees/forms.py:91
 msgid "Not enough tickets left."
 msgstr "Nicht genug Tickets mehr verfügbar."
 
-#: attendees/forms.py:95
+#: attendees/forms.py:94
 msgid ""
 "You've exceeded the maximum number of items of this type for this purchase"
 msgstr "Die maximale Menge dieses Produkts für diesen Einkauf ist erreicht."
 
-#: attendees/forms.py:113
+#: attendees/forms.py:112
 msgid ""
 "Sizing charts: <a href=\"http://maxnosleeves.spreadshirt.com/shop/info/"
 "producttypedetails/Popup/Show/productType/813\" target=\"_blank\">Women</a>, "
@@ -528,21 +528,21 @@ msgstr ""
 "a>, <a href=\"http://btn-shop.spreadshirt.de/shop/info/producttypedetails/"
 "Popup/Show/productType/812\" target=\"_blank\">Männer</a>"
 
-#: attendees/forms.py:129 attendees/models.py:72 attendees/models.py:76
+#: attendees/forms.py:128 attendees/models.py:72 attendees/models.py:76
 #: attendees/models.py:308
 #: attendees/templates/attendees/purchase_names.html:57
 msgid "Voucher"
 msgstr "Gutschein"
 
-#: attendees/forms.py:159
+#: attendees/forms.py:158
 msgid "Voucher verification failed."
 msgstr "Gutschein-Verifikation fehlgeschlagen."
 
-#: attendees/forms.py:172
+#: attendees/forms.py:171
 msgid "I've read and agree to the terms and conditions."
 msgstr "Ich habe die allgemeinen Geschäftsbedingungen gelesen und akzeptiert."
 
-#: attendees/forms.py:173
+#: attendees/forms.py:172
 #, python-format
 msgid ""
 "You must accept the <a target=\"_blank\" href=\"%s\">terms and conditions</"
@@ -551,57 +551,62 @@ msgstr ""
 "Sie müssen die <a target=\"_blank\" href=\"%s\">allgemeinen "
 "Geschäftsbedingungen</a> akzeptieren."
 
-#: attendees/forms.py:174
+#: attendees/forms.py:173
 msgid "You must accept the terms and conditions."
 msgstr "Sie müssen die allgemeinen Geschäftsbedingungen akzeptieren."
 
-#: attendees/forms.py:176 attendees/models.py:188
+#: attendees/forms.py:175 attendees/models.py:188
 #: attendees/templates/attendees/mail_purchase_completed.html:13
 msgid "Payment method"
 msgstr "Zahlungsart"
 
-#: attendees/forms.py:178
-msgid ""
-"If you choose invoice you will receive an invoice from us. After we receive "
-"your money transfer your purchase will be finalized.<br /><br />Credit card "
-"payment is handled through <a href=\"http://www.paymill.com\">PayMill</a>."
-"<br><br>We accept following credit cards:&nbsp;<img src=\"/static_media/"
-"assets/images/cc/mastercard-curved-32px.png\" alt=\"MasterCard\">&nbsp;<img "
-"src=\"/static_media/assets/images/cc/visa-curved-32px.png\" alt=\"VISA\">"
-msgstr ""
-"Falls Sie Rechnung auswählen, erhalten Sie von uns eine Rechnung nach "
-"Abschluss des Einkaufes. Sobald wir von Ihnen eine entsprechende Überweisung "
-"erhalten, wird Ihre Bestellung abgeschlossen.<br /><br />Kreditkarten-"
-"Zahlungen werden durch <a href=\"http://www.paymill.com\">PayMill</a> "
-"durchgeführt.<br><br>Wir akzeptieren folgende Kreditkarten:&nbsp;<img src=\"/"
-"static_media/assets/images/cc/mastercard-curved-32px.png\" alt=\"MasterCard"
-"\">&nbsp;<img src=\"/static_media/assets/images/cc/visa-curved-32px.png\" "
-"alt=\"VISA\">"
-
-#: attendees/forms.py:195
+#: attendees/forms.py:188
 msgid "Complete purchase"
 msgstr "Bestellung abschlie&szlig;en"
 
-#: attendees/forms.py:211
+#: attendees/forms.py:228
+msgid ""
+"If you choose invoice you will receive an invoice from us. After we receive "
+"your money transfer your purchase will be finalized."
+msgstr ""
+"Falls Sie Rechnung auswählen, erhalten Sie von uns eine Rechnung nach "
+"Abschluss des Einkaufes. Sobald wir von Ihnen eine entsprechende Überweisung "
+"erhalten, wird Ihre Bestellung abgeschlossen."
+
+#: attendees/forms.py:232
+msgid ""
+"Credit card payment is handled through <a href=\"http://www.paymill.com"
+"\">PayMill</a>.<br><br>We accept following credit cards:&nbsp;<img src=\"/"
+"static_media/assets/images/cc/mastercard-curved-32px.png\" alt=\"MasterCard"
+"\">&nbsp;<img src=\"/static_media/assets/images/cc/visa-curved-32px.png\" "
+"alt=\"VISA\">"
+msgstr ""
+"Kreditkarten-Zahlungen werden durch <a href=\"http://www.paymill.com"
+"\">PayMill</a> durchgeführt.<br><br>Wir akzeptieren folgende Kreditkarten:"
+"&nbsp;<img src=\"/static_media/assets/images/cc/mastercard-curved-32px.png\" "
+"alt=\"MasterCard\">&nbsp;<img src=\"/static_media/assets/images/cc/visa-"
+"curved-32px.png\" alt=\"VISA\">"
+
+#: attendees/forms.py:248
 msgid "Username"
 msgstr "Benutzername"
 
-#: attendees/forms.py:212
+#: attendees/forms.py:249
 msgid ""
 "Specify the username/login of the user you want to assign this ticket to."
 msgstr ""
 "Bitte geben Sie den Benutzernamen jener Person an, der Sie dieses Ticket "
 "zuweisen möchten."
 
-#: attendees/forms.py:219
+#: attendees/forms.py:256
 msgid "Couldn't find a user with this username."
 msgstr "Es konnte kein Benutzer mit diesem Benutzernamen gefunden werden."
 
-#: attendees/forms.py:221
+#: attendees/forms.py:258
 msgid "Tickets purchased by you are already assigned to you :-)"
 msgstr "Tickets, die Sie gekauft haben, sind Ihnen bereits zugewiesen :-)"
 
-#: attendees/forms.py:232 attendees/templates/attendees/assign_ticket.html:3
+#: attendees/forms.py:269 attendees/templates/attendees/assign_ticket.html:3
 #: attendees/templates/attendees/assign_ticket.html:4
 msgid "Assign ticket"
 msgstr "Ticket zuweisen"
@@ -829,23 +834,23 @@ msgid ""
 msgstr ""
 "Das folgende Ticket ist nicht mehr in ausreichender Menge verfügbar: %s"
 
-#: attendees/views.py:442
+#: attendees/views.py:447
 msgid "Payment failed. Please check your data."
 msgstr "Zahlung fehlgeschlagen. Bitte überprüfen Sie die Daten."
 
-#: attendees/views.py:455
+#: attendees/views.py:460
 msgid "Transaction already processed."
 msgstr "Transaktion wurde bereits ausgeführt."
 
-#: attendees/views.py:457
+#: attendees/views.py:462
 msgid "Purchase already handled."
 msgstr "Bezahlung wurde bereits bearbeitet."
 
-#: attendees/views.py:520
+#: attendees/views.py:525
 msgid "The invoice has been sent to you."
 msgstr "Die Rechnung wurde dir zugesandt."
 
-#: attendees/views.py:523
+#: attendees/views.py:528
 msgid ""
 "The invoice for this purchase does not exist or has not yet been generated. "
 "You will receive a mail with the invoice soon."
@@ -853,7 +858,7 @@ msgstr ""
 "Die Rechnung für diesen Kauf wurde noch nicht erstellt. Du wirst eine Kopie "
 "per E-Mail erhalten, sobald die Rechnung erstellt wurde."
 
-#: attendees/views.py:560
+#: attendees/views.py:565
 msgid "This ticket was successfully assigned to the specified user"
 msgstr "Das Ticket wurde erfolgreich dem angegebenen Benutzer zugewiesen"
 
@@ -1206,8 +1211,8 @@ msgstr "Teilnehmer"
 
 #: attendees/templates/attendees/purchase_names.html:11
 msgid ""
-"Please enter the name and other information relevant for the specific "
-"ticket(s) in the fields below."
+"Please enter the name and other information relevant for the specific ticket"
+"(s) in the fields below."
 msgstr "Bitte gib die Namen und übrigen Informationenen zu den Tickets an."
 
 #: attendees/templates/attendees/purchase_names.html:56
@@ -2538,8 +2543,8 @@ msgstr "Diese Review basiert auf einer alten Vorschlagsversion:"
 #, python-format
 msgid ""
 "\n"
-"        <span class=\"score\">%(score)s</span> after %(num_reviews)s "
-"Review(s)\n"
+"        <span class=\"score\">%(score)s</span> after %(num_reviews)s Review"
+"(s)\n"
 "        "
 msgstr ""
 "\n"
@@ -3186,8 +3191,8 @@ msgstr ""
 
 #: sponsorship/models.py:73
 msgid ""
-"Please specify the custom logo size for listings in the format "
-"[width]x[height]."
+"Please specify the custom logo size for listings in the format [width]x"
+"[height]."
 msgstr ""
 "Bitte gib die benutzerdefinierten Dimensionen im Format [Breite]x[Höhe] an."
 

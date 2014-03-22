@@ -226,3 +226,17 @@ class TicketAssignmentFormTests(TestCase):
             current_user=self.user1,
             data={'username': self.user1.username})
         self.assertFalse(form.is_valid())
+
+
+class PurchaseOverviewFormTests(TestCase):
+    def test_creditcard_unavailable_for_zero_total(self):
+        form = forms.PurchaseOverviewForm(
+            purchase=models.Purchase(payment_total=0.0))
+        available_methods = [c[0] for c in form.fields['payment_method'].choices]
+        self.assertNotIn('creditcard', available_methods)
+
+    def test_creditcard_available_for_gtzero_total(self):
+        form = forms.PurchaseOverviewForm(
+            purchase=models.Purchase(payment_total=0.01))
+        available_methods = [c[0] for c in form.fields['payment_method'].choices]
+        self.assertIn('creditcard', available_methods)
