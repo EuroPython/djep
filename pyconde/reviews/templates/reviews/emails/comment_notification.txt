@@ -2,7 +2,7 @@
 
 -------------------
 
-{{ comment.content }}
+{{ comment.content|striptags|safe }}{# Although striptags is not safe (https://www.djangoproject.com/weblog/2014/mar/22/strip-tags-advisory/) we still use it here, as this is "only" an email content. #}
 
 -------------------
 
