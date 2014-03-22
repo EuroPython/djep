@@ -27,6 +27,11 @@ PAYMENT_METHOD_CHOICES = (
     ('elv', _('ELV')),
 )
 
+GENDER_CHOICES = (
+    ('male', _('male')),
+    ('female', _('female')),
+)
+
 
 class VoucherTypeManager(models.Manager):
     pass
@@ -275,23 +280,53 @@ class Ticket(models.Model):
     purchase = models.ForeignKey(Purchase)
     ticket_type = models.ForeignKey(TicketType, verbose_name=_('Ticket type'))
 
-    # TODO: organisation - for badges should have asked for org name of visitor!
-    first_name = models.CharField(_('First name'), max_length=250, blank=True)
-    last_name = models.CharField(_('Last name'), max_length=250, blank=True)
-    shirtsize = models.ForeignKey(TShirtSize, blank=True, null=True,
-                                  verbose_name=_('Desired T-Shirt size'))
-
     date_added = models.DateTimeField(
         _('Date (added)'), blank=False, default=now)
-    voucher = models.ForeignKey(
-        'Voucher', verbose_name=_('Voucher'), blank=True, null=True)
 
     class Meta:
+        abstract = True
         ordering = ('ticket_type__tutorial_ticket',
                     'ticket_type__product_number')
         verbose_name = _('Ticket')
         verbose_name_plural = _('Tickets')
 
+
+class SupportTicket(Ticket):
+    def __unicode__(self):
+        return u'%s - %s' % (ugettext('Support'), self.ticket_type)
+
+
+class VenueTicket(Ticket):
+    first_name = models.CharField(_('First name'), max_length=250, blank=True)
+    last_name = models.CharField(_('Last name'), max_length=250, blank=True)
+    organisation = models.CharField(
+        _('Organization'), max_length=100, blank=True)
+
+    shirtsize = models.ForeignKey(TShirtSize, blank=True, null=True,
+                                  verbose_name=_('Desired T-Shirt size'))
+
+    voucher = models.ForeignKey(
+        'Voucher', verbose_name=_('Voucher'), blank=True, null=True)
+
     def __unicode__(self):
         return u'%s %s - %s' % (self.first_name, self.last_name,
                                 self.ticket_type)
+
+
+class SIMCardTicket(VenueTicket):
+    date_of_birth = models.DateField(_('Date of birth'))
+    gender = models.CharField(_('Gender'), max_length=6, choices=GENDER_CHOICES)
+
+    hotel_name = models.CharField(
+        _('Host'), max_length=100, blank=True,
+        help_text=_('Name of your hotel or host for your stay.'))
+    email = models.EmailField(_('E-mail'), blank=False)
+
+    street = models.CharField(_('Street and house number'), max_length=100)
+    zip_code = models.CharField(_('Zip code'), max_length=20)
+    city = models.CharField(_('City'), max_length=100)
+    country = models.CharField(_('Country'), max_length=100)
+
+    phone = models.CharField(
+        _('Host phone number'), max_length=100, blank=False,
+        help_text=_('Please supply the phone number of your hotel or host.'))
