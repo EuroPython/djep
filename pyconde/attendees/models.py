@@ -299,7 +299,7 @@ class Ticket(models.Model):
     ticket_type = models.ForeignKey(TicketType, verbose_name=_('Ticket type'))
     user = models.ForeignKey(
         User, null=True, blank=True,
-        related_name='tickets')
+        related_name='%(app_label)s_%(class)s_tickets')
 
     date_added = models.DateTimeField(
         _('Date (added)'), blank=False, default=now)
