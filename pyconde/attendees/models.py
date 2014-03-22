@@ -7,6 +7,7 @@ from email.utils import formataddr
 
 from django.contrib.auth.models import User
 from django.db import models
+from django.db.models import Q
 from django.utils.timezone import now
 from django.utils.translation import ugettext, ugettext_lazy as _
 
@@ -271,9 +272,32 @@ class TShirtSize(models.Model):
         return self.size
 
 
+class TicketManager(models.Manager):
+    def get_active_user_tickets(self, user):
+        """
+        This returns all tickets that belong to a certain user, meaning that
+        they were purchased by the user and not assigned to a different user
+        or purchased by someone else and then assigned to the user.
+
+        Only tickets from completed purchases are listed here.
+        """
+        return self.select_related('user')\
+                   .filter(
+                       Q(Q(purchase__user=user) & Q(user__isnull=True))
+                       | Q(user=user)
+                       )\
+                   .exclude(purchase__state='incomplete')\
+                   .exclude(purchase__state='invoice_created')\
+                   .exclude(purchase__state='canceled')\
+                   .exclude(purchase__state='new')
+
+
 class Ticket(models.Model):
     purchase = models.ForeignKey(Purchase)
     ticket_type = models.ForeignKey(TicketType, verbose_name=_('Ticket type'))
+    user = models.ForeignKey(
+        User, null=True, blank=True,
+        related_name='tickets')
 
     # TODO: organisation - for badges should have asked for org name of visitor!
     first_name = models.CharField(_('First name'), max_length=250, blank=True)
@@ -285,6 +309,8 @@ class Ticket(models.Model):
         _('Date (added)'), blank=False, default=now)
     voucher = models.ForeignKey(
         'Voucher', verbose_name=_('Voucher'), blank=True, null=True)
+
+    objects = TicketManager()
 
     class Meta:
         ordering = ('ticket_type__tutorial_ticket',

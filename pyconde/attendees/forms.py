@@ -1,8 +1,10 @@
 # -*- coding: utf-8 -*-
 from django import forms
 from django.core.cache import get_cache
+from django.core.exceptions import ValidationError
 from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.contrib.auth import models as auth_models
 
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, HTML
@@ -202,3 +204,35 @@ class PurchaseOverviewForm(forms.Form):
                 if choice[0] in settings.PAYMENT_METHODS:
                     new_choices.append(choice)
             self.fields['payment_method'].choices = new_choices
+
+
+class TicketAssignmentForm(forms.Form):
+    username = forms.CharField(
+        label=_("Username"),
+        help_text=_("Specify the username/login of the user you want to "
+                    "assign this ticket to.")
+        )
+
+    def clean_username(self):
+        val = self.cleaned_data['username']
+        if 0 == auth_models.User.objects.filter(username=val).count():
+            raise ValidationError(_("Couldn't find a user with this username."))
+        if self.current_user is not None and self.current_user.username == val:
+            raise ValidationError(_("Tickets purchased by you are already assigned to you :-)"))
+        return val
+
+    def __init__(self, *args, **kwargs):
+        self.current_user = kwargs.get('current_user')
+        if 'current_user' in kwargs:
+            del kwargs['current_user']
+        super(TicketAssignmentForm, self).__init__(*args, **kwargs)
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.layout = Layout(
+            'username',
+            ButtonHolder(
+                Submit('submit', _('Assign ticket'),
+                       css_class='btn btn-primary')
+            )
+        )
+

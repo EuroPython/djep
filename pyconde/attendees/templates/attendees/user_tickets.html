@@ -1,0 +1,44 @@
+{% extends "attendees/base.html" %}
+{% load i18n %}
+{% block bodyclass %}{{ block.super }} user_tickets with-sidebar{% endblock %}
+{% block title %}{% trans "Your tickets" %}{% endblock %}
+{% block page_title %}{% trans "Your tickets" %}{% endblock %}
+{% block content %}
+<div class="row">
+    <div id="details">
+        {% if tickets %}
+            {% for ticket in tickets %}
+                <div class="ticket" id="ticket{{ ticket.pk }}">
+                    <h2>{{ ticket.ticket_type.name }} (#{{ ticket.pk }})</h2>
+                    <dl>
+                        <dt>{% trans "Name" %}:</dt>
+                        <dd>{{ ticket.first_name }} {{ ticket.last_name }}</dd>
+                    </dl>
+                    <dl>
+                        <dt>{% trans "Desired T-Shirt size" %}:</dt>
+                        <dd>{% if ticket.shirtsize %}{{ ticket.shirtsize }}{% else %}-{% endif %}</dd>
+                    </dl>
+                </div>
+            {% endfor %}
+        {% else %}
+            <div class="empty">
+                {% blocktrans %}
+                <p>There are currently no tickets associated with your account.</p>
+                <p>Please note that tickets from not yet completed purchases are not listed here.</p>
+                {% endblocktrans %}
+            </div>
+        {% endif %}
+    </div>
+    <div id="sidebar">
+        <div id="help">
+            {% blocktrans %}
+            <p>Here you can see all the tickets that are associated with your account.
+            If another user purchased a ticket for you which doesn't show up here, please
+            ask them to assign the ticket to you. They can do that through their list
+            of purchases.</p>
+            <p>Please note that only tickets from completed purchases are listed here.</p>
+            {% endblocktrans %}
+        </div>
+    </div>
+</div>
+{% endblock %}

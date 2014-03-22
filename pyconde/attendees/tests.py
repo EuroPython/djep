@@ -192,3 +192,37 @@ class TicketVoucherFormTests(TestCase):
             'tv-{0}-code'.format(self.ticket.pk): self.voucher2.code
         })
         self.assertFalse(form.is_valid())
+
+
+class TicketAssignmentFormTests(TestCase):
+    def setUp(self):
+        self.user1 = auth_models.User.objects.create_user(
+            'test_user1', 'test1@test.com', 'test_password')
+        self.user2 = auth_models.User.objects.create_user(
+            'test_user2', 'test2@test.com', 'test_password')
+
+    def tearDown(self):
+        self.user1.delete()
+        self.user2.delete()
+
+    def test_username_required(self):
+        form = forms.TicketAssignmentForm()
+        self.assertFalse(form.is_valid())
+
+    def test_non_existing_username(self):
+        form = forms.TicketAssignmentForm(
+            current_user=self.user1,
+            data={'username': 'i-dont-exist@test.com'})
+        self.assertFalse(form.is_valid())
+
+    def test_username_not_of_current_user(self):
+        form = forms.TicketAssignmentForm(
+            current_user=self.user1,
+            data={'username': self.user2.username})
+        self.assertTrue(form.is_valid())
+
+    def test_username_of_current_user(self):
+        form = forms.TicketAssignmentForm(
+            current_user=self.user1,
+            data={'username': self.user1.username})
+        self.assertFalse(form.is_valid())

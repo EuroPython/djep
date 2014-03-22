@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n account_tags %}
 {% block bodyclass %}user_purchases{% endblock %}
 {% block title %}{% trans "Your purchases" %}{% endblock %}
 {% block page_title %}{% trans "Your purchases" %}{% endblock %}
@@ -42,8 +42,30 @@
             <ul>
                 {% for ticket in purchase.list %}
                 <li>
-                    <span class="type">{{ ticket.ticket_type.name }}:</span>
+                    <span class="type">
+                        {% if purchase.grouper.state == 'payment_received' %}
+                            {% if not ticket.user or ticket.user == user %}
+                            <a href="{% url 'attendees_user_tickets' %}#ticket{{ticket.pk}}">{{ ticket.ticket_type.name }}</a>:
+                            {% else %}
+                            {{ ticket.ticket_type.name }}:
+                            {% endif %}
+                        {% else %}
+                            {{ ticket.ticket_type.name }}:
+                        {% endif %}
+                    </span>
                     <p class="details">{{ ticket.first_name }} {{ ticket.last_name }}</p>
+                    <div class="ticket-assignment">
+                    {% if purchase.grouper.state == 'payment_received' %}
+                        {% if ticket.user %}
+                            <p>{% blocktrans with username=ticket.user|display_name %}This ticket has been assigned to {{ username }}. Please contact the helpdesk if
+                            you want to change this.{% endblocktrans %}</p>
+                        {% else %}
+                            <a href="{% url 'attendees_assign_ticket' pk=ticket.pk %}"><i class="fa fa-fw fa-user"></i> {% trans "Assign to different user" %}</a>
+                        {% endif %}
+                    {% else %}
+                        <p>{% trans "Please complete the purchase first for further ticket options." %}</p>
+                    {% endif %}
+                    </div>
                 </li>
                 {% endfor %}
             </ul>
