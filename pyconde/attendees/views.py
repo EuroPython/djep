@@ -541,7 +541,7 @@ class AssignTicketView(LoginRequiredMixin, generic_views.View):
         self.ticket = get_object_or_404(
             Ticket,
             pk=kwargs['pk'], purchase__user=self.request.user,
-            user__isnull=True)
+            user__isnull=True, purchase__state='payment_received')
         return super(AssignTicketView, self).dispatch(*args, **kwargs)
 
     def get(self, *args, **kwargs):
