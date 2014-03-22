@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-22 13:11+0100\n"
+"POT-Creation-Date: 2014-03-22 13:45+0100\n"
 "PO-Revision-Date: 2014-02-24 20:19+0100\n"
 "Last-Translator: Stefan Richter <stefan@02strich.de>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -601,7 +601,7 @@ msgstr "Es konnte kein Benutzer mit diesem Benutzernamen gefunden werden."
 msgid "Tickets purchased by you are already assigned to you :-)"
 msgstr "Tickets, die Sie gekauft haben, sind Ihnen bereits zugewiesen :-)"
 
-#: attendees/forms.py:234 attendees/templates/attendees/assign_ticket.html:3
+#: attendees/forms.py:232 attendees/templates/attendees/assign_ticket.html:3
 #: attendees/templates/attendees/assign_ticket.html:4
 msgid "Assign ticket"
 msgstr "Ticket zuweisen"
@@ -1966,7 +1966,6 @@ msgstr "Abstract"
 #: proposals/templates/proposals/proposal_detail.html:50
 #: reviews/templates/reviews/proposal_details.html:46
 #: reviews/templates/reviews/proposalversion_detail.html:31
-#, fuzzy
 msgid "Notes"
 msgstr "Anmerkungen"
 
