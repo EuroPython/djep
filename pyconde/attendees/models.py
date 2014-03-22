@@ -286,10 +286,7 @@ class TicketManager(models.Manager):
                        Q(Q(purchase__user=user) & Q(user__isnull=True))
                        | Q(user=user)
                        )\
-                   .exclude(purchase__state='incomplete')\
-                   .exclude(purchase__state='invoice_created')\
-                   .exclude(purchase__state='canceled')\
-                   .exclude(purchase__state='new')
+                   .filter(purchase__state='payment_received')
 
 
 class Ticket(models.Model):

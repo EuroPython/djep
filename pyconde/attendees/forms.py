@@ -215,16 +215,14 @@ class TicketAssignmentForm(forms.Form):
 
     def clean_username(self):
         val = self.cleaned_data['username']
-        if 0 == auth_models.User.objects.filter(username=val).count():
+        if not auth_models.User.objects.filter(username=val).exists():
             raise ValidationError(_("Couldn't find a user with this username."))
         if self.current_user is not None and self.current_user.username == val:
             raise ValidationError(_("Tickets purchased by you are already assigned to you :-)"))
         return val
 
     def __init__(self, *args, **kwargs):
-        self.current_user = kwargs.get('current_user')
-        if 'current_user' in kwargs:
-            del kwargs['current_user']
+        self.current_user = kwargs.pop('current_user', None)
         super(TicketAssignmentForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
@@ -235,4 +233,3 @@ class TicketAssignmentForm(forms.Form):
                        css_class='btn btn-primary')
             )
         )
-
