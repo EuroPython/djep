@@ -32,7 +32,7 @@ djangocms-style==1.0.6
 easy-thumbnails==1.4
 html5lib==0.99
 python-dateutil==2.2
-pytz==2013.7
+pytz==2014.1.1
 requests==2.0.1
 gunicorn==18.0
 psycopg2==2.5.1
