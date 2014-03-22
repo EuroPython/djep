@@ -137,7 +137,7 @@ class TicketType(models.Model):
     @property
     def purchases_count(self):
         # Ignore incomplete purchases.
-        return self.ticket_set.filter(ticket_type=self).exclude(
+        return self.venueticket_set.filter(ticket_type=self).exclude(
             purchase__state='incomplete').count()
 
     @property
@@ -287,11 +287,13 @@ class Ticket(models.Model):
         abstract = True
         ordering = ('ticket_type__tutorial_ticket',
                     'ticket_type__product_number')
-        verbose_name = _('Ticket')
-        verbose_name_plural = _('Tickets')
 
 
 class SupportTicket(Ticket):
+    class Meta:
+        verbose_name = _('Support Ticket')
+        verbose_name_plural = _('Support Tickets')
+
     def __unicode__(self):
         return u'%s - %s' % (ugettext('Support'), self.ticket_type)
 
@@ -308,12 +310,19 @@ class VenueTicket(Ticket):
     voucher = models.ForeignKey(
         'Voucher', verbose_name=_('Voucher'), blank=True, null=True)
 
+    class Meta:
+        verbose_name = _('Ticket')
+        verbose_name_plural = _('Tickets')
+
     def __unicode__(self):
         return u'%s %s - %s' % (self.first_name, self.last_name,
                                 self.ticket_type)
 
 
-class SIMCardTicket(VenueTicket):
+class SIMCardTicket(Ticket):
+    first_name = models.CharField(_('First name'), max_length=250, blank=False)
+    last_name = models.CharField(_('Last name'), max_length=250, blank=False)
+
     date_of_birth = models.DateField(_('Date of birth'))
     gender = models.CharField(_('Gender'), max_length=6, choices=GENDER_CHOICES)
 
@@ -322,11 +331,22 @@ class SIMCardTicket(VenueTicket):
         help_text=_('Name of your hotel or host for your stay.'))
     email = models.EmailField(_('E-mail'), blank=False)
 
-    street = models.CharField(_('Street and house number'), max_length=100)
-    zip_code = models.CharField(_('Zip code'), max_length=20)
-    city = models.CharField(_('City'), max_length=100)
-    country = models.CharField(_('Country'), max_length=100)
+    street = models.CharField(_('Street and house number of host'), max_length=100)
+    zip_code = models.CharField(_('Zip code of host'), max_length=20)
+    city = models.CharField(_('City of host'), max_length=100)
+    country = models.CharField(_('Country of host'), max_length=100)
 
     phone = models.CharField(
         _('Host phone number'), max_length=100, blank=False,
         help_text=_('Please supply the phone number of your hotel or host.'))
+
+    sim_id = models.CharField(
+        _('IMSI'), max_length=20, blank=True,
+        help_text=_('The IMSI of the SIM Card associated with this account.'))
+
+    class Meta:
+        verbose_name = _('SIM Card')
+        verbose_name_plural = _('SIM Cards')
+
+    def __unicode__(self):
+        return u'%s %s - SIM %s' % (self.first_name, self.last_name, self.sim_id)
