@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-22 13:45+0100\n"
+"POT-Creation-Date: 2014-03-22 15:25+0100\n"
 "PO-Revision-Date: 2014-02-24 20:19+0100\n"
 "Last-Translator: Stefan Richter <stefan@02strich.de>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -853,7 +853,7 @@ msgstr ""
 "Die Rechnung für diesen Kauf wurde noch nicht erstellt. Du wirst eine Kopie "
 "per E-Mail erhalten, sobald die Rechnung erstellt wurde."
 
-#: attendees/views.py:560
+#: attendees/views.py:561
 msgid "This ticket was successfully assigned to the specified user"
 msgstr "Das Ticket wurde erfolgreich dem angegebenen Benutzer zugewiesen"
 
@@ -1206,8 +1206,8 @@ msgstr "Teilnehmer"
 
 #: attendees/templates/attendees/purchase_names.html:11
 msgid ""
-"Please enter the name and other information relevant for the specific ticket"
-"(s) in the fields below."
+"Please enter the name and other information relevant for the specific "
+"ticket(s) in the fields below."
 msgstr "Bitte gib die Namen und übrigen Informationenen zu den Tickets an."
 
 #: attendees/templates/attendees/purchase_names.html:56
@@ -1318,8 +1318,8 @@ msgid ""
 "\n"
 "                <p>There are currently no tickets associated with your "
 "account.</p>\n"
-"                <p>Please note that tickets from not yet completed purchases "
-"are not listed here.</p>\n"
+"                <p>Please note that only tickets from completed purchases "
+"are listed here.</p>\n"
 "                "
 msgstr ""
 "\n"
@@ -2534,8 +2534,8 @@ msgstr "Diese Review basiert auf einer alten Vorschlagsversion:"
 #, python-format
 msgid ""
 "\n"
-"        <span class=\"score\">%(score)s</span> after %(num_reviews)s Review"
-"(s)\n"
+"        <span class=\"score\">%(score)s</span> after %(num_reviews)s "
+"Review(s)\n"
 "        "
 msgstr ""
 "\n"
@@ -3182,8 +3182,8 @@ msgstr ""
 
 #: sponsorship/models.py:73
 msgid ""
-"Please specify the custom logo size for listings in the format [width]x"
-"[height]."
+"Please specify the custom logo size for listings in the format "
+"[width]x[height]."
 msgstr ""
 "Bitte gib die benutzerdefinierten Dimensionen im Format [Breite]x[Höhe] an."
 
