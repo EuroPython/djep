@@ -20,10 +20,12 @@ import pymill
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib import messages
+from django.contrib.auth import models as auth_models
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
+from django.template.response import TemplateResponse
 import django.views.generic as generic_views
 
 from pyconde.conference.models import current_conference
@@ -481,8 +483,23 @@ class UserPurchasesView(LoginRequiredMixin, generic_views.TemplateView):
                              .exclude(purchase__state='incomplete')
                              .exclude(purchase__state='new')
                              .select_related('purchase', 'purchase__user',
-                                             'ticket_type')
+                                             'ticket_type', 'user')
                              .order_by('-purchase__date_added')
+        }
+
+
+class UserTicketsView(LoginRequiredMixin, generic_views.TemplateView):
+    """
+    This view provides the currently logged in user a list of all tickets
+    associated with their account. If the user is also the one that purchased
+    the ticket, they can reassign them to another user.
+    """
+    template_name = 'attendees/user_tickets.html'
+
+    def get_context_data(self):
+        return {
+            'tickets': Ticket.objects
+                             .get_active_user_tickets(self.request.user).all()
         }
 
 
@@ -507,3 +524,39 @@ class UserResendInvoiceView(LoginRequiredMixin, generic_views.View):
                   'yet been generated. You will receive a mail with the '
                   'invoice soon.'))
         return HttpResponseRedirect(reverse('attendees_user_purchases'))
+
+
+class AssignTicketView(LoginRequiredMixin, generic_views.View):
+    """
+    This view allows the current user to assign a ticket from one of their
+    purchases to a different user.
+    """
+
+    def dispatch(self, *args, **kwargs):
+        self.ticket = get_object_or_404(
+            Ticket,
+            pk=kwargs['pk'], purchase__user=self.request.user,
+            user__isnull=True)
+        return super(AssignTicketView, self).dispatch(*args, **kwargs)
+
+    def get(self, *args, **kwargs):
+        if not hasattr(self, 'form'):
+            self.form = forms.TicketAssignmentForm(
+                current_user=self.request.user)
+        return TemplateResponse(self.request, 'attendees/assign_ticket.html', {
+            'form': self.form
+            })
+
+    def post(self, *args, **kwargs):
+        self.form = forms.TicketAssignmentForm(
+            data=self.request.POST, current_user=self.request.user)
+        if self.form.is_valid():
+            user = auth_models.User.objects.get(
+                username=self.form.cleaned_data['username'])
+            self.ticket.user = user
+            self.ticket.save()
+            messages.success(
+                self.request,
+                _("This ticket was successfully assigned to the specified user"))
+            return HttpResponseRedirect(reverse('attendees_user_purchases'))
+        return self.get(*args, **kwargs)

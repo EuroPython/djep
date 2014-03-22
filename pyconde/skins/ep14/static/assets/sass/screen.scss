@@ -536,6 +536,22 @@ div.actions {
     opacity: 0.8;
 }
 
+body.with-sidebar {
+    #details {
+        @media #{$medium-up} {
+            @include grid-column($columns:9);
+            padding-right: 20px;
+        }
+    }
+    #sidebar {
+        font-size: 80%;
+        opacity: 0.8;
+        @media #{$medium-up} {
+            @include grid-column($columns:3);
+        }
+    }
+}
+
 @import "frontpage";
 @import "userprofile";
 @import "account";
