@@ -10,7 +10,8 @@ from django.utils.translation import ugettext, ugettext_lazy as _
 
 from . import tasks
 from . import utils
-from .models import Purchase, Ticket, TicketType, Voucher, VoucherType, TShirtSize
+from .models import Purchase, Ticket, VenueTicket, TicketType, Voucher, VoucherType, \
+                    TShirtSize, SIMCardTicket
 
 
 def export_tickets(modeladmin, request, queryset):
@@ -51,7 +52,7 @@ admin.site.register(Voucher, VoucherAdmin)
 
 
 class TicketInline(admin.TabularInline):
-    model = Ticket
+    model = VenueTicket
     extra = 0
 
 
@@ -140,11 +141,30 @@ class PurchaseAdmin(admin.ModelAdmin):
 admin.site.register(Purchase, PurchaseAdmin)
 
 
-class TicketAdmin(admin.ModelAdmin):
+class SupportTicketAdmin(admin.ModelAdmin):
+    list_display = ('purchase', 'ticket_type', 'date_added')
+    list_filter = ('ticket_type', 'date_added', 'purchase__state')
+    search_fields = ('purchase__email', )
+    actions = [export_tickets]
+
+admin.site.register(Ticket, SupportTicketAdmin)
+
+
+class VenueTicketAdmin(admin.ModelAdmin):
     list_display = ('purchase', 'first_name', 'last_name', 'ticket_type',
                     'shirtsize', 'date_added')
     list_filter = ('ticket_type', 'date_added', 'purchase__state')
     search_fields = ('first_name', 'last_name', 'purchase__email')
     actions = [export_tickets]
 
-admin.site.register(Ticket, TicketAdmin)
+admin.site.register(VenueTicket, VenueTicketAdmin)
+
+
+class SIMCardTicketAdmin(admin.ModelAdmin):
+    list_display = ('purchase', 'first_name', 'last_name', 'ticket_type',
+                    'shirtsize', 'sim_id', 'date_added')
+    list_filter = ('ticket_type', 'date_added', 'purchase__state')
+    search_fields = ('first_name', 'last_name', 'purchase__email')
+    actions = [export_tickets]
+
+admin.site.register(SIMCardTicket, SIMCardTicketAdmin)

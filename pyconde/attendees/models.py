@@ -284,14 +284,11 @@ class Ticket(models.Model):
         _('Date (added)'), blank=False, default=now)
 
     class Meta:
-        abstract = True
         ordering = ('ticket_type__tutorial_ticket',
                     'ticket_type__product_number')
-        verbose_name = _('Ticket')
-        verbose_name_plural = _('Tickets')
+        verbose_name = _('Support Ticket')
+        verbose_name_plural = _('Support Tickets')
 
-
-class SupportTicket(Ticket):
     def __unicode__(self):
         return u'%s - %s' % (ugettext('Support'), self.ticket_type)
 
@@ -307,6 +304,10 @@ class VenueTicket(Ticket):
 
     voucher = models.ForeignKey(
         'Voucher', verbose_name=_('Voucher'), blank=True, null=True)
+
+    class Meta:
+        verbose_name = _('Ticket')
+        verbose_name_plural = _('Tickets')
 
     def __unicode__(self):
         return u'%s %s - %s' % (self.first_name, self.last_name,
@@ -330,3 +331,11 @@ class SIMCardTicket(VenueTicket):
     phone = models.CharField(
         _('Host phone number'), max_length=100, blank=False,
         help_text=_('Please supply the phone number of your hotel or host.'))
+
+    sim_id = models.CharField(
+        _('IMSI'), max_length=20, blank=True,
+        help_text=_('The IMSI of the SIM Card associated with this account.'))
+
+    class Meta:
+        verbose_name = _('Ticket with SIM Card')
+        verbose_name_plural = _('Tickets with SIM Card')

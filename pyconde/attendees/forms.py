@@ -8,7 +8,7 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, HTML
 
 from pyconde.conference.models import current_conference
-from pyconde.attendees.models import Purchase, Ticket, Voucher
+from pyconde.attendees.models import Purchase, VenueTicket, Voucher
 from pyconde.forms import Submit
 
 from . import utils
@@ -111,7 +111,7 @@ class TicketNameForm(forms.ModelForm):
         self.fields['shirtsize'].help_text = _('''Sizing charts: <a href="http://maxnosleeves.spreadshirt.com/shop/info/producttypedetails/Popup/Show/productType/813" target="_blank">Women</a>, <a href="http://maxnosleeves.spreadshirt.com/shop/info/producttypedetails/Popup/Show/productType/812" target="_blank">Men</a>''')
 
     class Meta:
-        model = Ticket
+        model = VenueTicket
         fields = ('first_name', 'last_name', 'shirtsize')
 
     def save(self, *args, **kwargs):
@@ -133,7 +133,7 @@ class TicketVoucherForm(forms.ModelForm):
             prefix='tv-%s' % kwargs['instance'].pk, *args, **kwargs)
 
     class Meta:
-        model = Ticket
+        model = VenueTicket
         fields = ('code',)
 
     def clean_code(self):
