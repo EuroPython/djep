@@ -18,7 +18,7 @@ class SponsorListPlugin(CMSPluginBase):
     def render(self, context, instance, placeholder):
         levels = instance.levels.order_by('order').all()
         sponsors = models.Sponsor.objects.filter(
-            level__in=levels, active=True).order_by('level__order')\
+            level__in=levels, active=True).order_by('level__order', '-added')\
             .select_related('level')
         groups = None
         sublists = None

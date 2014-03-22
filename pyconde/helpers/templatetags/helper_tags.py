@@ -1,5 +1,5 @@
 from django.template import Library
-from django.utils.html import escape, strip_tags
+from django.utils.html import escape
 from django.utils.safestring import mark_safe
 
 

@@ -2,6 +2,13 @@
     h3 {
         color: $blue;
     }
+    .ticket-assignment {
+        font-size: 80%;
+        margin-left: 1em;
+        p {
+            margin: 0;
+        }
+    }
     .purchase {
         @include grid-row();
         background: $background1;
@@ -42,8 +49,13 @@
 
             .details {
                 margin-top: 0;
+                margin-bottom: 0;
                 font-size: 80%;
                 display: inline-block;
+            }
+
+            .ticket-assignment {
+                margin-bottom: 1em;
             }
 
             ul {
@@ -51,5 +63,26 @@
                 padding: 0;
             }
         }
+    }
+}
+
+.user_tickets {
+    dt {
+        font-weight: bold;
+        float: left;
+        width: 33%;
+    }
+    dd {
+        float: right;
+        width: 64%;
+        margin: 0;
+    }
+    dl {
+        overflow: hidden;
+        width: 100%;
+        border-bottom: 1px dotted $grey;
+    }
+    .ticket {
+        margin-bottom: 4em;
     }
 }

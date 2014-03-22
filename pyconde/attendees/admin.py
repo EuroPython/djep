@@ -162,10 +162,12 @@ admin.site.register(SupportTicket, SupportTicketAdmin)
 
 class VenueTicketAdmin(admin.ModelAdmin):
     list_display = ('purchase', 'first_name', 'last_name', 'ticket_type',
-                    'shirtsize', 'date_added')
+                    'user', 'shirtsize', 'date_added')
     list_filter = ('ticket_type', 'date_added', 'purchase__state')
-    search_fields = ('first_name', 'last_name', 'purchase__email')
+    search_fields = ('first_name', 'last_name', 'purchase__email',
+                     'user__email')
     actions = [export_tickets]
+    raw_id_fields = ('user', 'purchase', 'voucher')
 
 admin.site.register(VenueTicket, VenueTicketAdmin)
 
