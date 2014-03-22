@@ -20,6 +20,9 @@
         {% if purchase.grouper.state == 'invoice_created' %}
         <p class="alert alert-warn">{% trans "We have not yet received your payment. You can find account details on your invoice." %}</p>
         {% endif %}
+        {% if purchase.grouper.state == 'canceled' %}
+        <p class="alert alert-warn">{% trans "This purchase was canceled." %}</p>
+        {% endif %}
         <div class="paymentaddress">
             <h3>{% trans "Billing address" %}</h3>
             <p>
@@ -27,7 +30,7 @@
                 {{ purchase.grouper.street }}<br>
                 {{ purchase.grouper.zip_code }} {{ purchase.grouper.country }}
             </p>
-            {% if purchase.grouper.exported %}
+            {% if purchase.grouper.exported and purchase.grouper.state != 'canceled' %}
             <p>
                 <form action="{% url 'attendees_user_resend_invoice' %}" method="post">
                     {% csrf_token %}
