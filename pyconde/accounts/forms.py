@@ -68,6 +68,8 @@ class ProfileRegistrationForm(RegistrationForm):
         label=_('I hereby allow the Python Software Verband e.V. to re-use my profile information for upcoming conferences.'))
     accept_ep_conferences = forms.BooleanField(required=False,
         label=_('I hereby allow the EuroPython Society to re-use my profile information for upcoming conferences.'))
+    accept_job_offers = forms.BooleanField(required=False,
+        label=_('I hereby allow EuroPython 2014 sponsors to send me job offers.'))
 
 
     def __init__(self, *args, **kwargs):
@@ -76,7 +78,7 @@ class ProfileRegistrationForm(RegistrationForm):
         profile_fields = Fieldset(_('Personal information'), 'full_name',
                                   'display_name', 'addressed_as',
                                   'avatar', 'short_info')
-        profession_fields = Fieldset(_('Professional information'), 'organisation', 'twitter', 'website')
+        profession_fields = Fieldset(_('Professional information'), 'organisation', 'twitter', 'website', 'accept_job_offers')
         privacy_fields = Fieldset(_('Privacy Policy'),
             HTML(_('{% load cms_tags %}<p class="control-group">Due to data protection '
                    'regulations you need to explicitly accept our '
@@ -115,7 +117,8 @@ class ProfileRegistrationForm(RegistrationForm):
             display_name=self.cleaned_data['display_name'],
             addressed_as=self.cleaned_data['addressed_as'],
             accept_pysv_conferences=self.cleaned_data['accept_pysv_conferences'],
-            accept_ep_conferences=self.cleaned_data['accept_ep_conferences']
+            accept_ep_conferences=self.cleaned_data['accept_ep_conferences'],
+            accept_job_offers=self.cleaned_data['accept_job_offers']
         )
 
     def clean_twitter(self):
@@ -214,7 +217,7 @@ class ProfileForm(BaseProfileForm):
         profile_fields = Fieldset(_('Personal information'), 'full_name',
                                   'display_name', 'addressed_as',
                                   'avatar', 'short_info')
-        profession_fields = Fieldset(_('Professional information'), 'organisation', 'twitter', 'website')
+        profession_fields = Fieldset(_('Professional information'), 'organisation', 'twitter', 'website', 'accept_job_offers')
         privacy_fields = Fieldset(
             _('Privacy Policy'),
             'accept_pysv_conferences',

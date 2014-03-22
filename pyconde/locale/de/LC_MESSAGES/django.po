@@ -76,11 +76,11 @@ msgstr "Twitter"
 msgid "Website"
 msgstr "Webseite"
 
-#: accounts/forms.py:55 accounts/forms.py:206 accounts/models.py:56
+#: accounts/forms.py:55 accounts/forms.py:209 accounts/models.py:56
 msgid "Number of accompanying children"
 msgstr "Voraussichtliche Anzahl mitkommender Kinder"
 
-#: accounts/forms.py:58 accounts/forms.py:208 accounts/models.py:58
+#: accounts/forms.py:58 accounts/forms.py:211 accounts/models.py:58
 msgid "Age of accompanying children"
 msgstr "Alter der mitkommenden Kinder"
 
@@ -120,23 +120,27 @@ msgstr ""
 "Ich erlaube der EuroPython Society meine Profildaten für zukünftige "
 "Konferenzen wiederzuverwenden."
 
-#: accounts/forms.py:75
+#: accounts/forms.py:72
+msgid "I hereby allow EuroPython 2014 sponsors to send me job offers."
+msgstr "Ich erlaube den EuroPython 2014 Sponsoren, mir Job Angebote zu schicken."
+
+#: accounts/forms.py:77
 msgid "Login information"
 msgstr "Logindaten"
 
-#: accounts/forms.py:76 accounts/forms.py:214
+#: accounts/forms.py:78 accounts/forms.py:217
 msgid "Personal information"
 msgstr "Persönliche Daten"
 
-#: accounts/forms.py:79 accounts/forms.py:217
+#: accounts/forms.py:81 accounts/forms.py:220
 msgid "Professional information"
 msgstr "Weitere Daten"
 
-#: accounts/forms.py:80 accounts/forms.py:219
+#: accounts/forms.py:82 accounts/forms.py:222
 msgid "Privacy Policy"
 msgstr "Datenschutzerklärung"
 
-#: accounts/forms.py:81
+#: accounts/forms.py:83
 msgid ""
 "{% load cms_tags %}<p class=\"control-group\">Due to data protection "
 "regulations you need to explicitly accept our <a href=\"{% page_url "
@@ -146,11 +150,11 @@ msgstr ""
 "benötigen wir dazu eine explizite Freigabe und eine Anerkennung unserer <a "
 "href=\"{% page_url \"privacy-policy\" %}\">Datenschutzerklärung</a>.</p>"
 
-#: accounts/forms.py:91
+#: accounts/forms.py:93
 msgid "Create account"
 msgstr "Konto anlegen"
 
-#: accounts/forms.py:94 accounts/forms.py:232
+#: accounts/forms.py:96 accounts/forms.py:235
 msgid ""
 "Please upload an image with a side length of at least 300 pixels.<br />If "
 "you don't upload an avatar your Gravatar will be used instead."
@@ -159,7 +163,7 @@ msgstr ""
 ">Falls Sie keinen Avatar hochladen, wird versucht, Ihren Gravatar zu "
 "verwenden."
 
-#: accounts/forms.py:145
+#: accounts/forms.py:148
 #, python-format
 msgid ""
 "<ul><li><a href=\"%(register_url)s\">Don't have an account yet?</a></"
@@ -168,11 +172,11 @@ msgstr ""
 "<ul><li><a href=\"%(register_url)s\">Noch kein Konto?</a></li><li><a href="
 "\"%(password_reset_url)s\">Passwort vergessen?</a></li></ul>"
 
-#: accounts/forms.py:149
+#: accounts/forms.py:152
 msgid "Log in"
 msgstr "Anmelden"
 
-#: accounts/forms.py:165
+#: accounts/forms.py:168
 #: skins/default/templates/userprofiles/password_reset.html:4
 #: skins/default/templates/userprofiles/password_reset.html:5
 #: skins/default/templates/userprofiles/password_reset_complete.html:4
@@ -184,11 +188,11 @@ msgstr "Anmelden"
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
-#: accounts/forms.py:180
+#: accounts/forms.py:183
 msgid "Set password"
 msgstr "Passwort zurücksetzen"
 
-#: accounts/forms.py:195
+#: accounts/forms.py:198
 #: skins/default/templates/userprofiles/password_change.html:4
 #: skins/default/templates/userprofiles/password_change.html:5
 #: skins/default/templates/userprofiles/password_change_done.html:4
@@ -196,15 +200,15 @@ msgstr "Passwort zurücksetzen"
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: accounts/forms.py:204
+#: accounts/forms.py:207
 msgid "organisation"
 msgstr "Organisation"
 
-#: accounts/forms.py:229
+#: accounts/forms.py:232
 msgid "Change"
 msgstr "Ändern"
 
-#: accounts/forms.py:243 accounts/forms.py:251
+#: accounts/forms.py:246 accounts/forms.py:254
 msgid "You previously agreed to this option which can no longer be revoked."
 msgstr ""
 "Sie haben zuvor dieser Bedingung zugestimmt. Dies kann nachträglich nicht "
@@ -215,7 +219,7 @@ msgstr ""
 msgid "Continue"
 msgstr "Weiter"
 
-#: accounts/forms.py:276
+#: accounts/forms.py:279
 #: skins/default/templates/userprofiles/email_change.html:4
 #: skins/default/templates/userprofiles/email_change.html:5
 #: skins/default/templates/userprofiles/email_change_requested.html:4
@@ -223,7 +227,7 @@ msgstr "Weiter"
 msgid "Change e-mail address"
 msgstr "E-Mail-Adresse ändern"
 
-#: accounts/forms.py:290
+#: accounts/forms.py:293
 msgid "Apply now!"
 msgstr "Jetzt bewerben!"
 
@@ -302,7 +306,11 @@ msgstr "Daten für zukünftige PySV Konferenzen wiederverwenden"
 msgid "Allow copying to EPS conferences"
 msgstr "Daten für zukünftige EPS Konferenzen wiederverwenden"
 
-#: accounts/models.py:78
+#: accounts/models.py:74
+msgid "Allow sponsors to send job offers"
+msgstr "Erlaube Sponsoren mir Job Angebote zu schicken"
+
+#: accounts/models.py:80
 msgid "You've logged in successfully."
 msgstr "Sie haben sich erfolgreich angemeldet."
 
