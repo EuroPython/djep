@@ -44,6 +44,14 @@
                     <a href="/" class="logo">
                         <img class="big" src="{% static "assets/images/logo-big.png" %}" alt="EuroPython 2014" />
                     </a>
+                    {% if user.is_staff %}
+                    <div id="sponsorshipbox">
+                    <a href="">{% trans "Sponsorship" %} <i class="fa fa-fw fa-angle-left"></i></a>
+                    <ul class="dropdown">
+                      {% show_menu_below_id "sponsorship" %}
+                    </ul>
+                    </div>
+                    {% endif %}
                     {% if not user.is_authenticated %}
                     <p id="login">
                         <a href="{% url 'auth_login' %}">{% trans "Login" %}</a> or <a href="{% url 'userprofiles_registration' %}">{% trans "Sign up" %}</a>
