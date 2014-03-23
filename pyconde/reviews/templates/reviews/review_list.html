@@ -26,12 +26,3 @@
     </ul>
     {% endif %}
 {% endblock %}
-{% block sidebar %}
-    <div id="scorebox" class="box">
-        {% blocktrans with score=proposal.review_metadata.score num_reviews=proposal.review_metadata.num_reviews %}
-        <span class="score">{{ score }}</span> after {{ num_reviews }} Review(s)
-        {% endblocktrans %}
-    </div>
-
-    {{ block.super }}
-{% endblock %}

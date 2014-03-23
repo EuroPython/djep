@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-22 16:20+0100\n"
+"POT-Creation-Date: 2014-03-23 11:09+0100\n"
 "PO-Revision-Date: 2014-02-24 20:19+0100\n"
 "Last-Translator: Stefan Richter <stefan@02strich.de>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -1810,8 +1810,8 @@ msgid ""
 msgstr ""
 "Die Dauer muss mit derselben Konferenz wie der Vorschlag assoziiert sein"
 
-#: proposals/models.py:109 reviews/models.py:66 reviews/models.py:149
-#: reviews/models.py:172 schedule/models.py:35
+#: proposals/models.py:109 reviews/models.py:79 reviews/models.py:162
+#: reviews/models.py:185 schedule/models.py:35
 msgid "proposal"
 msgstr "Session-Vorschlag"
 
@@ -2155,135 +2155,135 @@ msgstr "Reviewbare Vorschläge"
 msgid "My reviews"
 msgstr "Meine Reviews"
 
-#: reviews/models.py:69
+#: reviews/models.py:82
 msgid "latest proposal version"
 msgstr "aktuelle Vorschlagsversion"
 
-#: reviews/models.py:71
+#: reviews/models.py:84
 msgid "number of comments"
 msgstr "Anzahl an Kommentaren"
 
-#: reviews/models.py:74
+#: reviews/models.py:87
 msgid "number of reviews"
 msgstr "Anzahl an Reviews"
 
-#: reviews/models.py:77
+#: reviews/models.py:90
 msgid "latest activity"
 msgstr "Letzte Aktivität"
 
-#: reviews/models.py:80
+#: reviews/models.py:93
 msgid "latest comment"
 msgstr "Letztes Kommentar"
 
-#: reviews/models.py:82
+#: reviews/models.py:95
 msgid "latest review"
 msgstr "Letzte Review"
 
-#: reviews/models.py:84
+#: reviews/models.py:97
 msgid "latest version"
 msgstr "Letzte Version"
 
-#: reviews/models.py:86
+#: reviews/models.py:99
 msgid "score"
 msgstr "Punkte"
 
-#: reviews/models.py:95 reviews/models.py:96
+#: reviews/models.py:108 reviews/models.py:109
 msgid "proposal metadata"
 msgstr "Proposal-Metadaten"
 
-#: reviews/models.py:117
+#: reviews/models.py:130
 msgid "original proposal"
 msgstr "Originalvorschlag"
 
-#: reviews/models.py:120
+#: reviews/models.py:133
 msgid "creator"
 msgstr "Erzeuger"
 
-#: reviews/models.py:121 reviews/models.py:147 reviews/models.py:171
+#: reviews/models.py:134 reviews/models.py:160 reviews/models.py:184
 msgid "publication date"
 msgstr "Veröffentlichungsdatum"
 
-#: reviews/models.py:129 reviews/models.py:151 reviews/models.py:175
+#: reviews/models.py:142 reviews/models.py:164 reviews/models.py:188
 msgid "proposal version"
 msgstr "Vorschlagsversion"
 
-#: reviews/models.py:130
+#: reviews/models.py:143
 msgid "proposal versions"
 msgstr "Vorschlagsversionen"
 
-#: reviews/models.py:142 reviews/models.py:215
+#: reviews/models.py:155 reviews/models.py:228
 msgid "user"
 msgstr "Benutzer"
 
-#: reviews/models.py:144
+#: reviews/models.py:157
 msgid "rating"
 msgstr "Bewertung"
 
-#: reviews/models.py:145
+#: reviews/models.py:158
 msgid "summary"
 msgstr "Zusammenfassung"
 
-#: reviews/models.py:155
+#: reviews/models.py:168
 msgid "review"
 msgstr "Review"
 
-#: reviews/models.py:156
+#: reviews/models.py:169
 msgid "reviews"
 msgstr "Reviews"
 
-#: reviews/models.py:168 testimonials/models.py:12
+#: reviews/models.py:181 testimonials/models.py:12
 msgid "author"
 msgstr "Autor"
 
-#: reviews/models.py:169 testimonials/models.py:11
+#: reviews/models.py:182 testimonials/models.py:11
 msgid "content"
 msgstr "Inhalt"
 
-#: reviews/models.py:176
+#: reviews/models.py:189
 msgid "deleted"
 msgstr "Löschen"
 
-#: reviews/models.py:178
+#: reviews/models.py:191
 msgid "deleted at"
 msgstr "Gelöscht am"
 
-#: reviews/models.py:180
+#: reviews/models.py:193
 msgid "deleted by"
 msgstr "Gelöscht durch"
 
-#: reviews/models.py:183
+#: reviews/models.py:196
 msgid "deletion reason"
 msgstr "Löschbegründung"
 
-#: reviews/models.py:199
+#: reviews/models.py:212
 msgid "comment"
 msgstr "Kommentar"
 
-#: reviews/models.py:200
+#: reviews/models.py:213
 msgid "comments"
 msgstr "Kommentare"
 
-#: reviews/models.py:209
+#: reviews/models.py:222
 msgid "pending request"
 msgstr "Bewerbung läuft"
 
-#: reviews/models.py:210
+#: reviews/models.py:223
 msgid "request accepted"
 msgstr "Bewerbung angenommen"
 
-#: reviews/models.py:211
+#: reviews/models.py:224
 msgid "request declined"
 msgstr "Bewerbung abgelehnt"
 
-#: reviews/models.py:216
+#: reviews/models.py:229
 msgid "state"
 msgstr "Status"
 
-#: reviews/models.py:222
+#: reviews/models.py:235
 msgid "reviewer"
 msgstr "Reviewer"
 
-#: reviews/models.py:223
+#: reviews/models.py:236
 msgid "reviewers"
 msgstr "Reviewer"
 
@@ -2421,6 +2421,25 @@ msgstr "Vortragende(r)"
 msgid "Co-speaker(s)"
 msgstr "Mitvortragende(r)"
 
+#: reviews/templates/reviews/proposal_base.html:103
+msgid "Score <small>(visible to staff only)</small>"
+msgstr "Bewertung <small>(nur für Redakteure sichtbar)</small>"
+
+#: reviews/templates/reviews/proposal_base.html:105
+#, python-format
+msgid ""
+"\n"
+"            <span class=\"score\">%(score)s</span> after %(num_reviews)s "
+"Review(s)\n"
+"            "
+msgstr ""
+"\n"
+"<span class=\"score\">%(score)s</span> nach %(num_reviews)s Review(s)"
+
+#: reviews/templates/reviews/proposal_base.html:108
+msgid "See all reviews"
+msgstr "Alle Reviews anzeigen"
+
 #: reviews/templates/reviews/proposal_details.html:4
 #: reviews/templates/reviews/proposal_details.html:5
 #, python-format
@@ -2538,17 +2557,6 @@ msgstr "Dieser Vorschlag wurde noch nicht bewertet."
 #: reviews/templates/reviews/review_list.html:14
 msgid "This review is based on an old version of the proposal:"
 msgstr "Diese Review basiert auf einer alten Vorschlagsversion:"
-
-#: reviews/templates/reviews/review_list.html:31
-#, python-format
-msgid ""
-"\n"
-"        <span class=\"score\">%(score)s</span> after %(num_reviews)s Review"
-"(s)\n"
-"        "
-msgstr ""
-"\n"
-"<span class=\"score\">%(score)s</span> nach %(num_reviews)s Review(s)"
 
 #: reviews/templates/reviews/reviewable_proposals.html:9
 msgid "Filters"
