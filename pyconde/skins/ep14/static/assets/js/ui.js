@@ -71,8 +71,8 @@ ep.ui = (function($) {
     function init() {
         wrapFileUploads();
         overrideOrbitUi();
-        toggleMenuIcons('#adminbox');
-        handleAccountMenuOnTouch('#adminbox');
+        toggleMenuIcons('#sponsorshipbox');
+        handleAccountMenuOnTouch('#sponsorshipbox');
         toggleMenuIcons('#reviewbox');
         handleAccountMenuOnTouch('#reviewbox');
         toggleMenuIcons('#accountbox');
