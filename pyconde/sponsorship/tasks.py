@@ -21,6 +21,9 @@ def send_job_offer(job_offer_id):
 
     profiles = Profile.objects.filter(accept_job_offers=True).select_related('user')
 
+    # Re-use the connection to the server, so that a connection is not
+    # implicitly created for every mail, as described in the docs:
+    # https://docs.djangoproject.com/en/dev/topics/email/#sending-multiple-emails
     with closing(mail.get_connection()) as connection:
         offset = 0
         while True:
