@@ -3272,6 +3272,20 @@ msgstr "Sie haben nicht die Berechtigung, Job-Angebote zu verschicken."
 msgid "Job offer sent"
 msgstr "Job-Angebot verschickt"
 
+#: sponsorship/templates/sponsorship/emails/job_offer.txt:1
+#, python-format
+msgid "This is a job offer by \"%(sponsor)s\":"
+msgstr "Dies ist ein Job-Angebot von \"%(sponsor)s\":"
+
+#: sponsorship/templates/sponsorship/emails/job_offer.txt:4
+#, python-format
+msgid ""
+"If you do not want receive any more job offers, you can opt-out on your "
+"profile page: http://%(site)s%(profile_change_url)s"
+msgstr "Falls Sie keine weiteren Job-Angebote erhalten möchten, können "
+"Sie diese auf ihrer Profil-Seite abbestellen: "
+"http://%(site)s%(profile_change_url)s"
+
 #: testimonials/cms_plugins.py:11
 msgid "Testimonial"
 msgstr "Testimonial"

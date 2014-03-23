@@ -1,6 +1,8 @@
 from contextlib import closing
 
 from django.core import mail
+from django.template.loader import render_to_string
+from django.conf import settings
 from django.contrib.auth.models import User
 
 from pyconde.sponsorship.models import JobOffer
@@ -26,7 +28,11 @@ def send_job_offer(job_offer_id):
             offset += 50
             if not chunk:
                 break
-            email = mail.EmailMessage(offer.subject, offer.text,
+            body = render_to_string('sponsorship/emails/job_offer.txt', {
+                'offer': offer,
+                'site': Site.objects.get_current()
+            })
+            email = mail.EmailMessage(offer.subject, body,
                 bcc=[profile.user.email for profile in chunk],
                 headers={'Reply-To': offer.reply_to},
                 connection=connection
