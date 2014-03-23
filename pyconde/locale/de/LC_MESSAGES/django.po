@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-23 15:51+0100\n"
+"POT-Creation-Date: 2014-03-23 18:25+0100\n"
 "PO-Revision-Date: 2014-02-24 20:19+0100\n"
 "Last-Translator: Stefan Richter <stefan@02strich.de>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -2000,7 +2000,7 @@ msgid "Edit"
 msgstr "Ändern"
 
 #: proposals/templates/proposals/proposal_detail.html:64 reviews/forms.py:157
-#: reviews/templates/reviews/proposal_details.html:116
+#: reviews/templates/reviews/proposal_details.html:117
 msgid "Delete"
 msgstr "Löschen"
 
@@ -2500,43 +2500,47 @@ msgstr "Aktualisieren Sie Ihre Review"
 msgid "Reviews can no longer be updated."
 msgstr "Reviews können nicht mehr aktualisiert werden."
 
-#: reviews/templates/reviews/proposal_details.html:100
+#: reviews/templates/reviews/proposal_details.html:91
+msgid "Discussion with the proposal author"
+msgstr "Diskussion mit dem Autor des Vorschlages"
+
+#: reviews/templates/reviews/proposal_details.html:101
 #, python-format
 msgid "This comment by %(author)s was deleted."
 msgstr "Dieser Kommentar von %(author)s wurde gelöscht."
 
-#: reviews/templates/reviews/proposal_details.html:102
+#: reviews/templates/reviews/proposal_details.html:103
 msgid "This comment was deleted."
 msgstr "Dieses Kommentar wurde gelöscht."
 
-#: reviews/templates/reviews/proposal_details.html:104
+#: reviews/templates/reviews/proposal_details.html:105
 #, python-format
 msgid "(by %(deleter)s)"
 msgstr "(von %(deleter)s)"
 
-#: reviews/templates/reviews/proposal_details.html:107
+#: reviews/templates/reviews/proposal_details.html:108
 msgid "Proposal's author"
 msgstr "Autor des Vorschlages"
 
-#: reviews/templates/reviews/proposal_details.html:110
+#: reviews/templates/reviews/proposal_details.html:111
 #, python-format
 msgid "(based on the <a href=\"%(url)s\">version from %(date)s</a>)"
 msgstr "(basierend auf der <a href=\"%(url)s\">Version vom %(date)s</a>)"
 
-#: reviews/templates/reviews/proposal_details.html:112
+#: reviews/templates/reviews/proposal_details.html:113
 msgid "(based on the original proposal)"
 msgstr "(basierend auf dem Originalvorschlag)"
 
-#: reviews/templates/reviews/proposal_details.html:122
+#: reviews/templates/reviews/proposal_details.html:123
 msgid "The author has updated the proposal."
 msgstr "Der Autor hat das Proposal aktualisiert."
 
-#: reviews/templates/reviews/proposal_details.html:124
+#: reviews/templates/reviews/proposal_details.html:125
 #, python-format
 msgid "%(user)s has updated the proposal."
 msgstr "%(user)s hat das Proposal aktualisiert."
 
-#: reviews/templates/reviews/proposal_details.html:133
+#: reviews/templates/reviews/proposal_details.html:134
 msgid "Questions for the author / Comment:"
 msgstr "Fragen an den Autor / Kommentar:"
 

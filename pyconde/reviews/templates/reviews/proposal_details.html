@@ -88,6 +88,7 @@
     </div>
     {% endif %}
     {% if timeline %}
+    <h2>{% blocktrans %}Discussion with the proposal author{% endblocktrans %}</h2>
         <ul id="timeline">
         {% for item in timeline %}
             <li id="{{ item.type }}-{{ item.item.pk }}" class="timeline-item timeline-item-{{ item.type }} {% if item.item.deleted %}deleted{% endif %}">
