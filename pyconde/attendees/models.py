@@ -305,10 +305,8 @@ class Ticket(models.Model):
         _('Date (added)'), blank=False, default=now)
 
     class Meta:
-        abstract = True
         ordering = ('ticket_type__tutorial_ticket',
                     'ticket_type__product_number')
-
 
 class SupportTicket(Ticket):
     class Meta:
@@ -330,6 +328,10 @@ class VenueTicket(Ticket):
 
     voucher = models.ForeignKey(
         'Voucher', verbose_name=_('Voucher'), blank=True, null=True)
+
+    class Meta:
+        verbose_name = _('Ticket')
+        verbose_name_plural = _('Tickets')
 
     objects = TicketManager()
 
