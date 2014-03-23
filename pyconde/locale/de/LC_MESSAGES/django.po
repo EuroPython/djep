@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-23 11:09+0100\n"
+"POT-Creation-Date: 2014-03-23 15:51+0100\n"
 "PO-Revision-Date: 2014-02-24 20:19+0100\n"
 "Last-Translator: Stefan Richter <stefan@02strich.de>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -76,11 +76,11 @@ msgstr "Twitter"
 msgid "Website"
 msgstr "Webseite"
 
-#: accounts/forms.py:55 accounts/forms.py:209 accounts/models.py:56
+#: accounts/forms.py:55 accounts/forms.py:231 accounts/models.py:56
 msgid "Number of accompanying children"
 msgstr "Voraussichtliche Anzahl mitkommender Kinder"
 
-#: accounts/forms.py:58 accounts/forms.py:211 accounts/models.py:58
+#: accounts/forms.py:58 accounts/forms.py:233 accounts/models.py:58
 msgid "Age of accompanying children"
 msgstr "Alter der mitkommenden Kinder"
 
@@ -125,23 +125,23 @@ msgid "I hereby allow EuroPython 2014 sponsors to send me job offers."
 msgstr ""
 "Ich erlaube den EuroPython 2014 Sponsoren, mir Job Angebote zu schicken."
 
-#: accounts/forms.py:77
+#: accounts/forms.py:78
 msgid "Login information"
 msgstr "Logindaten"
 
-#: accounts/forms.py:78 accounts/forms.py:217
+#: accounts/forms.py:85 accounts/forms.py:239
 msgid "Personal information"
 msgstr "Persönliche Daten"
 
-#: accounts/forms.py:81 accounts/forms.py:220
+#: accounts/forms.py:93 accounts/forms.py:242
 msgid "Professional information"
 msgstr "Weitere Daten"
 
-#: accounts/forms.py:82 accounts/forms.py:222
+#: accounts/forms.py:100 accounts/forms.py:244
 msgid "Privacy Policy"
 msgstr "Datenschutzerklärung"
 
-#: accounts/forms.py:83
+#: accounts/forms.py:101
 msgid ""
 "{% load cms_tags %}<p class=\"control-group\">Due to data protection "
 "regulations you need to explicitly accept our <a href=\"{% page_url "
@@ -151,11 +151,11 @@ msgstr ""
 "benötigen wir dazu eine explizite Freigabe und eine Anerkennung unserer <a "
 "href=\"{% page_url \"privacy-policy\" %}\">Datenschutzerklärung</a>.</p>"
 
-#: accounts/forms.py:93
+#: accounts/forms.py:115
 msgid "Create account"
 msgstr "Konto anlegen"
 
-#: accounts/forms.py:96 accounts/forms.py:235
+#: accounts/forms.py:118 accounts/forms.py:257
 msgid ""
 "Please upload an image with a side length of at least 300 pixels.<br />If "
 "you don't upload an avatar your Gravatar will be used instead."
@@ -164,7 +164,7 @@ msgstr ""
 ">Falls Sie keinen Avatar hochladen, wird versucht, Ihren Gravatar zu "
 "verwenden."
 
-#: accounts/forms.py:148
+#: accounts/forms.py:170
 #, python-format
 msgid ""
 "<ul><li><a href=\"%(register_url)s\">Don't have an account yet?</a></"
@@ -173,11 +173,11 @@ msgstr ""
 "<ul><li><a href=\"%(register_url)s\">Noch kein Konto?</a></li><li><a href="
 "\"%(password_reset_url)s\">Passwort vergessen?</a></li></ul>"
 
-#: accounts/forms.py:152
+#: accounts/forms.py:174
 msgid "Log in"
 msgstr "Anmelden"
 
-#: accounts/forms.py:168
+#: accounts/forms.py:190
 #: skins/default/templates/userprofiles/password_reset.html:4
 #: skins/default/templates/userprofiles/password_reset.html:5
 #: skins/default/templates/userprofiles/password_reset_complete.html:4
@@ -189,11 +189,11 @@ msgstr "Anmelden"
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
-#: accounts/forms.py:183
+#: accounts/forms.py:205
 msgid "Set password"
 msgstr "Passwort zurücksetzen"
 
-#: accounts/forms.py:198
+#: accounts/forms.py:220
 #: skins/default/templates/userprofiles/password_change.html:4
 #: skins/default/templates/userprofiles/password_change.html:5
 #: skins/default/templates/userprofiles/password_change_done.html:4
@@ -201,26 +201,26 @@ msgstr "Passwort zurücksetzen"
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: accounts/forms.py:207
+#: accounts/forms.py:229
 msgid "organisation"
 msgstr "Organisation"
 
-#: accounts/forms.py:232
+#: accounts/forms.py:254
 msgid "Change"
 msgstr "Ändern"
 
-#: accounts/forms.py:246 accounts/forms.py:254
+#: accounts/forms.py:268 accounts/forms.py:276
 msgid "You previously agreed to this option which can no longer be revoked."
 msgstr ""
 "Sie haben zuvor dieser Bedingung zugestimmt. Dies kann nachträglich nicht "
 "mehr revidiert werden."
 
-#: accounts/forms.py:265 attendees/forms.py:46
+#: accounts/forms.py:290 attendees/forms.py:46
 #: attendees/templates/attendees/purchase_names.html:86
 msgid "Continue"
 msgstr "Weiter"
 
-#: accounts/forms.py:279
+#: accounts/forms.py:301
 #: skins/default/templates/userprofiles/email_change.html:4
 #: skins/default/templates/userprofiles/email_change.html:5
 #: skins/default/templates/userprofiles/email_change_requested.html:4
@@ -228,7 +228,7 @@ msgstr "Weiter"
 msgid "Change e-mail address"
 msgstr "E-Mail-Adresse ändern"
 
-#: accounts/forms.py:293
+#: accounts/forms.py:315
 msgid "Apply now!"
 msgstr "Jetzt bewerben!"
 
@@ -1220,8 +1220,8 @@ msgstr "Teilnehmer"
 
 #: attendees/templates/attendees/purchase_names.html:11
 msgid ""
-"Please enter the name and other information relevant for the specific ticket"
-"(s) in the fields below."
+"Please enter the name and other information relevant for the specific "
+"ticket(s) in the fields below."
 msgstr "Bitte gib die Namen und übrigen Informationenen zu den Tickets an."
 
 #: attendees/templates/attendees/purchase_names.html:56
@@ -1371,7 +1371,7 @@ msgstr ""
 " "
 
 #: conference/models.py:41 proposals/models.py:55 sponsorship/models.py:83
-#: sponsorship/models.py:103
+#: sponsorship/models.py:102
 msgid "title"
 msgstr "Titel"
 
@@ -3227,8 +3227,8 @@ msgstr ""
 
 #: sponsorship/models.py:73
 msgid ""
-"Please specify the custom logo size for listings in the format [width]x"
-"[height]."
+"Please specify the custom logo size for listings in the format "
+"[width]x[height]."
 msgstr ""
 "Bitte gib die benutzerdefinierten Dimensionen im Format [Breite]x[Höhe] an."
 
@@ -3260,7 +3260,7 @@ msgstr "Antwort an"
 msgid "The email address to which responses should be sent."
 msgstr "Die E-Mail Addresse an die Antworten geschickt werden sollen."
 
-#: sponsorship/models.py:104
+#: sponsorship/models.py:103
 msgid "text"
 msgstr "Text"
 
@@ -3277,7 +3277,7 @@ msgstr "Job-Angebot verschickt"
 msgid "This is a job offer by \"%(sponsor)s\":"
 msgstr "Dies ist ein Job-Angebot von \"%(sponsor)s\":"
 
-#: sponsorship/templates/sponsorship/emails/job_offer.txt:4
+#: sponsorship/templates/sponsorship/emails/job_offer.txt:9
 #, python-format
 msgid ""
 "If you do not want receive any more job offers, you can opt-out on your "
