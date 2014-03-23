@@ -122,7 +122,8 @@ msgstr ""
 
 #: accounts/forms.py:72
 msgid "I hereby allow EuroPython 2014 sponsors to send me job offers."
-msgstr "Ich erlaube den EuroPython 2014 Sponsoren, mir Job Angebote zu schicken."
+msgstr ""
+"Ich erlaube den EuroPython 2014 Sponsoren, mir Job Angebote zu schicken."
 
 #: accounts/forms.py:77
 msgid "Login information"
@@ -1370,6 +1371,7 @@ msgstr ""
 " "
 
 #: conference/models.py:41 proposals/models.py:55 sponsorship/models.py:83
+#: sponsorship/models.py:103
 msgid "title"
 msgstr "Titel"
 
@@ -2943,7 +2945,7 @@ msgstr "Abgemeldet"
 
 #: skins/default/templates/userprofiles/login.html:4
 #: skins/default/templates/userprofiles/login.html:5
-#: skins/ep14/templates/base.html:49
+#: skins/ep14/templates/base.html:57
 msgid "Login"
 msgstr "Anmelden"
 
@@ -2969,7 +2971,7 @@ msgstr ""
 
 #: skins/default/templates/userprofiles/profile.html:4
 #: skins/default/templates/userprofiles/profile.html:5
-#: skins/ep14/templates/base.html:53
+#: skins/ep14/templates/base.html:61
 msgid "Your profile"
 msgstr "Dein Profil"
 
@@ -3111,26 +3113,30 @@ msgid "E-mail confirmation"
 msgstr "E-Mail-Bestätigung"
 
 #: skins/ep14/templates/base.html:49
+msgid "Sponsorship"
+msgstr "Sponsoren"
+
+#: skins/ep14/templates/base.html:57
 msgid "Sign up"
 msgstr "Registrieren"
 
-#: skins/ep14/templates/base.html:96
+#: skins/ep14/templates/base.html:104
 msgid "Get in touch"
 msgstr "Hilfe und Support"
 
-#: skins/ep14/templates/base.html:106
+#: skins/ep14/templates/base.html:114
 msgid "Follow @europython"
 msgstr "@europython folgen"
 
-#: skins/ep14/templates/base.html:112
+#: skins/ep14/templates/base.html:120
 msgid "Like EuroPython"
 msgstr "Like EuroPython"
 
-#: skins/ep14/templates/base.html:118
+#: skins/ep14/templates/base.html:126
 msgid "+1 EuroPython"
 msgstr "+1 EuroPython"
 
-#: skins/ep14/templates/base.html:122
+#: skins/ep14/templates/base.html:130
 msgid ""
 "EuroPython 2014 is organized by the <a href=\"http://www.meetup.com/Python-"
 "Users-Berlin-PUB/\">Python User Group Berlin</a>, <a href=\"http://www."
@@ -3153,9 +3159,24 @@ msgstr ""
 "Sie müssen ein Konto für diese Website anlegen, wenn Sie an der Konferenz  "
 "als Besucher oder Vortragender teilnehmen möchten."
 
+#: sponsorship/cms_app.py:9
+#, fuzzy
+msgid "Sponsorship App"
+msgstr "Sponsoren"
+
 #: sponsorship/cms_plugins.py:15
 msgid "Sponsor list plugin"
 msgstr "Sponsoren-Plugin"
+
+#: sponsorship/forms.py:25 sponsorship/menu.py:15
+#: sponsorship/templates/sponsorship/send_job_offer.html:3
+#: sponsorship/templates/sponsorship/send_job_offer.html:4
+msgid "Send job offer"
+msgstr "Job Angebot senden"
+
+#: sponsorship/menu.py:10
+msgid "Sponsorship Menu"
+msgstr "Sponsoren Menü"
 
 #: sponsorship/models.py:25
 msgid "sponsor level"
@@ -3212,7 +3233,7 @@ msgid ""
 msgstr ""
 "Bitte gib die benutzerdefinierten Dimensionen im Format [Breite]x[Höhe] an."
 
-#: sponsorship/models.py:78
+#: sponsorship/models.py:78 sponsorship/models.py:99
 msgid "sponsor"
 msgstr "Sponsor"
 
@@ -3231,6 +3252,26 @@ msgstr ""
 #: sponsorship/models.py:91
 msgid "custom CSS classes"
 msgstr ""
+
+#: sponsorship/models.py:100
+msgid "Reply-To"
+msgstr ""
+
+#: sponsorship/models.py:101
+msgid "The email address to which responses should be sent."
+msgstr "Die E-Mail Addresse zu der Antworten geschickt werden sollen."
+
+#: sponsorship/models.py:104
+msgid "text"
+msgstr ""
+
+#: sponsorship/views.py:16
+msgid "You do not have permission to send job offers."
+msgstr "Sie haben nicht die Erlaubnis Job Angebote zu verschicken."
+
+#: sponsorship/views.py:23
+msgid "Job offer sent"
+msgstr "Job Angebot verschickt"
 
 #: testimonials/cms_plugins.py:11
 msgid "Testimonial"
