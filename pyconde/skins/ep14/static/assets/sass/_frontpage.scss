@@ -122,7 +122,8 @@ body.start-tmpl {
 
     .testimonial-collection {
         &.cmsplugin {
-            padding: 35px 0px;
+            padding-top: 50px;
+            padding-bottom: 75px;
         }
 
         cite {
@@ -147,7 +148,7 @@ body.start-tmpl {
         li {
             width: 100%;
             box-sizing: border-box;
-            padding: 0 40px;
+            padding: 0 80px;
             overflow: hidden;
         }
         @media #{$small-up} {

@@ -1,15 +1,15 @@
 {% load menu_tags i18n static %}
 
-<nav class="top-bar" data-topbar>
-    <ul class="title-area">
+<nav class="top-bar clearfix" data-topbar>
+    <ul class="title-area clearfix">
         <li class="name"><h1><a href="/"><img class="small" src="{% static "assets/images/logo.png" %}" alt="" /> EuroPython 2014</a></h1></li>
         <li class="toggle-topbar menu-icon"><a href="#"><i class="fa fa-bars fa-2x"></i></a></li>
     </ul>
-    <section class="top-bar-section">
-        <ul class="left">
+    <section class="top-bar-section clearfix">
+        <ul class="left clearfix">
             {% for child in children %}
-                <li class="{% if child.children %}has-dropdown{% endif %} {% if child.selected or child.ancestor %} active{% endif %}">
-                    <a href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
+                <li class="nav_point {% if child.children %}has-dropdown{% endif %} {% if child.selected or child.ancestor %} active{% endif %}">
+                    <a class="nav_link" href="{{ child.attr.redirect_url|default:child.get_absolute_url }}">{{ child.get_menu_title }}</a>
                     {% if child.children %}
                         <ul class="dropdown">
                             {% for child in child.children %}
@@ -21,17 +21,18 @@
                     {% endif %}
                 </li>
             {% endfor %}
-            <li class="menu-toggle">
-                <a href="#" onclick="$('.main-nav .dropdown').toggle()"><i class="fa fa-bars btn-toggle dropdown" style="display: block"></i><i class="fa fa-times btn-toggle dropdown"></i></a>
-            </li>
+            <a class="menu-toggle" href="#" onclick="$('.main-nav .dropdown').toggle()">
+                <i class="fa fa-bars btn-toggle dropdown" style="display: block"></i>
+                <i class="fa fa-times btn-toggle dropdown"></i>
+            </a>
         </ul>
     </section>
 </nav>
-<div class="dropdown hide row">
-    <div class="small-2 columns lang">
+<div class="top-bar-footer clearfix dropdown hide">
+    <div class="lang clearfix">
         {% language_chooser "cms/language_chooser.html" %}
     </div>
-    <div class="small-10 columns text-right socialmedia">
+    <div class="socialmedia">
         <span>{% trans "Join the conversation" %}</span>
         <span><a href="https://twitter.com/search?q=%23europython"><b>#europython</b></a></span>
         <span><a href="https://twitter.com/europython" class="twitter"><i class="fa fa-twitter fa-lg"></i></a></span>

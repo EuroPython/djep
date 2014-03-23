@@ -184,10 +184,11 @@ a {
             }
         }
     }
-    @media #{$topbar-media-query} {  // desktop
+    @media screen and (min-width: 890px) {  // desktop
         .dropdown {
             display: none;
         }
+
         .top-bar {
             > .title-area {
                 h1 {
@@ -197,13 +198,13 @@ a {
             > .top-bar-section {
                 word-wrap: break-word;
                 > ul {
-                    @include grid-row($behavior: collapse);
                     margin-top: -($topbar-height);
                     text-align: left;
                     padding: 0;
+                    width: 100%;
+
                     > li {
-                        @include grid-column($columns: 2, $collapse: true);
-                        padding-right: 5px;
+                        width: 16.66666666666667%;
                         > a {
                             text-transform: uppercase;
                         }
@@ -212,17 +213,8 @@ a {
                             position: relative;
                             a {
                                 white-space: normal;
-                            }
-                        }
-                    }
-                    > li:last-child {
-                        margin-left: -1em;
-                        width: 1em;
-                        text-align: right;
-                        > a {
-                            background: none;
-                            &.active, &:hover {
-                                color: $link-color-nav
+                                padding: 9px 0;
+                                font-weight: 600;
                             }
                         }
                     }
@@ -236,10 +228,14 @@ a {
                 }
             }
         }
-        .row {
-            padding-bottom: 30px;
-            padding-top: 30px;
+        .top-bar-footer {
+            padding: 30px;
+
             .lang {
+                float: left;
+                width: 20%;
+                text-align: left;
+
                 > span {
                     font-size: 13px;
                     font-size: 1.3rem;
@@ -260,11 +256,17 @@ a {
                 }
             }
             .socialmedia {
-                padding-right: 17px;
+                float: left;
+                width: 80%;
+                text-align: right;
                 font-size: 14px;
-                font-size: 1.4rem;
+                font-weight: 600;
+
                 > span {
                     margin: 0 10px;
+                }
+                a:hover {
+                    color: $link-color-subnav-hover;
                 }
             }
             a {
