@@ -98,7 +98,6 @@ class SponsorListPlugin(CMSPlugin):
 class JobOffer(models.Model):
     sponsor = models.ForeignKey(Sponsor, verbose_name=_("sponsor"))
     reply_to = models.EmailField(_("Reply-To"),
-        help_text=_('The email address to which responses should be sent.'),
-        null=True)
+        help_text=_('The email address to which responses should be sent.'))
     subject = models.CharField(_("title"), max_length=50)
     text = models.TextField(_("text"))

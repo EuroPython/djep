@@ -12,7 +12,7 @@ class Migration(SchemaMigration):
         db.create_table(u'sponsorship_joboffer', (
             (u'id', self.gf('django.db.models.fields.AutoField')(primary_key=True)),
             ('sponsor', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['sponsorship.Sponsor'])),
-            ('reply_to', self.gf('django.db.models.fields.EmailField')(max_length=75, null=True)),
+            ('reply_to', self.gf('django.db.models.fields.EmailField')(max_length=75)),
             ('subject', self.gf('django.db.models.fields.CharField')(max_length=50)),
             ('text', self.gf('django.db.models.fields.TextField')()),
         ))
@@ -61,7 +61,7 @@ class Migration(SchemaMigration):
         u'sponsorship.joboffer': {
             'Meta': {'object_name': 'JobOffer'},
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
-            'reply_to': ('django.db.models.fields.EmailField', [], {'max_length': '75', 'null': 'True'}),
+            'reply_to': ('django.db.models.fields.EmailField', [], {'max_length': '75'}),
             'sponsor': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['sponsorship.Sponsor']"}),
             'subject': ('django.db.models.fields.CharField', [], {'max_length': '50'}),
             'text': ('django.db.models.fields.TextField', [], {})
