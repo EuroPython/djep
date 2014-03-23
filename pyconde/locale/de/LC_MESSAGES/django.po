@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-03-22 15:31+0100\n"
+"POT-Creation-Date: 2014-03-23 15:51+0100\n"
 "PO-Revision-Date: 2014-02-24 20:19+0100\n"
 "Last-Translator: Stefan Richter <stefan@02strich.de>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -76,11 +76,11 @@ msgstr "Twitter"
 msgid "Website"
 msgstr "Webseite"
 
-#: accounts/forms.py:55 accounts/forms.py:206 accounts/models.py:56
+#: accounts/forms.py:55 accounts/forms.py:231 accounts/models.py:56
 msgid "Number of accompanying children"
 msgstr "Voraussichtliche Anzahl mitkommender Kinder"
 
-#: accounts/forms.py:58 accounts/forms.py:208 accounts/models.py:58
+#: accounts/forms.py:58 accounts/forms.py:233 accounts/models.py:58
 msgid "Age of accompanying children"
 msgstr "Alter der mitkommenden Kinder"
 
@@ -120,23 +120,28 @@ msgstr ""
 "Ich erlaube der EuroPython Society meine Profildaten für zukünftige "
 "Konferenzen wiederzuverwenden."
 
-#: accounts/forms.py:75
+#: accounts/forms.py:72
+msgid "I hereby allow EuroPython 2014 sponsors to send me job offers."
+msgstr ""
+"Ich erlaube den EuroPython 2014 Sponsoren, mir Job Angebote zu schicken."
+
+#: accounts/forms.py:78
 msgid "Login information"
 msgstr "Logindaten"
 
-#: accounts/forms.py:76 accounts/forms.py:214
+#: accounts/forms.py:85 accounts/forms.py:239
 msgid "Personal information"
 msgstr "Persönliche Daten"
 
-#: accounts/forms.py:79 accounts/forms.py:217
+#: accounts/forms.py:93 accounts/forms.py:242
 msgid "Professional information"
 msgstr "Weitere Daten"
 
-#: accounts/forms.py:80 accounts/forms.py:219
+#: accounts/forms.py:100 accounts/forms.py:244
 msgid "Privacy Policy"
 msgstr "Datenschutzerklärung"
 
-#: accounts/forms.py:81
+#: accounts/forms.py:101
 msgid ""
 "{% load cms_tags %}<p class=\"control-group\">Due to data protection "
 "regulations you need to explicitly accept our <a href=\"{% page_url "
@@ -146,11 +151,11 @@ msgstr ""
 "benötigen wir dazu eine explizite Freigabe und eine Anerkennung unserer <a "
 "href=\"{% page_url \"privacy-policy\" %}\">Datenschutzerklärung</a>.</p>"
 
-#: accounts/forms.py:91
+#: accounts/forms.py:115
 msgid "Create account"
 msgstr "Konto anlegen"
 
-#: accounts/forms.py:94 accounts/forms.py:232
+#: accounts/forms.py:118 accounts/forms.py:257
 msgid ""
 "Please upload an image with a side length of at least 300 pixels.<br />If "
 "you don't upload an avatar your Gravatar will be used instead."
@@ -159,7 +164,7 @@ msgstr ""
 ">Falls Sie keinen Avatar hochladen, wird versucht, Ihren Gravatar zu "
 "verwenden."
 
-#: accounts/forms.py:145
+#: accounts/forms.py:170
 #, python-format
 msgid ""
 "<ul><li><a href=\"%(register_url)s\">Don't have an account yet?</a></"
@@ -168,11 +173,11 @@ msgstr ""
 "<ul><li><a href=\"%(register_url)s\">Noch kein Konto?</a></li><li><a href="
 "\"%(password_reset_url)s\">Passwort vergessen?</a></li></ul>"
 
-#: accounts/forms.py:149
+#: accounts/forms.py:174
 msgid "Log in"
 msgstr "Anmelden"
 
-#: accounts/forms.py:165
+#: accounts/forms.py:190
 #: skins/default/templates/userprofiles/password_reset.html:4
 #: skins/default/templates/userprofiles/password_reset.html:5
 #: skins/default/templates/userprofiles/password_reset_complete.html:4
@@ -184,11 +189,11 @@ msgstr "Anmelden"
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
-#: accounts/forms.py:180
+#: accounts/forms.py:205
 msgid "Set password"
 msgstr "Passwort zurücksetzen"
 
-#: accounts/forms.py:195
+#: accounts/forms.py:220
 #: skins/default/templates/userprofiles/password_change.html:4
 #: skins/default/templates/userprofiles/password_change.html:5
 #: skins/default/templates/userprofiles/password_change_done.html:4
@@ -196,26 +201,26 @@ msgstr "Passwort zurücksetzen"
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: accounts/forms.py:204
+#: accounts/forms.py:229
 msgid "organisation"
 msgstr "Organisation"
 
-#: accounts/forms.py:229
+#: accounts/forms.py:254
 msgid "Change"
 msgstr "Ändern"
 
-#: accounts/forms.py:243 accounts/forms.py:251
+#: accounts/forms.py:268 accounts/forms.py:276
 msgid "You previously agreed to this option which can no longer be revoked."
 msgstr ""
 "Sie haben zuvor dieser Bedingung zugestimmt. Dies kann nachträglich nicht "
 "mehr revidiert werden."
 
-#: accounts/forms.py:265 attendees/forms.py:47
+#: accounts/forms.py:290 attendees/forms.py:46
 #: attendees/templates/attendees/purchase_names.html:86
 msgid "Continue"
 msgstr "Weiter"
 
-#: accounts/forms.py:276
+#: accounts/forms.py:301
 #: skins/default/templates/userprofiles/email_change.html:4
 #: skins/default/templates/userprofiles/email_change.html:5
 #: skins/default/templates/userprofiles/email_change_requested.html:4
@@ -223,7 +228,7 @@ msgstr "Weiter"
 msgid "Change e-mail address"
 msgstr "E-Mail-Adresse ändern"
 
-#: accounts/forms.py:290
+#: accounts/forms.py:315
 msgid "Apply now!"
 msgstr "Jetzt bewerben!"
 
@@ -302,7 +307,11 @@ msgstr "Daten für zukünftige PySV Konferenzen wiederverwenden"
 msgid "Allow copying to EPS conferences"
 msgstr "Daten für zukünftige EPS Konferenzen wiederverwenden"
 
-#: accounts/models.py:78
+#: accounts/models.py:74
+msgid "Allow sponsors to send job offers"
+msgstr "Erlaube Sponsoren mir Job Angebote zu schicken"
+
+#: accounts/models.py:80
 msgid "You've logged in successfully."
 msgstr "Sie haben sich erfolgreich angemeldet."
 
@@ -476,47 +485,47 @@ msgstr ""
 msgid "Attendees App"
 msgstr "Teilnehmer App"
 
-#: attendees/forms.py:20 attendees/models.py:26
+#: attendees/forms.py:21 attendees/models.py:26
 msgid "Invoice"
 msgstr "Rechnung"
 
-#: attendees/forms.py:21 attendees/models.py:27
+#: attendees/forms.py:22 attendees/models.py:27
 msgid "Credit card"
 msgstr "Kreditkarte"
 
-#: attendees/forms.py:22 attendees/models.py:28
+#: attendees/forms.py:23 attendees/models.py:28
 msgid "ELV"
 msgstr "ELV"
 
-#: attendees/forms.py:31 attendees/models.py:172
+#: attendees/forms.py:30 attendees/models.py:172
 msgid "E-mail"
 msgstr "E-Mail"
 
-#: attendees/forms.py:44
+#: attendees/forms.py:43
 #: attendees/templates/attendees/mail_purchase_completed.html:15
 #: attendees/templates/attendees/purchase_confirm.html:44
 #: attendees/templates/attendees/user_purchases.html:27
 msgid "Billing address"
 msgstr "Rechnungsadresse"
 
-#: attendees/forms.py:60
+#: attendees/forms.py:59
 msgid "Quantity"
 msgstr "Anzahl"
 
-#: attendees/forms.py:89
+#: attendees/forms.py:88
 msgid "Tickets sold out."
 msgstr "Tickets ausverkauft."
 
-#: attendees/forms.py:92
+#: attendees/forms.py:91
 msgid "Not enough tickets left."
 msgstr "Nicht genug Tickets mehr verfügbar."
 
-#: attendees/forms.py:95
+#: attendees/forms.py:94
 msgid ""
 "You've exceeded the maximum number of items of this type for this purchase"
 msgstr "Die maximale Menge dieses Produkts für diesen Einkauf ist erreicht."
 
-#: attendees/forms.py:113
+#: attendees/forms.py:112
 msgid ""
 "Sizing charts: <a href=\"http://maxnosleeves.spreadshirt.com/shop/info/"
 "producttypedetails/Popup/Show/productType/813\" target=\"_blank\">Women</a>, "
@@ -528,21 +537,21 @@ msgstr ""
 "a>, <a href=\"http://btn-shop.spreadshirt.de/shop/info/producttypedetails/"
 "Popup/Show/productType/812\" target=\"_blank\">Männer</a>"
 
-#: attendees/forms.py:129 attendees/models.py:72 attendees/models.py:76
+#: attendees/forms.py:128 attendees/models.py:72 attendees/models.py:76
 #: attendees/models.py:308
 #: attendees/templates/attendees/purchase_names.html:57
 msgid "Voucher"
 msgstr "Gutschein"
 
-#: attendees/forms.py:159
+#: attendees/forms.py:158
 msgid "Voucher verification failed."
 msgstr "Gutschein-Verifikation fehlgeschlagen."
 
-#: attendees/forms.py:172
+#: attendees/forms.py:171
 msgid "I've read and agree to the terms and conditions."
 msgstr "Ich habe die allgemeinen Geschäftsbedingungen gelesen und akzeptiert."
 
-#: attendees/forms.py:173
+#: attendees/forms.py:172
 #, python-format
 msgid ""
 "You must accept the <a target=\"_blank\" href=\"%s\">terms and conditions</"
@@ -551,57 +560,62 @@ msgstr ""
 "Sie müssen die <a target=\"_blank\" href=\"%s\">allgemeinen "
 "Geschäftsbedingungen</a> akzeptieren."
 
-#: attendees/forms.py:174
+#: attendees/forms.py:173
 msgid "You must accept the terms and conditions."
 msgstr "Sie müssen die allgemeinen Geschäftsbedingungen akzeptieren."
 
-#: attendees/forms.py:176 attendees/models.py:188
+#: attendees/forms.py:175 attendees/models.py:188
 #: attendees/templates/attendees/mail_purchase_completed.html:13
 msgid "Payment method"
 msgstr "Zahlungsart"
 
-#: attendees/forms.py:178
-msgid ""
-"If you choose invoice you will receive an invoice from us. After we receive "
-"your money transfer your purchase will be finalized.<br /><br />Credit card "
-"payment is handled through <a href=\"http://www.paymill.com\">PayMill</a>."
-"<br><br>We accept following credit cards:&nbsp;<img src=\"/static_media/"
-"assets/images/cc/mastercard-curved-32px.png\" alt=\"MasterCard\">&nbsp;<img "
-"src=\"/static_media/assets/images/cc/visa-curved-32px.png\" alt=\"VISA\">"
-msgstr ""
-"Falls Sie Rechnung auswählen, erhalten Sie von uns eine Rechnung nach "
-"Abschluss des Einkaufes. Sobald wir von Ihnen eine entsprechende Überweisung "
-"erhalten, wird Ihre Bestellung abgeschlossen.<br /><br />Kreditkarten-"
-"Zahlungen werden durch <a href=\"http://www.paymill.com\">PayMill</a> "
-"durchgeführt.<br><br>Wir akzeptieren folgende Kreditkarten:&nbsp;<img src=\"/"
-"static_media/assets/images/cc/mastercard-curved-32px.png\" alt=\"MasterCard"
-"\">&nbsp;<img src=\"/static_media/assets/images/cc/visa-curved-32px.png\" "
-"alt=\"VISA\">"
-
-#: attendees/forms.py:195
+#: attendees/forms.py:188
 msgid "Complete purchase"
 msgstr "Bestellung abschlie&szlig;en"
 
-#: attendees/forms.py:211
+#: attendees/forms.py:228
+msgid ""
+"If you choose invoice you will receive an invoice from us. After we receive "
+"your money transfer your purchase will be finalized."
+msgstr ""
+"Falls Sie Rechnung auswählen, erhalten Sie von uns eine Rechnung nach "
+"Abschluss des Einkaufes. Sobald wir von Ihnen eine entsprechende Überweisung "
+"erhalten, wird Ihre Bestellung abgeschlossen."
+
+#: attendees/forms.py:232
+msgid ""
+"Credit card payment is handled through <a href=\"http://www.paymill.com"
+"\">PayMill</a>.<br><br>We accept following credit cards:&nbsp;<img src=\"/"
+"static_media/assets/images/cc/mastercard-curved-32px.png\" alt=\"MasterCard"
+"\">&nbsp;<img src=\"/static_media/assets/images/cc/visa-curved-32px.png\" "
+"alt=\"VISA\">"
+msgstr ""
+"Kreditkarten-Zahlungen werden durch <a href=\"http://www.paymill.com"
+"\">PayMill</a> durchgeführt.<br><br>Wir akzeptieren folgende Kreditkarten:"
+"&nbsp;<img src=\"/static_media/assets/images/cc/mastercard-curved-32px.png\" "
+"alt=\"MasterCard\">&nbsp;<img src=\"/static_media/assets/images/cc/visa-"
+"curved-32px.png\" alt=\"VISA\">"
+
+#: attendees/forms.py:248
 msgid "Username"
 msgstr "Benutzername"
 
-#: attendees/forms.py:212
+#: attendees/forms.py:249
 msgid ""
 "Specify the username/login of the user you want to assign this ticket to."
 msgstr ""
 "Bitte geben Sie den Benutzernamen jener Person an, der Sie dieses Ticket "
 "zuweisen möchten."
 
-#: attendees/forms.py:219
+#: attendees/forms.py:256
 msgid "Couldn't find a user with this username."
 msgstr "Es konnte kein Benutzer mit diesem Benutzernamen gefunden werden."
 
-#: attendees/forms.py:221
+#: attendees/forms.py:258
 msgid "Tickets purchased by you are already assigned to you :-)"
 msgstr "Tickets, die Sie gekauft haben, sind Ihnen bereits zugewiesen :-)"
 
-#: attendees/forms.py:232 attendees/templates/attendees/assign_ticket.html:3
+#: attendees/forms.py:269 attendees/templates/attendees/assign_ticket.html:3
 #: attendees/templates/attendees/assign_ticket.html:4
 msgid "Assign ticket"
 msgstr "Ticket zuweisen"
@@ -829,23 +843,23 @@ msgid ""
 msgstr ""
 "Das folgende Ticket ist nicht mehr in ausreichender Menge verfügbar: %s"
 
-#: attendees/views.py:442
+#: attendees/views.py:447
 msgid "Payment failed. Please check your data."
 msgstr "Zahlung fehlgeschlagen. Bitte überprüfen Sie die Daten."
 
-#: attendees/views.py:455
+#: attendees/views.py:460
 msgid "Transaction already processed."
 msgstr "Transaktion wurde bereits ausgeführt."
 
-#: attendees/views.py:457
+#: attendees/views.py:462
 msgid "Purchase already handled."
 msgstr "Bezahlung wurde bereits bearbeitet."
 
-#: attendees/views.py:520
+#: attendees/views.py:525
 msgid "The invoice has been sent to you."
 msgstr "Die Rechnung wurde dir zugesandt."
 
-#: attendees/views.py:523
+#: attendees/views.py:528
 msgid ""
 "The invoice for this purchase does not exist or has not yet been generated. "
 "You will receive a mail with the invoice soon."
@@ -853,7 +867,7 @@ msgstr ""
 "Die Rechnung für diesen Kauf wurde noch nicht erstellt. Du wirst eine Kopie "
 "per E-Mail erhalten, sobald die Rechnung erstellt wurde."
 
-#: attendees/views.py:560
+#: attendees/views.py:565
 msgid "This ticket was successfully assigned to the specified user"
 msgstr "Das Ticket wurde erfolgreich dem angegebenen Benutzer zugewiesen"
 
@@ -1357,6 +1371,7 @@ msgstr ""
 " "
 
 #: conference/models.py:41 proposals/models.py:55 sponsorship/models.py:83
+#: sponsorship/models.py:102
 msgid "title"
 msgstr "Titel"
 
@@ -1805,8 +1820,8 @@ msgid ""
 msgstr ""
 "Die Dauer muss mit derselben Konferenz wie der Vorschlag assoziiert sein"
 
-#: proposals/models.py:109 reviews/models.py:66 reviews/models.py:149
-#: reviews/models.py:172 schedule/models.py:35
+#: proposals/models.py:109 reviews/models.py:79 reviews/models.py:162
+#: reviews/models.py:185 schedule/models.py:35
 msgid "proposal"
 msgstr "Session-Vorschlag"
 
@@ -2150,135 +2165,135 @@ msgstr "Reviewbare Vorschläge"
 msgid "My reviews"
 msgstr "Meine Reviews"
 
-#: reviews/models.py:69
+#: reviews/models.py:82
 msgid "latest proposal version"
 msgstr "aktuelle Vorschlagsversion"
 
-#: reviews/models.py:71
+#: reviews/models.py:84
 msgid "number of comments"
 msgstr "Anzahl an Kommentaren"
 
-#: reviews/models.py:74
+#: reviews/models.py:87
 msgid "number of reviews"
 msgstr "Anzahl an Reviews"
 
-#: reviews/models.py:77
+#: reviews/models.py:90
 msgid "latest activity"
 msgstr "Letzte Aktivität"
 
-#: reviews/models.py:80
+#: reviews/models.py:93
 msgid "latest comment"
 msgstr "Letztes Kommentar"
 
-#: reviews/models.py:82
+#: reviews/models.py:95
 msgid "latest review"
 msgstr "Letzte Review"
 
-#: reviews/models.py:84
+#: reviews/models.py:97
 msgid "latest version"
 msgstr "Letzte Version"
 
-#: reviews/models.py:86
+#: reviews/models.py:99
 msgid "score"
 msgstr "Punkte"
 
-#: reviews/models.py:95 reviews/models.py:96
+#: reviews/models.py:108 reviews/models.py:109
 msgid "proposal metadata"
 msgstr "Proposal-Metadaten"
 
-#: reviews/models.py:117
+#: reviews/models.py:130
 msgid "original proposal"
 msgstr "Originalvorschlag"
 
-#: reviews/models.py:120
+#: reviews/models.py:133
 msgid "creator"
 msgstr "Erzeuger"
 
-#: reviews/models.py:121 reviews/models.py:147 reviews/models.py:171
+#: reviews/models.py:134 reviews/models.py:160 reviews/models.py:184
 msgid "publication date"
 msgstr "Veröffentlichungsdatum"
 
-#: reviews/models.py:129 reviews/models.py:151 reviews/models.py:175
+#: reviews/models.py:142 reviews/models.py:164 reviews/models.py:188
 msgid "proposal version"
 msgstr "Vorschlagsversion"
 
-#: reviews/models.py:130
+#: reviews/models.py:143
 msgid "proposal versions"
 msgstr "Vorschlagsversionen"
 
-#: reviews/models.py:142 reviews/models.py:215
+#: reviews/models.py:155 reviews/models.py:228
 msgid "user"
 msgstr "Benutzer"
 
-#: reviews/models.py:144
+#: reviews/models.py:157
 msgid "rating"
 msgstr "Bewertung"
 
-#: reviews/models.py:145
+#: reviews/models.py:158
 msgid "summary"
 msgstr "Zusammenfassung"
 
-#: reviews/models.py:155
+#: reviews/models.py:168
 msgid "review"
 msgstr "Review"
 
-#: reviews/models.py:156
+#: reviews/models.py:169
 msgid "reviews"
 msgstr "Reviews"
 
-#: reviews/models.py:168 testimonials/models.py:12
+#: reviews/models.py:181 testimonials/models.py:12
 msgid "author"
 msgstr "Autor"
 
-#: reviews/models.py:169 testimonials/models.py:11
+#: reviews/models.py:182 testimonials/models.py:11
 msgid "content"
 msgstr "Inhalt"
 
-#: reviews/models.py:176
+#: reviews/models.py:189
 msgid "deleted"
 msgstr "Löschen"
 
-#: reviews/models.py:178
+#: reviews/models.py:191
 msgid "deleted at"
 msgstr "Gelöscht am"
 
-#: reviews/models.py:180
+#: reviews/models.py:193
 msgid "deleted by"
 msgstr "Gelöscht durch"
 
-#: reviews/models.py:183
+#: reviews/models.py:196
 msgid "deletion reason"
 msgstr "Löschbegründung"
 
-#: reviews/models.py:199
+#: reviews/models.py:212
 msgid "comment"
 msgstr "Kommentar"
 
-#: reviews/models.py:200
+#: reviews/models.py:213
 msgid "comments"
 msgstr "Kommentare"
 
-#: reviews/models.py:209
+#: reviews/models.py:222
 msgid "pending request"
 msgstr "Bewerbung läuft"
 
-#: reviews/models.py:210
+#: reviews/models.py:223
 msgid "request accepted"
 msgstr "Bewerbung angenommen"
 
-#: reviews/models.py:211
+#: reviews/models.py:224
 msgid "request declined"
 msgstr "Bewerbung abgelehnt"
 
-#: reviews/models.py:216
+#: reviews/models.py:229
 msgid "state"
 msgstr "Status"
 
-#: reviews/models.py:222
+#: reviews/models.py:235
 msgid "reviewer"
 msgstr "Reviewer"
 
-#: reviews/models.py:223
+#: reviews/models.py:236
 msgid "reviewers"
 msgstr "Reviewer"
 
@@ -2416,6 +2431,25 @@ msgstr "Vortragende(r)"
 msgid "Co-speaker(s)"
 msgstr "Mitvortragende(r)"
 
+#: reviews/templates/reviews/proposal_base.html:103
+msgid "Score <small>(visible to staff only)</small>"
+msgstr "Bewertung <small>(nur für Redakteure sichtbar)</small>"
+
+#: reviews/templates/reviews/proposal_base.html:105
+#, python-format
+msgid ""
+"\n"
+"            <span class=\"score\">%(score)s</span> after %(num_reviews)s "
+"Review(s)\n"
+"            "
+msgstr ""
+"\n"
+"<span class=\"score\">%(score)s</span> nach %(num_reviews)s Review(s)"
+
+#: reviews/templates/reviews/proposal_base.html:108
+msgid "See all reviews"
+msgstr "Alle Reviews anzeigen"
+
 #: reviews/templates/reviews/proposal_details.html:4
 #: reviews/templates/reviews/proposal_details.html:5
 #, python-format
@@ -2533,17 +2567,6 @@ msgstr "Dieser Vorschlag wurde noch nicht bewertet."
 #: reviews/templates/reviews/review_list.html:14
 msgid "This review is based on an old version of the proposal:"
 msgstr "Diese Review basiert auf einer alten Vorschlagsversion:"
-
-#: reviews/templates/reviews/review_list.html:31
-#, python-format
-msgid ""
-"\n"
-"        <span class=\"score\">%(score)s</span> after %(num_reviews)s "
-"Review(s)\n"
-"        "
-msgstr ""
-"\n"
-"<span class=\"score\">%(score)s</span> nach %(num_reviews)s Review(s)"
 
 #: reviews/templates/reviews/reviewable_proposals.html:9
 msgid "Filters"
@@ -2922,7 +2945,7 @@ msgstr "Abgemeldet"
 
 #: skins/default/templates/userprofiles/login.html:4
 #: skins/default/templates/userprofiles/login.html:5
-#: skins/ep14/templates/base.html:49
+#: skins/ep14/templates/base.html:57
 msgid "Login"
 msgstr "Anmelden"
 
@@ -2948,7 +2971,7 @@ msgstr ""
 
 #: skins/default/templates/userprofiles/profile.html:4
 #: skins/default/templates/userprofiles/profile.html:5
-#: skins/ep14/templates/base.html:53
+#: skins/ep14/templates/base.html:61
 msgid "Your profile"
 msgstr "Dein Profil"
 
@@ -3090,26 +3113,30 @@ msgid "E-mail confirmation"
 msgstr "E-Mail-Bestätigung"
 
 #: skins/ep14/templates/base.html:49
+msgid "Sponsorship"
+msgstr "Sponsoren"
+
+#: skins/ep14/templates/base.html:57
 msgid "Sign up"
 msgstr "Registrieren"
 
-#: skins/ep14/templates/base.html:96
+#: skins/ep14/templates/base.html:104
 msgid "Get in touch"
 msgstr "Hilfe und Support"
 
-#: skins/ep14/templates/base.html:106
+#: skins/ep14/templates/base.html:114
 msgid "Follow @europython"
 msgstr "@europython folgen"
 
-#: skins/ep14/templates/base.html:112
+#: skins/ep14/templates/base.html:120
 msgid "Like EuroPython"
 msgstr "Like EuroPython"
 
-#: skins/ep14/templates/base.html:118
+#: skins/ep14/templates/base.html:126
 msgid "+1 EuroPython"
 msgstr "+1 EuroPython"
 
-#: skins/ep14/templates/base.html:122
+#: skins/ep14/templates/base.html:130
 msgid ""
 "EuroPython 2014 is organized by the <a href=\"http://www.meetup.com/Python-"
 "Users-Berlin-PUB/\">Python User Group Berlin</a>, <a href=\"http://www."
@@ -3132,9 +3159,23 @@ msgstr ""
 "Sie müssen ein Konto für diese Website anlegen, wenn Sie an der Konferenz  "
 "als Besucher oder Vortragender teilnehmen möchten."
 
+#: sponsorship/cms_app.py:9
+msgid "Sponsorship App"
+msgstr "Sponsoren-Anwendung"
+
 #: sponsorship/cms_plugins.py:15
 msgid "Sponsor list plugin"
 msgstr "Sponsoren-Plugin"
+
+#: sponsorship/forms.py:25 sponsorship/menu.py:15
+#: sponsorship/templates/sponsorship/send_job_offer.html:3
+#: sponsorship/templates/sponsorship/send_job_offer.html:4
+msgid "Send job offer"
+msgstr "Job-Angebot senden"
+
+#: sponsorship/menu.py:10
+msgid "Sponsorship Menu"
+msgstr "Sponsoren Menü"
 
 #: sponsorship/models.py:25
 msgid "sponsor level"
@@ -3191,7 +3232,7 @@ msgid ""
 msgstr ""
 "Bitte gib die benutzerdefinierten Dimensionen im Format [Breite]x[Höhe] an."
 
-#: sponsorship/models.py:78
+#: sponsorship/models.py:78 sponsorship/models.py:99
 msgid "sponsor"
 msgstr "Sponsor"
 
@@ -3210,6 +3251,40 @@ msgstr ""
 #: sponsorship/models.py:91
 msgid "custom CSS classes"
 msgstr ""
+
+#: sponsorship/models.py:100
+msgid "Reply-To"
+msgstr "Antwort an"
+
+#: sponsorship/models.py:101
+msgid "The email address to which responses should be sent."
+msgstr "Die E-Mail Addresse an die Antworten geschickt werden sollen."
+
+#: sponsorship/models.py:103
+msgid "text"
+msgstr "Text"
+
+#: sponsorship/views.py:16
+msgid "You do not have permission to send job offers."
+msgstr "Sie haben nicht die Berechtigung, Job-Angebote zu verschicken."
+
+#: sponsorship/views.py:23
+msgid "Job offer sent"
+msgstr "Job-Angebot verschickt"
+
+#: sponsorship/templates/sponsorship/emails/job_offer.txt:1
+#, python-format
+msgid "This is a job offer by \"%(sponsor)s\":"
+msgstr "Dies ist ein Job-Angebot von \"%(sponsor)s\":"
+
+#: sponsorship/templates/sponsorship/emails/job_offer.txt:9
+#, python-format
+msgid ""
+"If you do not want receive any more job offers, you can opt-out on your "
+"profile page: https://%(site)s%(profile_change_url)s"
+msgstr ""
+"Falls Sie keine weiteren Job-Angebote erhalten möchten, können Sie diese auf "
+"ihrer Profil-Seite abbestellen: https://%(site)s%(profile_change_url)s"
 
 #: testimonials/cms_plugins.py:11
 msgid "Testimonial"

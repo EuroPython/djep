@@ -93,3 +93,11 @@ class SponsorListPlugin(CMSPlugin):
 
     def copy_relations(self, oldinstance):
         self.levels = oldinstance.levels.all()
+
+
+class JobOffer(models.Model):
+    sponsor = models.ForeignKey(Sponsor, verbose_name=_("sponsor"))
+    reply_to = models.EmailField(_("Reply-To"),
+        help_text=_('The email address to which responses should be sent.'))
+    subject = models.CharField(_("title"), max_length=50)
+    text = models.TextField(_("text"))

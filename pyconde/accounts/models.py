@@ -71,6 +71,8 @@ class Profile(models.Model):
         default=False, blank=True)
     accept_ep_conferences = models.BooleanField(_('Allow copying to EPS conferences'),
         default=False, blank=True)
+    accept_job_offers = models.BooleanField(_('Allow sponsors to send job offers'),
+        default=False, blank=True)
 
 
 @receiver(user_logged_in)

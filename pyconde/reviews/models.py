@@ -57,6 +57,19 @@ class Proposal(proposal_models.Proposal):
     def can_be_reviewed(self):
         return self.conference.get_reviews_active()
 
+    @classmethod
+    def load(cls, proposal_instance):
+        """
+        This initializes and returns a proxy instance of a proposal wit the
+        data stored in the given proposal_instance.
+
+        This is useful in places were we have to operate on "original"
+        proposal instances due to foreign keys.
+        """
+        inst = cls()
+        inst.__dict__ = proposal_instance.__dict__
+        return inst
+
 
 class ProposalMetaData(models.Model):
     """

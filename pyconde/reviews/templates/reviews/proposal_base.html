@@ -98,6 +98,17 @@
             </dd>
         </dl>
         {% endif %}
+        {% if user.is_staff and proposal %}
+        <dl id="scorebox">
+            <dt>{% trans "Score <small>(visible to staff only)</small>" %}</dt>
+            <dd>
+            {% blocktrans with score=proposal.review_metadata.score num_reviews=proposal.review_metadata.num_reviews %}
+            <span class="score">{{ score }}</span> after {{ num_reviews }} Review(s)
+            {% endblocktrans %}
+            <a href="{% url 'reviews-proposal-reviews' proposal_pk=proposal.pk %}">{% trans "See all reviews" %}</a>
+            </dd>
+        </dl>
+        {% endif %}
     </div>
     {% endblock %}
     </div>

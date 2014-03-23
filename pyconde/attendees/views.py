@@ -384,6 +384,11 @@ class PurchaseOverviewView(LoginRequiredMixin, PurchaseMixin,
     form_class = forms.PurchaseOverviewForm
     step = 'overview'
 
+    def get_form_kwargs(self):
+        result = super(PurchaseOverviewView, self).get_form_kwargs()
+        result['purchase'] = self.purchase
+        return result
+
     def get_context_data(self, *args, **kwargs):
         data = super(PurchaseOverviewView, self).get_context_data(*args,
                                                                   **kwargs)
@@ -563,7 +568,7 @@ class AssignTicketView(LoginRequiredMixin, generic_views.View):
         self.ticket = get_object_or_404(
             Ticket,
             pk=kwargs['pk'], purchase__user=self.request.user,
-            user__isnull=True)
+            user__isnull=True, purchase__state='payment_received')
         return super(AssignTicketView, self).dispatch(*args, **kwargs)
 
     def get(self, *args, **kwargs):

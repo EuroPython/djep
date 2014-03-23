@@ -2,8 +2,8 @@
 from django import forms
 from django.core.cache import get_cache
 from django.core.exceptions import ValidationError
-from django.conf import settings
 from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext
 from django.contrib.auth import models as auth_models
 
 from crispy_forms.helper import FormHelper
@@ -15,6 +15,7 @@ from pyconde.attendees.models import Purchase, VenueTicket, Voucher,\
 from pyconde.forms import Submit
 
 from . import utils
+from . import settings
 
 
 PAYMENT_METHOD_CHOICES = (
@@ -23,9 +24,7 @@ PAYMENT_METHOD_CHOICES = (
     ('elv', _('ELV')),
 )
 
-terms_of_use_url = (settings.PURCHASE_TERMS_OF_USE_URL
-                    if (hasattr(settings, 'PURCHASE_TERMS_OF_USE_URL')
-                    and settings.PURCHASE_TERMS_OF_USE_URL) else '#')
+terms_of_use_url = settings.TERMS_OF_USE_URL
 
 
 class PurchaseForm(forms.ModelForm):
@@ -217,16 +216,10 @@ class PurchaseOverviewForm(forms.Form):
         error_messages={'required': _('You must accept the terms and conditions.')})
     payment_method = forms.ChoiceField(
         label=_('Payment method'),
-        choices=PAYMENT_METHOD_CHOICES, widget=forms.RadioSelect,
-        help_text=_('If you choose invoice you will receive an invoice from us.'
-                    ' After we receive your money transfer your purchase will'
-                    ' be finalized.<br /><br />Credit card payment is handled'
-                    ' through <a href="http://www.paymill.com">PayMill</a>.'
-                    '<br><br>We accept following credit cards:&nbsp;'
-                    '<img src="/static_media/assets/images/cc/mastercard-curved-32px.png" alt="MasterCard">&nbsp;'
-                    '<img src="/static_media/assets/images/cc/visa-curved-32px.png" alt="VISA">'))
+        choices=PAYMENT_METHOD_CHOICES, widget=forms.RadioSelect)
 
     def __init__(self, *args, **kwargs):
+        self.purchase = kwargs.pop('purchase')
         super(PurchaseOverviewForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
@@ -247,6 +240,50 @@ class PurchaseOverviewForm(forms.Form):
                 if choice[0] in settings.PAYMENT_METHODS:
                     new_choices.append(choice)
             self.fields['payment_method'].choices = new_choices
+
+        # Filter payment methods if they are not allowed based on the
+        # min. amount threshold
+        total_amount = self.purchase.payment_total
+        new_choices = []
+        supported_methods = []
+        for choice in self.fields['payment_method'].choices:
+            minimum = settings.MIN_TOTAL_FOR_PAYMENT_METHOD.get(choice[0])
+            if minimum is None or minimum < total_amount:
+                new_choices.append(choice)
+                supported_methods.append(choice[0])
+        self.fields['payment_method'].choices = new_choices
+        self.fields['payment_method'].help_text = self.\
+            _get_payment_method_helptext(supported_methods)
+
+        if len(new_choices) == 1:
+            self.fields['payment_method'].initial = new_choices[0][0]
+            if settings.HIDE_SINGLE_PAYMENT_METHOD:
+                self.fields['payment_method'].widget = forms.HiddenInput()
+
+    def _get_payment_method_helptext(self, supported_methods):
+        """
+        A little helper method that statically builds a helptext for the
+        payment methods field depending on what payment methods are presented
+        to the user.
+        """
+        texts = {
+            'invoice': ugettext(
+                'If you choose invoice you will receive an invoice from us. '
+                'After we receive your money transfer your purchase will be '
+                'finalized.'),
+            'creditcard': ugettext(
+                'Credit card payment is handled through '
+                '<a href="http://www.paymill.com">PayMill</a>.'
+                '<br><br>We accept following credit cards:&nbsp;'
+                '<img src="/static_media/assets/images/cc/mastercard-curved-32px.png" alt="MasterCard">&nbsp;'
+                '<img src="/static_media/assets/images/cc/visa-curved-32px.png" alt="VISA">')
+        }
+        result = []
+        for method in supported_methods:
+            text = texts.get(method)
+            if text:
+                result.append(text)
+        return u'<br><br>'.join(result)
 
 
 class TicketAssignmentForm(forms.Form):

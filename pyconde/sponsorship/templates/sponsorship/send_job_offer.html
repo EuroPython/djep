@@ -1,0 +1,7 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags i18n %}
+{% block title %}{% trans "Send job offer" %}{% endblock %}
+{% block page_title %}{% trans "Send job offer" %}{% endblock %}
+{% block content %}
+  {% crispy form %}
+{% endblock %}

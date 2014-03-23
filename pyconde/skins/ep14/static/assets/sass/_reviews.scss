@@ -1,4 +1,10 @@
 body.reviews {
+    #scorebox {
+        .score {
+            font-size: 3.2rem;
+            font-weight: bold;
+        }
+    }
     table {
         .track {
             display: block;
@@ -97,12 +103,6 @@ body.reviews {
     }
 
     &.reviewlist {
-        #scorebox {
-            .score {
-                font-size: 3.2rem;
-                font-weight: bold;
-            }
-        }
         ul.reviews {
             list-style: none;
             padding-left: 0;
