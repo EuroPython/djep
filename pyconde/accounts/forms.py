@@ -72,7 +72,7 @@ class ProfileRegistrationForm(RegistrationForm):
     accept_job_offers = forms.BooleanField(required=False,
         label=_('I hereby allow EuroPython 2014 sponsors to send me job offers.'))
 
-    tags = TagField(label=_("Tags"), required=False)
+    tags = TagField(label=_("Interests"), required=False, help_text=_("Please separate tags by comma."))
 
     def __init__(self, *args, **kwargs):
         super(ProfileRegistrationForm, self).__init__(*args, **kwargs)
@@ -235,7 +235,7 @@ class ProfileForm(BaseProfileForm):
                                                    widget=forms.Select(choices=NUM_ACCOMPANYING_CHILDREN_CHOICES))
     age_accompanying_children = forms.CharField(label=_("Age of accompanying children"),
                                                 required=False)
-    tags = TagField(label=_("Tags"), required=False)
+    tags = TagField(label=_("Interests"), required=False, help_text=_("Please separate tags by comma."))
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
