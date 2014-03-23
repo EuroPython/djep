@@ -1,9 +1,22 @@
 {% extends "base.html" %}
-{% load i18n crispy_forms_tags %}
+{% load i18n crispy_forms_tags sekizai_tags %}
+{% load static from staticfiles %}
 
 {% block title %}{% trans "Sign up now to join the EuroPython 2014 community:" %}{% endblock %}
 {% block page_title %}{% trans "Registration" %}{% endblock %}
 
 {% block content %}
   {% crispy form %}
+{% endblock %}
+
+{% block extra_foot %}
+{% addtoblock "css_external" %}
+    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+{% endaddtoblock %}
+{% addtoblock "js_external" %}
+    <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+{% endaddtoblock %}
+<script type="text/javascript">
+$(document).ready(function(){createTagsInput('/accounts/ajax/tags/');});
+</script>
 {% endblock %}

@@ -96,7 +96,7 @@ class ProfileRegistrationForm(RegistrationForm):
             'organisation',
             'twitter',
             'website',
-            'tags',
+            Field('tags', css_class='tags-input'),
             'accept_job_offers'
         )
         privacy_fields = Fieldset(
@@ -252,7 +252,7 @@ class ProfileForm(BaseProfileForm):
             'organisation',
             'twitter',
             'website',
-            'tags',
+            Field('tags', css_class='tags-input'),
             'accept_job_offers'
         )
         privacy_fields = Fieldset(
