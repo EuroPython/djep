@@ -2,6 +2,7 @@ import datetime
 from decimal import Decimal
 
 from django.contrib.auth import models as auth_models
+from django.contrib.contenttypes.models import ContentType
 from django.core.urlresolvers import reverse
 from django.test import TestCase
 
@@ -77,20 +78,24 @@ class TicketQuantityFormTests(TestCase):
             is_active=True,
             date_valid_from=now,
             date_valid_to=now + datetime.timedelta(days=365),
-            vouchertype_needed=self.voucher_type)
+            vouchertype_needed=self.voucher_type,
+            content_type=ContentType.objects.get_for_model(models.VenueTicket)
+            )
         self.ticket_type_without_limit = models.TicketType(
             name='without limit',
             is_active=True,
             date_valid_from=now,
             date_valid_to=now + datetime.timedelta(days=365),
-            max_purchases=0
+            max_purchases=0,
+            content_type=ContentType.objects.get_for_model(models.VenueTicket)
             )
         self.ticket_type_with_limit = models.TicketType(
             name='with limit',
             is_active=True,
             date_valid_from=now,
             date_valid_to=now + datetime.timedelta(days=365),
-            max_purchases=2
+            max_purchases=2,
+            content_type=ContentType.objects.get_for_model(models.VenueTicket)
             )
         self.ticket_type_without_limit.save()
         self.ticket_type_with_limit.save()
@@ -169,10 +174,11 @@ class TicketVoucherFormTests(TestCase):
             name='test',
             date_valid_from=now,
             date_valid_to=now + datetime.timedelta(days=1),
-            vouchertype_needed=self.voucher_type)
+            vouchertype_needed=self.voucher_type,
+            content_type=ContentType.objects.get_for_model(models.VenueTicket))
         self.ticket_type.save()
-        self.ticket = models.Ticket(purchase=self.purchase,
-                                    ticket_type=self.ticket_type)
+        self.ticket = models.VenueTicket(purchase=self.purchase,
+                                         ticket_type=self.ticket_type)
         self.ticket.save()
 
     def tearDown(self):
