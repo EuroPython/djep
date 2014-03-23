@@ -78,4 +78,5 @@ ep.ui = (function($) {
     }
 
     init();
+    return {};
 }(jQuery));
