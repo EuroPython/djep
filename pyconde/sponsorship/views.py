@@ -21,4 +21,4 @@ class JobOffer(generic_views.FormView):
         offer = form.save()
         send_job_offer.delay(offer.id)
         messages.success(self.request, _('Job offer sent'))
-        return HttpResponseRedirect('/')
+        return HttpResponseRedirect(self.request.path)
