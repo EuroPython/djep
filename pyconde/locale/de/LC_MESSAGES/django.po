@@ -3281,10 +3281,10 @@ msgstr "Dies ist ein Job-Angebot von \"%(sponsor)s\":"
 #, python-format
 msgid ""
 "If you do not want receive any more job offers, you can opt-out on your "
-"profile page: http://%(site)s%(profile_change_url)s"
-msgstr "Falls Sie keine weiteren Job-Angebote erhalten möchten, können "
-"Sie diese auf ihrer Profil-Seite abbestellen: "
-"http://%(site)s%(profile_change_url)s"
+"profile page: https://%(site)s%(profile_change_url)s"
+msgstr ""
+"Falls Sie keine weiteren Job-Angebote erhalten möchten, können Sie diese auf "
+"ihrer Profil-Seite abbestellen: https://%(site)s%(profile_change_url)s"
 
 #: testimonials/cms_plugins.py:11
 msgid "Testimonial"
