@@ -16,7 +16,7 @@ class Migration(SchemaMigration):
             ('first_name_tmp', self.gf('django.db.models.fields.CharField')(max_length=250, blank=True)),
             ('last_name_tmp', self.gf('django.db.models.fields.CharField')(max_length=250, blank=True)),
             ('organisation', self.gf('django.db.models.fields.CharField')(max_length=100, blank=True)),
-            ('shirtsize', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['attendees.TShirtSize'], null=True, blank=True)),
+            ('shirtsize_tmp', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['attendees.TShirtSize'], null=True, blank=True)),
             ('voucher_tmp', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['attendees.Voucher'], null=True, blank=True)),
         ))
         db.send_create_signal(u'attendees', ['VenueTicket'])
@@ -53,6 +53,9 @@ class Migration(SchemaMigration):
 
 
     def backwards(self, orm):
+        # Deleting field 'TicketType.content_type'
+        db.delete_column(u'attendees_tickettype', 'content_type_id')
+
         # Deleting model 'VenueTicket'
         db.delete_table(u'attendees_venueticket')
 
@@ -61,9 +64,6 @@ class Migration(SchemaMigration):
 
         # Deleting model 'SupportTicket'
         db.delete_table(u'attendees_supportticket')
-
-        # Deleting field 'TicketType.content_type'
-        db.delete_column(u'attendees_tickettype', 'content_type_id')
 
 
     models = {
@@ -114,13 +114,14 @@ class Migration(SchemaMigration):
         u'attendees.ticket': {
             'Meta': {'ordering': "('ticket_type__tutorial_ticket', 'ticket_type__product_number')", 'object_name': 'Ticket'},
             'date_added': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
+            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '250', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
+            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '250', 'blank': 'True'}),
             'purchase': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['attendees.Purchase']"}),
+            'shirtsize': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['attendees.TShirtSize']", 'null': 'True', 'blank': 'True'}),
             'ticket_type': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['attendees.TicketType']"}),
-            'user': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "u'attendees_ticket_tickets'", 'null': 'True', 'to': u"orm['auth.User']"}),
-            'voucher': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['attendees.Voucher']", 'null': 'True', 'blank': 'True'}),
-            'first_name': ('django.db.models.fields.CharField', [], {'max_length': '250'}),
-            'last_name': ('django.db.models.fields.CharField', [], {'max_length': '250'})
+            'user': ('django.db.models.fields.related.ForeignKey', [], {'blank': 'True', 'related_name': "'tickets'", 'null': 'True', 'to': u"orm['auth.User']"}),
+            'voucher': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['attendees.Voucher']", 'null': 'True', 'blank': 'True'})
         },
         u'attendees.tickettype': {
             'Meta': {'ordering': "('tutorial_ticket', 'product_number', 'vouchertype_needed')", 'unique_together': "[('product_number', 'conference')]", 'object_name': 'TicketType'},
@@ -150,7 +151,7 @@ class Migration(SchemaMigration):
             'first_name_tmp': ('django.db.models.fields.CharField', [], {'max_length': '250', 'blank': 'True'}),
             'last_name_tmp': ('django.db.models.fields.CharField', [], {'max_length': '250', 'blank': 'True'}),
             'organisation': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'}),
-            'shirtsize': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['attendees.TShirtSize']", 'null': 'True', 'blank': 'True'}),
+            'shirtsize_tmp': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['attendees.TShirtSize']", 'null': 'True', 'blank': 'True'}),
             u'ticket_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': u"orm['attendees.Ticket']", 'unique': 'True', 'primary_key': 'True'}),
             'voucher_tmp': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['attendees.Voucher']", 'null': 'True', 'blank': 'True'})
         },

@@ -22,6 +22,7 @@ class Migration(SchemaMigration):
 
         db.rename_column(u'attendees_venueticket', 'first_name_tmp', 'first_name')
         db.rename_column(u'attendees_venueticket', 'last_name_tmp', 'last_name')
+        db.rename_column(u'attendees_venueticket', 'shirtsize_tmp_id', 'shirtsize_id')
         db.rename_column(u'attendees_venueticket', 'voucher_tmp_id', 'voucher_id')
 
         db.rename_column(u'attendees_simcardticket', 'first_name_tmp', 'first_name')
@@ -30,6 +31,7 @@ class Migration(SchemaMigration):
     def backwards(self, orm):
         db.rename_column(u'attendees_venueticket', 'first_name', 'first_name_tmp')
         db.rename_column(u'attendees_venueticket', 'last_name', 'last_name_tmp')
+        db.rename_column(u'attendees_venueticket', 'shirtsize_id', 'shirtsize_tmp_id')
         db.rename_column(u'attendees_venueticket', 'voucher_id', 'voucher_tmp_id')
 
         db.rename_column(u'attendees_simcardticket', 'first_name', 'first_name_tmp')
