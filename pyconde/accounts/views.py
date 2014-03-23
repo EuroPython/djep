@@ -62,6 +62,22 @@ class AutocompleteUser(generic_views.View):
         return HttpResponse(json.dumps(result))
 
 
+class AutocompleteTags(generic_views.View):
+
+    def get_matching_tags(self, term):
+        data = list(models.Profile.tags.filter(name__icontains=term) \
+                                       .values_list('name', flat=True) \
+                                       .all())
+        return data
+
+    def get(self, request):
+        term = request.GET.get('term', '')
+        result = []
+        if term and len(term) >= 2:
+            result = self.get_matching_tags(term)
+        return HttpResponse(json.dumps(result))
+
+
 class ProfileView(generic_views.TemplateView):
     """
     Displays a profile page for the given user. If the user also has a
@@ -115,8 +131,8 @@ class ProfileChangeView(BaseProfileChangeView):
     def get_context_data(self, **kwargs):
         ctx = super(ProfileChangeView, self).get_context_data(**kwargs)
         review_state = None
+        user = self.request.user
         if settings.REVIEWER_APPLICATION_OPEN:
-            user = self.request.user
             if not user.is_superuser:
                 try:
                     review_state = user.reviewer_set.only('state').get().state
