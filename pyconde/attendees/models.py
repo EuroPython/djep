@@ -6,12 +6,14 @@ import os
 from email.utils import formataddr
 
 from django.contrib.auth.models import User
+from django.contrib.contenttypes import models as content_models
 from django.db import models
 from django.db.models import Q
 from django.utils.timezone import now
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 from . import settings
+from django.utils.encoding import force_text
 
 
 PURCHASE_STATES = (
@@ -124,6 +126,8 @@ class TicketType(models.Model):
 
     remarks = models.TextField(_('Remarks'), blank=True)
 
+    content_type = models.ForeignKey(content_models.ContentType, blank=False, verbose_name=_('Ticket to generate'))
+
     objects = TicketTypeManager()
 
     class Meta:
@@ -138,7 +142,7 @@ class TicketType(models.Model):
     @property
     def purchases_count(self):
         # Ignore incomplete purchases.
-        return self.venueticket_set.filter(ticket_type=self).exclude(
+        return self.ticket_set.filter(ticket_type=self).exclude(
             purchase__state='incomplete').count()
 
     @property
@@ -304,9 +308,21 @@ class Ticket(models.Model):
     date_added = models.DateTimeField(
         _('Date (added)'), blank=False, default=now)
 
+    objects = TicketManager()
+
     class Meta:
         ordering = ('ticket_type__tutorial_ticket',
                     'ticket_type__product_number')
+
+    @property
+    def invoice_item_title(self):
+        try:
+            return self.venueticket.invoice_item_title
+        except VenueTicket.DoesNotExist:
+            try:
+                return self.simcardticket.invoice_item_title
+            except SIMCardTicket.DoesNotExist:
+                return force_text('%s' % self.ticket_type.name)
 
 class SupportTicket(Ticket):
     class Meta:
@@ -333,15 +349,14 @@ class VenueTicket(Ticket):
         verbose_name = _('Ticket')
         verbose_name_plural = _('Tickets')
 
-    objects = TicketManager()
-
-    class Meta:
-        verbose_name = _('Ticket')
-        verbose_name_plural = _('Tickets')
-
     def __unicode__(self):
         return u'%s %s - %s' % (self.first_name, self.last_name,
                                 self.ticket_type)
+
+    @property
+    def invoice_item_title(self):
+        return force_text('%s<br><i>%s %s</i>' %
+            (self.ticket_type.name, self.first_name, self.last_name))
 
 
 class SIMCardTicket(Ticket):
@@ -375,3 +390,8 @@ class SIMCardTicket(Ticket):
 
     def __unicode__(self):
         return u'%s %s - SIM %s' % (self.first_name, self.last_name, self.sim_id)
+
+    @property
+    def invoice_item_title(self):
+        return force_text('%s<br><i>%s %s</i>' %
+            (self.ticket_type.name, self.first_name, self.last_name))

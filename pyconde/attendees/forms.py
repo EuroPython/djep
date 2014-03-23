@@ -10,7 +10,8 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, HTML
 
 from pyconde.conference.models import current_conference
-from pyconde.attendees.models import Purchase, VenueTicket, Voucher
+from pyconde.attendees.models import Purchase, VenueTicket, Voucher,\
+    SIMCardTicket
 from pyconde.forms import Submit
 
 from . import utils
@@ -108,22 +109,64 @@ class TicketNameForm(forms.ModelForm):
 
         self.fields['first_name'].required = True
         self.fields['last_name'].required = True
+        self.fields['organisation'].required = False
         self.fields['shirtsize'].queryset = self.fields['shirtsize']\
             .queryset.filter(conference=current_conference())
         self.fields['shirtsize'].help_text = _('''Sizing charts: <a href="http://maxnosleeves.spreadshirt.com/shop/info/producttypedetails/Popup/Show/productType/813" target="_blank">Women</a>, <a href="http://maxnosleeves.spreadshirt.com/shop/info/producttypedetails/Popup/Show/productType/812" target="_blank">Men</a>''')
 
     class Meta:
         model = VenueTicket
-        fields = ('first_name', 'last_name', 'shirtsize')
+        fields = ('first_name', 'last_name', 'organisation', 'shirtsize')
 
     def save(self, *args, **kwargs):
         # Update, save would overwrite other flags too (even if not in
         # `fields`)
         self.instance.first_name = self.cleaned_data['first_name']
         self.instance.last_name = self.cleaned_data['last_name']
+        self.instance.organisation = self.cleaned_data['organisation']
         self.instance.shirtsize = self.cleaned_data['shirtsize']
         return self.instance
 
+
+class SIMCardNameForm(forms.ModelForm):
+    def __init__(self, *args, **kwargs):
+        assert 'instance' in kwargs, 'instance is required.'
+
+        super(SIMCardNameForm, self).__init__(
+            prefix='sc-%s' % kwargs['instance'].pk, *args, **kwargs)
+
+        self.fields['gender'].required = True
+        self.fields['first_name'].required = True
+        self.fields['last_name'].required = True
+        self.fields['date_of_birth'].required = True
+        self.fields['email'].required = True
+        self.fields['street'].required = True
+        self.fields['zip_code'].required = True
+        self.fields['city'].required = True
+        self.fields['country'].required = True
+        self.fields['phone'].required = True
+
+    class Meta:
+        model = SIMCardTicket
+        fields = (
+            'gender', 'first_name', 'last_name', 'date_of_birth',
+            'hotel_name', 'email', 'street', 'zip_code', 'city',
+            'country', 'phone')
+
+    def save(self, *args, **kwargs):
+        # Update, save would overwrite other flags too (even if not in
+        # `fields`)
+        self.instance.gender = self.cleaned_data['gender']
+        self.instance.first_name = self.cleaned_data['first_name']
+        self.instance.last_name = self.cleaned_data['last_name']
+        self.instance.date_of_birth = self.cleaned_data['date_of_birth']
+        self.instance.email = self.cleaned_data['email']
+        self.instance.street = self.cleaned_data['street']
+        self.instance.zip_code = self.cleaned_data['zip_code']
+        self.instance.city = self.cleaned_data['city']
+        self.instance.country = self.cleaned_data['country']
+        self.instance.phone = self.cleaned_data['phone']
+        return self.instance
 
 class TicketVoucherForm(forms.ModelForm):
     code = forms.CharField(label=_('Voucher'), max_length=12, required=True)

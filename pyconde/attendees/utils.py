@@ -49,8 +49,8 @@ def complete_purchase(request, purchase):
         # if they enter this stage.
         purchase.state = 'payment_received'
 
-    for ticket in purchase.ticket_set.filter(voucher__isnull=False).all():
-        voucher = ticket.voucher
+    for ticket in purchase.ticket_set.filter(venueticket__isnull=False).filter(venueticket__voucher__isnull=False).all():
+        voucher = ticket.venueticket.voucher
         voucher.is_used = True
         voucher.save()
         unlock_voucher(request, voucher)

@@ -31,7 +31,7 @@ import django.views.generic as generic_views
 from pyconde.conference.models import current_conference
 from braces.views import LoginRequiredMixin
 
-from .models import TicketType, Ticket, Purchase
+from .models import TicketType, Ticket, VenueTicket, SIMCardTicket, Purchase
 from .tasks import send_invoice
 from . import forms
 from . import utils
@@ -145,6 +145,7 @@ class PurchaseMixin(object):
             #       Vouchers are invalidated by complete_purchase().
             ticket.pk = None
             ticket.purchase = self.purchase
+            LOG.warning(str(ticket))
             ticket.save()
 
     def setup(self):
@@ -245,8 +246,9 @@ class StartPurchaseView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
             for quantity_form in self.quantity_forms:
                 for _i in range(0,
                                 quantity_form.cleaned_data.get('quantity', 0)):
+                    ticket_model = quantity_form.ticket_type.content_type.model_class()
                     self.tickets.append(
-                        Ticket(purchase=purchase,
+                        ticket_model(purchase=purchase,
                                ticket_type=quantity_form.ticket_type))
             purchase.payment_total = purchase.calculate_payment_total(
                 tickets=self.tickets)
@@ -272,14 +274,28 @@ class PurchaseNamesView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
 
     no_double_voucher = True
     name_forms = None
+    sim_forms = None
     voucher_forms = None
 
     def get(self, *args, **kwargs):
         if self.name_forms is None:
-            self.name_forms = [
-                forms.TicketNameForm(instance=ticket)
-                for ticket in self.tickets
-            ]
+            self.name_forms = []
+            for ticket in self.tickets:
+                if isinstance(ticket, VenueTicket):
+                    name_form = forms.TicketNameForm(instance=ticket)
+                else:
+                    continue
+                self.name_forms.append(name_form)
+
+        if self.sim_forms is None:
+            self.sim_forms = []
+            for ticket in self.tickets:
+                if isinstance(ticket, SIMCardTicket):
+                    sim_form = forms.SIMCardNameForm(instance=ticket)
+                else:
+                    continue
+                self.sim_forms.append(sim_form)
+
         if self.voucher_forms is None:
             self.voucher_forms = [
                 forms.TicketVoucherForm(instance=ticket)
@@ -288,6 +304,7 @@ class PurchaseNamesView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
 
         return render(self.request, 'attendees/purchase_names.html', {
             'name_forms': self.name_forms,
+            'sim_forms': self.sim_forms,
             'double_vouchers': not self.no_double_voucher
             and self.request.POST,
             'voucher_forms': self.voucher_forms,
@@ -297,16 +314,23 @@ class PurchaseNamesView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
 
     def post(self, *args, **kwargs):
         self.name_forms = []
+        self.sim_forms = []
         all_name_forms_valid = True
+        all_sim_forms_valid = True
 
         for ticket in self.tickets:
-            name_form = forms.TicketNameForm(
-                data=self.request.POST, instance=ticket)
-
-            if not name_form.is_valid():
-                all_name_forms_valid = False
-
-            self.name_forms.append(name_form)
+            if isinstance(ticket, VenueTicket):
+                name_form = forms.TicketNameForm(data=self.request.POST, instance=ticket)
+                self.name_forms.append(name_form)
+                if not name_form.is_valid():
+                    all_name_forms_valid = False
+            elif isinstance(ticket, SIMCardTicket):
+                sim_form = forms.SIMCardNameForm(data=self.request.POST, instance=ticket)
+                self.sim_forms.append(sim_form)
+                if not sim_form.is_valid():
+                    all_sim_forms_valid = False
+            else:
+                continue
 
         self.voucher_forms = []
         self.used_vouchers = []
@@ -330,10 +354,13 @@ class PurchaseNamesView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
 
         # All name forms, voucher forms must be valid, voucher codes must not
         # be used twice
-        if all_name_forms_valid and self.all_voucher_forms_valid\
+        if all_name_forms_valid and all_sim_forms_valid \
+                and self.all_voucher_forms_valid \
                 and self.no_double_voucher:
             for idx, name_form in enumerate(self.name_forms):
                 self.tickets[idx] = name_form.save(commit=False)
+            for idx, sim_form in enumerate(self.sim_forms):
+                self.sim_forms[idx] = sim_form.save(commit=False)
             for voucher_form in self.voucher_forms:
                 voucher_form.save(commit=False)
 
