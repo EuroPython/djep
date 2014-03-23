@@ -2,8 +2,6 @@ from contextlib import closing
 
 from django.core import mail
 from django.template.loader import render_to_string
-from django.conf import settings
-from django.contrib.auth.models import User
 from django.contrib.sites.models import Site
 
 from pyconde.sponsorship.models import JobOffer

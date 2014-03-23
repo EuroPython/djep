@@ -74,24 +74,46 @@ class ProfileRegistrationForm(RegistrationForm):
 
     def __init__(self, *args, **kwargs):
         super(ProfileRegistrationForm, self).__init__(*args, **kwargs)
-        account_fields = Fieldset(_('Login information'), Field('username', autofocus="autofocus"), 'email', 'password', 'password_repeat')
-        profile_fields = Fieldset(_('Personal information'), 'full_name',
-                                  'display_name', 'addressed_as',
-                                  'avatar', 'short_info')
-        profession_fields = Fieldset(_('Professional information'), 'organisation', 'twitter', 'website', 'accept_job_offers')
-        privacy_fields = Fieldset(_('Privacy Policy'),
+        account_fields = Fieldset(
+            _('Login information'),
+            Field('username', autofocus="autofocus"),
+            'email',
+            'password',
+            'password_repeat'
+        )
+        profile_fields = Fieldset(
+            _('Personal information'),
+            'full_name',
+            'display_name',
+            'addressed_as',
+            'avatar',
+            'short_info'
+        )
+        profession_fields = Fieldset(
+            _('Professional information'),
+            'organisation',
+            'twitter',
+            'website',
+            'accept_job_offers'
+        )
+        privacy_fields = Fieldset(
+            _('Privacy Policy'),
             HTML(_('{% load cms_tags %}<p class="control-group">Due to data protection '
                    'regulations you need to explicitly accept our '
                    '<a href="{% page_url "privacy-policy" %}">privacy policy</a>.</p>')),
             'accept_privacy_policy',
             'accept_pysv_conferences',
-            'accept_ep_conferences')
+            'accept_ep_conferences'
+        )
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
-                account_fields, profile_fields, profession_fields, privacy_fields,
-                ButtonHolder(Submit('submit', _('Create account'), css_class='btn btn-primary'))
-                )
+            account_fields,
+            profile_fields,
+            profession_fields,
+            privacy_fields,
+            ButtonHolder(Submit('submit', _('Create account'), css_class='btn btn-primary'))
+        )
         if settings.ACCOUNTS_FALLBACK_TO_GRAVATAR:
             self.fields['avatar'].help_text = _("""Please upload an image with a side length of at least 300 pixels.<br />If you don't upload an avatar your Gravatar will be used instead.""")
 

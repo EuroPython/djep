@@ -3262,7 +3262,7 @@ msgstr "Die E-Mail Addresse an die Antworten geschickt werden sollen."
 
 #: sponsorship/models.py:104
 msgid "text"
-msgstr ""
+msgstr "Text"
 
 #: sponsorship/views.py:16
 msgid "You do not have permission to send job offers."
