@@ -3160,9 +3160,8 @@ msgstr ""
 "als Besucher oder Vortragender teilnehmen möchten."
 
 #: sponsorship/cms_app.py:9
-#, fuzzy
 msgid "Sponsorship App"
-msgstr "Sponsoren"
+msgstr "Sponsoren-Anwendung"
 
 #: sponsorship/cms_plugins.py:15
 msgid "Sponsor list plugin"
@@ -3172,7 +3171,7 @@ msgstr "Sponsoren-Plugin"
 #: sponsorship/templates/sponsorship/send_job_offer.html:3
 #: sponsorship/templates/sponsorship/send_job_offer.html:4
 msgid "Send job offer"
-msgstr "Job Angebot senden"
+msgstr "Job-Angebot senden"
 
 #: sponsorship/menu.py:10
 msgid "Sponsorship Menu"
