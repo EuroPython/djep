@@ -184,7 +184,7 @@ a {
             }
         }
     }
-    @media screen and (min-width: 890px) {  // desktop
+    @media #{$topbar-media-query} {  // desktop
         .dropdown {
             display: none;
         }
