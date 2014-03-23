@@ -97,7 +97,8 @@ class ProfileView(generic_views.TemplateView):
             'userobj': user,
             'speaker_profile': speaker_profile,
             'sessions': sessions,
-            'profile': profile
+            'profile': profile,
+            'interests': profile.tags.order_by('name').all(),
         }
 
 
