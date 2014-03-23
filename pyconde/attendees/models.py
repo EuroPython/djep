@@ -126,7 +126,7 @@ class TicketType(models.Model):
 
     remarks = models.TextField(_('Remarks'), blank=True)
 
-    content_type = models.ForeignKey(content_models.ContentType, blank=True, null=True, verbose_name=_('Ticket to generate'))
+    content_type = models.ForeignKey(content_models.ContentType, blank=False, verbose_name=_('Ticket to generate'))
 
     objects = TicketTypeManager()
 

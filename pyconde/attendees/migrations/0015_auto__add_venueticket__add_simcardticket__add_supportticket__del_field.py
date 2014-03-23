@@ -2,7 +2,9 @@
 import datetime
 from south.db import db
 from south.v2 import SchemaMigration
+from django.contrib.contenttypes.management import update_contenttypes
 from django.db import models
+from django.db.models import get_app, get_models
 
 
 class Migration(SchemaMigration):
@@ -43,9 +45,10 @@ class Migration(SchemaMigration):
         ))
         db.send_create_signal(u'attendees', ['SupportTicket'])
 
-        # Adding field 'TicketType.content_type'
+
+        update_contenttypes(get_app('attendees'), get_models())
         db.add_column(u'attendees_tickettype', 'content_type',
-                      self.gf('django.db.models.fields.related.ForeignKey')(default=None, blank=True, null=True, to=orm['contenttypes.ContentType']),
+                      self.gf('django.db.models.fields.related.ForeignKey')(default=orm['contenttypes.ContentType'].objects.get(app_label='attendees', model='venueticket').id, blank=False, to=orm['contenttypes.ContentType']),
                       keep_default=False)
 
 
