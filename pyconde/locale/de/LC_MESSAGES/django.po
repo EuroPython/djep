@@ -3259,7 +3259,7 @@ msgstr ""
 
 #: sponsorship/models.py:101
 msgid "The email address to which responses should be sent."
-msgstr "Die E-Mail Addresse zu der Antworten geschickt werden sollen."
+msgstr "Die E-Mail Addresse an die Antworten geschickt werden sollen."
 
 #: sponsorship/models.py:104
 msgid "text"
@@ -3267,11 +3267,11 @@ msgstr ""
 
 #: sponsorship/views.py:16
 msgid "You do not have permission to send job offers."
-msgstr "Sie haben nicht die Erlaubnis Job Angebote zu verschicken."
+msgstr "Sie haben nicht die Berechtigung, Job-Angebote zu verschicken."
 
 #: sponsorship/views.py:23
 msgid "Job offer sent"
-msgstr "Job Angebot verschickt"
+msgstr "Job-Angebot verschickt"
 
 #: testimonials/cms_plugins.py:11
 msgid "Testimonial"
