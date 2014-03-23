@@ -3254,7 +3254,7 @@ msgstr ""
 
 #: sponsorship/models.py:100
 msgid "Reply-To"
-msgstr ""
+msgstr "Antwort an"
 
 #: sponsorship/models.py:101
 msgid "The email address to which responses should be sent."
