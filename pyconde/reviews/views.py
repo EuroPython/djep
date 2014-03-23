@@ -481,7 +481,7 @@ class ProposalVersionDetailsView(generic_views.DetailView):
 
     def get_context_data(self, **kwargs):
         data = super(ProposalVersionDetailsView, self).get_context_data(**kwargs)
-        proposal = data['version'].original
+        proposal = models.Proposal.load(data['version'].original) if data['version'].original else None
         data.update({
             'proposal': proposal,
             'proposal_version': models.ProposalVersion.objects.get_latest_for(proposal),
