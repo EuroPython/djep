@@ -1,10 +1,10 @@
-function createTagsInput(source) {
+ep.ui.createTagsInput = function(source) {
     // partly from http://jqueryui.com/autocomplete/#multiple-remote
     function split(val) {
-      return val.split(/,\s*/);
+        return val.split(/,\s*/);
     }
     function extractLast(term) {
-      return split(term).pop();
+        return split(term).pop();
     }
     if ($.ui && $.ui.autocomplete) {
         $('input.tags-input').each(function() {
@@ -33,4 +33,4 @@ function createTagsInput(source) {
             });
         });
     }
-}
+};

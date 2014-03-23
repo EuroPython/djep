@@ -59,14 +59,14 @@ class AutocompleteUser(generic_views.View):
         result = []
         if term and len(term) >= 2:
             result = self.get_matching_users(term)
-        return HttpResponse(json.dumps(result))
+        return HttpResponse(json.dumps(result), content_type='application/json')
 
 
 class AutocompleteTags(generic_views.View):
 
     def get_matching_tags(self, term):
-        data = list(models.Profile.tags.filter(name__icontains=term) \
-                                       .values_list('name', flat=True) \
+        data = list(models.Profile.tags.filter(name__icontains=term)
+                                       .values_list('name', flat=True)
                                        .all())
         return data
 
@@ -75,7 +75,7 @@ class AutocompleteTags(generic_views.View):
         result = []
         if term and len(term) >= 2:
             result = self.get_matching_tags(term)
-        return HttpResponse(json.dumps(result))
+        return HttpResponse(json.dumps(result), content_type='application/json')
 
 
 class ProfileView(generic_views.TemplateView):
