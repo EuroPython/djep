@@ -2,7 +2,7 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="{% get_current_language as LANGUAGE_CODE %}{{ LANGUAGE_CODE }}"> <!--<![endif]-->
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -163,7 +163,10 @@
             <script type="text/javascript" src="{% static "assets/bower_components/foundation/js/foundation/foundation.topbar.js"%}"></script>
             <script type="text/javascript" src="{% static "assets/bower_components/foundation/js/foundation/foundation.orbit.js"%}"></script>
             <script type="text/javascript" src="{% static "assets/bower_components/spinjs/spin.js"%}"></script>
+            <script type="text/javascript" src="{% static "assets/bower_components/parsley-de/index.js"%}"></script>
+            <script type="text/javascript" src="{% static "assets/bower_components/parsley.min/index.js"%}"></script>
             <script src="{% static "assets/js/ui.js" %}"></script>
+            <script src="{% static "assets/js/validation.js" %}"></script>
             <script src="{% static "assets/js/ui.multiuserselect.js" %}"></script>
             <script src="{% static "assets/js/jira.js" %}"></script>
             <script>$(document).foundation();</script>
