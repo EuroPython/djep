@@ -146,6 +146,8 @@ class TicketVoucherForm(forms.ModelForm):
                     code=code,
                     type__conference=current_conference(),
                     type=ticket.ticket_type.vouchertype_needed)
+            else:
+                voucher = ticket.voucher
 
             # Make sure that the found voucher is not one of the locked ones.
             cache = get_cache('default')
