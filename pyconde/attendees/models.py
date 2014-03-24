@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 import decimal
 import uuid
 import os
@@ -317,20 +318,24 @@ class Ticket(models.Model):
     @property
     def invoice_item_title(self):
         try:
-            return self.venueticket.invoice_item_title
-        except VenueTicket.DoesNotExist:
-            try:
-                return self.simcardticket.invoice_item_title
-            except SIMCardTicket.DoesNotExist:
-                return force_text('%s' % self.ticket_type.name)
+            ticket = getattr(self, self.ticket_type.content_type.model)
+            return ticket.invoice_item_title
+        except models.DoesNotExist:
+            return self.ticket_type.name
+
 
 class SupportTicket(Ticket):
+
     class Meta:
         verbose_name = _('Support Ticket')
         verbose_name_plural = _('Support Tickets')
 
     def __unicode__(self):
         return u'%s - %s' % (ugettext('Support'), self.ticket_type)
+
+    @property
+    def invoice_item_title(self):
+        return force_text('1 “%s”' % self.ticket_type.name)
 
 
 class VenueTicket(Ticket):
@@ -346,8 +351,8 @@ class VenueTicket(Ticket):
         'Voucher', verbose_name=_('Voucher'), blank=True, null=True)
 
     class Meta:
-        verbose_name = _('Ticket')
-        verbose_name_plural = _('Tickets')
+        verbose_name = _('Conference Ticket')
+        verbose_name_plural = _('Conference Tickets')
 
     def __unicode__(self):
         return u'%s %s - %s' % (self.first_name, self.last_name,
@@ -355,7 +360,7 @@ class VenueTicket(Ticket):
 
     @property
     def invoice_item_title(self):
-        return force_text('%s<br><i>%s %s</i>' %
+        return force_text('1 “%s” Ticket for:<br /><i>%s %s</i>' %
             (self.ticket_type.name, self.first_name, self.last_name))
 
 
@@ -393,5 +398,5 @@ class SIMCardTicket(Ticket):
 
     @property
     def invoice_item_title(self):
-        return force_text('%s<br><i>%s %s</i>' %
-            (self.ticket_type.name, self.first_name, self.last_name))
+        return force_text('1 SIM Card for:<br /><i>%s %s</i>' %
+            (self.first_name, self.last_name))

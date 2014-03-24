@@ -167,6 +167,7 @@ class SIMCardNameForm(forms.ModelForm):
         self.instance.phone = self.cleaned_data['phone']
         return self.instance
 
+
 class TicketVoucherForm(forms.ModelForm):
     code = forms.CharField(label=_('Voucher'), max_length=12, required=True)
 
