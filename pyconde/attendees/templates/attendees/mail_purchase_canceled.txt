@@ -1,4 +1,4 @@
-{# This is a plaintext email #}{% load i18n %}{% autoescape off %}{% blocktrans with first_name=purchase.first_name last_name=purchase.last_name invoice_number=purchase.full_invoice_number %}Hello {{ first_name }} {{ last_name }},
+{# This is a plaintext email #}{% load i18n %}{% autoescape off %}{% blocktrans with first_name=purchase.first_name last_name=purchase.last_name invoice_number=purchase.full_invoice_number terms_of_use_url=terms_of_use_url %}Hello {{ first_name }} {{ last_name }},
 
 your purchase {{ invoice_number }} has been canceled. All corresponding tickets have been invalidated.{% endblocktrans %}
 {% if terms_of_use_url %}

@@ -1,4 +1,4 @@
-{# This is a plaintext email #}{% load i18n account_tags %}{% autoescape off %}{% blocktrans with ticket_user=ticket_user|addressed_as purchase_first_name=purchase.first_name purchase_last_name=purchase.last_name %}Hello {{ ticket_user }},
+{# This is a plaintext email #}{% load i18n account_tags %}{% autoescape off %}{% blocktrans with ticket_user=ticket_user|addressed_as purchase_first_name=purchase.first_name purchase_last_name=purchase.last_name ticketname=ticketname %}Hello {{ ticket_user }},
 
 you have have been assigned to a ticket “{{ ticketname}}” purchased by {{ purchase_first_name }} {{ purchase_last_name }}. Unfortunately the corresponding purchase has been canceled and hence your ticket has been invalidated.{% endblocktrans %}
 

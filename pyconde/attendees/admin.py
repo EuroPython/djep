@@ -177,7 +177,7 @@ class PurchaseAdmin(admin.ModelAdmin):
             tasks.cancel_purchase(purchase.id, recipients)
 
     send_purchase_canceled.short_description = _(
-        'Send purchase cancelation for selected %(verbose_name_plural)s')
+        'Cancel purchase and send cancelation notice for selected %(verbose_name_plural)s')
 
 admin.site.register(Purchase, PurchaseAdmin)
 
