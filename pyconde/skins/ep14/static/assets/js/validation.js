@@ -5,6 +5,8 @@ var ep = ep || {};
  * library.
  */
 ep.validation = (function($) {
+    var $V = ParsleyValidator;
+
     /**
      * Here is the actual validation confirmation stored that should be used on
      * a page with the give class.
@@ -13,7 +15,43 @@ ep.validation = (function($) {
         'registration': function() {
             var form = $('#content > form');
             form.find('*[name=accept_privacy_policy]').attr('required', 'required');
+            form.find('*[name=username]').attr('data-parsley-pattern', '^[\\w.@+-]+$');
             form.find('*[name=email]').attr('data-parsley-type', 'email');
+            form.find('*[name=website]').attr('data-parsley-type', 'url');
+            form.find('*[name=twitter]').attr('data-parsley-twittername', '');
+            form.find('#id_password_repeat').attr('data-parsley-equalto', '#id_password');
+            form.find('#id_password_repeat').attr('data-parsley-equalto-message', $V.catalog[$V.locale].passwordMatch);
+            initForm(form);
+        },
+        'login': function() {
+            initForm($('#content > form'));
+        },
+        'proposaldetails': function() {
+            initForm($('#details > form'));
+        },
+        'update-proposal': function() {
+            initForm($('#details > form'));
+        },
+        'proposal-form': function() {
+            initForm($('#content > form'));
+        },
+        'reviewform': function() {
+            initForm($('#details > form'));
+        },
+        'password-change': function() {
+            var form = $('#content > form');
+            form.find('#id_new_password2').attr('data-parsley-equalto', '#id_new_password1');
+            form.find('#id_new_password2').attr('data-parsley-equalto-message', $V.catalog[$V.locale].passwordMatch);
+            initForm(form);
+        },
+        'password-reset': function() {
+            var form = $('#content > form');
+            form.find('*[name=email]').attr('data-parsley-type', 'email');
+            initForm(form);
+        },
+        'profile-change': function() {
+            var form = $('#content > form');
+            form.find('*[name=website]').attr('data-parsley-type', 'url');
             form.find('*[name=twitter]').attr('data-parsley-twittername', '');
             initForm(form);
         }
@@ -30,7 +68,7 @@ ep.validation = (function($) {
         form.find('.form-group').each(function() {
             var group = $(this);
             if (group.find('span.asteriskField').length) {
-                var input = group.find('input');
+                var input = group.find('input,textarea,select');
                 if (input.length) {
                     input.attr('required', 'required');
                 }
@@ -72,7 +110,6 @@ ep.validation = (function($) {
         }
     }
 
-    var $V = ParsleyValidator;
     $V.setLocale(document.documentElement.lang);
 
     $V.addValidator('twittername', function(value, requirement) {
@@ -81,8 +118,12 @@ ep.validation = (function($) {
         }
         return true;
     }, 10);
-    $V.addMessage('en', 'twittername', 'Please omit the @ at the start of the twitter username');
-    $V.addMessage('de', 'twittername', 'Bitte schreiben Sie Ihren Twitter-Namen ohne @ am Anfang');
+
+    // Custom messages for EN and DE
+    $V.addMessage('en', 'twittername', 'Please omit the @ at the start of the twitter username.');
+    $V.addMessage('de', 'twittername', 'Bitte schreiben Sie Ihren Twitter-Namen ohne @ am Anfang.');
+    $V.addMessage('en', 'passwordMatch', 'Please enter the same value as for the other password field.');
+    $V.addMessage('de', 'passwordMatch', 'Bitte geben Sie Ihr Passwort nochmals ein.');
 
     registerGlobalListeners();
     initValidationForPage();
