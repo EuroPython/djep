@@ -23,7 +23,7 @@ PAYMENT_METHOD_CHOICES = (
     ('elv', _('ELV')),
 )
 
-terms_of_use_url = settings.TERMS_OF_USE_URL
+terms_of_use_url = settings.TERMS_OF_USE_URL or '#'
 
 
 class PurchaseForm(forms.ModelForm):

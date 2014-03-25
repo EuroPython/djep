@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 import os
 
+from django.conf import settings
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
 from django.utils.crypto import get_random_string
@@ -10,10 +11,10 @@ from django.utils.translation import ugettext as _
 
 from pyconde.celery import app
 
-from . import settings as settings
+from . import settings as app_settings
 
 
-if settings.INVOICE_DISABLE_RENDERING:
+if app_settings.INVOICE_DISABLE_RENDERING:
     def do_render(filepath, data, **kwargs):
         from django.core.serializers.json import DjangoJSONEncoder
         with open(filepath, 'w') as f:
@@ -38,8 +39,8 @@ def render_invoice(purchase_id):
 
     generate_invoice_filename(purchase)
     filepath = purchase.invoice_filepath
-    if not os.path.exists(settings.INVOICE_ROOT):
-        os.makedirs(settings.INVOICE_ROOT)
+    if not os.path.exists(app_settings.INVOICE_ROOT):
+        os.makedirs(app_settings.INVOICE_ROOT)
     data = PurchaseExporter(purchase).export()
 
     success, error = False, ''
@@ -49,9 +50,9 @@ def render_invoice(purchase_id):
             chars = 'abcdefghijklmnopqrstuvwxyz0123456789!@#$%^&*(-_=+)'
             password = bytes(get_random_string(32, chars))
             success, error = do_render(filepath, data,
-                basepdf=settings.INVOICE_TEMPLATE_PATH,
-                fontdir=settings.INVOICE_FONT_ROOT,
-                fontconfig=settings.INVOICE_FONT_CONFIG,
+                basepdf=app_settings.INVOICE_TEMPLATE_PATH,
+                fontdir=app_settings.INVOICE_FONT_ROOT,
+                fontconfig=app_settings.INVOICE_FONT_CONFIG,
                 modify_password=password)
         except Exception as e:
             error = e
@@ -76,7 +77,7 @@ def render_invoice(purchase_id):
     # Send invoice to buyer
     send_invoice.delay(purchase_id, (purchase.email_receiver,))
     # Send invoice to orga
-    send_invoice.delay(purchase_id, settings.INVOICE_EXPORT_RECIPIENTS)
+    send_invoice.delay(purchase_id, app_settings.INVOICE_EXPORT_RECIPIENTS)
 
 
 @app.task(ignore_result=True)
@@ -100,16 +101,71 @@ def send_invoice(purchase_id, recipients):
     subject = _('Your EuroPython 2014 Invoice %(full_invoice_number)s') % {
         'full_invoice_number': purchase.full_invoice_number,
     }
-    message = render_to_string('attendees/mail_payment_invoice.html', {
+    message = render_to_string('attendees/mail_payment_invoice.txt', {
         'first_name': purchase.first_name,
         'last_name': purchase.last_name,
         'conference': purchase.conference,
     })
     msg = EmailMessage(subject, message, to=recipients)
     msg.encoding = 'utf-8'
-    ext = '.json' if settings.INVOICE_DISABLE_RENDERING else '.pdf'
+    ext = '.json' if app_settings.INVOICE_DISABLE_RENDERING else '.pdf'
     filename = '%s%s' % (purchase.full_invoice_number, ext)  # attachment filename
     with open(purchase.invoice_filepath, 'rb') as f:
         content = f.read()
     msg.attach(filename, content)
     msg.send()
+
+
+@app.task(ignore_result=True)
+def cancel_purchase(purchase_id, recipients):
+    from email.utils import formataddr
+
+    from django.core.mail import send_mail
+    from pyconde.accounts.utils import get_addressed_as
+    from .models import Purchase
+
+    try:
+        purchase = Purchase.objects.filter(state__in=('invoice_created',
+                                                      'payment_received')) \
+                                   .select_related('ticket_set__user',
+                                                   'ticket_set__ticket_type__name',
+                                                   'conference__title') \
+                                   .get(pk=purchase_id)
+    except Purchase.DoesNotExist:
+        raise RuntimeError('No purchase found with pk %d' % purchase_id)
+
+    purchase.state = 'canceled'
+    purchase.save()
+    conference = purchase.conference.title
+
+    subject = _('Your %(conference)s purchase has been canceled') % {
+        'conference': conference,
+    }
+    message = render_to_string('attendees/mail_purchase_canceled.txt', {
+        'conference': conference,
+        'purchase': purchase,
+        'terms_of_use_url': app_settings.TERMS_OF_USE_URL,
+    })
+
+    send_mail(subject, message, settings.DEFAULT_FROM_EMAIL, recipients,
+        fail_silently=True)
+
+    tickets = purchase.ticket_set.filter(user__isnull=False).all()
+    for ticket in tickets:
+        ticket_user = ticket.user
+        ticket_name = ticket.ticket_type.name
+        ticket_recipient = formataddr((get_addressed_as(ticket_user), ticket_user.email))
+
+        ticket_subject = _('Your %(conference)s ticket %(ticketname)s has been invalidated') % {
+            'conference': conference,
+            'ticketname': ticket_name,
+        }
+        ticket_message = render_to_string('attendees/mail_purchase_canceled_user.txt', {
+            'ticket_user': ticket_user,
+            'conference': conference,
+            'ticketname': ticket_name,
+            'purchase': purchase,
+        })
+
+        send_mail(ticket_subject, ticket_message, settings.DEFAULT_FROM_EMAIL,
+            [ticket_recipient], fail_silently=True)

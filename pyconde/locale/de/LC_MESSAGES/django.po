@@ -502,7 +502,7 @@ msgid "E-mail"
 msgstr "E-Mail"
 
 #: attendees/forms.py:43
-#: attendees/templates/attendees/mail_purchase_completed.html:15
+#: attendees/templates/attendees/mail_purchase_completed.txt:15
 #: attendees/templates/attendees/purchase_confirm.html:44
 #: attendees/templates/attendees/user_purchases.html:27
 msgid "Billing address"
@@ -565,7 +565,7 @@ msgid "You must accept the terms and conditions."
 msgstr "Sie müssen die allgemeinen Geschäftsbedingungen akzeptieren."
 
 #: attendees/forms.py:175 attendees/models.py:188
-#: attendees/templates/attendees/mail_purchase_completed.html:13
+#: attendees/templates/attendees/mail_purchase_completed.txt:13
 msgid "Payment method"
 msgstr "Zahlungsart"
 
@@ -871,7 +871,7 @@ msgstr ""
 msgid "This ticket was successfully assigned to the specified user"
 msgstr "Das Ticket wurde erfolgreich dem angegebenen Benutzer zugewiesen"
 
-#: attendees/templates/attendees/mail_payment_invoice.html:3
+#: attendees/templates/attendees/mail_payment_invoice.txt:3
 #, python-format
 msgid ""
 "Please find attached the invoice for your %(conference_name)s ticket "
@@ -880,33 +880,33 @@ msgstr ""
 "Im Anhang befindet sich die Rechnung für deinen %(conference_name)s "
 "Ticketkauf."
 
-#: attendees/templates/attendees/mail_payment_received.html:3
+#: attendees/templates/attendees/mail_payment_received.txt:3
 #, python-format
 msgid "We just received the payment for your %(conference_name)s tickets:"
 msgstr "Wir haben die Zahlung für deine %(conference_name)s Tickets erhalten: "
 
-#: attendees/templates/attendees/mail_purchase_completed.html:3
+#: attendees/templates/attendees/mail_purchase_completed.txt:3
 msgid "You've purchased following tickets:"
 msgstr "Du hast folgende Tickets gekauft:"
 
-#: attendees/templates/attendees/mail_purchase_completed.html:8
+#: attendees/templates/attendees/mail_purchase_completed.txt:8
 #, python-format
 msgid "VAT (19%%)"
 msgstr "MwSt. (19%%)"
 
-#: attendees/templates/attendees/mail_purchase_completed.html:10
+#: attendees/templates/attendees/mail_purchase_completed.txt:10
 msgid "Total"
 msgstr "Gesamt"
 
-#: attendees/templates/attendees/mail_purchase_completed.html:21
+#: attendees/templates/attendees/mail_purchase_completed.txt:21
 msgid "Tax ID"
 msgstr "Steuernummer"
 
-#: attendees/templates/attendees/mail_purchase_completed.html:23
+#: attendees/templates/attendees/mail_purchase_completed.txt:23
 msgid "Comment"
 msgstr "Kommentare"
 
-#: attendees/templates/attendees/mail_purchase_completed.html:26
+#: attendees/templates/attendees/mail_purchase_completed.txt:26
 msgid ""
 "Purchasing a ticket requires agreeing to the terms of service. These can be "
 "found here:"
@@ -914,11 +914,11 @@ msgstr ""
 "Der Kauf eines Tickets erfordert die Annahme der Allgemeinen "
 "Geschäftsbedingungen. Diese sind unter folgender URL nachzulesen:"
 
-#: attendees/templates/attendees/mail_purchase_completed.html:30
+#: attendees/templates/attendees/mail_purchase_completed.txt:30
 msgid "During the next couple of days you will receive an invoice via e-mail."
 msgstr "Während der nächsten Tage wirst du eine Rechnung via E-Mail erhalten."
 
-#: attendees/templates/attendees/mail_purchase_completed.html:31
+#: attendees/templates/attendees/mail_purchase_completed.txt:31
 msgid ""
 "You can check your payment status in your profile. The incoming payments are "
 "checked at least twice a week."
@@ -926,22 +926,22 @@ msgstr ""
 "Sie können Ihren Bezahlstatus in Ihrem Profil einsehen. Die eingehenden "
 "Überweisungen werden mindestens zweimal pro Woche überprüft."
 
-#: attendees/templates/attendees/mail_purchase_completed.html:32
+#: attendees/templates/attendees/mail_purchase_completed.txt:32
 msgid "If you have any problems with the payment, please contact us ASAP!"
 msgstr ""
 "Bei Problemen während des Bezahlvorgangs bitte schnellstmöglich melden!"
 
-#: attendees/templates/attendees/mail_purchase_completed.html:34
+#: attendees/templates/attendees/mail_purchase_completed.txt:34
 msgid ""
 "As soon as your purchase has been processed you will receive another e-mail."
 msgstr ""
 "Sobald die Buchung abgeschlossen wurde wirst du eine weitere E-Mail erhalten."
 
-#: attendees/templates/attendees/mail_purchase_completed.html:37
+#: attendees/templates/attendees/mail_purchase_completed.txt:37
 msgid "Conference material will be handed out at the conference."
 msgstr "Konferenzmaterial wird beim Check-in verteilt."
 
-#: attendees/templates/attendees/mail_purchase_completed.html:39
+#: attendees/templates/attendees/mail_purchase_completed.txt:39
 #, python-format
 msgid ""
 "Payment/Processing issues\n"
@@ -966,7 +966,7 @@ msgstr ""
 "Dies ermöglicht uns Ihre Bestellung zweifelsfrei zu lokalisieren und Ihnen "
 "prompt und zuverlässig zu helfen.\n"
 
-#: attendees/templates/attendees/mail_purchase_completed.html:49
+#: attendees/templates/attendees/mail_purchase_completed.txt:49
 msgid ""
 "Revocation Rights Notice\n"
 "\n"
