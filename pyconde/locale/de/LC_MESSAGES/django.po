@@ -853,12 +853,12 @@ msgstr "Deine EuroPython 2014 Rechnung %(full_invoice_number)s"
 #: attendees/tasks.py:141
 #, python-format
 msgid "Your %(conference)s purchase has been canceled"
-msgstr "Deine %(conference)s Buchung wurde storniert"
+msgstr "Ihre %(conference)s Buchung wurde storniert"
 
 #: attendees/tasks.py:159
 #, python-format
 msgid "Your %(conference)s ticket %(ticketname)s has been invalidated"
-msgstr "Dein %(conference)s Ticket %(ticketname)s wurde storniert"
+msgstr "Ihr %(conference)s Ticket %(ticketname)s wurde storniert"
 
 #: attendees/utils.py:70
 msgid "Ticket successfully purchased"
@@ -923,7 +923,7 @@ msgid ""
 "If we don't receive your payment by %(due_date)s we will cancel your "
 "purchase and invalidate all corresponding tickets."
 msgstr ""
-"nach unseren Unterlagen haben wir noch keine Zahlung ihrer Rechnung "
+"nach unseren Unterlagen haben wir noch keine Zahlung Ihrer Rechnung "
 "%(invoice_number)s vom %(invoice_date)s zur %(conference_name)s Konferenz "
 "erhalten. Wir wären Ihnen dankbar, wenn Sie Ihre Zahlung bis zum "
 "%(due_date)s durchführen. Sie erhalten die Rechnung in einer separaten E-"
@@ -947,7 +947,7 @@ msgid ""
 "information and regulations that may apply to this cancelation."
 msgstr ""
 "Bitte beachte unsere AGB (%(terms_of_use_url)s) für weitere Informationen "
-"und Bedingungen die für diese Stornierung gelten."
+"und Bedingungen, die für diese Stornierung gelten."
 
 #: attendees/templates/attendees/mail_purchase_completed.txt:3
 msgid "You've purchased following tickets:"
