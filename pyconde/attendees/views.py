@@ -280,33 +280,33 @@ class PurchaseNamesView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
     def get(self, *args, **kwargs):
         if self.name_forms is None:
             self.name_forms = []
-            for ticket in self.tickets:
-                if isinstance(ticket, VenueTicket):
-                    name_form = forms.TicketNameForm(instance=ticket)
-                else:
-                    continue
-                self.name_forms.append(name_form)
-
         if self.sim_forms is None:
             self.sim_forms = []
-            for ticket in self.tickets:
-                if isinstance(ticket, SIMCardTicket):
-                    sim_form = forms.SIMCardNameForm(instance=ticket)
-                else:
-                    continue
+        if self.voucher_forms is None:
+            self.voucher_forms = []
+
+        for ticket in self.tickets:
+            if isinstance(ticket, VenueTicket):
+                name_form = forms.TicketNameForm(instance=ticket)
+                self.name_forms.append(name_form)
+
+            elif isinstance(ticket, SIMCardTicket):
+                sim_form = forms.SIMCardNameForm(instance=ticket)
                 self.sim_forms.append(sim_form)
 
-        if self.voucher_forms is None:
-            self.voucher_forms = [
-                forms.TicketVoucherForm(instance=ticket)
-                for ticket in self._get_tickets_for_voucher()
-            ]
+            if ticket.ticket_type.vouchertype_needed is not None:
+                voucher_form = forms.TicketVoucherForm(instance=ticket)
+                self.voucher_forms.append(voucher_form)
+
+        # Is there a way to redirect to the next page if there are no forms?
+        # if not (self.name_forms or self.sim_forms or self.voucher_forms):
+        #     # redirect if no forms exist
+        #     return redirect('attendees_purchase_confirm')
 
         return render(self.request, 'attendees/purchase_names.html', {
             'name_forms': self.name_forms,
             'sim_forms': self.sim_forms,
-            'double_vouchers': not self.no_double_voucher
-            and self.request.POST,
+            'double_vouchers': not self.no_double_voucher and self.request.POST,
             'voucher_forms': self.voucher_forms,
             'step': self.step,
             'limited_tickets': self.limited_tickets,
@@ -315,42 +315,41 @@ class PurchaseNamesView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
     def post(self, *args, **kwargs):
         self.name_forms = []
         self.sim_forms = []
+        self.voucher_forms = []
+        self.used_vouchers = []
+        self.all_voucher_forms_valid = True
         all_name_forms_valid = True
         all_sim_forms_valid = True
 
         for ticket in self.tickets:
             if isinstance(ticket, VenueTicket):
-                name_form = forms.TicketNameForm(data=self.request.POST, instance=ticket)
+                name_form = forms.TicketNameForm(data=self.request.POST,
+                    instance=ticket)
                 self.name_forms.append(name_form)
                 if not name_form.is_valid():
                     all_name_forms_valid = False
             elif isinstance(ticket, SIMCardTicket):
-                sim_form = forms.SIMCardNameForm(data=self.request.POST, instance=ticket)
+                sim_form = forms.SIMCardNameForm(data=self.request.POST,
+                    instance=ticket)
                 self.sim_forms.append(sim_form)
                 if not sim_form.is_valid():
                     all_sim_forms_valid = False
-            else:
-                continue
 
-        self.voucher_forms = []
-        self.used_vouchers = []
-        self.all_voucher_forms_valid = True
+            if ticket.ticket_type.vouchertype_needed is not None:
+                voucher_form = forms.TicketVoucherForm(data=self.request.POST,
+                    instance=ticket)
+                voucher_form.request = self.request
 
-        for ticket in self._get_tickets_for_voucher():
-            voucher_form = forms.TicketVoucherForm(
-                data=self.request.POST, instance=ticket)
-            voucher_form.request = self.request
-
-            if voucher_form.is_valid():
-                if voucher_form.cleaned_data['code'] in self.used_vouchers:
-                    self.no_double_voucher = False
+                if voucher_form.is_valid():
+                    code = voucher_form.cleaned_data['code']
+                    if code in self.used_vouchers:
+                        self.no_double_voucher = False
+                    else:
+                        self.used_vouchers.append(code)
                 else:
-                    self.used_vouchers.append(
-                        voucher_form.cleaned_data['code'])
-            else:
-                self.all_voucher_forms_valid = False
+                    self.all_voucher_forms_valid = False
 
-            self.voucher_forms.append(voucher_form)
+                self.voucher_forms.append(voucher_form)
 
         # All name forms, voucher forms must be valid, voucher codes must not
         # be used twice
@@ -368,10 +367,6 @@ class PurchaseNamesView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
             self.save_state()
             return redirect('attendees_purchase_confirm')
         return self.get(*args, **kwargs)
-
-    def _get_tickets_for_voucher(self):
-        return [t for t in self.tickets
-                if t.ticket_type.vouchertype_needed is not None]
 
 
 class PurchaseOverviewView(LoginRequiredMixin, PurchaseMixin,
