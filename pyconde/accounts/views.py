@@ -67,7 +67,7 @@ class AutocompleteTags(generic_views.View):
     def get_matching_tags(self, term):
         data = list(models.Profile.tags.filter(name__icontains=term)
                                        .values_list('name', flat=True)
-                                       .all())
+                                       .all()[:7])
         return data
 
     def get(self, request):
