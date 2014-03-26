@@ -100,6 +100,7 @@ class TicketQuantityForm(forms.Form):
 
 
 class TicketNameForm(forms.ModelForm):
+
     def __init__(self, *args, **kwargs):
         assert 'instance' in kwargs, 'instance is required.'
 
@@ -120,30 +121,22 @@ class TicketNameForm(forms.ModelForm):
     def save(self, *args, **kwargs):
         # Update, save would overwrite other flags too (even if not in
         # `fields`)
-        self.instance.first_name = self.cleaned_data['first_name']
-        self.instance.last_name = self.cleaned_data['last_name']
-        self.instance.organisation = self.cleaned_data['organisation']
-        self.instance.shirtsize = self.cleaned_data['shirtsize']
+        for fname in self._meta.fields:
+            val = self.cleaned_data[fname]
+            setattr(self.instance, fname, val)
         return self.instance
 
 
 class SIMCardNameForm(forms.ModelForm):
+
     def __init__(self, *args, **kwargs):
         assert 'instance' in kwargs, 'instance is required.'
 
         super(SIMCardNameForm, self).__init__(
             prefix='sc-%s' % kwargs['instance'].pk, *args, **kwargs)
 
-        self.fields['gender'].required = True
-        self.fields['first_name'].required = True
-        self.fields['last_name'].required = True
-        self.fields['date_of_birth'].required = True
-        self.fields['email'].required = True
-        self.fields['street'].required = True
-        self.fields['zip_code'].required = True
-        self.fields['city'].required = True
-        self.fields['country'].required = True
-        self.fields['phone'].required = True
+        for fname in self._meta.fields:
+            self.fields[fname].required = True
 
     class Meta:
         model = SIMCardTicket
@@ -155,16 +148,9 @@ class SIMCardNameForm(forms.ModelForm):
     def save(self, *args, **kwargs):
         # Update, save would overwrite other flags too (even if not in
         # `fields`)
-        self.instance.gender = self.cleaned_data['gender']
-        self.instance.first_name = self.cleaned_data['first_name']
-        self.instance.last_name = self.cleaned_data['last_name']
-        self.instance.date_of_birth = self.cleaned_data['date_of_birth']
-        self.instance.email = self.cleaned_data['email']
-        self.instance.street = self.cleaned_data['street']
-        self.instance.zip_code = self.cleaned_data['zip_code']
-        self.instance.city = self.cleaned_data['city']
-        self.instance.country = self.cleaned_data['country']
-        self.instance.phone = self.cleaned_data['phone']
+        for fname in self._meta.fields:
+            val = self.cleaned_data[fname]
+            setattr(self.instance, fname, val)
         return self.instance
 
 
