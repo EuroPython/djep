@@ -11,6 +11,7 @@ from django.template.loader import render_to_string
 from django.utils.translation import ugettext, ugettext_lazy as _
 from django.utils.timezone import now
 
+from . import settings as app_settings
 from . import tasks
 from . import utils
 from .models import Purchase, Ticket, TicketType, Voucher, VoucherType, TShirtSize
@@ -141,7 +142,7 @@ class PurchaseAdmin(admin.ModelAdmin):
         'Send payment confirmation for selected %(verbose_name_plural)s')
 
     def send_payment_reminder(self, request, queryset):
-        due_date = now() + datetime.timedelta(days=14)
+        due_date = now() + datetime.timedelta(days=app_settings.REMINDER_DUE_DATE_OFFSET)
         for purchase in queryset.filter(state='invoice_created'):
 
             send_mail(ugettext('%(conference)s payment reminder' % {
