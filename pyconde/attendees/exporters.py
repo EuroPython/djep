@@ -56,8 +56,10 @@ class PurchaseExporter(object):
                 },
                 'price': ticket.ticket_type.fee
             }
-            if isinstance(ticket, VenueTicket) and \
-                    ticket.venueticket.voucher is not None:
-                ticket_data['voucher'] = ticket.venueticket.voucher.code
+            try:
+                if ticket.venueticket.voucher is not None:
+                    ticket_data['voucher'] = ticket.venueticket.voucher.code
+            except VenueTicket.DoesNotExist:
+                pass
             result['tickets'].append(ticket_data)
         return result
