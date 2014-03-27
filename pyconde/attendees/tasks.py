@@ -128,8 +128,8 @@ def cancel_purchase(purchase_id, recipients):
         purchase = Purchase.objects.filter(state__in=('invoice_created',
                                                       'payment_received')) \
                                    .select_related('ticket_set__user',
-                                                   'ticket_set__ticket_type__name',
-                                                   'conference__title') \
+                                                   'ticket_set__ticket_type',
+                                                   'conference') \
                                    .get(pk=purchase_id)
     except Purchase.DoesNotExist:
         raise RuntimeError('No purchase found with pk %d' % purchase_id)
