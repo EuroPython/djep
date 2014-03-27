@@ -6,7 +6,8 @@ from . import views
 
 urlpatterns = patterns(
     'pyconde.attendees.views',
-    url(r'^$', views.StartPurchaseView.as_view(), name='attendees_purchase'),
+    url(r'^$', views.StartPurchaseView.as_view(),
+        name='attendees_purchase'),
     url(r'^names/$', views.PurchaseNamesView.as_view(),
         name='attendees_purchase_names'),
     url(r'^confirm/$', views.PurchaseOverviewView.as_view(),

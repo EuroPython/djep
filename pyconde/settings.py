@@ -571,6 +571,9 @@ class Testing(Dev):
 
     SECRET_KEY = "testing_secret_key"
 
+    CELERY_ALWAYS_EAGER = True
+    PURCHASE_INVOICE_DISABLE_RENDERING = True
+
 
 class Staging(Base):
     INSTALLED_APPS = Base.INSTALLED_APPS + [

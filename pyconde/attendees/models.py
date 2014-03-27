@@ -33,8 +33,8 @@ PAYMENT_METHOD_CHOICES = (
 )
 
 GENDER_CHOICES = (
-    ('male', _('male')),
     ('female', _('female')),
+    ('male', _('male')),
 )
 
 
