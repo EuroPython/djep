@@ -8,6 +8,7 @@ from email.utils import formataddr
 
 from django.contrib.auth.models import User
 from django.contrib.contenttypes import models as content_models
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models import Q
 from django.utils.timezone import now
@@ -320,7 +321,7 @@ class Ticket(models.Model):
         try:
             ticket = getattr(self, self.ticket_type.content_type.model)
             return ticket.invoice_item_title
-        except models.DoesNotExist:
+        except ObjectDoesNotExist:
             return self.ticket_type.name
 
 
