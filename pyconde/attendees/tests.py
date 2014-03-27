@@ -92,10 +92,10 @@ class TicketQuantityFormTests(TestCase):
     def setUp(self):
         now = datetime.datetime.now()
         self.voucher_type = models.VoucherType()
-        self.voucher_test_valid_purchase_processtype.save()
+        self.voucher_type.save()
         self.ticket_type_with_voucher = models.TicketType(
             name='with voucher',
-            is_activetest_valid_purchase_process=True,
+            is_active=True,
             date_valid_from=now,
             date_valid_to=now + datetime.timedelta(days=365),
             vouchertype_needed=self.voucher_type,
@@ -343,6 +343,13 @@ class PurchaseProcessTest(TestCase):
         for purchase in models.Purchase.objects.all():
             if path.exists(purchase.invoice_filepath):
                 unlink(purchase.invoice_filepath)
+
+        for klass in [models.Purchase, models.VenueTicket, models.SIMCardTicket,
+                      models.SupportTicket, models.Ticket, models.TShirtSize,
+                      models.TicketType, models.Voucher, models.VoucherType,
+                      Conference]:
+            for inst in klass.objects.all():
+                inst.delete()
 
     def assertQuantityForm(self, response, ticket_type, limit):
         text = '<select id="id_tq-%d-quantity" name="tq-%d-quantity">' % (
