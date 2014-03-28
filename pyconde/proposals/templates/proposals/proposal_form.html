@@ -1,7 +1,7 @@
 {% extends "proposals/base.html" %}
 {% load sekizai_tags %}
 
-{% block bodycls %}proposal-form{% endblock %}
+{% block bodyclass %}proposal-form {{block.super}}{% endblock %}
 
 {% load i18n crispy_forms_tags %}
 

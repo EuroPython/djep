@@ -24,7 +24,7 @@ PAYMENT_METHOD_CHOICES = (
     ('elv', _('ELV')),
 )
 
-terms_of_use_url = settings.TERMS_OF_USE_URL
+terms_of_use_url = settings.TERMS_OF_USE_URL or '#'
 
 
 class PurchaseForm(forms.ModelForm):
@@ -177,6 +177,8 @@ class TicketVoucherForm(forms.ModelForm):
                     code=code,
                     type__conference=current_conference(),
                     type=ticket.ticket_type.vouchertype_needed)
+            else:
+                voucher = ticket.voucher
 
             # Make sure that the found voucher is not one of the locked ones.
             cache = get_cache('default')

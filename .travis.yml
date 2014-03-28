@@ -4,7 +4,7 @@ python:
 install:
   - pip install -q -r requirements/testing.txt
 script:
-  - "DJANGO_CONFIGURATION=Testing python manage.py test conference proposals schedule reviews sponsorship speakers helpers accounts events attendees search"
+  - "DJANGO_CONFIGURATION=Testing python manage.py test -v2 conference proposals schedule reviews sponsorship speakers helpers accounts events attendees search"
 branches:
     only:
         - develop

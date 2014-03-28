@@ -66,18 +66,15 @@ def send_purchase_confirmation_mail(purchase, recipients=None):
     from . import models
     if recipients is None:
         recipients = [purchase.email]
-    terms_of_use_url = (settings.PURCHASE_TERMS_OF_USE_URL
-                        if (hasattr(settings, 'PURCHASE_TERMS_OF_USE_URL')
-                        and settings.PURCHASE_TERMS_OF_USE_URL) else '')
     send_mail(
         _('Ticket successfully purchased'),
-        render_to_string('attendees/mail_purchase_completed.html', {
+        render_to_string('attendees/mail_purchase_completed.txt', {
             'purchase': purchase,
             'conference': purchase.conference,
             'rounded_vat': round_money_value(purchase.payment_tax),
             'payment_method': dict(models.PAYMENT_METHOD_CHOICES).get(
                 purchase.payment_method),
-            'terms_of_use_url': terms_of_use_url
+            'terms_of_use_url': app_settings.TERMS_OF_USE_URL
         }),
         settings.DEFAULT_FROM_EMAIL, recipients,
         fail_silently=True
