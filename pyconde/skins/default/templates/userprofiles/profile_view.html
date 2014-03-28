@@ -29,6 +29,12 @@
       <dd>{{ profile.organisation }}</dd>
     </dl>
     {% endif %}
+    {% if interests %}
+    <dl>
+      <dt>{% trans "Interests" %}:</dt>
+      <dd>{% for tag in interests %}<span class="label">{{ tag }}</span>{% if not forloop.last %}, {% endif %}{% endfor %}</dd>
+    </dl>
+    {% endif %}
   </div>
   <div class="info">
     {% if profile.short_info %}

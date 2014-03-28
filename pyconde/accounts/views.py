@@ -59,7 +59,23 @@ class AutocompleteUser(generic_views.View):
         result = []
         if term and len(term) >= 2:
             result = self.get_matching_users(term)
-        return HttpResponse(json.dumps(result))
+        return HttpResponse(json.dumps(result), content_type='application/json')
+
+
+class AutocompleteTags(generic_views.View):
+
+    def get_matching_tags(self, term):
+        data = list(models.Profile.tags.filter(name__icontains=term)
+                                       .values_list('name', flat=True)
+                                       .all()[:7])
+        return data
+
+    def get(self, request):
+        term = request.GET.get('term', '')
+        result = []
+        if term and len(term) >= 2:
+            result = self.get_matching_tags(term)
+        return HttpResponse(json.dumps(result), content_type='application/json')
 
 
 class ProfileView(generic_views.TemplateView):
@@ -81,7 +97,8 @@ class ProfileView(generic_views.TemplateView):
             'userobj': user,
             'speaker_profile': speaker_profile,
             'sessions': sessions,
-            'profile': profile
+            'profile': profile,
+            'interests': profile.tags.order_by('name').all(),
         }
 
 
@@ -115,8 +132,8 @@ class ProfileChangeView(BaseProfileChangeView):
     def get_context_data(self, **kwargs):
         ctx = super(ProfileChangeView, self).get_context_data(**kwargs)
         review_state = None
+        user = self.request.user
         if settings.REVIEWER_APPLICATION_OPEN:
-            user = self.request.user
             if not user.is_superuser:
                 try:
                     review_state = user.reviewer_set.only('state').get().state
