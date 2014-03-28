@@ -21,6 +21,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.contrib.auth import models as auth_models
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
@@ -526,7 +527,15 @@ class UserTicketsView(LoginRequiredMixin, generic_views.TemplateView):
     def get_context_data(self):
         return {
             'tickets': Ticket.objects
-                             .get_active_user_tickets(self.request.user).all()
+                             .get_active_user_tickets(self.request.user)
+                             .select_related('ticket_type')
+                             .filter(
+                                Q(ticket_type__content_type__app_label='attendees',
+                                    ticket_type__content_type__model='venueticket') |
+                                Q(ticket_type__content_type__app_label='attendees',
+                                    ticket_type__content_type__model='simcardticket')
+                                )
+                             .all()
         }
 
 
