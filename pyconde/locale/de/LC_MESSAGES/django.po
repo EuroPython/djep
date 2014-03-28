@@ -946,8 +946,8 @@ msgid ""
 "Please see our Terms & Conditions (%(terms_of_use_url)s) for further "
 "information and regulations that may apply to this cancelation."
 msgstr ""
-"Bitte beachte unsere AGB (%(terms_of_use_url)s) für weitere Informationen "
-"und Bedingungen, die für diese Stornierung gelten."
+"Bitte beachten Sie unsere AGB (%(terms_of_use_url)s) für weitere "
+"Informationen und Bedingungen, die für diese Stornierung gelten."
 
 #: attendees/templates/attendees/mail_purchase_completed.txt:3
 msgid "You've purchased following tickets:"
