@@ -511,7 +511,8 @@ class UserPurchasesView(LoginRequiredMixin, generic_views.TemplateView):
                              .exclude(purchase__state='incomplete')
                              .exclude(purchase__state='new')
                              .select_related('purchase', 'purchase__user',
-                                             'ticket_type', 'user')
+                                             'ticket_type__content_type',
+                                             'user')
                              .order_by('-purchase__date_added')
         }
 
@@ -528,7 +529,7 @@ class UserTicketsView(LoginRequiredMixin, generic_views.TemplateView):
         return {
             'tickets': Ticket.objects
                              .get_active_user_tickets(self.request.user)
-                             .select_related('ticket_type')
+                             .select_related('ticket_type__content_type')
                              .filter(
                                 Q(ticket_type__content_type__app_label='attendees',
                                     ticket_type__content_type__model='venueticket') |

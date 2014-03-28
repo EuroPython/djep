@@ -10,14 +10,42 @@
             {% for ticket in tickets %}
                 <div class="ticket" id="ticket{{ ticket.pk }}">
                     <h2>{{ ticket.ticket_type.name }} (#{{ ticket.pk }})</h2>
-                    <dl>
-                        <dt>{% trans "Name" %}:</dt>
-                        <dd>{{ ticket.first_name }} {{ ticket.last_name }}</dd>
-                    </dl>
-                    <dl>
-                        <dt>{% trans "Desired T-Shirt size" %}:</dt>
-                        <dd>{% if ticket.shirtsize %}{{ ticket.shirtsize }}{% else %}-{% endif %}</dd>
-                    </dl>
+                    {% if ticket.ticket_type.content_type.model == "venueticket" %}
+                        <dl>
+                            <dt>{% trans "Name" %}:</dt>
+                            <dd>{{ ticket.real_ticket.first_name }} {{ ticket.real_ticket.last_name }}</dd>
+                        </dl>
+                        <dl>
+                            <dt>{% trans "Desired T-Shirt size" %}:</dt>
+                            <dd>{% if ticket.real_ticket.shirtsize %}{{ ticket.real_ticket.shirtsize }}{% else %}-{% endif %}</dd>
+                        </dl>
+                    {% elif ticket.ticket_type.content_type.model == "simcardticket" %}
+                        <dl>
+                            <dt>{% trans "Name" %}:</dt>
+                            <dd>{{ ticket.real_ticket.first_name }} {{ ticket.real_ticket.last_name }}</dd>
+                        </dl>
+                        <dl>
+                            <dt>{% trans "Sex" %}:</dt>
+                            <dd>{{ ticket.real_ticket.gender }}</dd>
+                        </dl>
+                        <dl>
+                            <dt>{% trans "Date of birth" %}:</dt>
+                            <dd>{{ ticket.real_ticket.date_of_birth }}</dd>
+                        </dl>
+                        <dl>
+                            <dt>{% trans "Address" %}:</dt>
+                            <dd>
+                                {{ ticket.real_ticket.hotel_name }}</br>
+                                {{ ticket.real_ticket.street }}</br>
+                                {{ ticket.real_ticket.zip_code }} {{ ticket.real_ticket.city }}</br>
+                                {{ ticket.real_ticket.country }}
+                            </dd>
+                        </dl>
+                        <dl>
+                            <dt>{% trans "Phone" %}:</dt>
+                            <dd>{{ ticket.real_ticket.phone }}</dd>
+                        </dl>
+                    {% endif %}
                 </div>
             {% endfor %}
         {% else %}

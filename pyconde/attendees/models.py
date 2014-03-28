@@ -335,11 +335,23 @@ class Ticket(models.Model):
 
     @property
     def invoice_item_title(self):
-        try:
-            ticket = getattr(self, self.ticket_type.content_type.model)
-            return ticket.invoice_item_title
-        except ObjectDoesNotExist:
+        if self.real_ticket is None:
             return self.ticket_type.name
+        return self.real_ticket.invoice_item_title
+
+    @property
+    def real_ticket(self):
+        real_ticket = getattr(self, '_real_ticket', None)
+        if real_ticket is None:
+            try:
+                real_ticket = getattr(self, self.ticket_type.content_type.model)
+                self._real_ticket = real_ticket
+            except ObjectDoesNotExist:
+                # We need try-except here, because there is no other way to
+                # check for the sub ticket class
+                pass
+        return real_ticket
+
 
 
 class SupportTicket(Ticket):

@@ -8,6 +8,8 @@
     {% for purchase in purchase_list %}
     <div class="purchase">
         <dl class="details">
+            <dt>{% trans "Invoice number" %}:</dt>
+            <dd>{{ purchase.grouper.full_invoice_number }}</dd>
             <dt>{% trans "Date" %}:</dt>
             <dd>{{ purchase.grouper.date_added|date }}</dd>
             <dt>{% trans "Total price (incl. 19% VAT)" %}:</dt>
@@ -48,15 +50,15 @@
                     <span class="type">
                         {% if purchase.grouper.state == 'payment_received' %}
                             {% if not ticket.user or ticket.user == user %}
-                            <a href="{% url 'attendees_user_tickets' %}#ticket{{ticket.pk}}">{{ ticket.ticket_type.name }}</a>:
+                                <a href="{% url 'attendees_user_tickets' %}#ticket{{ticket.pk}}">{{ ticket.ticket_type.name }}</a>:
                             {% else %}
-                            {{ ticket.ticket_type.name }}:
+                                {{ ticket.ticket_type.name }}:
                             {% endif %}
                         {% else %}
                             {{ ticket.ticket_type.name }}:
                         {% endif %}
                     </span>
-                    <p class="details">{{ ticket.first_name }} {{ ticket.last_name }}</p>
+                    <p class="details">{{ ticket.real_ticket.first_name }} {{ ticket.real_ticket.last_name }}</p>
                     <div class="ticket-assignment">
                     {% if purchase.grouper.state == 'payment_received' %}
                         {% if ticket.user %}
