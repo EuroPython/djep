@@ -52,7 +52,7 @@ MIN_TOTAL_FOR_PAYMENT_METHOD = getattr(
 
 PAYMENT_METHODS = getattr(settings, 'PAYMENT_METHODS', None)
 
-TERMS_OF_USE_URL = getattr(settings, 'PURCHASE_TERMS_OF_USE_URL', '#')
+TERMS_OF_USE_URL = getattr(settings, 'PURCHASE_TERMS_OF_USE_URL', '')
 
 # With this flag the payment method is hidden if there is just one
 # available.
