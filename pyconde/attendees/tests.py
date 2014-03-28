@@ -605,3 +605,24 @@ class PurchaseProcessTest(TestCase):
 
         # check we are on the completion page
         self.assertContains(response, '<li class="active">Complete</li>', html=True)
+
+
+class TestTicketTypes(TestCase):
+    def test_returns_all_tickettypes(self):
+        """
+        All subclasses of attendees.ticket should provided by
+        limit_ticket_types including ticket itself.
+        """
+        from django.db.models import get_models
+        expected = set()
+        found = set()
+        for model in get_models():
+            if issubclass(model, models.Ticket):
+                expected.add("{0}.{1}".format(
+                    model._meta.app_label,
+                    model.__name__.lower()))
+        for node in models.limit_ticket_types().children:
+            values = dict(node.children)
+            found.add("{0}.{1}".format(
+                values['app_label'], values['model']))
+        self.assertEqual(expected, found)

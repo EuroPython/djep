@@ -38,6 +38,20 @@ GENDER_CHOICES = (
 )
 
 
+def limit_ticket_types():
+    """
+    This returns a Q usable for limit_choice_to restrictions that only
+    includes subclasses of Ticket and Ticket itself.
+
+    TODO: Once djep works on Django 1.7, this should be updated to act as
+          callable Q generator.
+    """
+    return (Q(app_label='attendees', model='ticket') |
+        Q(app_label='attendees', model='venueticket') |
+        Q(app_label='attendees', model='supportticket') |
+        Q(app_label='attendees', model='simcardticket'))
+
+
 class VoucherTypeManager(models.Manager):
     pass
 
@@ -128,7 +142,10 @@ class TicketType(models.Model):
 
     remarks = models.TextField(_('Remarks'), blank=True)
 
-    content_type = models.ForeignKey(content_models.ContentType, blank=False, verbose_name=_('Ticket to generate'))
+    content_type = models.ForeignKey(
+        content_models.ContentType, blank=False,
+        limit_choices_to=limit_ticket_types(),
+        verbose_name=_('Ticket to generate'))
 
     objects = TicketTypeManager()
 
@@ -401,3 +418,4 @@ class SIMCardTicket(Ticket):
     def invoice_item_title(self):
         return force_text('1 SIM Card for:<br /><i>%s %s</i>' %
             (self.first_name, self.last_name))
+
