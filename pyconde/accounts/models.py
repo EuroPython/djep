@@ -7,6 +7,7 @@ from django.dispatch import receiver
 from django.db import models
 
 from easy_thumbnails.fields import ThumbnailerImageField
+from taggit.managers import TaggableManager
 from validatorchain import ValidatorChain
 
 from . import validators
@@ -73,6 +74,8 @@ class Profile(models.Model):
         default=False, blank=True)
     accept_job_offers = models.BooleanField(_('Allow sponsors to send job offers'),
         default=False, blank=True)
+
+    tags = TaggableManager()
 
 
 @receiver(user_logged_in)

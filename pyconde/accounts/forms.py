@@ -13,6 +13,7 @@ from userprofiles.contrib.emailverification.forms import ChangeEmailForm as Base
 from userprofiles.contrib.profiles.forms import ProfileForm as BaseProfileForm
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Fieldset, Div, Field, HTML
+from taggit.forms import TagField
 
 from .models import Profile
 from . import validators
@@ -71,6 +72,7 @@ class ProfileRegistrationForm(RegistrationForm):
     accept_job_offers = forms.BooleanField(required=False,
         label=_('I hereby allow EuroPython 2014 sponsors to send me job offers.'))
 
+    tags = TagField(label=_("Interests"), required=False, help_text=_("Please separate tags by comma."))
 
     def __init__(self, *args, **kwargs):
         super(ProfileRegistrationForm, self).__init__(*args, **kwargs)
@@ -94,6 +96,7 @@ class ProfileRegistrationForm(RegistrationForm):
             'organisation',
             'twitter',
             'website',
+            Field('tags', css_class='tags-input'),
             'accept_job_offers'
         )
         privacy_fields = Fieldset(
@@ -232,14 +235,26 @@ class ProfileForm(BaseProfileForm):
                                                    widget=forms.Select(choices=NUM_ACCOMPANYING_CHILDREN_CHOICES))
     age_accompanying_children = forms.CharField(label=_("Age of accompanying children"),
                                                 required=False)
+    tags = TagField(label=_("Interests"), required=False, help_text=_("Please separate tags by comma."))
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
-        profile_fields = Fieldset(_('Personal information'), 'full_name',
-                                  'display_name', 'addressed_as',
-                                  'avatar', 'short_info')
-        profession_fields = Fieldset(_('Professional information'), 'organisation', 'twitter', 'website', 'accept_job_offers')
+        profile_fields = Fieldset(
+            _('Personal information'),
+            'full_name',
+            'display_name',
+            'addressed_as',
+            'avatar',
+            'short_info')
+        profession_fields = Fieldset(
+            _('Professional information'),
+            'organisation',
+            'twitter',
+            'website',
+            Field('tags', css_class='tags-input'),
+            'accept_job_offers'
+        )
         privacy_fields = Fieldset(
             _('Privacy Policy'),
             'accept_pysv_conferences',

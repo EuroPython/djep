@@ -1,5 +1,6 @@
 {% extends "base.html" %}
-{% load crispy_forms_tags i18n %}
+{% load crispy_forms_tags i18n sekizai_tags %}
+{% load static from staticfiles %}
 
 {% block title %}{% trans "Change profile" %}{% endblock %}
 {% block page_title %}Change profile{% endblock %}
@@ -32,4 +33,16 @@
   {% endif %}
 
   {% crispy form %}
+{% endblock %}
+
+{% block extra_foot %}
+{% addtoblock "css_external" %}
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css" />
+{% endaddtoblock %}
+{% addtoblock "js_external" %}
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+{% endaddtoblock %}
+<script type="text/javascript">
+ep.ui.createTagsInput('/accounts/ajax/tags/');
+</script>
 {% endblock %}
