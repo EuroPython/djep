@@ -79,6 +79,7 @@ class PurchaseAdmin(admin.ModelAdmin):
     list_editable = ('state',)
     list_filter = ('state', 'date_added', 'payment_method', 'exported',)
     search_fields = ('invoice_number', 'first_name', 'last_name', 'email')
+    inlines = (SupportTicketInline, VenueTicketInline, SIMCardTicketInline,)
     actions = ('send_payment_confirmation', 'export_and_send_invoices',
                'send_invoice_to_myself', 'send_invoice_to_customer',
                'send_payment_reminder', 'send_purchase_canceled',)
