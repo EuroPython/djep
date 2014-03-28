@@ -59,3 +59,7 @@ TERMS_OF_USE_URL = getattr(settings, 'PURCHASE_TERMS_OF_USE_URL', '')
 HIDE_SINGLE_PAYMENT_METHOD = getattr(
     settings, 'ATTENDEES_HIDE_SINGLE_PAYMENT_METHOD',
     False)
+
+REMINDER_DUE_DATE_OFFSET = getattr(settings,
+                                   'PAYMENT_REMINDER_DUE_DATE_OFFSET',
+                                   14)
