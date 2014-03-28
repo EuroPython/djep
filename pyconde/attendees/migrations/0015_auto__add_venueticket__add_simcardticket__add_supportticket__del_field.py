@@ -46,7 +46,7 @@ class Migration(SchemaMigration):
         db.send_create_signal(u'attendees', ['SupportTicket'])
 
 
-        update_contenttypes(get_app('attendees'), get_models())
+        update_contenttypes(get_app('attendees'), get_models(), interactive=False)
         db.add_column(u'attendees_tickettype', 'content_type',
                       self.gf('django.db.models.fields.related.ForeignKey')(default=orm['contenttypes.ContentType'].objects.get(app_label='attendees', model='venueticket').id, blank=False, to=orm['contenttypes.ContentType']),
                       keep_default=False)
