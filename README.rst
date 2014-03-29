@@ -60,17 +60,30 @@ run following command::
     python manage.py syncdb --noinput --migrate
 
 After this is done, you should already have a working site, but it is still
-empty. To change that we have to create an admin user in order to gain access
-to the admin panel::
+empty. To change that you can load a fixture with initial data by running::
+
+    python manage.py loaddata fixtures/europython2014/initial.json
+
+You can login as user *admin* with password *admin*
+
+Or you create an admin user in order to gain access to the admin panel::
     
     python manage.py createsuperuser
 
-This will prompt a couple of questions you have to fill out. After this is
-complete, start the development-server on port 8000 with::
+This will prompt a couple of questions you have to fill out.
+
+.. warning::
+
+    Be aware that no user profile is created for this superuser as this is
+    normally don't during the registration process. Thus every access from a
+    user instance to its profile will fail.
+
+
+After this is complete, start the development-server on port 8000 with::
     
     python manage.py runserver
 
-As a final step you have to create a frontpage in the via
+As a final step you have to create a frontpage via
 http://localhost:8000/admin/cms/page/add/.
 
 
