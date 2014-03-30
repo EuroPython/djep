@@ -69,7 +69,7 @@ ep.ui = (function($) {
     }
 
     function toggleMainMenu() {
-        $('.top-bar-section').on('click', '> ul > li > a', function(evt) {
+        $('.top-bar-section').on('click', '> ul > li.has-dropdown > a', function(evt) {
             evt.preventDefault();
             $('.main-nav .dropdown').toggle();
         });
