@@ -125,6 +125,7 @@ a {
     background-color: $topbar-bg-color;
     a {
         text-decoration: none;
+        outline: none;
     }
 
     // We position the .name element centered by default on smaller devices. On larger
