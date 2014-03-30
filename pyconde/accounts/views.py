@@ -69,13 +69,17 @@ class AutocompleteUser(generic_views.View):
 class AutocompleteTags(generic_views.View):
 
     def get_matching_tags(self, term):
+        if not term:
+            return []
         data = list(models.Profile.tags.filter(name__icontains=term)
                                        .values_list('name', flat=True)
                                        .all()[:7])
         return data
 
     def get(self, request):
-        term = request.GET.get('term', '')
+        if 'term' not in request.GET:
+            return HttpResponseBadRequest("You have to provide the GET parameter 'term'")
+        term = request.GET['term']
         result = []
         if term and len(term) >= 2:
             result = self.get_matching_tags(term)

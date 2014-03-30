@@ -237,3 +237,29 @@ class ProfileRegistrationFormTests(TestCase):
         data = self._required_data(twitter=handle)
         f = forms.ProfileRegistrationForm(data)
         self.assertTrue(f.is_valid())
+
+
+class AutocompleteTagsViewTests(TestCase):
+    def setUp(self):
+        self.user = User.objects.create_user('test', password='test')
+        self.profile = models.Profile(user=self.user)
+        self.profile.save()
+        self.profile.tags.add('django')
+
+    def tearDown(self):
+        self.profile.delete()
+        self.user.delete()
+
+    def test_400_on_no_term(self):
+        resp = self.client.get('/en/accounts/ajax/tags/')
+        self.assertEquals(400, resp.status_code)
+
+    def test_empty_on_empty_term(self):
+        resp = self.client.get('/en/accounts/ajax/tags/?term=')
+        self.assertEquals(200, resp.status_code)
+        self.assertEquals(0, len(json.loads(resp.content)))
+
+    def test_successful_fetch(self):
+        resp = self.client.get('/en/accounts/ajax/tags/?term=djan')
+        self.assertEquals(200, resp.status_code)
+        self.assertEquals(1, len(json.loads(resp.content)))
