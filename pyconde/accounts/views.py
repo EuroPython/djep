@@ -6,7 +6,7 @@ from django.contrib import messages
 from django.contrib.auth import models as auth_models
 from django.contrib.contenttypes.models import ContentType
 from django.core.mail import send_mass_mail
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext_lazy as _
@@ -44,6 +44,8 @@ class AutocompleteUser(generic_views.View):
         speaker pk ("value").
         """
         result = []
+        if not term:
+            return result
         for profile in models.Profile.objects.filter(
                 display_name__icontains=term):
             user = profile.user
@@ -55,6 +57,8 @@ class AutocompleteUser(generic_views.View):
         return result
 
     def get(self, request):
+        if 'term' not in request.GET:
+            return HttpResponseBadRequest("You have to provide the GET parameter 'term'")
         term = request.GET['term']
         result = []
         if term and len(term) >= 2:

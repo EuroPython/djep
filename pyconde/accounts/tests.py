@@ -1,5 +1,7 @@
 from __future__ import print_function
 
+import json
+
 from django import template
 from django.contrib.auth.models import User
 from django.core.exceptions import ValidationError
@@ -155,6 +157,9 @@ class AutocompleteUserViewTests(TestCase):
         self.assertEquals(1, len(result))
         self.assertEquals('Firstname Lastname (test)', result[0]['label'])
 
+        resp = self.client.get('/en/accounts/ajax/users?term=Lastname')
+        self.assertEquals(1, len(json.loads(resp.content)))
+
     def test_case_insensitive_search(self):
         """
         The case shouldn't be relevant when searching for a user either
@@ -167,6 +172,22 @@ class AutocompleteUserViewTests(TestCase):
         result = self.view.get_matching_users('firstname')
         self.assertEquals(1, len(result))
         self.assertEquals('Firstname Lastname (test)', result[0]['label'])
+
+    def test_400_on_no_term(self):
+        """
+        If the querystring doesn't contain the term attribute, raise a 400
+        Bad Request error.
+        """
+        resp = self.client.get('/en/accounts/ajax/users')
+        self.assertEquals(resp.status_code, 400)
+
+    def test_empty_on_empty_term(self):
+        """
+        If the provided term is empty, return an empty list.
+        """
+        resp = self.client.get('/en/accounts/ajax/users?term=')
+        self.assertEquals(resp.status_code, 200)
+        self.assertEquals(0, len(json.loads(resp.content)))
 
 
 class TwitterUsernameValidatorTest(TestCase):
