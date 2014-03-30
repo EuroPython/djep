@@ -13,6 +13,7 @@ from userprofiles.contrib.emailverification.forms import ChangeEmailForm as Base
 from userprofiles.contrib.profiles.forms import ProfileForm as BaseProfileForm
 from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Fieldset, Div, Field, HTML
+from taggit.forms import TagField
 
 from .models import Profile
 from . import validators
@@ -68,28 +69,54 @@ class ProfileRegistrationForm(RegistrationForm):
         label=_('I hereby allow the Python Software Verband e.V. to re-use my profile information for upcoming conferences.'))
     accept_ep_conferences = forms.BooleanField(required=False,
         label=_('I hereby allow the EuroPython Society to re-use my profile information for upcoming conferences.'))
+    accept_job_offers = forms.BooleanField(required=False,
+        label=_('I hereby allow EuroPython 2014 sponsors to send me job offers.'))
 
+    tags = TagField(label=_("Interests"), required=False, help_text=_("Please separate tags by comma."))
 
     def __init__(self, *args, **kwargs):
         super(ProfileRegistrationForm, self).__init__(*args, **kwargs)
-        account_fields = Fieldset(_('Login information'), Field('username', autofocus="autofocus"), 'email', 'password', 'password_repeat')
-        profile_fields = Fieldset(_('Personal information'), 'full_name',
-                                  'display_name', 'addressed_as',
-                                  'avatar', 'short_info')
-        profession_fields = Fieldset(_('Professional information'), 'organisation', 'twitter', 'website')
-        privacy_fields = Fieldset(_('Privacy Policy'),
+        account_fields = Fieldset(
+            _('Login information'),
+            Field('username', autofocus="autofocus"),
+            'email',
+            'password',
+            'password_repeat'
+        )
+        profile_fields = Fieldset(
+            _('Personal information'),
+            'full_name',
+            'display_name',
+            'addressed_as',
+            'avatar',
+            'short_info'
+        )
+        profession_fields = Fieldset(
+            _('Professional information'),
+            'organisation',
+            'twitter',
+            'website',
+            Field('tags', css_class='tags-input'),
+            'accept_job_offers'
+        )
+        privacy_fields = Fieldset(
+            _('Privacy Policy'),
             HTML(_('{% load cms_tags %}<p class="control-group">Due to data protection '
                    'regulations you need to explicitly accept our '
                    '<a href="{% page_url "privacy-policy" %}">privacy policy</a>.</p>')),
             'accept_privacy_policy',
             'accept_pysv_conferences',
-            'accept_ep_conferences')
+            'accept_ep_conferences'
+        )
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
-                account_fields, profile_fields, profession_fields, privacy_fields,
-                ButtonHolder(Submit('submit', _('Create account'), css_class='btn btn-primary'))
-                )
+            account_fields,
+            profile_fields,
+            profession_fields,
+            privacy_fields,
+            ButtonHolder(Submit('submit', _('Create account'), css_class='btn btn-primary'))
+        )
         if settings.ACCOUNTS_FALLBACK_TO_GRAVATAR:
             self.fields['avatar'].help_text = _("""Please upload an image with a side length of at least 300 pixels.<br />If you don't upload an avatar your Gravatar will be used instead.""")
 
@@ -115,7 +142,8 @@ class ProfileRegistrationForm(RegistrationForm):
             display_name=self.cleaned_data['display_name'],
             addressed_as=self.cleaned_data['addressed_as'],
             accept_pysv_conferences=self.cleaned_data['accept_pysv_conferences'],
-            accept_ep_conferences=self.cleaned_data['accept_ep_conferences']
+            accept_ep_conferences=self.cleaned_data['accept_ep_conferences'],
+            accept_job_offers=self.cleaned_data['accept_job_offers']
         )
 
     def clean_twitter(self):
@@ -207,14 +235,26 @@ class ProfileForm(BaseProfileForm):
                                                    widget=forms.Select(choices=NUM_ACCOMPANYING_CHILDREN_CHOICES))
     age_accompanying_children = forms.CharField(label=_("Age of accompanying children"),
                                                 required=False)
+    tags = TagField(label=_("Interests"), required=False, help_text=_("Please separate tags by comma."))
 
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
-        profile_fields = Fieldset(_('Personal information'), 'full_name',
-                                  'display_name', 'addressed_as',
-                                  'avatar', 'short_info')
-        profession_fields = Fieldset(_('Professional information'), 'organisation', 'twitter', 'website')
+        profile_fields = Fieldset(
+            _('Personal information'),
+            'full_name',
+            'display_name',
+            'addressed_as',
+            'avatar',
+            'short_info')
+        profession_fields = Fieldset(
+            _('Professional information'),
+            'organisation',
+            'twitter',
+            'website',
+            Field('tags', css_class='tags-input'),
+            'accept_job_offers'
+        )
         privacy_fields = Fieldset(
             _('Privacy Policy'),
             'accept_pysv_conferences',

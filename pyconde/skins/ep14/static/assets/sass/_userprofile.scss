@@ -9,11 +9,11 @@ body.profilepage {
     }
 
     div.misc {
-        @include grid-column($columns: 3);
+        @include grid-column($columns: 4);
     }
 
     .info {
-        @include grid-column($columns: 9);
+        @include grid-column($columns: 8);
         p:first-child {
             margin-top: 0;
         }

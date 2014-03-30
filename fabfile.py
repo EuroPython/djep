@@ -77,7 +77,7 @@ def migrate():
     """
     Executes python manage.py migrate on the server.
     """
-    manage_py('migrate -v 0')
+    manage_py('migrate -v 0 --noinput')
 
 
 @task

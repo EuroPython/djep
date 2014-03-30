@@ -1,0 +1,9 @@
+{% load i18n %}{% blocktrans with sponsor=offer.sponsor.name %}This is a job offer by "{{ sponsor }}":{% endblocktrans %}
+
+--------------------------------------------------
+
+{{ offer.text|striptags|safe }}
+
+--------------------------------------------------
+
+{% url "account_profile_change" as profile_change_url %}{% blocktrans %}If you do not want receive any more job offers, you can opt-out on your profile page: https://{{ site }}{{ profile_change_url }}{% endblocktrans %}

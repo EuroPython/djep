@@ -1,4 +1,5 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
 import decimal
 import uuid
 import os
@@ -6,12 +7,15 @@ import os
 from email.utils import formataddr
 
 from django.contrib.auth.models import User
+from django.contrib.contenttypes import models as content_models
+from django.core.exceptions import ObjectDoesNotExist
 from django.db import models
 from django.db.models import Q
 from django.utils.timezone import now
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 from . import settings
+from django.utils.encoding import force_text
 
 
 PURCHASE_STATES = (
@@ -27,6 +31,25 @@ PAYMENT_METHOD_CHOICES = (
     ('creditcard', _('Credit card')),
     ('elv', _('ELV')),
 )
+
+GENDER_CHOICES = (
+    ('female', _('female')),
+    ('male', _('male')),
+)
+
+
+def limit_ticket_types():
+    """
+    This returns a Q usable for limit_choice_to restrictions that only
+    includes subclasses of Ticket and Ticket itself.
+
+    TODO: Once djep works on Django 1.7, this should be updated to act as
+          callable Q generator.
+    """
+    return (Q(app_label='attendees', model='ticket') |
+        Q(app_label='attendees', model='venueticket') |
+        Q(app_label='attendees', model='supportticket') |
+        Q(app_label='attendees', model='simcardticket'))
 
 
 class VoucherTypeManager(models.Manager):
@@ -118,6 +141,11 @@ class TicketType(models.Model):
     tutorial_ticket = models.BooleanField(_('Tutorial ticket'), default=False)
 
     remarks = models.TextField(_('Remarks'), blank=True)
+
+    content_type = models.ForeignKey(
+        content_models.ContentType, blank=False,
+        limit_choices_to=limit_ticket_types(),
+        verbose_name=_('Ticket to generate'))
 
     objects = TicketTypeManager()
 
@@ -294,27 +322,112 @@ class Ticket(models.Model):
     ticket_type = models.ForeignKey(TicketType, verbose_name=_('Ticket type'))
     user = models.ForeignKey(
         User, null=True, blank=True,
-        related_name='tickets')
-
-    # TODO: organisation - for badges should have asked for org name of visitor!
-    first_name = models.CharField(_('First name'), max_length=250, blank=True)
-    last_name = models.CharField(_('Last name'), max_length=250, blank=True)
-    shirtsize = models.ForeignKey(TShirtSize, blank=True, null=True,
-                                  verbose_name=_('Desired T-Shirt size'))
+        related_name='%(app_label)s_%(class)s_tickets')
 
     date_added = models.DateTimeField(
         _('Date (added)'), blank=False, default=now)
-    voucher = models.ForeignKey(
-        'Voucher', verbose_name=_('Voucher'), blank=True, null=True)
 
     objects = TicketManager()
 
     class Meta:
         ordering = ('ticket_type__tutorial_ticket',
                     'ticket_type__product_number')
-        verbose_name = _('Ticket')
-        verbose_name_plural = _('Tickets')
+
+    @property
+    def invoice_item_title(self):
+        if self.real_ticket is None:
+            return self.ticket_type.name
+        return self.real_ticket.invoice_item_title
+
+    @property
+    def real_ticket(self):
+        real_ticket = getattr(self, '_real_ticket', None)
+        if real_ticket is None:
+            try:
+                real_ticket = getattr(self, self.ticket_type.content_type.model)
+                self._real_ticket = real_ticket
+            except ObjectDoesNotExist:
+                # We need try-except here, because there is no other way to
+                # check for the sub ticket class
+                pass
+        return real_ticket
+
+
+
+class SupportTicket(Ticket):
+
+    class Meta:
+        verbose_name = _('Support Ticket')
+        verbose_name_plural = _('Support Tickets')
+
+    def __unicode__(self):
+        return u'%s - %s' % (ugettext('Support'), self.ticket_type)
+
+    @property
+    def invoice_item_title(self):
+        return force_text('1 “%s”' % self.ticket_type.name)
+
+
+class VenueTicket(Ticket):
+    first_name = models.CharField(_('First name'), max_length=250, blank=True)
+    last_name = models.CharField(_('Last name'), max_length=250, blank=True)
+    organisation = models.CharField(
+        _('Organization'), max_length=100, blank=True)
+
+    shirtsize = models.ForeignKey(TShirtSize, blank=True, null=True,
+                                  verbose_name=_('Desired T-Shirt size'))
+
+    voucher = models.ForeignKey(
+        'Voucher', verbose_name=_('Voucher'), blank=True, null=True)
+
+    class Meta:
+        verbose_name = _('Conference Ticket')
+        verbose_name_plural = _('Conference Tickets')
 
     def __unicode__(self):
         return u'%s %s - %s' % (self.first_name, self.last_name,
                                 self.ticket_type)
+
+    @property
+    def invoice_item_title(self):
+        return force_text('1 “%s” Ticket for:<br /><i>%s %s</i>' %
+            (self.ticket_type.name, self.first_name, self.last_name))
+
+
+class SIMCardTicket(Ticket):
+    first_name = models.CharField(_('First name'), max_length=250, blank=False)
+    last_name = models.CharField(_('Last name'), max_length=250, blank=False)
+
+    date_of_birth = models.DateField(_('Date of birth'))
+    gender = models.CharField(_('Gender'), max_length=6, choices=GENDER_CHOICES)
+
+    hotel_name = models.CharField(
+        _('Host'), max_length=100, blank=True,
+        help_text=_('Name of your hotel or host for your stay.'))
+    email = models.EmailField(_('E-mail'), blank=False)
+
+    street = models.CharField(_('Street and house number of host'), max_length=100)
+    zip_code = models.CharField(_('Zip code of host'), max_length=20)
+    city = models.CharField(_('City of host'), max_length=100)
+    country = models.CharField(_('Country of host'), max_length=100)
+
+    phone = models.CharField(
+        _('Host phone number'), max_length=100, blank=False,
+        help_text=_('Please supply the phone number of your hotel or host.'))
+
+    sim_id = models.CharField(
+        _('IMSI'), max_length=20, blank=True,
+        help_text=_('The IMSI of the SIM Card associated with this account.'))
+
+    class Meta:
+        verbose_name = _('SIM Card')
+        verbose_name_plural = _('SIM Cards')
+
+    def __unicode__(self):
+        return u'%s %s - SIM %s' % (self.first_name, self.last_name, self.sim_id)
+
+    @property
+    def invoice_item_title(self):
+        return force_text('1 SIM Card for:<br /><i>%s %s</i>' %
+            (self.first_name, self.last_name))
+

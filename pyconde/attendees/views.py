@@ -21,6 +21,7 @@ from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.contrib.auth import models as auth_models
+from django.db.models import Q
 from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
@@ -31,7 +32,7 @@ import django.views.generic as generic_views
 from pyconde.conference.models import current_conference
 from braces.views import LoginRequiredMixin
 
-from .models import TicketType, Ticket, Purchase
+from .models import TicketType, Ticket, VenueTicket, SIMCardTicket, Purchase
 from .tasks import send_invoice
 from . import forms
 from . import utils
@@ -145,6 +146,7 @@ class PurchaseMixin(object):
             #       Vouchers are invalidated by complete_purchase().
             ticket.pk = None
             ticket.purchase = self.purchase
+            LOG.warning(str(ticket))
             ticket.save()
 
     def setup(self):
@@ -245,8 +247,9 @@ class StartPurchaseView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
             for quantity_form in self.quantity_forms:
                 for _i in range(0,
                                 quantity_form.cleaned_data.get('quantity', 0)):
+                    ticket_model = quantity_form.ticket_type.content_type.model_class()
                     self.tickets.append(
-                        Ticket(purchase=purchase,
+                        ticket_model(purchase=purchase,
                                ticket_type=quantity_form.ticket_type))
             purchase.payment_total = purchase.calculate_payment_total(
                 tickets=self.tickets)
@@ -272,24 +275,39 @@ class PurchaseNamesView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
 
     no_double_voucher = True
     name_forms = None
+    sim_forms = None
     voucher_forms = None
 
     def get(self, *args, **kwargs):
         if self.name_forms is None:
-            self.name_forms = [
-                forms.TicketNameForm(instance=ticket)
-                for ticket in self.tickets
-            ]
+            self.name_forms = []
+        if self.sim_forms is None:
+            self.sim_forms = []
         if self.voucher_forms is None:
-            self.voucher_forms = [
-                forms.TicketVoucherForm(instance=ticket)
-                for ticket in self._get_tickets_for_voucher()
-            ]
+            self.voucher_forms = []
+
+        for ticket in self.tickets:
+            if isinstance(ticket, VenueTicket):
+                name_form = forms.TicketNameForm(instance=ticket)
+                self.name_forms.append(name_form)
+
+            elif isinstance(ticket, SIMCardTicket):
+                sim_form = forms.SIMCardNameForm(instance=ticket)
+                self.sim_forms.append(sim_form)
+
+            if ticket.ticket_type.vouchertype_needed is not None:
+                voucher_form = forms.TicketVoucherForm(instance=ticket)
+                self.voucher_forms.append(voucher_form)
+
+        # Is there a way to redirect to the next page if there are no forms?
+        # if not (self.name_forms or self.sim_forms or self.voucher_forms):
+        #     # redirect if no forms exist
+        #     return redirect('attendees_purchase_confirm')
 
         return render(self.request, 'attendees/purchase_names.html', {
             'name_forms': self.name_forms,
-            'double_vouchers': not self.no_double_voucher
-            and self.request.POST,
+            'sim_forms': self.sim_forms,
+            'double_vouchers': not self.no_double_voucher and self.request.POST,
             'voucher_forms': self.voucher_forms,
             'step': self.step,
             'limited_tickets': self.limited_tickets,
@@ -297,43 +315,52 @@ class PurchaseNamesView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
 
     def post(self, *args, **kwargs):
         self.name_forms = []
-        all_name_forms_valid = True
-
-        for ticket in self.tickets:
-            name_form = forms.TicketNameForm(
-                data=self.request.POST, instance=ticket)
-
-            if not name_form.is_valid():
-                all_name_forms_valid = False
-
-            self.name_forms.append(name_form)
-
+        self.sim_forms = []
         self.voucher_forms = []
         self.used_vouchers = []
         self.all_voucher_forms_valid = True
+        all_name_forms_valid = True
+        all_sim_forms_valid = True
 
-        for ticket in self._get_tickets_for_voucher():
-            voucher_form = forms.TicketVoucherForm(
-                data=self.request.POST, instance=ticket)
-            voucher_form.request = self.request
+        for ticket in self.tickets:
+            if isinstance(ticket, VenueTicket):
+                name_form = forms.TicketNameForm(data=self.request.POST,
+                    instance=ticket)
+                self.name_forms.append(name_form)
+                if not name_form.is_valid():
+                    all_name_forms_valid = False
+            elif isinstance(ticket, SIMCardTicket):
+                sim_form = forms.SIMCardNameForm(data=self.request.POST,
+                    instance=ticket)
+                self.sim_forms.append(sim_form)
+                if not sim_form.is_valid():
+                    all_sim_forms_valid = False
 
-            if voucher_form.is_valid():
-                if voucher_form.cleaned_data['code'] in self.used_vouchers:
-                    self.no_double_voucher = False
+            if ticket.ticket_type.vouchertype_needed is not None:
+                voucher_form = forms.TicketVoucherForm(data=self.request.POST,
+                    instance=ticket)
+                voucher_form.request = self.request
+
+                if voucher_form.is_valid():
+                    code = voucher_form.cleaned_data['code']
+                    if code in self.used_vouchers:
+                        self.no_double_voucher = False
+                    else:
+                        self.used_vouchers.append(code)
                 else:
-                    self.used_vouchers.append(
-                        voucher_form.cleaned_data['code'])
-            else:
-                self.all_voucher_forms_valid = False
+                    self.all_voucher_forms_valid = False
 
-            self.voucher_forms.append(voucher_form)
+                self.voucher_forms.append(voucher_form)
 
         # All name forms, voucher forms must be valid, voucher codes must not
         # be used twice
-        if all_name_forms_valid and self.all_voucher_forms_valid\
+        if all_name_forms_valid and all_sim_forms_valid \
+                and self.all_voucher_forms_valid \
                 and self.no_double_voucher:
             for idx, name_form in enumerate(self.name_forms):
                 self.tickets[idx] = name_form.save(commit=False)
+            for idx, sim_form in enumerate(self.sim_forms):
+                self.sim_forms[idx] = sim_form.save(commit=False)
             for voucher_form in self.voucher_forms:
                 voucher_form.save(commit=False)
 
@@ -341,10 +368,6 @@ class PurchaseNamesView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
             self.save_state()
             return redirect('attendees_purchase_confirm')
         return self.get(*args, **kwargs)
-
-    def _get_tickets_for_voucher(self):
-        return [t for t in self.tickets
-                if t.ticket_type.vouchertype_needed is not None]
 
 
 class PurchaseOverviewView(LoginRequiredMixin, PurchaseMixin,
@@ -488,7 +511,8 @@ class UserPurchasesView(LoginRequiredMixin, generic_views.TemplateView):
                              .exclude(purchase__state='incomplete')
                              .exclude(purchase__state='new')
                              .select_related('purchase', 'purchase__user',
-                                             'ticket_type', 'user')
+                                             'ticket_type__content_type',
+                                             'user')
                              .order_by('-purchase__date_added')
         }
 
@@ -504,7 +528,15 @@ class UserTicketsView(LoginRequiredMixin, generic_views.TemplateView):
     def get_context_data(self):
         return {
             'tickets': Ticket.objects
-                             .get_active_user_tickets(self.request.user).all()
+                             .get_active_user_tickets(self.request.user)
+                             .select_related('ticket_type__content_type')
+                             .filter(
+                                Q(ticket_type__content_type__app_label='attendees',
+                                    ticket_type__content_type__model='venueticket') |
+                                Q(ticket_type__content_type__app_label='attendees',
+                                    ticket_type__content_type__model='simcardticket')
+                                )
+                             .all()
         }
 
 

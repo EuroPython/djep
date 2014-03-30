@@ -49,8 +49,8 @@ def complete_purchase(request, purchase):
         # if they enter this stage.
         purchase.state = 'payment_received'
 
-    for ticket in purchase.ticket_set.filter(voucher__isnull=False).all():
-        voucher = ticket.voucher
+    for ticket in purchase.ticket_set.filter(venueticket__isnull=False).filter(venueticket__voucher__isnull=False).all():
+        voucher = ticket.venueticket.voucher
         voucher.is_used = True
         voucher.save()
         unlock_voucher(request, voucher)
@@ -66,18 +66,15 @@ def send_purchase_confirmation_mail(purchase, recipients=None):
     from . import models
     if recipients is None:
         recipients = [purchase.email]
-    terms_of_use_url = (settings.PURCHASE_TERMS_OF_USE_URL
-                        if (hasattr(settings, 'PURCHASE_TERMS_OF_USE_URL')
-                        and settings.PURCHASE_TERMS_OF_USE_URL) else '')
     send_mail(
         _('Ticket successfully purchased'),
-        render_to_string('attendees/mail_purchase_completed.html', {
+        render_to_string('attendees/mail_purchase_completed.txt', {
             'purchase': purchase,
             'conference': purchase.conference,
             'rounded_vat': round_money_value(purchase.payment_tax),
             'payment_method': dict(models.PAYMENT_METHOD_CHOICES).get(
                 purchase.payment_method),
-            'terms_of_use_url': terms_of_use_url
+            'terms_of_use_url': app_settings.TERMS_OF_USE_URL
         }),
         settings.DEFAULT_FROM_EMAIL, recipients,
         fail_silently=True

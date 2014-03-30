@@ -1,7 +1,7 @@
 {% extends "proposals/base.html" %}
 {% load sekizai_tags %}
 
-{% block bodycls %}proposal-form{% endblock %}
+{% block bodyclass %}proposal-form {{block.super}}{% endblock %}
 
 {% load i18n crispy_forms_tags %}
 
@@ -9,10 +9,10 @@
 
 {% block body %}
 {% addtoblock "css_external" %}
-    <link rel="stylesheet" href="//code.jquery.com/ui/1.10.3/themes/smoothness/jquery-ui.css" />
+    <link rel="stylesheet" href="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/smoothness/jquery-ui.css" />
 {% endaddtoblock %}
 {% addtoblock "js_external" %}
-    <script src="//code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 {% endaddtoblock %}
 {% crispy form %}
 {% endblock %}

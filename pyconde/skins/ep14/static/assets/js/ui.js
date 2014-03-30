@@ -68,9 +68,19 @@ ep.ui = (function($) {
         });
     }
 
+    function toggleMainMenu() {
+        $('.top-bar-section').on('click', '> ul > li > a', function(evt) {
+            evt.preventDefault();
+            $('.main-nav .dropdown').toggle();
+        });
+    }
+
     function init() {
         wrapFileUploads();
         overrideOrbitUi();
+        toggleMainMenu();
+        toggleMenuIcons('#sponsorshipbox');
+        handleAccountMenuOnTouch('#sponsorshipbox');
         toggleMenuIcons('#reviewbox');
         handleAccountMenuOnTouch('#reviewbox');
         toggleMenuIcons('#accountbox');

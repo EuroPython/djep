@@ -27,7 +27,7 @@ a {
     color: $blue-light;
 }
 
-#reviewbox, #accountbox {
+#sponsorshipbox, #reviewbox, #accountbox {
     > a {
         font-size: 16px;
         font-size: 1.6rem;
@@ -84,6 +84,7 @@ a {
             text-align: left;
             min-width: 250px;
             margin-top: 20px;
+            z-index: 99;
         }
 
         a {
@@ -114,7 +115,7 @@ a {
     }
 }
 
-#reviewbox {
+#reviewbox, #accountbox {
     @media #{$topbar-media-query} {
         margin-right: 70px;
     }
@@ -124,6 +125,7 @@ a {
     background-color: $topbar-bg-color;
     a {
         text-decoration: none;
+        outline: none;
     }
 
     // We position the .name element centered by default on smaller devices. On larger
@@ -217,6 +219,11 @@ a {
                                 font-weight: 600;
                             }
                         }
+                    }
+                    > li:last-child {
+                        margin-left: -1em;
+                        width: 1em;
+                        text-align: right;
                     }
                 }
                 .has-dropdown {

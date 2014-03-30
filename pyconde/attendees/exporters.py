@@ -16,7 +16,7 @@ class PurchaseExporter(object):
         return self._export(self.purchase)
 
     def _export(self, purchase):
-        from .models import Ticket
+        from .models import Ticket, VenueTicket
         result = {
             'id': purchase.full_invoice_number,
             'pk': purchase.pk,
@@ -45,16 +45,21 @@ class PurchaseExporter(object):
 
         for ticket in Ticket.objects.select_related('ticket_type', 'voucher') \
                                     .filter(purchase=purchase).all():
-            result['tickets'].append({
+            ticket_data = {
                 'pk': ticket.pk,
-                'first_name': ticket.first_name,
-                'last_name': ticket.last_name,
-                'voucher': ticket.voucher and ticket.voucher.code or None,
+                'title': ticket.invoice_item_title,
+                'voucher': None,
                 'type': {
                     'product_number': ticket.ticket_type.product_number,
                     'name': ticket.ticket_type.name,
                     'pk': ticket.ticket_type.pk
                 },
                 'price': ticket.ticket_type.fee
-            })
+            }
+            try:
+                if ticket.venueticket.voucher is not None:
+                    ticket_data['voucher'] = ticket.venueticket.voucher.code
+            except VenueTicket.DoesNotExist:
+                pass
+            result['tickets'].append(ticket_data)
         return result

@@ -10,7 +10,8 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, Fieldset, ButtonHolder, HTML
 
 from pyconde.conference.models import current_conference
-from pyconde.attendees.models import Purchase, Ticket, Voucher
+from pyconde.attendees.models import Purchase, VenueTicket, Voucher,\
+    SIMCardTicket
 from pyconde.forms import Submit
 
 from . import utils
@@ -23,7 +24,7 @@ PAYMENT_METHOD_CHOICES = (
     ('elv', _('ELV')),
 )
 
-terms_of_use_url = settings.TERMS_OF_USE_URL
+terms_of_use_url = settings.TERMS_OF_USE_URL or '#'
 
 
 class PurchaseForm(forms.ModelForm):
@@ -99,6 +100,7 @@ class TicketQuantityForm(forms.Form):
 
 
 class TicketNameForm(forms.ModelForm):
+
     def __init__(self, *args, **kwargs):
         assert 'instance' in kwargs, 'instance is required.'
 
@@ -107,20 +109,48 @@ class TicketNameForm(forms.ModelForm):
 
         self.fields['first_name'].required = True
         self.fields['last_name'].required = True
+        self.fields['organisation'].required = False
         self.fields['shirtsize'].queryset = self.fields['shirtsize']\
             .queryset.filter(conference=current_conference())
         self.fields['shirtsize'].help_text = _('''Sizing charts: <a href="http://maxnosleeves.spreadshirt.com/shop/info/producttypedetails/Popup/Show/productType/813" target="_blank">Women</a>, <a href="http://maxnosleeves.spreadshirt.com/shop/info/producttypedetails/Popup/Show/productType/812" target="_blank">Men</a>''')
 
     class Meta:
-        model = Ticket
-        fields = ('first_name', 'last_name', 'shirtsize')
+        model = VenueTicket
+        fields = ('first_name', 'last_name', 'organisation', 'shirtsize')
 
     def save(self, *args, **kwargs):
         # Update, save would overwrite other flags too (even if not in
         # `fields`)
-        self.instance.first_name = self.cleaned_data['first_name']
-        self.instance.last_name = self.cleaned_data['last_name']
-        self.instance.shirtsize = self.cleaned_data['shirtsize']
+        for fname in self._meta.fields:
+            val = self.cleaned_data[fname]
+            setattr(self.instance, fname, val)
+        return self.instance
+
+
+class SIMCardNameForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        assert 'instance' in kwargs, 'instance is required.'
+
+        super(SIMCardNameForm, self).__init__(
+            prefix='sc-%s' % kwargs['instance'].pk, *args, **kwargs)
+
+        for fname in self._meta.fields:
+            self.fields[fname].required = True
+
+    class Meta:
+        model = SIMCardTicket
+        fields = (
+            'gender', 'first_name', 'last_name', 'date_of_birth',
+            'hotel_name', 'email', 'street', 'zip_code', 'city',
+            'country', 'phone')
+
+    def save(self, *args, **kwargs):
+        # Update, save would overwrite other flags too (even if not in
+        # `fields`)
+        for fname in self._meta.fields:
+            val = self.cleaned_data[fname]
+            setattr(self.instance, fname, val)
         return self.instance
 
 
@@ -134,7 +164,7 @@ class TicketVoucherForm(forms.ModelForm):
             prefix='tv-%s' % kwargs['instance'].pk, *args, **kwargs)
 
     class Meta:
-        model = Ticket
+        model = VenueTicket
         fields = ('code',)
 
     def clean_code(self):
@@ -147,6 +177,8 @@ class TicketVoucherForm(forms.ModelForm):
                     code=code,
                     type__conference=current_conference(),
                     type=ticket.ticket_type.vouchertype_needed)
+            else:
+                voucher = ticket.voucher
 
             # Make sure that the found voucher is not one of the locked ones.
             cache = get_cache('default')
