@@ -81,7 +81,7 @@ This will prompt a couple of questions you have to fill out.
 .. warning::
 
     Be aware that no user profile is created for this superuser as this is
-    normally don't during the registration process. Thus every access from a
+    normally done during the registration process. Thus every access from a
     user instance to its profile will fail.
 
 
