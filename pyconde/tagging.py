@@ -24,6 +24,9 @@ class TaggableManager(taggit_managers.TaggableManager):
             raise ValueError("%s objects need to have a primary key value "
                 "before you can access their tags." % model.__name__)
         manager = _TaggableManager(
-            through=self.through, model=model, instance=instance
+            through=self.through,
+            model=model,
+            instance=instance,
+            prefetch_cache_name=self.name
         )
         return manager
