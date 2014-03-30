@@ -1,1 +1,1940 @@
-[{"pk": 1, "model": "cms.placeholder", "fields": {"slot": "clipboard", "default_width": null}}, {"pk": 2, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 3, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 4, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 5, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 6, "model": "cms.placeholder", "fields": {"slot": "site_content", "default_width": null}}, {"pk": 7, "model": "cms.placeholder", "fields": {"slot": "main_content", "default_width": null}}, {"pk": 8, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 9, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 10, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 11, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 12, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 13, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 14, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 15, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 16, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 17, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 18, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 19, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 20, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 21, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 22, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 23, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 24, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 25, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 26, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 27, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 28, "model": "cms.placeholder", "fields": {"slot": "site_content", "default_width": null}}, {"pk": 29, "model": "cms.placeholder", "fields": {"slot": "main_content", "default_width": null}}, {"pk": 30, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 31, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 32, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 33, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 34, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 35, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 36, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 37, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 38, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 39, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 40, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 41, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 42, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 43, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 44, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 45, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 46, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 47, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 48, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 49, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 50, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 51, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 52, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 53, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 54, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 55, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 56, "model": "cms.placeholder", "fields": {"slot": "content", "default_width": null}}, {"pk": 57, "model": "cms.placeholder", "fields": {"slot": "sidebar", "default_width": null}}, {"pk": 1, "model": "cms.page", "fields": {"rght": 2, "navigation_extenders": "", "site": 1, "application_namespace": null, "lft": 1, "in_navigation": false, "reverse_id": null, "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "cms/start.html", "tree_id": 1, "placeholders": [2, 3, 6, 7], "changed_date": "2014-03-29T23:52:12.769", "limit_visibility_in_menu": null, "parent": null, "publisher_state": 0, "soft_root": false, "is_home": true, "publication_date": "2014-03-29T22:50:06.118", "creation_date": "2014-03-29T22:50:10.737", "publisher_public": 2, "level": 0, "changed_by": "admin", "application_urls": "", "publisher_is_draft": true, "published": true, "revision_id": 0}}, {"pk": 2, "model": "cms.page", "fields": {"rght": 2, "navigation_extenders": "", "site": 1, "application_namespace": null, "lft": 1, "in_navigation": false, "reverse_id": null, "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "cms/start.html", "tree_id": 2, "placeholders": [4, 5, 28, 29], "changed_date": "2014-03-29T23:52:12.656", "limit_visibility_in_menu": null, "parent": null, "publisher_state": 0, "soft_root": false, "is_home": true, "publication_date": "2014-03-29T22:50:06.118", "creation_date": "2014-03-29T22:50:10.891", "publisher_public": 1, "level": 0, "changed_by": "admin", "application_urls": "", "publisher_is_draft": false, "published": true, "revision_id": 0}}, {"pk": 3, "model": "cms.page", "fields": {"rght": 2, "navigation_extenders": "ReviewsMenu", "site": 1, "application_namespace": null, "lft": 1, "in_navigation": false, "reverse_id": "reviews", "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "INHERIT", "tree_id": 17, "placeholders": [8, 9], "changed_date": "2014-03-29T22:54:57.855", "limit_visibility_in_menu": null, "parent": null, "publisher_state": 0, "soft_root": false, "is_home": false, "publication_date": "2014-03-29T22:54:42.508", "creation_date": "2014-03-29T22:51:22.297", "publisher_public": 8, "level": 0, "changed_by": "admin", "application_urls": "ReviewsApp", "publisher_is_draft": true, "published": true, "revision_id": 0}}, {"pk": 4, "model": "cms.page", "fields": {"rght": 7, "navigation_extenders": "", "site": 1, "application_namespace": null, "lft": 6, "in_navigation": true, "reverse_id": "legal-notice", "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "INHERIT", "tree_id": 14, "placeholders": [10, 11], "changed_date": "2014-03-29T23:35:12.632", "limit_visibility_in_menu": null, "parent": 19, "publisher_state": 0, "soft_root": false, "is_home": false, "publication_date": "2014-03-29T22:54:43.417", "creation_date": "2014-03-29T22:52:15.428", "publisher_public": 9, "level": 1, "changed_by": "admin", "application_urls": "", "publisher_is_draft": true, "published": true, "revision_id": 0}}, {"pk": 5, "model": "cms.page", "fields": {"rght": 3, "navigation_extenders": "", "site": 1, "application_namespace": null, "lft": 2, "in_navigation": false, "reverse_id": "terms-conditions", "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "INHERIT", "tree_id": 15, "placeholders": [12, 13], "changed_date": "2014-03-29T23:31:24.840", "limit_visibility_in_menu": null, "parent": 21, "publisher_state": 0, "soft_root": false, "is_home": false, "publication_date": "2014-03-29T22:54:44.139", "creation_date": "2014-03-29T22:52:51.444", "publisher_public": 10, "level": 1, "changed_by": "admin", "application_urls": "", "publisher_is_draft": true, "published": true, "revision_id": 0}}, {"pk": 6, "model": "cms.page", "fields": {"rght": 5, "navigation_extenders": "", "site": 1, "application_namespace": null, "lft": 4, "in_navigation": true, "reverse_id": "privacy-policy", "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "INHERIT", "tree_id": 14, "placeholders": [14, 15], "changed_date": "2014-03-29T23:35:12.246", "limit_visibility_in_menu": null, "parent": 19, "publisher_state": 0, "soft_root": false, "is_home": false, "publication_date": "2014-03-29T22:54:44.676", "creation_date": "2014-03-29T22:53:21.648", "publisher_public": 11, "level": 1, "changed_by": "admin", "application_urls": "", "publisher_is_draft": true, "published": true, "revision_id": 0}}, {"pk": 7, "model": "cms.page", "fields": {"rght": 3, "navigation_extenders": "", "site": 1, "application_namespace": null, "lft": 2, "in_navigation": true, "reverse_id": "code-of-conduct", "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "INHERIT", "tree_id": 14, "placeholders": [16, 17], "changed_date": "2014-03-29T23:35:11.776", "limit_visibility_in_menu": null, "parent": 19, "publisher_state": 0, "soft_root": false, "is_home": false, "publication_date": "2014-03-29T22:54:45.183", "creation_date": "2014-03-29T22:53:50.416", "publisher_public": 12, "level": 1, "changed_by": "admin", "application_urls": "", "publisher_is_draft": true, "published": true, "revision_id": 0}}, {"pk": 8, "model": "cms.page", "fields": {"rght": 2, "navigation_extenders": "ReviewsMenu", "site": 1, "application_namespace": null, "lft": 1, "in_navigation": false, "reverse_id": "reviews", "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "INHERIT", "tree_id": 6, "placeholders": [18, 19], "changed_date": "2014-03-29T22:54:57.774", "limit_visibility_in_menu": null, "parent": null, "publisher_state": 0, "soft_root": false, "is_home": false, "publication_date": "2014-03-29T22:54:42.508", "creation_date": "2014-03-29T22:54:47.417", "publisher_public": 3, "level": 0, "changed_by": "admin", "application_urls": "ReviewsApp", "publisher_is_draft": false, "published": true, "revision_id": 0}}, {"pk": 9, "model": "cms.page", "fields": {"rght": 7, "navigation_extenders": "", "site": 1, "application_namespace": null, "lft": 6, "in_navigation": true, "reverse_id": "legal-notice", "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "INHERIT", "tree_id": 3, "placeholders": [20, 21], "changed_date": "2014-03-29T23:35:12.580", "limit_visibility_in_menu": null, "parent": 20, "publisher_state": 0, "soft_root": false, "is_home": false, "publication_date": "2014-03-29T22:54:43.417", "creation_date": "2014-03-29T22:54:48.332", "publisher_public": 4, "level": 1, "changed_by": "admin", "application_urls": "", "publisher_is_draft": false, "published": true, "revision_id": 0}}, {"pk": 10, "model": "cms.page", "fields": {"rght": 3, "navigation_extenders": "", "site": 1, "application_namespace": null, "lft": 2, "in_navigation": false, "reverse_id": "terms-conditions", "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "INHERIT", "tree_id": 4, "placeholders": [22, 23], "changed_date": "2014-03-29T23:31:24.912", "limit_visibility_in_menu": null, "parent": 22, "publisher_state": 0, "soft_root": false, "is_home": false, "publication_date": "2014-03-29T22:54:44.139", "creation_date": "2014-03-29T22:54:49.036", "publisher_public": 5, "level": 1, "changed_by": "admin", "application_urls": "", "publisher_is_draft": false, "published": true, "revision_id": 0}}, {"pk": 11, "model": "cms.page", "fields": {"rght": 5, "navigation_extenders": "", "site": 1, "application_namespace": null, "lft": 4, "in_navigation": true, "reverse_id": "privacy-policy", "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "INHERIT", "tree_id": 3, "placeholders": [24, 25], "changed_date": "2014-03-29T23:35:12.189", "limit_visibility_in_menu": null, "parent": 20, "publisher_state": 0, "soft_root": false, "is_home": false, "publication_date": "2014-03-29T22:54:44.676", "creation_date": "2014-03-29T22:54:49.571", "publisher_public": 6, "level": 1, "changed_by": "admin", "application_urls": "", "publisher_is_draft": false, "published": true, "revision_id": 0}}, {"pk": 12, "model": "cms.page", "fields": {"rght": 3, "navigation_extenders": "", "site": 1, "application_namespace": null, "lft": 2, "in_navigation": true, "reverse_id": "code-of-conduct", "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "INHERIT", "tree_id": 3, "placeholders": [26, 27], "changed_date": "2014-03-29T23:35:11.712", "limit_visibility_in_menu": null, "parent": 20, "publisher_state": 0, "soft_root": false, "is_home": false, "publication_date": "2014-03-29T22:54:45.183", "creation_date": "2014-03-29T22:54:50.084", "publisher_public": 7, "level": 1, "changed_by": "admin", "application_urls": "", "publisher_is_draft": false, "published": true, "revision_id": 0}}, {"pk": 13, "model": "cms.page", "fields": {"rght": 4, "navigation_extenders": null, "site": 1, "application_namespace": null, "lft": 1, "in_navigation": false, "reverse_id": null, "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "INHERIT", "tree_id": 22, "placeholders": [30, 31], "changed_date": "2014-03-29T22:56:57.109", "limit_visibility_in_menu": null, "parent": null, "publisher_state": 0, "soft_root": false, "is_home": false, "publication_date": "2014-03-29T22:56:52.106", "creation_date": "2014-03-29T22:55:56.960", "publisher_public": 15, "level": 0, "changed_by": "admin", "application_urls": null, "publisher_is_draft": true, "published": true, "revision_id": 0}}, {"pk": 14, "model": "cms.page", "fields": {"rght": 3, "navigation_extenders": "", "site": 1, "application_namespace": null, "lft": 2, "in_navigation": false, "reverse_id": null, "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "INHERIT", "tree_id": 22, "placeholders": [32, 33], "changed_date": "2014-03-29T22:57:02.323", "limit_visibility_in_menu": null, "parent": 13, "publisher_state": 0, "soft_root": false, "is_home": false, "publication_date": "2014-03-29T22:56:52.378", "creation_date": "2014-03-29T22:56:19.859", "publisher_public": 16, "level": 1, "changed_by": "admin", "application_urls": "", "publisher_is_draft": true, "published": true, "revision_id": 0}}, {"pk": 15, "model": "cms.page", "fields": {"rght": 4, "navigation_extenders": null, "site": 1, "application_namespace": null, "lft": 1, "in_navigation": false, "reverse_id": null, "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "INHERIT", "tree_id": 11, "placeholders": [34, 35], "changed_date": "2014-03-29T22:56:56.851", "limit_visibility_in_menu": null, "parent": null, "publisher_state": 0, "soft_root": false, "is_home": false, "publication_date": "2014-03-29T22:56:51.847", "creation_date": "2014-03-29T22:56:56.851", "publisher_public": 13, "level": 0, "changed_by": "admin", "application_urls": null, "publisher_is_draft": false, "published": true, "revision_id": 0}}, {"pk": 16, "model": "cms.page", "fields": {"rght": 3, "navigation_extenders": "", "site": 1, "application_namespace": null, "lft": 2, "in_navigation": false, "reverse_id": null, "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "INHERIT", "tree_id": 11, "placeholders": [36, 37], "changed_date": "2014-03-29T22:57:02.261", "limit_visibility_in_menu": null, "parent": 15, "publisher_state": 0, "soft_root": false, "is_home": false, "publication_date": "2014-03-29T22:56:52.378", "creation_date": "2014-03-29T22:56:57.299", "publisher_public": 14, "level": 1, "changed_by": "admin", "application_urls": "", "publisher_is_draft": false, "published": true, "revision_id": 0}}, {"pk": 17, "model": "cms.page", "fields": {"rght": 2, "navigation_extenders": "AccountsMenu", "site": 1, "application_namespace": null, "lft": 1, "in_navigation": false, "reverse_id": "accounts", "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "INHERIT", "tree_id": 23, "placeholders": [38, 39], "changed_date": "2014-03-29T23:11:47.705", "limit_visibility_in_menu": null, "parent": null, "publisher_state": 0, "soft_root": false, "is_home": false, "publication_date": "2014-03-29T23:11:42.701", "creation_date": "2014-03-29T23:10:14.573", "publisher_public": 18, "level": 0, "changed_by": "admin", "application_urls": "AccountsApp", "publisher_is_draft": true, "published": true, "revision_id": 0}}, {"pk": 18, "model": "cms.page", "fields": {"rght": 2, "navigation_extenders": "AccountsMenu", "site": 1, "application_namespace": null, "lft": 1, "in_navigation": false, "reverse_id": "accounts", "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "INHERIT", "tree_id": 12, "placeholders": [40, 41], "changed_date": "2014-03-29T23:11:47.587", "limit_visibility_in_menu": null, "parent": null, "publisher_state": 0, "soft_root": false, "is_home": false, "publication_date": "2014-03-29T23:11:42.584", "creation_date": "2014-03-29T23:11:47.587", "publisher_public": 17, "level": 0, "changed_by": "admin", "application_urls": "AccountsApp", "publisher_is_draft": false, "published": true, "revision_id": 0}}, {"pk": 19, "model": "cms.page", "fields": {"rght": 8, "navigation_extenders": null, "site": 1, "application_namespace": null, "lft": 1, "in_navigation": true, "reverse_id": null, "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "cms/default.html", "tree_id": 14, "placeholders": [42, 43], "changed_date": "2014-03-29T23:31:41.525", "limit_visibility_in_menu": null, "parent": null, "publisher_state": 0, "soft_root": false, "is_home": false, "publication_date": "2014-03-29T23:26:28.864", "creation_date": "2014-03-29T23:26:16.091", "publisher_public": 20, "level": 0, "changed_by": "admin", "application_urls": null, "publisher_is_draft": true, "published": true, "revision_id": 0}}, {"pk": 20, "model": "cms.page", "fields": {"rght": 8, "navigation_extenders": null, "site": 1, "application_namespace": null, "lft": 1, "in_navigation": true, "reverse_id": null, "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "INHERIT", "tree_id": 3, "placeholders": [44, 45], "changed_date": "2014-03-29T23:31:41.668", "limit_visibility_in_menu": null, "parent": null, "publisher_state": 0, "soft_root": false, "is_home": false, "publication_date": "2014-03-29T23:26:28.751", "creation_date": "2014-03-29T23:26:33.755", "publisher_public": 19, "level": 0, "changed_by": "admin", "application_urls": null, "publisher_is_draft": false, "published": true, "revision_id": 0}}, {"pk": 21, "model": "cms.page", "fields": {"rght": 4, "navigation_extenders": "", "site": 1, "application_namespace": null, "lft": 1, "in_navigation": true, "reverse_id": null, "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "cms/default.html", "tree_id": 15, "placeholders": [46, 47], "changed_date": "2014-03-29T23:32:21.800", "limit_visibility_in_menu": null, "parent": null, "publisher_state": 0, "soft_root": false, "is_home": false, "publication_date": "2014-03-29T23:29:49.750", "creation_date": "2014-03-29T23:27:16.614", "publisher_public": 22, "level": 0, "changed_by": "admin", "application_urls": "AttendeesApp", "publisher_is_draft": true, "published": true, "revision_id": 0}}, {"pk": 22, "model": "cms.page", "fields": {"rght": 4, "navigation_extenders": "", "site": 1, "application_namespace": null, "lft": 1, "in_navigation": true, "reverse_id": null, "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "INHERIT", "tree_id": 4, "placeholders": [48, 49], "changed_date": "2014-03-29T23:32:21.932", "limit_visibility_in_menu": null, "parent": null, "publisher_state": 0, "soft_root": false, "is_home": false, "publication_date": "2014-03-29T23:29:49.750", "creation_date": "2014-03-29T23:29:54.630", "publisher_public": 21, "level": 0, "changed_by": "admin", "application_urls": "AttendeesApp", "publisher_is_draft": false, "published": true, "revision_id": 0}}, {"pk": 23, "model": "cms.page", "fields": {"rght": 2, "navigation_extenders": "ProposalsMenu", "site": 1, "application_namespace": null, "lft": 1, "in_navigation": true, "reverse_id": null, "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "cms/default.html", "tree_id": 16, "placeholders": [50, 51], "changed_date": "2014-03-29T23:34:37.266", "limit_visibility_in_menu": null, "parent": null, "publisher_state": 0, "soft_root": false, "is_home": false, "publication_date": "2014-03-29T23:34:32.263", "creation_date": "2014-03-29T23:33:42.113", "publisher_public": 24, "level": 0, "changed_by": "admin", "application_urls": "ProposalsApp", "publisher_is_draft": true, "published": true, "revision_id": 0}}, {"pk": 24, "model": "cms.page", "fields": {"rght": 2, "navigation_extenders": "ProposalsMenu", "site": 1, "application_namespace": null, "lft": 1, "in_navigation": true, "reverse_id": null, "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "cms/default.html", "tree_id": 5, "placeholders": [52, 53], "changed_date": "2014-03-29T23:34:37.181", "limit_visibility_in_menu": null, "parent": null, "publisher_state": 0, "soft_root": false, "is_home": false, "publication_date": "2014-03-29T23:34:32.178", "creation_date": "2014-03-29T23:34:37.181", "publisher_public": 23, "level": 0, "changed_by": "admin", "application_urls": "ProposalsApp", "publisher_is_draft": false, "published": true, "revision_id": 0}}, {"pk": 25, "model": "cms.page", "fields": {"rght": 2, "navigation_extenders": "SponsorshipMenu", "site": 1, "application_namespace": null, "lft": 1, "in_navigation": false, "reverse_id": "sponsorship", "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "INHERIT", "tree_id": 24, "placeholders": [54, 55], "changed_date": "2014-03-29T23:52:12.751", "limit_visibility_in_menu": null, "parent": null, "publisher_state": 0, "soft_root": false, "is_home": false, "publication_date": "2014-03-29T23:52:07.748", "creation_date": "2014-03-29T23:51:54.390", "publisher_public": 26, "level": 0, "changed_by": "admin", "application_urls": "SponsorshipApp", "publisher_is_draft": true, "published": true, "revision_id": 0}}, {"pk": 26, "model": "cms.page", "fields": {"rght": 2, "navigation_extenders": "SponsorshipMenu", "site": 1, "application_namespace": null, "lft": 1, "in_navigation": false, "reverse_id": "sponsorship", "login_required": false, "created_by": "admin", "publication_end_date": null, "template": "INHERIT", "tree_id": 13, "placeholders": [56, 57], "changed_date": "2014-03-29T23:52:12.640", "limit_visibility_in_menu": null, "parent": null, "publisher_state": 0, "soft_root": false, "is_home": false, "publication_date": "2014-03-29T23:52:07.635", "creation_date": "2014-03-29T23:52:12.640", "publisher_public": 25, "level": 0, "changed_by": "admin", "application_urls": "SponsorshipApp", "publisher_is_draft": false, "published": true, "revision_id": 0}}, {"pk": 1, "model": "cms.title", "fields": {"menu_title": "", "meta_description": "", "page_title": "", "language": "en", "title": "Frontpage", "has_url_overwrite": false, "redirect": "", "page": 1, "path": "", "creation_date": "2014-03-29T22:50:11.284", "slug": "frontpage"}}, {"pk": 2, "model": "cms.title", "fields": {"menu_title": "", "meta_description": "", "page_title": "", "language": "en", "title": "Reviews", "has_url_overwrite": false, "redirect": "", "page": 3, "path": "reviews", "creation_date": "2014-03-29T22:51:22.465", "slug": "reviews"}}, {"pk": 3, "model": "cms.title", "fields": {"menu_title": "", "meta_description": "", "page_title": "", "language": "en", "title": "Legal Notice", "has_url_overwrite": false, "redirect": "", "page": 4, "path": "conference/legal-notice", "creation_date": "2014-03-29T22:52:15.595", "slug": "legal-notice"}}, {"pk": 4, "model": "cms.title", "fields": {"menu_title": "", "meta_description": "", "page_title": "", "language": "en", "title": "Terms & Conditions", "has_url_overwrite": false, "redirect": "", "page": 5, "path": "tickets/terms-conditions", "creation_date": "2014-03-29T22:52:51.613", "slug": "terms-conditions"}}, {"pk": 5, "model": "cms.title", "fields": {"menu_title": "", "meta_description": "", "page_title": "", "language": "en", "title": "Privacy Policy", "has_url_overwrite": false, "redirect": "", "page": 6, "path": "conference/privacy-policy", "creation_date": "2014-03-29T22:53:21.809", "slug": "privacy-policy"}}, {"pk": 6, "model": "cms.title", "fields": {"menu_title": "", "meta_description": "", "page_title": "", "language": "en", "title": "Code of Conduct", "has_url_overwrite": false, "redirect": "", "page": 7, "path": "conference/code-conduct", "creation_date": "2014-03-29T22:53:50.585", "slug": "code-conduct"}}, {"pk": 7, "model": "cms.title", "fields": {"menu_title": "", "meta_description": "", "page_title": "", "language": "en", "title": "Reviews", "has_url_overwrite": false, "redirect": "", "page": 8, "path": "reviews", "creation_date": "2014-03-29T22:51:22.465", "slug": "reviews"}}, {"pk": 8, "model": "cms.title", "fields": {"menu_title": "", "meta_description": "", "page_title": "", "language": "en", "title": "Legal Notice", "has_url_overwrite": false, "redirect": "", "page": 9, "path": "conference/legal-notice", "creation_date": "2014-03-29T22:52:15.595", "slug": "legal-notice"}}, {"pk": 9, "model": "cms.title", "fields": {"menu_title": "", "meta_description": "", "page_title": "", "language": "en", "title": "Terms & Conditions", "has_url_overwrite": false, "redirect": "", "page": 10, "path": "tickets/terms-conditions", "creation_date": "2014-03-29T22:52:51.613", "slug": "terms-conditions"}}, {"pk": 10, "model": "cms.title", "fields": {"menu_title": "", "meta_description": "", "page_title": "", "language": "en", "title": "Privacy Policy", "has_url_overwrite": false, "redirect": "", "page": 11, "path": "conference/privacy-policy", "creation_date": "2014-03-29T22:53:21.809", "slug": "privacy-policy"}}, {"pk": 11, "model": "cms.title", "fields": {"menu_title": "", "meta_description": "", "page_title": "", "language": "en", "title": "Code of Conduct", "has_url_overwrite": false, "redirect": "", "page": 12, "path": "conference/code-conduct", "creation_date": "2014-03-29T22:53:50.585", "slug": "code-conduct"}}, {"pk": 12, "model": "cms.title", "fields": {"menu_title": "", "meta_description": "", "page_title": "", "language": "en", "title": "Frontpage", "has_url_overwrite": false, "redirect": "", "page": 2, "path": "", "creation_date": "2014-03-29T22:50:11.284", "slug": "frontpage"}}, {"pk": 13, "model": "cms.title", "fields": {"menu_title": "", "meta_description": "", "page_title": "", "language": "en", "title": "Accounts", "has_url_overwrite": false, "redirect": null, "page": 13, "path": "accounts", "creation_date": "2014-03-29T22:55:57.127", "slug": "accounts"}}, {"pk": 14, "model": "cms.title", "fields": {"menu_title": "", "meta_description": "", "page_title": "", "language": "en", "title": "Welcome", "has_url_overwrite": false, "redirect": "/en/accounts/profile/", "page": 14, "path": "accounts/welcome", "creation_date": "2014-03-29T22:56:19.998", "slug": "welcome"}}, {"pk": 15, "model": "cms.title", "fields": {"menu_title": "", "meta_description": "", "page_title": "", "language": "en", "title": "Accounts", "has_url_overwrite": false, "redirect": null, "page": 15, "path": "accounts", "creation_date": "2014-03-29T22:55:57.127", "slug": "accounts"}}, {"pk": 16, "model": "cms.title", "fields": {"menu_title": "", "meta_description": "", "page_title": "", "language": "en", "title": "Welcome", "has_url_overwrite": false, "redirect": "/en/accounts/profile/", "page": 16, "path": "accounts/welcome", "creation_date": "2014-03-29T22:56:19.998", "slug": "welcome"}}, {"pk": 17, "model": "cms.title", "fields": {"menu_title": "", "meta_description": "", "page_title": "", "language": "en", "title": "Profile", "has_url_overwrite": false, "redirect": "", "page": 17, "path": "profile", "creation_date": "2014-03-29T23:10:14.772", "slug": "profile"}}, {"pk": 18, "model": "cms.title", "fields": {"menu_title": "", "meta_description": "", "page_title": "", "language": "en", "title": "Profile", "has_url_overwrite": false, "redirect": "", "page": 18, "path": "profile", "creation_date": "2014-03-29T23:10:14.772", "slug": "profile"}}, {"pk": 19, "model": "cms.title", "fields": {"menu_title": "About", "meta_description": "", "page_title": "", "language": "en", "title": "EuroPython 2014 Information", "has_url_overwrite": false, "redirect": null, "page": 19, "path": "conference", "creation_date": "2014-03-29T23:26:16.258", "slug": "conference"}}, {"pk": 20, "model": "cms.title", "fields": {"menu_title": "About", "meta_description": "", "page_title": "", "language": "en", "title": "EuroPython 2014 Information", "has_url_overwrite": false, "redirect": null, "page": 20, "path": "conference", "creation_date": "2014-03-29T23:26:16.258", "slug": "conference"}}, {"pk": 21, "model": "cms.title", "fields": {"menu_title": "", "meta_description": "", "page_title": "", "language": "en", "title": "Registration", "has_url_overwrite": false, "redirect": "", "page": 21, "path": "tickets", "creation_date": "2014-03-29T23:27:16.779", "slug": "tickets"}}, {"pk": 22, "model": "cms.title", "fields": {"menu_title": "", "meta_description": "", "page_title": "", "language": "en", "title": "Registration", "has_url_overwrite": false, "redirect": "", "page": 22, "path": "tickets", "creation_date": "2014-03-29T23:27:16.779", "slug": "tickets"}}, {"pk": 23, "model": "cms.title", "fields": {"menu_title": "", "meta_description": "", "page_title": "", "language": "en", "title": "Proposals", "has_url_overwrite": false, "redirect": "", "page": 23, "path": "proposals", "creation_date": "2014-03-29T23:33:42.277", "slug": "proposals"}}, {"pk": 24, "model": "cms.title", "fields": {"menu_title": "", "meta_description": "", "page_title": "", "language": "en", "title": "Proposals", "has_url_overwrite": false, "redirect": "", "page": 24, "path": "proposals", "creation_date": "2014-03-29T23:33:42.277", "slug": "proposals"}}, {"pk": 25, "model": "cms.title", "fields": {"menu_title": "", "meta_description": "", "page_title": "", "language": "en", "title": "Sponsorship", "has_url_overwrite": false, "redirect": "", "page": 25, "path": "sponsorship", "creation_date": "2014-03-29T23:51:54.555", "slug": "sponsorship"}}, {"pk": 26, "model": "cms.title", "fields": {"menu_title": "", "meta_description": "", "page_title": "", "language": "en", "title": "Sponsorship", "has_url_overwrite": false, "redirect": "", "page": 26, "path": "sponsorship", "creation_date": "2014-03-29T23:51:54.555", "slug": "sponsorship"}}, {"pk": 1, "model": "conference.conference", "fields": {"reviews_active": null, "end_date": "2014-07-27", "title": "EuroPython 2014", "reviews_end_date": "2014-03-19T17:00:00", "anonymize_proposal_author": true, "reviews_start_date": "2014-03-05T00:00:00", "timezone": "Europe/Berlin", "start_date": "2014-07-21"}}, {"pk": 1, "model": "auth.user", "fields": {"username": "admin", "first_name": "", "last_name": "", "is_active": true, "is_superuser": true, "is_staff": true, "last_login": "2014-03-29T22:49:13.179", "groups": [], "user_permissions": [], "password": "pbkdf2_sha256$10000$cMPqrngQx7JP$Hsio7w+sl7vyxkfivRG+A01RM0VKx2hb+VI0zSVP6kA=", "email": "admin@example.com", "date_joined": "2014-03-29T22:48:14.000"}}, {"pk": 1, "model": "speakers.speaker", "fields": {"user": ["admin"]}}, {"pk": 1, "model": "cms.usersettings", "fields": {"clipboard": 1, "user": ["admin"], "language": "en"}}, {"pk": 1, "model": "accounts.profile", "fields": {"website": "", "accept_job_offers": true, "display_name": "admin", "twitter": "", "num_accompanying_children": 0, "accept_ep_conferences": true, "accept_pysv_conferences": true, "user": ["admin"], "full_name": "", "age_accompanying_children": "", "short_info": "", "organisation": "", "addressed_as": "", "avatar": ""}}]
+[
+{
+    "pk": 1, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "clipboard", 
+        "default_width": null
+    }
+},
+{
+    "pk": 2, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 3, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 4, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 5, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 6, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "site_content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 7, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "main_content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 8, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 9, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 10, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 11, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 12, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 13, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 14, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 15, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 16, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 17, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 18, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 19, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 20, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 21, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 22, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 23, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 24, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 25, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 26, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 27, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 28, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "site_content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 29, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "main_content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 30, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 31, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 32, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 33, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 34, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 35, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 36, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 37, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 38, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 39, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 40, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 41, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 42, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 43, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 44, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 45, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 46, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 47, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 48, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 49, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 50, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 51, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 52, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 53, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 54, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 55, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 56, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "content", 
+        "default_width": null
+    }
+},
+{
+    "pk": 57, 
+    "model": "cms.placeholder", 
+    "fields": {
+        "slot": "sidebar", 
+        "default_width": null
+    }
+},
+{
+    "pk": 1, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 2, 
+        "navigation_extenders": "", 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 1, 
+        "in_navigation": false, 
+        "reverse_id": null, 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "cms/start.html", 
+        "tree_id": 1, 
+        "placeholders": [
+            2, 
+            3, 
+            6, 
+            7
+        ], 
+        "changed_date": "2014-03-30T00:05:16.149", 
+        "limit_visibility_in_menu": null, 
+        "parent": null, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": true, 
+        "publication_date": "2014-03-29T22:50:06.118", 
+        "creation_date": "2014-03-29T22:50:10.737", 
+        "publisher_public": 2, 
+        "level": 0, 
+        "changed_by": "script", 
+        "application_urls": "", 
+        "publisher_is_draft": true, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 2, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 2, 
+        "navigation_extenders": "", 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 1, 
+        "in_navigation": false, 
+        "reverse_id": null, 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "cms/start.html", 
+        "tree_id": 2, 
+        "placeholders": [
+            4, 
+            5, 
+            28, 
+            29
+        ], 
+        "changed_date": "2014-03-30T00:05:16.193", 
+        "limit_visibility_in_menu": null, 
+        "parent": null, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": true, 
+        "publication_date": "2014-03-29T22:50:06.118", 
+        "creation_date": "2014-03-29T22:50:10.891", 
+        "publisher_public": 1, 
+        "level": 0, 
+        "changed_by": "script", 
+        "application_urls": "", 
+        "publisher_is_draft": false, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 3, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 2, 
+        "navigation_extenders": "ReviewsMenu", 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 1, 
+        "in_navigation": false, 
+        "reverse_id": "reviews", 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "INHERIT", 
+        "tree_id": 17, 
+        "placeholders": [
+            8, 
+            9
+        ], 
+        "changed_date": "2014-03-29T22:54:57.855", 
+        "limit_visibility_in_menu": null, 
+        "parent": null, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": false, 
+        "publication_date": "2014-03-29T22:54:42.508", 
+        "creation_date": "2014-03-29T22:51:22.297", 
+        "publisher_public": 8, 
+        "level": 0, 
+        "changed_by": "admin", 
+        "application_urls": "ReviewsApp", 
+        "publisher_is_draft": true, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 4, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 7, 
+        "navigation_extenders": "", 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 6, 
+        "in_navigation": true, 
+        "reverse_id": "legal-notice", 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "INHERIT", 
+        "tree_id": 14, 
+        "placeholders": [
+            10, 
+            11
+        ], 
+        "changed_date": "2014-03-29T23:35:12.632", 
+        "limit_visibility_in_menu": null, 
+        "parent": 19, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": false, 
+        "publication_date": "2014-03-29T22:54:43.417", 
+        "creation_date": "2014-03-29T22:52:15.428", 
+        "publisher_public": 9, 
+        "level": 1, 
+        "changed_by": "admin", 
+        "application_urls": "", 
+        "publisher_is_draft": true, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 5, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 3, 
+        "navigation_extenders": "", 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 2, 
+        "in_navigation": false, 
+        "reverse_id": "terms-conditions", 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "INHERIT", 
+        "tree_id": 15, 
+        "placeholders": [
+            12, 
+            13
+        ], 
+        "changed_date": "2014-03-29T23:31:24.840", 
+        "limit_visibility_in_menu": null, 
+        "parent": 21, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": false, 
+        "publication_date": "2014-03-29T22:54:44.139", 
+        "creation_date": "2014-03-29T22:52:51.444", 
+        "publisher_public": 10, 
+        "level": 1, 
+        "changed_by": "admin", 
+        "application_urls": "", 
+        "publisher_is_draft": true, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 6, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 5, 
+        "navigation_extenders": "", 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 4, 
+        "in_navigation": true, 
+        "reverse_id": "privacy-policy", 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "INHERIT", 
+        "tree_id": 14, 
+        "placeholders": [
+            14, 
+            15
+        ], 
+        "changed_date": "2014-03-29T23:35:12.246", 
+        "limit_visibility_in_menu": null, 
+        "parent": 19, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": false, 
+        "publication_date": "2014-03-29T22:54:44.676", 
+        "creation_date": "2014-03-29T22:53:21.648", 
+        "publisher_public": 11, 
+        "level": 1, 
+        "changed_by": "admin", 
+        "application_urls": "", 
+        "publisher_is_draft": true, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 7, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 3, 
+        "navigation_extenders": "", 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 2, 
+        "in_navigation": true, 
+        "reverse_id": "code-of-conduct", 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "INHERIT", 
+        "tree_id": 14, 
+        "placeholders": [
+            16, 
+            17
+        ], 
+        "changed_date": "2014-03-29T23:35:11.776", 
+        "limit_visibility_in_menu": null, 
+        "parent": 19, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": false, 
+        "publication_date": "2014-03-29T22:54:45.183", 
+        "creation_date": "2014-03-29T22:53:50.416", 
+        "publisher_public": 12, 
+        "level": 1, 
+        "changed_by": "admin", 
+        "application_urls": "", 
+        "publisher_is_draft": true, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 8, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 2, 
+        "navigation_extenders": "ReviewsMenu", 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 1, 
+        "in_navigation": false, 
+        "reverse_id": "reviews", 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "INHERIT", 
+        "tree_id": 6, 
+        "placeholders": [
+            18, 
+            19
+        ], 
+        "changed_date": "2014-03-29T22:54:57.774", 
+        "limit_visibility_in_menu": null, 
+        "parent": null, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": false, 
+        "publication_date": "2014-03-29T22:54:42.508", 
+        "creation_date": "2014-03-29T22:54:47.417", 
+        "publisher_public": 3, 
+        "level": 0, 
+        "changed_by": "admin", 
+        "application_urls": "ReviewsApp", 
+        "publisher_is_draft": false, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 9, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 7, 
+        "navigation_extenders": "", 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 6, 
+        "in_navigation": true, 
+        "reverse_id": "legal-notice", 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "INHERIT", 
+        "tree_id": 3, 
+        "placeholders": [
+            20, 
+            21
+        ], 
+        "changed_date": "2014-03-29T23:35:12.580", 
+        "limit_visibility_in_menu": null, 
+        "parent": 20, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": false, 
+        "publication_date": "2014-03-29T22:54:43.417", 
+        "creation_date": "2014-03-29T22:54:48.332", 
+        "publisher_public": 4, 
+        "level": 1, 
+        "changed_by": "admin", 
+        "application_urls": "", 
+        "publisher_is_draft": false, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 10, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 3, 
+        "navigation_extenders": "", 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 2, 
+        "in_navigation": false, 
+        "reverse_id": "terms-conditions", 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "INHERIT", 
+        "tree_id": 4, 
+        "placeholders": [
+            22, 
+            23
+        ], 
+        "changed_date": "2014-03-29T23:31:24.912", 
+        "limit_visibility_in_menu": null, 
+        "parent": 22, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": false, 
+        "publication_date": "2014-03-29T22:54:44.139", 
+        "creation_date": "2014-03-29T22:54:49.036", 
+        "publisher_public": 5, 
+        "level": 1, 
+        "changed_by": "admin", 
+        "application_urls": "", 
+        "publisher_is_draft": false, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 11, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 5, 
+        "navigation_extenders": "", 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 4, 
+        "in_navigation": true, 
+        "reverse_id": "privacy-policy", 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "INHERIT", 
+        "tree_id": 3, 
+        "placeholders": [
+            24, 
+            25
+        ], 
+        "changed_date": "2014-03-29T23:35:12.189", 
+        "limit_visibility_in_menu": null, 
+        "parent": 20, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": false, 
+        "publication_date": "2014-03-29T22:54:44.676", 
+        "creation_date": "2014-03-29T22:54:49.571", 
+        "publisher_public": 6, 
+        "level": 1, 
+        "changed_by": "admin", 
+        "application_urls": "", 
+        "publisher_is_draft": false, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 12, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 3, 
+        "navigation_extenders": "", 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 2, 
+        "in_navigation": true, 
+        "reverse_id": "code-of-conduct", 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "INHERIT", 
+        "tree_id": 3, 
+        "placeholders": [
+            26, 
+            27
+        ], 
+        "changed_date": "2014-03-29T23:35:11.712", 
+        "limit_visibility_in_menu": null, 
+        "parent": 20, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": false, 
+        "publication_date": "2014-03-29T22:54:45.183", 
+        "creation_date": "2014-03-29T22:54:50.084", 
+        "publisher_public": 7, 
+        "level": 1, 
+        "changed_by": "admin", 
+        "application_urls": "", 
+        "publisher_is_draft": false, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 13, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 4, 
+        "navigation_extenders": null, 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 1, 
+        "in_navigation": false, 
+        "reverse_id": null, 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "INHERIT", 
+        "tree_id": 22, 
+        "placeholders": [
+            30, 
+            31
+        ], 
+        "changed_date": "2014-03-29T22:56:57.109", 
+        "limit_visibility_in_menu": null, 
+        "parent": null, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": false, 
+        "publication_date": "2014-03-29T22:56:52.106", 
+        "creation_date": "2014-03-29T22:55:56.960", 
+        "publisher_public": 15, 
+        "level": 0, 
+        "changed_by": "admin", 
+        "application_urls": null, 
+        "publisher_is_draft": true, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 14, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 3, 
+        "navigation_extenders": "", 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 2, 
+        "in_navigation": false, 
+        "reverse_id": null, 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "INHERIT", 
+        "tree_id": 22, 
+        "placeholders": [
+            32, 
+            33
+        ], 
+        "changed_date": "2014-03-29T22:57:02.323", 
+        "limit_visibility_in_menu": null, 
+        "parent": 13, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": false, 
+        "publication_date": "2014-03-29T22:56:52.378", 
+        "creation_date": "2014-03-29T22:56:19.859", 
+        "publisher_public": 16, 
+        "level": 1, 
+        "changed_by": "admin", 
+        "application_urls": "", 
+        "publisher_is_draft": true, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 15, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 4, 
+        "navigation_extenders": null, 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 1, 
+        "in_navigation": false, 
+        "reverse_id": null, 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "INHERIT", 
+        "tree_id": 11, 
+        "placeholders": [
+            34, 
+            35
+        ], 
+        "changed_date": "2014-03-29T22:56:56.851", 
+        "limit_visibility_in_menu": null, 
+        "parent": null, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": false, 
+        "publication_date": "2014-03-29T22:56:51.847", 
+        "creation_date": "2014-03-29T22:56:56.851", 
+        "publisher_public": 13, 
+        "level": 0, 
+        "changed_by": "admin", 
+        "application_urls": null, 
+        "publisher_is_draft": false, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 16, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 3, 
+        "navigation_extenders": "", 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 2, 
+        "in_navigation": false, 
+        "reverse_id": null, 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "INHERIT", 
+        "tree_id": 11, 
+        "placeholders": [
+            36, 
+            37
+        ], 
+        "changed_date": "2014-03-29T22:57:02.261", 
+        "limit_visibility_in_menu": null, 
+        "parent": 15, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": false, 
+        "publication_date": "2014-03-29T22:56:52.378", 
+        "creation_date": "2014-03-29T22:56:57.299", 
+        "publisher_public": 14, 
+        "level": 1, 
+        "changed_by": "admin", 
+        "application_urls": "", 
+        "publisher_is_draft": false, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 17, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 2, 
+        "navigation_extenders": "AccountsMenu", 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 1, 
+        "in_navigation": false, 
+        "reverse_id": "accounts", 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "INHERIT", 
+        "tree_id": 23, 
+        "placeholders": [
+            38, 
+            39
+        ], 
+        "changed_date": "2014-03-29T23:11:47.705", 
+        "limit_visibility_in_menu": null, 
+        "parent": null, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": false, 
+        "publication_date": "2014-03-29T23:11:42.701", 
+        "creation_date": "2014-03-29T23:10:14.573", 
+        "publisher_public": 18, 
+        "level": 0, 
+        "changed_by": "admin", 
+        "application_urls": "AccountsApp", 
+        "publisher_is_draft": true, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 18, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 2, 
+        "navigation_extenders": "AccountsMenu", 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 1, 
+        "in_navigation": false, 
+        "reverse_id": "accounts", 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "INHERIT", 
+        "tree_id": 12, 
+        "placeholders": [
+            40, 
+            41
+        ], 
+        "changed_date": "2014-03-29T23:11:47.587", 
+        "limit_visibility_in_menu": null, 
+        "parent": null, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": false, 
+        "publication_date": "2014-03-29T23:11:42.584", 
+        "creation_date": "2014-03-29T23:11:47.587", 
+        "publisher_public": 17, 
+        "level": 0, 
+        "changed_by": "admin", 
+        "application_urls": "AccountsApp", 
+        "publisher_is_draft": false, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 19, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 8, 
+        "navigation_extenders": null, 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 1, 
+        "in_navigation": true, 
+        "reverse_id": null, 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "cms/default.html", 
+        "tree_id": 14, 
+        "placeholders": [
+            42, 
+            43
+        ], 
+        "changed_date": "2014-03-29T23:31:41.525", 
+        "limit_visibility_in_menu": null, 
+        "parent": null, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": false, 
+        "publication_date": "2014-03-29T23:26:28.864", 
+        "creation_date": "2014-03-29T23:26:16.091", 
+        "publisher_public": 20, 
+        "level": 0, 
+        "changed_by": "admin", 
+        "application_urls": null, 
+        "publisher_is_draft": true, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 20, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 8, 
+        "navigation_extenders": null, 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 1, 
+        "in_navigation": true, 
+        "reverse_id": null, 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "INHERIT", 
+        "tree_id": 3, 
+        "placeholders": [
+            44, 
+            45
+        ], 
+        "changed_date": "2014-03-29T23:31:41.668", 
+        "limit_visibility_in_menu": null, 
+        "parent": null, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": false, 
+        "publication_date": "2014-03-29T23:26:28.751", 
+        "creation_date": "2014-03-29T23:26:33.755", 
+        "publisher_public": 19, 
+        "level": 0, 
+        "changed_by": "admin", 
+        "application_urls": null, 
+        "publisher_is_draft": false, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 21, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 4, 
+        "navigation_extenders": "", 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 1, 
+        "in_navigation": true, 
+        "reverse_id": null, 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "cms/default.html", 
+        "tree_id": 15, 
+        "placeholders": [
+            46, 
+            47
+        ], 
+        "changed_date": "2014-03-29T23:32:21.800", 
+        "limit_visibility_in_menu": null, 
+        "parent": null, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": false, 
+        "publication_date": "2014-03-29T23:29:49.750", 
+        "creation_date": "2014-03-29T23:27:16.614", 
+        "publisher_public": 22, 
+        "level": 0, 
+        "changed_by": "admin", 
+        "application_urls": "AttendeesApp", 
+        "publisher_is_draft": true, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 22, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 4, 
+        "navigation_extenders": "", 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 1, 
+        "in_navigation": true, 
+        "reverse_id": null, 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "INHERIT", 
+        "tree_id": 4, 
+        "placeholders": [
+            48, 
+            49
+        ], 
+        "changed_date": "2014-03-29T23:32:21.932", 
+        "limit_visibility_in_menu": null, 
+        "parent": null, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": false, 
+        "publication_date": "2014-03-29T23:29:49.750", 
+        "creation_date": "2014-03-29T23:29:54.630", 
+        "publisher_public": 21, 
+        "level": 0, 
+        "changed_by": "admin", 
+        "application_urls": "AttendeesApp", 
+        "publisher_is_draft": false, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 23, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 2, 
+        "navigation_extenders": "ProposalsMenu", 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 1, 
+        "in_navigation": true, 
+        "reverse_id": null, 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "cms/default.html", 
+        "tree_id": 16, 
+        "placeholders": [
+            50, 
+            51
+        ], 
+        "changed_date": "2014-03-29T23:34:37.266", 
+        "limit_visibility_in_menu": null, 
+        "parent": null, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": false, 
+        "publication_date": "2014-03-29T23:34:32.263", 
+        "creation_date": "2014-03-29T23:33:42.113", 
+        "publisher_public": 24, 
+        "level": 0, 
+        "changed_by": "admin", 
+        "application_urls": "ProposalsApp", 
+        "publisher_is_draft": true, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 24, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 2, 
+        "navigation_extenders": "ProposalsMenu", 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 1, 
+        "in_navigation": true, 
+        "reverse_id": null, 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "cms/default.html", 
+        "tree_id": 5, 
+        "placeholders": [
+            52, 
+            53
+        ], 
+        "changed_date": "2014-03-29T23:34:37.181", 
+        "limit_visibility_in_menu": null, 
+        "parent": null, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": false, 
+        "publication_date": "2014-03-29T23:34:32.178", 
+        "creation_date": "2014-03-29T23:34:37.181", 
+        "publisher_public": 23, 
+        "level": 0, 
+        "changed_by": "admin", 
+        "application_urls": "ProposalsApp", 
+        "publisher_is_draft": false, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 25, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 2, 
+        "navigation_extenders": "SponsorshipMenu", 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 1, 
+        "in_navigation": false, 
+        "reverse_id": "sponsorship", 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "INHERIT", 
+        "tree_id": 24, 
+        "placeholders": [
+            54, 
+            55
+        ], 
+        "changed_date": "2014-03-29T23:52:12.751", 
+        "limit_visibility_in_menu": null, 
+        "parent": null, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": false, 
+        "publication_date": "2014-03-29T23:52:07.748", 
+        "creation_date": "2014-03-29T23:51:54.390", 
+        "publisher_public": 26, 
+        "level": 0, 
+        "changed_by": "admin", 
+        "application_urls": "SponsorshipApp", 
+        "publisher_is_draft": true, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 26, 
+    "model": "cms.page", 
+    "fields": {
+        "rght": 2, 
+        "navigation_extenders": "SponsorshipMenu", 
+        "site": 1, 
+        "application_namespace": null, 
+        "lft": 1, 
+        "in_navigation": false, 
+        "reverse_id": "sponsorship", 
+        "login_required": false, 
+        "created_by": "admin", 
+        "publication_end_date": null, 
+        "template": "INHERIT", 
+        "tree_id": 13, 
+        "placeholders": [
+            56, 
+            57
+        ], 
+        "changed_date": "2014-03-29T23:52:12.640", 
+        "limit_visibility_in_menu": null, 
+        "parent": null, 
+        "publisher_state": 0, 
+        "soft_root": false, 
+        "is_home": false, 
+        "publication_date": "2014-03-29T23:52:07.635", 
+        "creation_date": "2014-03-29T23:52:12.640", 
+        "publisher_public": 25, 
+        "level": 0, 
+        "changed_by": "admin", 
+        "application_urls": "SponsorshipApp", 
+        "publisher_is_draft": false, 
+        "published": true, 
+        "revision_id": 0
+    }
+},
+{
+    "pk": 1, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "Frontpage", 
+        "has_url_overwrite": false, 
+        "redirect": "", 
+        "page": 1, 
+        "path": "", 
+        "creation_date": "2014-03-29T22:50:11.284", 
+        "slug": "frontpage"
+    }
+},
+{
+    "pk": 2, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "Reviews", 
+        "has_url_overwrite": false, 
+        "redirect": "", 
+        "page": 3, 
+        "path": "reviews", 
+        "creation_date": "2014-03-29T22:51:22.465", 
+        "slug": "reviews"
+    }
+},
+{
+    "pk": 3, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "Legal Notice", 
+        "has_url_overwrite": false, 
+        "redirect": "", 
+        "page": 4, 
+        "path": "conference/legal-notice", 
+        "creation_date": "2014-03-29T22:52:15.595", 
+        "slug": "legal-notice"
+    }
+},
+{
+    "pk": 4, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "Terms & Conditions", 
+        "has_url_overwrite": false, 
+        "redirect": "", 
+        "page": 5, 
+        "path": "tickets/terms-conditions", 
+        "creation_date": "2014-03-29T22:52:51.613", 
+        "slug": "terms-conditions"
+    }
+},
+{
+    "pk": 5, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "Privacy Policy", 
+        "has_url_overwrite": false, 
+        "redirect": "", 
+        "page": 6, 
+        "path": "conference/privacy-policy", 
+        "creation_date": "2014-03-29T22:53:21.809", 
+        "slug": "privacy-policy"
+    }
+},
+{
+    "pk": 6, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "Code of Conduct", 
+        "has_url_overwrite": false, 
+        "redirect": "", 
+        "page": 7, 
+        "path": "conference/code-conduct", 
+        "creation_date": "2014-03-29T22:53:50.585", 
+        "slug": "code-conduct"
+    }
+},
+{
+    "pk": 7, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "Reviews", 
+        "has_url_overwrite": false, 
+        "redirect": "", 
+        "page": 8, 
+        "path": "reviews", 
+        "creation_date": "2014-03-29T22:51:22.465", 
+        "slug": "reviews"
+    }
+},
+{
+    "pk": 8, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "Legal Notice", 
+        "has_url_overwrite": false, 
+        "redirect": "", 
+        "page": 9, 
+        "path": "conference/legal-notice", 
+        "creation_date": "2014-03-29T22:52:15.595", 
+        "slug": "legal-notice"
+    }
+},
+{
+    "pk": 9, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "Terms & Conditions", 
+        "has_url_overwrite": false, 
+        "redirect": "", 
+        "page": 10, 
+        "path": "tickets/terms-conditions", 
+        "creation_date": "2014-03-29T22:52:51.613", 
+        "slug": "terms-conditions"
+    }
+},
+{
+    "pk": 10, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "Privacy Policy", 
+        "has_url_overwrite": false, 
+        "redirect": "", 
+        "page": 11, 
+        "path": "conference/privacy-policy", 
+        "creation_date": "2014-03-29T22:53:21.809", 
+        "slug": "privacy-policy"
+    }
+},
+{
+    "pk": 11, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "Code of Conduct", 
+        "has_url_overwrite": false, 
+        "redirect": "", 
+        "page": 12, 
+        "path": "conference/code-conduct", 
+        "creation_date": "2014-03-29T22:53:50.585", 
+        "slug": "code-conduct"
+    }
+},
+{
+    "pk": 12, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "Frontpage", 
+        "has_url_overwrite": false, 
+        "redirect": "", 
+        "page": 2, 
+        "path": "", 
+        "creation_date": "2014-03-29T22:50:11.284", 
+        "slug": "frontpage"
+    }
+},
+{
+    "pk": 13, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "Accounts", 
+        "has_url_overwrite": false, 
+        "redirect": null, 
+        "page": 13, 
+        "path": "accounts", 
+        "creation_date": "2014-03-29T22:55:57.127", 
+        "slug": "accounts"
+    }
+},
+{
+    "pk": 14, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "Welcome", 
+        "has_url_overwrite": false, 
+        "redirect": "/en/accounts/profile/", 
+        "page": 14, 
+        "path": "accounts/welcome", 
+        "creation_date": "2014-03-29T22:56:19.998", 
+        "slug": "welcome"
+    }
+},
+{
+    "pk": 15, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "Accounts", 
+        "has_url_overwrite": false, 
+        "redirect": null, 
+        "page": 15, 
+        "path": "accounts", 
+        "creation_date": "2014-03-29T22:55:57.127", 
+        "slug": "accounts"
+    }
+},
+{
+    "pk": 16, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "Welcome", 
+        "has_url_overwrite": false, 
+        "redirect": "/en/accounts/profile/", 
+        "page": 16, 
+        "path": "accounts/welcome", 
+        "creation_date": "2014-03-29T22:56:19.998", 
+        "slug": "welcome"
+    }
+},
+{
+    "pk": 17, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "Profile", 
+        "has_url_overwrite": false, 
+        "redirect": "", 
+        "page": 17, 
+        "path": "profile", 
+        "creation_date": "2014-03-29T23:10:14.772", 
+        "slug": "profile"
+    }
+},
+{
+    "pk": 18, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "Profile", 
+        "has_url_overwrite": false, 
+        "redirect": "", 
+        "page": 18, 
+        "path": "profile", 
+        "creation_date": "2014-03-29T23:10:14.772", 
+        "slug": "profile"
+    }
+},
+{
+    "pk": 19, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "About", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "EuroPython 2014 Information", 
+        "has_url_overwrite": false, 
+        "redirect": null, 
+        "page": 19, 
+        "path": "conference", 
+        "creation_date": "2014-03-29T23:26:16.258", 
+        "slug": "conference"
+    }
+},
+{
+    "pk": 20, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "About", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "EuroPython 2014 Information", 
+        "has_url_overwrite": false, 
+        "redirect": null, 
+        "page": 20, 
+        "path": "conference", 
+        "creation_date": "2014-03-29T23:26:16.258", 
+        "slug": "conference"
+    }
+},
+{
+    "pk": 21, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "Registration", 
+        "has_url_overwrite": false, 
+        "redirect": "", 
+        "page": 21, 
+        "path": "tickets", 
+        "creation_date": "2014-03-29T23:27:16.779", 
+        "slug": "tickets"
+    }
+},
+{
+    "pk": 22, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "Registration", 
+        "has_url_overwrite": false, 
+        "redirect": "", 
+        "page": 22, 
+        "path": "tickets", 
+        "creation_date": "2014-03-29T23:27:16.779", 
+        "slug": "tickets"
+    }
+},
+{
+    "pk": 23, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "Proposals", 
+        "has_url_overwrite": false, 
+        "redirect": "", 
+        "page": 23, 
+        "path": "proposals", 
+        "creation_date": "2014-03-29T23:33:42.277", 
+        "slug": "proposals"
+    }
+},
+{
+    "pk": 24, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "Proposals", 
+        "has_url_overwrite": false, 
+        "redirect": "", 
+        "page": 24, 
+        "path": "proposals", 
+        "creation_date": "2014-03-29T23:33:42.277", 
+        "slug": "proposals"
+    }
+},
+{
+    "pk": 25, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "Sponsorship", 
+        "has_url_overwrite": false, 
+        "redirect": "", 
+        "page": 25, 
+        "path": "sponsorship", 
+        "creation_date": "2014-03-29T23:51:54.555", 
+        "slug": "sponsorship"
+    }
+},
+{
+    "pk": 26, 
+    "model": "cms.title", 
+    "fields": {
+        "menu_title": "", 
+        "meta_description": "", 
+        "page_title": "", 
+        "language": "en", 
+        "title": "Sponsorship", 
+        "has_url_overwrite": false, 
+        "redirect": "", 
+        "page": 26, 
+        "path": "sponsorship", 
+        "creation_date": "2014-03-29T23:51:54.555", 
+        "slug": "sponsorship"
+    }
+},
+{
+    "pk": 1, 
+    "model": "conference.conference", 
+    "fields": {
+        "reviews_active": null, 
+        "end_date": "2014-07-27", 
+        "title": "EuroPython 2014", 
+        "reviews_end_date": "2014-03-19T17:00:00", 
+        "anonymize_proposal_author": true, 
+        "reviews_start_date": "2014-03-05T00:00:00", 
+        "timezone": "Europe/Berlin", 
+        "start_date": "2014-07-21"
+    }
+},
+{
+    "pk": 1, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "admin", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": true, 
+        "is_staff": true, 
+        "last_login": "2014-03-30T00:11:42.236", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$cMPqrngQx7JP$Hsio7w+sl7vyxkfivRG+A01RM0VKx2hb+VI0zSVP6kA=", 
+        "email": "admin@example.com", 
+        "date_joined": "2014-03-29T22:48:14"
+    }
+},
+{
+    "pk": 1, 
+    "model": "speakers.speaker", 
+    "fields": {
+        "user": [
+            "admin"
+        ]
+    }
+},
+{
+    "pk": 1, 
+    "model": "cms.usersettings", 
+    "fields": {
+        "clipboard": 1, 
+        "user": [
+            "admin"
+        ], 
+        "language": "en"
+    }
+},
+{
+    "pk": 1, 
+    "model": "accounts.profile", 
+    "fields": {
+        "website": "", 
+        "accept_job_offers": true, 
+        "display_name": "admin", 
+        "twitter": "", 
+        "num_accompanying_children": 0, 
+        "accept_ep_conferences": true, 
+        "accept_pysv_conferences": true, 
+        "user": [
+            "admin"
+        ], 
+        "full_name": "", 
+        "age_accompanying_children": "", 
+        "short_info": "", 
+        "organisation": "", 
+        "addressed_as": "", 
+        "avatar": ""
+    }
+}
+]
