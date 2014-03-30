@@ -9,6 +9,12 @@ ep.ui.createTagsInput = function(source) {
     if ($.ui && $.ui.autocomplete) {
         $('input.tags-input').each(function() {
             var $that = $(this);
+            $that.bind("keydown", function(event) {
+                if (event.keyCode === $.ui.keyCode.TAB &&
+                        $(this).data("ui-autocomplete").menu.active) {
+                    event.preventDefault();
+                }
+            });
             $that.autocomplete({
                 delay: 300,
                 source: function(request, response) {
@@ -21,6 +27,9 @@ ep.ui.createTagsInput = function(source) {
                     if (term.length < 1) {
                       return false;
                     }
+                },
+                focus: function() {
+                    return false;
                 },
                 select: function(event, ui) {
                     var terms = split(this.value);
