@@ -62,7 +62,13 @@ run following command::
 After this is done, you should already have a working site, but it is still
 empty. To change that you can load a fixture with initial data by running::
 
-    python manage.py loaddata fixtures/europython2014/initial.json
+    python manage.py loaddata fixtures/europython2014/initial01.json
+    python manage.py loaddata fixtures/europython2014/initial02.json
+
+.. warning::
+
+    Make sure you have redis up and running. Otherwise Django won't start due
+    to a missing connection to the cache.
 
 You can login as user *admin* with password *admin*
 
