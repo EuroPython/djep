@@ -1,6 +1,8 @@
 /*global gettext, $*/
 var ep = ep || {};
 ep.ui = (function($) {
+    var mainMenuToggleRegistered = false;
+
     function wrapFileUploads() {
         $('input[type=file]').each(function() {
             var statusLine = $('<span>').addClass('status');
@@ -69,10 +71,23 @@ ep.ui = (function($) {
     }
 
     function toggleMainMenu() {
-        $('.top-bar-section').on('click', '> ul > li.has-dropdown > a', function(evt) {
+        // If the viewport is below the breakpoint where the topbar is
+        // rendered for mobile clients, we disable our toggle trigger.
+        if (Foundation.libs.topbar.breakpoint()) {
+            if (mainMenuToggleRegistered) {
+                $('.top-bar-section').off('click.menuToggle');
+                mainMenuToggleRegistered = false;
+            }
+            return;
+        }
+
+        if (mainMenuToggleRegistered) { return; }
+
+        $('.top-bar-section').off('click.menuToggle').on('click.menuToggle', '> ul > li.has-dropdown > a', function(evt) {
             evt.preventDefault();
             $('.main-nav .dropdown').toggle();
         });
+        mainMenuToggleRegistered = true;
     }
 
     function init() {
@@ -85,6 +100,24 @@ ep.ui = (function($) {
         handleAccountMenuOnTouch('#reviewbox');
         toggleMenuIcons('#accountbox');
         handleAccountMenuOnTouch('#accountbox');
+
+        // Since we are disabling the main menu toggle below a certain
+        // breakpoint we have to check it whenever the user resizes the
+        // window. Sadly, there seems to be a bug in the topbar library
+        // that prevents this from working properly on their end.
+        var resizeHandlerQueued = false;
+        $(window).on('resize', function() {
+            // Let's delay this so that we don't trigger the handler with
+            // every handful of pixels.
+            if (resizeHandlerQueued) {
+                window.clearTimeout(resizeHandlerQueued);
+                resizeHandlerQueued = null;
+            }
+            resizeHandlerQueued = window.setTimeout(function() {
+                toggleMainMenu();
+                resizeHandlerQueued = null;
+            }, 500);
+        });
     }
 
     init();
