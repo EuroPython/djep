@@ -608,6 +608,19 @@ class PurchaseProcessTest(TestCase):
 
 
 class TestTicketTypes(TestCase):
+    def setUp(self):
+        now = datetime.datetime.now()
+        self.venue_ticket_type = models.TicketType(name="test", fee=100,
+               date_valid_from=now - datetime.timedelta(days=-1),
+               date_valid_to=now + datetime.timedelta(days=1),
+               editable_fields='shirtsize')
+        self.venue_ticket_type.content_type = ContentType.objects.get(
+            app_label='attendees', model='venueticket')
+        self.venue_ticket_type.save()
+
+    def tearDown(self):
+        self.venue_ticket_type.delete()
+
     def test_returns_all_tickettypes(self):
         """
         All subclasses of attendees.ticket should provided by
@@ -626,3 +639,111 @@ class TestTicketTypes(TestCase):
             found.add("{0}.{1}".format(
                 values['app_label'], values['model']))
         self.assertEqual(expected, found)
+
+    def test_get_editable_fields_empty(self):
+        """
+        If the field is empty, an empty list should be returned.
+        """
+        self.assertEqual([], models.TicketType(editable_fields="").get_editable_fields())
+
+    def test_get_editable_fields_default(self):
+        """
+        By default no fields should be marked as editable.
+        """
+        self.assertEqual([], models.TicketType().get_editable_fields())
+
+    def test_get_editable_fields_spaces(self):
+        """
+        The list of editable fields should be specified as a comma-separated string
+        with arbitrary spaces.
+        """
+        expected = ["a", "b", "c"]
+        inputs = [
+            "a, b, c",
+            "   a,b    ,c",
+            "a,b,c,"
+        ]
+
+        for input in inputs:
+            self.assertEquals(expected, models.TicketType(editable_fields=input).get_editable_fields())
+
+    def test_get_readonly_fields(self):
+        fields = set(self.venue_ticket_type.get_readonly_fields())
+        expected = set(['first_name', 'last_name', 'organisation', 'voucher'])
+        self.assertEqual(expected, fields)
+
+
+class TestTicketModel(TestCase):
+    def test_ticket_editable_if_enabled_on_tickettype(self):
+        user = auth_models.User()
+        conference = Conference(tickets_editable=True)
+        ticket_type = models.TicketType(allow_editing=True,
+                                        conference=conference)
+        ticket = models.Ticket(ticket_type=ticket_type, user=user)
+        self.assertTrue(ticket.can_be_edited_by(user))
+
+    def test_ticket_editable_if_enabled_on_conference(self):
+        user = auth_models.User()
+        conference = Conference(tickets_editable=True)
+        ticket_type = models.TicketType(allow_editing=None,
+                                        conference=conference)
+        ticket = models.Ticket(ticket_type=ticket_type, user=user)
+        self.assertTrue(ticket.can_be_edited_by(user))
+
+    def test_ticket_editable_if_enabled_on_ticket_and_disabled_on_conference(self):
+        user = auth_models.User()
+        conference = Conference(tickets_editable=False)
+        ticket_type = models.TicketType(allow_editing=True,
+                                        conference=conference)
+        ticket = models.Ticket(ticket_type=ticket_type, user=user)
+        self.assertTrue(ticket.can_be_edited_by(user))
+
+    def test_ticket_not_editable_if_disabled_on_ticket(self):
+        user = auth_models.User()
+        conference = Conference(tickets_editable=True)
+        ticket_type = models.TicketType(allow_editing=False,
+                                        conference=conference)
+        ticket = models.Ticket(ticket_type=ticket_type, user=user)
+        self.assertFalse(ticket.can_be_edited_by(user))
+
+    def test_ticket_not_editable_if_disabled_on_conference(self):
+        user = auth_models.User()
+        conference = Conference(tickets_editable=False)
+        ticket_type = models.TicketType(allow_editing=None,
+                                        conference=conference)
+        ticket = models.Ticket(ticket_type=ticket_type, user=user)
+        self.assertFalse(ticket.can_be_edited_by(user))
+
+    def test_ticket_not_editable_if_time_over_on_tickettype(self):
+        user = auth_models.User()
+        now = datetime.datetime.now()
+        conference = Conference(tickets_editable=True)
+        ticket_type = models.TicketType(allow_editing=True,
+                                        editable_until=now + datetime.timedelta(days=-1),
+                                        conference=conference)
+        ticket = models.Ticket(ticket_type=ticket_type, user=user)
+        self.assertFalse(ticket.can_be_edited_by(user, current_time=now))
+
+    def test_ticket_not_editable_if_time_over_on_conference(self):
+        user = auth_models.User()
+        now = datetime.datetime.now()
+        conference = Conference(tickets_editable=True,
+                                tickets_editable_until=now + datetime.timedelta(days=-1))
+        ticket_type = models.TicketType(allow_editing=True,
+                                        conference=conference)
+        ticket = models.Ticket(ticket_type=ticket_type, user=user)
+        self.assertFalse(ticket.can_be_edited_by(user, current_time=now))
+
+
+class TestVenueTicketModel(TestCase):
+    def test_get_fields(self):
+        expected = set(['first_name', 'last_name', 'organisation', 'shirtsize', 'voucher'])
+        fields = models.VenueTicket.get_fields()
+        self.assertEqual(expected, fields)
+
+
+class TestSupportTicketModel(TestCase):
+    def test_get_fields(self):
+        expected = set()
+        fields = models.SupportTicket.get_fields()
+        self.assertEqual(expected, fields)

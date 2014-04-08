@@ -1,5 +1,5 @@
 {% extends "attendees/base.html" %}
-{% load i18n %}
+{% load i18n attendees_tags %}
 {% block bodyclass %}{{ block.super }} user_tickets with-sidebar{% endblock %}
 {% block title %}{% trans "Your tickets" %}{% endblock %}
 {% block page_title %}{% trans "Your tickets" %}{% endblock %}
@@ -11,6 +11,9 @@
                 <div class="ticket" id="ticket{{ ticket.pk }}">
                     <h2>{{ ticket.ticket_type.name }} (#{{ ticket.pk }})</h2>
                     {% if ticket.ticket_type.content_type.model == "venueticket" %}
+                        {% if ticket.real_ticket|is_editable_ticket:user %}
+                        <a href="{% url 'attendees_edit_ticket' pk=ticket.real_ticket.pk %}">Edit</a>
+                        {% endif %}
                         <dl>
                             <dt>{% trans "Name" %}:</dt>
                             <dd>{{ ticket.real_ticket.first_name }} {{ ticket.real_ticket.last_name }}</dd>

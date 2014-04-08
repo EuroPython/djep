@@ -22,7 +22,7 @@ from django.core.urlresolvers import reverse
 from django.contrib import messages
 from django.contrib.auth import models as auth_models
 from django.db.models import Q
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
@@ -538,6 +538,27 @@ class UserTicketsView(LoginRequiredMixin, generic_views.TemplateView):
                                 )
                              .all()
         }
+
+
+class EditTicketView(LoginRequiredMixin, generic_views.UpdateView):
+    """
+    Through the EditTicketView the owner of a ticket can edit certain details
+    of it. Note that this is limited to VenueTickets as this is intended to
+    allow users to customize the information printed onto the ticket after the
+    purchase has been made.
+    """
+    model = VenueTicket
+    form_class = forms.EditVenueTicketForm
+    template_name = 'attendees/edit_ticket.html'
+
+    def get_object(self, queryset=None):
+        obj = super(EditTicketView, self).get_object(queryset)
+        if not obj.can_be_edited_by(self.request.user):
+            raise Http404()
+        return obj
+
+    def get_success_url(self):
+        return reverse('attendees_user_tickets')
 
 
 class UserResendInvoiceView(LoginRequiredMixin, generic_views.View):
