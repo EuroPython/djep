@@ -55,6 +55,7 @@ class ProposalMetaDataAdmin(admin.ModelAdmin):
         'latest_activity_date', 'score']
     actions = [export_reviewed_proposals]
 
+
 class ReviewerAdmin(admin.ModelAdmin):
     list_display = ['user', 'user_display_name', 'user_email', 'state',
         'link_profile']
@@ -63,7 +64,7 @@ class ReviewerAdmin(admin.ModelAdmin):
     search_fields = ('user__username',)
 
     def user_display_name(self, instance):
-        return instance.user.get_profile().display_name
+        return instance.user.profile.display_name
 
     def user_email(self, instance):
         return instance.user.email
