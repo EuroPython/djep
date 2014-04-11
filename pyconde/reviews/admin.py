@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 
+from django import forms
 from django.contrib import admin
 from django.contrib.auth import models as auth_models
 from django.contrib.auth.admin import UserAdmin as BaseUserAdmin
@@ -9,6 +10,8 @@ from django.db.transaction import commit_on_success
 from django.http import HttpResponse
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
+
+from ..speakers import models as speaker_models
 
 from . import models
 from . import utils
@@ -50,17 +53,80 @@ def decline_reviewer_request(modeladmin, request, queryset):
 decline_reviewer_request.short_description = _("Decline selected user requests to become a reviewer.")
 
 
+class CommentAdminForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(CommentAdminForm, self).__init__(*args, **kwargs)
+        proposals = self.fields['proposal'].queryset.select_related('conference') \
+                                                    .only('title', 'conference')
+        versions = self.fields['proposal_version'].queryset.select_related('original') \
+                                                  .only('original__title', 'pub_date')
+        self.fields['proposal'].queryset = proposals
+        self.fields['proposal_version'].queryset = versions
+
+
+class ReviewMetaDataAdminForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ReviewMetaDataAdminForm, self).__init__(*args, **kwargs)
+        proposals = self.fields['proposal'].queryset.select_related('conference') \
+                                                    .only('title', 'conference')
+        versions = self.fields['latest_proposalversion'].queryset \
+                                                  .select_related('original') \
+                                                  .only('original__title', 'pub_date')
+        self.fields['proposal'].queryset = proposals
+        self.fields['latest_proposalversion'].queryset = versions
+
+
+class ProposalVersionAdminForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ProposalVersionAdminForm, self).__init__(*args, **kwargs)
+        speakers = speaker_models.Speaker.objects.get_qs_for_formfield()
+        proposals = self.fields['original'].queryset.select_related('conference') \
+                                                    .only('title',
+                                                          'conference__title')
+        self.fields['speaker'].queryset = speakers
+        self.fields['additional_speakers'].queryset = speakers
+        self.fields['original'].queryset = proposals
+
+
+class ReviewAdminForm(forms.ModelForm):
+
+    def __init__(self, *args, **kwargs):
+        super(ReviewAdminForm, self).__init__(*args, **kwargs)
+        proposals = self.fields['proposal'].queryset.select_related('conference') \
+                                                    .only('title', 'conference')
+        versions = self.fields['proposal_version'].queryset.select_related('original') \
+                                                  .only('original__title', 'pub_date')
+        self.fields['proposal'].queryset = proposals
+        self.fields['proposal_version'].queryset = versions
+
+
+class CommentAdmin(admin.ModelAdmin):
+    form = CommentAdminForm
+    actions = [mark_comment_as_deleted]
+    list_display = ['proposal', 'author', 'pub_date', 'deleted']
+    list_filter = ['deleted']
+
+
 class ProposalMetaDataAdmin(admin.ModelAdmin):
+    actions = [export_reviewed_proposals]
+    form = ReviewMetaDataAdminForm
     list_display = ['proposal', 'num_comments', 'num_reviews',
         'latest_activity_date', 'score']
-    actions = [export_reviewed_proposals]
+
+
+class ProposalVersionAdmin(admin.ModelAdmin):
+    form = ProposalVersionAdminForm
+    list_display = ['original', 'pub_date', 'creator']
 
 
 class ReviewerAdmin(admin.ModelAdmin):
+    actions = [accept_reviewer_request, decline_reviewer_request]
     list_display = ['user', 'user_display_name', 'user_email', 'state',
         'link_profile']
     list_filter = ['state']
-    actions = [accept_reviewer_request, decline_reviewer_request]
     search_fields = ('user__username',)
 
     def user_display_name(self, instance):
@@ -81,17 +147,16 @@ class ReviewerAdmin(admin.ModelAdmin):
         return qs
 
 
-admin.site.register(models.ProposalVersion,
-    list_display=['original', 'pub_date', 'creator'])
-admin.site.register(models.Review,
-    list_display=['proposal', 'user', 'rating', 'pub_date'],
-    actions=[export_reviews])
-admin.site.register(models.Comment,
-    list_display=['proposal', 'author', 'pub_date', 'deleted'],
-    list_filter=['deleted'],
-    actions=[mark_comment_as_deleted])
-admin.site.register(models.ProposalMetaData, ProposalMetaDataAdmin)
+class ReviewAdmin(admin.ModelAdmin):
+    list_display = ['proposal', 'user', 'rating', 'pub_date']
+    actions = [export_reviews]
+    form = ReviewAdminForm
 
+
+admin.site.register(models.Comment, CommentAdmin)
+admin.site.register(models.ProposalMetaData, ProposalMetaDataAdmin)
+admin.site.register(models.ProposalVersion, ProposalVersionAdmin)
+admin.site.register(models.Review, ReviewAdmin)
 admin.site.register(models.Reviewer, ReviewerAdmin)
 
 
