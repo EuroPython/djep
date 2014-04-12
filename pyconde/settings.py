@@ -542,7 +542,7 @@ class Dev(Base):
         },
         'handlers': {
             'console': {
-                'level': 'WARN',
+                'level': 'DEBUG',
                 'class': 'logging.StreamHandler',
                 'formatter': 'simple'
             }
@@ -553,6 +553,8 @@ class Dev(Base):
             },
         }
     }
+
+    SCHEDULE_CACHE_SCHEDULE = False
 
 
 class Testing(Dev):
