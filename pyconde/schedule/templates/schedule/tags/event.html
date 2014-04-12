@@ -1,7 +1,6 @@
 {% load helper_tags %}
 <a href="{{ event.url }}">{% if event.session_kind == 'keynote'%}KEYNOTE: {% endif %}{{ event.name|safe_and_shy:15 }}</a>
 {% if event.type == 'session' %}
-<br />
-{% if event.speakers %}von {{ event.speakers|join:', ' }}{% endif %}
-{% if event.level_name %}für {{ event.level_name }}{% endif %}
+    <br />
+    {% if event.speakers %}{{ event.speakers|join:', ' }}{% endif %}
 {% endif %}

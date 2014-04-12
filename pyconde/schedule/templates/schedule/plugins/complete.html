@@ -1,40 +1,41 @@
 {% load i18n schedule_tags %}
-<div class="plugin schedule">
-{% for section, grid in schedule.items %}
-<h2>{{ section.name }}</h2>
-{% for day in grid.1 %}
-
-<table class="schedule {{ section.slug }} numcols-{{ grid.0|length }} table table-bordered">
-    <caption>{{ day.day|date:"l - d. F Y" }}</caption>
-    <thead>
-        <tr>
-            <th>{% trans "Time" %}</th>
-            {% for loc in grid.0 %}
-            <th>{{ loc.name }}</th>
-            {% endfor %}
-        </tr>
-    </thead>
-    <tbody>
-        {% for row in day.rows %}
-        <tr{% if row.is_pause_row %} class="pause"{% endif %}>
-            <td class="timetable">{{ row.start|time:'H:i' }} - {{ row.end|time:'H:i' }}</td>
-            {% for evt in row.get_renderable_cells %}
-                {% if evt.is_empty %}
-                    <td>&nbsp;</td>
-                {% else %}
-                    {% if evt.is_global %}
-                    <td class="filled {% if evt.type == 'sideevent' %}global{% endif %}" rowspan="{{ evt.rowspan }}" colspan="{{ grid.0|length }}">{% eventinfo evt %}</td>
-                    {% else %}
-                    <td class="filled" rowspan="{{ evt.rowspan }}">
-                        {% eventinfo evt %}
-                    </td>
-                    {% endif %}
-                {% endif %}
-            {% endfor %}
-        </tr>
-        {% endfor %}{# row #}
-    </tbody>
-</table>
-{% endfor %}{# day #}
-{% endfor %}{# section #}
+<div class="cmsplugin cmsplugin-schedule">
+    {% for section, grid in schedule.items %}
+        <h2>{{ section.name }}</h2>
+        {% for day in grid.1 %}
+            <h2>{{ day.day|date:"D j.n." }}</h2>
+        {% endfor %}{# day #}
+        {% for day in grid.1 %}
+            <table class="schedule {{ section.slug }} numcols-{{ grid.0|length }} table table-bordered">
+                <thead>
+                    <tr>
+                        <th>{% trans "Time" %}</th>
+                        {% for loc in grid.0 %}
+                        <th>{{ loc.name }}</th>
+                        {% endfor %}
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for row in day.rows %}
+                        <tr{% if row.is_pause_row %} class="pause"{% endif %}>
+                            <td class="timetable">{{ row.start|time:'H:i' }}</td>
+                            {% for evt in row.get_renderable_cells %}
+                                {% if evt.is_empty %}
+                                    <td>&nbsp;</td>
+                                {% else %}
+                                    {% if evt.is_global %}
+                                        <td class="filled global" rowspan="{{ evt.rowspan }}" colspan="{{ grid.0|length }}">{% eventinfo evt %}</td>
+                                    {% else %}
+                                    <td class="filled{% if evt.type == 'session' %} {{ evt.session_kind }}{% endif %}" rowspan="{{ evt.rowspan }}">
+                                        {% eventinfo evt %}
+                                    </td>
+                                    {% endif %}
+                                {% endif %}
+                            {% endfor %}
+                        </tr>
+                    {% endfor %}{# row #}
+                </tbody>
+            </table>
+        {% endfor %}{# day #}
+    {% endfor %}{# section #}
 </div>
