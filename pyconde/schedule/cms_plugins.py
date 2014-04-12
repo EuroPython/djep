@@ -17,7 +17,7 @@ class CMSCompleteSchedulePlugin(CMSPluginBase):
     render_template = "schedule/plugins/complete.html"
 
     def render(self, context, instance, placeholder):
-        schedule = utils.create_schedule()
+        schedule = utils.create_schedule(row_duration=15, merge_sections=True)
         incl_sections = instance.sections.all()
         if not incl_sections:
             schedule = schedule

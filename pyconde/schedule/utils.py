@@ -25,7 +25,7 @@ def proposal_is_scheduled(proposal):
     return proposal.pk in proposal_pks
 
 
-def create_schedule(row_duration=30, uncached=None):
+def create_schedule(row_duration=30, uncached=None, merge_sections=False):
     """
     Creates a schedule for each section of the conference.
 
@@ -40,10 +40,15 @@ def create_schedule(row_duration=30, uncached=None):
         if result:
             return result
     result = SortedDict()
-    for section in conference_models.Section.objects.order_by('order', 'start_date').all():
-        section_schedule = create_section_schedule(section,
+    if merge_sections:
+        section_schedule = create_section_schedule(None,
             row_duration=row_duration, uncached=uncached)
-        result[section] = section_schedule
+        result['merged'] = section_schedule
+    else:
+        for section in conference_models.Section.objects.order_by('order', 'start_date').all():
+            section_schedule = create_section_schedule(section,
+                row_duration=row_duration, uncached=uncached)
+            result[section] = section_schedule
     if not uncached:
         cache.set(cache_key, result, 180)
     return result
@@ -56,7 +61,10 @@ def create_section_schedule(section, row_duration=30, uncached=False):
     @param section section for which the schedule should be generated.
     @param row_duration number of minutes a single row should represent
     """
-    schedule_cache_key = 'section_schedule:{0}:{1}'.format(section.pk, row_duration)
+    if section is None:
+        schedule_cache_key = 'section_schedule:__merged__:{0}'.format(row_duration)
+    else:
+        schedule_cache_key = 'section_schedule:{0}:{1}'.format(section.pk, row_duration)
     evt_cache_key = 'schedule_event'
 
     if not uncached:
@@ -64,14 +72,22 @@ def create_section_schedule(section, row_duration=30, uncached=False):
         if section_schedule:
             return section_schedule
 
-    sessions = list(section.sessions
-        .select_related('location', 'audience_level', 'speaker', 'track', 'kind')
-        .order_by('start')
-        .all())
-    side_events = list(section.side_events\
-        .select_related('location')
-        .order_by('start')
-        .all())
+    if section is None:
+        sessions = models.Session.objects
+        side_events = models.SideEvent.objects
+    else:
+        sessions = section.sessions
+        side_events = section.side_events
+
+    sessions = sessions.select_related('location', 'audience_level', 'track',
+                                        'kind', 'speaker__user__profile') \
+                        .prefetch_related('additional_speakers__user__profile') \
+                        .filter(released=True) \
+                        .order_by('start') \
+                        .all()
+    side_events = side_events.select_related('location').order_by('start').all()
+
+
     evt_cache = {}
 
     locations = set()
@@ -231,7 +247,7 @@ class GridCell(object):
                 self.is_global = event.is_global
                 if event.speaker:
                     self.speakers.append(unicode(event.speaker))
-                for speaker in event.additional_speakers.select_related('user').all():
+                for speaker in event.additional_speakers.select_related('user__profile').all():
                     self.speakers.append(unicode(speaker))
                 if event.track:
                     self.track_name = event.track.name
@@ -391,7 +407,6 @@ def load_event_models(events):
     for evt in events:
         type_, pk = evt.split(':')
         pk_map[type_].append(pk)
-    print pk_map
     for k, v in pk_map.iteritems():
         if k == 'session':
             result += list(models.Session.current_conference.select_related('location').filter(pk__in=v))
