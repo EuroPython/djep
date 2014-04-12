@@ -108,6 +108,8 @@ class CommentAdmin(admin.ModelAdmin):
     actions = [mark_comment_as_deleted]
     list_display = ['proposal', 'author', 'pub_date', 'deleted']
     list_filter = ['deleted']
+    search_fields = ('author__username', 'author__profile__display_name',
+        'proposal__title', 'proposal__id')
 
 
 class ProposalMetaDataAdmin(admin.ModelAdmin):
@@ -115,11 +117,17 @@ class ProposalMetaDataAdmin(admin.ModelAdmin):
     form = ReviewMetaDataAdminForm
     list_display = ['proposal', 'num_comments', 'num_reviews',
         'latest_activity_date', 'score']
+    search_fields = ('proposal__title', 'proposal__id',
+        'proposal__speaker__user__profile__display_name',
+        'proposal__speaker__user__username')
 
 
 class ProposalVersionAdmin(admin.ModelAdmin):
     form = ProposalVersionAdminForm
     list_display = ['original', 'pub_date', 'creator']
+    search_fields = ('original__title', 'original__id',
+        'original__speaker__user__profile__display_name',
+        'original__speaker__user__username')
 
 
 class ReviewerAdmin(admin.ModelAdmin):
@@ -151,6 +159,9 @@ class ReviewAdmin(admin.ModelAdmin):
     list_display = ['proposal', 'user', 'rating', 'pub_date']
     actions = [export_reviews]
     form = ReviewAdminForm
+    search_fields = ('proposal__title', 'proposal__id',
+        'proposal__speaker__user__profile__display_name',
+        'proposal__speaker__user__username')
 
 
 admin.site.register(models.Comment, CommentAdmin)
