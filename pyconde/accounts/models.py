@@ -75,6 +75,9 @@ class Profile(models.Model):
     accept_job_offers = models.BooleanField(_('Allow sponsors to send job offers'),
         default=False, blank=True)
 
+    sponsor = models.ForeignKey('sponsorship.Sponsor', null=True, blank=True,
+        verbose_name=_('Sponsor'))
+
     tags = TaggableManager()
 
 
