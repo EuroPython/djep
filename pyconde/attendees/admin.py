@@ -29,7 +29,7 @@ class TicketTypeAdmin(admin.ModelAdmin):
                     'max_purchases', 'date_valid_from', 'date_valid_to')
     list_display_links = ('product_number', '__unicode__')
     list_filter = ('is_active', 'conference')
-    
+
     class Media(object):
         js = ('assets/js/admin.attendees.js',)
 

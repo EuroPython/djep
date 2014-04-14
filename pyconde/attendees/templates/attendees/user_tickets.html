@@ -12,7 +12,7 @@
                     <h2>{{ ticket.ticket_type.name }} (#{{ ticket.pk }})</h2>
                     {% if ticket.ticket_type.content_type.model == "venueticket" %}
                         {% if ticket.real_ticket|is_editable_ticket:user %}
-                        <a href="{% url 'attendees_edit_ticket' pk=ticket.real_ticket.pk %}">Edit</a>
+                        <a href="{% url 'attendees_edit_ticket' pk=ticket.real_ticket.pk %}"><i class="fa fa-fw fa-pencil"></i>{% trans "Edit" %}</a>
                         {% endif %}
                         <dl>
                             <dt>{% trans "Name" %}:</dt>
