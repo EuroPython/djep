@@ -229,7 +229,7 @@ class ProfileForm(BaseProfileForm):
     avatar_help_text = Profile()._meta.get_field_by_name('avatar')[0].help_text
     avatar = forms.ImageField(widget=AvatarWidget(size=avatar_size),
         required=False, help_text=avatar_help_text)
-    organisation = forms.CharField(label=_("organisation"), required=False)
+    organisation = forms.CharField(label=_("Organisation"), required=False)
     num_accompanying_children = forms.IntegerField(required=False,
                                                    label=_('Number of accompanying children'),
                                                    widget=forms.Select(choices=NUM_ACCOMPANYING_CHILDREN_CHOICES))
