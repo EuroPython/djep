@@ -13,16 +13,18 @@ The purchase process consists of the following steps:
 import datetime
 import logging
 import hashlib
+import json
 from collections import OrderedDict
 
 import pymill
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
+from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
 from django.contrib.auth import models as auth_models
 from django.db.models import Q
-from django.http import HttpResponseRedirect, Http404
+from django.http import HttpResponseRedirect, Http404, HttpResponseForbidden, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
@@ -618,3 +620,19 @@ class AssignTicketView(LoginRequiredMixin, generic_views.View):
                 _("This ticket was successfully assigned to the specified user"))
             return HttpResponseRedirect(reverse('attendees_user_purchases'))
         return self.get(*args, **kwargs)
+
+
+class AdminListTicketFieldsView(generic_views.View):
+    """
+    This view returns a JSON list of all the fields that are provided by
+    the field and should be checked against in the admin.
+    """
+    def get(self, request, pk):
+        if not request.user.is_staff:
+            return HttpResponseForbidden()
+        ctype = get_object_or_404(ContentType.objects, pk=pk).model_class()
+        if not issubclass(ctype, Ticket):
+            raise Http404()
+        result = [{'name': name, 'label': unicode(ctype._meta.get_field(name).verbose_name)} for name in ctype.get_fields()]
+        return HttpResponse(json.dumps(result),
+                content_type='text/json')

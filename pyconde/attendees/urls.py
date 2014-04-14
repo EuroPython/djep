@@ -29,4 +29,7 @@ urlpatterns = patterns(
     url(r'^mine/resend/$',
         views.UserResendInvoiceView.as_view(),
         name='attendees_user_resend_invoice'),
+    url(r'^admin/ticketfields/(?P<pk>\d+)/',
+        views.AdminListTicketFieldsView.as_view(),
+        name='attendees_admin_ticketfields'),
 )

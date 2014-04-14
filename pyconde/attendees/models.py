@@ -9,7 +9,7 @@ from email.utils import formataddr
 
 from django.contrib.auth.models import User
 from django.contrib.contenttypes import models as content_models
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db import models
 from django.db.models import Q
 from django.utils.timezone import now
@@ -194,6 +194,21 @@ class TicketType(models.Model):
         if not self.pk:
             self.product_number = TicketType.objects.get_next_product_number()
         super(TicketType, self).save(*args, **kwargs)
+
+    def clean(self):
+        self.clean_editable_fields()
+
+    def clean_editable_fields(self):
+        val = self.editable_fields
+        if self.content_type is None:
+            return val
+        ticket_cls = self.content_type.model_class()
+        found_field_names = set(filter(bool, map(string.strip, val.split(","))))
+        allowed_field_names = ticket_cls.get_fields()
+        invalid_field_names = found_field_names - allowed_field_names
+        if invalid_field_names:
+            raise ValidationError(_("Invalid editable fields specified: %s") % u", ".join(invalid_field_names))
+        return val
 
 
 class PurchaseManager(models.Manager):

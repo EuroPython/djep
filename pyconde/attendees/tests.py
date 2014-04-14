@@ -6,6 +6,7 @@ from os import path, unlink
 
 from django.contrib.auth import models as auth_models
 from django.contrib.contenttypes.models import ContentType
+from django.core.exceptions import ValidationError
 from django.core.urlresolvers import reverse
 from django.db.models import Max
 from django.test import TestCase
@@ -671,6 +672,15 @@ class TestTicketTypes(TestCase):
         fields = set(self.venue_ticket_type.get_readonly_fields())
         expected = set(['first_name', 'last_name', 'organisation', 'voucher'])
         self.assertEqual(expected, fields)
+
+    def test_clean_editable_fields_with_unknown_field(self):
+        self.venue_ticket_type.editable_fields = 'unknown'
+        with self.assertRaises(ValidationError):
+            self.venue_ticket_type.clean()
+
+    def test_clean_editable_fields_with_valid_field(self):
+        self.venue_ticket_type.editable_fields = 'first_name'
+        self.venue_ticket_type.clean()
 
 
 class TestTicketModel(TestCase):
