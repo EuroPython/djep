@@ -1,6 +1,13 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import logging
+
+from django.conf import settings
+from django.core.urlresolvers import reverse
+
+LOG = logging.getLogger('pyconde.attendees')
+
 
 class PurchaseExporter(object):
     """
@@ -62,4 +69,77 @@ class PurchaseExporter(object):
             except VenueTicket.DoesNotExist:
                 pass
             result['tickets'].append(ticket_data)
+        return result
+
+
+class BadgeExporter(object):
+
+    def __init__(self, tickets, base_url=None):
+        from django.contrib.sites.models import Site
+        self.tickets = tickets
+        if base_url is None:
+            self.base_url = 'http://%s' % Site.objects.get_current().domain
+        else:
+            self.base_url = base_url
+        self._data = None
+
+    @property
+    def json(self):
+        import json
+        data = self.export()
+        return json.dumps(data, indent=settings.DEBUG)
+
+    def export(self):
+        if getattr(self, '_data', None) is None:
+            self._data = self._export(self.tickets)
+        return self._data
+
+    def _export(self, tickets):
+        from .models import VenueTicket
+
+        result = []
+        for ticket in tickets.select_related('purchase', 'user__profile'):
+            if not isinstance(ticket, VenueTicket):
+                LOG.warn('Ticket %d is of type %s' % (
+                    ticket.pk, ticket.__class__.__name__))
+                continue
+            purchase = ticket.purchase
+            if purchase.state != 'payment_received':
+                LOG.warn('%s %d belongs to purchase %s (%d) which has not been paid' % (
+                    ticket.__class__.__name__, ticket.pk, purchase.full_invoice_number, purchase.id))
+                continue
+            user = ticket.user
+            profile = None if user is None else user.profile
+            badge = {
+                'id': ticket.id,
+                'uid': user and user.id or None,
+                'name': '%s %s' % (ticket.first_name, ticket.last_name),
+                'organization': ticket.organisation or purchase.company_name or profile and profile.organisation or None,
+                'sponsor': None,
+                # 'sponsor': {
+                #     'name': 'Awesome Company',
+                #     'level': 'Gold',
+                #     'website': 'http://example.com'
+                # },
+                'tags': profile and profile.tags.all() or None,
+                'days': None,
+                'status': None,
+                # 'status': [
+                #     'speaker',
+                #     'trainer'
+                # ],
+                'tutorials': None,
+                # 'tutorials': {
+                #     '2014-07-21': [
+                #         2,
+                #         4
+                #     ],
+                #     '2014-07-22': [
+                #         5,
+                #         8
+                #     ]
+                # },
+                'profile': user and (self.base_url + reverse('account_profile', kwargs={'uid': user.id})) or None
+            }
+            result.append(badge)
         return result
