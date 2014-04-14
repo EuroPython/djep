@@ -121,7 +121,7 @@ class BadgeExporter(object):
                 #     'level': 'Gold',
                 #     'website': 'http://example.com'
                 # },
-                'tags': profile and profile.tags.all() or None,
+                'tags': profile and list(profile.tags.values_list('name', flat=True).all()) or None,
                 'days': None,
                 'status': None,
                 # 'status': [
