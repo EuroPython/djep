@@ -98,7 +98,7 @@ class BadgeExporter(object):
         from .models import VenueTicket
 
         result = []
-        for ticket in tickets.select_related('purchase', 'user__profile'):
+        for ticket in tickets.select_related('purchase', 'user__profile__sponsor__level'):
             if not isinstance(ticket, VenueTicket):
                 LOG.warn('Ticket %d is of type %s' % (
                     ticket.pk, ticket.__class__.__name__))
@@ -141,5 +141,12 @@ class BadgeExporter(object):
                 # },
                 'profile': user and (self.base_url + reverse('account_profile', kwargs={'uid': user.id})) or None
             }
+            if profile and profile.sponsor and profile.sponsor.active:
+                sponsor = profile.sponsor
+                badge['sponsor'] = {
+                    'name': sponsor.name,
+                    'level': sponsor.level.name,
+                    'website': sponsor.external_url
+                }
             result.append(badge)
         return result
