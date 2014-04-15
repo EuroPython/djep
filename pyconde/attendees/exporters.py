@@ -74,9 +74,10 @@ class PurchaseExporter(object):
 
 class BadgeExporter(object):
 
-    def __init__(self, tickets, base_url=None):
+    def __init__(self, tickets, base_url=None, indent=settings.DEBUG):
         from django.contrib.sites.models import Site
         self.tickets = tickets
+        self.indent = indent
         if base_url is None:
             self.base_url = 'http://%s' % Site.objects.get_current().domain
         else:
@@ -87,7 +88,7 @@ class BadgeExporter(object):
     def json(self):
         import json
         data = self.export()
-        return json.dumps(data, indent=settings.DEBUG)
+        return json.dumps(data, indent=self.indent)
 
     def export(self):
         if getattr(self, '_data', None) is None:
