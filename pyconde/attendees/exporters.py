@@ -116,31 +116,12 @@ class BadgeExporter(object):
                 'uid': user and user.id or None,
                 'name': '%s %s' % (ticket.first_name, ticket.last_name),
                 'organization': ticket.organisation or purchase.company_name or profile and profile.organisation or None,
-                'sponsor': None,
-                # 'sponsor': {
-                #     'name': 'Awesome Company',
-                #     'level': 'Gold',
-                #     'website': 'http://example.com'
-                # },
                 'tags': profile and list(profile.tags.values_list('name', flat=True).all()) or None,
-                'days': None,
+                'profile': user and (self.base_url + reverse('account_profile', kwargs={'uid': user.id})) or None,
+                'sponsor': None,
+                'days': None,  # Only whole-conference tickets are sold online
                 'status': None,
-                # 'status': [
-                #     'speaker',
-                #     'trainer'
-                # ],
                 'tutorials': None,
-                # 'tutorials': {
-                #     '2014-07-21': [
-                #         2,
-                #         4
-                #     ],
-                #     '2014-07-22': [
-                #         5,
-                #         8
-                #     ]
-                # },
-                'profile': user and (self.base_url + reverse('account_profile', kwargs={'uid': user.id})) or None
             }
             if profile and profile.sponsor and profile.sponsor.active:
                 sponsor = profile.sponsor
@@ -149,5 +130,15 @@ class BadgeExporter(object):
                     'level': sponsor.level.name,
                     'website': sponsor.external_url
                 }
+
+            # TODO: add data to 'status' field:
+            #       'status': ['speaker', 'trainer']
+
+            # TODO: add data to 'tutorials' field:
+            #       'tutorials': {
+            #           '2014-07-21': [2, 4]
+            #           '2014-07-22': [5, 8]
+            #       }
+
             result.append(badge)
         return result

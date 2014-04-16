@@ -27,5 +27,6 @@ class Command(BaseCommand):
 
     def handle(self, *args, **options):
         qs = VenueTicket.objects.filter(purchase__state='payment_received')
-        exporter = BadgeExporter(qs, base_url=options['base_url'], indent=options['indent'])
+        exporter = BadgeExporter(qs, base_url=options['base_url'],
+            indent=options['indent'])
         self.stdout.write(exporter.json)
