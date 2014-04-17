@@ -46,6 +46,16 @@ def can_participate_in_review(user, proposal):
         return True
     return False
 
+
+def can_see_proposal_author(user):
+    return (
+        # if globally shown, fine
+        not conference_models.current_conference().anonymize_proposal_author
+        # user is explicitly allowed
+        or user.has_perm('proposals.see_proposal_author')
+    )
+
+
 def has_valid_mailaddr(user):
     mail = user.email
     return mail and EMAIL_REGEX.match(mail)
@@ -89,6 +99,9 @@ def send_comment_notification(comment, notify_author=False):
     current_user = comment.author
     if notify_author:
         current_user = None
+    # WARNING: We cannot use `can_see_proposal_author` here, because we
+    #          write a BCC mail to all involved reviewers and there will
+    #          probably be at least one not allowed to see the author
     hide_author = conference_models.current_conference().anonymize_proposal_author and\
         is_proposal_author(comment.author, proposal)
     body = render_to_string('reviews/emails/comment_notification.txt', {
@@ -121,13 +134,16 @@ def send_proposal_update_notification(version, notify_author=False):
     current_user = version.creator
     if notify_author:
         current_user = None
+    # WARNING: We cannot use `can_see_proposal_author` here, because we
+    #          write a BCC mail to all involved reviewers and there will
+    #          probably be at least one not allowed to see the author
     hide_author = conference_models.current_conference().anonymize_proposal_author and\
         is_proposal_author(current_user, proposal)
     body = render_to_string('reviews/emails/version_notification.txt', {
         'version': version,
         'proposal': proposal,
-        'site': Site.objects.get_current(),
         'hide_author': hide_author,
+        'site': Site.objects.get_current(),
         'proposal_url': reverse('reviews-proposal-details', kwargs={'pk': proposal.pk}),
     })
     if hide_author:
