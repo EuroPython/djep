@@ -48,12 +48,12 @@ def can_participate_in_review(user, proposal):
 
 
 def can_see_proposal_author(user):
-    return (
-        # if globally shown, fine
+    allowed_global = (
+        conference_models.current_conference() is not None and
         not conference_models.current_conference().anonymize_proposal_author
-        # user is explicitly allowed
-        or user.has_perm('proposals.see_proposal_author')
     )
+    allowed_user = user.has_perm('proposals.see_proposal_author')
+    return allowed_global or allowed_user
 
 
 def has_valid_mailaddr(user):
