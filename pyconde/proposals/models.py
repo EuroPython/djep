@@ -85,9 +85,6 @@ class AbstractProposal(models.Model):
 
     class Meta(object):
         abstract = True
-        permissions = (
-            ("see_proposal_author", _("Can always see the proposal author")),
-        )
 
     def clean(self):
         super(AbstractProposal, self).clean()
@@ -112,3 +109,6 @@ class Proposal(AbstractProposal):
         verbose_name = _("proposal")
         verbose_name_plural = _("proposals")
         ordering = ['-pk']
+        permissions = (
+            ("see_proposal_author", _("Can always see the proposal author")),
+        )
