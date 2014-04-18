@@ -86,7 +86,7 @@ class AbstractProposal(models.Model):
     class Meta(object):
         abstract = True
         permissions = (
-            ("see_proposal_author", "Can always see the proposal author"),
+            ("see_proposal_author", _("Can always see the proposal author")),
         )
 
     def clean(self):

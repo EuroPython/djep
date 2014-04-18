@@ -48,17 +48,20 @@ def can_participate_in_review(user, proposal):
 
 
 def can_see_proposal_author(user):
-    allowed_global = (
+    if (
         conference_models.current_conference() is not None and
         not conference_models.current_conference().anonymize_proposal_author
-    )
-    allowed_user = user.has_perm('proposals.see_proposal_author')
-    return allowed_global or allowed_user
+    ):
+        return True
+    if user.has_perm('proposals.see_proposal_author'):
+        return True
+    return False
 
 
 def has_valid_mailaddr(user):
     mail = user.email
     return mail and EMAIL_REGEX.match(mail)
+
 
 def is_proposal_author(user, proposal):
     if not hasattr(user, 'speaker_profile'):
