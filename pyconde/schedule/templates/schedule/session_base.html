@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block bodyclass %}{{ block.super }} with-sidebar{% endblock %}
+{% block content %}
+<div class="row">
+    <div id="details">{% block details %}{% endblock %}</div>
+    <div id="sidebar">{% block sidebar %}{% endblock %}</div>
+</div>
+{% endblock %}

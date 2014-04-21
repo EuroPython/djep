@@ -1,5 +1,9 @@
-{% extends "cms/page_templates/fullpage.html" %}
+{% extends "base.html" %}
 {% load i18n %}
-{% block apphook %}
-{% include "schedule/plugins/complete.html" %}
+
+{% block title %}{% trans "Schedule" %}{% endblock %}
+{% block page_title %}{% trans "Schedule" %}{% endblock %}
+
+{% block content %}
+    {% include "schedule/plugins/complete.html" %}
 {% endblock %}

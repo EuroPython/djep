@@ -1,3 +1,5 @@
 {% extends "schedule/session_listing.html" %}
 {% load i18n %}
+
+{% block title %}{% blocktrans with location=location %}Sessions in {{ location }}{% endblocktrans %}{% endblock %}
 {% block page_title %}{% blocktrans with location=location %}Sessions in {{ location }}{% endblocktrans %}{% endblock %}

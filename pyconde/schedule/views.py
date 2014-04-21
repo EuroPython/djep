@@ -24,10 +24,10 @@ def view_schedule(request):
     return TemplateResponse(
         request=request,
         context={
-            'schedule': utils.create_schedule()
-            },
+            'schedule': utils.create_schedule(row_duration=15, merge_sections=True)
+        },
         template='schedule/schedule.html'
-        )
+    )
 
 
 def session_by_proposal(request, proposal_pk):
@@ -40,7 +40,7 @@ def session_by_proposal(request, proposal_pk):
     try:
         session = proposal.sessions.all()[0]
         return HttpResponseRedirect(session.get_absolute_url())
-    except:
+    except IndexError:
         return TemplateResponse(
             request=request,
             template='schedule/session_not_available.html',
@@ -54,8 +54,8 @@ def sessions_by_tag(request, tag):
     """
     Lists all talks with a given tag on a single page.
     """
-    sessions = models.Session.objects.select_related('location')\
-        .filter(tags__name=tag).order_by('title')
+    sessions = models.Session.objects.prefetch_related('location')\
+        .filter(released=True, tags__name=tag).order_by('title')
     return TemplateResponse(
         request=request,
         template='schedule/sessions_by_tag.html',
@@ -71,8 +71,8 @@ def sessions_by_location(request, pk):
     Lists all talks with a given tag on a single page.
     """
     location = get_object_or_404(conference_models.Location, pk=pk)
-    sessions = models.Session.objects.select_related('location')\
-        .filter(location=location).order_by('start')
+    sessions = models.Session.objects.prefetch_related('location')\
+        .filter(released=True, location=location).order_by('start')
     return TemplateResponse(
         request=request,
         template='schedule/sessions_by_location.html',
@@ -87,7 +87,7 @@ def view_session(request, session_pk):
     """
     Renders all information available about a session.
     """
-    session = get_object_or_404(models.Session, pk=session_pk)
+    session = get_object_or_404(models.Session, pk=session_pk, released=True)
     return TemplateResponse(
         request=request,
         context={
@@ -114,13 +114,13 @@ def view_sideevent(request, pk):
 
 @login_required
 def edit_session(request, session_pk):
-    session = get_object_or_404(models.Session, pk=session_pk)
+    session = get_object_or_404(models.Session, pk=session_pk, released=True)
+    if not utils.can_edit_session(request.user, session):
+        return create_403()
     if session.end < datetime.datetime.now():
         form = forms.EditSessionCoverageForm
     else:
         form = forms.EditSessionForm
-    if not utils.can_edit_session(request.user, session):
-        return create_403()
     if request.method == 'POST':
         form = form(instance=session, data=request.POST)
         if form.is_valid():
@@ -132,10 +132,10 @@ def edit_session(request, session_pk):
     return TemplateResponse(
         request=request,
         context={
-        'form': form,
-        'session': session
+            'form': form,
+            'session': session
         },
-        template='schedule/edit_session.html'
+        template='schedule/session_edit.html'
     )
 
 

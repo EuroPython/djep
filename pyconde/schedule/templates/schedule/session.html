@@ -1,76 +1,79 @@
-{% extends "site_base.html" %}
+{% extends "schedule/session_base.html" %}
 {% load i18n markup speaker_tags embed_tags %}
-{% block title %}{% trans "session" %}: {{ session.title }}{% endblock %}
-{% block og_title %}{% trans "session" %}: {{ session.title }}{% endblock %}
-{% block og_description %}{{ session.abstract|truncatewords:100 }}{% endblock %}
-{% block meta_description %}{{ session.abstract|truncatewords:100 }}{% endblock %}
+
+{% block title %}{% trans "Session" %}: {{ session.title }}{% endblock %}
+{% block page_title %}{% trans "Session" %}: {{ session.title }}{% endblock %}
 {% block bodycls %}sessionpage{% endblock %}
-{% block body %}
-<article class="session">
-<h1>{% trans "session" %}: {{ session.title }}{% if session.track %} ({{ session.track.name }}){% endif %}</h1>
-{% if can_edit %}
-<div class="actions">
-    <a class="btn" href="edit/"><i class="icon-edit"></i>{% trans "Edit" %}</a>
-</div>
-{% endif %}
-<div class="meta">
-{% if session.tags %}
-<dl class="tags"><dt>{% trans "Tags" %}:</dt><dd>
-    {% for tag in session.tags.all %}
-    <a href="{% url 'sessions_by_tag' tag=tag.name %}" rel="tag" class="tag">{{ tag.name }}</a>{% if not forloop.last %},  {% endif %}
-    {% endfor %}
-</dd></dl>
-{% endif %}
-{% if session.location %}
-<dl>
-    <dt>{% trans "Location" %}:</dt>
-    <dd><a href="{% url 'sessions_by_location' pk=session.location.pk %}">{{ session.location }}</a></dd>
-</dl>
-{% endif %}
-{% if session.start or session.end %}
-<dl>
-    <dt>{% trans "Duration" %}:</dt>
-    <dd>{{ session.start|date:"DATE_FORMAT" }} von {{ session.start|time:"H:i" }} - {{ session.end|time:"H:i" }}</dd>
-</dl>
-{% endif %}
-<dl>
-    <dt>{% trans "Language" %}:</dt>
-    <dd>{{ session.get_language_display }}</dd>
-</dl>
-</div>
 
-{% if session.kind.slug == 'tutorial' and session.description %}
-    <div class="description">
-        {{ session.description|markdown:"safe" }}
-    </div>
-{% endif %}
+{% block details %}
+    <article class="session">
+        {% if can_edit %}
+            <div class="actions">
+                <a class="btn" href="edit/"><i class="icon-edit"></i>{% trans "Edit" %}</a>
+            </div>
+        {% endif %}
+        <div class="meta">
+            {% if session.tags %}
+                <dl class="tags"><dt>{% trans "Tags" %}:</dt><dd>
+                    {% for tag in session.tags.all %}
+                        <a href="{% url 'sessions_by_tag' tag=tag.name %}" rel="tag" class="tag">{{ tag.name }}</a>{% if not forloop.last %},  {% endif %}
+                    {% endfor %}
+                </dd></dl>
+            {% endif %}
+            {% if session.location.all %}
+                <dl>
+                    <dt>{% trans "Location" %}:</dt>
+                    <dd>
+                        {% for loc in session.location.all %}
+                            <a href="{% url 'sessions_by_location' pk=loc.pk %}">{{ loc }}</a>{% if not forloop.first %}, {% endif %}
+                        {% endfor %}
+                    </dd>
+                </dl>
+            {% endif %}
+            {% if session.start or session.end %}
+                <dl>
+                    <dt>{% trans "Duration" %}:</dt>
+                    <dd>{{ session.start|date:"DATE_FORMAT" }} von {{ session.start|time:"H:i" }} - {{ session.end|time:"H:i" }}</dd>
+                </dl>
+            {% endif %}
+            <dl>
+                <dt>{% trans "Language" %}:</dt>
+                <dd>{{ session.get_language_display }}</dd>
+            </dl>
+        </div>
 
-<div class="abstract">
-    {{ session.abstract|markdown:"safe" }}
-</div>
+        {% if session.kind.slug == 'tutorial' and session.description %}
+            <div class="description">
+                {{ session.description|markdown:"safe" }}
+            </div>
+        {% endif %}
 
-{% if session.slides_url %}
-<div class="slides">
-    <h2>Folien</h2>
-    {% embed_slides session.slides_url %}
-</div>
-{% endif %}
+        <div class="abstract">
+            {{ session.abstract|markdown:"safe" }}
+        </div>
 
-{% if session.video_url %}
-<div class="video">
-    <h2>Video</h2>
-    {% embed_video session.video_url %}
-</div>
-{% endif %}
+        {% if session.slides_url %}
+            <div class="slides">
+                <h2>Folien</h2>
+                {% embed_slides session.slides_url %}
+            </div>
+        {% endif %}
 
-</article>
+        {% if session.video_url %}
+            <div class="video">
+                <h2>Video</h2>
+                {% embed_video session.video_url %}
+            </div>
+        {% endif %}
+    </article>
 {% endblock %}
+
 {% block sidebar %}
-<div id="speakers" class="box">
-    <h2>{% trans "Speakers:" %}</h2>
-    {% speaker_box session.speaker %}
-    {% for speaker in session.additional_speakers.all %}
-    {% speaker_box speaker %}
-    {% endfor %}
-</div>
+    <div id="speakers" class="box">
+        <h2>{% trans "Speakers:" %}</h2>
+        {% speaker_box session.speaker %}
+        {% for speaker in session.additional_speakers.all %}
+            {% speaker_box speaker %}
+        {% endfor %}
+    </div>
 {% endblock %}

@@ -1,3 +1,5 @@
 {% extends "schedule/session_listing.html" %}
 {% load i18n %}
+
+{% block title %}{% blocktrans with tag=tag %}Sessions tagged with "{{ tag }}"{% endblocktrans %}{% endblock %}
 {% block page_title %}{% blocktrans with tag=tag %}Sessions tagged with "{{ tag }}"{% endblocktrans %}{% endblock %}

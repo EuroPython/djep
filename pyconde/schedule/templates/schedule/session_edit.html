@@ -1,0 +1,44 @@
+{% extends "schedule/session_base.html" %}
+{% load crispy_forms_tags i18n %}
+
+{% block title %}{% blocktrans with title=session.title %}Edit session: {{ title }}{% endblocktrans %}{% endblock %}
+{% block page_title %}{% blocktrans with title=session.title %}Edit session: {{ title }}{% endblocktrans %}{% endblock %}
+
+{% block details %}
+    {% crispy form %}
+{% endblock %}
+
+{% block sidebar %}
+    <div class="box">
+        <h2>{% trans "About this session" %}</h2>
+        {% if session.tags %}
+            <dl class="tags">
+                <dt>{% trans "Tags:" %}</dt><dd>
+                    {% for tag in session.tags.all %}
+                    <a href="{% url 'sessions_by_tag' tag=tag.name %}" rel="tag" class="tag">{{ tag.name }}</a>{% if not forloop.last %},  {% endif %}
+                    {% endfor %}
+                </dd>
+            </dl>
+        {% endif %}
+        {% if session.start %}
+            <dl>
+                <dt>{% trans "Date:" %}</dt>
+                <dd>{{ session.start|date:"DATE_FORMAT" }}</dd>
+            </dl>
+        {% endif %}
+        {% if session.start or session.end %}
+            <dl>
+                <dt>{% trans "Time:" %}</dt>
+                <dd>
+                    {{ session.start|time:"TIME_FORMAT" }} - {{ session.end|time:"TIME_FORMAT" }}
+                </dd>
+            </dl>
+        {% endif %}
+        {% if session.location_pretty %}
+            <dl>
+                <dt>{% trans "Location:" %}</dt>
+                <dd>{{ session.location_pretty }}</dd>
+            </dl>
+        {% endif %}
+    </div>
+{% endblock %}
