@@ -97,7 +97,7 @@
                     {% if item.type == 'comment' %}
                         {% if item.item.deleted %}
                         <dd>
-                            {% if not item.hide_author %}
+                            {% if can_see_proposal_author %}
                                 {% blocktrans with author=item.item.author|display_name %}This comment by {{ author }} was deleted.{% endblocktrans %}
                             {% else %}
                                 {% trans "This comment was deleted." %}
@@ -105,7 +105,7 @@
                             {% if item.item.author != item.item.deleted_by %}{% blocktrans with deleter=item.item.deleted_by %}(by {{ deleter }}){% endblocktrans %}{% endif %}
                         </dd>
                         {% else %}
-                        <dd><div class="content">{{ item.item.content|markdown:"safe" }}</div><cite>-- {% if item.hide_author %}{% trans "Proposal's author" %}{% else %}{{ item.item.author|display_name }}{% endif %}
+                        <dd><div class="content">{{ item.item.content|markdown:"safe" }}</div><cite>-- {% if can_see_proposal_author %}{{ item.item.author|display_name }}{% else %}{% trans "Proposal's author" %}{% endif %}
                             {% if item.item.proposal_version %}
                                 {% url 'reviews-version-details' proposal_pk=proposal.pk pk=item.item.proposal_version.pk as revurl %}
                                 {% blocktrans with url=revurl date=item.item.proposal_version.pub_date %}(based on the <a href="{{ url }}">version from {{ date }}</a>){% endblocktrans %}
@@ -119,10 +119,10 @@
                         </dd>
                         {% endif %}
                     {% else %}
-                        {% if current_conference.anonymize_proposal_author %}
-                            <dd>{% trans "The author has updated the proposal." %}
-                        {% else %}
+                        {% if can_see_proposal_author %}
                             <dd>{% blocktrans with user=item.item.creator|display_name %}{{ user }} has updated the proposal.{% endblocktrans %}</dd>
+                        {% else %}
+                            <dd>{% trans "The author has updated the proposal." %}
                         {% endif %}
                     {% endif %}
                 </dl>

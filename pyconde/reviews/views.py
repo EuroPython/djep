@@ -433,7 +433,6 @@ class ProposalDetailsView(generic_views.DetailView):
         return {
             'type': type_,
             'item': item,
-            'hide_author': current_conference().anonymize_proposal_author and utils.is_proposal_author(user, self.object),
         }
 
 

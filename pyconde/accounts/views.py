@@ -98,7 +98,7 @@ class ProfileView(generic_views.TemplateView):
         user = get_object_or_404(auth_models.User, pk=uid)
         speaker_profile = user.speaker_profile
         sessions = None
-        profile = user.get_profile()
+        profile = user.profile
         if speaker_profile:
             sessions = list(speaker_profile.sessions.all()) + list(speaker_profile.session_participations.all())
         return {

@@ -11,6 +11,7 @@ from ..proposals import models as proposal_models
 from ..proposals import admin as proposal_admin
 from ..reviews import models as review_models
 from ..reviews import admin as review_admin
+from ..speakers import models as speaker_models
 
 from . import models
 from . import exporters
@@ -82,6 +83,16 @@ class HasSelectedTimeslotsFilter(admin.SimpleListFilter):
 
 class SessionAdminForm(forms.ModelForm):
 
+    def __init__(self, *args, **kwargs):
+        super(SessionAdminForm, self).__init__(*args, **kwargs)
+        speakers = speaker_models.Speaker.objects.get_qs_for_formfield()
+        proposals = self.fields['proposal'].queryset.select_related('conference') \
+                                                    .only('title',
+                                                          'conference__title')
+        self.fields['speaker'].queryset = speakers
+        self.fields['additional_speakers'].queryset = speakers
+        self.fields['proposal'].queryset = proposals
+
     def clean_location(self):
         if not self.cleaned_data['location']:
             raise forms.ValidationError(ugettext('The location is mandatory.'))
@@ -89,12 +100,51 @@ class SessionAdminForm(forms.ModelForm):
 
 
 class SessionAdmin(admin.ModelAdmin):
-    list_display = ("title", "kind", "conference", "duration", "speaker", "track", "location",
-                    "list_available_timeslots")
+    list_display = ("title", "kind", "conference", "duration", "speaker",
+                    "track", "location", "list_available_timeslots")
     list_filter = ("conference", "kind", "duration", "track", "location",
                    HasSelectedTimeslotsFilter)
     actions = [create_simple_session_export, episodes_export]
     form = SessionAdminForm
+
+    def queryset(self, request):
+        qs = super(SessionAdmin, self).queryset(request)
+        view = getattr(self, 'view', None)
+        if view == 'list':
+            qs = qs.select_related(
+                'conference', 'kind', 'duration', 'track', 'location',
+                'speaker__user__profile') \
+            .prefetch_related('available_timeslots') \
+            .only('title',
+                  'kind__name',
+                  'conference__title',
+                  'duration__label', 'duration__minutes',
+                  'speaker__user__profile__display_name',
+                  'speaker__user__profile__user',
+                  'speaker__user__username',
+                  'track__name',
+                  'location__name',
+                  'proposal__available_timeslots__date',
+                  'proposal__available_timeslots__slot')
+        elif view == 'form':
+            qs = qs.select_related(
+                'conference', 'kind', 'duration', 'track', 'location',
+                'speaker__user__profile', 'additional_speakers__user__profile',
+                'available_timeslots'
+            )
+        return qs
+
+    def add_view(self, *args, **kwargs):
+        self.view = 'form'
+        return super(SessionAdmin, self).add_view(*args, **kwargs)
+
+    def changelist_view(self, *args, **kwargs):
+        self.view = 'list'
+        return super(SessionAdmin, self).changelist_view(*args, **kwargs)
+
+    def change_view(self, *args, **kwargs):
+        self.view = 'form'
+        return super(SessionAdmin, self).change_view(*args, **kwargs)
 
     def list_available_timeslots(self, obj):
         return u'; '.join(

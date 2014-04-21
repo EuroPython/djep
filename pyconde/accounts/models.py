@@ -46,7 +46,7 @@ class Profile(models.Model):
 
     This is also used as AUTH_PROFILE_MODULE.
     """
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, related_name='profile')
     short_info = models.TextField(_('short info'), blank=True)
     avatar = ThumbnailerImageField(
         _('avatar'), upload_to='avatars', null=True, blank=True,

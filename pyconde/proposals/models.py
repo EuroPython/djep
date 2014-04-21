@@ -109,3 +109,6 @@ class Proposal(AbstractProposal):
         verbose_name = _("proposal")
         verbose_name_plural = _("proposals")
         ordering = ['-pk']
+        permissions = (
+            ("see_proposal_author", _("Can always see the proposal author")),
+        )
