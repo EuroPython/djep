@@ -80,13 +80,16 @@ def create_section_schedule(section, row_duration=30, uncached=False):
         side_events = section.side_events
 
     sessions = sessions.select_related('location', 'audience_level', 'track',
-                                        'kind', 'speaker__user__profile') \
-                        .prefetch_related('additional_speakers__user__profile') \
-                        .filter(released=True) \
-                        .order_by('start') \
-                        .all()
-    side_events = side_events.select_related('location').order_by('start').all()
-
+                                       'kind', 'speaker__user__profile') \
+                       .prefetch_related('additional_speakers__user__profile',
+                                         'location') \
+                       .filter(released=True, start__isnull=False, end__isnull=False) \
+                       .order_by('start') \
+                       .all()
+    side_events = side_events.select_related('location') \
+                             .filter(start__isnull=False, end__isnull=False) \
+                             .order_by('start') \
+                             .all()
 
     evt_cache = {}
 
@@ -94,13 +97,13 @@ def create_section_schedule(section, row_duration=30, uncached=False):
     for session in sessions:
         if session.is_global:
             continue
-        locations.add(session.location)
+        locations |= set(session.location.all())
     for evt in side_events:
         # Global events span all session locations and therefor the location
         # should not be included in the columns list
         if evt.is_global:
             continue
-        locations.add(evt.location)
+        locations |= set(evt.location.all())
     locations = sorted(locations, cmp=lambda a, b: a.order - b.order)
 
     events = sorted(itertools.chain(sessions, side_events),
@@ -152,6 +155,7 @@ def create_section_schedule(section, row_duration=30, uncached=False):
     # Strip out heading and tailing empty rows
     for day in days:
         day.rows = _strip_empty_rows(day.rows)
+        day.rows = _merge_adjacent_row_cells(day.rows)
 
     if not uncached:
         cache.set(schedule_cache_key, (locations, days), 120)
@@ -169,7 +173,8 @@ class GridRow(object):
         self.event_by_location = {}
         self.cells = events
         for evt in events:
-            self.event_by_location[evt.location] = evt
+            for loc in evt.location.all():
+                self.event_by_location[loc] = evt
 
     def is_pause_row(self):
         if self.pause is not None:
@@ -187,6 +192,9 @@ class GridRow(object):
 
     def __repr__(self):
         return str(self)
+
+    def __len__(self):
+        return len(self.cells)
 
     def reorder_by_location(self, locations):
         events = [self.event_by_location[loc] for loc in locations]
@@ -216,9 +224,10 @@ class GridCell(object):
     or a completely empty placeholder.
     """
 
-    def __init__(self, event, rowspan):
+    def __init__(self, event, rowspan, colspan=1):
         self.is_filler = False
         self.rowspan = rowspan
+        self.colspan = colspan
         self.speakers = []
         self.track_name = None
         self.name = None
@@ -235,7 +244,6 @@ class GridCell(object):
         self.session_kind = None
         if event is not None:
             self.event = event
-            self.type = event.__class__.__name__.lower()
             if hasattr(event, 'get_absolute_url'):
                 self.url = event.get_absolute_url()
             self.start = event.start
@@ -370,6 +378,38 @@ def _pad_row_for_locations(row, prev_row, locations):
             filler.is_filler = True
             row.event_by_location[location] = filler
     row.reorder_by_location(locations)
+
+
+def _merge_adjacent_row_cells(rows):
+    """
+    Combines adjacent cells in the same row iff they belong to the same event.
+
+    .. warning::
+
+        This function cannot handle overlapping events in the same room, eg.
+
+            A A
+            A B
+
+        will result in
+
+            A A
+            A A B
+
+        meaning, there is a table column overhang.
+    """
+    for ridx, row in enumerate(rows):
+        if len(row) < 1:
+            continue
+        start_cell = row.cells[0]
+        for cidx, cell in enumerate(row.cells[1:], 1):
+            if start_cell is cell:
+                start_cell.colspan += 1
+                row.cells[cidx] = None
+            else:
+                start_cell = cell
+        row.cells = filter(None, row.cells)
+    return rows
 
 
 def can_edit_session(user, session):

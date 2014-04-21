@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 import django.db.models.signals as model_signals
 from django.core.cache import cache
 
+from django.utils.encoding import force_text
 from cms.models import CMSPlugin
 
 
@@ -17,7 +18,20 @@ from ..conference import models as conference_models
 LOG = logging.getLogger(__name__)
 
 
-class Session(proposal_models.AbstractProposal):
+class LocationMixin(object):
+
+    def location_pretty(self):
+        pretty = getattr(self, '_location_pretty', None)
+        if pretty is None:
+            pretty = ', '.join(map(force_text, self.location.all()))
+            setattr(self, '_location_pretty', pretty)
+        return pretty
+    location_pretty.short_description = _('Locations')
+
+    location_pretty = property(location_pretty)
+
+
+class Session(LocationMixin, proposal_models.AbstractProposal):
     """
     The session is the final step on the way that started with the initial
     session proposal. Because of that it also shares the same fields with
@@ -29,11 +43,9 @@ class Session(proposal_models.AbstractProposal):
     end = models.DateTimeField(_("end time"), blank=True, null=True)
     section = models.ForeignKey(conference_models.Section, blank=True,
         null=True, verbose_name=_("section"), related_name='sessions')
-    proposal = models.ForeignKey(proposal_models.Proposal,
-        blank=True, null=True,
-        related_name='session',
-        verbose_name=_("proposal"))
-    location = models.ForeignKey(conference_models.Location,
+    proposal = models.ForeignKey(proposal_models.Proposal, blank=True,
+        null=True, related_name='session', verbose_name=_("proposal"))
+    location = models.ManyToManyField(conference_models.Location,
         verbose_name=_("location"), blank=True, null=True)
     is_global = models.BooleanField(_("is global"), default=False)
     released = models.BooleanField(_("released"), default=False)
@@ -87,7 +99,7 @@ class Session(proposal_models.AbstractProposal):
         verbose_name_plural = _('sessions')
 
 
-class SideEvent(models.Model):
+class SideEvent(LocationMixin, models.Model):
     """
     Side events are either social events or things like breaks and info events
     that take place during the conference days but are not sessions.
@@ -98,7 +110,7 @@ class SideEvent(models.Model):
     end = models.DateTimeField(_("end time"))
     section = models.ForeignKey(conference_models.Section, blank=True,
         null=True, verbose_name=_("section"), related_name='side_events')
-    location = models.ForeignKey(conference_models.Location, blank=True,
+    location = models.ManyToManyField(conference_models.Location, blank=True,
         null=True, verbose_name=_("location"))
     is_global = models.BooleanField(_("is global"), default=False)
     is_pause = models.BooleanField(_("is break"), default=False)

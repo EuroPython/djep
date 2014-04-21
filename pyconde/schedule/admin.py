@@ -1,10 +1,11 @@
+from __future__ import unicode_literals
 import json
 
 from django import forms
 from django.contrib import admin
 from django.contrib import messages
-from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ugettext
+from django.utils.encoding import force_text
+from django.utils.translation import ugettext, ugettext_lazy as _
 from django.http import HttpResponse
 
 from ..proposals import models as proposal_models
@@ -64,13 +65,13 @@ episodes_export.short_description = _("episodes export")
 
 
 class HasSelectedTimeslotsFilter(admin.SimpleListFilter):
-    title = _(u'Timeslot Preferences')
+    title = _('Timeslot Preferences')
     parameter_name = 'ts'
 
     def lookups(self, request, model_admin):
         return (
-            ('y', _(u'with preferences')),
-            ('n', _(u'w/o preferences'))
+            ('y', _('with preferences')),
+            ('n', _('w/o preferences'))
         )
 
     def queryset(self, request, queryset):
@@ -92,16 +93,12 @@ class SessionAdminForm(forms.ModelForm):
         self.fields['speaker'].queryset = speakers
         self.fields['additional_speakers'].queryset = speakers
         self.fields['proposal'].queryset = proposals
-
-    def clean_location(self):
-        if not self.cleaned_data['location']:
-            raise forms.ValidationError(ugettext('The location is mandatory.'))
-        return self.cleaned_data['location']
+        self.fields['location'].required = True
 
 
 class SessionAdmin(admin.ModelAdmin):
     list_display = ("title", "kind", "conference", "duration", "speaker",
-                    "track", "location", "list_available_timeslots")
+                    "track", "location_pretty", "list_available_timeslots")
     list_filter = ("conference", "kind", "duration", "track", "location",
                    HasSelectedTimeslotsFilter)
     actions = [create_simple_session_export, episodes_export]
@@ -111,21 +108,20 @@ class SessionAdmin(admin.ModelAdmin):
         qs = super(SessionAdmin, self).queryset(request)
         view = getattr(self, 'view', None)
         if view == 'list':
-            qs = qs.select_related(
-                'conference', 'kind', 'duration', 'track', 'location',
-                'speaker__user__profile') \
-            .prefetch_related('available_timeslots') \
-            .only('title',
-                  'kind__name',
-                  'conference__title',
-                  'duration__label', 'duration__minutes',
-                  'speaker__user__profile__display_name',
-                  'speaker__user__profile__user',
-                  'speaker__user__username',
-                  'track__name',
-                  'location__name',
-                  'proposal__available_timeslots__date',
-                  'proposal__available_timeslots__slot')
+            qs = qs.select_related('conference', 'kind', 'duration', 'track',
+                                   'speaker__user__profile') \
+                   .prefetch_related('available_timeslots', 'location') \
+                   .only('title',
+                         'kind__name',
+                         'conference__title',
+                         'duration__label', 'duration__minutes',
+                         'speaker__user__profile__display_name',
+                         'speaker__user__profile__user',
+                         'speaker__user__username',
+                         'track__name',
+                         'location__name',
+                         'proposal__available_timeslots__date',
+                         'proposal__available_timeslots__slot')
         elif view == 'form':
             qs = qs.select_related(
                 'conference', 'kind', 'duration', 'track', 'location',
@@ -147,13 +143,12 @@ class SessionAdmin(admin.ModelAdmin):
         return super(SessionAdmin, self).change_view(*args, **kwargs)
 
     def list_available_timeslots(self, obj):
-        return u'; '.join(
-            unicode(slot) for slot in obj.proposal.available_timeslots.all())
-    list_available_timeslots.short_description = _(u'Timeslot Preferences')
+        return '; '.join(map(force_text, obj.proposal.available_timeslots.all()))
+    list_available_timeslots.short_description = _('Timeslot Preferences')
 
 
 class SideEventAdmin(admin.ModelAdmin):
-    list_display = ['name', 'start', 'end', 'conference', 'location']
+    list_display = ['name', 'start', 'end', 'conference', 'location_pretty']
     list_filter = ['conference', 'location']
 
 

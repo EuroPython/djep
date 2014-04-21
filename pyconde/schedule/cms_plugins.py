@@ -1,11 +1,10 @@
 from django.utils.translation import ugettext_lazy as _
-from  django.utils.datastructures import SortedDict
+from django.utils.datastructures import SortedDict
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
 
-from . import utils
-from . import models
+from . import models, utils
 
 
 class CMSCompleteSchedulePlugin(CMSPluginBase):
