@@ -1,0 +1,991 @@
+[
+{
+    "pk": 1, 
+    "model": "conference.conference", 
+    "fields": {
+        "reviews_active": null, 
+        "end_date": "2014-07-27", 
+        "title": "EuroPython 2014", 
+        "reviews_end_date": "2014-03-19T17:00:00", 
+        "anonymize_proposal_author": true, 
+        "reviews_start_date": "2014-03-05T00:00:00", 
+        "timezone": "Europe/Berlin", 
+        "start_date": "2014-07-21"
+    }
+},
+{
+    "pk": 1, 
+    "model": "conference.section", 
+    "fields": {
+        "conference": 1, 
+        "name": "Talk", 
+        "end_date": "2014-07-25", 
+        "order": 0, 
+        "start_date": "2014-07-21", 
+        "slug": "", 
+        "description": ""
+    }
+},
+{
+    "pk": 1, 
+    "model": "conference.audiencelevel", 
+    "fields": {
+        "conference": 1, 
+        "level": null, 
+        "name": "Beginner", 
+        "slug": "beginner"
+    }
+},
+{
+    "pk": 1, 
+    "model": "conference.sessionduration", 
+    "fields": {
+        "conference": 1, 
+        "minutes": 30, 
+        "slug": "short-talk", 
+        "label": "Short talk"
+    }
+},
+{
+    "pk": 1, 
+    "model": "conference.sessionkind", 
+    "fields": {
+        "conference": 1, 
+        "name": "Talk", 
+        "end_date": null, 
+        "slug": "Talk", 
+        "closed": true, 
+        "sections": [
+            1
+        ], 
+        "start_date": null
+    }
+},
+{
+    "pk": 1, 
+    "model": "conference.location", 
+    "fields": {
+        "conference": 1, 
+        "used_for_sessions": true, 
+        "order": 10, 
+        "name": "Room 1", 
+        "slug": "room-1"
+    }
+},
+{
+    "pk": 2, 
+    "model": "conference.location", 
+    "fields": {
+        "conference": 1, 
+        "used_for_sessions": true, 
+        "order": 20, 
+        "name": "Room 2", 
+        "slug": "room-2"
+    }
+},
+{
+    "pk": 3, 
+    "model": "conference.location", 
+    "fields": {
+        "conference": 1, 
+        "used_for_sessions": true, 
+        "order": 30, 
+        "name": "Room 3", 
+        "slug": "room-3"
+    }
+},
+{
+    "pk": 4, 
+    "model": "conference.location", 
+    "fields": {
+        "conference": 1, 
+        "used_for_sessions": true, 
+        "order": 40, 
+        "name": "Room 4", 
+        "slug": "room-4"
+    }
+},
+{
+    "pk": 5, 
+    "model": "conference.location", 
+    "fields": {
+        "conference": 1, 
+        "used_for_sessions": true, 
+        "order": 50, 
+        "name": "Room 5", 
+        "slug": "room-5"
+    }
+},
+{
+    "pk": 1, 
+    "model": "proposals.proposal", 
+    "fields": {
+        "conference": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "kind": 1, 
+        "accept_recording": true, 
+        "description": "Description 1", 
+        "language": "en", 
+        "title": "Talk 1", 
+        "track": null, 
+        "abstract": "Abstract 1", 
+        "additional_speakers": [], 
+        "modified_date": null, 
+        "speaker": 1, 
+        "duration": 1, 
+        "available_timeslots": [], 
+        "notes": "", 
+        "audience_level": 1
+    }
+},
+{
+    "pk": 2, 
+    "model": "proposals.proposal", 
+    "fields": {
+        "conference": 1, 
+        "submission_date": "2014-04-21T19:22:10.365", 
+        "kind": 1, 
+        "accept_recording": true, 
+        "description": "Description 2", 
+        "language": "en", 
+        "title": "Talk 2", 
+        "track": null, 
+        "abstract": "Abstract 2", 
+        "additional_speakers": [], 
+        "modified_date": null, 
+        "speaker": 1, 
+        "duration": 1, 
+        "available_timeslots": [], 
+        "notes": "", 
+        "audience_level": 1
+    }
+},
+{
+    "pk": 3, 
+    "model": "proposals.proposal", 
+    "fields": {
+        "conference": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "kind": 1, 
+        "accept_recording": true, 
+        "description": "Description 3", 
+        "language": "en", 
+        "title": "Talk 3", 
+        "track": null, 
+        "abstract": "Abstract 3", 
+        "additional_speakers": [], 
+        "modified_date": null, 
+        "speaker": 1, 
+        "duration": 1, 
+        "available_timeslots": [], 
+        "notes": "", 
+        "audience_level": 1
+    }
+},
+{
+    "pk": 4, 
+    "model": "proposals.proposal", 
+    "fields": {
+        "conference": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "kind": 1, 
+        "accept_recording": true, 
+        "description": "Description 4", 
+        "language": "en", 
+        "title": "Talk 4", 
+        "track": null, 
+        "abstract": "Abstract 4", 
+        "additional_speakers": [], 
+        "modified_date": null, 
+        "speaker": 1, 
+        "duration": 1, 
+        "available_timeslots": [], 
+        "notes": "", 
+        "audience_level": 1
+    }
+},
+{
+    "pk": 5, 
+    "model": "proposals.proposal", 
+    "fields": {
+        "conference": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "kind": 1, 
+        "accept_recording": true, 
+        "description": "Description 5", 
+        "language": "en", 
+        "title": "Talk 5", 
+        "track": null, 
+        "abstract": "Abstract 5", 
+        "additional_speakers": [], 
+        "modified_date": null, 
+        "speaker": 1, 
+        "duration": 1, 
+        "available_timeslots": [], 
+        "notes": "", 
+        "audience_level": 1
+    }
+},
+{
+    "pk": 6, 
+    "model": "proposals.proposal", 
+    "fields": {
+        "conference": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "kind": 1, 
+        "accept_recording": true, 
+        "description": "Description 6", 
+        "language": "en", 
+        "title": "Talk 6", 
+        "track": null, 
+        "abstract": "Abstract 6", 
+        "additional_speakers": [], 
+        "modified_date": null, 
+        "speaker": 1, 
+        "duration": 1, 
+        "available_timeslots": [], 
+        "notes": "", 
+        "audience_level": 1
+    }
+},
+{
+    "pk": 7, 
+    "model": "proposals.proposal", 
+    "fields": {
+        "conference": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "kind": 1, 
+        "accept_recording": true, 
+        "description": "Description 7", 
+        "language": "en", 
+        "title": "Talk 7", 
+        "track": null, 
+        "abstract": "Abstract 7", 
+        "additional_speakers": [], 
+        "modified_date": null, 
+        "speaker": 1, 
+        "duration": 1, 
+        "available_timeslots": [], 
+        "notes": "", 
+        "audience_level": 1
+    }
+},
+{
+    "pk": 8, 
+    "model": "proposals.proposal", 
+    "fields": {
+        "conference": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "kind": 1, 
+        "accept_recording": true, 
+        "description": "Description 8", 
+        "language": "en", 
+        "title": "Talk 8", 
+        "track": null, 
+        "abstract": "Abstract 8", 
+        "additional_speakers": [], 
+        "modified_date": null, 
+        "speaker": 1, 
+        "duration": 1, 
+        "available_timeslots": [], 
+        "notes": "", 
+        "audience_level": 1
+    }
+},
+{
+    "pk": 9, 
+    "model": "proposals.proposal", 
+    "fields": {
+        "conference": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "kind": 1, 
+        "accept_recording": true, 
+        "description": "Description 9", 
+        "language": "en", 
+        "title": "Talk 9", 
+        "track": null, 
+        "abstract": "Abstract 9", 
+        "additional_speakers": [], 
+        "modified_date": null, 
+        "speaker": 1, 
+        "duration": 1, 
+        "available_timeslots": [], 
+        "notes": "", 
+        "audience_level": 1
+    }
+},
+{
+    "pk": 10, 
+    "model": "proposals.proposal", 
+    "fields": {
+        "conference": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "kind": 1, 
+        "accept_recording": true, 
+        "description": "Description 10", 
+        "language": "en", 
+        "title": "Talk 10", 
+        "track": null, 
+        "abstract": "Abstract 10", 
+        "additional_speakers": [], 
+        "modified_date": null, 
+        "speaker": 1, 
+        "duration": 1, 
+        "available_timeslots": [], 
+        "notes": "", 
+        "audience_level": 1
+    }
+},
+{
+    "pk": 11, 
+    "model": "proposals.proposal", 
+    "fields": {
+        "conference": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "kind": 1, 
+        "accept_recording": true, 
+        "description": "Description 11", 
+        "language": "en", 
+        "title": "Talk 11", 
+        "track": null, 
+        "abstract": "Abstract 11", 
+        "additional_speakers": [], 
+        "modified_date": null, 
+        "speaker": 1, 
+        "duration": 1, 
+        "available_timeslots": [], 
+        "notes": "", 
+        "audience_level": 1
+    }
+},
+{
+    "pk": 12, 
+    "model": "proposals.proposal", 
+    "fields": {
+        "conference": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "kind": 1, 
+        "accept_recording": true, 
+        "description": "Description 12", 
+        "language": "en", 
+        "title": "Talk 12", 
+        "track": null, 
+        "abstract": "Abstract 12", 
+        "additional_speakers": [], 
+        "modified_date": null, 
+        "speaker": 1, 
+        "duration": 1, 
+        "available_timeslots": [], 
+        "notes": "", 
+        "audience_level": 1
+    }
+},
+{
+    "pk": 13, 
+    "model": "proposals.proposal", 
+    "fields": {
+        "conference": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "kind": 1, 
+        "accept_recording": true, 
+        "description": "Description 13", 
+        "language": "en", 
+        "title": "Talk 13", 
+        "track": null, 
+        "abstract": "Abstract 13", 
+        "additional_speakers": [], 
+        "modified_date": null, 
+        "speaker": 1, 
+        "duration": 1, 
+        "available_timeslots": [], 
+        "notes": "", 
+        "audience_level": 1
+    }
+},
+{
+    "pk": 14, 
+    "model": "proposals.proposal", 
+    "fields": {
+        "conference": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "kind": 1, 
+        "accept_recording": true, 
+        "description": "Description 14", 
+        "language": "en", 
+        "title": "Talk 14", 
+        "track": null, 
+        "abstract": "Abstract 14", 
+        "additional_speakers": [], 
+        "modified_date": null, 
+        "speaker": 1, 
+        "duration": 1, 
+        "available_timeslots": [], 
+        "notes": "", 
+        "audience_level": 1
+    }
+},
+{
+    "pk": 15, 
+    "model": "proposals.proposal", 
+    "fields": {
+        "conference": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "kind": 1, 
+        "accept_recording": true, 
+        "description": "Description 15", 
+        "language": "en", 
+        "title": "Talk 15", 
+        "track": null, 
+        "abstract": "Abstract 15", 
+        "additional_speakers": [], 
+        "modified_date": null, 
+        "speaker": 1, 
+        "duration": 1, 
+        "available_timeslots": [], 
+        "notes": "", 
+        "audience_level": 1
+    }
+},
+{
+    "pk": 1, 
+    "model": "schedule.session", 
+    "fields": {
+        "video_url": "", 
+        "abstract": "Abstract 1", 
+        "duration": 1, 
+        "conference": 1, 
+        "modified_date": null, 
+        "end": "2014-07-21T09:30:00", 
+        "title": "Title 1", 
+        "section": 1, 
+        "start": "2014-07-21T09:00:00", 
+        "speaker": 1, 
+        "location": [
+            1
+        ], 
+        "proposal": 1, 
+        "audience_level": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "description": "Description 1", 
+        "additional_speakers": [], 
+        "track": null, 
+        "released": true, 
+        "slides_url": "", 
+        "kind": 1, 
+        "is_global": false, 
+        "accept_recording": true, 
+        "language": "en", 
+        "notes": "", 
+        "available_timeslots": []
+    }
+},
+{
+    "pk": 2, 
+    "model": "schedule.session", 
+    "fields": {
+        "video_url": "", 
+        "abstract": "Abstract 2", 
+        "duration": 1, 
+        "conference": 1, 
+        "modified_date": null, 
+        "end": "2014-07-21T10:00:00", 
+        "title": "Title 2", 
+        "section": 1, 
+        "start": "2014-07-21T09:30:00", 
+        "speaker": 1, 
+        "location": [
+            2
+        ], 
+        "proposal": 2, 
+        "audience_level": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "description": "Description 2", 
+        "additional_speakers": [], 
+        "track": null, 
+        "released": true, 
+        "slides_url": "", 
+        "kind": 1, 
+        "is_global": false, 
+        "accept_recording": true, 
+        "language": "en", 
+        "notes": "", 
+        "available_timeslots": []
+    }
+},
+{
+    "pk": 3, 
+    "model": "schedule.session", 
+    "fields": {
+        "video_url": "", 
+        "abstract": "Abstract 3", 
+        "duration": 1, 
+        "conference": 1, 
+        "modified_date": null, 
+        "end": "2014-07-21T10:30:00", 
+        "title": "Title 3", 
+        "section": 1, 
+        "start": "2014-07-21T10:00:00", 
+        "speaker": 1, 
+        "location": [
+            3
+        ], 
+        "proposal": 3, 
+        "audience_level": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "description": "Description 3", 
+        "additional_speakers": [], 
+        "track": null, 
+        "released": true, 
+        "slides_url": "", 
+        "kind": 1, 
+        "is_global": false, 
+        "accept_recording": true, 
+        "language": "en", 
+        "notes": "", 
+        "available_timeslots": []
+    }
+},
+{
+    "pk": 4, 
+    "model": "schedule.session", 
+    "fields": {
+        "video_url": "", 
+        "abstract": "Abstract 4", 
+        "duration": 1, 
+        "conference": 1, 
+        "modified_date": null, 
+        "end": "2014-07-21T11:00:00", 
+        "title": "Title 4", 
+        "section": 1, 
+        "start": "2014-07-21T10:30:00", 
+        "speaker": 1, 
+        "location": [
+            4
+        ], 
+        "proposal": 4, 
+        "audience_level": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "description": "Description 4", 
+        "additional_speakers": [], 
+        "track": null, 
+        "released": true, 
+        "slides_url": "", 
+        "kind": 1, 
+        "is_global": false, 
+        "accept_recording": true, 
+        "language": "en", 
+        "notes": "", 
+        "available_timeslots": []
+    }
+},
+{
+    "pk": 5, 
+    "model": "schedule.session", 
+    "fields": {
+        "video_url": "", 
+        "abstract": "Abstract 5", 
+        "duration": 1, 
+        "conference": 1, 
+        "modified_date": null, 
+        "end": "2014-07-21T11:30:00", 
+        "title": "Title 5", 
+        "section": 1, 
+        "start": "2014-07-21T11:00:00", 
+        "speaker": 1, 
+        "location": [
+            5
+        ], 
+        "proposal": 5, 
+        "audience_level": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "description": "Description 5", 
+        "additional_speakers": [], 
+        "track": null, 
+        "released": true, 
+        "slides_url": "", 
+        "kind": 1, 
+        "is_global": false, 
+        "accept_recording": true, 
+        "language": "en", 
+        "notes": "", 
+        "available_timeslots": []
+    }
+},
+{
+    "pk": 6, 
+    "model": "schedule.session", 
+    "fields": {
+        "video_url": "", 
+        "abstract": "Abstract 6", 
+        "duration": 1, 
+        "conference": 1, 
+        "modified_date": null, 
+        "end": "2014-07-21T12:30:00", 
+        "title": "Title 6", 
+        "section": 1, 
+        "start": "2014-07-21T11:30:00", 
+        "speaker": 1, 
+        "location": [
+            1
+        ], 
+        "proposal": 6, 
+        "audience_level": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "description": "Description 6", 
+        "additional_speakers": [], 
+        "track": null, 
+        "released": true, 
+        "slides_url": "", 
+        "kind": 1, 
+        "is_global": false, 
+        "accept_recording": true, 
+        "language": "en", 
+        "notes": "", 
+        "available_timeslots": []
+    }
+},
+{
+    "pk": 7, 
+    "model": "schedule.session", 
+    "fields": {
+        "video_url": "", 
+        "abstract": "Abstract 7", 
+        "duration": 1, 
+        "conference": 1, 
+        "modified_date": null, 
+        "end": "2014-07-21T12:30:00", 
+        "title": "Title 7", 
+        "section": 1, 
+        "start": "2014-07-21T12:00:00", 
+        "speaker": 1, 
+        "location": [
+            2, 
+            3
+        ], 
+        "proposal": 7, 
+        "audience_level": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "description": "Description 7", 
+        "additional_speakers": [], 
+        "track": null, 
+        "released": true, 
+        "slides_url": "", 
+        "kind": 1, 
+        "is_global": false, 
+        "accept_recording": true, 
+        "language": "en", 
+        "notes": "", 
+        "available_timeslots": []
+    }
+},
+{
+    "pk": 8, 
+    "model": "schedule.session", 
+    "fields": {
+        "video_url": "", 
+        "abstract": "Abstract 8", 
+        "duration": 1, 
+        "conference": 1, 
+        "modified_date": null, 
+        "end": "2014-07-21T13:00:00", 
+        "title": "Title 8", 
+        "section": 1, 
+        "start": "2014-07-21T12:30:00", 
+        "speaker": 1, 
+        "location": [
+            3, 
+            4
+        ], 
+        "proposal": 8, 
+        "audience_level": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "description": "Description 8", 
+        "additional_speakers": [], 
+        "track": null, 
+        "released": true, 
+        "slides_url": "", 
+        "kind": 1, 
+        "is_global": false, 
+        "accept_recording": true, 
+        "language": "en", 
+        "notes": "", 
+        "available_timeslots": []
+    }
+},
+{
+    "pk": 9, 
+    "model": "schedule.session", 
+    "fields": {
+        "video_url": "", 
+        "abstract": "Abstract 9", 
+        "duration": 1, 
+        "conference": 1, 
+        "modified_date": null, 
+        "end": "2014-07-21T13:30:00", 
+        "title": "Title 9", 
+        "section": 1, 
+        "start": "2014-07-21T13:00:00", 
+        "speaker": 1, 
+        "location": [
+            4, 
+            5
+        ], 
+        "proposal": 9, 
+        "audience_level": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "description": "Description 9", 
+        "additional_speakers": [], 
+        "track": null, 
+        "released": true, 
+        "slides_url": "", 
+        "kind": 1, 
+        "is_global": false, 
+        "accept_recording": true, 
+        "language": "en", 
+        "notes": "", 
+        "available_timeslots": []
+    }
+},
+{
+    "pk": 10, 
+    "model": "schedule.session", 
+    "fields": {
+        "video_url": "", 
+        "abstract": "Abstract 10", 
+        "duration": 1, 
+        "conference": 1, 
+        "modified_date": null, 
+        "end": "2014-07-21T14:00:00", 
+        "title": "Title 10", 
+        "section": 1, 
+        "start": "2014-07-21T13:30:00", 
+        "speaker": 1, 
+        "location": [
+            1, 
+            5
+        ], 
+        "proposal": 10, 
+        "audience_level": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "description": "Description 10", 
+        "additional_speakers": [], 
+        "track": null, 
+        "released": true, 
+        "slides_url": "", 
+        "kind": 1, 
+        "is_global": false, 
+        "accept_recording": true, 
+        "language": "en", 
+        "notes": "", 
+        "available_timeslots": []
+    }
+},
+{
+    "pk": 11, 
+    "model": "schedule.session", 
+    "fields": {
+        "video_url": "", 
+        "abstract": "Abstract 11", 
+        "duration": 1, 
+        "conference": 1, 
+        "modified_date": null, 
+        "end": "2014-07-21T14:30:00", 
+        "title": "Title 11", 
+        "section": 1, 
+        "start": "2014-07-21T14:00:00", 
+        "speaker": 1, 
+        "location": [
+            1, 
+            2, 
+            3, 
+            4, 
+            5
+        ], 
+        "proposal": 11, 
+        "audience_level": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "description": "Description 11", 
+        "additional_speakers": [], 
+        "track": null, 
+        "released": true, 
+        "slides_url": "", 
+        "kind": 1, 
+        "is_global": false, 
+        "accept_recording": true, 
+        "language": "en", 
+        "notes": "", 
+        "available_timeslots": []
+    }
+},
+{
+    "pk": 12, 
+    "model": "schedule.session", 
+    "fields": {
+        "video_url": "", 
+        "abstract": "Abstract 12", 
+        "duration": 1, 
+        "conference": 1, 
+        "modified_date": null, 
+        "end": "2014-07-21T15:00:00", 
+        "title": "Title 12", 
+        "section": 1, 
+        "start": "2014-07-21T14:30:00", 
+        "speaker": 1, 
+        "location": [
+            2, 
+            3, 
+            4, 
+            5
+        ], 
+        "proposal": 12, 
+        "audience_level": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "description": "Description 12", 
+        "additional_speakers": [], 
+        "track": null, 
+        "released": true, 
+        "slides_url": "", 
+        "kind": 1, 
+        "is_global": false, 
+        "accept_recording": true, 
+        "language": "en", 
+        "notes": "", 
+        "available_timeslots": []
+    }
+},
+{
+    "pk": 13, 
+    "model": "schedule.session", 
+    "fields": {
+        "video_url": "", 
+        "abstract": "Abstract 13", 
+        "duration": 1, 
+        "conference": 1, 
+        "modified_date": null, 
+        "end": "2014-07-21T15:30:00", 
+        "title": "Title 13", 
+        "section": 1, 
+        "start": "2014-07-21T15:00:00", 
+        "speaker": 1, 
+        "location": [
+            3, 
+            4, 
+            5
+        ], 
+        "proposal": 13, 
+        "audience_level": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "description": "Description 13", 
+        "additional_speakers": [], 
+        "track": null, 
+        "released": true, 
+        "slides_url": "", 
+        "kind": 1, 
+        "is_global": false, 
+        "accept_recording": true, 
+        "language": "en", 
+        "notes": "", 
+        "available_timeslots": []
+    }
+},
+{
+    "pk": 14, 
+    "model": "schedule.session", 
+    "fields": {
+        "video_url": "", 
+        "abstract": "Abstract 14", 
+        "duration": 1, 
+        "conference": 1, 
+        "modified_date": null, 
+        "end": "2014-07-21T16:00:00", 
+        "title": "Title 14", 
+        "section": 1, 
+        "start": "2014-07-21T15:30:00", 
+        "speaker": 1, 
+        "location": [
+            4, 
+            5
+        ], 
+        "proposal": 14, 
+        "audience_level": 1, 
+        "submission_date": "2014-04-21T19:22:10.365", 
+        "description": "Description 14", 
+        "additional_speakers": [], 
+        "track": null, 
+        "released": true, 
+        "slides_url": "", 
+        "kind": 1, 
+        "is_global": false, 
+        "accept_recording": true, 
+        "language": "en", 
+        "notes": "", 
+        "available_timeslots": []
+    }
+},
+{
+    "pk": 15, 
+    "model": "schedule.session", 
+    "fields": {
+        "video_url": "", 
+        "abstract": "Abstract 15", 
+        "duration": 1, 
+        "conference": 1, 
+        "modified_date": null, 
+        "end": "2014-07-21T16:30:00", 
+        "title": "Title 15", 
+        "section": 1, 
+        "start": "2014-07-21T16:00:00", 
+        "speaker": 1, 
+        "location": [
+            5
+        ], 
+        "proposal": 15, 
+        "audience_level": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "description": "Description 15", 
+        "additional_speakers": [], 
+        "track": null, 
+        "released": true, 
+        "slides_url": "", 
+        "kind": 1, 
+        "is_global": false, 
+        "accept_recording": true, 
+        "language": "en", 
+        "notes": "", 
+        "available_timeslots": []
+    }
+},
+{
+    "pk": 1, 
+    "model": "schedule.sideevent", 
+    "fields": {
+        "conference": 1, 
+        "is_global": false, 
+        "end": "2014-07-21T14:00:00", 
+        "name": "Lunch", 
+        "is_pause": true, 
+        "section": null, 
+        "start": "2014-07-21T13:00:00", 
+        "location": [
+            2, 
+            3
+        ], 
+        "is_recordable": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 2, 
+    "model": "schedule.completescheduleplugin", 
+    "fields": {
+        "sections": []
+    }
+},
+{
+    "pk": 4, 
+    "model": "schedule.completescheduleplugin", 
+    "fields": {
+        "sections": []
+    }
+}
+]
