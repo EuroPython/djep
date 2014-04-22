@@ -45,10 +45,12 @@
                         <img class="big" src="{% static "assets/images/logo-big.png" %}" alt="EuroPython 2014" />
                     </a>
                     {% if user.is_staff %}
-                    <div id="sponsorshipbox">
-                    <a href="">{% trans "Sponsorship" %} <i class="fa fa-fw fa-angle-left"></i></a>
+                    <div id="adminbox">
+                    <a href="">{% trans "Admin" %} <i class="fa fa-fw fa-angle-left"></i></a>
                     <ul class="dropdown">
-                      {% show_menu_below_id "sponsorship" %}
+                        <li class=""><a href="{% url "admin:index" %}">Django Admin</a></li>
+                        {% if perms.accounts.send_user_mails %}<li class=""><a href="{% url "account_sendmail" %}">{% trans "Send mail" %}</a></li>{% endif %}
+                        {% show_menu_below_id "sponsorship" %}
                     </ul>
                     </div>
                     {% endif %}
