@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-14 16:00+0200\n"
-"PO-Revision-Date: 2014-03-25 22:09+0100\n"
+"POT-Creation-Date: 2014-04-23 01:55+0200\n"
+"PO-Revision-Date: 2014-04-18 20:16+0200\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
 "Language: de\n"
@@ -428,7 +428,7 @@ msgstr ""
 msgid "Become a reviewer"
 msgstr "Bewirb dich als Reviewer"
 
-#: attendees/admin.py:23 reviews/admin.py:24 reviews/admin.py:30
+#: attendees/admin.py:23 reviews/admin.py:27 reviews/admin.py:33
 msgid "Export as CSV"
 msgstr "Als CSV exportieren"
 
@@ -1430,8 +1430,8 @@ msgstr "Teilnehmer"
 
 #: attendees/templates/attendees/purchase_names.html:11
 msgid ""
-"Please enter the name and other information relevant for the specific ticket"
-"(s) in the fields below."
+"Please enter the name and other information relevant for the specific "
+"ticket(s) in the fields below."
 msgstr "Bitte gib die Namen und übrigen Informationenen zu den Tickets an."
 
 #: attendees/templates/attendees/purchase_names.html:67
@@ -1781,6 +1781,10 @@ msgstr "Events"
 msgid "No upcoming events"
 msgstr "Keine geplanten Events"
 
+#: proposals/admin.py:18 schedule/admin.py:98
+msgid "The location is mandatory."
+msgstr "Der Ort muss angegeben werden."
+
 #: proposals/cms_app.py:10
 msgid "Proposals app"
 msgstr "Proposals-Anwendung"
@@ -2065,6 +2069,10 @@ msgstr "Session-Vorschlag"
 msgid "proposals"
 msgstr "Session-Vorschläge"
 
+#: proposals/models.py:113
+msgid "Can always see the proposal author"
+msgstr "Kann den Autor immer sehen"
+
 #: proposals/views.py:115
 msgid "The proposal phase for this session type has already ended."
 msgstr "Die Einreichphase für diesen Session-Typ ist bereits beendet."
@@ -2166,8 +2174,8 @@ msgstr ""
 msgid "Proposal"
 msgstr "Session-Vorschlag"
 
-#: proposals/templates/proposals/denied.html:5 reviews/views.py:464
-#: reviews/views.py:495
+#: proposals/templates/proposals/denied.html:5 reviews/views.py:463
+#: reviews/views.py:494
 msgid ""
 "You have to be the author of this proposal or a reviewer to access this page"
 msgstr ""
@@ -2324,23 +2332,23 @@ msgstr ""
 "Fragen zu Training-Inhalten und -Aufbau bitte an <a href=\"mailto:"
 "helpdesk@europython.eu\">helpdesk@europython.eu</a>.\n"
 
-#: reviews/admin.py:19
+#: reviews/admin.py:22
 msgid "Mark comment(s) as deleted"
 msgstr "Kommentar(e) als gelöscht markieren"
 
-#: reviews/admin.py:40
+#: reviews/admin.py:43
 msgid "Accept selected user requests to become a reviewer."
 msgstr "Anträge der ausgewählen Benutzer annehmen"
 
-#: reviews/admin.py:50
+#: reviews/admin.py:53
 msgid "Decline selected user requests to become a reviewer."
 msgstr "Anträge der ausgewählen Benutzer ablehnen"
 
-#: reviews/admin.py:75
+#: reviews/admin.py:150
 msgid "Link to profile"
 msgstr "Link zum Profil"
 
-#: reviews/admin.py:104
+#: reviews/admin.py:181
 msgid "Can review"
 msgstr "Kann bewerten"
 
@@ -2527,22 +2535,22 @@ msgstr "Reviewer"
 msgid "reviewers"
 msgstr "Reviewer"
 
-#: reviews/utils.py:102
+#: reviews/utils.py:118
 #, python-format
 msgid "[REVIEW] The author has commented on \"%(title)s\""
 msgstr "[REVIEW] Der Autor hat \"%(title)s\" kommentiert"
 
-#: reviews/utils.py:104
+#: reviews/utils.py:120
 #, python-format
 msgid "[REVIEW] %(author)s commented on \"%(title)s\""
 msgstr "[REVIEW] %(author)s hat \"%(title)s\" kommentiert"
 
-#: reviews/utils.py:134
+#: reviews/utils.py:153
 #, python-format
 msgid "[REVIEW] The author updated %(title)s"
 msgstr "[REVIEW] Der Autor hat %(title)s bearbeitet"
 
-#: reviews/utils.py:136
+#: reviews/utils.py:155
 #, python-format
 msgid "[REVIEW] %(author)s updated %(title)s"
 msgstr "[REVIEW] %(author)s hat %(title)s bearbeitet"
@@ -2576,15 +2584,15 @@ msgstr "Review wurde gelöscht"
 msgid "Comment has been added"
 msgstr "Kommentar wurde hinzugefügt"
 
-#: reviews/views.py:539
+#: reviews/views.py:538
 msgid "Proposal has been successfully updated"
 msgstr "Der Vorschlag wurde erfolgreich geändert"
 
-#: reviews/views.py:548
+#: reviews/views.py:547
 msgid "Proposals can no longer be updated"
 msgstr "Vorschläge können nicht mehr aktualisiert werden"
 
-#: reviews/views.py:552
+#: reviews/views.py:551
 msgid "You have to be the author of this review in order to access this page"
 msgstr ""
 "Sie müssen Autor dieser Review sein, um auf diese Seite zugreifen zu können."
@@ -2762,13 +2770,13 @@ msgid "(based on the original proposal)"
 msgstr "(basierend auf dem Originalvorschlag)"
 
 #: reviews/templates/reviews/proposal_details.html:123
-msgid "The author has updated the proposal."
-msgstr "Der Autor hat das Proposal aktualisiert."
-
-#: reviews/templates/reviews/proposal_details.html:125
 #, python-format
 msgid "%(user)s has updated the proposal."
 msgstr "%(user)s hat das Proposal aktualisiert."
+
+#: reviews/templates/reviews/proposal_details.html:125
+msgid "The author has updated the proposal."
+msgstr "Der Autor hat das Proposal aktualisiert."
 
 #: reviews/templates/reviews/proposal_details.html:134
 msgid "Questions for the author / Comment:"
@@ -2782,7 +2790,7 @@ msgstr "Versionen von \"%(title)s\""
 #: reviews/templates/reviews/proposalversion_list.html:8
 #: reviews/templates/reviews/review_list.html:18
 msgid "Original"
-msgstr ""
+msgstr "Original"
 
 #: reviews/templates/reviews/review_confirm_delete.html:4
 msgid "Do you really want to delete this review?"
@@ -2916,45 +2924,41 @@ msgstr ""
 msgid "Original proposal"
 msgstr "Originalvorschlag"
 
-#: schedule/admin.py:42
+#: schedule/admin.py:43
 #, python-format
 msgid "%(counter)s proposal(s) converted to sessions"
 msgstr "%(counter)s Session-Vorschläge wurden in Sessions umgewandelt"
 
-#: schedule/admin.py:46
+#: schedule/admin.py:47
 #, python-format
 msgid "%(counter)s proposal(s) skipped"
 msgstr "%(counter)s Session-Vorschläge wurden übersprungen"
 
-#: schedule/admin.py:49
+#: schedule/admin.py:50
 msgid "convert to sessions"
 msgstr "Auswahl in Sessions umwandeln"
 
-#: schedule/admin.py:55
+#: schedule/admin.py:56
 msgid "create simple export"
 msgstr "Auswahl als CSV exportieren"
 
-#: schedule/admin.py:62
+#: schedule/admin.py:63
 msgid "episodes export"
 msgstr "Als Episoden exportieren"
 
-#: schedule/admin.py:66 schedule/admin.py:102
+#: schedule/admin.py:67 schedule/admin.py:152
 msgid "Timeslot Preferences"
 msgstr "Bevorzugte Zeitfenster"
 
-#: schedule/admin.py:71
+#: schedule/admin.py:72
 msgid "with preferences"
 msgstr "Präferenzen"
 
-#: schedule/admin.py:72
+#: schedule/admin.py:73
 msgid "w/o preferences"
 msgstr "keine Präferenen"
 
-#: schedule/admin.py:87
-msgid "The location is mandatory."
-msgstr "Der Ort muss angegeben werden."
-
-#: schedule/admin.py:117 schedule/admin.py:127
+#: schedule/admin.py:167 schedule/admin.py:177
 msgid "is scheduled"
 msgstr "Hat Session"
 
@@ -3461,8 +3465,8 @@ msgstr ""
 
 #: sponsorship/models.py:73
 msgid ""
-"Please specify the custom logo size for listings in the format [width]x"
-"[height]."
+"Please specify the custom logo size for listings in the format "
+"[width]x[height]."
 msgstr ""
 "Bitte gib die benutzerdefinierten Dimensionen im Format [Breite]x[Höhe] an."
 

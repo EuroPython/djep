@@ -9,12 +9,27 @@ from django.db.models import signals
 import pyconde.accounts.utils as account_utils
 
 
+class SpeakerManager(models.Manager):
+
+    use_for_related_fields = True
+
+    def get_qs_for_formfield(self):
+        qs = self.select_related('user__profile') \
+                 .only('user__profile__display_name',
+                       'user__profile__user',  # for reverse lookup
+                       'user__username'  # fallback if no display_name
+                 )
+        return qs
+
+
 class Speaker(models.Model):
     """
     The speaker model acts as user-abstraction for various session and proposal
     related objects.
     """
     user = models.OneToOneField(User, related_name='speaker_profile')
+
+    objects = SpeakerManager()
 
     def __unicode__(self):
         return account_utils.get_display_name(self.user)
