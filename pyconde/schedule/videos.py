@@ -4,7 +4,6 @@ session page.
 """
 
 import abc
-import urlparse
 import urllib
 import logging
 import requests

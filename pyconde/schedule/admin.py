@@ -5,7 +5,7 @@ from django import forms
 from django.contrib import admin
 from django.contrib import messages
 from django.utils.encoding import force_text
-from django.utils.translation import ugettext, ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _
 from django.http import HttpResponse
 
 from ..proposals import models as proposal_models
@@ -46,7 +46,7 @@ def schedule_multiple_proposals(modeladmin, request, queryset):
         })
     if skipped:
         messages.warning(request, _("%(counter)s proposal(s) skipped") % {
-        'counter': skipped
+            'counter': skipped
         })
 schedule_multiple_proposals.short_description = _("convert to sessions")
 
