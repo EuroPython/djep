@@ -340,10 +340,7 @@ class SendMailForm(forms.Form):
 
     target = forms.ChoiceField(choices=SEND_MAIL_CHOICES,
         label=_('Send mail to'))
-    subject = forms.CharField(label=_('Subject'),
-        help_text=_('The subject will be prefixed by <code>[%(prefix)s] </code>') % {
-            'prefix': current_conference(),
-        })
+    subject = forms.CharField(label=_('Subject'))
     text = forms.CharField(label=_('Message'), widget=forms.Textarea,
         help_text=_('The text may contain the following placeholders:<ul>'
                     '<li><code>$$RECEIVER$$</code></li>'
@@ -353,6 +350,10 @@ class SendMailForm(forms.Form):
 
     def __init__(self, *args, **kwargs):
         super(SendMailForm, self).__init__(*args, **kwargs)
+        self.fields['subject'].help_text = _('The subject will be prefixed by '
+                                             '<code>[%(prefix)s] </code>') % {
+            'prefix': current_conference(),
+        }
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
