@@ -3,12 +3,13 @@ from __future__ import unicode_literals
 import decimal
 import uuid
 import os
+import string
 
 from email.utils import formataddr
 
 from django.contrib.auth.models import User
 from django.contrib.contenttypes import models as content_models
-from django.core.exceptions import ObjectDoesNotExist
+from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db import models
 from django.db.models import Q
 from django.utils.timezone import now
@@ -142,6 +143,11 @@ class TicketType(models.Model):
 
     remarks = models.TextField(_('Remarks'), blank=True)
 
+    # Various settings for making tickets editable
+    allow_editing = models.NullBooleanField(_('Allow editing'))
+    editable_fields = models.TextField(_('Editable fields'), blank=True)
+    editable_until = models.DateTimeField(_('Editable until'), blank=True, null=True)
+
     content_type = models.ForeignKey(
         content_models.ContentType, blank=False,
         limit_choices_to=limit_ticket_types(),
@@ -157,6 +163,14 @@ class TicketType(models.Model):
 
     def __unicode__(self):
         return '%s (%.2f EUR)' % (self.name, self.fee)
+
+    def get_editable_fields(self):
+        if self.editable_fields:
+            return filter(bool, map(string.strip, self.editable_fields.split(",")))
+        return []
+
+    def get_readonly_fields(self):
+        return [f for f in self.content_type.model_class().get_fields() if f not in self.get_editable_fields()]
 
     @property
     def purchases_count(self):
@@ -180,6 +194,21 @@ class TicketType(models.Model):
         if not self.pk:
             self.product_number = TicketType.objects.get_next_product_number()
         super(TicketType, self).save(*args, **kwargs)
+
+    def clean(self):
+        self.clean_editable_fields()
+
+    def clean_editable_fields(self):
+        val = self.editable_fields
+        if self.content_type is None:
+            return val
+        ticket_cls = self.content_type.model_class()
+        found_field_names = set(filter(bool, map(string.strip, val.split(","))))
+        allowed_field_names = ticket_cls.get_fields()
+        invalid_field_names = found_field_names - allowed_field_names
+        if invalid_field_names:
+            raise ValidationError(_("Invalid editable fields specified: %s") % u", ".join(invalid_field_names))
+        return val
 
 
 class PurchaseManager(models.Manager):
@@ -352,6 +381,29 @@ class Ticket(models.Model):
                 pass
         return real_ticket
 
+    def can_be_edited_by(self, user, current_time=None):
+        if current_time is None:
+            current_time = now()
+        if self.ticket_type.allow_editing is False:
+            return False
+        if not self.ticket_type.conference.tickets_editable and self.ticket_type.allow_editing is None:
+            return False
+        if self.user == user or (self.purchase.user == user and self.user is None):
+            if self.ticket_type.editable_until is not None and self.ticket_type.editable_until < current_time:
+                return False
+            if self.ticket_type.conference.tickets_editable_until is not None and self.ticket_type.conference.tickets_editable_until < current_time:
+                return False
+            return True
+        return False
+
+    @classmethod
+    def get_fields(cls):
+        """
+        Returns all fieldnames that are special to this ticket type.
+        """
+        local_fields = set(cls._meta.get_all_field_names())
+        original_fields = set(Ticket._meta.get_all_field_names())
+        return local_fields - original_fields - set(['ticket_ptr'])
 
 
 class SupportTicket(Ticket):
@@ -430,4 +482,3 @@ class SIMCardTicket(Ticket):
     def invoice_item_title(self):
         return force_text('1 SIM Card for:<br /><i>%s %s</i>' %
             (self.first_name, self.last_name))
-
