@@ -37,6 +37,9 @@ class TicketTypeAdmin(admin.ModelAdmin):
     list_display_links = ('product_number', '__unicode__')
     list_filter = ('is_active', 'conference')
 
+    class Media(object):
+        js = ('assets/js/admin.attendees.js',)
+
 admin.site.register(TicketType, TicketTypeAdmin)
 
 

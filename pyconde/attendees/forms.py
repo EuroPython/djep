@@ -302,3 +302,33 @@ class TicketAssignmentForm(forms.Form):
                        css_class='btn btn-primary')
             )
         )
+
+
+class EditVenueTicketForm(TicketNameForm):
+    def __init__(self, *args, **kwargs):
+        super(EditVenueTicketForm, self).__init__(*args, **kwargs)
+        for field_name in self.instance.ticket_type.get_readonly_fields():
+            field = self.fields.get(field_name)
+            if not field:
+                continue
+            field.widget.attrs['readonly'] = 'readonly'
+            field.help_text = _('This field is no longer editable.')
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.layout = Layout(
+            'first_name',
+            'last_name',
+            'organisation',
+            'shirtsize',
+            ButtonHolder(Submit('submit', _('Save changes'), css_class='btn btn-primary'))
+        )
+
+    def clean(self):
+        cleaned_data = super(EditVenueTicketForm, self).clean()
+        for field_name in self.instance.ticket_type.get_readonly_fields():
+            cleaned_data[field_name] = getattr(self.instance, field_name)
+        return cleaned_data
+
+    def save(self, *args, **kwargs):
+        # Thet ticketnameform disables the save functionality. Here we need it.
+        return super(TicketNameForm, self).save(*args, **kwargs)

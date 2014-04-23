@@ -54,7 +54,7 @@
                 {% endif %}
             </dd>
         </dl>
-        {% if not current_conference.anonymize_proposal_author %}
+        {% if can_see_proposal_author %}
         <dl>
             <dt>{% trans "Speaker" %}:</dt>
             <dd>
