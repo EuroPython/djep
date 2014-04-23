@@ -13,16 +13,18 @@ The purchase process consists of the following steps:
 import datetime
 import logging
 import hashlib
+import json
 from collections import OrderedDict
 
 import pymill
 
 from django.conf import settings
 from django.core.urlresolvers import reverse
+from django.contrib.contenttypes.models import ContentType
 from django.contrib import messages
 from django.contrib.auth import models as auth_models
 from django.db.models import Q
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, Http404, HttpResponseForbidden, HttpResponse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
@@ -540,6 +542,27 @@ class UserTicketsView(LoginRequiredMixin, generic_views.TemplateView):
         }
 
 
+class EditTicketView(LoginRequiredMixin, generic_views.UpdateView):
+    """
+    Through the EditTicketView the owner of a ticket can edit certain details
+    of it. Note that this is limited to VenueTickets as this is intended to
+    allow users to customize the information printed onto the ticket after the
+    purchase has been made.
+    """
+    model = VenueTicket
+    form_class = forms.EditVenueTicketForm
+    template_name = 'attendees/edit_ticket.html'
+
+    def get_object(self, queryset=None):
+        obj = super(EditTicketView, self).get_object(queryset)
+        if not obj.can_be_edited_by(self.request.user):
+            raise Http404()
+        return obj
+
+    def get_success_url(self):
+        return reverse('attendees_user_tickets')
+
+
 class UserResendInvoiceView(LoginRequiredMixin, generic_views.View):
     """
     This view triggers a sending of the specified invoice.
@@ -597,3 +620,19 @@ class AssignTicketView(LoginRequiredMixin, generic_views.View):
                 _("This ticket was successfully assigned to the specified user"))
             return HttpResponseRedirect(reverse('attendees_user_purchases'))
         return self.get(*args, **kwargs)
+
+
+class AdminListTicketFieldsView(generic_views.View):
+    """
+    This view returns a JSON list of all the fields that are provided by
+    the field and should be checked against in the admin.
+    """
+    def get(self, request, pk):
+        if not request.user.is_staff:
+            return HttpResponseForbidden()
+        ctype = get_object_or_404(ContentType.objects, pk=pk).model_class()
+        if not issubclass(ctype, Ticket):
+            raise Http404()
+        result = [{'name': name, 'label': unicode(ctype._meta.get_field(name).verbose_name)} for name in ctype.get_fields()]
+        return HttpResponse(json.dumps(result),
+                content_type='text/json')

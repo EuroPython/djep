@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% load crispy_forms_tags i18n %}
+{% block bodyclass %}{{ block.super }} with-sidebar{% endblock %}
+{% block title %}{% trans "Edit ticket information" %}{% endblock %}
+{% block page_title %}{% trans "Edit ticket information" %}{% endblock %}
+{% block content %}
+<div class="row">
+    <div id="details">
+        {% crispy form %}
+    </div>
+    <div id="sidebar">
+        <div class="box">
+            {% blocktrans %}
+            <p>Here you can edit the information that will be printed onto your ticket/badge.</p>
+            <p>Depending on what ticket you bought not all fields are editable.</p>
+            {% endblocktrans %}
+        </div>
+    </div>
+</div>
+{% endblock %}

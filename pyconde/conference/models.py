@@ -51,6 +51,9 @@ class Conference(models.Model):
     reviews_end_date = models.DateTimeField(null=True, blank=True)
     reviews_active = models.NullBooleanField()
 
+    tickets_editable = models.BooleanField(default=True)
+    tickets_editable_until = models.DateTimeField(null=True, blank=True)
+
     anonymize_proposal_author = models.BooleanField(
         _("anonymize proposal author"), default=True)
 
