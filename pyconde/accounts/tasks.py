@@ -4,6 +4,7 @@ from __future__ import unicode_literals
 from contextlib import closing
 from email.utils import formataddr
 
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.core import mail
 from django.template.loader import render_to_string
@@ -41,7 +42,7 @@ def sendmail_task(target, subject, message, domain):
             body = base_message.replace('$$RECEIVER$$', addressed_as)
             to = formataddr((addressed_as, user.email))
             email = mail.EmailMessage(subject, body, to=[to],
-                headers={'Reply-To': 'helpdesk@europython.eu'},
+                headers={'Reply-To': settings.SUPPORT_EMAIL},
                 connection=connection
             )
             email.send()

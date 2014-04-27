@@ -35,6 +35,8 @@ class Base(Configuration):
     DEFAULT_FROM_EMAIL = values.EmailValue('noreply@ep14.org')
     
     SERVER_EMAIL = values.EmailValue('noreply@ep14.org')
+
+    SUPPORT_EMAIL = values.EmailValue('helpdesk@europython.eu')
     
     TIME_ZONE = 'Europe/Berlin'
     
