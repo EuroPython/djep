@@ -1,12 +1,13 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 from django import forms
 from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.core.exceptions import ValidationError
 from django.contrib.auth import forms as auth_forms
 from django.db import transaction
-from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ugettext
+from django.utils.translation import ugettext, ugettext_lazy as _
 
 from userprofiles.forms import RegistrationForm
 from userprofiles.contrib.emailverification.forms import ChangeEmailForm as BaseChangeEmailForm
@@ -15,10 +16,13 @@ from crispy_forms.helper import FormHelper
 from crispy_forms.layout import Layout, ButtonHolder, Fieldset, Div, Field, HTML
 from taggit.forms import TagField
 
-from .models import Profile
-from . import validators
-from .widgets import AvatarWidget
+from ..conference.models import current_conference
 from ..forms import Submit
+
+from . import validators
+from .models import Profile
+from .widgets import AvatarWidget
+from .utils import SEND_MAIL_CHOICES
 
 
 NUM_ACCOMPANYING_CHILDREN_CHOICES = (
@@ -168,15 +172,17 @@ class AuthenticationForm(auth_forms.AuthenticationForm):
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
-                Div(Field('username', autofocus="autofocus"), 'password'),
-                ButtonHolder(
-                    HTML(ugettext(u'<ul><li><a href="%(register_url)s">Don\'t have an account yet?</a></li><li><a href="%(password_reset_url)s">Forgot your password?</a></li></ul>') % {
-                        'register_url': reverse('userprofiles_registration'), 
+            Div(Field('username', autofocus="autofocus"), 'password'),
+            ButtonHolder(
+                HTML(
+                    ugettext('<ul><li><a href="%(register_url)s">Don\'t have an account yet?</a></li><li><a href="%(password_reset_url)s">Forgot your password?</a></li></ul>') % {
+                        'register_url': reverse('userprofiles_registration'),
                         'password_reset_url': reverse('auth_password_reset')
-                    }),
-                    Submit('login', _('Log in'), css_class='btn btn-primary')
-                )
+                    }
+                ),
+                Submit('login', _('Log in'), css_class='btn btn-primary')
             )
+        )
 
 
 class PasswordResetForm(auth_forms.PasswordResetForm):
@@ -189,9 +195,9 @@ class PasswordResetForm(auth_forms.PasswordResetForm):
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
-                Div(Field('email', autofocus="autofocus")),
-                ButtonHolder(Submit('reset', _('Reset password'), css_class='btn-primary'))
-            )
+            Div(Field('email', autofocus="autofocus")),
+            ButtonHolder(Submit('reset', _('Reset password'), css_class='btn-primary'))
+        )
 
 
 class SetPasswordForm(auth_forms.SetPasswordForm):
@@ -204,9 +210,9 @@ class SetPasswordForm(auth_forms.SetPasswordForm):
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
-                Div(Field('new_password1', autofocus="autofocus"), 'new_password2'),
-                ButtonHolder(Submit('reset', _('Set password'), css_class='btn-primary'))
-            )
+            Div(Field('new_password1', autofocus="autofocus"), 'new_password2'),
+            ButtonHolder(Submit('reset', _('Set password'), css_class='btn-primary'))
+        )
 
 
 class PasswordChangeForm(auth_forms.PasswordChangeForm):
@@ -219,9 +225,9 @@ class PasswordChangeForm(auth_forms.PasswordChangeForm):
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
-                Div(Field('old_password', autofocus="autofocus"), 'new_password1', 'new_password2'),
-                ButtonHolder(Submit('save', _('Change password'), css_class='btn-primary'))
-            )
+            Div(Field('old_password', autofocus="autofocus"), 'new_password1', 'new_password2'),
+            ButtonHolder(Submit('save', _('Change password'), css_class='btn-primary'))
+        )
 
 
 class ProfileForm(BaseProfileForm):
@@ -320,7 +326,7 @@ class ReviewerApplicationForm(forms.Form):
 
     class Meta:
         fields = ()
-    
+
     def __init__(self, *args, **kwargs):
         super(ReviewerApplicationForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
@@ -328,3 +334,31 @@ class ReviewerApplicationForm(forms.Form):
         self.helper.layout = Layout(
             'apply',
             ButtonHolder(Submit('save', _("Apply now!"), css_class='btn btn-success')))
+
+
+class SendMailForm(forms.Form):
+
+    target = forms.ChoiceField(choices=SEND_MAIL_CHOICES,
+        label=_('Send mail to'))
+    subject = forms.CharField(label=_('Subject'))
+    text = forms.CharField(label=_('Message'), widget=forms.Textarea,
+        help_text=_('The text may contain the following placeholders:<ul>'
+                    '<li><code>$$RECEIVER$$</code></li>'
+                    '<li><code>$$CONFERENCE$$</code></li>'
+                    '<li><code>$$DOMAIN$$</code></li>'
+                    '</ul>'))
+
+    def __init__(self, *args, **kwargs):
+        super(SendMailForm, self).__init__(*args, **kwargs)
+        self.fields['subject'].help_text = _('The subject will be prefixed by '
+                                             '<code>[%(prefix)s] </code>') % {
+            'prefix': current_conference(),
+        }
+        self.helper = FormHelper()
+        self.helper.form_class = 'form-horizontal'
+        self.helper.layout = Layout(
+            'target',
+            'subject',
+            'text',
+            ButtonHolder(Submit('submit', _('Send mail'), css_class='btn-primary'))
+        )
