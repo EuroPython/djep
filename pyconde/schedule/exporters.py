@@ -1,12 +1,25 @@
 import tablib
 import collections
+import logging
 
+from itertools import chain, groupby
+from operator import attrgetter
+
+from lxml import etree
+
+from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.sites import models as site_models
+from django.utils.encoding import force_text
+from django.utils.timezone import now
 
 from . import models
 from pyconde.sponsorship import models as sponsorship_models
 from pyconde.conference import models as conference_models
+from pyconde.accounts.utils import get_display_name
+
+
+LOG = logging.getLogger('pyconde.schedule.exporters')
 
 
 def _format_cospeaker(s):
@@ -217,3 +230,146 @@ class SessionForEpisodesExporter(object):
         # Also export all side-events that are not pauses
         items += [self.create_episode_data(evt) for evt in models.SideEvent.current_conference.filter(is_recordable=True).exclude(is_pause=True).select_related('location').all()]
         return items
+
+
+class XMLExporter(object):
+
+    def __init__(self, outfile, base_url=None):
+        if base_url is None:
+            self.base_url = 'http://%s' % site_models.Site.objects.get_current().domain
+        else:
+            self.base_url = base_url
+        self.outfile = outfile
+        self.event_sorter = attrgetter('start', 'end')
+        self.day_grouper = lambda evt: evt.start.date()
+
+    def export(self):
+        with open(self.outfile, 'w') as fp:
+            with etree.xmlfile(fp) as xf:
+                sessions = models.Session.objects \
+                    .select_related('kind', 'audience_level', 'track',
+                                    'speaker__user__profile') \
+                    .prefetch_related('additional_speakers__user__profile',
+                                      'location') \
+                    .filter(released=True, start__isnull=False, end__isnull=False) \
+                    .order_by('start') \
+                    .only('end', 'start', 'title', 'description', 'is_global',
+                          'kind__name',
+                          'audience_level__name',
+                          'track__name',
+                          'speaker__user__username',
+                          'speaker__user__profile__avatar',
+                          'speaker__user__profile__display_name',
+                          'speaker__user__profile__user')\
+                    .all()
+                side_events = models.SideEvent.objects \
+                    .prefetch_related('location') \
+                    .filter(start__isnull=False, end__isnull=False) \
+                    .order_by('start') \
+                    .all()
+                all_events = sorted(chain(sessions, side_events), key=self.event_sorter)
+                all_events = groupby(all_events, self.day_grouper)
+                with xf.element('schedule', created=now().isoformat()):
+                    for day, events in all_events:
+                        self._export_day(fp, xf, day, events)
+
+    def _export_day(self, fp, xf, day, events):
+        with xf.element('day', date=day.isoformat()):
+            for event in events:
+                try:
+                    if isinstance(event, models.Session):
+                        self._export_session(fp, xf, event)
+                    elif isinstance(event, models.SideEvent):
+                        self._export_side_event(fp, xf, event)
+                except Exception as e:
+                    LOG.fatal("Error exporting %s(%d) %s" % (
+                        event.__class__.__name__, event.id, event) + force_text(e))
+                    import traceback
+                    traceback.print_exc()
+
+    def _export_session(self, fp, xf, event):
+        with xf.element('entry', id=force_text(event.id)):
+            with xf.element('category'):
+                xf.write(force_text(event.kind))
+            with xf.element('audience'):
+                xf.write(force_text(event.audience_level))
+            with xf.element('topics'):
+                if event.track:
+                    with xf.element('topic'):
+                        xf.write(force_text(event.track))
+            with xf.element('start'):
+                xf.write(event.start.strftime('%H%M'))
+            with xf.element('duration'):
+                dur = int((event.end - event.start).total_seconds() / 60)
+                xf.write(force_text(dur))
+
+            rooms = event.location.all()
+            if len(rooms) > 1:
+                with xf.element('room'):
+                    xf.write(event.location_pretty)
+            elif len(rooms) == 1:
+                with xf.element('room', id=force_text(rooms[0].id)):
+                    xf.write(event.location_pretty)
+            elif event.is_global:
+                with xf.element('room'):
+                    xf.write('ALL')
+            else:
+                with xf.element('room'):
+                    pass
+
+            with xf.element('title'):
+                xf.write(force_text(event.title))
+            with xf.element('description'):
+                xf.write(force_text(event.description))
+            with xf.element('speakers'):
+                self._export_speaker(fp, xf, event.speaker.user)
+                for speaker in event.additional_speakers.all():
+                    self._export_speaker(fp, xf, speaker.user)
+
+    def _export_side_event(self, fp, xf, event):
+        with xf.element('entry', id=force_text(event.id)):
+            with xf.element('category'):
+                pass
+            with xf.element('audience'):
+                pass
+            with xf.element('topics'):
+                pass
+            with xf.element('start'):
+                xf.write(event.start.strftime('%H%M'))
+            with xf.element('duration'):
+                dur = int((event.end - event.start).total_seconds() / 60)
+                xf.write(force_text(dur))
+
+            rooms = event.location.all()
+            if len(rooms) > 1:
+                with xf.element('room'):
+                    xf.write(event.location_pretty)
+            elif len(rooms) == 1:
+                with xf.element('room', id=force_text(rooms[0].id)):
+                    xf.write(event.location_pretty)
+            elif event.is_global:
+                with xf.element('room'):
+                    xf.write('ALL')
+            else:
+                with xf.element('room'):
+                    pass
+
+            with xf.element('title'):
+                xf.write(event.name)
+            with xf.element('description'):
+                xf.write(event.description)
+            with xf.element('speakers'):
+                pass
+
+    def _export_speaker(self, fp, xf, user):
+        profile = user.profile
+        with xf.element('speaker', id=force_text(user.id)):
+            with xf.element('name'):
+                xf.write(get_display_name(user))
+            with xf.element('profile'):
+                xf.write(self.base_url + reverse('account_profile',
+                                                 kwargs={'uid': user.id}))
+            with xf.element('image'):
+                if profile.avatar:
+                    avatar_url = self.base_url + profile.avatar.url
+                    xf.write(avatar_url)
