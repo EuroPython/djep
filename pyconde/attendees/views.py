@@ -533,11 +533,11 @@ class UserTicketsView(LoginRequiredMixin, generic_views.TemplateView):
                              .get_active_user_tickets(self.request.user)
                              .select_related('ticket_type__content_type')
                              .filter(
-                                Q(ticket_type__content_type__app_label='attendees',
-                                    ticket_type__content_type__model='venueticket') |
-                                Q(ticket_type__content_type__app_label='attendees',
-                                    ticket_type__content_type__model='simcardticket')
-                                )
+                                 Q(ticket_type__content_type__app_label='attendees',
+                                   ticket_type__content_type__model='venueticket') |
+                                 Q(ticket_type__content_type__app_label='attendees',
+                                   ticket_type__content_type__model='simcardticket')
+                                 )
                              .all()
         }
 
