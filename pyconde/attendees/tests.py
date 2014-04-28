@@ -606,6 +606,53 @@ class PurchaseProcessTest(TestCase):
         # check we are on the completion page
         self.assertContains(response, '<li class="active">Complete</li>', html=True)
 
+    def test_information_restoration_from_step2_to_step1(self):
+        """
+        When the user goes back from the "names" page to the start page
+        all the information that had been provided there should once
+        again be available.
+        """
+        response = self.client.get(reverse('attendees_purchase'))
+
+        # check we are on the start page
+        self.assertContains(response, '<li class="active">Start</li>', html=True)
+
+        # Now let's fill out the form and move one to the second page.
+        purchase_data = {
+            'first_name': u'FirstName',
+            'last_name': u'LastName',
+            'company_name': u'Company',
+            'email': u'email@test.com',
+            'street': u'StreetNameAndNumber',
+            'zip_code': u'8010',
+            'country': u'Austria',
+            'city': u'Graz',
+            'vat_id': u'123',
+            'comments': u'Some comments',
+        }
+        ticket_data = {
+            'tq-1-quantity': 1,
+            'tq-2-quantity': 0,
+            'tq-3-quantity': 0,
+            'tq-4-quantity': 0,
+            'tq-5-quantity': 0,
+            'tq-6-quantity': 0,
+        }
+        form_data = {}
+        form_data.update(purchase_data)
+        form_data.update(ticket_data)
+
+        response = self.client.post(reverse('attendees_purchase'), data=form_data, follow=True)
+        self.assertContains(response, '<li class="active">Ticket info</li>', html=True)
+
+        # Now we go back to the start page and make ensure that the data
+        # we entered before is still there.
+        response = self.client.get(reverse('attendees_purchase'))
+        self.maxDiff = None
+        self.assertEqual(purchase_data, response.context['form'].initial)
+        for idx, qty in enumerate([1, None, None, None, None, None]):
+            self.assertEqual(qty, response.context['quantity_forms'][idx].initial['quantity'])
+
 
 class TestTicketTypes(TestCase):
     def test_returns_all_tickettypes(self):
