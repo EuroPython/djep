@@ -35,6 +35,8 @@ def get_addressed_as(user):
     return get_display_name(user)
 
 
+_valid_purchase = ('invoice_created', 'payment_received')
+
 _SEND_MAIL_MAP = (
     ('', _('Please select the target group'), None),
     (
@@ -44,8 +46,16 @@ _SEND_MAIL_MAP = (
     ),
     (
         'buyers',
-        _('All people having valid purchases'),
-        lambda qs: qs.filter(purchase__state__in=('invoice_created', 'payment_received')).distinct()
+        _('All users having valid purchases'),
+        lambda qs: qs.filter(purchase__state__in=_valid_purchase)
+                     .distinct()
+    ),
+    (
+        'ticket_holder',
+        _('All users having at least one ticket directly assigned'),
+        lambda qs: qs.filter(attendees_ticket_tickets__isnull=False,
+                             attendees_ticket_tickets__purchase__state__in=_valid_purchase)
+                     .distinct()
     ),
 )
 

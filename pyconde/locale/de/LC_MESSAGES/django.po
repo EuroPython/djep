@@ -370,13 +370,17 @@ msgstr "Sie haben sich erfolgreich angemeldet."
 msgid "Please select the target group"
 msgstr "Bitte wählen Sie eine Empfängergruppe aus"
 
-#: accounts/utils.py:42
+#: accounts/utils.py:44
 msgid "All registered users"
 msgstr "Alle angemeldeten Benutzer"
 
-#: accounts/utils.py:47
-msgid "All people having valid purchases"
+#: accounts/utils.py:49
+msgid "All users having valid purchases"
 msgstr "Alle Benutzer mit abgeschlossenen Einkäufen"
+
+#: accounts/utils.py:55
+msgid "All users having at least one ticket directly assigned"
+msgstr "Alle Benutzer mit mindestens einem zugewiesenen Ticket"
 
 #: accounts/validators.py:21
 msgid "Twitter usernames have only 15 characters or less"
