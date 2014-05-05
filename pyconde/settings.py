@@ -277,6 +277,8 @@ class Base(Configuration):
     #
     # CMS Settings
     #
+    CMS_PERMISSION = values.BooleanValue(False)
+
     CMS_TEMPLATES = (
         ('cms/default.html', ugettext('Default template')),
         ('cms/start.html', ugettext('Start page template')),
