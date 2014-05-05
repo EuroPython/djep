@@ -1,40 +1,40 @@
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
 # This file is distributed under the same license as the PACKAGE package.
-# 
+#
 # Markus Holtermann <info@markusholtermann.eu>, 2013, 2014.
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-04-27 14:30+0200\n"
-"PO-Revision-Date: 2014-04-27 14:43+0100\n"
-"Last-Translator:   <zerok@zerokspot.com>\n"
+"POT-Creation-Date: 2014-05-05 21:01+0200\n"
+"PO-Revision-Date: 2014-05-05 21:08+0200\n"
+"Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
+"Language: de\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Language: de\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 "X-Generator: Lokalize 1.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: settings.py:58 settings.py:296 settings.py:371 proposals/models.py:21
+#: settings.py:58 settings.py:298 settings.py:373 proposals/models.py:21
 msgid "German"
 msgstr "Deutsch"
 
-#: settings.py:59 settings.py:291 settings.py:372 proposals/models.py:22
+#: settings.py:59 settings.py:293 settings.py:374 proposals/models.py:22
 msgid "English"
 msgstr "Englisch"
 
-#: settings.py:281
+#: settings.py:283
 msgid "Default template"
 msgstr "Standardvorlage"
 
-#: settings.py:282
+#: settings.py:284
 msgid "Start page template"
 msgstr "Startseiten-Vorlage"
 
-#: settings.py:283
+#: settings.py:285
 msgid "Full page width (schedule, ...)"
 msgstr "Volle Seite"
 
@@ -170,19 +170,18 @@ msgid ""
 "Please upload an image with a side length of at least 300 pixels.<br />If "
 "you don't upload an avatar your Gravatar will be used instead."
 msgstr ""
-"Bitte ein Bild mit einer Breite von mindestens 300 Pixeln hochladen.<br "
-"/>Falls Sie keinen Avatar hochladen, wird versucht, Ihren Gravatar zu "
+"Bitte ein Bild mit einer Breite von mindestens 300 Pixeln hochladen.<br /"
+">Falls Sie keinen Avatar hochladen, wird versucht, Ihren Gravatar zu "
 "verwenden."
 
 #: accounts/forms.py:178
 #, python-format
 msgid ""
-"<ul><li><a href=\"%(register_url)s\">Don't have an account "
-"yet?</a></li><li><a href=\"%(password_reset_url)s\">Forgot your "
-"password?</a></li></ul>"
+"<ul><li><a href=\"%(register_url)s\">Don't have an account yet?</a></"
+"li><li><a href=\"%(password_reset_url)s\">Forgot your password?</a></li></ul>"
 msgstr ""
-"<ul><li><a href=\"%(register_url)s\">Noch kein Konto?</a></li><li><a "
-"href=\"%(password_reset_url)s\">Passwort vergessen?</a></li></ul>"
+"<ul><li><a href=\"%(register_url)s\">Noch kein Konto?</a></li><li><a href="
+"\"%(password_reset_url)s\">Passwort vergessen?</a></li></ul>"
 
 #: accounts/forms.py:183
 msgid "Log in"
@@ -257,11 +256,13 @@ msgstr "Mitteilung"
 
 #: accounts/forms.py:345
 msgid ""
-"The text may contain the following "
-"placeholders:<ul><li><code>$$RECEIVER$$</code></li><li><code>$$CONFERENCE$$</code></li><li><code>$$DOMAIN$$</code></li></ul>"
+"The text may contain the following placeholders:<ul><li><code>$$RECEIVER$$</"
+"code></li><li><code>$$CONFERENCE$$</code></li><li><code>$$DOMAIN$$</code></"
+"li></ul>"
 msgstr ""
-"Der Text kann folgende Platzhalter "
-"enthalten:<ul><li><code>$$RECEIVER$$</code></li><li><code>$$CONFERENCE$$</code></li><li><code>$$DOMAIN$$</code></li></ul>"
+"Der Text kann folgende Platzhalter enthalten:<ul><li><code>$$RECEIVER$$</"
+"code></li><li><code>$$CONFERENCE$$</code></li><li><code>$$DOMAIN$$</code></"
+"li></ul>"
 
 #: accounts/forms.py:353
 #, python-format
@@ -306,17 +307,16 @@ msgstr "Abmelden"
 #: accounts/models.py:23
 #, python-format
 msgid ""
-"Please upload an image with a side length between %(min_w)dx%(min_h)d px and"
-" %(max_w)dx%(max_h)d px."
+"Please upload an image with a side length between %(min_w)dx%(min_h)d px and "
+"%(max_w)dx%(max_h)d px."
 msgstr ""
-"Bitte ein Bild mit einer Größe zwischen %(min_w)dx%(min_h)d px und "
-"%(max_w)dx%(max_h)d px hochladen."
+"Bitte ein Bild mit einer Größe zwischen %(min_w)dx%(min_h)d px und %(max_w)dx"
+"%(max_h)d px hochladen."
 
 #: accounts/models.py:29
 #, python-format
 msgid ""
-"Please upload an image with a side length of at least %(min_w)dx%(min_h)d "
-"px."
+"Please upload an image with a side length of at least %(min_w)dx%(min_h)d px."
 msgstr ""
 "Bitte ein Bild mit einer Größe von mindestens %(min_w)dx%(min_h)d px "
 "hochladen."
@@ -326,8 +326,7 @@ msgstr ""
 msgid ""
 "Please upload an image with a side length of at most %(max_w)dx%(max_h)d px."
 msgstr ""
-"Bitte ein Bild mit einer Größe von höchsten %(max_w)dx%(max_h)d px "
-"hochladen."
+"Bitte ein Bild mit einer Größe von höchsten %(max_w)dx%(max_h)d px hochladen."
 
 #: accounts/models.py:52 accounts/widgets.py:45
 msgid "avatar"
@@ -366,7 +365,7 @@ msgstr "Erlaube das Versenden von Mails an Benutzer über die Website"
 msgid "You've logged in successfully."
 msgstr "Sie haben sich erfolgreich angemeldet."
 
-#: accounts/utils.py:39
+#: accounts/utils.py:41
 msgid "Please select the target group"
 msgstr "Bitte wählen Sie eine Empfängergruppe aus"
 
@@ -397,38 +396,38 @@ msgstr "Die Abmessungen des Profilbildes konnten nicht bestimmt werden."
 #: accounts/validators.py:37
 #, python-format
 msgid ""
-"Minimum avatar size is %(min_w)dx%(min_h)d px. Yours is "
-"%(yours_w)dx%(yours_h)d px"
+"Minimum avatar size is %(min_w)dx%(min_h)d px. Yours is %(yours_w)dx"
+"%(yours_h)d px"
 msgstr ""
-"Das Profilbild ist zu klein (%(yours_w)dx%(yours_h)d px). Minimum: "
-"%(min_w)dx%(min_h)d px"
+"Das Profilbild ist zu klein (%(yours_w)dx%(yours_h)d px). Minimum: %(min_w)dx"
+"%(min_h)d px"
 
 #: accounts/validators.py:45
 #, python-format
 msgid ""
-"Maximum avatar size is %(max_w)dx%(max_h)d px. Yours is "
-"%(yours_w)dx%(yours_h)d px"
+"Maximum avatar size is %(max_w)dx%(max_h)d px. Yours is %(yours_w)dx"
+"%(yours_h)d px"
 msgstr ""
-"Das Profilbild ist zu groß (%(yours_w)dx%(yours_h)d px). Maximum: "
-"%(max_w)dx%(max_h)d px"
+"Das Profilbild ist zu groß (%(yours_w)dx%(yours_h)d px). Maximum: %(max_w)dx"
+"%(max_h)d px"
 
 #: accounts/validators.py:58
 msgid "Your avatar has to be either a PNG, JPEG or GIF file."
 msgstr "Das Profilbild muss entweder ein PNG, JPEG oder GIF sein."
 
-#: accounts/views.py:160
+#: accounts/views.py:174
 msgid "An error occurred while saving the form."
 msgstr "Beim Speichern des Formulars trat ein Fehler auf."
 
-#: accounts/views.py:171
+#: accounts/views.py:185
 msgid "The reviewer application is closed."
 msgstr "Die Bewerbung als Reviewer is geschlossen."
 
-#: accounts/views.py:174
+#: accounts/views.py:188
 msgid "You already applied as a reviewer."
 msgstr "Du hast dich bereits als Reviewer beworben."
 
-#: accounts/views.py:183
+#: accounts/views.py:197
 msgid "New reviewer application"
 msgstr "Neue Reviewer Bewerbung"
 
@@ -452,28 +451,32 @@ msgid ""
 "<p>Please provide a valid e-mail address. The main way of sending out "
 "notifications and updates is via e-mail.</p><p>If you enter an e-mail "
 "address in the form below, an activation e-mail will be sent to this "
-"address. You can always change your e-mail address in the profile section of"
-" the site.</p>"
+"address. You can always change your e-mail address in the profile section of "
+"the site.</p>"
 msgstr ""
 "<p>Bitte geben Sie eine gültige E-Mail-Adresse an, um Benachrichtungen zu "
 "erhalten.</p><p>Nachdem Sie im untenstehenden Formular Ihre E-Mail-Adresse "
 "eingegeben haben, wird an diese Adresse eine Aktivierungsmail versandt. Sie "
-"können Ihre Adresse später im <em>Mein Konto</em>-Bereich jederzeit "
-"ändern.</p>"
+"können Ihre Adresse später im <em>Mein Konto</em>-Bereich jederzeit ändern.</"
+"p>"
 
 #: accounts/templates/accounts/reviewer_application_mail.txt:1
 #, python-format
 msgid ""
 "Hello %(receiver)s,\n"
 "\n"
-"the user %(applicant_username)s (%(applicant_display_name)s) requested to become a reviewer. You can visit %(reviewer_list_url)s to process the request.\n"
+"the user %(applicant_username)s (%(applicant_display_name)s) requested to "
+"become a reviewer. You can visit %(reviewer_list_url)s to process the "
+"request.\n"
 "\n"
 "Thank you very much!\n"
 "The %(conference_title)s team\n"
 msgstr ""
 "Hallo %(receiver)s,\n"
 "\n"
-"der Benutzer %(applicant_username)s (%(applicant_display_name)s) hat sich als Reviewer beworben. Unter %(reviewer_list_url)s kannst du die Bewerbung an- bzw. ablehnen.\n"
+"der Benutzer %(applicant_username)s (%(applicant_display_name)s) hat sich "
+"als Reviewer beworben. Unter %(reviewer_list_url)s kannst du die Bewerbung "
+"an- bzw. ablehnen.\n"
 "\n"
 "Vielen Dank!\n"
 "Dein %(conference_title)s Team\n"
@@ -488,9 +491,9 @@ msgid "Your mail has been queued for sending"
 msgstr "Ihre E-Mail befindet sich nun in der Outbox."
 
 #: accounts/templates/accounts/emails/sendmail.txt:3
-#: attendees/templates/attendees/mail_signature.txt:1
 #, python-format
 msgid ""
+"\n"
 "\n"
 "If you have any questions please contact us!\n"
 "\n"
@@ -499,8 +502,9 @@ msgid ""
 "\n"
 "\n"
 "Thank you very much!\n"
-"The %(conference_name)s team\n"
+"The %(conference_name)s team"
 msgstr ""
+"\n"
 "\n"
 "Bei Fragen stehen wir selbstverständlich zur Verfügung!\n"
 "\n"
@@ -509,7 +513,7 @@ msgstr ""
 "\n"
 "\n"
 "Vielen Dank!\n"
-"Dein %(conference_name)s Team\n"
+"Dein %(conference_name)s Team"
 
 #: attendees/admin.py:23 reviews/admin.py:27 reviews/admin.py:33
 msgid "Export as CSV"
@@ -519,8 +523,7 @@ msgstr "Als CSV exportieren"
 #, python-format
 msgid ""
 "Purchase %(invoice_number)s has already been exported. Use “Send me a copy "
-"of the invoice” or “Send customer a copy of the invoice” to mail the "
-"invoice."
+"of the invoice” or “Send customer a copy of the invoice” to mail the invoice."
 msgstr ""
 "Die Rechnung %(invoice_number)s wurde bereits exportiert. Bitte verwende "
 "stattdessen „Kopie der Rechnung an mich senden“ oder „Kopie der Rechnung an "
@@ -638,17 +641,15 @@ msgstr "Die maximale Menge dieses Produkts für diesen Einkauf ist erreicht."
 
 #: attendees/forms.py:115
 msgid ""
-"Sizing charts: <a "
-"href=\"http://maxnosleeves.spreadshirt.com/shop/info/producttypedetails/Popup/Show/productType/813\""
-" target=\"_blank\">Women</a>, <a "
-"href=\"http://maxnosleeves.spreadshirt.com/shop/info/producttypedetails/Popup/Show/productType/812\""
-" target=\"_blank\">Men</a>"
+"Sizing charts: <a href=\"http://maxnosleeves.spreadshirt.com/shop/info/"
+"producttypedetails/Popup/Show/productType/813\" target=\"_blank\">Women</a>, "
+"<a href=\"http://maxnosleeves.spreadshirt.com/shop/info/producttypedetails/"
+"Popup/Show/productType/812\" target=\"_blank\">Men</a>"
 msgstr ""
-"Größentabellen: <a href=\"http://btn-"
-"shop.spreadshirt.de/shop/info/producttypedetails/Popup/Show/productType/813\""
-" target=\"_blank\">Frauen</a>, <a href=\"http://btn-"
-"shop.spreadshirt.de/shop/info/producttypedetails/Popup/Show/productType/812\""
-" target=\"_blank\">Männer</a>"
+"Größentabellen: <a href=\"http://btn-shop.spreadshirt.de/shop/info/"
+"producttypedetails/Popup/Show/productType/813\" target=\"_blank\">Frauen</"
+"a>, <a href=\"http://btn-shop.spreadshirt.de/shop/info/producttypedetails/"
+"Popup/Show/productType/812\" target=\"_blank\">Männer</a>"
 
 #: attendees/forms.py:158 attendees/models.py:96 attendees/models.py:100
 #: attendees/models.py:433
@@ -666,7 +667,9 @@ msgstr "Ich habe die allgemeinen Geschäftsbedingungen gelesen und akzeptiert."
 
 #: attendees/forms.py:204
 #, python-format
-msgid "You must accept the <a target=\"_blank\" href=\"%s\">terms and conditions</a>."
+msgid ""
+"You must accept the <a target=\"_blank\" href=\"%s\">terms and conditions</"
+"a>."
 msgstr ""
 "Sie müssen die <a target=\"_blank\" href=\"%s\">allgemeinen "
 "Geschäftsbedingungen</a> akzeptieren."
@@ -690,21 +693,20 @@ msgid ""
 "your money transfer your purchase will be finalized."
 msgstr ""
 "Falls Sie Rechnung auswählen, erhalten Sie von uns eine Rechnung nach "
-"Abschluss des Einkaufes. Sobald wir von Ihnen eine entsprechende Überweisung"
-" erhalten, wird Ihre Bestellung abgeschlossen."
+"Abschluss des Einkaufes. Sobald wir von Ihnen eine entsprechende Überweisung "
+"erhalten, wird Ihre Bestellung abgeschlossen."
 
 #: attendees/forms.py:264
 msgid ""
-"Credit card payment is handled through <a "
-"href=\"http://www.paymill.com\">PayMill</a>.<br><br>We accept following "
-"credit cards:&nbsp;<img src=\"/static_media/assets/images/cc/mastercard-"
-"curved-32px.png\" alt=\"MasterCard\">&nbsp;<img "
-"src=\"/static_media/assets/images/cc/visa-curved-32px.png\" alt=\"VISA\">"
+"Credit card payment is handled through <a href=\"http://www.paymill.com"
+"\">PayMill</a>.<br><br>We accept following credit cards:&nbsp;<img src=\"/"
+"static_media/assets/images/cc/mastercard-curved-32px.png\" alt=\"MasterCard"
+"\">&nbsp;<img src=\"/static_media/assets/images/cc/visa-curved-32px.png\" "
+"alt=\"VISA\">"
 msgstr ""
-"Kreditkarten-Zahlungen werden durch <a "
-"href=\"http://www.paymill.com\">PayMill</a> durchgeführt.<br><br>Wir "
-"akzeptieren folgende Kreditkarten:&nbsp;<img "
-"src=\"/static_media/assets/images/cc/mastercard-curved-32px.png\" "
+"Kreditkarten-Zahlungen werden durch <a href=\"http://www.paymill.com"
+"\">PayMill</a> durchgeführt.<br><br>Wir akzeptieren folgende Kreditkarten:"
+"&nbsp;<img src=\"/static_media/assets/images/cc/mastercard-curved-32px.png\" "
 "alt=\"MasterCard\">&nbsp;<img src=\"/static_media/assets/images/cc/visa-"
 "curved-32px.png\" alt=\"VISA\">"
 
@@ -723,20 +725,16 @@ msgstr ""
 msgid "Couldn't find a user with this username."
 msgstr "Es konnte kein Benutzer mit diesem Benutzernamen gefunden werden."
 
-#: attendees/forms.py:290
-msgid "Tickets purchased by you are already assigned to you :-)"
-msgstr "Tickets, die Sie gekauft haben, sind Ihnen bereits zugewiesen :-)"
-
-#: attendees/forms.py:301 attendees/templates/attendees/assign_ticket.html:3
+#: attendees/forms.py:299 attendees/templates/attendees/assign_ticket.html:3
 #: attendees/templates/attendees/assign_ticket.html:4
 msgid "Assign ticket"
 msgstr "Ticket zuweisen"
 
-#: attendees/forms.py:315
+#: attendees/forms.py:313
 msgid "This field is no longer editable."
 msgstr "Dieses Feld kann nicht mehr bearbeitet werden."
 
-#: attendees/forms.py:323 proposals/forms.py:60 proposals/forms.py:192
+#: attendees/forms.py:321 proposals/forms.py:60 proposals/forms.py:192
 #: proposals/forms.py:257 reviews/forms.py:158
 msgid "Save changes"
 msgstr "Änderungen speichern"
@@ -999,7 +997,7 @@ msgstr "Konferenz-Tickets"
 
 #: attendees/models.py:453 attendees/templates/attendees/user_tickets.html:35
 msgid "Date of birth"
-msgstr ""
+msgstr "Geburtsdatum"
 
 #: attendees/models.py:454
 msgid "Gender"
@@ -1039,7 +1037,7 @@ msgstr "Bitte geben Sie die Telefonnummer Ihrer Unterkunft an."
 
 #: attendees/models.py:471
 msgid "IMSI"
-msgstr ""
+msgstr "IMSI"
 
 #: attendees/models.py:472
 msgid "The IMSI of the SIM Card associated with this account."
@@ -1053,17 +1051,17 @@ msgstr "SIM-Karte"
 msgid "SIM Cards"
 msgstr "SIM-Karten"
 
-#: attendees/tasks.py:101
+#: attendees/tasks.py:106
 #, python-format
 msgid "Your EuroPython 2014 Invoice %(full_invoice_number)s"
 msgstr "Deine EuroPython 2014 Rechnung %(full_invoice_number)s"
 
-#: attendees/tasks.py:141
+#: attendees/tasks.py:146
 #, python-format
 msgid "Your %(conference)s purchase has been canceled"
 msgstr "Ihre %(conference)s Buchung wurde storniert"
 
-#: attendees/tasks.py:159
+#: attendees/tasks.py:164
 #, python-format
 msgid "Your %(conference)s ticket %(ticketname)s has been invalidated"
 msgstr "Ihr %(conference)s Ticket %(ticketname)s wurde storniert"
@@ -1116,12 +1114,16 @@ msgstr "Ticket-Information ändern"
 #: attendees/templates/attendees/edit_ticket.html:13
 msgid ""
 "\n"
-"            <p>Here you can edit the information that will be printed onto your ticket/badge.</p>\n"
-"            <p>Depending on what ticket you bought not all fields are editable.</p>\n"
+"            <p>Here you can edit the information that will be printed onto "
+"your ticket/badge.</p>\n"
+"            <p>Depending on what ticket you bought not all fields are "
+"editable.</p>\n"
 "            "
 msgstr ""
 "\n"
-"<p>Hier können Sie die Information ändern, die auf Ihr Ticket/Ihren Badge gedruckt wird.<p><p>Je nach Ticket-Art können möglicherweise nicht mehr alle Felder bearbeitet werden.</p>"
+"<p>Hier können Sie die Information ändern, die auf Ihr Ticket/Ihren Badge "
+"gedruckt wird.<p><p>Je nach Ticket-Art können möglicherweise nicht mehr alle "
+"Felder bearbeitet werden.</p>"
 
 #: attendees/templates/attendees/mail_payment_invoice.txt:3
 #, python-format
@@ -1135,23 +1137,33 @@ msgstr ""
 #: attendees/templates/attendees/mail_payment_pending.txt:3
 #, python-format
 msgid ""
-"According to our records, we have not yet received a remittance for your invoice %(invoice_number)s from %(invoice_date)s to the %(conference_name)s conference. We would be grateful if you make your payment until %(due_date)s. You will receive the invoice in another e-mail.\n"
+"According to our records, we have not yet received a remittance for your "
+"invoice %(invoice_number)s from %(invoice_date)s to the %(conference_name)s "
+"conference. We would be grateful if you make your payment until "
+"%(due_date)s. You will receive the invoice in another e-mail.\n"
 "\n"
-"If you have already made your payment, please contact us asap at helpdesk@europython.eu\n"
+"If you have already made your payment, please contact us asap at "
+"helpdesk@europython.eu\n"
 "\n"
-"If we don't receive your payment by %(due_date)s we will cancel your purchase and invalidate all corresponding tickets."
+"If we don't receive your payment by %(due_date)s we will cancel your "
+"purchase and invalidate all corresponding tickets."
 msgstr ""
-"nach unseren Unterlagen haben wir noch keine Zahlung Ihrer Rechnung %(invoice_number)s vom %(invoice_date)s zur %(conference_name)s Konferenz erhalten. Wir wären Ihnen dankbar, wenn Sie Ihre Zahlung bis zum %(due_date)s durchführen. Sie erhalten die Rechnung in einer separaten E-Mail.\n"
+"nach unseren Unterlagen haben wir noch keine Zahlung Ihrer Rechnung "
+"%(invoice_number)s vom %(invoice_date)s zur %(conference_name)s Konferenz "
+"erhalten. Wir wären Ihnen dankbar, wenn Sie Ihre Zahlung bis zum "
+"%(due_date)s durchführen. Sie erhalten die Rechnung in einer separaten E-"
+"Mail.\n"
 "\n"
-"Wenn Sie Ihre Zahlung bereits vorgenommen haben, kontaktieren Sie uns bitte so bald wie möglich über helpdesk@europython.eu\n"
+"Wenn Sie Ihre Zahlung bereits vorgenommen haben, kontaktieren Sie uns bitte "
+"so bald wie möglich über helpdesk@europython.eu\n"
 "\n"
-"Wenn wir Ihre Zahlung nicht bis zum %(due_date)s erhalten, werden wir den Kauf stornieren; alle dazugehörigen Tickets werden dadurch ungültig."
+"Wenn wir Ihre Zahlung nicht bis zum %(due_date)s erhalten, werden wir den "
+"Kauf stornieren; alle dazugehörigen Tickets werden dadurch ungültig."
 
 #: attendees/templates/attendees/mail_payment_received.txt:3
 #, python-format
 msgid "We just received the payment for your %(conference_name)s tickets:"
-msgstr ""
-"Wir haben die Zahlung für deine %(conference_name)s Tickets erhalten: "
+msgstr "Wir haben die Zahlung für deine %(conference_name)s Tickets erhalten: "
 
 #: attendees/templates/attendees/mail_purchase_canceled.txt:5
 #, python-format
@@ -1197,8 +1209,8 @@ msgstr "Während der nächsten Tage wirst du eine Rechnung via E-Mail erhalten."
 
 #: attendees/templates/attendees/mail_purchase_completed.txt:31
 msgid ""
-"You can check your payment status in your profile. The incoming payments are"
-" checked at least twice a week."
+"You can check your payment status in your profile. The incoming payments are "
+"checked at least twice a week."
 msgstr ""
 "Sie können Ihren Bezahlstatus in Ihrem Profil einsehen. Die eingehenden "
 "Überweisungen werden mindestens zweimal pro Woche überprüft."
@@ -1212,8 +1224,7 @@ msgstr ""
 msgid ""
 "As soon as your purchase has been processed you will receive another e-mail."
 msgstr ""
-"Sobald die Buchung abgeschlossen wurde wirst du eine weitere E-Mail "
-"erhalten."
+"Sobald die Buchung abgeschlossen wurde wirst du eine weitere E-Mail erhalten."
 
 #: attendees/templates/attendees/mail_purchase_completed.txt:37
 msgid "Conference material will be handed out at the conference."
@@ -1224,57 +1235,106 @@ msgstr "Konferenzmaterial wird beim Check-in verteilt."
 msgid ""
 "Payment/Processing issues\n"
 "\n"
-"If you have any questions regarding your purchase please include the following information:\n"
+"If you have any questions regarding your purchase please include the "
+"following information:\n"
 "\n"
 "    Purchase ID: %(purchase_id)s\n"
 "    Invoice Number: %(invoice_number)s\n"
 "\n"
-"This allows us to quickly identify your purchase and assist you accordingly.\n"
+"This allows us to quickly identify your purchase and assist you "
+"accordingly.\n"
 msgstr ""
 "Bezahlungs-/Abwicklungsproleme\n"
 "\n"
-"Bei Fragen zu Ihrer Bestellung teilen Sie uns bitte folgende Informationen mit:\n"
+"Bei Fragen zu Ihrer Bestellung teilen Sie uns bitte folgende Informationen "
+"mit:\n"
 "\n"
 "    Bestellnummer: %(purchase_id)s\n"
 "    Rechnungsnummer: %(invoice_number)s\n"
 "\n"
-"Dies ermöglicht uns Ihre Bestellung zweifelsfrei zu lokalisieren und Ihnen prompt und zuverlässig zu helfen.\n"
+"Dies ermöglicht uns Ihre Bestellung zweifelsfrei zu lokalisieren und Ihnen "
+"prompt und zuverlässig zu helfen.\n"
 
 #: attendees/templates/attendees/mail_purchase_completed.txt:49
 msgid ""
 "Revocation Rights Notice\n"
 "\n"
-"Applications may be revoked by you, the applicant, within 14 days without stating any reason, in text form (e.g. letter, fax, email). The 14­ day period begins on receipt of this notice, earliest however on contract formation and not before fulfilment of the duty of information on the part of the Host.\n"
+"Applications may be revoked by you, the applicant, within 14 days without "
+"stating any reason, in text form (e.g. letter, fax, email). The 14­ day "
+"period begins on receipt of this notice, earliest however on contract "
+"formation and not before fulfilment of the duty of information on the part "
+"of the Host.\n"
 "\n"
-"The revocation is effected on time if sent within the foregoing period for revocation. The revocation is to be sent to:\n"
+"The revocation is effected on time if sent within the foregoing period for "
+"revocation. The revocation is to be sent to:\n"
 "\n"
 "by e­-mail to: helpdesk@europython.eu\n"
-"by post to:   Python Software Verband e.V., Schulstraße 20, 15366 Neuenhagen bei Berlin, Germany\n"
+"by post to:   Python Software Verband e.V., Schulstraße 20, 15366 Neuenhagen "
+"bei Berlin, Germany\n"
 "by fax to:    +49 3342 211999­5\n"
 "\n"
 "Consequences of revocation\n"
 "\n"
-"In the event of valid revocation, any performance already received by either party shall be returned along with the proceeds of any use thereof (e.g. interest). If you cannot return performance or proceeds of use, or only in deteriorated condition, then you must compensate us. The duty to return payments must be fulfilled within 30 days. For you, this period begins on sending your revocation; for us, on receipt thereof."
+"In the event of valid revocation, any performance already received by either "
+"party shall be returned along with the proceeds of any use thereof (e.g. "
+"interest). If you cannot return performance or proceeds of use, or only in "
+"deteriorated condition, then you must compensate us. The duty to return "
+"payments must be fulfilled within 30 days. For you, this period begins on "
+"sending your revocation; for us, on receipt thereof."
 msgstr ""
 "Widerrufsbelehrung\n"
 "\n"
-"Sie können Ihre Vertragserklärung innerhalb von 14 Tagen ohne Angabe von Gründen in Textform widerrufen. Die Frist beginnt nach Erhalt dieser Belehrung in Textform, jedoch nicht vor Vertragsschluss und auch nicht vor Erfüllung der Informationspflicht des Veranstalters.\n"
+"Sie können Ihre Vertragserklärung innerhalb von 14 Tagen ohne Angabe von "
+"Gründen in Textform widerrufen. Die Frist beginnt nach Erhalt dieser "
+"Belehrung in Textform, jedoch nicht vor Vertragsschluss und auch nicht vor "
+"Erfüllung der Informationspflicht des Veranstalters.\n"
 "\n"
-"Zur Wahrung der Widerrufsfrist genügt die rechtzeitige Absendung des Widerrufs. Der Widerruf ist zu richten an:\n"
+"Zur Wahrung der Widerrufsfrist genügt die rechtzeitige Absendung des "
+"Widerrufs. Der Widerruf ist zu richten an:\n"
 "\n"
 "per E-Mail an: helpdesk@europython.eu\n"
-"per Post an:   Python Software Verband e.V., Schulstraße 20, 15366 Neuenhagen bei Berlin, Deutschland\n"
+"per Post an:   Python Software Verband e.V., Schulstraße 20, 15366 "
+"Neuenhagen bei Berlin, Deutschland\n"
 "per Fax an:    +49 3342 211999-5\n"
 "\n"
 "Widerrufsfolgen\n"
 "\n"
-"Im Falle eines wirksamen Widerrufs sind die beiderseits empfangenen Leistungen zurück zu gewähren und ggf. gezogene Nutzungen (z.B. Zinsen) herauszugeben. Können Sie uns die empfangene Leistung sowie Nutzungen nicht oder nur in verschlechtertem Zustand zurückgewähren beziehungsweise herausgeben, müssen Sie uns insoweit Wertersatz leisten. Verpflichtungen zur Erstattung von Zahlungen müssen innerhalb von 30 Tagen erfüllt werden. Die Frist beginnt für Sie mit der Absendung Ihrer Widerrufserklärung, für uns mit deren Empfang."
+"Im Falle eines wirksamen Widerrufs sind die beiderseits empfangenen "
+"Leistungen zurück zu gewähren und ggf. gezogene Nutzungen (z.B. Zinsen) "
+"herauszugeben. Können Sie uns die empfangene Leistung sowie Nutzungen nicht "
+"oder nur in verschlechtertem Zustand zurückgewähren beziehungsweise "
+"herausgeben, müssen Sie uns insoweit Wertersatz leisten. Verpflichtungen zur "
+"Erstattung von Zahlungen müssen innerhalb von 30 Tagen erfüllt werden. Die "
+"Frist beginnt für Sie mit der Absendung Ihrer Widerrufserklärung, für uns "
+"mit deren Empfang."
+
+#: attendees/templates/attendees/mail_signature.txt:1
+#, python-format
+msgid ""
+"\n"
+"If you have any questions please contact us!\n"
+"\n"
+"Twitter: @europython\n"
+"E-mail:  helpdesk@europython.eu\n"
+"\n"
+"\n"
+"Thank you very much!\n"
+"The %(conference_name)s team\n"
+msgstr ""
+"\n"
+"Bei Fragen stehen wir selbstverständlich zur Verfügung!\n"
+"\n"
+"Twitter: @europython\n"
+"E-mail:  helpdesk@europython.eu\n"
+"\n"
+"\n"
+"Vielen Dank!\n"
+"Dein %(conference_name)s Team\n"
 
 #: attendees/templates/attendees/payment_paymill.html:7
 msgid "You have to have JavaScript enabled to pay via credit card."
 msgstr ""
-"Sie müssen JavaScript aktiviert haben, um mit Kreditkarte bezahlen zu "
-"können."
+"Sie müssen JavaScript aktiviert haben, um mit Kreditkarte bezahlen zu können."
 
 #: attendees/templates/attendees/payment_paymill.html:18
 msgid "Card number"
@@ -1308,13 +1368,17 @@ msgstr "Jahr"
 #, python-format
 msgid ""
 "We accept following credit cards:\n"
-"    <img src=\"%(STATIC_URL)sassets/images/cc/mastercard-curved-32px.png\" alt=\"MasterCard\">&nbsp;\n"
-"    <img src=\"%(STATIC_URL)sassets/images/cc/visa-curved-32px.png\" alt=\"VISA\">\n"
+"    <img src=\"%(STATIC_URL)sassets/images/cc/mastercard-curved-32px.png\" "
+"alt=\"MasterCard\">&nbsp;\n"
+"    <img src=\"%(STATIC_URL)sassets/images/cc/visa-curved-32px.png\" alt="
+"\"VISA\">\n"
 "    "
 msgstr ""
 "Wir akzeptieren folgende Kreditkarten:\n"
-"    <img src=\"%(STATIC_URL)sassets/images/cc/mastercard-curved-32px.png\" alt=\"MasterCard\">&nbsp;\n"
-"    <img src=\"%(STATIC_URL)sassets/images/cc/visa-curved-32px.png\" alt=\"VISA\">\n"
+"    <img src=\"%(STATIC_URL)sassets/images/cc/mastercard-curved-32px.png\" "
+"alt=\"MasterCard\">&nbsp;\n"
+"    <img src=\"%(STATIC_URL)sassets/images/cc/visa-curved-32px.png\" alt="
+"\"VISA\">\n"
 "    "
 
 #: attendees/templates/attendees/payment_paymill.html:85
@@ -1329,14 +1393,23 @@ msgstr "Zurück"
 #: attendees/templates/attendees/purchase.html:16
 msgid ""
 "\n"
-"        <p>If you intend to pay via <strong>credit card</strong> and have <em>3-D Secure</em> enabled (e.g. \"Verified by VISA\" or \n"
-"        \"MasterCard SecureCode\"), please <strong>disable your ad-/JavaScript-blocker</strong> for the duration of the checkout as\n"
+"        <p>If you intend to pay via <strong>credit card</strong> and have "
+"<em>3-D Secure</em> enabled (e.g. \"Verified by VISA\" or \n"
+"        \"MasterCard SecureCode\"), please <strong>disable your ad-/"
+"JavaScript-blocker</strong> for the duration of the checkout as\n"
 "        this might interfer with the payment process.</p>\n"
-"        <noscript><p><strong>Please enable JavaScript in your Browser.</strong></p></noscript>\n"
+"        <noscript><p><strong>Please enable JavaScript in your Browser.</"
+"strong></p></noscript>\n"
 "        "
 msgstr ""
 "\n"
-"<p>Falls Sie die Tickets mit einer <strong>Kreditkarte</strong>, für die <em>3-D Secure</em> (z.B. \"Verified by VISA\" oder \"MasterCard SecureCode\") aktiviert wurde, bezahlen möchten, <strong>deaktivieren Sie bitte</strong> für die Dauer des Einkaufs etwaige <strong>Werbe-/JavaScript-Blocker</strong>, da diese möglicherweise den Bezahlvorgang unterbrechen.</p><noscript><p><strong>Bitte aktivieren Sie JavaScript in Ihrem Browser.</strong></p></noscript>"
+"<p>Falls Sie die Tickets mit einer <strong>Kreditkarte</strong>, für die "
+"<em>3-D Secure</em> (z.B. \"Verified by VISA\" oder \"MasterCard SecureCode"
+"\") aktiviert wurde, bezahlen möchten, <strong>deaktivieren Sie bitte</"
+"strong> für die Dauer des Einkaufs etwaige <strong>Werbe-/JavaScript-"
+"Blocker</strong>, da diese möglicherweise den Bezahlvorgang unterbrechen.</"
+"p><noscript><p><strong>Bitte aktivieren Sie JavaScript in Ihrem Browser.</"
+"strong></p></noscript>"
 
 #: attendees/templates/attendees/purchase.html:30
 msgid "You have to select at least one ticket."
@@ -1367,8 +1440,8 @@ msgstr "nur noch %(limit)s verfügbar (inkl. deinem)!"
 
 #: attendees/templates/attendees/purchase_confirm.html:18
 msgid ""
-"Please check your billing address as well as the ticket data in the overview"
-" below."
+"Please check your billing address as well as the ticket data in the overview "
+"below."
 msgstr ""
 "Bitte überprüfe deine Rechnungsadresse und die Ticketdaten in der "
 "nachfolgenden Übersicht"
@@ -1400,11 +1473,17 @@ msgstr "Zahlungsart und Allgemeine Geschäftsbedingungen"
 
 #: attendees/templates/attendees/purchase_confirm.html:57
 msgid ""
-"<p>Please select a payment method and click \"Complete purchase\". You will receive an order confirmation via e-mail at the end of the order process.</p>\n"
-"        <p>The ticket purchase requires you to agree to the terms of service.</p>"
+"<p>Please select a payment method and click \"Complete purchase\". You will "
+"receive an order confirmation via e-mail at the end of the order process.</"
+"p>\n"
+"        <p>The ticket purchase requires you to agree to the terms of service."
+"</p>"
 msgstr ""
-"        <p>Bitte wähle eine Zahlungsart und klicke auf \"Bestellung abschließen\". Du wirst eine E-Mail Bestätigung nach dem Abschluss der Buchung erhalten.</p>\n"
-"        <p>Der Kauf eines Tickets erfordert die Annahme der Allgemeinen Geschäftsbedingungen.</p>"
+"        <p>Bitte wähle eine Zahlungsart und klicke auf \"Bestellung "
+"abschließen\". Du wirst eine E-Mail Bestätigung nach dem Abschluss der "
+"Buchung erhalten.</p>\n"
+"        <p>Der Kauf eines Tickets erfordert die Annahme der Allgemeinen "
+"Geschäftsbedingungen.</p>"
 
 #: attendees/templates/attendees/purchase_done.html:7
 msgid "Purchase complete!"
@@ -1421,8 +1500,8 @@ msgstr ""
 #: attendees/templates/attendees/purchase_done.html:10
 msgid ""
 "If you'd like to show your support to the EuroPython you can apply for a "
-"free EuroPython Society (EPS) Membership by email to <a "
-"href=\"mailto:board@europython.eu\">board@europython.eu</a>."
+"free EuroPython Society (EPS) Membership by email to <a href=\"mailto:"
+"board@europython.eu\">board@europython.eu</a>."
 msgstr ""
 "Wenn du die EuroPython unterstützen möchtest kann du ein kostenlose "
 "Mitgliedschaft bei der EuroPython Society (EPS) beantragen. Sende dazu eine "
@@ -1530,10 +1609,12 @@ msgstr "Rechnung zuschicken"
 #: attendees/templates/attendees/user_purchases.html:65
 #, python-format
 msgid ""
-"This ticket has been assigned to %(username)s. Please contact the helpdesk if\n"
+"This ticket has been assigned to %(username)s. Please contact the helpdesk "
+"if\n"
 "                            you want to change this."
 msgstr ""
-"Dieses Ticket wurde %(username)s zugewiesen. Falls Sie dies ändern möchten, bitte wenden Sie sich an den Helpdesk.\n"
+"Dieses Ticket wurde %(username)s zugewiesen. Falls Sie dies ändern möchten, "
+"bitte wenden Sie sich an den Helpdesk.\n"
 " "
 
 #: attendees/templates/attendees/user_purchases.html:68
@@ -1577,27 +1658,39 @@ msgstr "Telefonnummer"
 #: attendees/templates/attendees/user_tickets.html:56
 msgid ""
 "\n"
-"                <p>There are currently no tickets associated with your account.</p>\n"
-"                <p>Please note that only tickets from completed purchases are listed here.</p>\n"
+"                <p>There are currently no tickets associated with your "
+"account.</p>\n"
+"                <p>Please note that only tickets from completed purchases "
+"are listed here.</p>\n"
 "                "
 msgstr ""
 "\n"
-"<p>Es sind derzeit keine Tickets Ihrem Account zugewiesen.</p><p>Bitte beachten Sie, dass nur Tickets von abgeschlossenen Einkäufen hier aufgelistet werden.</p>\n"
+"<p>Es sind derzeit keine Tickets Ihrem Account zugewiesen.</p><p>Bitte "
+"beachten Sie, dass nur Tickets von abgeschlossenen Einkäufen hier "
+"aufgelistet werden.</p>\n"
 "\n"
 " "
 
 #: attendees/templates/attendees/user_tickets.html:65
 msgid ""
 "\n"
-"            <p>Here you can see all the tickets that are associated with your account.\n"
-"            If another user purchased a ticket for you which doesn't show up here, please\n"
-"            ask them to assign the ticket to you. They can do that through their list\n"
+"            <p>Here you can see all the tickets that are associated with "
+"your account.\n"
+"            If another user purchased a ticket for you which doesn't show up "
+"here, please\n"
+"            ask them to assign the ticket to you. They can do that through "
+"their list\n"
 "            of purchases.</p>\n"
-"            <p>Please note that only tickets from completed purchases are listed here.</p>\n"
+"            <p>Please note that only tickets from completed purchases are "
+"listed here.</p>\n"
 "            "
 msgstr ""
 "\n"
-"<p>Hier können Sie alle Tickets sehen, die Ihrem Account zugewiesen sind. Sollte ein anderer Benutzer für Sie ein Ticket gekauft haben, das hier nicht aufscheint, so kann diese Person das Ticket unter \"Einkäufe\" Ihnen zuweisen.</p><p>Bitte beachten Sie, dass nur Tickets von abgeschlossenen Einkäufen hier aufgelistet werden.</p>\n"
+"<p>Hier können Sie alle Tickets sehen, die Ihrem Account zugewiesen sind. "
+"Sollte ein anderer Benutzer für Sie ein Ticket gekauft haben, das hier nicht "
+"aufscheint, so kann diese Person das Ticket unter \"Einkäufe\" Ihnen "
+"zuweisen.</p><p>Bitte beachten Sie, dass nur Tickets von abgeschlossenen "
+"Einkäufen hier aufgelistet werden.</p>\n"
 "\n"
 " "
 
@@ -1704,8 +1797,8 @@ msgid ""
 "You have to specify a start and end date if you don't change the 'closed' "
 "status"
 msgstr ""
-"Sie müssen ein Start- und Enddatum angeben, wenn sie den "
-"'geschlossen'-Status nicht setzen."
+"Sie müssen ein Start- und Enddatum angeben, wenn sie den 'geschlossen'-"
+"Status nicht setzen."
 
 #: conference/models.py:229
 msgid "The end date has to be after the start date"
@@ -1836,20 +1929,19 @@ msgstr ""
 #: proposals/forms.py:117
 msgid ""
 "Describe your presentation in detail. This is what will be reviewed during "
-"the review phase.<br />This field supports <a "
-"href=\"http://daringfireball.net/projects/markdown/syntax\" "
-"target=\"_blank\" rel=\"external\">Markdown</a> input."
+"the review phase.<br />This field supports <a href=\"http://daringfireball."
+"net/projects/markdown/syntax\" target=\"_blank\" rel=\"external\">Markdown</"
+"a> input."
 msgstr ""
-"Darstellung des Vortragsinhalts; ist die Grundlage für das Review. <br "
-"/>Dieses Feld unterstützt <a "
-"href=\"http://daringfireball.net/projects/markdown/syntax\" "
-"target=\"_blank\" rel=\"external\">Markdown</a>."
+"Darstellung des Vortragsinhalts; ist die Grundlage für das Review. <br /"
+">Dieses Feld unterstützt <a href=\"http://daringfireball.net/projects/"
+"markdown/syntax\" target=\"_blank\" rel=\"external\">Markdown</a>."
 
 #: proposals/forms.py:120
 msgid "If you want to present with others, please enter their names here."
 msgstr ""
-"Wenn Sie den Vortrag zusammen mit anderen Personen halten wollen, tragen Sie"
-" hier bitte deren Namen ein."
+"Wenn Sie den Vortrag zusammen mit anderen Personen halten wollen, tragen Sie "
+"hier bitte deren Namen ein."
 
 #: proposals/forms.py:123
 msgid "Available timeslots"
@@ -1858,8 +1950,7 @@ msgstr "Mögliche Zeiten"
 #: proposals/forms.py:129
 msgid ""
 "<br /><br />Please pick all the times that should be considered for your "
-"presentation/training. If possible these will be used for the final "
-"timeslot."
+"presentation/training. If possible these will be used for the final timeslot."
 msgstr ""
 "<br /><br />Bitte geben Sie hier alle Zeiten an, die für Ihren Vortrag/Ihr "
 "Training in Frage kommen. Diese Zeiten werden dann so gut wie möglich für "
@@ -1916,13 +2007,11 @@ msgstr "Kurzbeschreibung"
 
 #: proposals/forms.py:285 proposals/forms.py:290
 msgid ""
-"This field supports <a "
-"href=\"http://daringfireball.net/projects/markdown/syntax\" "
-"target=\"_blank\" rel=\"external\">Markdown</a> input."
+"This field supports <a href=\"http://daringfireball.net/projects/markdown/"
+"syntax\" target=\"_blank\" rel=\"external\">Markdown</a> input."
 msgstr ""
-"Dieses Feld unterstützt <a "
-"href=\"http://daringfireball.net/projects/markdown/syntax\" "
-"target=\"_blank\" rel=\"external\">Markdown</a>."
+"Dieses Feld unterstützt <a href=\"http://daringfireball.net/projects/"
+"markdown/syntax\" target=\"_blank\" rel=\"external\">Markdown</a>."
 
 #: proposals/forms.py:287
 msgid "<br />< 300 words"
@@ -1937,17 +2026,17 @@ msgstr "Gliederung"
 
 #: proposals/forms.py:292
 msgid ""
-"<br /><br />Please provide details about the structure including the timing."
-" The sum of these structural points has to be 180 minutes. Please also list "
+"<br /><br />Please provide details about the structure including the timing. "
+"The sum of these structural points has to be 180 minutes. Please also list "
 "any software (incl. version information) that attendees should install "
-"beforehand. The training examples should work on Linux, Mac OSX and Windows."
-" If they don't, please mark them accordingly."
+"beforehand. The training examples should work on Linux, Mac OSX and Windows. "
+"If they don't, please mark them accordingly."
 msgstr ""
 "<br /><br />Bitte stichpunktartige Angaben zum Aufbau des Trainings mit "
 "Zeitangaben zu den einzelnen Punkten, wobei die Summe 180 Minuten ergeben "
 "muss. Bitte die benötigen Software-Pakete aufführen, so dass die Teilnehmer "
-"bereits vor dem Training ihre Laptops einrichten können. Bitte Anforderungen"
-" an Versionen angeben und deren Zusammenspiel überprüfen.<br /><br /> "
+"bereits vor dem Training ihre Laptops einrichten können. Bitte Anforderungen "
+"an Versionen angeben und deren Zusammenspiel überprüfen.<br /><br /> "
 "Grundsätzlich sollten die Training-Inhalte auf allen drei gängigen "
 "Betriebssystemen (Linux, Mac OS X und Windows) funktionieren. Wenn nicht, "
 "bitte explizit darauf hinweisen."
@@ -1960,8 +2049,8 @@ msgstr "Videoaufzeichnung"
 msgid ""
 "{% load cms_tags %}<p class=\"control-group\">EuroPython talks are recorded "
 "on video. Due to data protection regulations you need to explicitly accept "
-"our <a href=\"{% page_url \"privacy-policy\" %}\">privacy policy</a>. If you"
-" cannot agree to your talk being recorded, please elaborate in the “Notes” "
+"our <a href=\"{% page_url \"privacy-policy\" %}\">privacy policy</a>. If you "
+"cannot agree to your talk being recorded, please elaborate in the “Notes” "
 "above.</p>"
 msgstr ""
 "{% load cms_tags %}<p class=\"control-group\">Vorträge während der "
@@ -2078,8 +2167,7 @@ msgstr "Änderungen gespeichert"
 #: proposals/views.py:214
 msgid "There has been a problem. Please check below for details."
 msgstr ""
-"Bitte überprüfen Sie nochmals Ihre Eingaben. Details finden Sie weiter "
-"unten."
+"Bitte überprüfen Sie nochmals Ihre Eingaben. Details finden Sie weiter unten."
 
 #: proposals/views.py:224
 msgid ""
@@ -2094,8 +2182,8 @@ msgid ""
 "This proposal is already out for review. Please update the proposal within "
 "the review system."
 msgstr ""
-"Dieser Vorschlag ist bereits zur Review freigegeben. Bitte aktualisieren Sie"
-" ihn innerhalb des Review-Systems."
+"Dieser Vorschlag ist bereits zur Review freigegeben. Bitte aktualisieren Sie "
+"ihn innerhalb des Review-Systems."
 
 #: proposals/views.py:230
 msgid ""
@@ -2189,19 +2277,25 @@ msgstr "Möchten Sie diesen Session-Vorschlag zurückziehen?"
 #, python-format
 msgid ""
 "\n"
-"This proposal was submitted on <span class=\"submission-date\">%(submission_date)s</span>.\n"
+"This proposal was submitted on <span class=\"submission-date\">"
+"%(submission_date)s</span>.\n"
 msgstr ""
 "\n"
-"Dieser Session-Vorschlag wurde am <span class=\"submission-date\">%(submission_date)s</span> eingereicht.\n"
+"Dieser Session-Vorschlag wurde am <span class=\"submission-date\">"
+"%(submission_date)s</span> eingereicht.\n"
 
 #: proposals/templates/proposals/proposal_detail.html:13
 #, python-format
 msgid ""
 "\n"
-"<a class=\"speaker user\" href=\"%(speaker_url)s\">%(speaker)s</a> submitted this proposal on <span class=\"submission-date\">%(submission_date)s</span>.\n"
+"<a class=\"speaker user\" href=\"%(speaker_url)s\">%(speaker)s</a> submitted "
+"this proposal on <span class=\"submission-date\">%(submission_date)s</"
+"span>.\n"
 msgstr ""
 "\n"
-"<a class=\"speaker user\" href=\"%(speaker_url)s\">%(speaker)s</a> hat diesen Vortrag am <span class=\"submission-date\">%(submission_date)s</span> eingereicht.\n"
+"<a class=\"speaker user\" href=\"%(speaker_url)s\">%(speaker)s</a> hat "
+"diesen Vortrag am <span class=\"submission-date\">%(submission_date)s</span> "
+"eingereicht.\n"
 
 #: proposals/templates/proposals/proposal_detail.html:18
 #: schedule/templates/schedule/session.html:18
@@ -2281,31 +2375,45 @@ msgid ""
 "\n"
 "A training is not a lecture. A training is more a hands-on workshop where\n"
 "participants get the opportunity to do something on their own laptop,\n"
-"following the lead of a coach. You should keep in mind that exercises that you\n"
-"can solve in a few minutes often take 5 to 10 times longer for beginners, since\n"
+"following the lead of a coach. You should keep in mind that exercises that "
+"you\n"
+"can solve in a few minutes often take 5 to 10 times longer for beginners, "
+"since\n"
 "they need to learn the basic steps first.\n"
 msgstr ""
 "\n"
-"Ein Training ist kein langer Vortrag. Die Teilnehmer sollen die Möglichkeit bekommen am eigenen Laptop dem Trainer zu folgen. Übungen, die Teilnehmer im Training lösen sind oft sehr sinnvoll. Dabei ist zu beachten, dass Übungen häufig wesentlich länger dauern als gedacht. Aufgaben, die der Trainer in wenigen Minuten löst, können bei den Teilnehmern oft die 5-10 fache Zeit dauern, da diese viele grundlegende Schritte nachvollziehen müssen. Das ist auch so wenn diese der Trainer direkt davor erklärt hat!\n"
+"Ein Training ist kein langer Vortrag. Die Teilnehmer sollen die Möglichkeit "
+"bekommen am eigenen Laptop dem Trainer zu folgen. Übungen, die Teilnehmer im "
+"Training lösen sind oft sehr sinnvoll. Dabei ist zu beachten, dass Übungen "
+"häufig wesentlich länger dauern als gedacht. Aufgaben, die der Trainer in "
+"wenigen Minuten löst, können bei den Teilnehmern oft die 5-10 fache Zeit "
+"dauern, da diese viele grundlegende Schritte nachvollziehen müssen. Das ist "
+"auch so wenn diese der Trainer direkt davor erklärt hat!\n"
 
 #: proposals/templates/proposals/training_proposal_form.html:20
 msgid ""
 "\n"
-"Participants should receive courseware as either PDF or printed material. This\n"
-"should be as detailed as necessary for a participant to understand the training\n"
+"Participants should receive courseware as either PDF or printed material. "
+"This\n"
+"should be as detailed as necessary for a participant to understand the "
+"training\n"
 "content independently.\n"
 msgstr ""
 "\n"
-"Die Teilnehmer sollten Schulungsmaterialien entweder als PDF oder gedruckt erhalten. Diese sollten so ausführlich sein, dass ein Teilnehmer die Training-Inhalte selbstständig nachvollziehen kann.\n"
+"Die Teilnehmer sollten Schulungsmaterialien entweder als PDF oder gedruckt "
+"erhalten. Diese sollten so ausführlich sein, dass ein Teilnehmer die "
+"Training-Inhalte selbstständig nachvollziehen kann.\n"
 
 #: proposals/templates/proposals/training_proposal_form.html:28
 msgid ""
 "\n"
-"For questions about training content or how to create a training please contact\n"
+"For questions about training content or how to create a training please "
+"contact\n"
 "<a href=\"mailto:helpdesk@europython.eu\">helpdesk@europython.eu</a>.\n"
 msgstr ""
 "\n"
-"Fragen zu Training-Inhalten und -Aufbau bitte an <a href=\"mailto:helpdesk@europython.eu\">helpdesk@europython.eu</a>.\n"
+"Fragen zu Training-Inhalten und -Aufbau bitte an <a href=\"mailto:"
+"helpdesk@europython.eu\">helpdesk@europython.eu</a>.\n"
 
 #: reviews/admin.py:22
 msgid "Mark comment(s) as deleted"
@@ -2336,8 +2444,7 @@ msgid "You have to be a reviewer in order to access this page."
 msgstr "Sie müssen Reviewer sein, um auf diese Seite zugreifen zu können."
 
 #: reviews/decorators.py:26
-msgid ""
-"You have to be a reviewer or staff member in order to access this page."
+msgid "You have to be a reviewer or staff member in order to access this page."
 msgstr ""
 "Sie müssen entweder Reviewer oder Redakteur sein, um auf diese Seite "
 "zugreifen zu können."
@@ -2585,8 +2692,8 @@ msgstr "Der Session-Vorschlag wurde geändert, nachdem Sie ihn bewertet haben."
 msgid ""
 "The review phase is over. You can no longer comment or review proposals."
 msgstr ""
-"Die Review-Phase ist abgeschlossen. Sie können kein weiteren Kommentare oder"
-" Reviews mehr abgeben."
+"Die Review-Phase ist abgeschlossen. Sie können kein weiteren Kommentare oder "
+"Reviews mehr abgeben."
 
 #: reviews/templates/reviews/comment_confirm_delete.html:4
 msgid "Are you sure that you want to delete this comment?"
@@ -2653,7 +2760,8 @@ msgstr "Bewertung <small>(nur für Redakteure sichtbar)</small>"
 #, python-format
 msgid ""
 "\n"
-"            <span class=\"score\">%(score)s</span> after %(num_reviews)s Review(s)\n"
+"            <span class=\"score\">%(score)s</span> after %(num_reviews)s "
+"Review(s)\n"
 "            "
 msgstr ""
 "\n"
@@ -2684,13 +2792,18 @@ msgstr "Noch nicht bewertet"
 #: reviews/templates/reviews/proposal_details.html:69
 msgid ""
 "\n"
-"            <p>You have not yet reviewed this proposal. Please do so by following the link below.</p>\n"
-"            <p>The review consists of a score and a review text. Both are only visible to you, staff\n"
+"            <p>You have not yet reviewed this proposal. Please do so by "
+"following the link below.</p>\n"
+"            <p>The review consists of a score and a review text. Both are "
+"only visible to you, staff\n"
 "            members, and the programme committee.</p>\n"
 "            "
 msgstr ""
 "\n"
-"<p>Sie haben diesen Vorschlag noch nicht bewertet. Folgen Sie dem untenstehenden Link um dies zu tun.</p><p>Die Review besteht aus einer Punkt-Bewertung sowie einem Beschreibungstext. Beides ist nur für Sie, die Organisatoren sowie das Programm-Kommittee sichtbar.</p>"
+"<p>Sie haben diesen Vorschlag noch nicht bewertet. Folgen Sie dem "
+"untenstehenden Link um dies zu tun.</p><p>Die Review besteht aus einer Punkt-"
+"Bewertung sowie einem Beschreibungstext. Beides ist nur für Sie, die "
+"Organisatoren sowie das Programm-Kommittee sichtbar.</p>"
 
 #: reviews/templates/reviews/proposal_details.html:75
 msgid "Create review"
@@ -2810,13 +2923,17 @@ msgstr "\"%(title)s\" bewerten"
 #: reviews/templates/reviews/submit_review_form.html:8
 msgid ""
 "\n"
-"    <p>Here you can give the proposal a rating and a review. During the review process you can update\n"
-"    what you've entered here at any time. Your review is only visible to you, staff members and\n"
+"    <p>Here you can give the proposal a rating and a review. During the "
+"review process you can update\n"
+"    what you've entered here at any time. Your review is only visible to "
+"you, staff members and\n"
 "    members of the programme committee.</p>\n"
 "    "
 msgstr ""
 "\n"
-"<p>Hier können Sie den Vorschlag bewerten. Während der gesamten Review-Phase kann diese Review abgeändert werden. Sie ist nur für Sie, die Organisatoren sowie Mitglieder des Programm-Kommittees sichtbar.</p>"
+"<p>Hier können Sie den Vorschlag bewerten. Während der gesamten Review-Phase "
+"kann diese Review abgeändert werden. Sie ist nur für Sie, die Organisatoren "
+"sowie Mitglieder des Programm-Kommittees sichtbar.</p>"
 
 #: reviews/templates/reviews/update_proposal.html:4
 #: reviews/templates/reviews/update_proposal.html:5
@@ -2865,11 +2982,14 @@ msgstr ""
 
 #: reviews/templates/reviews/partials/legend.html:3
 msgid "<span class=\"legend kind-talk\">Talks</span> are presented like this."
-msgstr "<span class=\"legend kind-talk\">Vorträge</span> werden so dargestellt."
+msgstr ""
+"<span class=\"legend kind-talk\">Vorträge</span> werden so dargestellt."
 
 #: reviews/templates/reviews/partials/legend.html:4
-msgid "<span class=\"legend kind-poster\">Posters</span> are presented like this."
-msgstr "<span class=\"legend kind-poster\">Poster</span> werden so dargestellt."
+msgid ""
+"<span class=\"legend kind-poster\">Posters</span> are presented like this."
+msgstr ""
+"<span class=\"legend kind-poster\">Poster</span> werden so dargestellt."
 
 #: reviews/templates/reviews/partials/versions_box.html:3
 msgid "Versions"
@@ -2935,13 +3055,11 @@ msgstr "Vollständiges Programm"
 
 #: schedule/forms.py:21 schedule/forms.py:22
 msgid ""
-"This field supports <a "
-"href=\"http://daringfireball.net/projects/markdown/syntax\" "
-"target=\"_blank\" rel=\"external\">Markdown</a> as input."
+"This field supports <a href=\"http://daringfireball.net/projects/markdown/"
+"syntax\" target=\"_blank\" rel=\"external\">Markdown</a> as input."
 msgstr ""
-"Dieses Feld unterstützt <a "
-"href=\"http://daringfireball.net/projects/markdown/syntax\" "
-"target=\"_blank\" rel=\"external\">Markdown</a>."
+"Dieses Feld unterstützt <a href=\"http://daringfireball.net/projects/"
+"markdown/syntax\" target=\"_blank\" rel=\"external\">Markdown</a>."
 
 #: schedule/menu.py:11
 msgid "Schedule menu"
@@ -3138,8 +3256,8 @@ msgid ""
 "We send you a e-mail including a link. Please click the link to continue "
 "changing your e-mail address. Thank you!"
 msgstr ""
-"Wir haben dir eine E-Mail mit einem Link zugesandt. Bitte folge diesem Link,"
-" um deine E-Mail-Adresse zu ändern. Danke!"
+"Wir haben dir eine E-Mail mit einem Link zugesandt. Bitte folge diesem Link, "
+"um deine E-Mail-Adresse zu ändern. Danke!"
 
 #: skins/default/templates/userprofiles/logged_out.html:4
 #: skins/default/templates/userprofiles/logged_out.html:5
@@ -3169,8 +3287,8 @@ msgid ""
 "We send you an e-mail including a link. Please click the\n"
 "    link to continue resetting your password. Thank you!"
 msgstr ""
-"Wir haben dir eine E-Mail mit einem Link zugesandt. Bitte folge diesem Link,"
-" um dein Passwort zurückzusetzen. Danke!"
+"Wir haben dir eine E-Mail mit einem Link zugesandt. Bitte folge diesem Link, "
+"um dein Passwort zurückzusetzen. Danke!"
 
 #: skins/default/templates/userprofiles/profile.html:4
 #: skins/default/templates/userprofiles/profile.html:5
@@ -3190,11 +3308,11 @@ msgstr "Profil ändern"
 #: skins/default/templates/userprofiles/profile_change.html:12
 #, python-format
 msgid ""
-"Your current e-mail address is <em>%(email)s</em>. <a "
-"href=\"%(change_email_url)s\">Change</a>."
+"Your current e-mail address is <em>%(email)s</em>. <a href="
+"\"%(change_email_url)s\">Change</a>."
 msgstr ""
-"Deine aktuelle E-Mail-Adresse ist <em>%(email)s</em>. <a "
-"href=\"%(change_email_url)s\">Ändern</a>."
+"Deine aktuelle E-Mail-Adresse ist <em>%(email)s</em>. <a href="
+"\"%(change_email_url)s\">Ändern</a>."
 
 #: skins/default/templates/userprofiles/profile_change.html:14
 #, python-format
@@ -3220,7 +3338,8 @@ msgstr "Ihr Konto basiert auf Ihrem %(provider)s Konto."
 #, python-format
 msgid ""
 "<a href=\"%(reviewer_application_url)s\">Apply now</a> to become a reviewer."
-msgstr "Jetzt als <a href=\"%(reviewer_application_url)s\">Reviewer bewerben</a>."
+msgstr ""
+"Jetzt als <a href=\"%(reviewer_application_url)s\">Reviewer bewerben</a>."
 
 #: skins/default/templates/userprofiles/profile_change.html:26
 msgid ""
@@ -3230,8 +3349,8 @@ msgid ""
 "the presentations for the conference."
 msgstr ""
 "Ein Reviewer is eine Person, die die eingereichten Vorträge, Trainings und "
-"Poster bewertet. Auf Grundlage aller eingereichten Reviews wird das "
-"Programm-Kommittee das Programm für die EuroPython 2014 zusammen stellen"
+"Poster bewertet. Auf Grundlage aller eingereichten Reviews wird das Programm-"
+"Kommittee das Programm für die EuroPython 2014 zusammen stellen"
 
 #: skins/default/templates/userprofiles/profile_change.html:28
 msgid "Your application as a reviewer is pending."
@@ -3280,7 +3399,8 @@ msgstr ""
 #: skins/default/templates/userprofiles/registration_complete.html:9
 #, python-format
 msgid ""
-"Your registration was successful. We send you a e-mail including a link.<br />\n"
+"Your registration was successful. We send you a e-mail including a link.<br /"
+">\n"
 "      Please click the link to activate your account. Thank you!<br />\n"
 "      <br />\n"
 "      The link is valid for %(expiration_days)s days."
@@ -3340,12 +3460,12 @@ msgstr "+1 EuroPython"
 #: skins/ep14/templates/base.html:132
 msgid ""
 "EuroPython 2014 is organized by the <a href=\"http://www.meetup.com/Python-"
-"Users-Berlin-PUB/\">Python User Group Berlin</a>, <a "
-"href=\"http://www.meetup.com/django-user-group-berlin/\">Django User Group "
-"Berlin</a>, <a href=\"http://www.meetup.com/PyLadies-Berlin/\">PyLadies "
-"Berlin</a> & <a href=\"http://python-verband.org/\">Python Software "
-"Verband</a> in cooperation with the <a href=\"http://www.europython-"
-"society.org/\">EuroPython Society</a> for the Python community."
+"Users-Berlin-PUB/\">Python User Group Berlin</a>, <a href=\"http://www."
+"meetup.com/django-user-group-berlin/\">Django User Group Berlin</a>, <a href="
+"\"http://www.meetup.com/PyLadies-Berlin/\">PyLadies Berlin</a> & <a href="
+"\"http://python-verband.org/\">Python Software Verband</a> in cooperation "
+"with the <a href=\"http://www.europython-society.org/\">EuroPython Society</"
+"a> for the Python community."
 msgstr ""
 
 #: skins/ep14/templates/cms/primary-navigation.html:35
@@ -3354,8 +3474,8 @@ msgstr ""
 
 #: skins/pyconde2013/templates/userprofiles/registration.html:8
 msgid ""
-"You need to create a user account on this website if you want to buy tickets"
-" or submit a talk."
+"You need to create a user account on this website if you want to buy tickets "
+"or submit a talk."
 msgstr ""
 "Sie müssen ein Konto für diese Website anlegen, wenn Sie an der Konferenz  "
 "als Besucher oder Vortragender teilnehmen möchten."
@@ -3484,8 +3604,8 @@ msgid ""
 "If you do not want receive any more job offers, you can opt-out on your "
 "profile page: https://%(site)s%(profile_change_url)s"
 msgstr ""
-"Falls Sie keine weiteren Job-Angebote erhalten möchten, können Sie diese auf"
-" ihrer Profil-Seite abbestellen: https://%(site)s%(profile_change_url)s"
+"Falls Sie keine weiteren Job-Angebote erhalten möchten, können Sie diese auf "
+"ihrer Profil-Seite abbestellen: https://%(site)s%(profile_change_url)s"
 
 #: testimonials/cms_plugins.py:11
 msgid "Testimonial"
@@ -3507,5 +3627,3 @@ msgstr "Webseite"
 msgid "author's description"
 msgstr "Beschreibung"
 
-#~ msgid "Sponsorship"
-#~ msgstr "Sponsoren"

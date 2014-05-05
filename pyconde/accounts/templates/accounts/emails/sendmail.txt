@@ -1,6 +1,7 @@
 {% load i18n %}{{ message }}
 
-{% blocktrans with conference_name=conference.title %}
+--{% blocktrans with conference_name=conference.title %}
+
 If you have any questions please contact us!
 
 Twitter: @europython
@@ -8,9 +9,7 @@ E-mail:  helpdesk@europython.eu
 
 
 Thank you very much!
-The {{ conference_name }} team
-{% endblocktrans %}
-
+The {{ conference_name }} team{% endblocktrans %}
 
 Python Software Verband e.V.
 Schulstraße 20
