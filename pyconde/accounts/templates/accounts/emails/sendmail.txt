@@ -1,4 +1,4 @@
-{% load i18n %}{{ message }}
+{% load i18n %}{{ message|safe }}
 
 --{% blocktrans with conference_name=conference.title %}
 
