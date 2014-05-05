@@ -3,7 +3,7 @@ import json
 from django.conf import settings
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
-from django.contrib.auth import models as auth_models
+from django.contrib.auth import models as auth_models, logout as auth_logout
 from django.contrib.auth.decorators import permission_required
 from django.contrib.contenttypes.models import ContentType
 from django.core.mail import send_mass_mail
@@ -26,6 +26,20 @@ from . import forms
 from . import models
 from .tasks import sendmail_task
 from .utils import get_addressed_as, get_display_name
+
+
+def logout(request):
+    """
+    This is a workaround for a bug in the django-cms beta version that accesses
+    the request.user.id in a database query for anonymous, which naturally
+    results in a::
+
+        TypeError: int() argument must be a string or a number, not 'AnonymousUser'
+
+    We just redirect to the root URL after deauthentication which works.
+    """
+    auth_logout(request)
+    return HttpResponseRedirect('/')
 
 
 class AutocompleteUser(generic_views.View):

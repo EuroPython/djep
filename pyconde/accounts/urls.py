@@ -24,6 +24,7 @@ urlpatterns = patterns('django.contrib.auth.views',
         name='auth_password_change')
 )
 urlpatterns += patterns('pyconde.accounts.views',
+    url(r'^logout/$', 'logout', name='auth_logout'),
     url(r'^ajax/users$', views.AutocompleteUser.as_view()),
     url(r'^ajax/tags/$', views.AutocompleteTags.as_view(), name='ajax-tags'),
     url(r'^profile/(?P<uid>\d+)/$', views.ProfileView.as_view(),
