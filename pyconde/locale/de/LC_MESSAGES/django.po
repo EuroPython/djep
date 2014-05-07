@@ -6,8 +6,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-05 21:01+0200\n"
-"PO-Revision-Date: 2014-05-05 21:08+0200\n"
+"POT-Creation-Date: 2014-05-07 14:36+0200\n"
+"PO-Revision-Date: 2014-05-07 14:35+0200\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
 "Language: de\n"
@@ -1617,17 +1617,30 @@ msgstr ""
 "bitte wenden Sie sich an den Helpdesk.\n"
 " "
 
-#: attendees/templates/attendees/user_purchases.html:68
-msgid "Assign to different user"
-msgstr "Einem anderen Benutzer zuweisen"
+#: attendees/templates/attendees/user_purchases.html:69
+#, python-format
+msgid ""
+"This ticket is not assigned to a specific user account. Hence we will only "
+"print the name and organization given during the purchase process of the "
+"ticket on the badge. For more flexibility and more information on the badge, "
+"please <a href=\"%(assign_url)s\"><i class=\"fa fa-fw fa-user\"></i> assign "
+"the ticket to a user</a>. This may requires the intended owner to sign-up if "
+"no account has been created before."
+msgstr ""
+"Dieses Ticket is noch keinem Benutzerkonto zugewiesen. Daher werden "
+"ausschließlich Name und Organisation, wie sie während der Buchung des "
+"Tickets angegeben wurden, auf den Badge gedruckt. Um dem Ticketbesitzer mehr "
+"Möglichkeiten zur Anpassung zu bieten, weisen Sie bitte das Ticket dem "
+"Benutzerkonto des neuen Besitzers zu. Dies kann eine vorherige Registrierung "
+"erfordern, sollte noch kein Benutzerkonto existieren."
 
-#: attendees/templates/attendees/user_purchases.html:71
+#: attendees/templates/attendees/user_purchases.html:72
 msgid "Please complete the purchase first for further ticket options."
 msgstr ""
 "Bitte schließen Sie den Einkauf ab, um weitere Ticket-Optionen "
 "freizuschalten."
 
-#: attendees/templates/attendees/user_purchases.html:80
+#: attendees/templates/attendees/user_purchases.html:81
 msgid "You haven't made any purchases yet."
 msgstr "Sie haben noch keine Einkäufe getätigt. "
 
@@ -3626,4 +3639,3 @@ msgstr "Webseite"
 #: testimonials/models.py:16
 msgid "author's description"
 msgstr "Beschreibung"
-

@@ -65,7 +65,8 @@
                             <p>{% blocktrans with username=ticket.user|display_name %}This ticket has been assigned to {{ username }}. Please contact the helpdesk if
                             you want to change this.{% endblocktrans %}</p>
                         {% else %}
-                            <a href="{% url 'attendees_assign_ticket' pk=ticket.pk %}"><i class="fa fa-fw fa-user"></i> {% trans "Assign to different user" %}</a>
+                            {% url 'attendees_assign_ticket' pk=ticket.pk as assign_url %}
+                            {% blocktrans %}This ticket is not assigned to a specific user account. Hence we will only print the name and organization given during the purchase process of the ticket on the badge. For more flexibility and more information on the badge, please <a href="{{ assign_url }}"><i class="fa fa-fw fa-user"></i> assign the ticket to a user</a>. This may requires the intended owner to sign-up if no account has been created before.{% endblocktrans %}
                         {% endif %}
                     {% else %}
                         <p>{% trans "Please complete the purchase first for further ticket options." %}</p>
