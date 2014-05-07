@@ -148,7 +148,7 @@ class PurchaseMixin(object):
             #       Vouchers are invalidated by complete_purchase().
             ticket.pk = None
             ticket.purchase = self.purchase
-            LOG.warning(str(ticket))
+            LOG.warning("persisting ticket %s of purchase %d" % (str(ticket), self.purchase.pk))
             ticket.save()
 
     def setup(self):
