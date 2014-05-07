@@ -1630,9 +1630,10 @@ msgstr ""
 "Dieses Ticket is noch keinem Benutzerkonto zugewiesen. Daher werden "
 "ausschließlich Name und Organisation, wie sie während der Buchung des "
 "Tickets angegeben wurden, auf den Badge gedruckt. Um dem Ticketbesitzer mehr "
-"Möglichkeiten zur Anpassung zu bieten, weisen Sie bitte das Ticket dem "
-"Benutzerkonto des neuen Besitzers zu. Dies kann eine vorherige Registrierung "
-"erfordern, sollte noch kein Benutzerkonto existieren."
+"Möglichkeiten zur Anpassung zu bieten, <a href=\"%(assign_url)s\"><i "
+"class=\"fa fa-fw fa-user\"></i> weisen Sie bitte das Ticket dem "
+"Benutzerkonto des neuen Besitzers zu</a>. Dies kann eine vorherige "
+"Registrierung erfordern, sollte noch kein Benutzerkonto existieren."
 
 #: attendees/templates/attendees/user_purchases.html:72
 msgid "Please complete the purchase first for further ticket options."
