@@ -7,6 +7,7 @@
 {% block bodyclass %}profile-change{% endblock %}
 
 {% block content %}
+  <p>{% blocktrans with username=request.user.username %}Your username is <em>{{ username }}</em>.{% endblocktrans %}</p>
   {% url 'userprofiles_email_change' as change_email_url %}
   {% if request.user.email %}
     <p>{% blocktrans with email=request.user.email %}Your current e-mail address is <em>{{ email }}</em>. <a href="{{ change_email_url }}">Change</a>.{% endblocktrans %}</p>

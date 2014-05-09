@@ -50,10 +50,10 @@ class Profile(models.Model):
     short_info = models.TextField(_('short info'), blank=True)
     avatar = ThumbnailerImageField(
         _('avatar'), upload_to='avatars', null=True, blank=True,
-        help_text=avatar_help_text, validators=ValidatorChain()
-            .add(validators.avatar_dimension)
-            .add(validators.avatar_format, skip_on_error=True)
-        )
+        help_text=avatar_help_text,
+        validators=ValidatorChain().add(validators.avatar_dimension)
+                                   .add(validators.avatar_format, skip_on_error=True)
+    )
     num_accompanying_children = models.PositiveIntegerField(_('Number of accompanying children'),
         null=True, blank=True, default=0)
     age_accompanying_children = models.CharField(_("Age of accompanying children"), blank=True, max_length=20)
@@ -79,6 +79,11 @@ class Profile(models.Model):
         verbose_name=_('Sponsor'))
 
     tags = TaggableManager()
+
+    class Meta:
+        permissions = (
+            ('send_user_mails', _('Allow sending mails to users through the website')),
+        )
 
 
 @receiver(user_logged_in)

@@ -71,7 +71,12 @@ def render_invoice(purchase_id):
         if purchase.payment_method == 'invoice' and purchase.state == 'new':
             # We must not update the state for credit cards, as that would
             # override the prior state.
-            purchase.state = 'invoice_created'
+            if purchase.payment_total == 0.0:
+                # If a purchase total is 0.0 (e.g. 100% discount),
+                # we can directly mark the purchase as paid.
+                purchase.state = 'payment_received'
+            else:
+                purchase.state = 'invoice_created'
         purchase.save(update_fields=['exported', 'state'])
 
     # Send invoice to buyer
