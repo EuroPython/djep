@@ -38,6 +38,7 @@ class TimeSlot(models.Model):
             self.date, dict(DATE_SLOT_CHOICES)[self.slot])
 
     class Meta(object):
+        ordering = ('date',)
         unique_together = (('date', 'slot', 'section',),)
         verbose_name = _("timeslot")
         verbose_name_plural = _("timeslots")
