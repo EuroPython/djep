@@ -252,7 +252,7 @@ class TicketAssignmentFormTests(TestCase):
         form = forms.TicketAssignmentForm(
             current_user=self.user1,
             data={'username': self.user1.username})
-        self.assertFalse(form.is_valid())
+        self.assertTrue(form.is_valid())
 
 
 class PurchaseOverviewFormTests(TestCase):

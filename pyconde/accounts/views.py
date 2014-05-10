@@ -3,12 +3,14 @@ import json
 from django.conf import settings
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
-from django.contrib.auth import models as auth_models
+from django.contrib.auth import models as auth_models, logout as auth_logout
+from django.contrib.auth.decorators import permission_required
 from django.contrib.contenttypes.models import ContentType
 from django.core.mail import send_mass_mail
 from django.http import HttpResponse, HttpResponseRedirect, HttpResponseBadRequest
 from django.shortcuts import get_object_or_404
 from django.template.loader import render_to_string
+from django.utils.decorators import method_decorator
 from django.utils.translation import ugettext_lazy as _
 from django.views import generic as generic_views
 
@@ -22,7 +24,22 @@ from pyconde.reviews.models import Reviewer
 
 from . import forms
 from . import models
+from .tasks import sendmail_task
 from .utils import get_addressed_as, get_display_name
+
+
+def logout(request):
+    """
+    This is a workaround for a bug in the django-cms beta version that accesses
+    the request.user.id in a database query for anonymous, which naturally
+    results in a::
+
+        TypeError: int() argument must be a string or a number, not 'AnonymousUser'
+
+    We just redirect to the root URL after deauthentication which works.
+    """
+    auth_logout(request)
+    return HttpResponseRedirect('/')
 
 
 class AutocompleteUser(generic_views.View):
@@ -195,3 +212,34 @@ class ReviewerApplication(LoginRequiredMixin, generic_views.FormView):
 
         send_mass_mail(mails)
         return super(ReviewerApplication, self).form_valid(form)
+
+
+class SendMailView(generic_views.FormView):
+
+    form_class = forms.SendMailForm
+    success_url = reverse_lazy('account_sendmail_done')
+    template_name = 'accounts/sendmail_form.html'
+
+    @method_decorator(permission_required('accounts.send_user_mails'))
+    def dispatch(self, *args, **kwargs):
+        return super(SendMailView, self).dispatch(*args, **kwargs)
+
+    def form_valid(self, form):
+        domain = self.request.is_secure() and 'https://' or 'http://'
+        domain += self.request.get_host() + '/'
+        cd = form.cleaned_data
+        sendmail_task.delay(cd['target'], cd['subject'], cd['text'], domain)
+        return super(SendMailView, self).form_valid(form)
+
+sendmail_view = SendMailView.as_view()
+
+
+class SendMailDoneView(generic_views.TemplateView):
+
+    template_name = 'accounts/sendmail_done.html'
+
+    @method_decorator(permission_required('accounts.send_user_mails'))
+    def dispatch(self, *args, **kwargs):
+        return super(SendMailDoneView, self).dispatch(*args, **kwargs)
+
+sendmaildone_view = SendMailDoneView.as_view()

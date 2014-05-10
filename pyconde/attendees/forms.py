@@ -286,8 +286,6 @@ class TicketAssignmentForm(forms.Form):
         val = self.cleaned_data['username']
         if not auth_models.User.objects.filter(username=val).exists():
             raise ValidationError(_("Couldn't find a user with this username."))
-        if self.current_user is not None and self.current_user.username == val:
-            raise ValidationError(_("Tickets purchased by you are already assigned to you :-)"))
         return val
 
     def __init__(self, *args, **kwargs):

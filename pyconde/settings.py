@@ -35,6 +35,8 @@ class Base(Configuration):
     DEFAULT_FROM_EMAIL = values.EmailValue('noreply@ep14.org')
     
     SERVER_EMAIL = values.EmailValue('noreply@ep14.org')
+
+    SUPPORT_EMAIL = values.EmailValue('helpdesk@europython.eu')
     
     TIME_ZONE = 'Europe/Berlin'
     
@@ -275,6 +277,8 @@ class Base(Configuration):
     #
     # CMS Settings
     #
+    CMS_PERMISSION = values.BooleanValue(False)
+
     CMS_TEMPLATES = (
         ('cms/default.html', ugettext('Default template')),
         ('cms/start.html', ugettext('Start page template')),

@@ -9,8 +9,14 @@
 <div class="profile">
   <div class="misc">
     <div class="avatar">
-    {% avatar profile %}
+      {% avatar profile %}
     </div>
+    {% if request.user == userobj %}
+    <dl>
+      <dt>{% trans "Username" %}:</dt>
+      <dd>{{ userobj.username }}</a>
+    </dl>
+    {% endif %}
     {% if profile.twitter %}
     <dl>
       <dt>{% trans "Twitter" %}:</dt>

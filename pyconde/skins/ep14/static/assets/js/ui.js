@@ -94,8 +94,8 @@ ep.ui = (function($) {
         wrapFileUploads();
         overrideOrbitUi();
         toggleMainMenu();
-        toggleMenuIcons('#sponsorshipbox');
-        handleAccountMenuOnTouch('#sponsorshipbox');
+        toggleMenuIcons('#adminbox');
+        handleAccountMenuOnTouch('#adminbox');
         toggleMenuIcons('#reviewbox');
         handleAccountMenuOnTouch('#reviewbox');
         toggleMenuIcons('#accountbox');
