@@ -94,11 +94,17 @@ def create_section_schedule(section, row_duration=30, uncached=False):
     evt_cache = {}
 
     locations = set()
+    start_time = sessions[0].start
+    end_time = sessions[0].start
     for session in sessions:
+        start_time = min(start_time, session.start)
+        end_time = max(end_time, session.end)
         if session.is_global:
             continue
         locations |= set(session.location.all())
     for evt in side_events:
+        start_time = min(start_time, session.start)
+        end_time = max(end_time, session.end)
         # Global events span all session locations and therefor the location
         # should not be included in the columns list
         if evt.is_global:
@@ -110,8 +116,6 @@ def create_section_schedule(section, row_duration=30, uncached=False):
         cmp=_evt_start_cmp)
     if not events:
         return {}
-    start_time = events[0].start
-    end_time = events[-1].end
 
     # As a first step we build a grid with the resepctive row start time as
     # key and fill it with events starting at that time.
