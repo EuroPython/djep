@@ -37,6 +37,8 @@ requests==2.0.1
 gunicorn==18.0
 psycopg2==2.5.1
 
+lxml==3.3.3
+
 # tablib for export support
 tablib==0.9.11
 
