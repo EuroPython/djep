@@ -12,7 +12,7 @@ from pyconde.attendees.models import VenueTicket
 class Command(BaseCommand):
     option_list = BaseCommand.option_list + (
         make_option('--base-url',
-            action='store_true',
+            action='store',
             dest='base_url',
             default='',
             help='Base URL for profile URLs'),
