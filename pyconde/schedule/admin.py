@@ -119,9 +119,7 @@ class SessionAdmin(admin.ModelAdmin):
                          'speaker__user__profile__user',
                          'speaker__user__username',
                          'track__name',
-                         'location__name',
-                         'proposal__available_timeslots__date',
-                         'proposal__available_timeslots__slot')
+                         'location__name')
         elif view == 'form':
             qs = qs.select_related(
                 'conference', 'kind', 'duration', 'track', 'location',
@@ -143,9 +141,8 @@ class SessionAdmin(admin.ModelAdmin):
         return super(SessionAdmin, self).change_view(*args, **kwargs)
 
     def list_available_timeslots(self, obj):
-        if obj.proposal_id:
-            return '; '.join(map(force_text, obj.proposal.available_timeslots.all()))
-        return ''
+        return '<br />'.join(map(force_text, obj.available_timeslots.all()))
+    list_available_timeslots.allow_tags = True
     list_available_timeslots.short_description = _('Timeslot Preferences')
 
 

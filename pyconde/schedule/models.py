@@ -77,6 +77,7 @@ class Session(LocationMixin, proposal_models.AbstractProposal):
         self.save()
         self.tags.add(*[t.name for t in proposal.tags.all()])
         self.additional_speakers = proposal.additional_speakers.all()
+        self.available_timeslots = proposal.available_timeslots.all()
 
         # Also check if there was an update to that proposal and update the
         # provided values if necessary.
