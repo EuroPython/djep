@@ -143,7 +143,9 @@ class SessionAdmin(admin.ModelAdmin):
         return super(SessionAdmin, self).change_view(*args, **kwargs)
 
     def list_available_timeslots(self, obj):
-        return '; '.join(map(force_text, obj.proposal.available_timeslots.all()))
+        if obj.proposal_id:
+            return '; '.join(map(force_text, obj.proposal.available_timeslots.all()))
+        return ''
     list_available_timeslots.short_description = _('Timeslot Preferences')
 
 
