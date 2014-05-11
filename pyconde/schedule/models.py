@@ -133,14 +133,28 @@ class CompleteSchedulePlugin(CMSPlugin):
     """
     Renders the complete schedule for the active conference.
     """
+
+    ROW_DURATION_15 = 15
+    ROW_DURATION_30 = 30
+    ROW_DURATION_45 = 45
+    ROW_DURATION_60 = 60
+    ROW_DURATION_CHOICES = (
+        (ROW_DURATION_15, _('15 Minutes')),
+        (ROW_DURATION_30, _('30 Minutes')),
+        (ROW_DURATION_45, _('45 Minutes')),
+        (ROW_DURATION_60, _('60 Minutes')),
+    )
+
     sections = models.ManyToManyField(conference_models.Section,
         blank=True, null=True, verbose_name=_("sections"))
+    row_duration = models.IntegerField(_('Duration of one row'),
+        choices=ROW_DURATION_CHOICES, default=ROW_DURATION_15)
+    merge_sections = models.BooleanField(_('Merge different section into same table'),
+        default=False)
 
 
 def clear_schedule_caches(sender, *args, **kwargs):
-    instance = kwargs.get('instance', None)
-    if not instance:
-        return
+    from itertools import product
     # We have to clear the cache for every section of the current conference as
     # well as the global cache itself.
     conf = conference_models.current_conference()
@@ -148,8 +162,11 @@ def clear_schedule_caches(sender, *args, **kwargs):
         'schedule:{0}:30'.format(conf.pk),
         'schedule:guidebook:events'
     ]
-    for section in conf.sections.all():
-        cache_keys.append('section_schedule:{0}:30'.format(section.pk))
+    section_ids = list(conf.sections.values_list('id', flat=True)) + ['__merged__']
+    durations = dict(CompleteSchedulePlugin.ROW_DURATION_CHOICES).keys()
+    prod = product(section_ids, durations)
+    for sec, dur in prod:
+        cache_keys.append('section_schedule:{0}:{1}'.format(sec, dur))
     LOG.debug("Clearing following cache keys: " + unicode(cache_keys))
     cache.delete_many(cache_keys)
 

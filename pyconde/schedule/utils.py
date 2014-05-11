@@ -66,7 +66,6 @@ def create_section_schedule(section, row_duration=30, uncached=False):
         schedule_cache_key = 'section_schedule:__merged__:{0}'.format(row_duration)
     else:
         schedule_cache_key = 'section_schedule:{0}:{1}'.format(section.pk, row_duration)
-    evt_cache_key = 'schedule_event'
 
     if not uncached:
         section_schedule = cache.get(schedule_cache_key)
@@ -171,7 +170,6 @@ def create_section_schedule(section, row_duration=30, uncached=False):
 
     if not uncached:
         cache.set(schedule_cache_key, (locations, days), settings.SCHEDULE_CACHE_TIMEOUT)
-        cache.set(evt_cache_key, evt_cache, settings.SCHEDULE_CACHE_TIMEOUT)
     return (locations, days)
 
 
