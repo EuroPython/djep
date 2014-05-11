@@ -341,6 +341,7 @@ class Base(Configuration):
     CMSPLUGIN_NEWS_FEED_DESCRIPTION = u'News from EuroPython 2014'
 
     SCHEDULE_CACHE_SCHEDULE = values.BooleanValue(True)
+    SCHEDULE_CACHE_TIMEOUT = values.IntegerValue(300)
 
 
     ###########################################################################
@@ -558,7 +559,8 @@ class Dev(Base):
         }
     }
 
-    SCHEDULE_CACHE_SCHEDULE = False
+    # SCHEDULE_CACHE_SCHEDULE = False
+    SCHEDULE_CACHE_TIMEOUT = 60
 
 
 class Testing(Dev):

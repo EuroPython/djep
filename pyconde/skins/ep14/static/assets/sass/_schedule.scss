@@ -1,9 +1,41 @@
 .cmsplugin-schedule {
-    table {
-        // border-collapse: separate;
+    .days {
+        @include clearfix;
+        margin-bottom: 2em;
 
+        > a {
+            background: $background-color-light;
+            color: $inputBorder;
+            display: block;
+            float: left;
+            width: 107px;
+            height: 107px;
+            margin-right: 20px;
+            padding-top: 23px;
+            border-radius: 5px;
+            text-align: center;
+            line-height: 2em;
+            text-decoration: none;
+
+            .w {
+                font-size: 2em;
+            }
+            .n {
+                font-size: 1.5em;
+            }
+            &:last-child {
+                margin-right: 0;
+            }
+
+            &.active {
+                background: $background-color;
+                color: $inputBorderHi;
+            }
+        }
+    }
+    table {
         tr {
-            height: 50px;
+            height: 30px;
 
             &:hover td {
                 background: none;
@@ -11,19 +43,34 @@
 
             td, th {
                 border: 1px solid $inputBorder;
-                font-size: 1.5rem;
-                text-align: center;
-                vertical-align: middle;
+                font-size: 1.4rem;
+                text-align: left;
+                vertical-align: top;
+                &:first-child {
+                    border-left: 0;
+                }
+                &:last-child {
+                    border-right: 0;
+                }
+            }
+            &:first-child {
+                th {
+                    border-top: 0;
+                }
+            }
+            &:last-child {
+                td {
+                    border-bottom: 0;
+                }
             }
         }
 
-
-        > thead > tr > th {
+        thead th {
             width: 18%;
-            max-width:  18%;
+            max-width: 18%;
             &:first-child {
                 width: 10%;
-                max-width:  10%;
+                max-width: 10%;
             }
         }
     }

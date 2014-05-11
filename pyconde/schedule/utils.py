@@ -2,8 +2,9 @@ import itertools
 import math
 import datetime
 import collections
-from django.utils.datastructures import SortedDict
 from django.conf import settings
+from django.utils.datastructures import SortedDict
+from django.utils.timezone import now
 
 from ..conference import models as conference_models
 
@@ -50,7 +51,7 @@ def create_schedule(row_duration=30, uncached=None, merge_sections=False):
                 row_duration=row_duration, uncached=uncached)
             result[section] = section_schedule
     if not uncached:
-        cache.set(cache_key, result, 180)
+        cache.set(cache_key, result, settings.SCHEDULE_CACHE_TIMEOUT)
     return result
 
 
@@ -157,13 +158,18 @@ def create_section_schedule(section, row_duration=30, uncached=False):
     if current_day and current_day.rows:
         days.append(current_day)
     # Strip out heading and tailing empty rows
+    has_active = False
     for day in days:
         day.rows = _strip_empty_rows(day.rows)
         day.rows = _merge_adjacent_row_cells(day.rows)
+        if day.active:
+            has_active = True
+    if days and not has_active:
+        days[0].active = True
 
     if not uncached:
-        cache.set(schedule_cache_key, (locations, days), 120)
-        cache.set(evt_cache_key, evt_cache, 120)
+        cache.set(schedule_cache_key, (locations, days), settings.SCHEDULE_CACHE_TIMEOUT)
+        cache.set(evt_cache_key, evt_cache, settings.SCHEDULE_CACHE_TIMEOUT)
     return (locations, days)
 
 
@@ -245,6 +251,10 @@ class GridCell(object):
         self.level_name = None
         self.language = None
         self.location = event.location if event else None
+        if isinstance(self.location, conference_models.Location):
+            self.location = [self.location]
+        elif hasattr(self.location, 'all'):
+            self.location = self.location.all()
         self.event = None
         self.type = None
         self.session_kind = None
@@ -296,6 +306,7 @@ class SectionDay(object):
     def __init__(self, day, rows):
         self.day = day
         self.rows = rows
+        self.active = (self.day == now().date())
 
 
 def _create_base_grid(start_time, end_time, row_duration):

@@ -1,15 +1,17 @@
 {% load i18n schedule_tags %}
 <div class="cmsplugin cmsplugin-schedule">
     {% for section, grid in schedule.items %}
-        <h2>{{ section.name }}</h2>
+        {% if section.name %}<h2>{{ section.name }}</h2>{% endif %}
+        <div class="days">
+            {% for day in grid.1 %}
+                <a href="#day{{ forloop.counter }}" class="switch{% if day.active %} active{% endif %}"><span class="w">{{ day.day|date:"D" }}</span><br /><span class="n">{{ day.day|date:"j N" }}</span></a>
+            {% endfor %}{# day #}
+        </div>
         {% for day in grid.1 %}
-            <h2>{{ day.day|date:"D j.n." }}</h2>
-        {% endfor %}{# day #}
-        {% for day in grid.1 %}
-            <table class="schedule {{ section.slug }} numcols-{{ grid.0|length }} table table-bordered">
+            <table class="schedule {{ section.slug }} numcols-{{ grid.0|length }} table table-bordered {% if not day.active %}hide{% endif %}" id="day{{ forloop.counter }}">
                 <thead>
                     <tr>
-                        <th>{% trans "Time" %}</th>
+                        <th></th>
                         {% for loc in grid.0 %}
                         <th>{{ loc.name }}</th>
                         {% endfor %}
