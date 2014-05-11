@@ -56,7 +56,8 @@
             text-decoration: none;
 
             .w {
-                font-size: 2em;
+                font-size: 3.5rem;
+                font-weight: bold;
             }
             .n {
                 font-size: 1.5em;
@@ -72,6 +73,17 @@
         }
     }
     table {
+        tr.break {
+            background: $inputBorder;
+            color: #FFF;
+            td.filled {
+                text-align: center;
+                vertical-align: middle;
+                &, a {
+                    color: #FFF;
+                }
+            }
+        }
         tr {
             height: 30px;
 
@@ -106,16 +118,6 @@
                 }
                 .speakers {
                     color: $highlightColor;
-                }
-                &.break {
-                    background: $inputBorder;
-                    vertical-align: middle;
-                    text-align: center;
-                    font-weight: 700;
-                    font-size: 1.2em;
-                    a {
-                        color: $background-color;
-                    }
                 }
             }
             &:first-child {

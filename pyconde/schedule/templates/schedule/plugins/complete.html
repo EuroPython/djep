@@ -19,7 +19,7 @@
                 </thead>
                 <tbody>
                     {% for row in day.rows %}
-                        <tr{% if row.is_pause_row %} class="pause"{% endif %}>
+                        <tr{% if row.is_pause_row %} class="break"{% endif %}>
                             <td class="timetable">{{ row.start|time:'H:i' }}</td>
                             {% for evt in row.get_renderable_cells %}
                                 {% if evt.is_empty %}
