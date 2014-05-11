@@ -1,6 +1,17 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import logging
+
+from django.conf import settings
+from django.core.urlresolvers import reverse
+
+from ..accounts.models import (PROFILE_BADGE_SPONSOR, PROFILE_BADGE_SPEAKER,
+    PROFILE_BADGE_TRAINER, PROFILE_BADGE_KEYNOTE)
+
+
+LOG = logging.getLogger('pyconde.attendees')
+
 
 class PurchaseExporter(object):
     """
@@ -62,4 +73,106 @@ class PurchaseExporter(object):
             except VenueTicket.DoesNotExist:
                 pass
             result['tickets'].append(ticket_data)
+        return result
+
+
+class BadgeExporter(object):
+
+    def __init__(self, tickets, base_url=None, indent=settings.DEBUG):
+        from django.contrib.sites.models import Site
+        self.tickets = tickets
+        self.indent = indent
+        if base_url is None:
+            self.base_url = 'http://%s' % Site.objects.get_current().domain
+        else:
+            self.base_url = base_url
+        self._data = None
+
+    @property
+    def json(self):
+        import json
+        data = self.export()
+        return json.dumps(data, indent=self.indent)
+
+    def export(self):
+        if getattr(self, '_data', None) is None:
+            self._data = self._export(self.tickets)
+        return self._data
+
+    def _export(self, tickets):
+        from collections import defaultdict
+        from .models import VenueTicket
+        from ..schedule.models import Session
+
+        result = []
+        sessions = Session.objects.select_related('speaker_id', 'kind').prefetch_related('additional_speakers').all()
+        speaker_involvements = defaultdict(set)
+        for session in sessions:
+            speaker_involvements[session.speaker_id].add(session.kind.slug)
+            additional_speakers = set(s.id for s in session.additional_speakers.all())
+            speaker_involvements[session.speaker_id] |= additional_speakers
+
+        for ticket in tickets.select_related('purchase',
+                                             'user__profile__sponsor__level',
+                                             'user__speaker_profile') \
+                             .prefetch_related('user__profile__tags') \
+                             .order_by('first_name',
+                                       'last_name'):
+            if not isinstance(ticket, VenueTicket):
+                LOG.warn('Ticket %d is of type %s. Skipping' % (
+                    ticket.pk, ticket.__class__.__name__))
+                continue
+            purchase = ticket.purchase
+            if purchase.state != 'payment_received':
+                LOG.warn('%s %d belongs to purchase %s (%d) which has not been paid. Skipping' % (
+                    ticket.__class__.__name__, ticket.pk, purchase.full_invoice_number, purchase.id))
+                continue
+            user = ticket.user
+            profile = None if user is None else user.profile
+            badge = {
+                'id': ticket.id,
+                'uid': user and user.id or None,
+                'name': '%s %s' % (ticket.first_name, ticket.last_name),
+                'organization': ticket.organisation or purchase.company_name or profile and profile.organisation or None,
+                'tags': None,  # set below
+                'profile': user and (self.base_url + reverse('account_profile', kwargs={'uid': user.id})) or None,
+                'sponsor': None,  # set below
+                'days': None,  # Only whole-conference tickets are sold online
+                'status': None,  # set below
+                'trainings': None,  # set below TODO
+            }
+            if profile:
+                status_keys = set(profile.badge_status_list)
+
+                if profile.sponsor_id and profile.sponsor.active:
+                    sponsor = profile.sponsor
+                    badge['sponsor'] = {
+                        'name': sponsor.name,
+                        'level': sponsor.level.name,
+                        'website': sponsor.external_url
+                    }
+                    status_keys.add(PROFILE_BADGE_SPONSOR)
+
+                speaker = user.speaker_profile
+                if 'talk' in speaker_involvements[speaker.id]:
+                    status_keys.add(PROFILE_BADGE_SPEAKER)
+                if 'training' in speaker_involvements[speaker.id]:
+                    status_keys.add(PROFILE_BADGE_TRAINER)
+                if 'keynote' in speaker_involvements[speaker.id]:
+                    status_keys.add(PROFILE_BADGE_KEYNOTE)
+
+                if status_keys:
+                    badge['status'] = list(status_keys)
+
+                tags = [t.name for t in profile.tags.all()]
+                if tags:
+                    badge['tags'] = tags
+
+            # TODO: add data to 'trainings' field:
+            #       'trainings': {
+            #           '2014-07-21': [2, 4]
+            #           '2014-07-22': [5, 8]
+            #       }
+
+            result.append(badge)
         return result

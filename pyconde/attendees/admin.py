@@ -14,6 +14,7 @@ from django.utils.timezone import now
 from . import settings as app_settings
 from . import tasks
 from . import utils
+from .exporters import BadgeExporter
 from .models import Purchase, SupportTicket, VenueTicket, TicketType, Voucher, VoucherType, \
                     TShirtSize, SIMCardTicket
 
@@ -21,6 +22,12 @@ from .models import Purchase, SupportTicket, VenueTicket, TicketType, Voucher, V
 def export_tickets(modeladmin, request, queryset):
     return HttpResponse(utils.create_tickets_export(queryset).csv, mimetype='text/csv')
 export_tickets.short_description = _("Export as CSV")
+
+
+def export_badges(modeladmin, request, queryset):
+    base_url = 'https://' if request.is_secure() else 'http://'
+    exporter = BadgeExporter(queryset, base_url=base_url + request.get_host())
+    return HttpResponse(exporter.json, mimetype='application/json')
 
 
 class TicketTypeAdmin(admin.ModelAdmin):
@@ -45,7 +52,6 @@ admin.site.register(TShirtSize, ShirtSizeAdmin)
 class VoucherTypeAdmin(admin.ModelAdmin):
     list_display = ('name', 'conference')
     list_filter = ('conference',)
-
 
 admin.site.register(VoucherType, VoucherTypeAdmin)
 
@@ -212,8 +218,13 @@ class VenueTicketAdmin(admin.ModelAdmin):
     list_filter = ('ticket_type', 'date_added', 'purchase__state')
     search_fields = ('first_name', 'last_name', 'purchase__email',
                      'user__email')
-    actions = [export_tickets]
+    actions = [export_tickets, export_badges]
     raw_id_fields = ('user', 'purchase', 'voucher')
+
+    def queryset(self, request):
+        qs = super(VenueTicketAdmin, self).queryset(request)
+        qs = qs.select_related('ticket_type', 'purchase', 'shirtsize', 'user__profile')
+        return qs
 
 admin.site.register(VenueTicket, VenueTicketAdmin)
 
