@@ -1,14 +1,13 @@
 # -*- encoding: utf-8 -*-
 
-import datetime
-
-from django.shortcuts import get_object_or_404
-from django.utils.translation import ugettext_lazy as _
-from django.http import HttpResponseRedirect, HttpResponse
-from django.template.response import TemplateResponse
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
+from django.http import HttpResponseRedirect, HttpResponse
+from django.shortcuts import get_object_or_404
+from django.template.response import TemplateResponse
+from django.utils.timezone import now
+from django.utils.translation import ugettext_lazy as _
 
 from ..proposals import models as proposal_models
 from ..conference import models as conference_models
@@ -117,7 +116,7 @@ def edit_session(request, session_pk):
     session = get_object_or_404(models.Session, pk=session_pk, released=True)
     if not utils.can_edit_session(request.user, session):
         return create_403()
-    if session.end < datetime.datetime.now():
+    if session.end < now():
         form = forms.EditSessionCoverageForm
     else:
         form = forms.EditSessionForm
