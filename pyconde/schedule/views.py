@@ -87,10 +87,12 @@ def view_session(request, session_pk):
     Renders all information available about a session.
     """
     session = get_object_or_404(models.Session, pk=session_pk, released=True)
+    tags = list(session.tags.all())
     return TemplateResponse(
         request=request,
         context={
             'session': session,
+            'tags': tags,
             'can_edit': utils.can_edit_session(request.user, session)
         },
         template='schedule/session.html'

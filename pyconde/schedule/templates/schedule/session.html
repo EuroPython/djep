@@ -3,19 +3,14 @@
 
 {% block title %}{% trans "Session" %}: {{ session.title }}{% endblock %}
 {% block page_title %}{% trans "Session" %}: {{ session.title }}{% endblock %}
-{% block bodycls %}sessionpage{% endblock %}
+{% block bodyclass %}sessionpage with-sidebar{% endblock %}
 
 {% block details %}
     <article class="session">
-        {% if can_edit %}
-            <div class="actions">
-                <a class="btn" href="edit/"><i class="icon-edit"></i>{% trans "Edit" %}</a>
-            </div>
-        {% endif %}
         <div class="meta">
-            {% if session.tags %}
+            {% if tags %}
                 <dl class="tags"><dt>{% trans "Tags" %}:</dt><dd>
-                    {% for tag in session.tags.all %}
+                    {% for tag in tags %}
                         <a href="{% url 'sessions_by_tag' tag=tag.name %}" rel="tag" class="tag">{{ tag.name }}</a>{% if not forloop.last %},  {% endif %}
                     {% endfor %}
                 </dd></dl>
@@ -63,6 +58,11 @@
             <div class="video">
                 <h2>Video</h2>
                 {% embed_video session.video_url %}
+            </div>
+        {% endif %}
+        {% if can_edit %}
+            <div class="actions">
+                <a class="btn" href="edit/"><i class="fa fa-fw fa-pencil"></i>{% trans "Edit" %}</a>
             </div>
         {% endif %}
     </article>
