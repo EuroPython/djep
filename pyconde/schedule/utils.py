@@ -80,14 +80,16 @@ def create_section_schedule(section, row_duration=30, uncached=False):
         sessions = section.sessions
         side_events = section.side_events
 
-    sessions = sessions.select_related('location', 'audience_level', 'track',
-                                       'kind', 'speaker__user__profile') \
+    sessions = sessions.select_related('audience_level',
+                                       'track',
+                                       'kind',
+                                       'speaker__user__profile') \
                        .prefetch_related('additional_speakers__user__profile',
                                          'location') \
                        .filter(released=True, start__isnull=False, end__isnull=False) \
                        .order_by('start') \
                        .all()
-    side_events = side_events.select_related('location') \
+    side_events = side_events.prefetch_related('location') \
                              .filter(start__isnull=False, end__isnull=False) \
                              .order_by('start') \
                              .all()
@@ -271,7 +273,7 @@ class GridCell(object):
                 self.is_global = event.is_global
                 if event.speaker:
                     self.speakers.append(unicode(event.speaker))
-                for speaker in event.additional_speakers.select_related('user__profile').all():
+                for speaker in event.additional_speakers.all():  # .select_related('user__profile')
                     self.speakers.append(unicode(speaker))
                 if event.track:
                     self.track_name = event.track.name
@@ -296,6 +298,8 @@ class GridCell(object):
             return '<GridCell FILLER location=%s>' % (self.location,)
         else:
             return '<GridCell location=%s start=%s end=%s evt=%s>' % (self.location, self.start, self.end, self.event)
+
+    __repr__ = __str__
 
     def repr(self):
         type_ = 'session' if isinstance(self.event, models.Session) else 'side'
