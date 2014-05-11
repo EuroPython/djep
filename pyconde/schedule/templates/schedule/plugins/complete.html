@@ -28,9 +28,9 @@
                                     {% if evt.is_global %}
                                         <td class="filled global" rowspan="{{ evt.rowspan }}" colspan="{{ grid.0|length }}">{% eventinfo evt %}</td>
                                     {% else %}
-                                    <td class="filled{% if evt.type == 'session' %} {{ evt.session_kind }}{% endif %}" rowspan="{{ evt.rowspan }}"{% if evt.colspan != 1 %} colspan="{{ evt.colspan }}"{% endif %}>
-                                        {% eventinfo evt %}
-                                    </td>
+                                        <td class="filled{% if evt.type == 'session' %} {{ evt.session_kind }}{% endif %}{% if evt.is_pause %} break{% endif %}" rowspan="{{ evt.rowspan }}"{% if evt.colspan != 1 %} colspan="{{ evt.colspan }}"{% endif %}>
+                                            {% eventinfo evt %}
+                                        </td>
                                     {% endif %}
                                 {% endif %}
                             {% endfor %}

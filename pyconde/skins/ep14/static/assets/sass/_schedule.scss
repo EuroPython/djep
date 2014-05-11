@@ -43,14 +43,41 @@
 
             td, th {
                 border: 1px solid $inputBorder;
+            }
+            th {
+                font-size: 1.6rem;
+                border-left: 0;
+                border-right: 0;
+                text-align: center;
+                vertical-align: middle;
+            }
+            td {
                 font-size: 1.4rem;
                 text-align: left;
                 vertical-align: top;
+
                 &:first-child {
                     border-left: 0;
                 }
                 &:last-child {
                     border-right: 0;
+                }
+                .title {
+                    color: $baseColor;
+                    text-decoration: none;
+                }
+                .speakers {
+                    color: $highlightColor;
+                }
+                &.break {
+                    background: $inputBorder;
+                    vertical-align: middle;
+                    text-align: center;
+                    font-weight: 700;
+                    font-size: 1.2em;
+                    a {
+                        color: $background-color;
+                    }
                 }
             }
             &:first-child {
