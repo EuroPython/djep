@@ -1,0 +1,79 @@
+[
+{
+    "pk": 1, 
+    "model": "conference.location", 
+    "fields": {
+        "conference": 1, 
+        "used_for_sessions": true, 
+        "order": 10, 
+        "name": "C01", 
+        "slug": "c01"
+    }
+},
+{
+    "pk": 2, 
+    "model": "conference.location", 
+    "fields": {
+        "conference": 1, 
+        "used_for_sessions": true, 
+        "order": 20, 
+        "name": "B05/B06", 
+        "slug": "b05-b06"
+    }
+},
+{
+    "pk": 3, 
+    "model": "conference.location", 
+    "fields": {
+        "conference": 1, 
+        "used_for_sessions": true, 
+        "order": 30, 
+        "name": "B07/B08", 
+        "slug": "b07-b08"
+    }
+},
+{
+    "pk": 4, 
+    "model": "conference.location", 
+    "fields": {
+        "conference": 1, 
+        "used_for_sessions": true, 
+        "order": 40, 
+        "name": "B09", 
+        "slug": "b09"
+    }
+},
+{
+    "pk": 5, 
+    "model": "conference.location", 
+    "fields": {
+        "conference": 1, 
+        "used_for_sessions": true, 
+        "order": 50, 
+        "name": "A08", 
+        "slug": "a08"
+    }
+},
+{
+    "pk": 6, 
+    "model": "conference.location", 
+    "fields": {
+        "conference": 1, 
+        "used_for_sessions": true, 
+        "order": 60, 
+        "name": "A03/A04", 
+        "slug": "a03-a04"
+    }
+},
+{
+    "pk": 7, 
+    "model": "conference.location", 
+    "fields": {
+        "conference": 1, 
+        "used_for_sessions": true, 
+        "order": 70, 
+        "name": "A05/A06", 
+        "slug": "a05-a06"
+    }
+}
+]
