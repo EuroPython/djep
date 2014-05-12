@@ -303,12 +303,13 @@ header {
 
     #login {
         margin: 0;
+        color: $loginColor;
         @media (screen and min-width: 890px) {
             position: absolute;
-            top: 10px;
+            top: 44%;
             right: 10px;
-            font-size: 14px;
-            font-size: 1.4rem;
+            font-size: 16px;
+            font-size: 1.6rem;
         }
         @media (screen and max-width: 889px) {
             padding: 0;
@@ -318,7 +319,6 @@ header {
         }
         a {
             text-decoration: none;
-            color: $blue;
             &:hover {
                 text-decoration: underline;
             }
