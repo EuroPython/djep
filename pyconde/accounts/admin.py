@@ -1,8 +1,28 @@
+from django import forms
 from django.contrib import admin
 from django.contrib.admin import SimpleListFilter
 from django.utils.translation import ugettext_lazy as _
 
 from . import models
+
+
+class ProfileAdminForm(forms.ModelForm):
+
+    badge_status_form = forms.MultipleChoiceField(label=_('Badge status'),
+        required=False, choices=models.PROFILE_BADGE_STATUS_CHOICES,
+        widget=forms.CheckboxSelectMultiple)
+
+    class Meta:
+        model = models.Profile
+        exclude = ['badge_status']
+
+    def __init__(self, *args, **kwargs):
+        super(ProfileAdminForm, self).__init__(*args, **kwargs)
+        self.fields['badge_status_form'].initial = self.instance.badge_status_list
+
+    def save(self, commit=True):
+        self.instance.badge_status = ','.join(self.cleaned_data['badge_status_form'])
+        return super(ProfileAdminForm, self).save(commit=commit)
 
 
 class WithChildrenFilter(SimpleListFilter):
@@ -22,6 +42,7 @@ class WithChildrenFilter(SimpleListFilter):
 
 
 class ProfileAdmin(admin.ModelAdmin):
+    form = ProfileAdminForm
     list_display = ('pk', 'user', 'display_name', 'full_name',
                     'accept_pysv_conferences', 'accept_ep_conferences',
                     'twitter', 'organisation')

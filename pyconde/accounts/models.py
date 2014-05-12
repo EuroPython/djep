@@ -39,6 +39,27 @@ else:
 avatar_help_text = avatar_help_text % avatar_min_max_dimension
 
 
+PROFILE_BADGE_KEYNOTE = 'keynote'
+PROFILE_BADGE_NETWORK = 'network'
+PROFILE_BADGE_ORGA = 'orga'
+PROFILE_BADGE_SPEAKER = 'speaker'
+PROFILE_BADGE_SPONSOR = 'sponsor'
+PROFILE_BADGE_TRAINER = 'trainer'
+PROFILE_BADGE_VIDEO = 'video'
+PROFILE_BADGE_VOLUNTEER = 'volunteer'
+
+PROFILE_BADGE_STATUS_CHOICES = (
+    (PROFILE_BADGE_KEYNOTE, _('Keynote')),
+    (PROFILE_BADGE_NETWORK, _('Network')),
+    (PROFILE_BADGE_ORGA, _('Orga')),
+    (PROFILE_BADGE_SPEAKER, _('Speaker')),
+    (PROFILE_BADGE_SPONSOR, _('Sponsor')),
+    (PROFILE_BADGE_TRAINER, _('Trainer')),
+    (PROFILE_BADGE_VIDEO, _('Video')),
+    (PROFILE_BADGE_VOLUNTEER, _('Volunteer')),
+)
+
+
 class Profile(models.Model):
     """
     A userprofile model that provides a short_info, twitter handle, website URL, avatar
@@ -75,12 +96,21 @@ class Profile(models.Model):
     accept_job_offers = models.BooleanField(_('Allow sponsors to send job offers'),
         default=False, blank=True)
 
-    tags = TaggableManager()
+    sponsor = models.ForeignKey('sponsorship.Sponsor', null=True, blank=True,
+        verbose_name=_('Sponsor'))
+    badge_status = models.CharField(_('Badge status'), default='', blank=True,
+        max_length=100)
+
+    tags = TaggableManager(blank=True)
 
     class Meta:
         permissions = (
             ('send_user_mails', _('Allow sending mails to users through the website')),
         )
+
+    @property
+    def badge_status_list(self):
+        return list(set(bs for bs in self.badge_status.split(',') if bs))
 
 
 @receiver(user_logged_in)
