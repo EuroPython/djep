@@ -7,8 +7,10 @@
         "end_date": "2014-07-27", 
         "title": "EuroPython 2014", 
         "reviews_end_date": "2014-03-19T17:00:00", 
+        "tickets_editable_until": null, 
         "anonymize_proposal_author": true, 
         "reviews_start_date": "2014-03-05T00:00:00", 
+        "tickets_editable": true, 
         "timezone": "Europe/Berlin", 
         "start_date": "2014-07-21"
     }
@@ -53,7 +55,22 @@
         "conference": 1, 
         "name": "Talk", 
         "end_date": null, 
-        "slug": "Talk", 
+        "slug": "talk", 
+        "closed": true, 
+        "sections": [
+            1
+        ], 
+        "start_date": null
+    }
+},
+{
+    "pk": 2, 
+    "model": "conference.sessionkind", 
+    "fields": {
+        "conference": 1, 
+        "name": "Training", 
+        "end_date": null, 
+        "slug": "training", 
         "closed": true, 
         "sections": [
             1
@@ -430,11 +447,11 @@
     "fields": {
         "conference": 1, 
         "submission_date": "2014-04-21T19:21:58.133", 
-        "kind": 1, 
+        "kind": 2, 
         "accept_recording": true, 
         "description": "Description 15", 
         "language": "en", 
-        "title": "Talk 15", 
+        "title": "Training 15", 
         "track": null, 
         "abstract": "Abstract 15", 
         "additional_speakers": [], 
@@ -456,8 +473,9 @@
         "conference": 1, 
         "modified_date": null, 
         "end": "2014-07-21T09:30:00", 
-        "title": "Title 1", 
+        "title": "Talk 1", 
         "section": 1, 
+        "max_attendees": null, 
         "start": "2014-07-21T09:00:00", 
         "speaker": 1, 
         "location": [
@@ -489,8 +507,9 @@
         "conference": 1, 
         "modified_date": null, 
         "end": "2014-07-21T10:00:00", 
-        "title": "Title 2", 
+        "title": "Talk 2", 
         "section": 1, 
+        "max_attendees": null, 
         "start": "2014-07-21T09:30:00", 
         "speaker": 1, 
         "location": [
@@ -522,8 +541,9 @@
         "conference": 1, 
         "modified_date": null, 
         "end": "2014-07-21T10:30:00", 
-        "title": "Title 3", 
+        "title": "Talk 3", 
         "section": 1, 
+        "max_attendees": null, 
         "start": "2014-07-21T10:00:00", 
         "speaker": 1, 
         "location": [
@@ -555,8 +575,9 @@
         "conference": 1, 
         "modified_date": null, 
         "end": "2014-07-21T11:00:00", 
-        "title": "Title 4", 
+        "title": "Talk 4", 
         "section": 1, 
+        "max_attendees": null, 
         "start": "2014-07-21T10:30:00", 
         "speaker": 1, 
         "location": [
@@ -588,8 +609,9 @@
         "conference": 1, 
         "modified_date": null, 
         "end": "2014-07-21T11:30:00", 
-        "title": "Title 5", 
+        "title": "Talk 5", 
         "section": 1, 
+        "max_attendees": null, 
         "start": "2014-07-21T11:00:00", 
         "speaker": 1, 
         "location": [
@@ -621,8 +643,9 @@
         "conference": 1, 
         "modified_date": null, 
         "end": "2014-07-21T12:30:00", 
-        "title": "Title 6", 
+        "title": "Talk 6", 
         "section": 1, 
+        "max_attendees": null, 
         "start": "2014-07-21T11:30:00", 
         "speaker": 1, 
         "location": [
@@ -654,8 +677,9 @@
         "conference": 1, 
         "modified_date": null, 
         "end": "2014-07-21T12:30:00", 
-        "title": "Title 7", 
+        "title": "Talk 7", 
         "section": 1, 
+        "max_attendees": null, 
         "start": "2014-07-21T12:00:00", 
         "speaker": 1, 
         "location": [
@@ -688,8 +712,9 @@
         "conference": 1, 
         "modified_date": null, 
         "end": "2014-07-21T13:00:00", 
-        "title": "Title 8", 
+        "title": "Talk 8", 
         "section": 1, 
+        "max_attendees": null, 
         "start": "2014-07-21T12:30:00", 
         "speaker": 1, 
         "location": [
@@ -722,8 +747,9 @@
         "conference": 1, 
         "modified_date": null, 
         "end": "2014-07-21T13:30:00", 
-        "title": "Title 9", 
+        "title": "Talk 9", 
         "section": 1, 
+        "max_attendees": null, 
         "start": "2014-07-21T13:00:00", 
         "speaker": 1, 
         "location": [
@@ -756,8 +782,9 @@
         "conference": 1, 
         "modified_date": null, 
         "end": "2014-07-21T14:00:00", 
-        "title": "Title 10", 
+        "title": "Talk 10", 
         "section": 1, 
+        "max_attendees": null, 
         "start": "2014-07-21T13:30:00", 
         "speaker": 1, 
         "location": [
@@ -790,8 +817,9 @@
         "conference": 1, 
         "modified_date": null, 
         "end": "2014-07-21T14:30:00", 
-        "title": "Title 11", 
+        "title": "Talk 11", 
         "section": 1, 
+        "max_attendees": null, 
         "start": "2014-07-21T14:00:00", 
         "speaker": 1, 
         "location": [
@@ -827,8 +855,9 @@
         "conference": 1, 
         "modified_date": null, 
         "end": "2014-07-21T15:00:00", 
-        "title": "Title 12", 
+        "title": "Talk 12", 
         "section": 1, 
+        "max_attendees": null, 
         "start": "2014-07-21T14:30:00", 
         "speaker": 1, 
         "location": [
@@ -863,8 +892,9 @@
         "conference": 1, 
         "modified_date": null, 
         "end": "2014-07-21T15:30:00", 
-        "title": "Title 13", 
+        "title": "Talk 13", 
         "section": 1, 
+        "max_attendees": null, 
         "start": "2014-07-21T15:00:00", 
         "speaker": 1, 
         "location": [
@@ -898,8 +928,9 @@
         "conference": 1, 
         "modified_date": null, 
         "end": "2014-07-21T16:00:00", 
-        "title": "Title 14", 
+        "title": "Talk 14", 
         "section": 1, 
+        "max_attendees": null, 
         "start": "2014-07-21T15:30:00", 
         "speaker": 1, 
         "location": [
@@ -932,60 +963,65 @@
         "conference": 1, 
         "modified_date": null, 
         "end": "2014-07-21T16:30:00", 
-        "title": "Title 15", 
+        "title": "Training 15", 
         "section": 1, 
+        "max_attendees": null, 
         "start": "2014-07-21T16:00:00", 
         "speaker": 1, 
         "location": [
             5
         ], 
         "proposal": 15, 
-        "audience_level": 1, 
-        "submission_date": "2014-04-21T19:21:58.133", 
-        "description": "Description 15", 
-        "additional_speakers": [], 
-        "track": null, 
-        "released": true, 
-        "slides_url": "", 
-        "kind": 1, 
-        "is_global": false, 
-        "accept_recording": true, 
-        "language": "en", 
-        "notes": "", 
+        "audience_level": 1,
+        "submission_date": "2014-04-21T19:21:58.133",
+        "description": "Description 15",
+        "additional_speakers": [],
+        "track": null,
+        "released": true,
+        "slides_url": "",
+        "kind": 2,
+        "is_global": false,
+        "accept_recording": true,
+        "language": "en",
+        "notes": "",
         "available_timeslots": []
     }
 },
 {
-    "pk": 1, 
-    "model": "schedule.sideevent", 
+    "pk": 1,
+    "model": "schedule.sideevent",
     "fields": {
-        "conference": 1, 
-        "is_global": false, 
-        "end": "2014-07-21T14:00:00", 
-        "name": "Lunch", 
-        "is_pause": true, 
-        "section": null, 
-        "start": "2014-07-21T13:00:00", 
+        "conference": 1,
+        "is_global": false,
+        "end": "2014-07-21T14:00:00",
+        "name": "Lunch",
+        "is_pause": true,
+        "section": null,
+        "start": "2014-07-21T13:00:00",
         "location": [
-            2, 
+            2,
             3
-        ], 
-        "is_recordable": false, 
+        ],
+        "is_recordable": false,
         "description": ""
     }
 },
 {
-    "pk": 2, 
-    "model": "schedule.completescheduleplugin", 
+    "pk": 2,
+    "model": "schedule.completescheduleplugin",
     "fields": {
-        "sections": []
+        "sections": [],
+        "row_duration": 15,
+        "merge_sections": false
     }
 },
 {
-    "pk": 4, 
-    "model": "schedule.completescheduleplugin", 
+    "pk": 4,
+    "model": "schedule.completescheduleplugin",
     "fields": {
-        "sections": []
+        "sections": [],
+        "row_duration": 15,
+        "merge_sections": false
     }
 }
 ]

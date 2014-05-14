@@ -1,10 +1,13 @@
 # -*- coding: utf-8 -*-
+
+from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.signals import user_logged_in
 from django.utils.translation import ugettext_lazy as _
 from django.dispatch import receiver
 from django.db import models
+from django.db.models import Q
 
 from easy_thumbnails.fields import ThumbnailerImageField
 from taggit.managers import TaggableManager
@@ -100,6 +103,10 @@ class Profile(models.Model):
         verbose_name=_('Sponsor'))
     badge_status = models.CharField(_('Badge status'), default='', blank=True,
         max_length=100)
+
+    trainings = models.ManyToManyField('schedule.Session', blank=True,
+        related_name='attendees', verbose_name=_('Trainings'),
+        limit_choices_to=Q(kind__slug__in=settings.SCHEDULE_ATTENDING_POSSIBLE))
 
     tags = TaggableManager(blank=True)
 

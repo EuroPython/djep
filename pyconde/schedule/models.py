@@ -52,6 +52,9 @@ class Session(LocationMixin, proposal_models.AbstractProposal):
     slides_url = models.URLField(_("Slides URL"), blank=True, null=True)
     video_url = models.URLField(_("Video URL"), blank=True, null=True)
 
+    max_attendees = models.PositiveSmallIntegerField(_('Max attendees'),
+        null=True, blank=True)
+
     @classmethod
     def create_from_proposal(cls, proposal):
         """
@@ -94,6 +97,24 @@ class Session(LocationMixin, proposal_models.AbstractProposal):
 
     def get_absolute_url(self):
         return reverse('session', kwargs={'session_pk': self.pk})
+
+    def is_attending(self, user):
+        if user.pk:
+            return self.attendees.filter(id=user.profile.id).exists()
+        return False
+
+    def attend(self, user):
+        if user.pk:
+            self.attendees.add(user.profile.id)
+
+    def unattend(self, user):
+        if user.pk:
+            self.attendees.remove(user.profile.id)
+
+    def has_free_seats(self):
+        if self.max_attendees in (None, 0):
+            return True
+        return self.attendees.count() < self.max_attendees
 
     class Meta(object):
         verbose_name = _('session')

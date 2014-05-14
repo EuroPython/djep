@@ -2,9 +2,16 @@ import unittest
 from datetime import datetime as dt
 import logging
 
-from . import utils
+from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
+from django.test import TestCase
+
+from . import models
 from . import slides
+from . import utils
 from . import videos
+
+from ..accounts import models as account_models
 
 
 logging.disable(logging.CRITICAL)
@@ -148,3 +155,123 @@ SAMPLE_SPEAKERDECK_DOC = """<!DOCTYPE html>
 </body>
 </html>
 """
+
+
+class AttendSessionTest(TestCase):
+
+    fixtures = ['example/users.json', 'example/proposal-and-schedule.json']
+
+    def setUp(self):
+
+        self.attendees = [User.objects.create_user(username='att%d' % i, password='att%d' % i) for i in range(1, 4)]
+        for i in range(3):
+            account_models.Profile.objects.create(user=self.attendees[i])
+        self.training = models.Session.objects.get(title='Training 15')
+        self.attend_url = reverse('session-attend', kwargs={'session_pk': self.training.pk})
+        self.unattend_url = reverse('session-unattend', kwargs={'session_pk': self.training.pk})
+
+    def test_attend_no_limit(self):
+        self.client.login(username='att1', password='att1')
+        response = self.client.get(self.training.get_absolute_url())
+        self.assertContains(response,
+            '<input type="submit" class="btn btn-primary" value="Attend this session" />')
+        response = self.client.post(self.attend_url, follow=True)
+        self.assertContains(response,
+            'You are now attending %s.' % self.training.title)
+        self.assertContains(response,
+            '<input type="submit" class="btn btn-primary" value="Do not attend anymore" />')
+        att_ids = list(self.training.attendees.order_by('id').values_list('id', flat=True).all())
+        self.assertEqual(att_ids, [self.attendees[0].pk])
+        self.client.logout()
+
+        self.client.login(username='att2', password='att2')
+        response = self.client.get(self.training.get_absolute_url())
+        self.assertContains(response,
+            '<input type="submit" class="btn btn-primary" value="Attend this session" />')
+        response = self.client.post(self.attend_url, follow=True)
+        self.assertContains(response,
+            'You are now attending %s.' % self.training.title)
+        self.assertContains(response,
+            '<input type="submit" class="btn btn-primary" value="Do not attend anymore" />')
+        att_ids = list(self.training.attendees.order_by('id').values_list('id', flat=True).all())
+        self.assertEqual(att_ids, [self.attendees[0].pk, self.attendees[1].pk])
+        self.client.logout()
+
+        self.client.login(username='att3', password='att3')
+        response = self.client.get(self.training.get_absolute_url())
+        self.assertContains(response,
+            '<input type="submit" class="btn btn-primary" value="Attend this session" />')
+        response = self.client.post(self.attend_url, follow=True)
+        self.assertContains(response,
+            'You are now attending %s.' % self.training.title)
+        self.assertContains(response,
+            '<input type="submit" class="btn btn-primary" value="Do not attend anymore" />')
+        att_ids = list(self.training.attendees.order_by('id').values_list('id', flat=True).all())
+        self.assertEqual(att_ids, [self.attendees[0].pk, self.attendees[1].pk, self.attendees[2].pk])
+        self.client.logout()
+
+    def test_attend_limit(self):
+        self.training.max_attendees = 2
+        self.training.save(update_fields=['max_attendees'])
+
+        self.client.login(username='att1', password='att1')
+        response = self.client.get(self.training.get_absolute_url())
+        self.assertContains(response,
+            '<input type="submit" class="btn btn-primary" value="Attend this session" />')
+        response = self.client.post(self.attend_url, follow=True)
+        self.assertContains(response,
+            'You are now attending %s.' % self.training.title)
+        self.assertContains(response,
+            '<input type="submit" class="btn btn-primary" value="Do not attend anymore" />')
+        att_ids = list(self.training.attendees.order_by('id').values_list('id', flat=True).all())
+        self.assertEqual(att_ids, [self.attendees[0].pk])
+        self.client.logout()
+
+        self.client.login(username='att2', password='att2')
+        response = self.client.get(self.training.get_absolute_url())
+        self.assertContains(response,
+            '<input type="submit" class="btn btn-primary" value="Attend this session" />')
+        response = self.client.post(self.attend_url, follow=True)
+        self.assertContains(response,
+            'You are now attending %s.' % self.training.title)
+        self.assertContains(response,
+            '<input type="submit" class="btn btn-primary" value="Do not attend anymore" />')
+        att_ids = list(self.training.attendees.order_by('id').values_list('id', flat=True).all())
+        self.assertEqual(att_ids, [self.attendees[0].pk, self.attendees[1].pk])
+        self.client.logout()
+
+        self.client.login(username='att3', password='att3')
+        response = self.client.get(self.training.get_absolute_url())
+        self.assertContains(response,
+            'You cannot attend right no. No empty seats.')
+        response = self.client.post(self.attend_url, follow=True)
+        self.assertContains(response,
+            'You cannot attend right no. No empty seats.')
+        att_ids = list(self.training.attendees.order_by('id').values_list('id', flat=True).all())
+        self.assertEqual(att_ids, [self.attendees[0].pk, self.attendees[1].pk])
+        self.client.logout()
+
+    def test_unattend(self):
+        self.training.attendees.add(self.attendees[0].profile)
+        att_ids = list(self.training.attendees.order_by('id').values_list('id', flat=True).all())
+        self.assertEqual(att_ids, [self.attendees[0].pk])
+
+        self.client.login(username='att1', password='att1')
+        response = self.client.get(self.training.get_absolute_url())
+        self.assertContains(response,
+            '<input type="submit" class="btn btn-primary" value="Do not attend anymore" />')
+        response = self.client.post(self.unattend_url, follow=True)
+        self.assertContains(response,
+            'You are not attending %s anymore.' % self.training.title)
+        self.assertContains(response,
+            '<input type="submit" class="btn btn-primary" value="Attend this session" />')
+        att_ids = list(self.training.attendees.order_by('id').values_list('id', flat=True).all())
+        self.assertEqual(att_ids, [])
+        self.client.logout()
+
+    def test_not_attendable(self):
+        talk = models.Session.objects.get(title='Talk 1')
+
+        self.client.login(username='att1', password='att1')
+        response = self.client.post(reverse('session-unattend', kwargs={'session_pk': talk.pk}))
+        self.assertEqual(response.status_code, 404)

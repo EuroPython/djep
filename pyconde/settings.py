@@ -153,7 +153,7 @@ class Base(Configuration):
         'sekizai.context_processors.sekizai',
         'pyconde.conference.context_processors.current_conference',
         'pyconde.reviews.context_processors.review_roles',
-        'pyconde.context_processors.less_settings',
+        # 'pyconde.context_processors.less_settings',
         'social_auth.context_processors.social_auth_backends',
     )
 
@@ -340,6 +340,7 @@ class Base(Configuration):
 
     CMSPLUGIN_NEWS_FEED_DESCRIPTION = u'News from EuroPython 2014'
 
+    SCHEDULE_ATTENDING_POSSIBLE = ["training"]
     SCHEDULE_CACHE_SCHEDULE = values.BooleanValue(True)
     SCHEDULE_CACHE_TIMEOUT = values.IntegerValue(300)
 
@@ -578,6 +579,7 @@ class Testing(Dev):
     }
 
     SECRET_KEY = "testing_secret_key"
+    FIXTURE_DIRS = (os.path.join(Base.BASE_DIR, 'fixtures'),)
 
     CELERY_ALWAYS_EAGER = True
     PURCHASE_INVOICE_DISABLE_RENDERING = True

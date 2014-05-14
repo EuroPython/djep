@@ -16,7 +16,7 @@
         color: darken($green, 30);
     }
 
-    &.alert-warn {
+    &.alert-warn, &.alert-warning {
         background: lighten(#E1E04A, 10);
         color: darken(#E1E04A, 30);
     }
