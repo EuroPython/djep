@@ -259,6 +259,7 @@ class XMLExporter(object):
                           'track__name',
                           'speaker__user__username',
                           'speaker__user__profile__avatar',
+                          'speaker__user__profile__full_name',
                           'speaker__user__profile__display_name',
                           'speaker__user__profile__user')\
                     .all()
@@ -365,7 +366,8 @@ class XMLExporter(object):
         profile = user.profile
         with xf.element('speaker', id=force_text(user.id)):
             with xf.element('name'):
-                xf.write(get_display_name(user))
+                name = user.profile.full_name or get_display_name(user)
+                xf.write(name)
             with xf.element('profile'):
                 xf.write(self.base_url + reverse('account_profile',
                                                  kwargs={'uid': user.id}))
