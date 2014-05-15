@@ -464,6 +464,28 @@
     }
 },
 {
+    "pk": 16, 
+    "model": "proposals.proposal", 
+    "fields": {
+        "conference": 1, 
+        "submission_date": "2014-04-21T19:21:58.133", 
+        "kind": 2, 
+        "accept_recording": true, 
+        "description": "Description 16", 
+        "language": "en", 
+        "title": "Training 16", 
+        "track": null, 
+        "abstract": "Abstract 16", 
+        "additional_speakers": [], 
+        "modified_date": null, 
+        "speaker": 1, 
+        "duration": 1, 
+        "available_timeslots": [], 
+        "notes": "", 
+        "audience_level": 1
+    }
+},
+{
     "pk": 1, 
     "model": "schedule.session", 
     "fields": {
@@ -975,6 +997,40 @@
         "audience_level": 1,
         "submission_date": "2014-04-21T19:21:58.133",
         "description": "Description 15",
+        "additional_speakers": [],
+        "track": null,
+        "released": true,
+        "slides_url": "",
+        "kind": 2,
+        "is_global": false,
+        "accept_recording": true,
+        "language": "en",
+        "notes": "",
+        "available_timeslots": []
+    }
+},
+{
+    "pk": 16, 
+    "model": "schedule.session", 
+    "fields": {
+        "video_url": "", 
+        "abstract": "Abstract 16", 
+        "duration": 1, 
+        "conference": 1, 
+        "modified_date": null, 
+        "end": "2014-07-21T16:30:00", 
+        "title": "Training 16", 
+        "section": 1, 
+        "max_attendees": null, 
+        "start": "2014-07-21T16:00:00", 
+        "speaker": 1, 
+        "location": [
+            4
+        ], 
+        "proposal": 16, 
+        "audience_level": 1,
+        "submission_date": "2014-04-21T19:21:58.133",
+        "description": "Description 16",
         "additional_speakers": [],
         "track": null,
         "released": true,

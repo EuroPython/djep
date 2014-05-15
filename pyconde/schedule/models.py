@@ -1,6 +1,7 @@
 import logging
 
 from django.db import models
+from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
 import django.db.models.signals as model_signals
@@ -97,6 +98,15 @@ class Session(LocationMixin, proposal_models.AbstractProposal):
 
     def get_absolute_url(self):
         return reverse('session', kwargs={'session_pk': self.pk})
+
+    def can_attend(self, user):
+        other = Session.objects.filter(attendees=user.profile).exclude(id=self.pk)
+        q_overlap = (
+            Q(start__range=(self.start, self.end)) |
+            Q(end__range=(self.start, self.end))
+        )
+        other = other.filter(q_overlap)
+        return not other.exists()
 
     def is_attending(self, user):
         if user.pk:

@@ -158,6 +158,8 @@ def attend_session(request, session_pk, attending):
     elif attending:
         if not session.has_free_seats():
             messages.warning(request, _('You cannot attend right no. No empty seats.'))
+        elif not session.can_attend(request.user):
+            messages.warning(request, _('You cannot attend this session. Already attending another session at that time.'))
         else:
             session.attend(request.user)
             messages.success(request, _('You are now attending %(session_title)s.') % {

@@ -275,3 +275,29 @@ class AttendSessionTest(TestCase):
         self.client.login(username='att1', password='att1')
         response = self.client.post(reverse('session-unattend', kwargs={'session_pk': talk.pk}))
         self.assertEqual(response.status_code, 404)
+
+    def test_cannot_attend_overlapping(self):
+        training2 = models.Session.objects.get(title='Training 16')
+        attend_url2 = reverse('session-attend', kwargs={'session_pk': training2.pk})
+
+        self.client.login(username='att1', password='att1')
+
+        response = self.client.get(self.training.get_absolute_url())
+        self.assertContains(response,
+            '<input type="submit" class="btn btn-primary" value="Attend this session" />')
+        response = self.client.post(self.attend_url, follow=True)
+        self.assertContains(response,
+            'You are now attending %s.' % self.training.title)
+        att_ids = list(self.training.attendees.order_by('id').values_list('id', flat=True).all())
+        self.assertEqual(att_ids, [self.attendees[0].pk])
+
+        response = self.client.get(training2.get_absolute_url())
+        self.assertContains(response,
+            '<input type="submit" class="btn btn-primary" value="Attend this session" />')
+        response = self.client.post(attend_url2, follow=True)
+        self.assertContains(response,
+            'You cannot attend this session. Already attending another session at that time.')
+        att_ids2 = list(training2.attendees.order_by('id').values_list('id', flat=True).all())
+        self.assertEqual(att_ids2, [])
+
+        self.client.logout()
