@@ -145,6 +145,8 @@ class CompleteSchedulePlugin(CMSPlugin):
         (ROW_DURATION_60, _('60 Minutes')),
     )
 
+    title = models.CharField(max_length=100, blank=True,
+        verbose_name=_('title'))
     sections = models.ManyToManyField(conference_models.Section,
         blank=True, null=True, verbose_name=_("sections"))
     row_duration = models.IntegerField(_('Duration of one row'),

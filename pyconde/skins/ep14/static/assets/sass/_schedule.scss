@@ -42,33 +42,43 @@
         margin-bottom: 2em;
 
         > a {
-            background: $background-color-light;
             color: $inputBorder;
             display: block;
             float: left;
             width: 107px;
-            height: 107px;
             margin-right: 20px;
-            padding-top: 23px;
-            border-radius: 5px;
+            padding-bottom: 15px;
             text-align: center;
-            line-height: 2em;
             text-decoration: none;
 
+            .w, .n {
+                background: darken($background-color-light, 5);
+                display: block;
+            }
+
             .w {
-                font-size: 3.5rem;
+                border-radius: 10px 10px 0 0;
+                padding-top: 19px;
+                font-size: 3.0rem;
+                line-height: 3.4rem;
                 font-weight: bold;
             }
             .n {
-                font-size: 1.5em;
+                border-radius: 0 0 10px 10px;
+                font-size: 1.5rem;
+                line-height: 2.8rem;
+                padding-bottom: 18px;
             }
             &:last-child {
                 margin-right: 0;
             }
 
             &.active {
-                background: $background-color;
-                color: $inputBorderHi;
+                background: url(../images/daybg.active.png) bottom center no-repeat;
+                .n, .w {
+                    background: $background-color;
+                    color: $inputBorderHi;
+                }
             }
         }
     }
