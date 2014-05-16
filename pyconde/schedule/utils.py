@@ -251,6 +251,7 @@ class GridCell(object):
         self.level_name = None
         self.language = None
         self.location = event.location if event else None
+        self.icon = None
         if isinstance(self.location, conference_models.Location):
             self.location = [self.location]
         elif hasattr(self.location, 'all'):
@@ -283,6 +284,7 @@ class GridCell(object):
                 self.type = 'sideevent'
                 self.is_global = event.is_global
                 self.is_pause = event.is_pause
+                self.icon = event.icon
                 self.name = event.name
 
     @property

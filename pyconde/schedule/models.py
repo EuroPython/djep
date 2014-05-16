@@ -18,6 +18,15 @@ from ..conference import models as conference_models
 LOG = logging.getLogger(__name__)
 
 
+EVENT_ICON_CHOICES = (
+    ('coffee', _('Coffee cup')),
+    ('glass', _('Glass')),
+    ('lightbulb-o', _('Lightbulb')),
+    ('moon-o', _('Moon')),
+    ('cutlery', _('Cutlery')),
+)
+
+
 class LocationMixin(object):
 
     def location_pretty(self):
@@ -118,6 +127,8 @@ class SideEvent(LocationMixin, models.Model):
     is_recordable = models.BooleanField(_("is recordable"), default=False)
     conference = models.ForeignKey(conference_models.Conference,
         verbose_name=_("conference"))
+    icon = models.CharField(max_length=50, blank=True, null=True,
+        verbose_name=_("icon"), choices=EVENT_ICON_CHOICES)
 
     objects = models.Manager()
     current_conference = conference_models.CurrentConferenceManager()
