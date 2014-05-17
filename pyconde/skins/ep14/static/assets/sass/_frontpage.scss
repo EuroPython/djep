@@ -46,6 +46,10 @@ body.start-tmpl #main {
         background: #FFF;
     }
 
+    li:before {
+        display: none;
+    }
+
     blockquote {
         font-size: 23px;
         font-size: 2.3rem;
@@ -96,9 +100,6 @@ body.start-tmpl #main {
                     margin-top: 10px;
                     &:first-child {
                         margin-top: 0;
-                    }
-                    &:before {
-                        display: none;
                     }
                 }
             }
