@@ -2,7 +2,6 @@
 <span class="evt">
 <a href="{{ event.url }}" class="title">{% if event.icon %}<i class="fa fa-fw fa-{{ event.icon }}"></i>{% endif %}{% if event.session_kind == 'keynote'%}KEYNOTE: {% endif %}{{ event.name|safe_and_shy:15 }}</a>
 {% if event.type == 'session' %}
-    <br />
     {% if event.speakers %}<span class="speakers">{{ event.speakers|join:', ' }}</span>{% endif %}
 {% endif %}
 <span class="details">

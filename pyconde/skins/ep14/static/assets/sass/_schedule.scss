@@ -54,8 +54,16 @@
             text-decoration: none;
 
             .w, .n {
-                background: darken($background-color-light, 5);
                 display: block;
+                background: $background-color;
+                color: darken($background-color, 15);
+            }
+            &.active {
+                background: url(../images/daybg.active.dark.png) bottom center no-repeat;
+                .n, .w {
+                    background: $schedule-secondary;
+                    color: $baseColor;
+                }
             }
 
             .w {
@@ -75,22 +83,35 @@
                 margin-right: 0;
             }
 
-            &.active {
-                background: url(../images/daybg.active.png) bottom center no-repeat;
+            .area-3 & {
                 .n, .w {
-                    background: $background-color;
-                    color: $inputBorderHi;
+                    background: $schedule-secondary;
+                    color: $schedule-secondary-inv;
+                }
+
+                &.active {
+                    background: url(../images/daybg.active.png) bottom center no-repeat;
+                    .n, .w {
+                        background: $background-color;
+                        color: $inputBorderHi;
+                    }
                 }
             }
         }
     }
     table {
+        .title, .speaker {
+            display: block;
+        }
         .title {
             color: $baseColor;
             text-decoration: none;
+            margin-bottom: 3px;
+            line-height: 130%;
         }
         .speakers {
             color: $highlightColor;
+            line-height: 115%;
         }
         .details {
             font-size: 1.4rem;
@@ -98,10 +119,9 @@
                 display: block;
             }
         }
-        td {
+        td, th {
             font-size: 1.4rem;
-            padding: 15px;
-
+            padding: 15px 8px;
         }
         tr {
             &:hover td {
