@@ -184,7 +184,7 @@ class GridRow(object):
         self.event_by_location = {}
         self.cells = events
         for evt in events:
-            if not evt.event.location:
+            if not evt.event or not evt.event.location:
                 continue
             for loc in evt.event.location.all():
                 self.event_by_location[loc] = evt
