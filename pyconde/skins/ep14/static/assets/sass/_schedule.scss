@@ -119,6 +119,10 @@
                 display: block;
             }
         }
+        a {
+            text-decoration: none;
+            display: block;
+        }
         td, th {
             font-size: 1.4rem;
             padding: 15px 8px;
@@ -134,7 +138,7 @@
             td.filled {
                 text-align: center;
                 vertical-align: middle;
-                &, a {
+                &, a, .title {
                     color: #FFF;
                 }
             }

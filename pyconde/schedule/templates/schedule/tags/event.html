@@ -1,6 +1,6 @@
 {% load helper_tags %}
-<span class="evt">
-<a href="{{ event.url }}" class="title">{% if event.icon %}<i class="fa fa-fw fa-{{ event.icon }}"></i>{% endif %}{% if event.session_kind == 'keynote'%}KEYNOTE: {% endif %}{{ event.name|safe_and_shy:15 }}</a>
+<a href="{{ event.url }}" class="evt">
+<span class="title">{% if event.icon %}<i class="fa fa-fw fa-{{ event.icon }}"></i>{% endif %}{% if event.session_kind == 'keynote'%}KEYNOTE: {% endif %}{{ event.name|safe_and_shy:15 }}</span>
 {% if event.type == 'session' %}
     {% if event.speakers %}<span class="speakers">{{ event.speakers|join:', ' }}</span>{% endif %}
 {% endif %}
@@ -8,4 +8,4 @@
     {{ event.start|time }} - {{ event.end|time }}
     {% if event.location %}<span class="location">({% for loc in event.location %}{{ loc.name }}{% if not forloop.last %},  {% endif %}{% endfor %})</span>{% endif %}
 </span>
-</span>
+</a>
