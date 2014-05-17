@@ -82,7 +82,8 @@ def create_section_schedule(section, row_duration=30, uncached=False):
     sessions = sessions.select_related('audience_level',
                                        'track',
                                        'kind',
-                                       'speaker__user__profile') \
+                                       'speaker__user__profile',
+                                       'conference') \
                        .prefetch_related('additional_speakers__user__profile',
                                          'location') \
                        .filter(released=True, start__isnull=False, end__isnull=False) \
@@ -105,8 +106,8 @@ def create_section_schedule(section, row_duration=30, uncached=False):
             continue
         locations |= set(session.location.all())
     for evt in side_events:
-        start_time = min(start_time, session.start)
-        end_time = max(end_time, session.end)
+        start_time = min(start_time, evt.start)
+        end_time = max(end_time, evt.end)
         # Global events span all session locations and therefor the location
         # should not be included in the columns list
         if evt.is_global:
@@ -119,7 +120,7 @@ def create_section_schedule(section, row_duration=30, uncached=False):
     if not events:
         return {}
 
-    # As a first step we build a grid with the resepctive row start time as
+    # As a first step we build a grid with the respective row start time as
     # key and fill it with events starting at that time.
     grid = _create_base_grid(start_time, end_time, row_duration)
     for evt in events:
@@ -183,9 +184,9 @@ class GridRow(object):
         self.event_by_location = {}
         self.cells = events
         for evt in events:
-            if not evt.location:
+            if not evt.event.location:
                 continue
-            for loc in evt.location.all():
+            for loc in evt.event.location.all():
                 self.event_by_location[loc] = evt
 
     def is_pause_row(self):
