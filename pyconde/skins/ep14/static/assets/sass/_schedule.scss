@@ -100,7 +100,7 @@
         }
     }
     table {
-        .title, .speaker {
+        .title, .speakers {
             display: block;
         }
         .title {
@@ -153,11 +153,6 @@
                 &:first-child {
                     th {
                         border-top: 0;
-                    }
-                }
-                &:last-child {
-                    td {
-                        border-bottom: 0;
                     }
                 }
             }
