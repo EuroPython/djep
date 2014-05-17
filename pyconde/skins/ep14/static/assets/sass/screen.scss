@@ -471,31 +471,6 @@ strong {
     padding: 0 10px 30px 10px;
 }
 
-#main {
-    h2 {
-        margin-top: 50px;
-        &:first-child {
-            margin-top: 0;
-        }
-    }
-    ol {
-        padding-left: 23px;
-    }
-    ul {
-        margin-left: 0;
-        padding-left: 0;
-        list-style: none;
-        li {
-            display: table-row;
-            &:before {
-                display: table-cell;
-                width: 23px;
-                content: '-';
-            }
-        }
-    }
-}
-
 #site-title {
     padding: 0;
     margin: 50px auto;
