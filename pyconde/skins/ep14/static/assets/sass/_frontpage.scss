@@ -1,4 +1,4 @@
-body.start-tmpl {
+body.start-tmpl #main {
     .orbit-timer {
         display: none;
     }
@@ -51,6 +51,10 @@ body.start-tmpl {
         }
     }
 
+    li:before {
+        display: none;
+    }
+
     blockquote {
         font-size: 23px;
         font-size: 2.3rem;
@@ -86,6 +90,7 @@ body.start-tmpl {
                 min-width: 250px;
                 list-style: none;
                 padding: 0;
+                list-style: none;
                 li a {
                     display: block;
                     background: #FFF;
@@ -96,6 +101,7 @@ body.start-tmpl {
                     font-size: 1.7rem;
                 }
                 li {
+                    display: block;
                     margin-top: 10px;
                     &:first-child {
                         margin-top: 0;
