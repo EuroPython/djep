@@ -482,8 +482,10 @@ table {
         border-bottom: 1px solid $table-border;
         padding: 5px 7px;
     }
-    tr:hover td {
-        background: $background-color-light;
+    tbody {
+        tr:nth-child(odd) td {
+            background: $background-color-light;
+        }
     }
     .actions {
         a {
