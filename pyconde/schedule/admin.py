@@ -29,8 +29,10 @@ def schedule_multiple_proposals(modeladmin, request, queryset):
     skipped = 0
     convert = False
     if modeladmin.model == review_models.ProposalMetaData:
-        queryset = queryset.select_related('proposal')
+        queryset = queryset.select_related('proposal').prefetch_related('proposal__tags')
         convert = True
+    elif modeladmin.model == proposal_models.Proposal:
+        queryset = queryset.prefetch_related('tags')
     for prop in queryset:
         if convert:
             proposal = prop.proposal
