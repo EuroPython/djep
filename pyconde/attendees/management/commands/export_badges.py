@@ -20,7 +20,7 @@ class Command(BaseCommand):
             action='store_true',
             dest='indent',
             default=None,
-            help='Base URL for profile URLs'),
+            help='Indent the output'),
         )
 
     help = 'Export all valid venue / conference tickets'
