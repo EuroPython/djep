@@ -172,13 +172,13 @@ def clear_schedule_caches(sender, *args, **kwargs):
     # well as the global cache itself.
     conf = conference_models.current_conference()
     cache_keys = [
-        'schedule:{0}:30'.format(conf.pk),
         'schedule:guidebook:events'
     ]
     section_ids = list(conf.sections.values_list('id', flat=True)) + ['__merged__']
     durations = dict(CompleteSchedulePlugin.ROW_DURATION_CHOICES).keys()
     prod = product(section_ids, durations)
     for sec, dur in prod:
+        cache_keys.append('schedule:{0}:{1}'.format(conf.pk, dur))
         cache_keys.append('section_schedule:{0}:{1}'.format(sec, dur))
     LOG.debug("Clearing following cache keys: " + unicode(cache_keys))
     cache.delete_many(cache_keys)
