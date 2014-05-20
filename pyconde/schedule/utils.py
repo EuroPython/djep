@@ -97,17 +97,17 @@ def create_section_schedule(section, row_duration=30, uncached=False):
     evt_cache = {}
 
     locations = set()
-    start_time = sessions[0].start
-    end_time = sessions[0].start
+    start_time = None
+    end_time = None
     for session in sessions:
-        start_time = min(start_time, session.start)
-        end_time = max(end_time, session.end)
+        start_time = session.start if start_time is None else min(start_time, session.start)
+        end_time = session.end if end_time is None else max(end_time, session.end)
         if session.is_global:
             continue
         locations |= set(session.location.all())
     for evt in side_events:
-        start_time = min(start_time, evt.start)
-        end_time = max(end_time, evt.end)
+        start_time = evt.start if start_time is None else min(start_time, evt.start)
+        end_time = evt.end if end_time is None else max(end_time, evt.end)
         # Global events span all session locations and therefor the location
         # should not be included in the columns list
         if evt.is_global:
