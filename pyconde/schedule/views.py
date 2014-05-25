@@ -150,28 +150,21 @@ def edit_session(request, session_pk):
 def attend_session(request, session_pk, attending):
     session = get_object_or_404(models.Session, pk=session_pk, released=True,
         kind__slug__in=settings.SCHEDULE_ATTENDING_POSSIBLE)
-    if session.start <= now():
-        if session.end <= now():
-            messages.warning(request, _('You cannot attend this session anymore. The session already ended.'))
-        else:
-            messages.warning(request, _('You cannot attend this session anymore. The session already started.'))
-    elif attending:
-        if not session.has_free_seats():
-            messages.warning(request, _('You cannot attend right no. No empty seats.'))
-        elif not session.can_attend(request.user):
-            messages.warning(request, _('You cannot attend this session. Already attending another session at that time.'))
-        else:
+    try:
+        if attending:
             session.attend(request.user)
             messages.success(request, _('You are now attending %(session_title)s.') % {
                 'session_title': session.title,
             })
-    elif not attending:
-        session.unattend(request.user)
-        messages.success(request, _('You are not attending %(session_title)s anymore.') % {
-            'session_title': session.title,
-        })
-    else:
-        messages.error(request, _('Invalid or no action specified.'))
+        elif not attending:
+            session.unattend(request.user)
+            messages.success(request, _('You are not attending %(session_title)s anymore.') % {
+                'session_title': session.title,
+            })
+        else:
+            messages.error(request, _('Invalid or no action specified.'))
+    except models.AttendingError as ae:
+        messages.warning(request, ae.message)
     return HttpResponseRedirect(session.get_absolute_url())
 
 

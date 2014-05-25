@@ -1,15 +1,14 @@
 import logging
 
-from django.db import models
-from django.db.models import Q
-from django.utils.translation import ugettext_lazy as _
-from django.core.urlresolvers import reverse
-import django.db.models.signals as model_signals
 from django.core.cache import cache
-
+from django.core.urlresolvers import reverse
+from django.db import models
+from django.db.models import Q, signals as model_signals
 from django.utils.encoding import force_text
-from cms.models import CMSPlugin
+from django.utils.translation import ugettext_lazy as _
+from django.utils.timezone import now
 
+from cms.models import CMSPlugin
 
 from ..proposals import models as proposal_models
 from ..reviews import models as review_models
@@ -26,6 +25,10 @@ EVENT_ICON_CHOICES = (
     ('moon-o', _('Moon')),
     ('cutlery', _('Cutlery')),
 )
+
+
+class AttendingError(Exception):
+    pass
 
 
 class LocationMixin(object):
@@ -123,11 +126,27 @@ class Session(LocationMixin, proposal_models.AbstractProposal):
         return False
 
     def attend(self, user):
-        if user.pk:
+        current_time = now()
+        if self.start <= current_time:
+            if self.end <= current_time:
+                raise AttendingError(_('You cannot attend this session anymore. The session already ended.'))
+            else:
+                raise AttendingError(_('You cannot attend this session anymore. The session already started.'))
+        elif not self.has_free_seats():
+            raise AttendingError(_('You cannot attend right no. No empty seats.'))
+        elif not self.can_attend(user):
+            raise AttendingError(_('You cannot attend this session. Already attending another session at that time.'))
+        else:
             self.attendees.add(user.profile.id)
 
     def unattend(self, user):
-        if user.pk:
+        current_time = now()
+        if self.start <= current_time:
+            if self.end <= current_time:
+                raise AttendingError(_('You cannot leave this session anymore. The session already ended.'))
+            else:
+                raise AttendingError(_('You cannot leave this session anymore. The session already started.'))
+        else:
             self.attendees.remove(user.profile.id)
 
     def has_free_seats(self):
