@@ -139,7 +139,7 @@ class Session(LocationMixin, proposal_models.AbstractProposal):
         else:
             self.attendees.add(user.profile.id)
 
-    def unattend(self, user):
+    def leave(self, user):
         current_time = now()
         if self.start <= current_time:
             if self.end <= current_time:

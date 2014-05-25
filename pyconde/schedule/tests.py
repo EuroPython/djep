@@ -168,7 +168,7 @@ class AttendSessionTest(TestCase):
             account_models.Profile.objects.create(user=self.attendees[i])
         self.training = models.Session.objects.get(title='Training 15')
         self.attend_url = reverse('session-attend', kwargs={'session_pk': self.training.pk})
-        self.unattend_url = reverse('session-unattend', kwargs={'session_pk': self.training.pk})
+        self.leave_url = reverse('session-leave', kwargs={'session_pk': self.training.pk})
 
     def test_attend_no_limit(self):
         self.client.login(username='att1', password='att1')
@@ -251,7 +251,7 @@ class AttendSessionTest(TestCase):
         self.assertEqual(att_ids, [self.attendees[0].pk, self.attendees[1].pk])
         self.client.logout()
 
-    def test_unattend(self):
+    def test_leave(self):
         self.training.attendees.add(self.attendees[0].profile)
         att_ids = list(self.training.attendees.order_by('id').values_list('id', flat=True).all())
         self.assertEqual(att_ids, [self.attendees[0].pk])
@@ -260,7 +260,7 @@ class AttendSessionTest(TestCase):
         response = self.client.get(self.training.get_absolute_url())
         self.assertContains(response,
             '<input type="submit" class="btn btn-primary" value="Do not attend anymore" />')
-        response = self.client.post(self.unattend_url, follow=True)
+        response = self.client.post(self.leave_url, follow=True)
         self.assertContains(response,
             'You are not attending %s anymore.' % self.training.title)
         self.assertContains(response,
@@ -273,7 +273,7 @@ class AttendSessionTest(TestCase):
         talk = models.Session.objects.get(title='Talk 1')
 
         self.client.login(username='att1', password='att1')
-        response = self.client.post(reverse('session-unattend', kwargs={'session_pk': talk.pk}))
+        response = self.client.post(reverse('session-leave', kwargs={'session_pk': talk.pk}))
         self.assertEqual(response.status_code, 404)
 
     def test_cannot_attend_overlapping(self):

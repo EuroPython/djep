@@ -157,7 +157,7 @@ def attend_session(request, session_pk, attending):
                 'session_title': session.title,
             })
         elif not attending:
-            session.unattend(request.user)
+            session.leave(request.user)
             messages.success(request, _('You are not attending %(session_title)s anymore.') % {
                 'session_title': session.title,
             })

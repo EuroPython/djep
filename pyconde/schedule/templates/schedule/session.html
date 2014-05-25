@@ -46,7 +46,7 @@
                                 {% trans "You cannot attend right no. No empty seats." %}
                             {% endif %}
                         {% else %}
-                            <form action="{% url "session-unattend" session_pk=session.pk %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-primary" value="{% trans "Do not attend anymore" %}" />
+                            <form action="{% url "session-leave" session_pk=session.pk %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-primary" value="{% trans "Do not attend anymore" %}" />
                         {% endif %}
                     </dd>
                 </dl>
