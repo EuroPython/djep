@@ -19,6 +19,15 @@ from ..conference import models as conference_models
 LOG = logging.getLogger(__name__)
 
 
+EVENT_ICON_CHOICES = (
+    ('coffee', _('Coffee cup')),
+    ('glass', _('Glass')),
+    ('lightbulb-o', _('Lightbulb')),
+    ('moon-o', _('Moon')),
+    ('cutlery', _('Cutlery')),
+)
+
+
 class LocationMixin(object):
 
     def location_pretty(self):
@@ -149,6 +158,8 @@ class SideEvent(LocationMixin, models.Model):
     is_recordable = models.BooleanField(_("is recordable"), default=False)
     conference = models.ForeignKey(conference_models.Conference,
         verbose_name=_("conference"))
+    icon = models.CharField(max_length=50, blank=True, null=True,
+        verbose_name=_("icon"), choices=EVENT_ICON_CHOICES)
 
     objects = models.Manager()
     current_conference = conference_models.CurrentConferenceManager()
@@ -176,6 +187,8 @@ class CompleteSchedulePlugin(CMSPlugin):
         (ROW_DURATION_60, _('60 Minutes')),
     )
 
+    title = models.CharField(max_length=100, blank=True,
+        verbose_name=_('title'))
     sections = models.ManyToManyField(conference_models.Section,
         blank=True, null=True, verbose_name=_("sections"))
     row_duration = models.IntegerField(_('Duration of one row'),
@@ -190,13 +203,13 @@ def clear_schedule_caches(sender, *args, **kwargs):
     # well as the global cache itself.
     conf = conference_models.current_conference()
     cache_keys = [
-        'schedule:{0}:30'.format(conf.pk),
         'schedule:guidebook:events'
     ]
     section_ids = list(conf.sections.values_list('id', flat=True)) + ['__merged__']
     durations = dict(CompleteSchedulePlugin.ROW_DURATION_CHOICES).keys()
     prod = product(section_ids, durations)
     for sec, dur in prod:
+        cache_keys.append('schedule:{0}:{1}'.format(conf.pk, dur))
         cache_keys.append('section_schedule:{0}:{1}'.format(sec, dur))
     LOG.debug("Clearing following cache keys: " + unicode(cache_keys))
     cache.delete_many(cache_keys)

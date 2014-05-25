@@ -7,7 +7,7 @@
 
         li {
             padding: 0 14px;
-            display: inline-block;
+            display: inline-block !important;
             opacity: 0.3;
             filter: url(../images/filters.svg#grayscale);
             filter: gray; /* IE6-9 */
@@ -16,6 +16,9 @@
                 opacity: 1;
                 filter: none;
                 -webkit-filter: none;
+            }
+            &:before {
+                display: none;
             }
 
             a {
@@ -30,6 +33,31 @@
                     max-height: 55px;
                     vertical-align: middle;
                 }
+            }
+        }
+    }
+}
+
+#main .cmsplugin-text {
+    h2 {
+        margin-top: 50px;
+        &:first-child {
+            margin-top: 0;
+        }
+    }
+    ol {
+        padding-left: 23px;
+    }
+    ul {
+        margin-left: 0;
+        padding-left: 0;
+        list-style: none;
+        li {
+            display: table-row;
+            &:before {
+                display: table-cell;
+                width: 23px;
+                content: '-';
             }
         }
     }

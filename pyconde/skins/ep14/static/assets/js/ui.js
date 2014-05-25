@@ -85,7 +85,10 @@ ep.ui = (function($) {
 
         $('.top-bar-section').off('click.menuToggle').on('click.menuToggle', '> ul > li.has-dropdown > a', function(evt) {
             evt.preventDefault();
-            $('.main-nav .dropdown').toggle();
+            var dropdown = $('.main-nav .dropdown').toggle();
+            $('.main-nav').one('mouseleave', function() {
+                dropdown.toggle();
+            });
         });
         mainMenuToggleRegistered = true;
     }

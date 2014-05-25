@@ -20,6 +20,16 @@ class Command(BaseCommand):
             dest='base_url',
             default='',
             help='Base URL for profile URLs'),
+        make_option('--pretty',
+            action='store_true',
+            dest='pretty',
+            default=False,
+            help='Create pretty XML'),
+        make_option('--export-avatars',
+            action='store_true',
+            dest='export_avatars',
+            default=False,
+            help='Copy avatars of speakers into separate directory'),
         )
 
     help = 'Export all valid venue / conference tickets'
@@ -27,5 +37,8 @@ class Command(BaseCommand):
     def handle(self, *args, **options):
         if not options['outfile']:
             raise CommandError('expected an output file')
-        exporter = XMLExporter(options['outfile'], base_url=options['base_url'])
+        if not options['outfile'].endswith('.xml'):
+            options['outfile'] += '.xml'
+        exporter = XMLExporter(options['outfile'], base_url=options['base_url'],
+                               pretty=options['pretty'], export_avatars=options['export_avatars'])
         exporter.export()

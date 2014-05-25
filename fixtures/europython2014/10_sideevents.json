@@ -1,0 +1,232 @@
+[
+{
+    "pk": 1, 
+    "model": "schedule.sideevent", 
+    "fields": {
+        "conference": 1, 
+        "is_global": false, 
+        "end": "2014-07-21T11:00:00", 
+        "name": "Breakfast", 
+        "is_pause": true, 
+        "section": null, 
+        "start": "2014-07-21T10:30:00", 
+        "location": [
+            1, 
+            2, 
+            3, 
+            4, 
+            5
+        ], 
+        "icon": "coffee", 
+        "is_recordable": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 2, 
+    "model": "schedule.sideevent", 
+    "fields": {
+        "conference": 1, 
+        "is_global": false, 
+        "end": "2014-07-22T11:00:00", 
+        "name": "Breakfast", 
+        "is_pause": true, 
+        "section": null, 
+        "start": "2014-07-22T10:30:00", 
+        "location": [
+            1, 
+            2, 
+            3, 
+            4, 
+            5
+        ], 
+        "icon": "coffee", 
+        "is_recordable": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 3, 
+    "model": "schedule.sideevent", 
+    "fields": {
+        "conference": 1, 
+        "is_global": false, 
+        "end": "2014-07-23T11:00:00", 
+        "name": "Breakfast", 
+        "is_pause": true, 
+        "section": null, 
+        "start": "2014-07-23T10:30:00", 
+        "location": [
+            1, 
+            2, 
+            3, 
+            4, 
+            5
+        ], 
+        "icon": "coffee", 
+        "is_recordable": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 4, 
+    "model": "schedule.sideevent", 
+    "fields": {
+        "conference": 1, 
+        "is_global": false, 
+        "end": "2014-07-24T11:00:00", 
+        "name": "Breakfast", 
+        "is_pause": true, 
+        "section": null, 
+        "start": "2014-07-24T10:30:00", 
+        "location": [
+            1, 
+            2, 
+            3, 
+            4, 
+            5
+        ], 
+        "icon": "coffee", 
+        "is_recordable": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 5, 
+    "model": "schedule.sideevent", 
+    "fields": {
+        "conference": 1, 
+        "is_global": false, 
+        "end": "2014-07-25T11:00:00", 
+        "name": "Breakfast", 
+        "is_pause": true, 
+        "section": null, 
+        "start": "2014-07-25T10:30:00", 
+        "location": [
+            1, 
+            2, 
+            3, 
+            4, 
+            5
+        ], 
+        "icon": "coffee", 
+        "is_recordable": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 6, 
+    "model": "schedule.sideevent", 
+    "fields": {
+        "conference": 1, 
+        "is_global": false, 
+        "end": "2014-07-21T14:00:00", 
+        "name": "Lunch", 
+        "is_pause": true, 
+        "section": null, 
+        "start": "2014-07-21T12:30:00", 
+        "location": [
+            1, 
+            2, 
+            3, 
+            4, 
+            5
+        ], 
+        "icon": "cutlery", 
+        "is_recordable": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 7, 
+    "model": "schedule.sideevent", 
+    "fields": {
+        "conference": 1, 
+        "is_global": false, 
+        "end": "2014-07-22T14:00:00", 
+        "name": "Lunch", 
+        "is_pause": true, 
+        "section": null, 
+        "start": "2014-07-22T12:30:00", 
+        "location": [
+            1, 
+            2, 
+            3, 
+            4, 
+            5
+        ], 
+        "icon": "cutlery", 
+        "is_recordable": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 8, 
+    "model": "schedule.sideevent", 
+    "fields": {
+        "conference": 1, 
+        "is_global": false, 
+        "end": "2014-07-23T14:00:00", 
+        "name": "Lunch", 
+        "is_pause": true, 
+        "section": null, 
+        "start": "2014-07-23T12:30:00", 
+        "location": [
+            1, 
+            2, 
+            3, 
+            4, 
+            5
+        ], 
+        "icon": "cutlery", 
+        "is_recordable": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 9, 
+    "model": "schedule.sideevent", 
+    "fields": {
+        "conference": 1, 
+        "is_global": false, 
+        "end": "2014-07-24T14:00:00", 
+        "name": "Lunch", 
+        "is_pause": true, 
+        "section": null, 
+        "start": "2014-07-24T12:30:00", 
+        "location": [
+            1, 
+            2, 
+            3, 
+            4, 
+            5
+        ], 
+        "icon": "cutlery", 
+        "is_recordable": false, 
+        "description": ""
+    }
+},
+{
+    "pk": 10, 
+    "model": "schedule.sideevent", 
+    "fields": {
+        "conference": 1, 
+        "is_global": false, 
+        "end": "2014-07-25T14:00:00", 
+        "name": "Lunch", 
+        "is_pause": true, 
+        "section": null, 
+        "start": "2014-07-25T12:30:00", 
+        "location": [
+            1, 
+            2, 
+            3, 
+            4, 
+            5
+        ], 
+        "icon": "cutlery", 
+        "is_recordable": false, 
+        "description": ""
+    }
+}
+]

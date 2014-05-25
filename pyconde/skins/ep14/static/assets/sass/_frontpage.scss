@@ -1,4 +1,4 @@
-body.start-tmpl {
+body.start-tmpl #main {
     .orbit-timer {
         display: none;
     }
@@ -44,6 +44,15 @@ body.start-tmpl {
 
     .area-4 {
         background: #FFF;
+        h2 {
+            margin-top: -22px;
+            padding: 10px 0 40px 0;
+            background: url(../images/titlebubble-lblue.png) bottom center no-repeat;
+        }
+    }
+
+    li:before {
+        display: none;
     }
 
     blockquote {
@@ -81,6 +90,7 @@ body.start-tmpl {
                 min-width: 250px;
                 list-style: none;
                 padding: 0;
+                list-style: none;
                 li a {
                     display: block;
                     background: #FFF;
@@ -91,6 +101,7 @@ body.start-tmpl {
                     font-size: 1.7rem;
                 }
                 li {
+                    display: block;
                     margin-top: 10px;
                     &:first-child {
                         margin-top: 0;

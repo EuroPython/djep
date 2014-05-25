@@ -19,7 +19,7 @@ class Base(Configuration):
     # General settings
     #
     PROJECT_NAME = 'pyconde'
-    
+
     BASE_DIR = os.path.dirname(os.path.dirname(__file__))
 
     ADMINS = values.ListValue([], converter=parseaddr)
@@ -31,29 +31,29 @@ class Base(Configuration):
         return self.ADMINS
 
     EMAIL_HOST = values.Value()
-    
+
     DEFAULT_FROM_EMAIL = values.EmailValue('noreply@ep14.org')
-    
+
     SERVER_EMAIL = values.EmailValue('noreply@ep14.org')
 
     SUPPORT_EMAIL = values.EmailValue('helpdesk@europython.eu')
-    
+
     TIME_ZONE = 'Europe/Berlin'
-    
+
     LANGUAGE_CODE = 'en'
-    
+
     SECRET_KEY = values.SecretValue()
-    
+
     EMAIL_SUBJECT_PREFIX = values.Value('[EuroPython 2014] ')
-    
+
     USE_I18N = True
-    
+
     USE_L10N = True
-    
+
     SITE_ID = values.IntegerValue(1)
 
     CONFERENCE_ID = values.IntegerValue(1)
-    
+
     LANGUAGES = (
         ('de', ugettext('German')),
         ('en', ugettext('English')),
@@ -197,7 +197,6 @@ class Base(Configuration):
     def THUMBNAIL_DEBUG(self):
         return self.DEBUG
 
-
     ###########################################################################
     #
     # File settings
@@ -271,7 +270,6 @@ class Base(Configuration):
     ACCOUNTS_FALLBACK_TO_GRAVATAR = False
 
     CHILDREN_DATA_DISABLED = True
-
 
     ###########################################################################
     #

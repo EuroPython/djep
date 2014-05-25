@@ -1,6 +1,8 @@
-import tablib
 import collections
 import logging
+import os
+import shutil
+import tablib
 
 from itertools import chain, groupby
 from operator import attrgetter
@@ -234,7 +236,7 @@ class SessionForEpisodesExporter(object):
 
 class XMLExporter(object):
 
-    def __init__(self, outfile, base_url=None):
+    def __init__(self, outfile, base_url=None, pretty=False, export_avatars=False):
         if base_url is None:
             self.base_url = 'http://%s' % site_models.Site.objects.get_current().domain
         else:
@@ -242,8 +244,14 @@ class XMLExporter(object):
         self.outfile = outfile
         self.event_sorter = attrgetter('start', 'end')
         self.day_grouper = lambda evt: evt.start.date()
+        self.pretty = pretty
+        self.export_avatars = export_avatars
 
     def export(self):
+        if self.export_avatars:
+            self.avatar_dir = os.path.splitext(self.outfile)[0]
+            if not os.path.exists(self.avatar_dir):
+                os.makedirs(self.avatar_dir)
         with open(self.outfile, 'w') as fp:
             with etree.xmlfile(fp) as xf:
                 sessions = models.Session.objects \
@@ -253,13 +261,15 @@ class XMLExporter(object):
                                       'location') \
                     .filter(released=True, start__isnull=False, end__isnull=False) \
                     .order_by('start') \
-                    .only('end', 'start', 'title', 'description', 'is_global',
+                    .only('end', 'start', 'title', 'abstract', 'is_global',
                           'kind__name',
                           'audience_level__name',
                           'track__name',
                           'speaker__user__username',
                           'speaker__user__profile__avatar',
+                          'speaker__user__profile__full_name',
                           'speaker__user__profile__display_name',
+                          'speaker__user__profile__short_info',
                           'speaker__user__profile__user')\
                     .all()
                 side_events = models.SideEvent.objects \
@@ -290,37 +300,37 @@ class XMLExporter(object):
     def _export_session(self, fp, xf, event):
         with xf.element('entry', id=force_text(event.id)):
             with xf.element('category'):
-                xf.write(force_text(event.kind))
+                xf.write(force_text(event.kind), pretty_print=self.pretty)
             with xf.element('audience'):
-                xf.write(force_text(event.audience_level))
+                xf.write(force_text(event.audience_level), pretty_print=self.pretty)
             with xf.element('topics'):
                 if event.track:
                     with xf.element('topic'):
-                        xf.write(force_text(event.track))
+                        xf.write(force_text(event.track), pretty_print=self.pretty)
             with xf.element('start'):
-                xf.write(event.start.strftime('%H%M'))
+                xf.write(event.start.strftime('%H%M'), pretty_print=self.pretty)
             with xf.element('duration'):
                 dur = int((event.end - event.start).total_seconds() / 60)
-                xf.write(force_text(dur))
+                xf.write(force_text(dur), pretty_print=self.pretty)
 
             rooms = event.location.all()
             if len(rooms) > 1:
                 with xf.element('room'):
-                    xf.write(event.location_pretty)
+                    xf.write(event.location_pretty, pretty_print=self.pretty)
             elif len(rooms) == 1:
                 with xf.element('room', id=force_text(rooms[0].id)):
-                    xf.write(event.location_pretty)
+                    xf.write(event.location_pretty, pretty_print=self.pretty)
             elif event.is_global:
                 with xf.element('room'):
-                    xf.write('ALL')
+                    xf.write('ALL', pretty_print=self.pretty)
             else:
                 with xf.element('room'):
                     pass
 
             with xf.element('title'):
-                xf.write(force_text(event.title))
+                xf.write(force_text(event.title), pretty_print=self.pretty)
             with xf.element('description'):
-                xf.write(force_text(event.description))
+                xf.write(force_text(event.abstract), pretty_print=self.pretty)
             with xf.element('speakers'):
                 self._export_speaker(fp, xf, event.speaker.user)
                 for speaker in event.additional_speakers.all():
@@ -335,29 +345,29 @@ class XMLExporter(object):
             with xf.element('topics'):
                 pass
             with xf.element('start'):
-                xf.write(event.start.strftime('%H%M'))
+                xf.write(event.start.strftime('%H%M'), pretty_print=self.pretty)
             with xf.element('duration'):
                 dur = int((event.end - event.start).total_seconds() / 60)
-                xf.write(force_text(dur))
+                xf.write(force_text(dur), pretty_print=self.pretty)
 
             rooms = event.location.all()
             if len(rooms) > 1:
                 with xf.element('room'):
-                    xf.write(event.location_pretty)
+                    xf.write(event.location_pretty, pretty_print=self.pretty)
             elif len(rooms) == 1:
                 with xf.element('room', id=force_text(rooms[0].id)):
-                    xf.write(event.location_pretty)
+                    xf.write(event.location_pretty, pretty_print=self.pretty)
             elif event.is_global:
                 with xf.element('room'):
-                    xf.write('ALL')
+                    xf.write('ALL', pretty_print=self.pretty)
             else:
                 with xf.element('room'):
                     pass
 
             with xf.element('title'):
-                xf.write(event.name)
+                xf.write(event.name, pretty_print=self.pretty)
             with xf.element('description'):
-                xf.write(event.description)
+                xf.write(event.description, pretty_print=self.pretty)
             with xf.element('speakers'):
                 pass
 
@@ -365,11 +375,18 @@ class XMLExporter(object):
         profile = user.profile
         with xf.element('speaker', id=force_text(user.id)):
             with xf.element('name'):
-                xf.write(get_display_name(user))
+                name = user.profile.full_name or get_display_name(user)
+                xf.write(name, pretty_print=self.pretty)
             with xf.element('profile'):
                 xf.write(self.base_url + reverse('account_profile',
-                                                 kwargs={'uid': user.id}))
+                                                 kwargs={'uid': user.id}), pretty_print=self.pretty)
+            with xf.element('description'):
+                xf.write(user.profile.short_info, pretty_print=self.pretty)
             with xf.element('image'):
                 if profile.avatar:
                     avatar_url = self.base_url + profile.avatar.url
-                    xf.write(avatar_url)
+                    xf.write(avatar_url, pretty_print=self.pretty)
+                if self.export_avatars:
+                    filename, ext = os.path.splitext(profile.avatar.file.name)
+                    dest = os.path.join(self.avatar_dir, str(user.id)) + ext
+                    shutil.copy(profile.avatar.file.name, dest)
