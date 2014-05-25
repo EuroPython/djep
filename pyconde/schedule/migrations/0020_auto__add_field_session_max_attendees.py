@@ -180,7 +180,8 @@ class Migration(SchemaMigration):
             u'cmsplugin_ptr': ('django.db.models.fields.related.OneToOneField', [], {'to': "orm['cms.CMSPlugin']", 'unique': 'True', 'primary_key': 'True'}),
             'merge_sections': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'row_duration': ('django.db.models.fields.IntegerField', [], {'default': '15'}),
-            'sections': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['conference.Section']", 'null': 'True', 'blank': 'True'})
+            'sections': ('django.db.models.fields.related.ManyToManyField', [], {'symmetrical': 'False', 'to': u"orm['conference.Section']", 'null': 'True', 'blank': 'True'}),
+            'title': ('django.db.models.fields.CharField', [], {'max_length': '100', 'blank': 'True'})
         },
         u'schedule.session': {
             'Meta': {'object_name': 'Session'},
@@ -217,6 +218,7 @@ class Migration(SchemaMigration):
             'conference': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['conference.Conference']"}),
             'description': ('django.db.models.fields.TextField', [], {'null': 'True', 'blank': 'True'}),
             'end': ('django.db.models.fields.DateTimeField', [], {}),
+            'icon': ('django.db.models.fields.CharField', [], {'max_length': '50', 'null': 'True', 'blank': 'True'}),
             u'id': ('django.db.models.fields.AutoField', [], {'primary_key': 'True'}),
             'is_global': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
             'is_pause': ('django.db.models.fields.BooleanField', [], {'default': 'False'}),
