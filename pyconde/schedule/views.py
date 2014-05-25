@@ -20,6 +20,8 @@ from . import utils
 from . import forms
 from . import exporters
 
+from .exceptions import AttendingError
+
 
 def view_schedule(request):
     return TemplateResponse(
@@ -163,7 +165,7 @@ def attend_session(request, session_pk, attending):
             })
         else:
             messages.error(request, _('Invalid or no action specified.'))
-    except models.AttendingError as ae:
+    except AttendingError as ae:
         messages.warning(request, ae.message)
     return HttpResponseRedirect(session.get_absolute_url())
 

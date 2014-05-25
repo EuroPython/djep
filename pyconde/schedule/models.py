@@ -1,5 +1,6 @@
 import logging
 
+from django.conf import settings
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.db import models
@@ -14,6 +15,8 @@ from ..proposals import models as proposal_models
 from ..reviews import models as review_models
 from ..conference import models as conference_models
 
+from .exceptions import AttendingError
+
 
 LOG = logging.getLogger(__name__)
 
@@ -25,10 +28,6 @@ EVENT_ICON_CHOICES = (
     ('moon-o', _('Moon')),
     ('cutlery', _('Cutlery')),
 )
-
-
-class AttendingError(Exception):
-    pass
 
 
 class LocationMixin(object):
@@ -126,6 +125,10 @@ class Session(LocationMixin, proposal_models.AbstractProposal):
         return False
 
     def attend(self, user):
+        if self.kind.slug not in settings.SCHEDULE_ATTENDING_POSSIBLE:
+            raise AttendingError(_('Attending a %(kind)s is not possible.') % {
+                'kind': self.kind.name,
+            })
         current_time = now()
         if self.start <= current_time:
             if self.end <= current_time:
@@ -133,9 +136,9 @@ class Session(LocationMixin, proposal_models.AbstractProposal):
             else:
                 raise AttendingError(_('You cannot attend this session anymore. The session already started.'))
         elif not self.has_free_seats():
-            raise AttendingError(_('You cannot attend right no. No empty seats.'))
+            raise AttendingError(_('You cannot attend right now. There are no free seats left.'))
         elif not self.can_attend(user):
-            raise AttendingError(_('You cannot attend this session. Already attending another session at that time.'))
+            raise AttendingError(_('You cannot attend this session because you are already attending another one at that time.'))
         else:
             self.attendees.add(user.profile.id)
 

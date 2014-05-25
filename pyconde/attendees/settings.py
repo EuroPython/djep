@@ -11,7 +11,7 @@ INVOICE_EXPORT_RECIPIENTS = getattr(settings,
 
 INVOICE_FONT_CONFIG = getattr(settings,
                              'PURCHASE_INVOICE_FONT_CONFIG',
-                             {'de':{}, 'en': {}})
+                             {'de': {}, 'en': {}})
 
 INVOICE_FONT_ROOT = getattr(settings,
                             'PURCHASE_INVOICE_FONT_ROOT',

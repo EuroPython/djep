@@ -162,7 +162,6 @@ class AttendSessionTest(TestCase):
     fixtures = ['example/users.json', 'example/proposal-and-schedule.json']
 
     def setUp(self):
-
         self.attendees = [User.objects.create_user(username='att%d' % i, password='att%d' % i) for i in range(1, 4)]
         for i in range(3):
             account_models.Profile.objects.create(user=self.attendees[i])
@@ -243,10 +242,10 @@ class AttendSessionTest(TestCase):
         self.client.login(username='att3', password='att3')
         response = self.client.get(self.training.get_absolute_url())
         self.assertContains(response,
-            'You cannot attend right no. No empty seats.')
+            'You cannot attend right now. There are no free seats left.')
         response = self.client.post(self.attend_url, follow=True)
         self.assertContains(response,
-            'You cannot attend right no. No empty seats.')
+            'You cannot attend right now. There are no free seats left.')
         att_ids = list(self.training.attendees.order_by('id').values_list('id', flat=True).all())
         self.assertEqual(att_ids, [self.attendees[0].pk, self.attendees[1].pk])
         self.client.logout()
@@ -271,7 +270,6 @@ class AttendSessionTest(TestCase):
 
     def test_not_attendable(self):
         talk = models.Session.objects.get(title='Talk 1')
-
         self.client.login(username='att1', password='att1')
         response = self.client.post(reverse('session-leave', kwargs={'session_pk': talk.pk}))
         self.assertEqual(response.status_code, 404)
@@ -296,7 +294,7 @@ class AttendSessionTest(TestCase):
             '<input type="submit" class="btn btn-primary" value="Attend this session" />')
         response = self.client.post(attend_url2, follow=True)
         self.assertContains(response,
-            'You cannot attend this session. Already attending another session at that time.')
+            'You cannot attend this session because you are already attending another one at that time.')
         att_ids2 = list(training2.attendees.order_by('id').values_list('id', flat=True).all())
         self.assertEqual(att_ids2, [])
 
