@@ -10,6 +10,7 @@ The purchase process consists of the following steps:
    emails.
 
 """
+import collections
 import datetime
 import logging
 import hashlib
@@ -152,14 +153,15 @@ class PurchaseMixin(object):
             ticket.save()
 
     def setup(self):
-        if self.step != 'start':
-            steps = self.steps.keys()
-            if not self.get_previous_state():
-                return HttpResponseRedirect(
-                    reverse(self.steps[self.steps.keys()[0]]))
-            if steps.index(self.previous_step) < steps.index(self.step) - 1:
-                next_step = steps[steps.index(self.previous_step) + 1]
-                return HttpResponseRedirect(reverse(self.steps[next_step]))
+        steps = self.steps.keys()
+        if not self.get_previous_state() and self.step != 'start':
+            return HttpResponseRedirect(
+                reverse(self.steps[self.steps.keys()[0]]))
+        if (not hasattr(self, 'previous_step') or not self.previous_step) and self.step == 'start':
+            return
+        if steps.index(self.previous_step) < steps.index(self.step) - 1:
+            next_step = steps[steps.index(self.previous_step) + 1]
+            return HttpResponseRedirect(reverse(self.steps[next_step]))
 
     def dispatch(self, request, *args, **kwargs):
         self.request = request
@@ -187,24 +189,55 @@ class StartPurchaseView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
     total_ticket_num = 0
 
     def get(self, *args, **kwargs):
-        # TODO: If available (because a checkout was not finished) reuse the
-        #       purchase object for initial data.
-        self.clear_purchase_info()
+        # If there is an active checkout, store the available information
+        # but discard the actual state object to restart the checkout at this
+        # point.
         if self.form is None:
-            self.form = forms.PurchaseForm(initial={
+            initial_form_data = {
                 'first_name': self.request.user.first_name,
                 'last_name': self.request.user.last_name,
                 'email': self.request.user.email,
-            })
+            }
+            if self.purchase:
+                initial_form_data.update({
+                    'first_name': self.purchase.first_name,
+                    'last_name': self.purchase.last_name,
+                    'email': self.purchase.email,
+                    'street': self.purchase.street,
+                    'company_name': self.purchase.company_name,
+                    'zip_code': self.purchase.zip_code,
+                    'city': self.purchase.city,
+                    'country': self.purchase.country,
+                    'vat_id': self.purchase.vat_id,
+                    'comments': self.purchase.comments,
+                })
+            self.form = forms.PurchaseForm(initial=initial_form_data)
 
         ticket_types = TicketType.objects.available()\
             .filter(conference=current_conference)\
             .select_related('vouchertype_needed')
         if self.quantity_forms is None:
+            ticket_type_qty = collections.defaultdict(int)
+            if self.tickets:
+                for ticket in self.tickets:
+                    ticket_type_qty[ticket.ticket_type.pk] += 1
             self.quantity_forms = [
-                forms.TicketQuantityForm(ticket_type=ticket_type)
+                forms.TicketQuantityForm(ticket_type=ticket_type, initial={
+                    'quantity': ticket_type_qty[ticket_type.pk] if ticket_type_qty[ticket_type.pk] != 0 else None})
                 for ticket_type in ticket_types
             ]
+
+        # At this point we keep the previous state but fix the step
+        # to "start" in order to allow the user to refresh this page and
+        # not lose the previously stored state.
+        #
+        # The complete clearing is done in the POST handler because that
+        # that point completely refreshing the view is explicit enough
+        # to clear the state.
+        state = self.request.session.get('purchase_state')
+        if state and state['previous_step']:
+            state['previous_step'] = None
+            self.request.session['purchase_state'] = state
 
         return render(self.request, 'attendees/purchase.html', {
             'no_tickets_selected': self.total_ticket_num < 1
