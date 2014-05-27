@@ -137,6 +137,7 @@ class SIMCardNameForm(forms.ModelForm):
 
         for fname in self._meta.fields:
             self.fields[fname].required = True
+        self.fields['date_of_birth'].widget.attrs['placeholder'] = 'yyyy-mm-dd'
 
     class Meta:
         model = SIMCardTicket
