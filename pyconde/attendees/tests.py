@@ -395,7 +395,7 @@ class PurchaseProcessTest(TestCase):
                 '<input id="id_sc-%d-last_name" maxlength="250" name="sc-%d-last_name" type="text" />' % (t_pk, t_pk),
                 count=1, html=True)
             self.assertContains(response,
-                '<input id="id_sc-%d-date_of_birth" name="sc-%d-date_of_birth" type="text" />' % (t_pk, t_pk),
+                '<input id="id_sc-%d-date_of_birth" name="sc-%d-date_of_birth" placeholder="yyyy-mm-dd" type="text" />' % (t_pk, t_pk),
                 count=1, html=True)
             self.assertContains(response,
                 '<input id="id_sc-%d-hotel_name" maxlength="100" name="sc-%d-hotel_name" type="text" />' % (t_pk, t_pk),
