@@ -1,5 +1,7 @@
 import json
 
+from itertools import chain
+
 from django.conf import settings
 from django.core.urlresolvers import reverse, reverse_lazy
 from django.contrib import messages
@@ -117,7 +119,10 @@ class ProfileView(generic_views.TemplateView):
         sessions = None
         profile = user.profile
         if speaker_profile:
-            sessions = list(speaker_profile.sessions.all()) + list(speaker_profile.session_participations.all())
+            sessions = chain(
+                speaker_profile.sessions.filter(released=True).all(),
+                speaker_profile.session_participations.filter(released=True).all()
+            )
         return {
             'userobj': user,
             'speaker_profile': speaker_profile,
