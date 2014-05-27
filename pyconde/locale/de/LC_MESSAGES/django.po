@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-05-08 01:04+0200\n"
+"POT-Creation-Date: 2014-05-27 20:29+0200\n"
 "PO-Revision-Date: 2014-05-07 14:35+0200\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -18,23 +18,23 @@ msgstr ""
 "X-Generator: Lokalize 1.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: settings.py:58 settings.py:298 settings.py:373 proposals/models.py:21
+#: settings.py:58 settings.py:296 settings.py:373 proposals/models.py:21
 msgid "German"
 msgstr "Deutsch"
 
-#: settings.py:59 settings.py:293 settings.py:374 proposals/models.py:22
+#: settings.py:59 settings.py:291 settings.py:374 proposals/models.py:22
 msgid "English"
 msgstr "Englisch"
 
-#: settings.py:283
+#: settings.py:281
 msgid "Default template"
 msgstr "Standardvorlage"
 
-#: settings.py:284
+#: settings.py:282
 msgid "Start page template"
 msgstr "Startseiten-Vorlage"
 
-#: settings.py:285
+#: settings.py:283
 msgid "Full page width (schedule, ...)"
 msgstr "Volle Seite"
 
@@ -42,15 +42,19 @@ msgstr "Volle Seite"
 msgid "You are not allowed to access this page."
 msgstr "Sie haben kein Recht, diese Seite zu betrachten."
 
-#: accounts/admin.py:9
+#: accounts/admin.py:11 accounts/models.py:104
+msgid "Badge status"
+msgstr ""
+
+#: accounts/admin.py:29
 msgid "Attending with children"
 msgstr "Anzahl Kinder"
 
-#: accounts/admin.py:13
+#: accounts/admin.py:33
 msgid "with children"
 msgstr "mit Kindern"
 
-#: accounts/admin.py:14
+#: accounts/admin.py:34
 msgid "without children"
 msgstr "ohne Kinder"
 
@@ -58,38 +62,38 @@ msgstr "ohne Kinder"
 msgid "Accounts app"
 msgstr "Accounts-Anwendung"
 
-#: accounts/forms.py:55 accounts/models.py:50
+#: accounts/forms.py:55 accounts/models.py:74
 msgid "short info"
 msgstr "Steckbrief"
 
-#: accounts/forms.py:56 accounts/models.py:63
+#: accounts/forms.py:56 accounts/forms.py:238 accounts/models.py:87
 #: skins/default/templates/userprofiles/profile_view.html:34
 msgid "Organisation"
 msgstr "Organisation"
 
-#: accounts/forms.py:57 accounts/models.py:60
+#: accounts/forms.py:57 accounts/models.py:84
 #: skins/default/templates/userprofiles/profile_view.html:22
 msgid "Twitter"
 msgstr "Twitter"
 
-#: accounts/forms.py:58 accounts/models.py:62
+#: accounts/forms.py:58 accounts/models.py:86
 #: skins/default/templates/userprofiles/profile_view.html:28
 msgid "Website"
 msgstr "Webseite"
 
-#: accounts/forms.py:60 accounts/forms.py:240 accounts/models.py:57
+#: accounts/forms.py:60 accounts/forms.py:240 accounts/models.py:81
 msgid "Number of accompanying children"
 msgstr "Voraussichtliche Anzahl mitkommender Kinder"
 
-#: accounts/forms.py:63 accounts/forms.py:242 accounts/models.py:59
+#: accounts/forms.py:63 accounts/forms.py:242 accounts/models.py:83
 msgid "Age of accompanying children"
 msgstr "Alter der mitkommenden Kinder"
 
-#: accounts/forms.py:66 accounts/models.py:66
+#: accounts/forms.py:66 accounts/models.py:90
 msgid "What name should be displayed to other people?"
 msgstr "Welchen Namen sollen wir anderen Anderen anzeigen"
 
-#: accounts/forms.py:67 accounts/models.py:68
+#: accounts/forms.py:67 accounts/models.py:92
 msgid "Address me as"
 msgstr "Anrede"
 
@@ -211,10 +215,6 @@ msgstr "Passwort zurücksetzen"
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: accounts/forms.py:238
-msgid "organisation"
-msgstr "Organisation"
-
 #: accounts/forms.py:275
 msgid "Change"
 msgstr "Ändern"
@@ -268,8 +268,8 @@ msgstr ""
 #, python-format
 msgid "The subject will be prefixed by <code>[%(prefix)s] </code>"
 msgstr ""
-"Der tatsächliche Betreff wird mit folgendem Text beginnen: "
-"<code>[%(prefix)s] </code>"
+"Der tatsächliche Betreff wird mit folgendem Text beginnen: <code>"
+"[%(prefix)s] </code>"
 
 #: accounts/forms.py:363 accounts/templates/accounts/sendmail_done.html:4
 #: accounts/templates/accounts/sendmail_done.html:5
@@ -300,11 +300,16 @@ msgstr "Einkäufe"
 msgid "Tickets"
 msgstr "Tickets"
 
-#: accounts/menu.py:25
+#: accounts/menu.py:25 schedule/templates/schedule/attending_sessions.html:3
+#: schedule/templates/schedule/attending_sessions.html:4
+msgid "Session attendances"
+msgstr "Sessionteilnahmen"
+
+#: accounts/menu.py:26
 msgid "Logout"
 msgstr "Abmelden"
 
-#: accounts/models.py:23
+#: accounts/models.py:26
 #, python-format
 msgid ""
 "Please upload an image with a side length between %(min_w)dx%(min_h)d px and "
@@ -313,7 +318,7 @@ msgstr ""
 "Bitte ein Bild mit einer Größe zwischen %(min_w)dx%(min_h)d px und %(max_w)dx"
 "%(max_h)d px hochladen."
 
-#: accounts/models.py:29
+#: accounts/models.py:32
 #, python-format
 msgid ""
 "Please upload an image with a side length of at least %(min_w)dx%(min_h)d px."
@@ -321,47 +326,87 @@ msgstr ""
 "Bitte ein Bild mit einer Größe von mindestens %(min_w)dx%(min_h)d px "
 "hochladen."
 
-#: accounts/models.py:32
+#: accounts/models.py:35
 #, python-format
 msgid ""
 "Please upload an image with a side length of at most %(max_w)dx%(max_h)d px."
 msgstr ""
 "Bitte ein Bild mit einer Größe von höchsten %(max_w)dx%(max_h)d px hochladen."
 
-#: accounts/models.py:52 accounts/widgets.py:45
+#: accounts/models.py:55
+#, fuzzy
+msgid "Keynote"
+msgstr "Anmerkungen"
+
+#: accounts/models.py:56
+msgid "Network"
+msgstr ""
+
+#: accounts/models.py:57
+msgid "Orga"
+msgstr ""
+
+#: accounts/models.py:58 reviews/templates/reviews/proposal_base.html:59
+msgid "Speaker"
+msgstr "Vortragende(r)"
+
+#: accounts/models.py:59 accounts/models.py:103
+#, fuzzy
+msgid "Sponsor"
+msgstr "Sponsor"
+
+#: accounts/models.py:60
+msgid "Trainer"
+msgstr ""
+
+#: accounts/models.py:61
+#, fuzzy
+msgid "Video"
+msgstr "Video-URL"
+
+#: accounts/models.py:62
+msgid "Volunteer"
+msgstr ""
+
+#: accounts/models.py:76 accounts/widgets.py:45
 msgid "avatar"
 msgstr "Profilbild"
 
-#: accounts/models.py:64
+#: accounts/models.py:88
 msgid "Full name"
 msgstr "Name"
 
-#: accounts/models.py:65
+#: accounts/models.py:89
 msgid "Display name"
 msgstr "Anzeigename"
 
-#: accounts/models.py:69
+#: accounts/models.py:93
 msgid "How should we call you in mails and dialogs throughout the website?"
 msgstr ""
 "Wie sollen wir dich in E-Mails und Dialogen auf der Webseite ansprechen?"
 
-#: accounts/models.py:71
+#: accounts/models.py:95
 msgid "Allow copying to PySV conferences"
 msgstr "Daten für zukünftige PySV Konferenzen wiederverwenden"
 
-#: accounts/models.py:73
+#: accounts/models.py:97
 msgid "Allow copying to EPS conferences"
 msgstr "Daten für zukünftige EPS Konferenzen wiederverwenden"
 
-#: accounts/models.py:75
+#: accounts/models.py:99
 msgid "Allow sponsors to send job offers"
 msgstr "Erlaube Sponsoren mir Job Angebote zu schicken"
 
-#: accounts/models.py:82
+#: accounts/models.py:108
+#, fuzzy
+msgid "Trainings"
+msgstr "Vormittag"
+
+#: accounts/models.py:115
 msgid "Allow sending mails to users through the website"
 msgstr "Erlaube das Versenden von Mails an Benutzer über die Website"
 
-#: accounts/models.py:88
+#: accounts/models.py:125
 msgid "You've logged in successfully."
 msgstr "Sie haben sich erfolgreich angemeldet."
 
@@ -515,11 +560,11 @@ msgstr ""
 "Vielen Dank!\n"
 "Dein %(conference_name)s Team"
 
-#: attendees/admin.py:23 reviews/admin.py:27 reviews/admin.py:33
+#: attendees/admin.py:24 reviews/admin.py:27 reviews/admin.py:33
 msgid "Export as CSV"
 msgstr "Als CSV exportieren"
 
-#: attendees/admin.py:96
+#: attendees/admin.py:102
 #, python-format
 msgid ""
 "Purchase %(invoice_number)s has already been exported. Use “Send me a copy "
@@ -529,11 +574,11 @@ msgstr ""
 "stattdessen „Kopie der Rechnung an mich senden“ oder „Kopie der Rechnung an "
 "Kunden senden“."
 
-#: attendees/admin.py:101
+#: attendees/admin.py:107
 msgid "Export invoice and send"
 msgstr "Rechnung generieren und versenden"
 
-#: attendees/admin.py:110 attendees/admin.py:123 attendees/admin.py:178
+#: attendees/admin.py:116 attendees/admin.py:129 attendees/admin.py:184
 #, python-format
 msgid ""
 "Purchase %(invoice_number)s has not been exported yet. Use “Export invoice "
@@ -543,50 +588,50 @@ msgstr ""
 "„Rechnung generieren und versenden“ um die Rechnung zu erstellen und zu "
 "verschicken."
 
-#: attendees/admin.py:115
+#: attendees/admin.py:121
 msgid "Send me a copy of the invoice"
 msgstr "Kopie der Rechnung an mich senden"
 
-#: attendees/admin.py:128
+#: attendees/admin.py:134
 msgid "Send customer a copy of the invoice"
 msgstr "Kopie der Rechnung an Kunden senden"
 
-#: attendees/admin.py:135
+#: attendees/admin.py:141
 msgid "Payment receipt confirmation"
 msgstr "Bestätigung des Zahlungseingangs"
 
-#: attendees/admin.py:150
+#: attendees/admin.py:156
 msgid "1 mail was"
 msgstr "1 E-Mail wurde"
 
-#: attendees/admin.py:152
+#: attendees/admin.py:158
 #, python-format
 msgid "%s mails were"
 msgstr "%s E-Mails wurden"
 
-#: attendees/admin.py:154
+#: attendees/admin.py:160
 #, python-format
 msgid "%s successfully sent."
 msgstr "%s erfolgreich versandt."
 
-#: attendees/admin.py:156
+#: attendees/admin.py:162
 #, python-format
 msgid "Send payment confirmation for selected %(verbose_name_plural)s"
 msgstr ""
 "Versende Zahlungsbest&auml;tigung f&uuml;r ausgew&auml;hlte "
 "%(verbose_name_plural)s"
 
-#: attendees/admin.py:162
+#: attendees/admin.py:168
 #, python-format
 msgid "%(conference)s payment reminder"
 msgstr "%(conference)s Zahlungsaufforderung"
 
-#: attendees/admin.py:185
+#: attendees/admin.py:191
 #, python-format
 msgid "Send payment reminders for selected %(verbose_name_plural)s"
 msgstr "Versende Mahnungen für ausgewählte %(verbose_name_plural)s"
 
-#: attendees/admin.py:195
+#: attendees/admin.py:201
 #, python-format
 msgid ""
 "Cancel purchase and send cancelation notice for selected "
@@ -1071,7 +1116,7 @@ msgstr "Ihr %(conference)s Ticket %(ticketname)s wurde storniert"
 msgid "Ticket successfully purchased"
 msgstr "Ticket erfolgreich gekauft"
 
-#: attendees/views.py:169
+#: attendees/views.py:171
 #, python-format
 msgid ""
 "Sorry, the following ticket is no longer available in your requested "
@@ -1079,23 +1124,23 @@ msgid ""
 msgstr ""
 "Das folgende Ticket ist nicht mehr in ausreichender Menge verfügbar: %s"
 
-#: attendees/views.py:472
+#: attendees/views.py:505
 msgid "Payment failed. Please check your data."
 msgstr "Zahlung fehlgeschlagen. Bitte überprüfen Sie die Daten."
 
-#: attendees/views.py:485
+#: attendees/views.py:518
 msgid "Transaction already processed."
 msgstr "Transaktion wurde bereits ausgeführt."
 
-#: attendees/views.py:487
+#: attendees/views.py:520
 msgid "Purchase already handled."
 msgstr "Bezahlung wurde bereits bearbeitet."
 
-#: attendees/views.py:580
+#: attendees/views.py:613
 msgid "The invoice has been sent to you."
 msgstr "Die Rechnung wurde dir zugesandt."
 
-#: attendees/views.py:583
+#: attendees/views.py:616
 msgid ""
 "The invoice for this purchase does not exist or has not yet been generated. "
 "You will receive a mail with the invoice soon."
@@ -1103,7 +1148,7 @@ msgstr ""
 "Die Rechnung für diesen Kauf wurde noch nicht erstellt. Du wirst eine Kopie "
 "per E-Mail erhalten, sobald die Rechnung erstellt wurde."
 
-#: attendees/views.py:620
+#: attendees/views.py:653
 msgid "This ticket was successfully assigned to the specified user"
 msgstr "Das Ticket wurde erfolgreich dem angegebenen Benutzer zugewiesen"
 
@@ -1514,8 +1559,8 @@ msgstr "Teilnehmer"
 
 #: attendees/templates/attendees/purchase_names.html:11
 msgid ""
-"Please enter the name and other information relevant for the specific "
-"ticket(s) in the fields below."
+"Please enter the name and other information relevant for the specific ticket"
+"(s) in the fields below."
 msgstr "Bitte gib die Namen und übrigen Informationenen zu den Tickets an."
 
 #: attendees/templates/attendees/purchase_names.html:67
@@ -1654,7 +1699,7 @@ msgstr "Ihre Tickets"
 #: attendees/templates/attendees/user_tickets.html:15
 #: proposals/templates/proposals/proposal_detail.html:61
 #: proposals/templates/proposals/proposal_list_mine.html:25
-#: schedule/templates/schedule/session.html:13
+#: schedule/templates/schedule/session.html:81
 msgid "Edit"
 msgstr "Ändern"
 
@@ -1709,8 +1754,8 @@ msgstr ""
 "\n"
 " "
 
-#: conference/models.py:41 proposals/models.py:55 sponsorship/models.py:83
-#: sponsorship/models.py:102
+#: conference/models.py:41 proposals/models.py:56 schedule/models.py:213
+#: sponsorship/models.py:83 sponsorship/models.py:102
 msgid "title"
 msgstr "Titel"
 
@@ -1732,7 +1777,7 @@ msgstr "Vorschlag-Autor anonymisieren"
 
 #: conference/models.py:84 conference/models.py:104 conference/models.py:148
 #: conference/models.py:172 conference/models.py:198 conference/models.py:242
-#: conference/models.py:267 schedule/models.py:107 sponsorship/models.py:14
+#: conference/models.py:267 schedule/models.py:182 sponsorship/models.py:14
 msgid "conference"
 msgstr "Konferenz"
 
@@ -1741,7 +1786,7 @@ msgid "conferences"
 msgstr "Konferenzen"
 
 #: conference/models.py:107 conference/models.py:149 conference/models.py:199
-#: conference/models.py:243 conference/models.py:268 schedule/models.py:95
+#: conference/models.py:243 conference/models.py:268 schedule/models.py:170
 #: sponsorship/models.py:15 sponsorship/models.py:36
 msgid "name"
 msgstr "Name"
@@ -1757,17 +1802,17 @@ msgstr "Slug"
 msgid "order"
 msgstr "Reihenfolge"
 
-#: conference/models.py:116 conference/models.py:245 proposals/models.py:56
-#: schedule/models.py:96 sponsorship/models.py:17 sponsorship/models.py:39
+#: conference/models.py:116 conference/models.py:245 proposals/models.py:57
+#: schedule/models.py:171 sponsorship/models.py:17 sponsorship/models.py:39
 msgid "description"
 msgstr "Beschreibung"
 
 #: conference/models.py:125 conference/models.py:204 proposals/models.py:34
-#: schedule/models.py:31 schedule/models.py:100
+#: schedule/models.py:57 schedule/models.py:175
 msgid "section"
 msgstr "Abschnitt"
 
-#: conference/models.py:126 schedule/models.py:124
+#: conference/models.py:126 schedule/models.py:215
 msgid "sections"
 msgstr "Abschnitte"
 
@@ -1775,7 +1820,7 @@ msgstr "Abschnitte"
 msgid "level"
 msgstr "Stufe"
 
-#: conference/models.py:157 proposals/models.py:71
+#: conference/models.py:157 proposals/models.py:72
 msgid "target-audience"
 msgstr "Zielgruppe"
 
@@ -1823,7 +1868,7 @@ msgstr "Das Ende muss nach dem Anfang sein"
 msgid "visible"
 msgstr "Sichtbar"
 
-#: conference/models.py:253 proposals/models.py:74
+#: conference/models.py:253 proposals/models.py:75
 msgid "track"
 msgstr "Track"
 
@@ -1835,7 +1880,7 @@ msgstr "Tracks"
 msgid "used for sessions"
 msgstr "wird für Sessions verwendet"
 
-#: conference/models.py:281 schedule/models.py:37 schedule/models.py:102
+#: conference/models.py:281 schedule/models.py:61 schedule/models.py:177
 msgid "location"
 msgstr "Ort"
 
@@ -1853,6 +1898,7 @@ msgstr "Konferenz"
 #: reviews/templates/reviews/my_reviews.html:10
 #: reviews/templates/reviews/proposal_base.html:14
 #: reviews/templates/reviews/reviewable_proposals.html:23
+#: schedule/templates/schedule/attending_sessions.html:9
 #: schedule/templates/schedule/session_listing.html:9
 msgid "Title"
 msgstr "Titel"
@@ -1879,7 +1925,7 @@ msgstr "Events"
 msgid "No upcoming events"
 msgstr "Keine geplanten Events"
 
-#: proposals/admin.py:18 schedule/admin.py:98
+#: proposals/admin.py:18
 msgid "The location is mandatory."
 msgstr "Der Ort muss angegeben werden."
 
@@ -1918,8 +1964,8 @@ msgstr "Zielgruppe"
 
 #: proposals/forms.py:108 proposals/forms.py:335
 #: reviews/templates/reviews/proposal_base.html:80
-#: schedule/templates/schedule/session.html:32
-#: schedule/templates/schedule/sideevent.html:16
+#: schedule/templates/schedule/session.html:30
+#: schedule/templates/schedule/sideevent.html:18
 msgid "Duration"
 msgstr "Dauer"
 
@@ -2104,70 +2150,70 @@ msgstr "Nachmittag"
 msgid "date"
 msgstr "Datum"
 
-#: proposals/models.py:33 proposals/models.py:42
+#: proposals/models.py:33 proposals/models.py:43
 msgid "timeslot"
 msgstr "Zeitfenster"
 
-#: proposals/models.py:43
+#: proposals/models.py:44
 msgid "timeslots"
 msgstr "Zeitfenster"
 
-#: proposals/models.py:57
+#: proposals/models.py:58
 msgid "abstract"
 msgstr "Abstract"
 
-#: proposals/models.py:58
+#: proposals/models.py:59
 msgid "notes"
 msgstr "Anmerkungen"
 
-#: proposals/models.py:60
+#: proposals/models.py:61
 msgid "speaker"
 msgstr "Vortragende(r)"
 
-#: proposals/models.py:63
+#: proposals/models.py:64
 msgid "additional speakers"
 msgstr "Weitere Vortragende"
 
-#: proposals/models.py:64
+#: proposals/models.py:65
 msgid "submission date"
 msgstr "Einreichungsdatum"
 
-#: proposals/models.py:66
+#: proposals/models.py:67
 msgid "modification date"
 msgstr "Änderungsdatum"
 
-#: proposals/models.py:68
+#: proposals/models.py:69
 msgid "type"
 msgstr "Art"
 
-#: proposals/models.py:73
+#: proposals/models.py:74
 msgid "duration"
 msgstr "Dauer"
 
-#: proposals/models.py:77
+#: proposals/models.py:78
 msgid "available timeslots"
 msgstr "Mögliche Zeiten"
 
-#: proposals/models.py:78
+#: proposals/models.py:79
 msgid "language"
 msgstr "Sprache"
 
-#: proposals/models.py:93
+#: proposals/models.py:94
 msgid ""
 "The duration has to be associated with the same conference as the proposal"
 msgstr ""
 "Die Dauer muss mit derselben Konferenz wie der Vorschlag assoziiert sein"
 
-#: proposals/models.py:109 reviews/models.py:79 reviews/models.py:162
-#: reviews/models.py:185 schedule/models.py:35
+#: proposals/models.py:110 reviews/models.py:79 reviews/models.py:162
+#: reviews/models.py:185 schedule/models.py:59
 msgid "proposal"
 msgstr "Session-Vorschlag"
 
-#: proposals/models.py:110
+#: proposals/models.py:111
 msgid "proposals"
 msgstr "Session-Vorschläge"
 
-#: proposals/models.py:113
+#: proposals/models.py:114
 msgid "Can always see the proposal author"
 msgstr "Kann den Autor immer sehen"
 
@@ -2313,7 +2359,7 @@ msgstr ""
 "eingereicht.\n"
 
 #: proposals/templates/proposals/proposal_detail.html:18
-#: schedule/templates/schedule/session.html:18
+#: schedule/templates/schedule/session.html:12
 msgid "Tags"
 msgstr "Schlagwörter"
 
@@ -2755,13 +2801,9 @@ msgid "Target audience"
 msgstr "Zielgruppe"
 
 #: reviews/templates/reviews/proposal_base.html:48
-#: schedule/templates/schedule/session.html:37
+#: schedule/templates/schedule/session.html:35
 msgid "Language"
 msgstr "Sprache"
-
-#: reviews/templates/reviews/proposal_base.html:59
-msgid "Speaker"
-msgstr "Vortragende(r)"
 
 #: reviews/templates/reviews/proposal_base.html:69
 msgid "Co-speaker(s)"
@@ -3022,41 +3064,41 @@ msgstr ""
 msgid "Original proposal"
 msgstr "Originalvorschlag"
 
-#: schedule/admin.py:43
+#: schedule/admin.py:46
 #, python-format
 msgid "%(counter)s proposal(s) converted to sessions"
 msgstr "%(counter)s Session-Vorschläge wurden in Sessions umgewandelt"
 
-#: schedule/admin.py:47
+#: schedule/admin.py:50
 #, python-format
 msgid "%(counter)s proposal(s) skipped"
 msgstr "%(counter)s Session-Vorschläge wurden übersprungen"
 
-#: schedule/admin.py:50
+#: schedule/admin.py:53
 msgid "convert to sessions"
 msgstr "Auswahl in Sessions umwandeln"
 
-#: schedule/admin.py:56
+#: schedule/admin.py:59
 msgid "create simple export"
 msgstr "Auswahl als CSV exportieren"
 
-#: schedule/admin.py:63
+#: schedule/admin.py:66
 msgid "episodes export"
 msgstr "Als Episoden exportieren"
 
-#: schedule/admin.py:67 schedule/admin.py:152
+#: schedule/admin.py:70 schedule/admin.py:148
 msgid "Timeslot Preferences"
 msgstr "Bevorzugte Zeitfenster"
 
-#: schedule/admin.py:72
+#: schedule/admin.py:75
 msgid "with preferences"
 msgstr "Präferenzen"
 
-#: schedule/admin.py:73
+#: schedule/admin.py:76
 msgid "w/o preferences"
 msgstr "keine Präferenen"
 
-#: schedule/admin.py:167 schedule/admin.py:177
+#: schedule/admin.py:163 schedule/admin.py:173
 msgid "is scheduled"
 msgstr "Hat Session"
 
@@ -3064,7 +3106,7 @@ msgstr "Hat Session"
 msgid "Schedule app"
 msgstr "Programm-App"
 
-#: schedule/cms_plugins.py:16
+#: schedule/cms_plugins.py:15
 msgid "Complete schedule"
 msgstr "Vollständiges Programm"
 
@@ -3080,98 +3122,238 @@ msgstr ""
 msgid "Schedule menu"
 msgstr "Programm-Menü"
 
-#: schedule/menu.py:15
+#: schedule/menu.py:15 schedule/templates/schedule/schedule.html:4
+#: schedule/templates/schedule/schedule.html:5
 msgid "Schedule"
 msgstr "Programm-App"
 
-#: schedule/models.py:28 schedule/models.py:97
+#: schedule/models.py:25
+msgid "Coffee cup"
+msgstr ""
+
+#: schedule/models.py:26
+msgid "Glass"
+msgstr ""
+
+#: schedule/models.py:27
+msgid "Lightbulb"
+msgstr ""
+
+#: schedule/models.py:28
+msgid "Moon"
+msgstr ""
+
+#: schedule/models.py:29
+msgid "Cutlery"
+msgstr ""
+
+#: schedule/models.py:41
+#, fuzzy
+msgid "Locations"
+msgstr "Ort"
+
+#: schedule/models.py:54 schedule/models.py:172
 msgid "start time"
 msgstr "Start"
 
-#: schedule/models.py:29 schedule/models.py:98
+#: schedule/models.py:55 schedule/models.py:173
 msgid "end time"
 msgstr "Ende"
 
-#: schedule/models.py:38 schedule/models.py:103
+#: schedule/models.py:62 schedule/models.py:178
 msgid "is global"
 msgstr "Global"
 
-#: schedule/models.py:39
+#: schedule/models.py:63
 msgid "released"
 msgstr "veröffentlicht"
 
-#: schedule/models.py:40
+#: schedule/models.py:64
 msgid "Slides URL"
 msgstr "Folien-URL"
 
-#: schedule/models.py:41
+#: schedule/models.py:65
 msgid "Video URL"
 msgstr "Video-URL"
 
-#: schedule/models.py:86 schedule/templates/schedule/session.html:3
-#: schedule/templates/schedule/session.html:4
-#: schedule/templates/schedule/session.html:10
+#: schedule/models.py:67
+#, fuzzy
+msgid "Max attendees"
+msgstr "Teilnehmer"
+
+#: schedule/models.py:129
+#, python-format
+msgid "Attending a %(kind)s is not possible."
+msgstr ""
+
+#: schedule/models.py:135
+#, fuzzy
+msgid "You cannot attend this session anymore. The session already ended."
+msgstr "Die Einreichphase für diesen Session-Typ ist bereits beendet."
+
+#: schedule/models.py:137
+#, fuzzy
+msgid "You cannot attend this session anymore. The session already started."
+msgstr ""
+"Sie können diese Einreichung nicht mehr verlassen, da die Review-Phase "
+"bereits begonnen hat."
+
+#: schedule/models.py:139 schedule/templates/schedule/session.html:46
+msgid "You cannot attend right now. There are no free seats left."
+msgstr ""
+
+#: schedule/models.py:141
+msgid ""
+"You cannot attend this session because you are already attending another one "
+"at that time."
+msgstr ""
+
+#: schedule/models.py:149
+#, fuzzy
+msgid "You cannot leave this session anymore. The session already ended."
+msgstr ""
+"Sie können diese Einreichung nicht mehr verlassen, da die Einreichungsfrist "
+"bereits verstrichen ist."
+
+#: schedule/models.py:151
+#, fuzzy
+msgid "You cannot leave this session anymore. The session already started."
+msgstr ""
+"Sie können diese Einreichung nicht mehr verlassen, da die Review-Phase "
+"bereits begonnen hat."
+
+#: schedule/models.py:161
 msgid "session"
 msgstr "Session"
 
-#: schedule/models.py:87
+#: schedule/models.py:162
 msgid "sessions"
 msgstr "Sessions"
 
-#: schedule/models.py:104
+#: schedule/models.py:179
 msgid "is break"
 msgstr "Pause"
 
-#: schedule/models.py:105
+#: schedule/models.py:180
 msgid "is recordable"
 msgstr "kann aufgenommen werden"
 
-#: schedule/views.py:128
+#: schedule/models.py:184
+msgid "icon"
+msgstr ""
+
+#: schedule/models.py:206
+#, fuzzy
+msgid "15 Minutes"
+msgstr "Minuten"
+
+#: schedule/models.py:207
+#, fuzzy
+msgid "30 Minutes"
+msgstr "Minuten"
+
+#: schedule/models.py:208
+#, fuzzy
+msgid "45 Minutes"
+msgstr "Minuten"
+
+#: schedule/models.py:209
+#, fuzzy
+msgid "60 Minutes"
+msgstr "Minuten"
+
+#: schedule/models.py:216
+msgid "Duration of one row"
+msgstr ""
+
+#: schedule/models.py:218
+msgid "Merge different section into same table"
+msgstr ""
+
+#: schedule/views.py:136
 msgid "Changes saved"
 msgstr "Änderungen wurden gespeichert"
 
-#: schedule/templates/schedule/edit_session.html:3
+#: schedule/views.py:158
+#, python-format
+msgid "You are now attending %(session_title)s."
+msgstr ""
+
+#: schedule/views.py:163
+#, python-format
+msgid "You are not attending %(session_title)s anymore."
+msgstr ""
+
+#: schedule/views.py:167
+msgid "Invalid or no action specified."
+msgstr ""
+
+#: schedule/templates/schedule/attending_sessions.html:10
+msgid "When?"
+msgstr "Wann?"
+
+#: schedule/templates/schedule/attending_sessions.html:11
+msgid "Where?"
+msgstr "Wo?"
+
+#: schedule/templates/schedule/attending_sessions.html:20
+msgid "I won't attend"
+msgstr "Nicht teilnehmen"
+
+#: schedule/templates/schedule/attending_sessions.html:26
+msgid "You have not yet indicated your attendance to any specific session."
+msgstr "Sie haben noch bei keiner Session angedeutet, dass Sie teilnehmen möchten."
+
+#: schedule/templates/schedule/session.html:4
+#: schedule/templates/schedule/session.html:5
+msgid "Session"
+msgstr "Session"
+
+#: schedule/templates/schedule/session.html:20
+#: schedule/templates/schedule/session_listing.html:10
+#: schedule/templates/schedule/sideevent.html:12
+msgid "Location"
+msgstr "Ort"
+
+#: schedule/templates/schedule/session.html:44
+msgid "Attend this session"
+msgstr "An dieser Session teilnehmen"
+
+#: schedule/templates/schedule/session.html:49
+msgid "Do not attend anymore"
+msgstr "Nicht teilnehmen"
+
+#: schedule/templates/schedule/session.html:89
+msgid "Speakers:"
+msgstr "Vortragende(r):"
+
+#: schedule/templates/schedule/session_edit.html:4
+#: schedule/templates/schedule/session_edit.html:5
 #, python-format
 msgid "Edit session: %(title)s"
 msgstr "Session editeren: %(title)s"
 
-#: schedule/templates/schedule/edit_session.html:5
-#, python-format
-msgid "Edit session: <a href=\"%(link)s\">%(title)s</a>"
-msgstr "Session editieren: <a href=\"%(link)s\">%(title)s</a>"
-
-#: schedule/templates/schedule/edit_session.html:10
+#: schedule/templates/schedule/session_edit.html:13
 msgid "About this session"
 msgstr "Über diese Session"
 
-#: schedule/templates/schedule/edit_session.html:13
+#: schedule/templates/schedule/session_edit.html:16
 msgid "Tags:"
 msgstr "Tags:"
 
-#: schedule/templates/schedule/edit_session.html:21
+#: schedule/templates/schedule/session_edit.html:25
 msgid "Date:"
 msgstr "Datum:"
 
-#: schedule/templates/schedule/edit_session.html:27
+#: schedule/templates/schedule/session_edit.html:31
 msgid "Time:"
 msgstr "Zeit:"
 
-#: schedule/templates/schedule/edit_session.html:35
+#: schedule/templates/schedule/session_edit.html:39
 msgid "Location:"
 msgstr "Ort:"
 
-#: schedule/templates/schedule/session.html:26
-#: schedule/templates/schedule/session_listing.html:10
-#: schedule/templates/schedule/sideevent.html:10
-msgid "Location"
-msgstr "Ort"
-
-#: schedule/templates/schedule/session.html:70
-msgid "Speakers:"
-msgstr "Vortragende(r):"
-
 #: schedule/templates/schedule/session_listing.html:11
-#: schedule/templates/schedule/plugins/complete.html:11
 #: skins/pyconde2013/templates/schedule/plugins/complete.html:11
 msgid "Time"
 msgstr "Zeit"
@@ -3194,12 +3376,14 @@ msgstr ""
 "<p>Derzeit stehen keine Informationen zu dieser Session zur Verfügung.</p>\n"
 "<p>Bitte besuchen Sie diese Seite später wieder :-)</p>\n"
 
-#: schedule/templates/schedule/sessions_by_location.html:3
+#: schedule/templates/schedule/sessions_by_location.html:4
+#: schedule/templates/schedule/sessions_by_location.html:5
 #, python-format
 msgid "Sessions in %(location)s"
 msgstr "Sessions in %(location)s"
 
-#: schedule/templates/schedule/sessions_by_tag.html:3
+#: schedule/templates/schedule/sessions_by_tag.html:4
+#: schedule/templates/schedule/sessions_by_tag.html:5
 #, python-format
 msgid "Sessions tagged with \"%(tag)s\""
 msgstr "Sessions mit Tag \"%(tag)s\""
@@ -3568,8 +3752,8 @@ msgstr ""
 
 #: sponsorship/models.py:73
 msgid ""
-"Please specify the custom logo size for listings in the format "
-"[width]x[height]."
+"Please specify the custom logo size for listings in the format [width]x"
+"[height]."
 msgstr ""
 "Bitte gib die benutzerdefinierten Dimensionen im Format [Breite]x[Höhe] an."
 
@@ -3646,3 +3830,9 @@ msgstr "Webseite"
 #: testimonials/models.py:16
 msgid "author's description"
 msgstr "Beschreibung"
+
+#~ msgid "organisation"
+#~ msgstr "Organisation"
+
+#~ msgid "Edit session: <a href=\"%(link)s\">%(title)s</a>"
+#~ msgstr "Session editieren: <a href=\"%(link)s\">%(title)s</a>"

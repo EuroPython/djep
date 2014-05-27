@@ -170,6 +170,26 @@ def attend_session(request, session_pk, attending):
     return HttpResponseRedirect(session.get_absolute_url())
 
 
+@login_required
+def list_user_attendances(request):
+    """
+    This view lists all the sessions to which the current user has indicated
+    that they would like to attend.
+    """
+    sessions = request.user.profile.trainings\
+        .only('title', 'start', 'end')\
+        .prefetch_related('location')\
+        .order_by('start')\
+        .all()
+    return TemplateResponse(
+        request=request,
+        context={
+            'sessions': sessions,
+        },
+        template='schedule/attending_sessions.html'
+    )
+
+
 def guidebook_events_export(request):
     """
     A simple export of all events as it can be used for importing into

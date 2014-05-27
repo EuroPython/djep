@@ -27,6 +27,10 @@ a {
     color: $blue-light;
 }
 
+.empty {
+    text-align: center;
+}
+
 #adminbox, #reviewbox, #accountbox {
     > a {
         font-size: 16px;
