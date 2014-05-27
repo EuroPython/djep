@@ -461,6 +461,10 @@ strong {
     color: $highlightColor;
 }
 
+#main {
+    padding-bottom: 100px;
+}
+
 #main > #content {
     max-width: $row-width;
     margin: auto;
@@ -468,7 +472,7 @@ strong {
     font-size: 16px;
     font-size: 1.6rem;
     line-height: 150%;
-    padding: 0 10px 30px 10px;
+    padding: 0 10px;
 }
 
 #site-title {
