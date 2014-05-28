@@ -176,7 +176,7 @@ def list_user_attendances(request):
     This view lists all the sessions to which the current user has indicated
     that they would like to attend.
     """
-    sessions = request.user.profile.trainings\
+    sessions = request.user.profile.sessions_attending\
         .only('title', 'start', 'end')\
         .prefetch_related('location')\
         .order_by('start')\

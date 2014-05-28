@@ -104,7 +104,7 @@ class Profile(models.Model):
     badge_status = models.CharField(_('Badge status'), default='', blank=True,
         max_length=100)
 
-    trainings = models.ManyToManyField('schedule.Session', blank=True,
+    sessions_attending = models.ManyToManyField('schedule.Session', blank=True,
         related_name='attendees', verbose_name=_('Trainings'),
         limit_choices_to=Q(kind__slug__in=settings.SCHEDULE_ATTENDING_POSSIBLE))
 

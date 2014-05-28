@@ -127,7 +127,7 @@ class BadgeExporter(object):
                                              'user__profile__sponsor__level',
                                              'user__speaker_profile') \
                              .prefetch_related('user__profile__tags',
-                                               'user__profile__trainings') \
+                                               'user__profile__sessions_attending') \
                              .order_by('first_name',
                                        'last_name'):
             if not isinstance(ticket, VenueTicket):
@@ -151,7 +151,7 @@ class BadgeExporter(object):
                 'sponsor': None,  # set below
                 'days': None,  # Only whole-conference tickets are sold online
                 'status': None,  # set below
-                'trainings': None,  # set below TODO
+                'trainings': None,
             }
             if profile:
                 status_keys = set(profile.badge_status_list)
@@ -180,7 +180,8 @@ class BadgeExporter(object):
                 if tags:
                     badge['tags'] = tags
 
-                trainings = profile.trainings.all()
+                trainings = profile.sessions_attending\
+                        .filter(kind__slug='training').all()
                 if trainings:
                     attendings = defaultdict(list)
                     for t in trainings:
