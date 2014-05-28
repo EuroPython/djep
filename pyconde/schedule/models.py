@@ -1,18 +1,21 @@
 import logging
 
-from django.db import models
-from django.utils.translation import ugettext_lazy as _
-from django.core.urlresolvers import reverse
-import django.db.models.signals as model_signals
+from django.conf import settings
 from django.core.cache import cache
-
+from django.core.urlresolvers import reverse
+from django.db import models
+from django.db.models import Q, signals as model_signals
 from django.utils.encoding import force_text
-from cms.models import CMSPlugin
+from django.utils.translation import ugettext_lazy as _
+from django.utils.timezone import now
 
+from cms.models import CMSPlugin
 
 from ..proposals import models as proposal_models
 from ..reviews import models as review_models
 from ..conference import models as conference_models
+
+from .exceptions import AttendingError
 
 
 LOG = logging.getLogger(__name__)
@@ -61,6 +64,9 @@ class Session(LocationMixin, proposal_models.AbstractProposal):
     slides_url = models.URLField(_("Slides URL"), blank=True, null=True)
     video_url = models.URLField(_("Video URL"), blank=True, null=True)
 
+    max_attendees = models.PositiveSmallIntegerField(_('Max attendees'),
+        null=True, blank=True)
+
     @classmethod
     def create_from_proposal(cls, proposal):
         """
@@ -103,6 +109,53 @@ class Session(LocationMixin, proposal_models.AbstractProposal):
 
     def get_absolute_url(self):
         return reverse('session', kwargs={'session_pk': self.pk})
+
+    def can_attend(self, user):
+        other = Session.objects.filter(attendees=user.profile).exclude(id=self.pk)
+        q_overlap = (
+            Q(start__range=(self.start, self.end)) |
+            Q(end__range=(self.start, self.end))
+        )
+        other = other.filter(q_overlap)
+        return not other.exists()
+
+    def is_attending(self, user):
+        if user.pk:
+            return self.attendees.filter(id=user.profile.id).exists()
+        return False
+
+    def attend(self, user):
+        if self.kind.slug not in settings.SCHEDULE_ATTENDING_POSSIBLE:
+            raise AttendingError(_('Attending a %(kind)s is not possible.') % {
+                'kind': self.kind.name,
+            })
+        current_time = now()
+        if self.start <= current_time:
+            if self.end <= current_time:
+                raise AttendingError(_('You cannot attend this session anymore. The session already ended.'))
+            else:
+                raise AttendingError(_('You cannot attend this session anymore. The session already started.'))
+        elif not self.has_free_seats():
+            raise AttendingError(_('You cannot attend right now. There are no free seats left.'))
+        elif not self.can_attend(user):
+            raise AttendingError(_('You cannot attend this session because you are already attending another one at that time.'))
+        else:
+            self.attendees.add(user.profile.id)
+
+    def leave(self, user):
+        current_time = now()
+        if self.start <= current_time:
+            if self.end <= current_time:
+                raise AttendingError(_('You cannot leave this session anymore. The session already ended.'))
+            else:
+                raise AttendingError(_('You cannot leave this session anymore. The session already started.'))
+        else:
+            self.attendees.remove(user.profile.id)
+
+    def has_free_seats(self):
+        if self.max_attendees in (None, 0):
+            return True
+        return self.attendees.count() < self.max_attendees
 
     class Meta(object):
         verbose_name = _('session')

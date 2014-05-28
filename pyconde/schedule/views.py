@@ -1,5 +1,6 @@
 # -*- encoding: utf-8 -*-
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
@@ -8,6 +9,7 @@ from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
+from django.views.decorators.http import require_POST
 
 from ..proposals import models as proposal_models
 from ..conference import models as conference_models
@@ -17,6 +19,8 @@ from . import models
 from . import utils
 from . import forms
 from . import exporters
+
+from .exceptions import AttendingError
 
 
 def view_schedule(request):
@@ -93,7 +97,10 @@ def view_session(request, session_pk):
         context={
             'session': session,
             'tags': tags,
-            'can_edit': utils.can_edit_session(request.user, session)
+            'can_edit': utils.can_edit_session(request.user, session),
+            'attending_possible': settings.SCHEDULE_ATTENDING_POSSIBLE,
+            'is_attending': session.is_attending(request.user),
+            'has_free_seats': session.has_free_seats(),
         },
         template='schedule/session.html'
     )
@@ -137,6 +144,49 @@ def edit_session(request, session_pk):
             'session': session
         },
         template='schedule/session_edit.html'
+    )
+
+
+@require_POST
+@login_required
+def attend_session(request, session_pk, attending):
+    session = get_object_or_404(models.Session, pk=session_pk, released=True,
+        kind__slug__in=settings.SCHEDULE_ATTENDING_POSSIBLE)
+    try:
+        if attending:
+            session.attend(request.user)
+            messages.success(request, _('You are now attending %(session_title)s.') % {
+                'session_title': session.title,
+            })
+        elif not attending:
+            session.leave(request.user)
+            messages.success(request, _('You are not attending %(session_title)s anymore.') % {
+                'session_title': session.title,
+            })
+        else:
+            messages.error(request, _('Invalid or no action specified.'))
+    except AttendingError as ae:
+        messages.warning(request, ae.message)
+    return HttpResponseRedirect(session.get_absolute_url())
+
+
+@login_required
+def list_user_attendances(request):
+    """
+    This view lists all the sessions to which the current user has indicated
+    that they would like to attend.
+    """
+    sessions = request.user.profile.sessions_attending\
+        .only('title', 'start', 'end')\
+        .prefetch_related('location')\
+        .order_by('start')\
+        .all()
+    return TemplateResponse(
+        request=request,
+        context={
+            'sessions': sessions,
+        },
+        template='schedule/attending_sessions.html'
     )
 
 

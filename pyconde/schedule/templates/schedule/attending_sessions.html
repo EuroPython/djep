@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% block page_title %}{% trans "Session attendances" %}{% endblock %}
+{% block title %}{% trans "Session attendances" %}{% endblock %}
+{% block content %}
+{% if sessions %}
+    <table>
+        <thead>
+            <th>{% trans "Title" %}</th>
+            <th colspan="2">{% trans "When?" %}</th>
+            <th>{% trans "Where?" %}</th>
+            <th></th>
+        </thead>
+        <tbody>
+            {% for session in sessions %}
+            <tr>
+                <td><a href="{{ session.get_absolute_url }}">{{ session.title }}</a></td>
+                <td>{{ session.start|date }}</td>
+                <td>{{ session.start|time }} - {{ session.end|time }}</td>
+                <td>{{ session.location_pretty }}</td>
+                <td><form action="{% url "session-leave" session_pk=session.pk %}" method="POST">{% csrf_token %}<input type="hidden" name="next" value="{% url "schedule-attendances" %}" /><input type="submit" class="btn btn-primary" value="{% trans "I won't attend" %}" /></td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+{% else %}
+    <p class="empty">{% trans "You have not yet indicated your attendance to any specific session." %}</p>
+{% endif %}
+{% endblock %}

@@ -35,9 +35,25 @@
                 <dt>{% trans "Language" %}:</dt>
                 <dd>{{ session.get_language_display }}</dd>
             </dl>
+             {% if request.user.is_authenticated and session.kind.slug in attending_possible %}
+                <dl>
+                    <dt></dt>
+                    <dd>
+                        {% if not is_attending %}
+                            {% if has_free_seats %}
+                                <form action="{% url "session-attend" session_pk=session.pk %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-primary" value="{% trans "Attend this session" %}" />
+                            {% else %}
+                                {% trans "You cannot attend right now. There are no free seats left." %}
+                            {% endif %}
+                        {% else %}
+                            <form action="{% url "session-leave" session_pk=session.pk %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-primary" value="{% trans "Do not attend anymore" %}" />
+                        {% endif %}
+                    </dd>
+                </dl>
+            {% endif %}
         </div>
 
-        {% if session.kind.slug == 'tutorial' and session.description %}
+        {% if session.kind.slug == "training" and session.description %}
             <div class="description">
                 {{ session.description|markdown:"safe" }}
             </div>

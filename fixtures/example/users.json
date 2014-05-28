@@ -1,0 +1,50 @@
+[
+{
+    "pk": 1, 
+    "model": "auth.user", 
+    "fields": {
+        "username": "speaker", 
+        "first_name": "", 
+        "last_name": "", 
+        "is_active": true, 
+        "is_superuser": false, 
+        "is_staff": false, 
+        "last_login": "2014-05-14T19:47:55.547", 
+        "groups": [], 
+        "user_permissions": [], 
+        "password": "pbkdf2_sha256$10000$cqVaQxJCtpPy$cPfsV84DA6SOLdWO+q7I/OWOEK1WTUZJjmwfnD0vdbY=", 
+        "email": "",
+        "date_joined": "2014-05-14T19:47:55.547"
+    }
+},
+{
+    "pk": 1,
+    "model": "accounts.profile",
+    "fields": {
+        "website": "",
+        "accept_job_offers": false,
+        "display_name": "",
+        "badge_status": "",
+        "twitter": "",
+        "num_accompanying_children": 0,
+        "accept_ep_conferences": false,
+        "sponsor": null,
+        "accept_pysv_conferences": false,
+        "user": 1,
+        "full_name": "",
+        "sessions_attending": [],
+        "age_accompanying_children": "",
+        "short_info": "",
+        "organisation": "",
+        "addressed_as": "",
+        "avatar": ""
+    }
+},
+{
+    "pk": 1,
+    "model": "speakers.speaker",
+    "fields": {
+        "user": 1
+    }
+}
+]

@@ -105,8 +105,19 @@ class BadgeExporter(object):
         from ..schedule.models import Session
 
         result = []
-        sessions = Session.objects.select_related('speaker_id', 'kind').prefetch_related('additional_speakers').all()
+        sessions = Session.objects.select_related('speaker_id', 'kind') \
+                                  .prefetch_related('additional_speakers') \
+                                  .all()
         speaker_involvements = defaultdict(set)
+        all_trainings = Session.objects.order_by('start', 'location__order') \
+                                       .filter(released=True,
+                                               kind__slug='training') \
+                                       .values_list('id', 'start')
+        trainings_pk_index = {
+            pk: (idx, start.date().isoformat())
+            for idx, (pk, start)
+            in enumerate(all_trainings, 1)
+        }
         for session in sessions:
             speaker_involvements[session.speaker_id].add(session.kind.slug)
             additional_speakers = set(s.id for s in session.additional_speakers.all())
@@ -115,7 +126,8 @@ class BadgeExporter(object):
         for ticket in tickets.select_related('purchase',
                                              'user__profile__sponsor__level',
                                              'user__speaker_profile') \
-                             .prefetch_related('user__profile__tags') \
+                             .prefetch_related('user__profile__tags',
+                                               'user__profile__sessions_attending') \
                              .order_by('first_name',
                                        'last_name'):
             if not isinstance(ticket, VenueTicket):
@@ -139,7 +151,7 @@ class BadgeExporter(object):
                 'sponsor': None,  # set below
                 'days': None,  # Only whole-conference tickets are sold online
                 'status': None,  # set below
-                'trainings': None,  # set below TODO
+                'trainings': None,
             }
             if profile:
                 status_keys = set(profile.badge_status_list)
@@ -168,11 +180,14 @@ class BadgeExporter(object):
                 if tags:
                     badge['tags'] = tags
 
-            # TODO: add data to 'trainings' field:
-            #       'trainings': {
-            #           '2014-07-21': [2, 4]
-            #           '2014-07-22': [5, 8]
-            #       }
+                trainings = profile.sessions_attending\
+                        .filter(kind__slug='training').all()
+                if trainings:
+                    attendings = defaultdict(list)
+                    for t in trainings:
+                        index, start = trainings_pk_index[t.id]
+                        attendings[start].append(index)
+                    badge['trainings'] = attendings
 
             result.append(badge)
         return result
