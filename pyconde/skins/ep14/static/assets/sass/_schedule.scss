@@ -133,15 +133,15 @@
                 background: none;
             }
         }
-        tr.break, tr.break:hover {
-            background: $inputBorder;
+        tr.break, tr.break:hover, td.break.filled {
+            background: $inputBorder !important;
             color: #FFF;
-            td.filled {
-                text-align: center;
-                vertical-align: middle;
-                &, a, .title {
-                    color: #FFF;
-                }
+        }
+        tr.break td.filled, td.break.filled {
+            text-align: center;
+            vertical-align: middle;
+            &, a, .title {
+                color: #FFF;
             }
         }
 
