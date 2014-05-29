@@ -338,7 +338,7 @@ class Base(Configuration):
 
     CMSPLUGIN_NEWS_FEED_DESCRIPTION = u'News from EuroPython 2014'
 
-    SCHEDULE_ATTENDING_POSSIBLE = ["training"]
+    SCHEDULE_ATTENDING_POSSIBLE = values.ListValue(['training'])
     SCHEDULE_CACHE_SCHEDULE = values.BooleanValue(True)
     SCHEDULE_CACHE_TIMEOUT = values.IntegerValue(300)
 
