@@ -19,6 +19,22 @@ def get_display_name(user):
     return user.username
 
 
+def get_full_name(user):
+    """
+    Tries to return (in order):
+
+        * ``user.profile.addressed_as``
+        * ``user.profile.display_name``
+        * ``user.username``
+    """
+    if user is None:
+        return None
+    profile = user.profile
+    if profile.full_name:
+        return profile.full_name
+    return get_display_name(user)
+
+
 def get_addressed_as(user):
     """
     Tries to return (in order):

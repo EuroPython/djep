@@ -16,6 +16,7 @@ class SpeakerManager(models.Manager):
     def get_qs_for_formfield(self):
         qs = self.select_related('user__profile') \
                  .only('user__profile__display_name',
+                       'user__profile__full_name',
                        'user__profile__user',  # for reverse lookup
                        'user__username'  # fallback if no display_name
                  )
@@ -32,7 +33,7 @@ class Speaker(models.Model):
     objects = SpeakerManager()
 
     def __unicode__(self):
-        return account_utils.get_display_name(self.user)
+        return account_utils.get_full_name(self.user)
 
     def get_absolute_url(self):
         return reverse('account_profile', kwargs={'uid': self.user.id})

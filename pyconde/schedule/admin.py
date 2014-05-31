@@ -118,6 +118,7 @@ class SessionAdmin(admin.ModelAdmin):
                          'conference__title',
                          'duration__label', 'duration__minutes',
                          'speaker__user__profile__display_name',
+                         'speaker__user__profile__full_name',
                          'speaker__user__profile__user',
                          'speaker__user__username',
                          'track__name',
