@@ -1,0 +1,28 @@
+{% extends "base.html" %}
+{% load i18n thumbnail %}
+{% block title %}{% trans "Our sponsors" %}{% endblock %}
+{% block page_title %}{% trans "Our sponsors" %}{% endblock %}
+{% block content %}
+<div class="sponsorship list">
+  {% for level in levels %}
+    <h2>{{ level.name }}</h2>
+    <table>
+      <tbody>
+        {% for sponsor in level.sponsor_set.all %}
+          <tr>
+            <td><img alt="{{ sponsor.name }}" src="{% thumbnail sponsor.logo 200x200 upscale %}" /></td>
+            <td>
+              <h3>{{ sponsor.name }}</h3>
+              <div class="desc">{{ sponsor.description }}</div>
+              <dl class="meta">
+                <dt>{% trans "Website" %}</dt>
+                <dd><a rel="external" target="_blank" title="{{ sponsor.name }}" href="{{ sponsor.external_url }}">{{ sponsor.external_url }}</a></dd>
+              </dl>
+            </td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endfor %}
+</div>
+{% endblock %}

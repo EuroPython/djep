@@ -1,0 +1,70 @@
+.cmsplugin-sponsorlist {
+    padding: 50px 0;
+
+    ul.sponsor-list {
+        list-style: none;
+        padding: 0;
+
+        li {
+            padding: 0 14px;
+            display: inline-block !important;
+            opacity: 0.3;
+            filter: url(../images/filters.svg#grayscale);
+            filter: gray; /* IE6-9 */
+            -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+            &:hover {
+                opacity: 1;
+                filter: none;
+                -webkit-filter: none;
+            }
+            &:before {
+                display: none;
+            }
+
+            a {
+                display: table-cell;
+                width: 112px;
+                height: 55px;
+                text-align: center;
+                vertical-align: middle;
+
+                img {
+                    max-width: 112px;
+                    max-height: 55px;
+                    vertical-align: middle;
+                }
+            }
+        }
+    }
+}
+#content .sponsorship {
+  &.list {
+    h2 {
+      text-align: center;
+      &:not(:first-child) {
+        padding-top: 4rem;
+      }
+    }
+    table td {
+      &:first-child {
+        width: 240px;
+      }
+      &:nth-child(2) {
+        vertical-align: top;
+        h3 {
+          text-align: center;
+        }
+        .desc {
+        }
+        .meta {
+          dt {
+            font-weight: 700;
+          }
+          dd {
+            margin-left: 0px;
+          }
+        }
+      }
+    }
+  }
+}
