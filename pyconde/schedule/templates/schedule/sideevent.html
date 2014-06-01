@@ -24,5 +24,10 @@
         <div class="description">
             {{ event.description|markdown:"safe" }}
         </div>
+        {% if can_admin %}
+            <div class="actions">
+                <a class="btn danger" href="{% url "admin:schedule_sideevent_change" event.id %}"><i class="fa fa-fw fa-lock"></i>{% trans "Admin" %}</a>
+            </div>
+        {% endif %}
     </article>
 {% endblock %}

@@ -98,6 +98,7 @@ def view_session(request, session_pk):
             'session': session,
             'tags': tags,
             'can_edit': utils.can_edit_session(request.user, session),
+            'can_admin': request.user.has_perm('schedule.change_session'),
             'attending_possible': settings.SCHEDULE_ATTENDING_POSSIBLE,
             'is_attending': session.is_attending(request.user),
             'has_free_seats': session.has_free_seats(),
@@ -114,7 +115,8 @@ def view_sideevent(request, pk):
     return TemplateResponse(
         request=request,
         context={
-            'event': evt
+            'event': evt,
+            'can_admin': request.user.has_perm('schedule.change_sideevent'),
         },
         template='schedule/sideevent.html'
     )
