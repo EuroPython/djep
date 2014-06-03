@@ -48,16 +48,16 @@
     {% else %}
       <p class="empty">{% trans "No info available" %}</p>
     {% endif %}
+    {% if sessions %}
+      <section class="sessions">
+        <h2>{% trans "Sessions" %}</h2>
+        <ul>
+          {% for session in sessions %}
+            <li><a href="{{ session.get_absolute_url }}">{{ session.title }}</a></li>
+          {% endfor %}
+        </ul>
+      </section>
+    {% endif %}
   </div>
-  {% if sessions %}
-    <section class="sessions">
-      <h1>{% trans "Sessions" %}</h1>
-      <ul>
-        {% for session in sessions %}
-          <li><a href="{{ session.get_absolute_url }}">{{ session.title }}</a></li>
-        {% endfor %}
-      </ul>
-    </section>
-  {% endif %}
 </div>
 {% endblock %}

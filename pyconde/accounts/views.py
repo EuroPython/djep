@@ -119,10 +119,10 @@ class ProfileView(generic_views.TemplateView):
         sessions = None
         profile = user.profile
         if speaker_profile:
-            sessions = chain(
+            sessions = list(chain(
                 speaker_profile.sessions.filter(released=True).all(),
                 speaker_profile.session_participations.filter(released=True).all()
-            )
+            ))
         return {
             'userobj': user,
             'speaker_profile': speaker_profile,
