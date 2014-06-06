@@ -125,7 +125,8 @@ class BadgeExporter(object):
 
         for ticket in tickets.select_related('purchase',
                                              'user__profile__sponsor__level',
-                                             'user__speaker_profile') \
+                                             'user__speaker_profile',
+                                             'shirtsize') \
                              .prefetch_related('user__profile__tags',
                                                'user__profile__sessions_attending') \
                              .order_by('first_name',
@@ -146,6 +147,7 @@ class BadgeExporter(object):
                 'uid': user and user.id or None,
                 'name': '%s %s' % (ticket.first_name, ticket.last_name),
                 'organization': ticket.organisation or purchase.company_name or profile and profile.organisation or None,
+                'tshirt': ticket.shirtsize_id and ticket.shirtsize.size or None,
                 'tags': None,  # set below
                 'profile': user and (self.base_url + reverse('account_profile', kwargs={'uid': user.id})) or None,
                 'sponsor': None,  # set below
