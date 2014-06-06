@@ -86,6 +86,24 @@ def sessions_by_location(request, pk):
     )
 
 
+def sessions_by_kind(request, pk):
+    """
+    Lists all talks with a given tag on a single page.
+    """
+    kind = get_object_or_404(conference_models.SessionKind, pk=pk)
+    sessions = models.Session.objects.prefetch_related('location')\
+        .filter(released=True, kind=kind).order_by('title')
+    return TemplateResponse(
+        request=request,
+        template='schedule/sessions_by_kind.html',
+        context={
+            'kind': kind,
+            'sessions': sessions
+        }
+    )
+
+
+
 def view_session(request, session_pk):
     """
     Renders all information available about a session.
