@@ -2,7 +2,7 @@
 
 {% trans "You've purchased following tickets:" %}
 ---------------------------------------------------------
-{% for ticket in purchase.ticket_set.all %}- {{ ticket.ticket_type.name }} ({{ ticket.first_name }} {{ ticket.last_name }}), {{ ticket.ticket_type.fee|floatformat:2 }} EUR
+{% for ticket in purchase.ticket_set.all %}- {{ ticket.ticket_type.name }} {% with real_ticket=ticket.real_ticket %}{% if real_ticket.first_name or real_ticket.last_name %}({{ real_ticket.first_name }} {{ real_ticket.last_name }}){% endif %}{% endwith %}, {{ ticket.ticket_type.fee|floatformat:2 }} EUR
 {% endfor %}
 --------------------------------------------------------
 {% trans "VAT (19%)" %}:  {{ rounded_vat }} EUR
