@@ -109,10 +109,6 @@
             margin-bottom: 3px;
             line-height: 130%;
         }
-        .speakers {
-            color: $highlightColor;
-            line-height: 115%;
-        }
         .details {
             font-size: 1.4rem;
             .location {
@@ -220,5 +216,8 @@
             }
         }
     }
-
+}
+.speakers {
+    color: $highlightColor;
+    line-height: 115%;
 }

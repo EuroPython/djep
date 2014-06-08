@@ -57,8 +57,11 @@ def sessions_by_tag(request, tag):
     """
     Lists all talks with a given tag on a single page.
     """
-    sessions = models.Session.objects.prefetch_related('location')\
-        .filter(released=True, tags__name=tag).order_by('title')
+    sessions = models.Session.objects.select_related('speaker__user__profile') \
+                                     .prefetch_related('location') \
+                                     .filter(released=True, tags__name=tag) \
+                                     .order_by('title') \
+                                     .all()
     return TemplateResponse(
         request=request,
         template='schedule/sessions_by_tag.html',
@@ -74,8 +77,11 @@ def sessions_by_location(request, pk):
     Lists all talks with a given tag on a single page.
     """
     location = get_object_or_404(conference_models.Location, pk=pk)
-    sessions = models.Session.objects.prefetch_related('location')\
-        .filter(released=True, location=location).order_by('start')
+    sessions = models.Session.objects.select_related('speaker__user__profile') \
+                                     .prefetch_related('location') \
+                                     .filter(released=True, location=location) \
+                                     .order_by('start') \
+                                     .all()
     return TemplateResponse(
         request=request,
         template='schedule/sessions_by_location.html',
@@ -91,8 +97,11 @@ def sessions_by_kind(request, pk):
     Lists all talks with a given tag on a single page.
     """
     kind = get_object_or_404(conference_models.SessionKind, pk=pk)
-    sessions = models.Session.objects.prefetch_related('location')\
-        .filter(released=True, kind=kind).order_by('title')
+    sessions = models.Session.objects.select_related('speaker__user__profile') \
+                                     .prefetch_related('location') \
+                                     .filter(released=True, kind=kind) \
+                                     .order_by('title') \
+                                     .all()
     return TemplateResponse(
         request=request,
         template='schedule/sessions_by_kind.html',
