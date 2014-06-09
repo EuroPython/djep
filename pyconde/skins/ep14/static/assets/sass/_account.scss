@@ -86,3 +86,40 @@
         margin-bottom: 4em;
     }
 }
+
+.cmsplugin {
+    &.staff-list {
+        ul {
+            padding-left: 0;
+
+            li {
+                display: inline-block;
+                width: 195px;
+                max-width: 195px;
+                margin-bottom: 30px;
+                margin-right: 30px;
+
+                &:nth-of-type(4n+0) {
+                    margin-right: 0;
+                }
+                
+                div {
+                    text-align: center;
+                }
+
+                .avatar {
+                    height: 130px;
+
+                    & > img {
+                        display: block;
+                        border-radius: 50%;
+                        border: 5px solid $inputBorder;
+                        height: 130px;
+                        width: 130px;
+                        margin: auto;
+                    }
+                }
+            }
+        }
+    }
+}

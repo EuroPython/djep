@@ -9,6 +9,8 @@ from django.dispatch import receiver
 from django.db import models
 from django.db.models import Q
 
+from cms.models import CMSPlugin
+
 from easy_thumbnails.fields import ThumbnailerImageField
 from taggit.managers import TaggableManager
 from validatorchain import ValidatorChain
@@ -118,6 +120,22 @@ class Profile(models.Model):
     @property
     def badge_status_list(self):
         return list(set(bs for bs in self.badge_status.split(',') if bs))
+
+
+class StaffListPlugin(CMSPlugin):
+    
+    additional_names = models.TextField(_('Additional names'), blank=True,
+        default='', help_text=_('Staff members without account. One name per line.'))
+    badge_status = models.TextField(_('Show only users with status'), blank=True,
+        default='')
+
+    @property
+    def additional_names_list(self):
+        return list(set(bs for bs in self.additional_names.split('\n') if bs))
+
+    @property
+    def badge_status_list(self):
+        return list(set(bs for bs in self.badge_status.split('\n') if bs))
 
 
 @receiver(user_logged_in)
