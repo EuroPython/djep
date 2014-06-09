@@ -7,8 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
-from .forms import CMSStaffListPluginForm
-from .models import Profile, StaffListPlugin, PROFILE_BADGE_STATUS_CHOICES
+from .models import Profile, StaffListPlugin
 
 
 first_element = itemgetter(0)
@@ -16,13 +15,12 @@ first_element = itemgetter(0)
 
 class CMSStaffListPlugin(CMSPluginBase):
 
-    form = CMSStaffListPluginForm
     model = StaffListPlugin
     name = _('Staff list')
     render_template = 'accounts/plugins/staff_list.html'
 
     def render(self, context, instance, placeholter):
-        filter_list = instance.badge_status_list
+        filter_list = instance.badge_status.values_list('id', flat=True)
         profiles = list(Profile.objects
                                .filter(badge_status__in=filter_list)
                                .values_list('display_name',

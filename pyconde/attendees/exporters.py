@@ -6,9 +6,6 @@ import logging
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
-from ..accounts.models import (PROFILE_BADGE_SPONSOR, PROFILE_BADGE_SPEAKER,
-    PROFILE_BADGE_TRAINER, PROFILE_BADGE_KEYNOTE)
-
 
 LOG = logging.getLogger('pyconde.attendees')
 
@@ -156,7 +153,7 @@ class BadgeExporter(object):
                 'trainings': None,
             }
             if profile:
-                status_keys = set(profile.badge_status_list)
+                status_keys = set(profile.badge_status.values_list('slug', flat=True).all())
 
                 if profile.sponsor_id and profile.sponsor.active:
                     sponsor = profile.sponsor
@@ -165,15 +162,15 @@ class BadgeExporter(object):
                         'level': sponsor.level.name,
                         'website': sponsor.external_url
                     }
-                    status_keys.add(PROFILE_BADGE_SPONSOR)
+                    status_keys.add(_('Sponsor'))
 
                 speaker = user.speaker_profile
                 if 'talk' in speaker_involvements[speaker.id]:
-                    status_keys.add(PROFILE_BADGE_SPEAKER)
+                    status_keys.add('speaker')
                 if 'training' in speaker_involvements[speaker.id]:
-                    status_keys.add(PROFILE_BADGE_TRAINER)
+                    status_keys.add('trainer')
                 if 'keynote' in speaker_involvements[speaker.id]:
-                    status_keys.add(PROFILE_BADGE_KEYNOTE)
+                    status_keys.add('keynote')
 
                 if status_keys:
                     badge['status'] = list(status_keys)

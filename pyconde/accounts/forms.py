@@ -20,7 +20,7 @@ from ..conference.models import current_conference
 from ..forms import Submit
 
 from . import validators
-from .models import Profile, StaffListPlugin, PROFILE_BADGE_STATUS_CHOICES
+from .models import Profile, StaffListPlugin
 from .widgets import AvatarWidget
 from .utils import SEND_MAIL_CHOICES
 
@@ -362,22 +362,3 @@ class SendMailForm(forms.Form):
             'text',
             ButtonHolder(Submit('submit', _('Send mail'), css_class='btn-primary'))
         )
-
-
-class CMSStaffListPluginForm(forms.ModelForm):
-
-    badge_status_form = forms.MultipleChoiceField(label=_('Show only users with status'),
-        required=True, choices=PROFILE_BADGE_STATUS_CHOICES,
-        widget=forms.CheckboxSelectMultiple)
-
-    class Meta:
-        model = StaffListPlugin
-        fields = ('badge_status_form', 'additional_names')
-
-    def __init__(self, *args, **kwargs):
-        super(CMSStaffListPluginForm, self).__init__(*args, **kwargs)
-        self.fields['badge_status_form'].initial = self.instance.badge_status_list
-
-    def save(self, commit=True):
-        self.instance.badge_status = '\n'.join(self.cleaned_data['badge_status_form'])
-        return super(CMSStaffListPluginForm, self).save(commit=commit)

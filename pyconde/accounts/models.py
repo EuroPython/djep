@@ -4,6 +4,7 @@ from django.conf import settings
 from django.contrib.auth.models import User
 from django.contrib import messages
 from django.contrib.auth.signals import user_logged_in
+from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 from django.dispatch import receiver
 from django.db import models
@@ -44,25 +45,17 @@ else:
 avatar_help_text = avatar_help_text % avatar_min_max_dimension
 
 
-PROFILE_BADGE_KEYNOTE = 'keynote'
-PROFILE_BADGE_NETWORK = 'network'
-PROFILE_BADGE_ORGA = 'orga'
-PROFILE_BADGE_SPEAKER = 'speaker'
-PROFILE_BADGE_SPONSOR = 'sponsor'
-PROFILE_BADGE_TRAINER = 'trainer'
-PROFILE_BADGE_VIDEO = 'video'
-PROFILE_BADGE_VOLUNTEER = 'volunteer'
+class BadgeStatus(models.Model):
+    name = models.CharField(_('Name'), max_length=50)
+    slug = models.SlugField(_('slug'), max_length=50)
 
-PROFILE_BADGE_STATUS_CHOICES = (
-    (PROFILE_BADGE_KEYNOTE, _('Keynote')),
-    (PROFILE_BADGE_NETWORK, _('Network')),
-    (PROFILE_BADGE_ORGA, _('Orga')),
-    (PROFILE_BADGE_SPEAKER, _('Speaker')),
-    (PROFILE_BADGE_SPONSOR, _('Sponsor')),
-    (PROFILE_BADGE_TRAINER, _('Trainer')),
-    (PROFILE_BADGE_VIDEO, _('Video')),
-    (PROFILE_BADGE_VOLUNTEER, _('Volunteer')),
-)
+    class Meta:
+        ordering = ('name',)
+        verbose_name = _('Status')
+        verbose_name_plural = _('Statuses')
+
+    def __unicode__(self):
+        return self.name
 
 
 class Profile(models.Model):
@@ -103,8 +96,8 @@ class Profile(models.Model):
 
     sponsor = models.ForeignKey('sponsorship.Sponsor', null=True, blank=True,
         verbose_name=_('Sponsor'))
-    badge_status = models.CharField(_('Badge status'), default='', blank=True,
-        max_length=100)
+    badge_status = models.ManyToManyField('accounts.BadgeStatus', blank=True,
+        verbose_name=_('Badge status'), related_name='profiles')
 
     sessions_attending = models.ManyToManyField('schedule.Session', blank=True,
         related_name='attendees', verbose_name=_('Trainings'),
@@ -117,25 +110,20 @@ class Profile(models.Model):
             ('send_user_mails', _('Allow sending mails to users through the website')),
         )
 
-    @property
-    def badge_status_list(self):
-        return list(set(bs for bs in self.badge_status.split(',') if bs))
-
 
 class StaffListPlugin(CMSPlugin):
     
+    badge_status = models.ManyToManyField('BadgeStatus', blank=True,
+        verbose_name=_('Badge status'))
     additional_names = models.TextField(_('Additional names'), blank=True,
         default='', help_text=_('Staff members without account. One name per line.'))
-    badge_status = models.TextField(_('Show only users with status'), blank=True,
-        default='')
+
+    def copy_relations(self, oldinstance):
+        self.badge_status = oldinstance.badge_status.all()
 
     @property
     def additional_names_list(self):
         return list(set(bs for bs in self.additional_names.split('\n') if bs))
-
-    @property
-    def badge_status_list(self):
-        return list(set(bs for bs in self.badge_status.split('\n') if bs))
 
 
 @receiver(user_logged_in)
