@@ -94,14 +94,11 @@
 
             li {
                 display: inline-block;
-                width: 195px;
-                max-width: 195px;
-                margin-bottom: 30px;
-                margin-right: 30px;
-
-                &:nth-of-type(4n+0) {
-                    margin-right: 0;
+                width: 170px;
+                @media #{$medium-up} {
+                    width: 217px;
                 }
+                margin-bottom: 30px;
                 
                 div {
                     text-align: center;
