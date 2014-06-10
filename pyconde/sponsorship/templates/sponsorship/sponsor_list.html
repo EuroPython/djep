@@ -1,28 +1,29 @@
 {% extends "base.html" %}
-{% load i18n thumbnail %}
+{% load i18n markup thumbnail %}
 {% block title %}{% trans "Our sponsors" %}{% endblock %}
 {% block page_title %}{% trans "Our sponsors" %}{% endblock %}
 {% block content %}
 <div class="sponsorship list">
   {% for level in levels %}
-    <h2>{{ level.name }}</h2>
-    <table>
-      <tbody>
+    <div class="level level-{{ level.slug }}">
+      <h2><span>{{ level.name }}</span></h2>
+      <div class="row">
         {% for sponsor in level.sponsor_set.all %}
-          <tr>
-            <td><img alt="{{ sponsor.name }}" src="{% thumbnail sponsor.logo 200x200 upscale %}" /></td>
-            <td>
-              <h3>{{ sponsor.name }}</h3>
-              <div class="desc">{{ sponsor.description }}</div>
-              <dl class="meta">
-                <dt>{% trans "Website" %}</dt>
-                <dd><a rel="external" target="_blank" title="{{ sponsor.name }}" href="{{ sponsor.external_url }}">{{ sponsor.external_url }}</a></dd>
-              </dl>
-            </td>
-          </tr>
+          <div class="sponsor-item columns small-12 {% if forloop.last and not forloop.counter|divisibleby:"2" %}medium-12 last{% else %}large-6{% endif %}">
+            <h3><img alt="{{ sponsor.name }}" src="{% if forloop.last and not forloop.counter|divisibleby:"2" %}{% thumbnail sponsor.logo 250x250 upscale %}{% else %}{% thumbnail sponsor.logo 200x200 upscale %}{% endif %}" /></h3>
+            <div class="desc">{{ sponsor.description|markdown:"safe" }}</div>
+            <dl class="meta">
+              <dt>{% trans "Website" %}</dt>
+              <dd><a rel="external" target="_blank" title="{{ sponsor.name }}" href="{{ sponsor.external_url }}">{{ sponsor.external_url }}</a></dd>
+            </dl>
+          </div>
+          {% if not forloop.last and forloop.counter|divisibleby:"2" %}
+            </div>
+            <div class="row">
+          {% endif %}
         {% endfor %}
-      </tbody>
-    </table>
+      </div>
+    </div>
   {% endfor %}
 </div>
 {% endblock %}

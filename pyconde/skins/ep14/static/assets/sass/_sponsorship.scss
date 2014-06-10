@@ -38,33 +38,66 @@
     }
 }
 #content .sponsorship {
-  &.list {
-    h2 {
-      text-align: center;
-      &:not(:first-child) {
-        padding-top: 4rem;
-      }
+    &.list {
+        .level {
+            h2 {
+                /* headlines with lines from http://jsfiddle.net/gKve7/ */
+                color: $red;
+                text-align: center;
+                overflow: hidden;
+                margin-bottom: 60px;
+
+                &> span{
+                    position: relative;
+                    display: inline-block;
+                    &:before, &:after{
+                        content: '';
+                        position: absolute;
+                        top: 51%;
+                        border-bottom: 1px solid;
+                        width: $row-width/2;
+                        margin: 0 20px;
+                    }
+                    &:before{
+                        right: 100%;
+                    }
+                    &:after{
+                        left: 100%;
+                    }
+                }
+
+                &:not(:first-child) {
+                    padding-top: 4rem;
+                }
+            }
+            .sponsor-item {
+                font-size: 1.4rem;
+                font-size: 14px;
+                margin-bottom: 60px;
+
+                &.last {
+                    h3 {
+                        float: left;
+                        margin-top: 0;
+                    }
+                    .desc, .meta {
+                        margin-left: 300px;
+                    }
+                }
+                h3 {
+                    text-align: center;
+                }
+                .desc {
+                }
+                .meta {
+                    dt {
+                        font-weight: 700;
+                    }
+                    dd {
+                        margin-left: 0;
+                    }
+                }
+            }
+        }
     }
-    table td {
-      &:first-child {
-        width: 240px;
-      }
-      &:nth-child(2) {
-        vertical-align: top;
-        h3 {
-          text-align: center;
-        }
-        .desc {
-        }
-        .meta {
-          dt {
-            font-weight: 700;
-          }
-          dd {
-            margin-left: 0px;
-          }
-        }
-      }
-    }
-  }
 }
