@@ -91,16 +91,27 @@
     &.user-list {
         ul {
             padding-left: 0;
+            width: 100%;
+            overflow: hidden;
 
             li {
-                display: inline-block;
+                display: block;
+                float: left;
                 width: 170px;
                 @media #{$medium-up} {
                     width: 217px;
                 }
-                margin-bottom: 30px;
+                margin-bottom: 10px;
                 
                 div {
+                    text-align: center;
+                }
+
+                .name {
+                    font-size: 1.5rem;
+                    line-height: 1.8rem;
+                    height: 3.6rem;
+                    margin: 5px 5px 0px 5px;
                     text-align: center;
                 }
 
