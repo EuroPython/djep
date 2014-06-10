@@ -1,0 +1,22 @@
+{% load i18n thumbnail %}
+{% load static from staticfiles %}
+<div class="cmsplugin user-list">
+  <ul>
+    {% for name, id, avatar in names %}
+      <li>
+        {% if id %}
+          <a href="{% url "account_profile" uid=id %}">
+        {% endif %}
+          <div class="avatar">
+            <img src="{% if avatar %}{% thumbnail avatar 130x130 crop %}{% else %}{% static "assets/images/noavatar80.png" %}{% endif %}" alt="{{ name }}"/>
+          </div>
+          <div class="name">
+            {{ name }}
+          </div>
+        {% if id %}
+          </a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+</div>
