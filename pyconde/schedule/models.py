@@ -218,6 +218,9 @@ class CompleteSchedulePlugin(CMSPlugin):
     merge_sections = models.BooleanField(_('Merge different section into same table'),
         default=False)
 
+    def copy_relations(self, oldinstance):
+        self.sections = oldinstance.sections.all()
+
 
 def clear_schedule_caches(sender, *args, **kwargs):
     from itertools import product
