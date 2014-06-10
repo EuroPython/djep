@@ -20,7 +20,7 @@ from ..conference.models import current_conference
 from ..forms import Submit
 
 from . import validators
-from .models import Profile, StaffListPlugin
+from .models import Profile
 from .widgets import AvatarWidget
 from .utils import SEND_MAIL_CHOICES
 

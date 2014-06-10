@@ -111,12 +111,12 @@ class Profile(models.Model):
         )
 
 
-class StaffListPlugin(CMSPlugin):
+class UserListPlugin(CMSPlugin):
     
     badge_status = models.ManyToManyField('BadgeStatus', blank=True,
-        verbose_name=_('Badge status'))
+        verbose_name=_('Status'))
     additional_names = models.TextField(_('Additional names'), blank=True,
-        default='', help_text=_('Staff members without account. One name per line.'))
+        default='', help_text=_('Users without account. One name per line.'))
 
     def copy_relations(self, oldinstance):
         self.badge_status = oldinstance.badge_status.all()

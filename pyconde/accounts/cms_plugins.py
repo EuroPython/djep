@@ -7,17 +7,17 @@ from django.utils.translation import ugettext_lazy as _
 
 from cms.plugin_base import CMSPluginBase
 from cms.plugin_pool import plugin_pool
-from .models import Profile, StaffListPlugin
+from .models import Profile, UserListPlugin
 
 
 first_element = itemgetter(0)
 
 
-class CMSStaffListPlugin(CMSPluginBase):
+class CMSUserListPlugin(CMSPluginBase):
 
-    model = StaffListPlugin
-    name = _('Staff list')
-    render_template = 'accounts/plugins/staff_list.html'
+    model = UserListPlugin
+    name = _('User list')
+    render_template = 'accounts/plugins/user_list.html'
 
     def render(self, context, instance, placeholter):
         filter_list = instance.badge_status.values_list('id', flat=True)
@@ -34,4 +34,4 @@ class CMSStaffListPlugin(CMSPluginBase):
         })
         return context
 
-plugin_pool.register_plugin(CMSStaffListPlugin)
+plugin_pool.register_plugin(CMSUserListPlugin)
