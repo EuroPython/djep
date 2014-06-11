@@ -316,6 +316,16 @@ class Purchase(models.Model):
         name = "%s %s" % (self.first_name, self.last_name)
         return formataddr((name, self.email))
 
+    @property
+    def send_invoice_to_user(self):
+        if (
+            self.payment_total == 0.0 and
+            self.payment_method == 'invoice' and
+            self.ticket_set.exclude(ticket_type__prevent_invoice=True).count() == 0
+        ):
+            return False
+        return True
+
     def __unicode__(self):
         return '%s - %s' % (self.pk, self.get_state_display())
 
