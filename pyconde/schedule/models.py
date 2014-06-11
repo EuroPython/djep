@@ -42,6 +42,11 @@ class LocationMixin(object):
 
     location_pretty = property(location_pretty)
 
+    def location_guidebook(self):
+        return ';'.join(map(force_text, self.location.all()))
+
+    location_guidebook = property(location_guidebook)
+
 
 class Session(LocationMixin, proposal_models.AbstractProposal):
     """

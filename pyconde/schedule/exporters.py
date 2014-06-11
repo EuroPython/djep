@@ -12,7 +12,6 @@ from operator import attrgetter
 
 from lxml import etree
 
-from django.conf import settings
 from django.core.urlresolvers import reverse
 from django.contrib.sites import models as site_models
 from django.utils.encoding import force_text
@@ -93,7 +92,9 @@ class GuidebookExporter(object):
 
     def __call__(self):
         result = []
-        for session in models.Session.objects.select_related('track', 'location').all():
+        for session in models.Session.objects.select_related('track') \
+                                             .prefetch_related('location') \
+                                             .all():
             additional_speakers = list(session.additional_speakers.all())
             cospeakers = [_format_cospeaker(s) for s in additional_speakers]
             result.append([
@@ -101,7 +102,7 @@ class GuidebookExporter(object):
                 session.start.date() if session.start else '',
                 session.start.time() if session.start else '',
                 session.end.time() if session.end else '',
-                session.location.name if session.location else '',
+                session.location_guidebook or '',
                 session.track.name if session.track else '',
                 session.description,
                 session.kind.name if session.kind else u'Sonstiges',
@@ -112,8 +113,10 @@ class GuidebookExporter(object):
                 u" ".join([self.get_speaker_url(s) for s in additional_speakers]),
                 session.abstract if session.abstract else '',
                 ])
-        for evt in models.SideEvent.current_conference.select_related('location').all():
-            loc = evt.location.name if evt.location else ''
+        for evt in models.SideEvent.current_conference.select_related('location') \
+                                                      .prefetch_related('location') \
+                                                      .all():
+            loc = evt.location_guidebook or ''
             if evt.is_pause:
                 loc = ''
             result.append([
@@ -124,7 +127,7 @@ class GuidebookExporter(object):
                 loc,
                 '',
                 evt.description,
-                "Pause" if evt.is_pause else u'Sonstiges',
+                "Break" if evt.is_pause else u'Other',
                 '',  # audience level
                 '',  # speaker
                 '',  # co-speakers
@@ -135,8 +138,8 @@ class GuidebookExporter(object):
         # Now sort by start date and time
         result.sort(cmp=self._sort_events)
 
-        data = tablib.Dataset(headers=['title', 'date', 'start_time',
-            'end_time', 'location_name', 'track_name', 'description', 'type',
+        data = tablib.Dataset(headers=['Session Title', 'Date', 'Time Start',
+            'Time End', 'Room/Location', 'Schedule Track (Optional)', 'Description (Optional)', 'type',
             'audience', 'speaker', 'cospeakers', 'speaker_url',
             'cospeaker_urls', 'abstract'])
         for evt in result:

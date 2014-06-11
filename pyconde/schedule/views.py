@@ -112,7 +112,6 @@ def sessions_by_kind(request, pk):
     )
 
 
-
 def view_session(request, session_pk):
     """
     Renders all information available about a session.
