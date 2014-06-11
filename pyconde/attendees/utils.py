@@ -65,7 +65,7 @@ def complete_purchase(request, purchase):
 def send_purchase_confirmation_mail(purchase, recipients=None):
     from . import models
     if recipients is None:
-        recipients = [purchase.email]
+        recipients = [purchase.email_receiver]
     send_mail(
         _('Ticket successfully purchased'),
         render_to_string('attendees/mail_purchase_completed.txt', {

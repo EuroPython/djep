@@ -1,3 +1,6 @@
+# -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 import datetime
 import mock
 
@@ -655,7 +658,120 @@ class PurchaseProcessTest(TestCase):
             self.assertEqual(qty, response.context['quantity_forms'][idx].initial['quantity'])
 
 
-class TestTicketTypes(TestCase):
+class TestPurchaseModel(TestCase):
+    
+    def setUp(self):
+        now = datetime.datetime.now()
+        ct = ContentType.objects.get(app_label='attendees',
+            model='venueticket')
+        self.included = models.TicketType.objects.create(
+            name="included", fee=100,
+            date_valid_from=now - datetime.timedelta(days=-1),
+            date_valid_to=now + datetime.timedelta(days=1),
+            content_type=ct)
+        self.included_free = models.TicketType.objects.create(
+            name="included_free", fee=0,
+            date_valid_from=now - datetime.timedelta(days=-1),
+            date_valid_to=now + datetime.timedelta(days=1),
+            content_type=ct)
+
+        self.excluded = models.TicketType.objects.create(
+            name="excluded", fee=200, prevent_invoice=True,
+            date_valid_from=now - datetime.timedelta(days=-1),
+            date_valid_to=now + datetime.timedelta(days=1),
+            content_type=ct)
+        self.excluded_free = models.TicketType.objects.create(
+            name="excluded_free", fee=0, prevent_invoice=True,
+            date_valid_from=now - datetime.timedelta(days=-1),
+            date_valid_to=now + datetime.timedelta(days=1),
+            content_type=ct)
+
+        self.purchase_data = {
+            'first_name': 'Max',
+            'last_name': 'Mustermann',
+            'email': 'max@mustermann.de',
+            'street': 'Musterstraße',
+            'zip_code': 12345,
+            'city': 'Musterhausen',
+            'country': 'Musterland',
+        }
+
+    def test_send_invoice_to_user_invoice_incl_excl(self):
+        purchase = models.Purchase.objects.create(
+            payment_method='invoice', payment_total=300,
+                **self.purchase_data)
+        models.VenueTicket.objects.create(purchase=purchase, ticket_type=self.included)
+        models.VenueTicket.objects.create(purchase=purchase, ticket_type=self.excluded)
+        self.assertTrue(purchase.send_invoice_to_user)
+
+    def test_send_invoice_to_user_invoice_incl_exclfree(self):
+        purchase = models.Purchase.objects.create(
+            payment_method='invoice', payment_total=100,
+                **self.purchase_data)
+        models.VenueTicket.objects.create(purchase=purchase, ticket_type=self.included)
+        models.VenueTicket.objects.create(purchase=purchase, ticket_type=self.excluded_free)
+        self.assertTrue(purchase.send_invoice_to_user)
+
+    def test_send_invoice_to_user_invoice_inclfree_excl(self):
+        purchase = models.Purchase.objects.create(
+            payment_method='invoice', payment_total=200,
+                **self.purchase_data)
+        models.VenueTicket.objects.create(purchase=purchase, ticket_type=self.included_free)
+        models.VenueTicket.objects.create(purchase=purchase, ticket_type=self.excluded)
+        self.assertTrue(purchase.send_invoice_to_user)
+
+    def test_send_invoice_to_user_invoice_inclfree_exclfree(self):
+        purchase = models.Purchase.objects.create(
+            payment_method='invoice', payment_total=0,
+                **self.purchase_data)
+        models.VenueTicket.objects.create(purchase=purchase, ticket_type=self.included_free)
+        models.VenueTicket.objects.create(purchase=purchase, ticket_type=self.excluded_free)
+        self.assertTrue(purchase.send_invoice_to_user)
+
+    def test_send_invoice_to_user_invoice_incl(self):
+        purchase = models.Purchase.objects.create(
+            payment_method='invoice', payment_total=100,
+                **self.purchase_data)
+        models.VenueTicket.objects.create(purchase=purchase, ticket_type=self.included)
+        self.assertTrue(purchase.send_invoice_to_user)
+
+    def test_send_invoice_to_user_invoice_inclfree(self):
+        purchase = models.Purchase.objects.create(
+            payment_method='invoice', payment_total=0,
+                **self.purchase_data)
+        models.VenueTicket.objects.create(purchase=purchase, ticket_type=self.included_free)
+        self.assertTrue(purchase.send_invoice_to_user)
+
+    def test_send_invoice_to_user_invoice_excl(self):
+        purchase = models.Purchase.objects.create(
+            payment_method='invoice', payment_total=200,
+                **self.purchase_data)
+        models.VenueTicket.objects.create(purchase=purchase, ticket_type=self.excluded)
+        self.assertTrue(purchase.send_invoice_to_user)
+
+    def test_send_invoice_to_user_invoice_exclfree(self):
+        purchase = models.Purchase.objects.create(
+            payment_method='invoice', payment_total=0,
+                **self.purchase_data)
+        models.VenueTicket.objects.create(purchase=purchase, ticket_type=self.excluded_free)
+        self.assertFalse(purchase.send_invoice_to_user)
+
+    def test_send_invoice_to_user_creditcard_excl(self):
+        purchase = models.Purchase.objects.create(
+            payment_method='creditcard', payment_total=200,
+                **self.purchase_data)
+        models.VenueTicket.objects.create(purchase=purchase, ticket_type=self.excluded)
+        self.assertTrue(purchase.send_invoice_to_user)
+
+    def test_send_invoice_to_user_creditcard_exclfree(self):
+        purchase = models.Purchase.objects.create(
+            payment_method='creditcard', payment_total=0,
+                **self.purchase_data)
+        models.VenueTicket.objects.create(purchase=purchase, ticket_type=self.excluded_free)
+        self.assertTrue(purchase.send_invoice_to_user)
+
+
+class TestTicketTypeModel(TestCase):
     def setUp(self):
         now = datetime.datetime.now()
         self.venue_ticket_type = models.TicketType(name="test", fee=100,
