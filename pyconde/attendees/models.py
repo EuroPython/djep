@@ -138,7 +138,8 @@ class TicketType(models.Model):
     date_valid_from = models.DateTimeField(_('Date (valid from)'), blank=False)
     date_valid_to = models.DateTimeField(_('Date (valid to)'), blank=False)
 
-    vouchertype_needed = models.ForeignKey('VoucherType', null=True, blank=True, verbose_name=_('voucher type needed'))
+    vouchertype_needed = models.ForeignKey('VoucherType', null=True, blank=True,
+        verbose_name=_('voucher type needed'))
     tutorial_ticket = models.BooleanField(_('Tutorial ticket'), default=False)
 
     remarks = models.TextField(_('Remarks'), blank=True)
@@ -147,6 +148,12 @@ class TicketType(models.Model):
     allow_editing = models.NullBooleanField(_('Allow editing'))
     editable_fields = models.TextField(_('Editable fields'), blank=True)
     editable_until = models.DateTimeField(_('Editable until'), blank=True, null=True)
+
+    prevent_invoice = models.BooleanField(_("Conditionally prevent invoice to user"),
+        default=False, blank=True,
+        help_text=_('If checked, a purchase, that contains only tickets of '
+                    'ticket types where this is checked, will not be send to '
+                    'the user. This can be useful for e.g. sponsor tickets'))
 
     content_type = models.ForeignKey(
         content_models.ContentType, blank=False,
