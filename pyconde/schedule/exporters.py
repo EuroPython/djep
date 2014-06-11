@@ -264,7 +264,7 @@ class XMLExporter(object):
                                       'location') \
                     .filter(released=True, start__isnull=False, end__isnull=False) \
                     .order_by('start') \
-                    .only('end', 'start', 'title', 'abstract', 'is_global',
+                    .only('end', 'start', 'title', 'abstract', 'description', 'is_global',
                           'kind__name',
                           'audience_level__name',
                           'track__name',
@@ -332,8 +332,10 @@ class XMLExporter(object):
 
             with xf.element('title'):
                 xf.write(force_text(event.title), pretty_print=self.pretty)
-            with xf.element('description'):
+            with xf.element('abstract'):
                 xf.write(force_text(event.abstract), pretty_print=self.pretty)
+            with xf.element('description'):
+                xf.write(force_text(event.description), pretty_print=self.pretty)
             with xf.element('speakers'):
                 self._export_speaker(fp, xf, event.speaker.user)
                 for speaker in event.additional_speakers.all():
