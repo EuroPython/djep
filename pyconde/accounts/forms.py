@@ -243,6 +243,13 @@ class ProfileForm(BaseProfileForm):
                                                 required=False)
     tags = TagField(label=_("Interests"), required=False, help_text=_("Please separate tags by comma."))
 
+    class Meta(BaseProfileForm.Meta):
+        fields = ('full_name', 'display_name', 'addressed_as', 'avatar', 'short_info',
+            'organisation', 'twitter', 'website', 'tags', 'accept_job_offers',
+            'accept_pysv_conferences', 'accept_ep_conferences')
+        if not settings.CHILDREN_DATA_DISABLED:
+            fields = fields + ('num_accompanying_children', 'age_accompanying_children')
+
     def __init__(self, *args, **kwargs):
         super(ProfileForm, self).__init__(*args, **kwargs)
         self.helper = FormHelper()
