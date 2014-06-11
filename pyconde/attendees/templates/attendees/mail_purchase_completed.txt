@@ -26,7 +26,7 @@
 {% if terms_of_use_url %}{% trans "Purchasing a ticket requires agreeing to the terms of service. These can be found here:" %}
 {{ terms_of_use_url }}{% endif %}
 
-{% if purchase.payment_method == 'invoice' %}
+{% if purchase.payment_method == 'invoice' and purchase.send_invoice_to_user %}
 {% trans "During the next couple of days you will receive an invoice via e-mail." %}
 {% trans "You can check your payment status in your profile. The incoming payments are checked at least twice a week." %}
 {% trans "If you have any problems with the payment, please contact us ASAP!" %}
