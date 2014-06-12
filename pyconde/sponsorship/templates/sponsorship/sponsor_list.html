@@ -5,12 +5,13 @@
 {% block content %}
 <div class="sponsorship list">
   {% for level in levels %}
-    <div class="level level-{{ level.slug }}">
+    {% with level.sponsor_set.all as levelsponsors %}
+    <div class="level level-{{ level.slug }} sponsorcount-{{ levelsponsors|length }}">
       <h2><span>{{ level.name }}</span></h2>
       <div class="row">
-        {% for sponsor in level.sponsor_set.all %}
+        {% for sponsor in levelsponsors %}
           <div class="sponsor-item columns small-12 {% if forloop.last and not forloop.counter|divisibleby:"2" %}medium-12 last{% else %}large-6{% endif %}">
-            <h3><img alt="{{ sponsor.name }}" src="{% if forloop.last and not forloop.counter|divisibleby:"2" %}{% thumbnail sponsor.logo 250x250 upscale %}{% else %}{% thumbnail sponsor.logo 200x200 upscale %}{% endif %}" /></h3>
+            <h3><img alt="{{ sponsor.name }}" src="{% if forloop.last and not forloop.counter|divisibleby:"2" %}{% thumbnail sponsor.logo 250x250 upscale %}{% else %}{% thumbnail sponsor.logo 200x170 upscale %}{% endif %}" /></h3>
             <div class="desc">{{ sponsor.description|markdown:"safe" }}</div>
             <dl class="meta">
               <dt>{% trans "Website" %}</dt>
@@ -24,6 +25,7 @@
         {% endfor %}
       </div>
     </div>
+    {% endwith %}
   {% endfor %}
 </div>
 {% endblock %}

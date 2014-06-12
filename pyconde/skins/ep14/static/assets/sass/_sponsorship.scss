@@ -47,7 +47,7 @@
                 overflow: hidden;
                 margin-bottom: 60px;
 
-                &> span{
+                & > span{
                     position: relative;
                     display: inline-block;
                     &:before, &:after{
@@ -71,21 +71,15 @@
                 }
             }
             .sponsor-item {
-                font-size: 1.4rem;
                 font-size: 14px;
+                font-size: 1.4rem;
                 margin-bottom: 60px;
 
-                &.last {
-                    h3 {
-                        float: left;
-                        margin-top: 0;
-                    }
-                    .desc, .meta {
-                        margin-left: 300px;
-                    }
-                }
                 h3 {
                     text-align: center;
+                    line-height: 170px;
+                    margin: 0;
+                    padding: 0;
                 }
                 .desc {
                 }
@@ -96,6 +90,17 @@
                     dd {
                         margin-left: 0;
                     }
+                }
+            }
+        }
+        @media #{$medium-up} {
+            .level.sponsorcount-1 .sponsor-item {
+                h3 {
+                    float: left;
+                    margin-top: 0;
+                }
+                .desc, .meta {
+                    margin-left: 300px;
                 }
             }
         }
