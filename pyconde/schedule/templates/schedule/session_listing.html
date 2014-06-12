@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% load i18n %}
+{% load i18n account_tags %}
 
 {% block content %}
     {% if sessions %}
@@ -14,9 +14,9 @@
             <tbody>
                 {% for session in sessions %}
                     <tr>
-                        <td><a href="{% url 'session' session_pk=session.pk %}">{{ session.title }}</a></td>
+                        <td><a href="{% url 'session' session_pk=session.pk %}">{{ session.title }}</a><br/><span class="speakers">{{ session.speaker.user|full_name }}</span></td>
                         <td>{{ session.location_pretty }}</td>
-                        <td>{{ session.start|date:"DATE_FORMAT" }}: {{ session.start|time:"TIME_FORMAT" }} - {{ session.end|time:"TIME_FORMAT" }}</td>
+                        <td>{{ session.start|date:"d/m/Y" }}<br/>{{ session.start|time:"H:i" }}&nbsp;-&nbsp;{{ session.end|time:"H:i" }}</td>
                     </tr>
                 {% endfor %}
             </tbody>

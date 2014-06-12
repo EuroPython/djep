@@ -57,8 +57,11 @@ def sessions_by_tag(request, tag):
     """
     Lists all talks with a given tag on a single page.
     """
-    sessions = models.Session.objects.prefetch_related('location')\
-        .filter(released=True, tags__name=tag).order_by('title')
+    sessions = models.Session.objects.select_related('speaker__user__profile') \
+                                     .prefetch_related('location') \
+                                     .filter(released=True, tags__name=tag) \
+                                     .order_by('title') \
+                                     .all()
     return TemplateResponse(
         request=request,
         template='schedule/sessions_by_tag.html',
@@ -74,8 +77,11 @@ def sessions_by_location(request, pk):
     Lists all talks with a given tag on a single page.
     """
     location = get_object_or_404(conference_models.Location, pk=pk)
-    sessions = models.Session.objects.prefetch_related('location')\
-        .filter(released=True, location=location).order_by('start')
+    sessions = models.Session.objects.select_related('speaker__user__profile') \
+                                     .prefetch_related('location') \
+                                     .filter(released=True, location=location) \
+                                     .order_by('start') \
+                                     .all()
     return TemplateResponse(
         request=request,
         template='schedule/sessions_by_location.html',
@@ -84,6 +90,27 @@ def sessions_by_location(request, pk):
             'sessions': sessions
         }
     )
+
+
+def sessions_by_kind(request, pk):
+    """
+    Lists all talks with a given tag on a single page.
+    """
+    kind = get_object_or_404(conference_models.SessionKind, pk=pk)
+    sessions = models.Session.objects.select_related('speaker__user__profile') \
+                                     .prefetch_related('location') \
+                                     .filter(released=True, kind=kind) \
+                                     .order_by('title') \
+                                     .all()
+    return TemplateResponse(
+        request=request,
+        template='schedule/sessions_by_kind.html',
+        context={
+            'kind': kind,
+            'sessions': sessions
+        }
+    )
+
 
 
 def view_session(request, session_pk):
@@ -98,6 +125,7 @@ def view_session(request, session_pk):
             'session': session,
             'tags': tags,
             'can_edit': utils.can_edit_session(request.user, session),
+            'can_admin': request.user.has_perm('schedule.change_session'),
             'attending_possible': settings.SCHEDULE_ATTENDING_POSSIBLE,
             'is_attending': session.is_attending(request.user),
             'has_free_seats': session.has_free_seats(),
@@ -114,7 +142,8 @@ def view_sideevent(request, pk):
     return TemplateResponse(
         request=request,
         context={
-            'event': evt
+            'event': evt,
+            'can_admin': request.user.has_perm('schedule.change_sideevent'),
         },
         template='schedule/sideevent.html'
     )

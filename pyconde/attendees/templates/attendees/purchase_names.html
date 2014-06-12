@@ -97,6 +97,7 @@
         <fieldset class="attendees">
             <legend>{% trans "SIM Card(s)" %}</legend>
             <p class="info">{% trans "Please enter the name and other information relevant for the specific SIM card(s) in the fields below." %}</p>
+            <p class="info"><strong>{% trans "“Host” refers to the place where you are going to stay in Berlin and has to be a German address." %}</strong></p>
             {% for sim_form in sim_forms %}
               <fieldset>
                 <legend>{{ forloop.counter }}. {{ sim_form.instance.ticket_type.name }}</legend>

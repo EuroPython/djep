@@ -9,11 +9,17 @@ body.profilepage {
     }
 
     div.misc {
-        @include grid-column($columns: 4);
+        text-align: center;
+        @media #{$medium-up} {
+            @include grid-column($columns: 4);
+            text-align: left;
+        }
     }
 
     .info {
-        @include grid-column($columns: 8);
+        @media #{$medium-up} {
+            @include grid-column($columns: 8);
+        }
         p:first-child {
             margin-top: 0;
         }

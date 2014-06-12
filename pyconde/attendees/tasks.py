@@ -80,7 +80,8 @@ def render_invoice(purchase_id):
         purchase.save(update_fields=['exported', 'state'])
 
     # Send invoice to buyer
-    send_invoice.delay(purchase_id, (purchase.email_receiver,))
+    if purchase.send_invoice_to_user:
+        send_invoice.delay(purchase_id, (purchase.email_receiver,))
     # Send invoice to orga
     send_invoice.delay(purchase_id, app_settings.INVOICE_EXPORT_RECIPIENTS)
 

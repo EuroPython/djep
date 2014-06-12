@@ -6,9 +6,6 @@ import logging
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
-from ..accounts.models import (PROFILE_BADGE_SPONSOR, PROFILE_BADGE_SPEAKER,
-    PROFILE_BADGE_TRAINER, PROFILE_BADGE_KEYNOTE)
-
 
 LOG = logging.getLogger('pyconde.attendees')
 
@@ -125,7 +122,8 @@ class BadgeExporter(object):
 
         for ticket in tickets.select_related('purchase',
                                              'user__profile__sponsor__level',
-                                             'user__speaker_profile') \
+                                             'user__speaker_profile',
+                                             'shirtsize') \
                              .prefetch_related('user__profile__tags',
                                                'user__profile__sessions_attending') \
                              .order_by('first_name',
@@ -146,6 +144,7 @@ class BadgeExporter(object):
                 'uid': user and user.id or None,
                 'name': '%s %s' % (ticket.first_name, ticket.last_name),
                 'organization': ticket.organisation or purchase.company_name or profile and profile.organisation or None,
+                'tshirt': ticket.shirtsize_id and ticket.shirtsize.size or None,
                 'tags': None,  # set below
                 'profile': user and (self.base_url + reverse('account_profile', kwargs={'uid': user.id})) or None,
                 'sponsor': None,  # set below
@@ -154,7 +153,7 @@ class BadgeExporter(object):
                 'trainings': None,
             }
             if profile:
-                status_keys = set(profile.badge_status_list)
+                status_keys = set(profile.badge_status.values_list('slug', flat=True).all())
 
                 if profile.sponsor_id and profile.sponsor.active:
                     sponsor = profile.sponsor
@@ -163,15 +162,15 @@ class BadgeExporter(object):
                         'level': sponsor.level.name,
                         'website': sponsor.external_url
                     }
-                    status_keys.add(PROFILE_BADGE_SPONSOR)
+                    status_keys.add(_('Sponsor'))
 
                 speaker = user.speaker_profile
                 if 'talk' in speaker_involvements[speaker.id]:
-                    status_keys.add(PROFILE_BADGE_SPEAKER)
+                    status_keys.add('speaker')
                 if 'training' in speaker_involvements[speaker.id]:
-                    status_keys.add(PROFILE_BADGE_TRAINER)
+                    status_keys.add('trainer')
                 if 'keynote' in speaker_involvements[speaker.id]:
-                    status_keys.add(PROFILE_BADGE_KEYNOTE)
+                    status_keys.add('keynote')
 
                 if status_keys:
                     badge['status'] = list(status_keys)

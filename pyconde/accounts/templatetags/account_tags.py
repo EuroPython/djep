@@ -14,6 +14,11 @@ def display_name(user):
 
 
 @register.filter
+def full_name(user):
+    return utils.get_full_name(user)
+
+
+@register.filter
 def addressed_as(user):
     return utils.get_addressed_as(user)
 

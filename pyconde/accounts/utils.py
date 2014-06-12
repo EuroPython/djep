@@ -23,7 +23,7 @@ def get_full_name(user):
     """
     Tries to return (in order):
 
-        * ``user.profile.addressed_as``
+        * ``user.profile.full_name``
         * ``user.profile.display_name``
         * ``user.username``
     """

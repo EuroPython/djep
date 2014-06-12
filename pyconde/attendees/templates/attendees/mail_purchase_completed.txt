@@ -2,7 +2,7 @@
 
 {% trans "You've purchased following tickets:" %}
 ---------------------------------------------------------
-{% for ticket in purchase.ticket_set.all %}- {{ ticket.ticket_type.name }} ({{ ticket.first_name }} {{ ticket.last_name }}), {{ ticket.ticket_type.fee|floatformat:2 }} EUR
+{% for ticket in purchase.ticket_set.all %}- {{ ticket.ticket_type.name }} {% with real_ticket=ticket.real_ticket %}{% if real_ticket.first_name or real_ticket.last_name %}({{ real_ticket.first_name }} {{ real_ticket.last_name }}){% endif %}{% endwith %}, {{ ticket.ticket_type.fee|floatformat:2 }} EUR
 {% endfor %}
 --------------------------------------------------------
 {% trans "VAT (19%)" %}:  {{ rounded_vat }} EUR
@@ -26,7 +26,7 @@
 {% if terms_of_use_url %}{% trans "Purchasing a ticket requires agreeing to the terms of service. These can be found here:" %}
 {{ terms_of_use_url }}{% endif %}
 
-{% if purchase.payment_method == 'invoice' %}
+{% if purchase.payment_method == 'invoice' and purchase.send_invoice_to_user %}
 {% trans "During the next couple of days you will receive an invoice via e-mail." %}
 {% trans "You can check your payment status in your profile. The incoming payments are checked at least twice a week." %}
 {% trans "If you have any problems with the payment, please contact us ASAP!" %}

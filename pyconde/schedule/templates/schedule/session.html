@@ -65,20 +65,25 @@
 
         {% if session.slides_url %}
             <div class="slides">
-                <h2>Folien</h2>
+                <h2>{% trans "Slides" %}</h2>
                 {% embed_slides session.slides_url %}
             </div>
         {% endif %}
 
         {% if session.video_url %}
             <div class="video">
-                <h2>Video</h2>
+                <h2>{% trans "Video" %}</h2>
                 {% embed_video session.video_url %}
             </div>
         {% endif %}
-        {% if can_edit %}
+        {% if can_edit or can_admin %}
             <div class="actions">
-                <a class="btn" href="edit/"><i class="fa fa-fw fa-pencil"></i>{% trans "Edit" %}</a>
+                {% if can_edit %}
+                    <a class="btn" href="edit/"><i class="fa fa-fw fa-pencil"></i>{% trans "Edit" %}</a>
+                {% endif %}
+                {% if can_admin %}
+                    <a class="btn danger" href="{% url "admin:schedule_session_change" session.id %}"><i class="fa fa-fw fa-lock"></i>{% trans "Admin" %}</a>
+                {% endif %}
             </div>
         {% endif %}
     </article>
