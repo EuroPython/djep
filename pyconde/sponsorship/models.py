@@ -77,6 +77,7 @@ class Sponsor(models.Model):
     class Meta:
         verbose_name = _("sponsor")
         verbose_name_plural = _("sponsors")
+        ordering = ['name']
 
 
 class SponsorListPlugin(CMSPlugin):
