@@ -1,10 +1,11 @@
 from django.conf.urls import url, patterns
 
-from pyconde.sponsorship import views
 
-
-urlpatterns = patterns('',
+urlpatterns = patterns('pyconde.sponsorship.views',
+    url(r'^$',
+        'list_sponsors',
+        name='sponsorship_list'),
     url(r'^send_job_offer/$',
-        views.JobOffer.as_view(),
+        'job_offer',
         name='sponsorship_send_job_offer')
 )
