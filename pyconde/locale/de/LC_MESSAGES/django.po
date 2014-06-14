@@ -3821,6 +3821,24 @@ msgstr "Webseite"
 msgid "author's description"
 msgstr "Beschreibung"
 
+msgid "vegan"
+msgstr "veganisch"
+
+msgid "vegetarian"
+msgstr "vegetarisch"
+
+msgid "halal"
+msgstr ""
+
+msgid "kosher"
+msgstr "koscher"
+
+msgid "gluten-free"
+msgstr "Guten-frei"
+
+msgid "Dietary preferences"
+msgstr "Ernährungs-Vorlieben"
+
 #, fuzzy
 #~ msgid "Keynote"
 #~ msgstr "Anmerkungen"

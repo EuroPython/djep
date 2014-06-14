@@ -22,6 +22,12 @@
                             <dt>{% trans "Desired T-Shirt size" %}:</dt>
                             <dd>{% if ticket.real_ticket.shirtsize %}{{ ticket.real_ticket.shirtsize }}{% else %}-{% endif %}</dd>
                         </dl>
+                        {% with preferences=ticket.real_ticket.dietary_preferences.all %}{% if preferences %}
+                        <dl>
+                            <dt>{% trans "Dietary preferences" %}:</dt>
+                            <dd>{% for pref in preferences %}{% if not forloop.first %}, {% endif %}{{ pref }}{% endfor %}</dd>
+                        </dl>
+                        {% endif %}{% endwith %}
                     {% elif ticket.ticket_type.content_type.model == "simcardticket" %}
                         <dl>
                             <dt>{% trans "Name" %}:</dt>

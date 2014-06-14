@@ -43,7 +43,7 @@ label {
         }
         padding-top: 8px;
         &.checkbox {
-            width: 100%;
+            width: 100% !important;
             display: block;
             float: none;
         }
@@ -70,6 +70,16 @@ label {
         background-color: $background-color;
     }
     .controls {
+        > ul {
+            list-style: none;
+            margin: 0;
+            padding-left: 0;
+            label {
+                display: inline-block;
+                width: auto;
+                float: none;
+            }
+        }
         @media #{$medium-up} {
             float: left;
             width: 80%;

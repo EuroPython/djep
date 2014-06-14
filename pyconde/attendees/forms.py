@@ -11,7 +11,7 @@ from crispy_forms.layout import Layout, Fieldset, ButtonHolder, HTML
 
 from pyconde.conference.models import current_conference
 from pyconde.attendees.models import Purchase, VenueTicket, Voucher,\
-    SIMCardTicket
+    SIMCardTicket, DietaryPreference
 from pyconde.forms import Submit
 
 from . import utils
@@ -110,19 +110,34 @@ class TicketNameForm(forms.ModelForm):
         self.fields['first_name'].required = True
         self.fields['last_name'].required = True
         self.fields['organisation'].required = False
+        self.fields['dietary_preferences'] = forms.ModelMultipleChoiceField(
+            label=_('Dietary preferences'),
+            queryset=DietaryPreference.objects.all(),
+            required=False,
+            widget=forms.CheckboxSelectMultiple
+        )
+        if 'dietary_preferences' in kwargs['instance'].related_data:
+            self.initial['dietary_preferences'] = [obj.pk for obj in kwargs['instance'].related_data.get('dietary_preferences', [])]
         self.fields['shirtsize'].queryset = self.fields['shirtsize']\
             .queryset.filter(conference=current_conference())
         self.fields['shirtsize'].help_text = _('''Sizing charts: <a href="http://maxnosleeves.spreadshirt.com/shop/info/producttypedetails/Popup/Show/productType/813" target="_blank">Women</a>, <a href="http://maxnosleeves.spreadshirt.com/shop/info/producttypedetails/Popup/Show/productType/812" target="_blank">Men</a>''')
 
     class Meta:
         model = VenueTicket
-        fields = ('first_name', 'last_name', 'organisation', 'shirtsize')
+        fields = ('first_name', 'last_name', 'organisation', 'shirtsize',
+                  'dietary_preferences',)
 
     def save(self, *args, **kwargs):
         # Update, save would overwrite other flags too (even if not in
         # `fields`)
         for fname in self._meta.fields:
             val = self.cleaned_data[fname]
+            # Since dietary_preferences is a m2m relation we have to temporarily
+            # store it somewhere outside of the usual m2m manager which would
+            # automatically persist it.
+            if fname == 'dietary_preferences':
+                self.instance.related_data[fname] = val
+                continue
             setattr(self.instance, fname, val)
         return self.instance
 
@@ -318,6 +333,7 @@ class EditVenueTicketForm(TicketNameForm):
             'first_name',
             'last_name',
             'organisation',
+            'dietary_preferences',
             'shirtsize',
             ButtonHolder(Submit('submit', _('Save changes'), css_class='btn btn-primary'))
         )
@@ -325,9 +341,12 @@ class EditVenueTicketForm(TicketNameForm):
     def clean(self):
         cleaned_data = super(EditVenueTicketForm, self).clean()
         for field_name in self.instance.ticket_type.get_readonly_fields():
-            cleaned_data[field_name] = getattr(self.instance, field_name)
+            field_value = getattr(self.instance, field_name)
+            if hasattr(field_value, 'all'):
+                field_value = list(field_value.all())
+            cleaned_data[field_name] = field_value
         return cleaned_data
 
     def save(self, *args, **kwargs):
-        # Thet ticketnameform disables the save functionality. Here we need it.
+        # The ticketnameform disables the save functionality. Here we need it.
         return super(TicketNameForm, self).save(*args, **kwargs)

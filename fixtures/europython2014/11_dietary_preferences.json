@@ -1,0 +1,37 @@
+[
+{
+    "pk": 1, 
+    "model": "attendees.dietarypreference", 
+    "fields": {
+        "name": "vegan"
+    }
+},
+{
+    "pk": 2, 
+    "model": "attendees.dietarypreference", 
+    "fields": {
+        "name": "vegetarian"
+    }
+},
+{
+    "pk": 3, 
+    "model": "attendees.dietarypreference", 
+    "fields": {
+        "name": "kosher"
+    }
+},
+{
+    "pk": 4, 
+    "model": "attendees.dietarypreference", 
+    "fields": {
+        "name": "halal"
+    }
+},
+{
+    "pk": 5, 
+    "model": "attendees.dietarypreference", 
+    "fields": {
+        "name": "gluten-free"
+    }
+}
+]

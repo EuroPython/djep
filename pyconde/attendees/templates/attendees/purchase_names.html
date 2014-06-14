@@ -46,6 +46,18 @@
                   </div>
                 </div>
                 {% if not name_form.instance.ticket_type.tutorial_ticket %}
+                    <div class="form-group {% if name_form.dietary_preferences.errors %}has-error{% endif %}">
+                        <label class="control-label" for="{{ name_form.dietary_preferences.id }}">
+                            {{ name_form.dietary_preferences.label }}:
+                        </label>
+                        <div class="controls">
+                            {{ name_form.dietary_preferences }}
+                            {% for error in name_form.dietary_preferences.errors %}
+                                <span class="help-block error"><strong><i class="fa fa-times"></i></strong> {{ error }}</span>
+                            {% endfor %}
+                            <p class="help-block">{{ name_form.dietary_preferences.help_text|safe }}</p>
+                        </div>
+                    </div>
                   <div class="form-group {% if name_form.shirtsize.errors %}has-error{% endif %}">
                     <label class="control-label" for="{{ name_form.shirtsize.id }}">
                       {{ name_form.shirtsize.label }}:

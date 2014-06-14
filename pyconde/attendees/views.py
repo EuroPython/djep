@@ -151,6 +151,7 @@ class PurchaseMixin(object):
             ticket.purchase = self.purchase
             LOG.warning("persisting ticket %s of purchase %d" % (str(ticket), self.purchase.pk))
             ticket.save()
+            ticket.save_related_data()
 
     def setup(self):
         steps = self.steps.keys()

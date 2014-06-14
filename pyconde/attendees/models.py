@@ -375,6 +375,11 @@ class Ticket(models.Model):
 
     objects = TicketManager()
 
+    def __init__(self, *args, **kwargs):
+        obj = super(Ticket, self).__init__(*args, **kwargs)
+        self.related_data = {}
+        return obj
+
     class Meta:
         ordering = ('ticket_type__tutorial_ticket',
                     'ticket_type__product_number')
@@ -397,6 +402,17 @@ class Ticket(models.Model):
                 # check for the sub ticket class
                 pass
         return real_ticket
+
+    def save_related_data(self):
+        """
+        This helper method stores all the data inside the related_data object
+        as if they were m2m relations that had not been persisted yet.
+        """
+        for key, values in self.related_data.items():
+            attr = getattr(self, key)
+            attr.clear()
+            for value in values:
+                attr.add(value)
 
     def can_be_edited_by(self, user, current_time=None):
         if current_time is None:
@@ -445,6 +461,8 @@ class VenueTicket(Ticket):
 
     shirtsize = models.ForeignKey(TShirtSize, blank=True, null=True,
                                   verbose_name=_('Desired T-Shirt size'))
+    dietary_preferences = models.ManyToManyField('DietaryPreference',
+        verbose_name=_('Dietary preferences'), null=True)
 
     voucher = models.ForeignKey(
         'Voucher', verbose_name=_('Voucher'), blank=True, null=True)
@@ -461,6 +479,13 @@ class VenueTicket(Ticket):
     def invoice_item_title(self):
         return force_text('1 “%s” Ticket for:<br /><i>%s %s</i>' %
             (self.ticket_type.name, self.first_name, self.last_name))
+
+
+class DietaryPreference(models.Model):
+    name = models.CharField('Name', unique=True, max_length=30)
+
+    def __unicode__(self):
+        return unicode(ugettext(self.name))
 
 
 class SIMCardTicket(Ticket):

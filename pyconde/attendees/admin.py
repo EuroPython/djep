@@ -16,7 +16,7 @@ from . import tasks
 from . import utils
 from .exporters import BadgeExporter
 from .models import Purchase, SupportTicket, VenueTicket, TicketType, Voucher, VoucherType, \
-                    TShirtSize, SIMCardTicket
+                    TShirtSize, SIMCardTicket, DietaryPreference
 
 
 def export_tickets(modeladmin, request, queryset):
@@ -214,8 +214,9 @@ admin.site.register(SupportTicket, SupportTicketAdmin)
 
 class VenueTicketAdmin(admin.ModelAdmin):
     list_display = ('purchase', 'first_name', 'last_name', 'ticket_type',
-                    'user', 'shirtsize', 'date_added')
-    list_filter = ('ticket_type', 'date_added', 'purchase__state')
+                    'user', 'shirtsize', 'date_added',)
+    list_filter = ('ticket_type', 'date_added', 'purchase__state',
+                   'dietary_preferences',)
     search_fields = ('first_name', 'last_name', 'purchase__email',
                      'user__email')
     actions = [export_tickets, export_badges]
@@ -237,3 +238,9 @@ class SIMCardTicketAdmin(admin.ModelAdmin):
     actions = [export_tickets]
 
 admin.site.register(SIMCardTicket, SIMCardTicketAdmin)
+
+
+class DietaryPreferenceAdmin(admin.ModelAdmin):
+    pass
+
+admin.site.register(DietaryPreference, DietaryPreferenceAdmin)
