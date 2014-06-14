@@ -7,6 +7,10 @@ from django.db import models
 
 class Migration(SchemaMigration):
 
+    depends_on = (
+        ('schedule', '0019_auto__add_field_sideevent_icon'),
+    )
+
     def forwards(self, orm):
         # Adding M2M table for field trainings on 'Profile'
         m2m_table_name = db.shorten_name(u'accounts_profile_trainings')
