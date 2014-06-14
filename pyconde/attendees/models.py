@@ -485,7 +485,7 @@ class DietaryPreference(models.Model):
     name = models.CharField('Name', unique=True, max_length=30)
 
     def __unicode__(self):
-        return unicode(ugettext(self.name))
+        return ugettext(self.name)
 
 
 class SIMCardTicket(Ticket):
