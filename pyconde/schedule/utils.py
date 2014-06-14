@@ -115,8 +115,11 @@ def create_section_schedule(section, row_duration=30, uncached=False):
         locations |= set(evt.location.all())
     locations = sorted(locations, cmp=lambda a, b: a.order - b.order)
 
+    # This allows overriding sessions (e.g. posters) with side events in the
+    # schedule table but still have them listed in the general lists.
     events = sorted(itertools.chain(sessions, side_events),
         cmp=_evt_start_cmp)
+
     if not events:
         return {}
 
