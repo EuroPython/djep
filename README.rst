@@ -43,12 +43,22 @@ Another environment variable you absolutely *have to set* is
     
     export DJANGO_SECRET_KEY=...
 
-Not that this value should be constant for your local installation.
+.. note::
 
-Everything should be in place now to initialize the database. If you want to use
-SQLite be warned that there are some issues with the migration steps done
-for some of django-cms' plugins. Therefor you will most likely have to run
-this::
+    Note that this value should be constant for your local installation.
+
+Everything should be in place now to initialize the database.
+
+
+.. warning::
+
+    Make sure you have redis up and running. Otherwise Django won't start due
+    to a missing connection to the cache. See `Development` section below for
+    details.
+
+If you want to use SQLite be warned that there are some issues with the
+migration steps done for some of django-cms' plugins. Therefore you will most
+likely have to run this::
     
     python manage.py syncdb --noinput --all
     python manage.py migrate --fake
@@ -64,11 +74,6 @@ empty. To change that you can load a fixture with initial data by running::
 
     python manage.py loaddata fixtures/europython2014/initial01.json
     python manage.py loaddata fixtures/europython2014/initial02.json
-
-.. warning::
-
-    Make sure you have redis up and running. Otherwise Django won't start due
-    to a missing connection to the cache.
 
 You can login as user *admin* with password *admin*
 
@@ -89,9 +94,6 @@ After this is complete, start the development-server on port 8000 with::
     
     python manage.py runserver
 
-As a final step you have to create a frontpage via
-http://localhost:8000/admin/cms/page/add/.
-
 
 Style integration
 -----------------
@@ -104,19 +106,21 @@ commands. They will also install all the requirements those tools rely on::
     npm install
     cd pyconde/skins/ep14/static/assets && ../../../../../node_modules/bower/bin/bower install
 
+
 Development
 -----------
 
-During development you will probably need a dummy mail server and other
-services that are usually run system-wide in production. To help you keep
-all these services under control the project provides a sample Procfile
-which you can use with `foreman`_ or `honcho`_::
+During development you will need a dummy mail server and other services that
+are usually run system-wide in production. To help you keep all these services
+under control the project provides a sample Procfile which you can use with
+`foreman`_ or `honcho`_::
     
     $ foreman start
 
 or::
     
     $ honcho start
+
 
 Using Vagrant
 -------------
@@ -141,18 +145,12 @@ on your local host machine.
 Note that you will need a filled database before this provides you a working
 system. PostgreSQL is already available and running inside the virtual machine.
 
+
 Deployment
 ----------
 
 live: fab -c live.ini upgrade
 staging: fab -c staging.ini upgrade
-
-
-Base data
----------
-
-Add a CMS page with the ID ``accounts`` and attach the ``Accounts Menu``. Make
-sure to *not* display the page in the menu!
 
 
 Symposion
