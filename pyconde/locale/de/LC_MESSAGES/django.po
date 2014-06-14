@@ -3837,7 +3837,11 @@ msgid "gluten-free"
 msgstr "Guten-frei"
 
 msgid "Dietary preferences"
-msgstr "Ernährungs-Vorlieben"
+msgstr "Ernährungsvorlieben"
+
+msgctxt "nameform"
+msgid "Dietary preferences"
+msgstr "Ernährungs&shy;vorlieben"
 
 #, fuzzy
 #~ msgid "Keynote"

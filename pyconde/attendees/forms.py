@@ -3,7 +3,8 @@ from django import forms
 from django.core.cache import get_cache
 from django.core.exceptions import ValidationError
 from django.utils.translation import ugettext_lazy as _
-from django.utils.translation import ugettext
+from django.utils.translation import ugettext, pgettext
+from django.utils.safestring import mark_safe
 from django.contrib.auth import models as auth_models
 
 from crispy_forms.helper import FormHelper
@@ -111,7 +112,7 @@ class TicketNameForm(forms.ModelForm):
         self.fields['last_name'].required = True
         self.fields['organisation'].required = False
         self.fields['dietary_preferences'] = forms.ModelMultipleChoiceField(
-            label=_('Dietary preferences'),
+            label=mark_safe(pgettext('nameform', 'Dietary preferences')),
             queryset=DietaryPreference.objects.all(),
             required=False,
             widget=forms.CheckboxSelectMultiple
