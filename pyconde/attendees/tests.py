@@ -659,7 +659,7 @@ class PurchaseProcessTest(TestCase):
 
 
 class TestPurchaseModel(TestCase):
-    
+
     def setUp(self):
         now = datetime.datetime.now()
         ct = ContentType.objects.get(app_label='attendees',
@@ -833,7 +833,7 @@ class TestTicketTypeModel(TestCase):
 
     def test_get_readonly_fields(self):
         fields = set(self.venue_ticket_type.get_readonly_fields())
-        expected = set(['first_name', 'last_name', 'organisation', 'voucher'])
+        expected = set(['first_name', 'last_name', 'organisation', 'voucher', 'dietary_preferences'])
         self.assertEqual(expected, fields)
 
     def test_clean_editable_fields_with_unknown_field(self):
@@ -910,7 +910,7 @@ class TestTicketModel(TestCase):
 
 class TestVenueTicketModel(TestCase):
     def test_get_fields(self):
-        expected = set(['first_name', 'last_name', 'organisation', 'shirtsize', 'voucher'])
+        expected = set(['first_name', 'last_name', 'organisation', 'shirtsize', 'voucher', 'dietary_preferences'])
         fields = models.VenueTicket.get_fields()
         self.assertEqual(expected, fields)
 
