@@ -3822,7 +3822,7 @@ msgid "author's description"
 msgstr "Beschreibung"
 
 msgid "vegan"
-msgstr "veganisch"
+msgstr "vegan"
 
 msgid "vegetarian"
 msgstr "vegetarisch"

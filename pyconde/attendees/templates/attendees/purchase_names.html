@@ -12,7 +12,7 @@
             {% for name_form in name_forms %}
               <fieldset>
                 <legend>{{ forloop.counter }}. Ticket ({{ name_form.instance.ticket_type.name }})</legend>
-                <div class="form-group {% if name_form.first_name.errors %}has-error{% endif %}">
+                <div class="form-group{% if name_form.first_name.errors %} has-error{% endif %}">
                   <label class="control-label" for="{{ name_form.first_name.id }}" class="requiredField">
                     {{ name_form.first_name.label }} <span class="asteriskField">*</span>:
                   </label>
@@ -23,7 +23,7 @@
                     {% endfor %}
                   </div>
                 </div>
-                <div class="form-group {% if name_form.last_name.errors %}has-error{% endif %}">
+                <div class="form-group{% if name_form.last_name.errors %} has-error{% endif %}">
                   <label class="control-label" for="{{ name_form.last_name.id }}" class="requiredField">
                     {{ name_form.last_name.label }} <span class="asteriskField">*</span>:
                   </label>
@@ -34,7 +34,7 @@
                     {% endfor %}
                   </div>
                 </div>
-                <div class="form-group {% if name_form.organisation.errors %}has-error{% endif %}">
+                <div class="form-group{% if name_form.organisation.errors %} has-error{% endif %}">
                   <label class="control-label" for="{{ name_form.organisation.id }}" class="requiredField">
                     {{ name_form.organisation.label }}:
                   </label>
@@ -46,7 +46,7 @@
                   </div>
                 </div>
                 {% if not name_form.instance.ticket_type.tutorial_ticket %}
-                    <div class="form-group {% if name_form.dietary_preferences.errors %}has-error{% endif %}">
+                    <div class="form-group{% if name_form.dietary_preferences.errors %} has-error{% endif %}">
                         <label class="control-label" for="{{ name_form.dietary_preferences.id }}">
                             {{ name_form.dietary_preferences.label }}:
                         </label>
@@ -58,7 +58,7 @@
                             <p class="help-block">{{ name_form.dietary_preferences.help_text|safe }}</p>
                         </div>
                     </div>
-                  <div class="form-group {% if name_form.shirtsize.errors %}has-error{% endif %}">
+                  <div class="form-group{% if name_form.shirtsize.errors %} has-error{% endif %}">
                     <label class="control-label" for="{{ name_form.shirtsize.id }}">
                       {{ name_form.shirtsize.label }}:
                     </label>
