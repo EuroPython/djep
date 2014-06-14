@@ -60,7 +60,7 @@ If you want to use SQLite be warned that there are some issues with the
 migration steps done for some of django-cms' plugins. Therefore you will most
 likely have to run this::
     
-    python manage.py syncdb --noinput --all
+    python manage.py syncdb --noinput
     python manage.py migrate --fake
 
 If you want to use PostgreSQL (which is also used in production for this site),
@@ -120,6 +120,11 @@ under control the project provides a sample Procfile which you can use with
 or::
     
     $ honcho start
+
+However, the minimum is a running Redis server to get the project running. It
+is sufficient to simply launch the server before using the `manage.py` CLI::
+
+    $ redis-server
 
 
 Using Vagrant
