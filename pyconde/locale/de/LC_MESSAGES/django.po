@@ -3468,7 +3468,7 @@ msgid "We successfully changed your password."
 msgstr "Passwort erfolgreich geändert"
 
 #: skins/default/templates/userprofiles/password_reset_complete.html:8
-msgid "We successfully resetted your password."
+msgid "We successfully reset your password."
 msgstr "Passwort erfolgreich zurückgesetzt."
 
 #: skins/default/templates/userprofiles/password_reset_confirm.html:11
