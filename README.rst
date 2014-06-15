@@ -60,8 +60,7 @@ If you want to use SQLite be warned that there are some issues with the
 migration steps done for some of django-cms' plugins. Therefore you will most
 likely have to run this::
     
-    python manage.py syncdb --noinput
-    python manage.py migrate --fake
+    python manage.py syncdb --noinput --migrate
 
 If you want to use PostgreSQL (which is also used in production for this site),
 alter the `DATABASES` section of your pyconde/settings.py accordingly and then
