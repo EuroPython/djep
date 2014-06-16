@@ -1061,23 +1061,5 @@
         "is_recordable": false,
         "description": ""
     }
-},
-{
-    "pk": 2,
-    "model": "schedule.completescheduleplugin",
-    "fields": {
-        "sections": [],
-        "row_duration": 15,
-        "merge_sections": false
-    }
-},
-{
-    "pk": 4,
-    "model": "schedule.completescheduleplugin",
-    "fields": {
-        "sections": [],
-        "row_duration": 15,
-        "merge_sections": false
-    }
 }
 ]
