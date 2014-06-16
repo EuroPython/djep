@@ -12,7 +12,7 @@
       <div class="row">
         {% for sponsor in levelsponsors %}
           <div class="sponsor-item columns small-12 {% if levelcount > 1 %}large-6{% else %}large-12{% endif %} {% if forloop.last and not forloop.counter|divisibleby:"2" %}last{% endif %}">
-            <h3><img alt="{{ sponsor.name }}" src="{% if forloop.last and not forloop.counter|divisibleby:"2" %}{% thumbnail sponsor.logo 250x250 upscale %}{% else %}{% thumbnail sponsor.logo 200x170 upscale %}{% endif %}" /></h3>
+            <h3><img alt="{{ sponsor.name }}" src="{% if forloop.last and not forloop.counter|divisibleby:"2" %}{% thumbnail sponsor.logo 250x250 upscale %}{% else %}{% thumbnail sponsor.logo 200x100 upscale %}{% endif %}" /></h3>
             <div class="desc">{{ sponsor.description|markdown:"safe" }}</div>
             <dl class="meta">
               <dt>{% trans "Website" %}</dt>
