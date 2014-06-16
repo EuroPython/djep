@@ -1,35 +1,64 @@
 body.profilepage {
+    h1 {
+        text-align: left;
+        margin-bottom: 10px;
+    }
+    h1, .misc {
+        margin-top: 0;
+        padding-top: 50px;
+        padding-bottom: 0;
+    }
+    .infoline {
+        margin-bottom: 30px;
+        > a, > span {
+            color: $blue-light;
+            display: inline-block;
+            margin-right: 20px;
+            text-decoration: none;
+        }
+    }
+    .interests {
+        span {
+            font-weight: bold;
+        }
+    }
     .profile {
         @include grid-row;
     }
 
     img.avatar {
-        border: 3px solid $background1;
-        padding: 2px;
+        border-radius: 50%;
     }
 
     div.misc {
         text-align: center;
         @media #{$medium-up} {
-            @include grid-column($columns: 4);
+            @include grid-column($columns: 3);
             text-align: left;
         }
     }
 
     .info {
         @media #{$medium-up} {
-            @include grid-column($columns: 8);
+            @include grid-column($columns: 9);
         }
         p:first-child {
             margin-top: 0;
         }
     }
 
-    dt {
-        font-weight: bold;
-    }
+    .sessions {
+        border-top: 1px solid $background-color-light;
+        margin-top: 50px;
 
-    dd {
-        margin: 0;
+        h2 {
+            background: url(../images/sessionstitle.png) 0% 0% no-repeat;
+            line-height: 50px;
+            padding-left: 28px;
+            margin-top: 0;
+            font-size: 2rem;
+            height: 80px;
+            font-weight: normal;
+        }
     }
 }

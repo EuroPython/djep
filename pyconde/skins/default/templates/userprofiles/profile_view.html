@@ -1,52 +1,40 @@
 {% extends "site_base.html" %}
-{% load i18n account_tags thumbnail markup %}
+{% load i18n account_tags thumbnail markup helper_tags %}
 
 {% block title %}{{ userobj|display_name }}{% endblock %}
 {% block page_title %}{% trans "User profile:" %} {{ userobj|display_name }}{% endblock %}
 
 {% block bodyclass %}profilepage{% endblock %}
+{% block site_title %}{% endblock %}
 {% block body %}
 <div class="profile">
   <div class="misc">
     <div class="avatar">
-      {% avatar profile %}
+      {% avatar profile width=150 %}
     </div>
-    {% if request.user == userobj %}
-    <dl>
-      <dt>{% trans "Username" %}:</dt>
-      <dd>{{ userobj.username }}</a>
-    </dl>
-    {% endif %}
-    {% if profile.twitter %}
-    <dl>
-      <dt>{% trans "Twitter" %}:</dt>
-      <dd><a href="https://twitter.com/{{ profile.twitter }}">@{{ profile.twitter }}</a>
-    </dl>
-    {% endif %}
-    {% if profile.website %}
-    <dl>
-      <dt>{% trans "Website" %}:</dt>
-      <dd><a href="{{ profile.website }}">{{ profile.website }}</a></dd>
-    </dl>
-    {% endif %}
-    {% if profile.website %}
-    <dl>
-      <dt>{% trans "Organisation" %}:</dt>
-      <dd>{{ profile.organisation }}</dd>
-    </dl>
-    {% endif %}
-    {% if interests %}
-    <dl>
-      <dt>{% trans "Interests" %}:</dt>
-      <dd>{% for tag in interests %}<span class="label">{{ tag }}</span>{% if not forloop.last %}, {% endif %}{% endfor %}</dd>
-    </dl>
-    {% endif %}
   </div>
   <div class="info">
+      <h1>{{ userobj|display_name }}</h1>
+      <p class="infoline">
+        {% if profile.twitter %}
+        <a href="https://twitter.com/{{ profile.twitter }}" rel="external"><i class="fa fa-fw fa-twitter"></i> @{{ profile.twitter }}</a>
+        {% endif %}
+
+        {% if profile.website %}
+        <a href="{{ profile.website }}" rel="external"><i class="fa fa-fw fa-link"></i> {{ profile.website|domain }}</a>
+        {% endif %}
+
+        {% if profile.organisation %}
+        <span><i class="fa fa-fw fa-building-o"></i> {{ profile.organisation }}</span>
+        {% endif %}
+      </p>
     {% if profile.short_info %}
       {{ profile.short_info|markdown:"safe" }}
     {% else %}
       <p class="empty">{% trans "No info available" %}</p>
+    {% endif %}
+    {% if interests %}
+    <p class="interests"><span>{% trans "Interested in" %}</span> {% for tag in interests %}{{ tag }}{% if not forloop.last %}, {% endif %}{% endfor %}</p>
     {% endif %}
     {% if sessions %}
       <section class="sessions">

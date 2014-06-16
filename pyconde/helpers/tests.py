@@ -16,5 +16,13 @@ class ShyFilterTests(unittest.TestCase):
         self.assertEquals(r, helper_tags.shy(t, 15))
 
 
+class DomainFilterTests(unittest.TestCase):
+    def test_valid_url(self):
+        self.assertEquals("domain.com", helper_tags.domain("http://domain.com/path"))
+
+    def test_invalid_url(self):
+        self.assertEquals("invalid", helper_tags.domain("invalid"))
+
+
 if __name__ == '__main__':
     unittest.main()
