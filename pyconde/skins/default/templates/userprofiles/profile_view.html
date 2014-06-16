@@ -17,7 +17,7 @@
       <h1>{{ userobj|display_name }}</h1>
       <p class="infoline">
         {% if profile.twitter %}
-        <a href="https://twitter.com/{{ profile.twitter }}"><i class="fa fa-fw fa-twitter"></i> @{{ profile.twitter }}</a>
+        <a href="https://twitter.com/{{ profile.twitter }}" rel="external"><i class="fa fa-fw fa-twitter"></i> @{{ profile.twitter }}</a>
         {% endif %}
 
         {% if profile.website %}
