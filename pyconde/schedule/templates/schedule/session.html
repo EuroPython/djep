@@ -15,16 +15,18 @@
                     {% endfor %}
                 </dd></dl>
             {% endif %}
-            {% if session.location.all %}
-                <dl>
-                    <dt>{% trans "Location" %}:</dt>
-                    <dd>
-                        {% for loc in session.location.all %}
-                            <a href="{% url 'sessions_by_location' pk=loc.pk %}">{{ loc }}</a>{% if not forloop.first %}, {% endif %}
-                        {% endfor %}
-                    </dd>
-                </dl>
-            {% endif %}
+            {% with locations=session.location.all %}
+                {% if locations|length > 0 %}
+                    <dl>
+                        <dt>{% trans "Location" %}:</dt>
+                        <dd>
+                            {% for loc in locations %}
+                                <a href="{% url 'sessions_by_location' pk=loc.pk %}">{{ loc }}</a>{% if not forloop.first %}, {% endif %}
+                            {% endfor %}
+                        </dd>
+                    </dl>
+                {% endif %}
+            {% endwith %}
             {% if session.start or session.end %}
                 <dl>
                     <dt>{% trans "Duration" %}:</dt>
