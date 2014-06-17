@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 from __future__ import unicode_literals
 
+import logging
+
 from contextlib import closing
 from email.utils import formataddr
 
@@ -14,6 +16,9 @@ from pyconde.celery import app
 
 from ..conference.models import current_conference
 from .utils import SEND_MAIL_FILTERS, get_addressed_as
+
+
+LOG = logging.getLogger(__name__)
 
 
 @app.task(ignore_result=True)
@@ -37,6 +42,7 @@ def sendmail_task(target, subject, message, domain):
     # implicitly created for every mail, as described in the docs:
     # https://docs.djangoproject.com/en/dev/topics/email/#sending-multiple-emails
     with closing(mail.get_connection()) as connection:
+        cnt = 0
         for user in users:
             addressed_as = get_addressed_as(user)
             body = base_message.replace('$$RECEIVER$$', addressed_as)
@@ -46,3 +52,7 @@ def sendmail_task(target, subject, message, domain):
                 connection=connection
             )
             email.send()
+            cnt += 1
+            if cnt % 50 == 0:
+                LOG.info('Wrote {0} mails'.format(cnt))
+        LOG.info('Wrote {0} mails in total'.format(cnt))
