@@ -15,7 +15,8 @@ class Command(BaseCommand):
             action='store',
             dest='base_url',
             default='',
-            help='Base URL for profile URLs'),
+            help='Base URL for profile URLs. Use {uid} as placeholder to '
+                 'circumvent URL resolving and use custom URLs'),
         make_option('--indent',
             action='store_true',
             dest='indent',

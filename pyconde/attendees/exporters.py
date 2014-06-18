@@ -125,6 +125,7 @@ class BadgeExporter(object):
                                              'user__speaker_profile',
                                              'shirtsize') \
                              .prefetch_related('user__profile__tags',
+                                               'user__profile__badge_status',
                                                'user__profile__sessions_attending') \
                              .order_by('first_name',
                                        'last_name'):
@@ -146,7 +147,7 @@ class BadgeExporter(object):
                 'organization': ticket.organisation or purchase.company_name or profile and profile.organisation or None,
                 'tshirt': ticket.shirtsize_id and ticket.shirtsize.size or None,
                 'tags': None,  # set below
-                'profile': user and (self.base_url + reverse('account_profile', kwargs={'uid': user.id})) or None,
+                'profile': self._user_url(user),
                 'sponsor': None,  # set below
                 'days': None,  # Only whole-conference tickets are sold online
                 'status': None,  # set below
@@ -190,3 +191,11 @@ class BadgeExporter(object):
 
             result.append(badge)
         return result
+
+    def _user_url(self, user):
+        if user:
+            if '{uid}' in self.base_url:
+                return self.base_url.format(uid=user.id)
+            else:
+                self.base_url + reverse('account_profile', kwargs={'uid': user.id})
+        return None
