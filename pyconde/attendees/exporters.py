@@ -163,7 +163,7 @@ class BadgeExporter(object):
                         'level': sponsor.level.name,
                         'website': sponsor.external_url
                     }
-                    status_keys.add(_('Sponsor'))
+                    status_keys.add('sponsor')
 
                 speaker = user.speaker_profile
                 if 'talk' in speaker_involvements[speaker.id]:
