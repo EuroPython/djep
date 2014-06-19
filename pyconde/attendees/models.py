@@ -349,7 +349,8 @@ class TShirtSize(models.Model):
 class TicketManager(models.Manager):
 
     def only_valid(self):
-        return self.get_query_set().filter(canceled=False)
+        return self.get_query_set().filter(canceled=False,
+                                           purchase__state='payment_received')
 
     def get_active_user_tickets(self, user):
         """
