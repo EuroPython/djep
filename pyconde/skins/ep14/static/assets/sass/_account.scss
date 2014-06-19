@@ -58,6 +58,13 @@
                 margin-bottom: 1em;
             }
 
+            .canceled {
+                background: $red;
+                color: #FFF;
+                padding: 3px 5px 5px 5px;
+                float: right;
+            }
+
             ul {
                 list-style: none;
                 padding: 0;
@@ -81,6 +88,12 @@
         overflow: hidden;
         width: 100%;
         border-bottom: 1px dotted $grey;
+    }
+    .canceled {
+        background: $red;
+        color: #FFF;
+        padding: 3px 5px 5px;
+        margin-right: 1em; 
     }
     .ticket {
         margin-bottom: 4em;

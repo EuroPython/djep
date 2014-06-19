@@ -587,6 +587,9 @@ class EditTicketView(LoginRequiredMixin, generic_views.UpdateView):
     form_class = forms.EditVenueTicketForm
     template_name = 'attendees/edit_ticket.html'
 
+    def get_queryset(self):
+        return self.model.objects.only_valid().all()
+
     def get_object(self, queryset=None):
         obj = super(EditTicketView, self).get_object(queryset)
         if not obj.can_be_edited_by(self.request.user):
@@ -627,10 +630,11 @@ class AssignTicketView(LoginRequiredMixin, generic_views.View):
     """
 
     def dispatch(self, *args, **kwargs):
-        self.ticket = get_object_or_404(
-            Ticket,
-            pk=kwargs['pk'], purchase__user=self.request.user,
-            user__isnull=True, purchase__state='payment_received')
+        qs = Ticket.objects.only_valid() \
+                           .filter(pk=kwargs['pk'],
+                                   purchase__user=self.request.user,
+                                   user__isnull=True)
+        self.ticket = qs.get()
         return super(AssignTicketView, self).dispatch(*args, **kwargs)
 
     def get(self, *args, **kwargs):
