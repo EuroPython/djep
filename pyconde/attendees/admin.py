@@ -64,19 +64,20 @@ class VoucherAdmin(admin.ModelAdmin):
 admin.site.register(Voucher, VoucherAdmin)
 
 
-class SupportTicketInline(admin.TabularInline):
+class TicketInline(admin.TabularInline):
+    extra = 0
+
+    
+class SupportTicketInline(TicketInline):
     model = SupportTicket
-    extra = 0
 
 
-class VenueTicketInline(admin.TabularInline):
+class VenueTicketInline(TicketInline):
     model = VenueTicket
-    extra = 0
 
 
-class SIMCardTicketInline(admin.TabularInline):
+class SIMCardTicketInline(TicketInline):
     model = SIMCardTicket
-    extra = 0
 
 
 class PurchaseAdmin(admin.ModelAdmin):
