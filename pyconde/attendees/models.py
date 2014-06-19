@@ -375,6 +375,8 @@ class Ticket(models.Model):
 
     objects = TicketManager()
 
+    management_fields = ()
+
     def __init__(self, *args, **kwargs):
         obj = super(Ticket, self).__init__(*args, **kwargs)
         self.related_data = {}
@@ -436,7 +438,7 @@ class Ticket(models.Model):
         """
         local_fields = set(cls._meta.get_all_field_names())
         original_fields = set(Ticket._meta.get_all_field_names())
-        return local_fields - original_fields - set(['ticket_ptr'])
+        return local_fields - original_fields - set(['ticket_ptr']) - set(cls.management_fields)
 
 
 class SupportTicket(Ticket):
@@ -464,8 +466,12 @@ class VenueTicket(Ticket):
     dietary_preferences = models.ManyToManyField('DietaryPreference',
         verbose_name=_('Dietary preferences'), null=True, blank=True)
 
+    sponsor = models.ForeignKey('sponsorship.Sponsor', null=True, blank=True,
+        verbose_name=_('Sponsor'))
     voucher = models.ForeignKey(
         'Voucher', verbose_name=_('Voucher'), blank=True, null=True)
+
+    management_fields = ('sponsor', 'voucher',)
 
     class Meta:
         verbose_name = _('Conference Ticket')

@@ -121,6 +121,7 @@ class BadgeExporter(object):
             speaker_involvements[session.speaker_id] |= additional_speakers
 
         for ticket in tickets.select_related('purchase',
+                                             'sponsor',
                                              'user__profile__sponsor__level',
                                              'user__speaker_profile',
                                              'shirtsize') \
@@ -153,17 +154,18 @@ class BadgeExporter(object):
                 'status': None,  # set below
                 'trainings': None,
             }
-            if profile:
-                status_keys = set(profile.badge_status.values_list('slug', flat=True).all())
+            status_keys = set()
+            if ticket.sponsor_id and ticket.sponsor.active:
+                sponsor = ticket.sponsor
+                badge['sponsor'] = {
+                    'name': sponsor.name,
+                    'level': sponsor.level.name,
+                    'website': sponsor.external_url
+                }
+                status_keys.add('sponsor')
 
-                if profile.sponsor_id and profile.sponsor.active:
-                    sponsor = profile.sponsor
-                    badge['sponsor'] = {
-                        'name': sponsor.name,
-                        'level': sponsor.level.name,
-                        'website': sponsor.external_url
-                    }
-                    status_keys.add('sponsor')
+            if profile:
+                status_keys |= set(profile.badge_status.values_list('slug', flat=True).all())
 
                 speaker = user.speaker_profile
                 if 'talk' in speaker_involvements[speaker.id]:
