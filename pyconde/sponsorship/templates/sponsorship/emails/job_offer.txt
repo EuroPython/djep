@@ -1,8 +1,8 @@
-{% load i18n %}{% blocktrans with sponsor=offer.sponsor.name %}This is a job offer by "{{ sponsor }}":{% endblocktrans %}
+{% load i18n %}{% blocktrans %}This is a job offer by "{{ sponsor_name }}":{% endblocktrans %}
 
 --------------------------------------------------
 
-{{ offer.text|striptags|safe }}
+{{ text|striptags|safe }}
 
 --------------------------------------------------
 

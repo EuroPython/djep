@@ -22,8 +22,7 @@ class JobOffer(generic_views.FormView):
         return super(JobOffer, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
-        offer = form.save()
-        send_job_offer.delay(offer.id)
+        send_job_offer.delay(form.cleaned_data)
         messages.success(self.request, _('Job offer sent'))
         return HttpResponseRedirect(self.request.path)
 

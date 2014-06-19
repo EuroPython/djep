@@ -11,14 +11,14 @@ from pyconde.celery import app
 
 
 @app.task(ignore_result=True)
-def send_job_offer(job_offer_id):
-
-    try:
-        offer = JobOffer.objects.select_related('sponsor').get(pk=job_offer_id)
-    except JobOffer.DoesNotExit:
-        raise RuntimeError('No job offer found with pk %d' % job_offer_id)
-
+def send_job_offer(cleaned_data):
+    cd = cleaned_data
     profiles = Profile.objects.filter(accept_job_offers=True).select_related('user')
+    body = render_to_string('sponsorship/emails/job_offer.txt', {
+        'sponsor_name': cd['sponsor'].name,
+        'text': cd['text'],
+        'site': Site.objects.get_current()
+    })
 
     # Re-use the connection to the server, so that a connection is not
     # implicitly created for every mail, as described in the docs:
@@ -30,13 +30,9 @@ def send_job_offer(job_offer_id):
             offset += 50
             if not chunk:
                 break
-            body = render_to_string('sponsorship/emails/job_offer.txt', {
-                'offer': offer,
-                'site': Site.objects.get_current()
-            })
-            email = mail.EmailMessage(offer.subject, body,
+            email = mail.EmailMessage(cd['subject'], body,
                 bcc=[profile.user.email for profile in chunk],
-                headers={'Reply-To': offer.reply_to},
+                headers={'Reply-To': cd['reply_to']},
                 connection=connection
             )
             email.send()
