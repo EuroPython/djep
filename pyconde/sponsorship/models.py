@@ -98,7 +98,17 @@ class SponsorListPlugin(CMSPlugin):
 
 class JobOffer(models.Model):
     sponsor = models.ForeignKey(Sponsor, verbose_name=_("sponsor"))
-    reply_to = models.EmailField(_("Reply-To"),
-        help_text=_('The email address to which responses should be sent.'))
-    subject = models.CharField(_("title"), max_length=50)
-    text = models.TextField(_("text"))
+    title = models.CharField(_("Title"), max_length=50)
+    text = models.TextField(_("Text"))
+    link = models.URLField(_("URL"))
+    active = models.BooleanField(_('Active'), default=False)
+
+    added = models.DateTimeField(auto_now_add=True, editable=False)
+
+    class Meta:
+        ordering = ['-added']
+        verbose_name = _('Job offer')
+        verbose_name_plural = _('Job offers')
+
+    def __unicode__(self):
+        return self.title

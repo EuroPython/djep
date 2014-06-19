@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load i18n markup thumbnail %}
+{% block title %}{% trans "Job offers" %}{% endblock %}
+{% block page_title %}{% trans "Job offers" %}{% endblock %}
+{% block content %}
+<div class="sponsorship job-offers">
+    {% for object in object_list %}
+        <div class="offer">
+            <img alt="{{ sponsor.name }}" src="{% thumbnail object.sponsor.logo 200x100 upscale %}" />
+            <div>
+                <h2>{{ object.title }}</h2>
+                <p>{{ object.text|markdown:"safe" }}</p>
+                <a href="{{ object.link }}">{% trans "Read more" %} <i class="fa fa-chevron-right"></i></a>
+            </div>
+        </div>
+    {% endfor %}
+</div>
+{% endblock %}
+

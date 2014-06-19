@@ -7,11 +7,11 @@ from django.utils.translation import ugettext_lazy as _
 from django.views import generic as generic_views
 
 from .forms import JobOfferForm
-from .models import Sponsor
+from .models import JobOffer, Sponsor
 from .tasks import send_job_offer
 
 
-class JobOffer(generic_views.FormView):
+class SendJobOffer(generic_views.FormView):
     template_name = 'sponsorship/send_job_offer.html'
     form_class = JobOfferForm
 
@@ -26,7 +26,7 @@ class JobOffer(generic_views.FormView):
         messages.success(self.request, _('Job offer sent'))
         return HttpResponseRedirect(self.request.path)
 
-job_offer = JobOffer.as_view()
+send_job_offer_view = SendJobOffer.as_view()
 
 
 def list_sponsors(request):
@@ -44,3 +44,13 @@ def list_sponsors(request):
         },
         template='sponsorship/sponsor_list.html'
     )
+
+
+class JobOffersListView(generic_views.ListView):
+    model = JobOffer
+
+    def get_queryset(self):
+        qs = super(JobOffersListView, self).get_queryset()
+        return qs.filter(active=True)
+
+job_offers_list_view = JobOffersListView.as_view()

@@ -106,4 +106,36 @@
             }
         }
     }
+
+    &.job-offers {
+        .offer {
+            &:not(:first-child) {
+                padding-top: 30px;
+            }
+            &:not(:last-child) {
+                border-bottom: 1px solid $background-color-light;
+                padding-bottom: 30px;
+            }
+
+            img {
+                float: left;
+            }
+
+            div {
+                margin-left: 250px;
+
+                h2 {
+                    color: $blue-light;
+                    font-size: 2em;
+                    font-weight: 400;
+                    margin-top: 10px;
+                }
+
+                > a {
+                    font-weight: 700;
+                    text-decoration: none;
+                }
+            }
+        }
+    }
 }
