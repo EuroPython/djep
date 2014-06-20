@@ -127,6 +127,7 @@ class TicketNameForm(forms.ModelForm):
         model = VenueTicket
         fields = ('first_name', 'last_name', 'organisation', 'shirtsize',
                   'dietary_preferences',)
+        exclude = VenueTicket.management_fields
 
     def save(self, *args, **kwargs):
         # Update, save would overwrite other flags too (even if not in
