@@ -67,7 +67,7 @@ admin.site.register(Voucher, VoucherAdmin)
 class TicketInline(admin.TabularInline):
     extra = 0
 
-    
+
 class SupportTicketInline(TicketInline):
     model = SupportTicket
 
