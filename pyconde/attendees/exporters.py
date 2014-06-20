@@ -175,9 +175,6 @@ class BadgeExporter(object):
                 if 'keynote' in speaker_involvements[speaker.id]:
                     status_keys.add('keynote')
 
-                if status_keys:
-                    badge['status'] = list(status_keys)
-
                 tags = [t.name for t in profile.tags.all()]
                 if tags:
                     badge['tags'] = tags
@@ -190,6 +187,9 @@ class BadgeExporter(object):
                         index, start = trainings_pk_index[t.id]
                         attendings[start].append(index)
                     badge['trainings'] = attendings
+
+            if status_keys:
+                badge['status'] = list(status_keys)
 
             result.append(badge)
         return result
