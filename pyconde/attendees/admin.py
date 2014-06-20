@@ -64,19 +64,20 @@ class VoucherAdmin(admin.ModelAdmin):
 admin.site.register(Voucher, VoucherAdmin)
 
 
-class SupportTicketInline(admin.TabularInline):
+class TicketInline(admin.TabularInline):
+    extra = 0
+
+    
+class SupportTicketInline(TicketInline):
     model = SupportTicket
-    extra = 0
 
 
-class VenueTicketInline(admin.TabularInline):
+class VenueTicketInline(TicketInline):
     model = VenueTicket
-    extra = 0
 
 
-class SIMCardTicketInline(admin.TabularInline):
+class SIMCardTicketInline(TicketInline):
     model = SIMCardTicket
-    extra = 0
 
 
 class PurchaseAdmin(admin.ModelAdmin):
@@ -204,8 +205,8 @@ admin.site.register(Purchase, PurchaseAdmin)
 
 
 class SupportTicketAdmin(admin.ModelAdmin):
-    list_display = ('purchase', 'ticket_type', 'date_added')
-    list_filter = ('ticket_type', 'date_added', 'purchase__state')
+    list_display = ('purchase', 'ticket_type', 'date_added', 'canceled')
+    list_filter = ('ticket_type', 'date_added', 'purchase__state', 'canceled')
     search_fields = ('purchase__email', )
     actions = [export_tickets]
 
@@ -214,9 +215,9 @@ admin.site.register(SupportTicket, SupportTicketAdmin)
 
 class VenueTicketAdmin(admin.ModelAdmin):
     list_display = ('purchase', 'first_name', 'last_name', 'ticket_type',
-                    'user', 'shirtsize', 'date_added',)
+                    'user', 'shirtsize', 'date_added', 'canceled')
     list_filter = ('ticket_type', 'date_added', 'purchase__state',
-                   'dietary_preferences',)
+                   'dietary_preferences', 'canceled')
     search_fields = ('first_name', 'last_name', 'purchase__email',
                      'user__email')
     actions = [export_tickets, export_badges]
@@ -232,8 +233,8 @@ admin.site.register(VenueTicket, VenueTicketAdmin)
 
 class SIMCardTicketAdmin(admin.ModelAdmin):
     list_display = ('purchase', 'first_name', 'last_name', 'ticket_type',
-                    'sim_id', 'date_added')
-    list_filter = ('ticket_type', 'date_added', 'purchase__state')
+                    'sim_id', 'date_added', 'canceled')
+    list_filter = ('ticket_type', 'date_added', 'purchase__state', 'canceled')
     search_fields = ('first_name', 'last_name', 'purchase__email')
     actions = [export_tickets]
 

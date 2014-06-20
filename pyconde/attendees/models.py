@@ -347,6 +347,11 @@ class TShirtSize(models.Model):
 
 
 class TicketManager(models.Manager):
+
+    def only_valid(self):
+        return self.get_query_set().filter(canceled=False,
+                                           purchase__state='payment_received')
+
     def get_active_user_tickets(self, user):
         """
         This returns all tickets that belong to a certain user, meaning that
@@ -372,6 +377,8 @@ class Ticket(models.Model):
 
     date_added = models.DateTimeField(
         _('Date (added)'), blank=False, default=now)
+
+    canceled = models.BooleanField(_('Canceled'), default=False, blank=True)
 
     objects = TicketManager()
 
@@ -443,6 +450,8 @@ class Ticket(models.Model):
 
 class SupportTicket(Ticket):
 
+    objects = TicketManager()
+
     class Meta:
         verbose_name = _('Support Ticket')
         verbose_name_plural = _('Support Tickets')
@@ -472,6 +481,8 @@ class VenueTicket(Ticket):
         'Voucher', verbose_name=_('Voucher'), blank=True, null=True)
 
     management_fields = ('sponsor', 'voucher',)
+
+    objects = TicketManager()
 
     class Meta:
         verbose_name = _('Conference Ticket')
@@ -518,6 +529,8 @@ class SIMCardTicket(Ticket):
     sim_id = models.CharField(
         _('IMSI'), max_length=20, blank=True,
         help_text=_('The IMSI of the SIM Card associated with this account.'))
+
+    objects = TicketManager()
 
     class Meta:
         verbose_name = _('SIM Card')

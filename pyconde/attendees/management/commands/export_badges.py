@@ -27,7 +27,7 @@ class Command(BaseCommand):
     help = 'Export all valid venue / conference tickets'
 
     def handle(self, *args, **options):
-        qs = VenueTicket.objects.filter(purchase__state='payment_received')
+        qs = VenueTicket.objects.only_valid()
         exporter = BadgeExporter(qs, base_url=options['base_url'],
             indent=options['indent'])
         self.stdout.write(exporter.json)
