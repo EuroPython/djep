@@ -3,14 +3,14 @@
 {% block title %}{% trans "Our sponsors" %}{% endblock %}
 {% block page_title %}{% trans "Our sponsors" %}{% endblock %}
 {% block content %}
+{% regroup sponsors by level as sponsors_list %}
 <div class="sponsorship list">
-  {% for level in levels %}
-    {% with levelsponsors=level.sponsor_set.all %}
-    {% with levelcount=levelsponsors|length %}
-    <div class="level level-{{ level.slug }} sponsorcount-{{ levelcount }}">
-      <h2><span>{{ level.name }}</span></h2>
+  {% for level in sponsors_list %}
+    {% with levelcount=level.list|length %}
+    <div class="level level-{{ level.grouper.slug }} sponsorcount-{{ levelcount }}">
+      <h2><span>{{ level.grouper.name }}</span></h2>
       <div class="row">
-        {% for sponsor in levelsponsors %}
+        {% for sponsor in level.list %}
           <div class="sponsor-item columns small-12 {% if levelcount > 1 %}large-6{% else %}large-12{% endif %} {% if forloop.last and not forloop.counter|divisibleby:"2" %}last{% endif %}">
             <h3><img alt="{{ sponsor.name }}" src="{% if forloop.last and not forloop.counter|divisibleby:"2" %}{% thumbnail sponsor.logo 250x250 upscale %}{% else %}{% thumbnail sponsor.logo 200x100 upscale %}{% endif %}" /></h3>
             <div class="desc">{{ sponsor.description|markdown:"safe" }}</div>
@@ -26,7 +26,6 @@
         {% endfor %}
       </div>
     </div>
-    {% endwith %}
     {% endwith %}
   {% endfor %}
 </div>

@@ -7,7 +7,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.views import generic as generic_views
 
 from .forms import JobOfferForm
-from .models import SponsorLevel
+from .models import Sponsor
 from .tasks import send_job_offer
 
 
@@ -34,14 +34,14 @@ def list_sponsors(request):
     """
     This view lists all sponsors ordered by their level and name.
     """
-    levels = SponsorLevel.objects.select_related('sponsor_set') \
-                                 .filter(sponsor__active=True) \
-                                 .distinct() \
-                                 .all()
+    sponsors = Sponsor.objects.filter(active=True) \
+                              .select_related('level') \
+                              .order_by('level__order', 'name') \
+                              .all()
     return TemplateResponse(
         request=request,
         context={
-            'levels': levels,
+            'sponsors': sponsors,
         },
         template='sponsorship/sponsor_list.html'
     )
