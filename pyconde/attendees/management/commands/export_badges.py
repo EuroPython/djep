@@ -22,12 +22,20 @@ class Command(BaseCommand):
             dest='indent',
             default=None,
             help='Indent the output'),
+        make_option('--exclude-ticket-type',
+            action='store',
+            dest='exclude_tt',
+            default=None,
+            help='comma separated list of ticket type IDs to exclude'),
         )
 
     help = 'Export all valid venue / conference tickets'
 
     def handle(self, *args, **options):
         qs = VenueTicket.objects.only_valid()
+        if options['exclude_tt'] is not None:
+            excluded_tt_ids = map(int, options['exclude_tt'].split(','))
+            qs = qs.exclude(ticket_type_id__in=excluded_tt_ids)
         exporter = BadgeExporter(qs, base_url=options['base_url'],
             indent=options['indent'])
         self.stdout.write(exporter.json)
