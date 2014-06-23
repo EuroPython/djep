@@ -23,22 +23,23 @@ SELECT
 	t.user_id t_uid,
 	CASE
 		WHEN tt.content_type_id = 84 THEN
-			(SELECT first_name || ' ' || last_name FROM attendees_simcardticket WHERE ticket_ptr_id = t.id)
+			(SELECT TRIM(both ' ' from first_name) || ' ' || TRIM(both ' ' from last_name) FROM attendees_simcardticket WHERE ticket_ptr_id = t.id)
 		WHEN tt.content_type_id = 85 THEN
-			(SELECT first_name || ' ' || last_name FROM attendees_venueticket WHERE ticket_ptr_id = t.id)
+			(SELECT TRIM(both ' ' from first_name) || ' ' || TRIM(both ' ' from last_name) FROM attendees_venueticket WHERE ticket_ptr_id = t.id)
 		ELSE NULL
 	END t_first_last_name
 FROM
 	attendees_purchase p
 	INNER JOIN auth_user u
 		ON p.user_id = u.id
-		INNER JOIN attendees_ticket t
-			ON t.purchase_id = p.id
-			INNER JOIN attendees_tickettype tt
-				ON tt.id = t.ticket_type_id
 		INNER JOIN accounts_profile prof
 			ON prof.user_id = u.id
+	INNER JOIN attendees_ticket t
+		ON t.purchase_id = p.id
+		INNER JOIN attendees_tickettype tt
+			ON tt.id = t.ticket_type_id
 WHERE
 	p.state IN ('payment_received', 'invoice_created')
+	AND t.canceled = False
 ORDER BY
 	p_uid;
