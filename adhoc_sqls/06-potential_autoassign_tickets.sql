@@ -11,6 +11,7 @@ FROM
 	invoice_or_paid_tickets
 WHERE
 	t_uid IS NULL
-	AND (p_full_name = t_first_last_name OR p_display_name = t_first_last_name)
+	AND (LOWER(p_full_name) = LOWER(t_first_last_name) OR LOWER(p_display_name) = LOWER(t_first_last_name))
+	AND p_state = 'payment_received'
 ORDER BY
 	p_uid;
