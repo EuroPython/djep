@@ -9,7 +9,7 @@
             <img alt="{{ sponsor.name }}" src="{% thumbnail object.sponsor.logo 200x100 upscale %}" />
             <div>
                 <h2>{{ object.title }}</h2>
-                <p>{{ object.text|markdown:"safe" }}</p>
+                {{ object.text|markdown:"safe" }}
                 <a href="{{ object.link }}">{% trans "Read more" %} <i class="fa fa-chevron-right"></i></a>
             </div>
         </div>
