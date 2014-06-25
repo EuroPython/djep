@@ -51,6 +51,6 @@ class JobOffersListView(generic_views.ListView):
 
     def get_queryset(self):
         qs = super(JobOffersListView, self).get_queryset()
-        return qs.filter(active=True)
+        return qs.filter(active=True).select_related('sponsor')
 
 job_offers_list_view = JobOffersListView.as_view()

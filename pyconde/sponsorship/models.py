@@ -106,7 +106,7 @@ class JobOffer(models.Model):
     added = models.DateTimeField(auto_now_add=True, editable=False)
 
     class Meta:
-        ordering = ['-added']
+        ordering = ('sponsor__level__order', '-added',)
         verbose_name = _('Job offer')
         verbose_name_plural = _('Job offers')
 
