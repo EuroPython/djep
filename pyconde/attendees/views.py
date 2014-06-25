@@ -264,8 +264,11 @@ class StartPurchaseView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
                 ticket_type=ticket_type)
 
             if quantity_form.is_valid():
-                self.total_ticket_num += quantity_form.cleaned_data.get(
+                ticket_quantity = quantity_form.cleaned_data.get(
                     'quantity', 0)
+                if ticket_quantity is None:
+                    ticket_quantity = 0
+                self.total_ticket_num += ticket_quantity
             else:
                 all_quantity_forms_valid = False
 
@@ -281,8 +284,10 @@ class StartPurchaseView(LoginRequiredMixin, PurchaseMixin, generic_views.View):
 
             # Create a ticket for each ticket type and amount
             for quantity_form in self.quantity_forms:
-                for _i in range(0,
-                                quantity_form.cleaned_data.get('quantity', 0)):
+                ticket_quantity = quantity_form.cleaned_data.get('quantity', 0)
+                if ticket_quantity is None:
+                    ticket_quantity = 0
+                for _i in range(0, ticket_quantity):
                     ticket_model = quantity_form.ticket_type.content_type.model_class()
                     self.tickets.append(
                         ticket_model(purchase=purchase,
