@@ -1,0 +1,8 @@
+.found {
+  color: $highlightColor;
+}
+
+th + th.begin-column-group,
+td + td.begin-column-group {
+  border-left: 1px solid $table-border;
+}

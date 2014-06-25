@@ -21,6 +21,7 @@ urlpatterns = i18n_patterns('',
     url(r'^proposals/', include('pyconde.proposals.urls')),
     url(r'^search/', include('pyconde.search.urls')),
     url(r'^sponsorship/', include('pyconde.sponsorship.urls')),
+    url(r'^checkin/', include('pyconde.checkin.urls')),
     url(r'^', include('cms.urls')),
 )
 

@@ -1,0 +1,56 @@
+{% extends 'checkin/base.html' %}
+{% load i18n checkin_tags %}
+
+{% block page_title %}{% trans "Check-in Search" %}{% endblock %}
+
+{% block content %}
+  {{ block.super }}
+    {% if results %}
+      <table>
+        <thead>
+          <tr>
+            <th colspan="3"></th>
+            <th colspan="5">{% trans "Assigned" %}</th>
+            <th colspan="5">{% trans "Owner" %}</th>
+          <tr>
+            <th class="begin-column-group">{% trans "Ticket ID" %}</th>
+            <th>{% trans "Purchase ID" %}</th>
+            <th>{% trans "Invoice number" %}</th>
+            {# Assigned #}
+            <th class="begin-column-group">{% trans "UID" %}</th>
+            <th>{% trans "Username" %}</th>
+            <th>{% trans "Email" %}</th>
+            <th>{% trans "Full name" %}</th>
+            <th>{% trans "Display name" %}</th>
+            {# Owner #}
+            <th class="begin-column-group">{% trans "UID" %}</th>
+            <th>{% trans "Username" %}</th>
+            <th>{% trans "Email" %}</th>
+            <th>{% trans "Full name" %}</th>
+            <th>{% trans "Display name" %}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for result in results %}
+            <tr>
+              <td class="begin-column-group">{% highlight result.ticket_id %}</td>
+              <td>{% highlight result.purchase_id %}</td>
+              <td>{% highlight result.invoice_number %}</td>
+              <td class="begin-column-group">{% highlight result.assigned.user_id %}</td>
+              <td>{% highlight result.assigned.username %}</td>
+              <td>{% highlight result.assigned.email %}</td>
+              <td>{% highlight result.assigned.full_name %}</td>
+              <td>{% highlight result.assigned.display_name %}</td>
+              <td class="begin-column-group">{% highlight result.owner.user_id %}</td>
+              <td>{% highlight result.owner.username %}</td>
+              <td>{% highlight result.owner.email %}</td>
+              <td>{% highlight result.owner.full_name %}</td>
+              <td>{% highlight result.owner.display_name %}</td>
+            </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+    {% else %}
+      <p>{% trans "No search results" %}</p>
+    {% endif %}
+{% endblock %}
