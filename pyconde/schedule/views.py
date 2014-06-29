@@ -4,7 +4,9 @@ from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
-from django.http import HttpResponseRedirect, HttpResponse
+from django.core.exceptions import PermissionDenied
+from django.http import (HttpResponseRedirect, HttpResponse,
+    HttpResponseForbidden, HttpResponseBadRequest)
 from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.utils.timezone import now
@@ -110,7 +112,6 @@ def sessions_by_kind(request, pk):
             'sessions': sessions
         }
     )
-
 
 
 def view_session(request, session_pk):
@@ -219,29 +220,31 @@ def list_user_attendances(request):
     )
 
 
-def guidebook_events_export(request):
+def guidebook_export(request, kind):
     """
-    A simple export of all events as it can be used for importing into
+    A simple export of all sections as it can be used for importing into
     Guidebook.
     """
-    data = cache.get('schedule:guidebook:events', None)
+    if not request.user.has_perm('accounts_profile.export_guidebook'):
+        raise PermissionDenied
+
+    exporter_classes = {
+        # 'sections': exporters.GuidebookExporterSections,
+        'sessions': exporters.GuidebookExporterSessions,
+        'speakers': exporters.GuidebookExporterSpeakers,
+        'speaker-links': exporters.GuidebookExporterSpeakerLinks,
+        # 'sponsors': exporters.GuidebookExporterSponsors,
+    }
+
+    exporter_class = exporter_classes.get(kind, None)
+    if exporter_class is None:
+        return HttpResponseBadRequest()
+
+    cache_key = 'schedule:guidebook:%s' % kind
+    data = cache.get(cache_key, None)
     if not data:
-        data = exporters.GuidebookExporter()().csv
-        cache.set('schedule:guidebook:events', data)
-    return HttpResponse(data,
-        content_type='text/csv')
-
-
-def guidebook_sections_export(request):
-    return HttpResponse(exporters.GuidebookSectionsExporter()().csv,
-        content_type='text/csv')
-
-
-def guidebook_sponsors_export(request):
-    """
-    A simple export of all sponsors as it can be used for importing into
-    Guidebook.
-    """
-    data = exporters.GuidebookSponsorsExporter()().csv
-    return HttpResponse(data,
-        content_type='text/csv')
+        data = exporter_class()().csv
+        cache.set(cache_key, data)
+    response = HttpResponse(data, content_type='text/csv')
+    response['Content-Disposition'] = 'attachment; filename="%s.csv"' % kind
+    return response

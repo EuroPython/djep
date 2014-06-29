@@ -106,11 +106,12 @@ class Profile(models.Model):
     class Meta:
         permissions = (
             ('send_user_mails', _('Allow sending mails to users through the website')),
+            ('export_guidebook', _('Allow export of guidebook data')),
         )
 
 
 class UserListPlugin(CMSPlugin):
-    
+
     badge_status = models.ManyToManyField('BadgeStatus', blank=True,
         verbose_name=_('Status'))
     additional_names = models.TextField(_('Additional names'), blank=True,
