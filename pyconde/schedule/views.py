@@ -218,29 +218,66 @@ def list_user_attendances(request):
     )
 
 
-def guidebook_events_export(request):
+def guidebook_export_sections(request):
     """
-    A simple export of all events as it can be used for importing into
+    A simple export of all sections as it can be used for importing into
     Guidebook.
     """
-    data = cache.get('schedule:guidebook:events', None)
+    data = cache.get('schedule:guidebook:sections', None)
     if not data:
-        data = exporters.GuidebookExporter()().csv
-        cache.set('schedule:guidebook:events', data)
+        data = exporters.GuidebookExporterSections()().csv
+        cache.set('schedule:guidebook:sections', data)
     return HttpResponse(data,
         content_type='text/csv')
 
 
-def guidebook_sections_export(request):
-    return HttpResponse(exporters.GuidebookSectionsExporter()().csv,
+def guidebook_export_sessions(request):
+    """
+    A simple export of all events as it can be used for importing into
+    Guidebook.
+    """
+    data = cache.get('schedule:guidebook:sessions', None)
+    if not data:
+        data = exporters.GuidebookExporterSessions()().csv
+        cache.set('schedule:guidebook:sessions', data)
+    return HttpResponse(data,
         content_type='text/csv')
 
 
-def guidebook_sponsors_export(request):
+def guidebook_export_speakers(request):
+    """
+    A simple export of all speakers as it can be used for importing into
+    Guidebook.
+    """
+    data = cache.get('schedule:guidebook:speakers', None)
+    if not data:
+        data = exporters.GuidebookExporterSpeakers()().csv
+        cache.set('schedule:guidebook:speakers', data)
+    return HttpResponse(data,
+        content_type='text/csv')
+
+
+def guidebook_export_speaker_links(request):
+    """
+    A simple export of all speaker links as it can be used for importing into
+    Guidebook.
+    """
+    data = cache.get('schedule:guidebook:speaker_links', None)
+    if not data:
+        data = exporters.GuidebookExporterSpeakerLinks()().csv
+        cache.set('schedule:guidebook:speaker_links', data)
+    return HttpResponse(data,
+        content_type='text/csv')
+
+
+def guidebook_export_sponsors(request):
     """
     A simple export of all sponsors as it can be used for importing into
     Guidebook.
     """
-    data = exporters.GuidebookSponsorsExporter()().csv
+    data = cache.get('schedule:guidebook:sponsors', None)
+    if not data:
+        data = exporters.GuidebookExporterSponsors()().csv
+        cache.set('schedule:guidebook:sponsors', data)
     return HttpResponse(data,
         content_type='text/csv')
