@@ -11,5 +11,7 @@ FROM
 	schedule_active_speakers s
 		INNER JOIN invoice_or_paid_tickets t
 			ON s.uid IN (t.p_uid, t.t_uid)
+WHERE
+	t.p_state = 'payment_received'
 ORDER BY
 	s.uid;
