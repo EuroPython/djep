@@ -1,4 +1,5 @@
 import unittest
+import datetime
 from datetime import datetime as dt
 import logging
 
@@ -10,6 +11,7 @@ from . import models
 from . import slides
 from . import utils
 from . import videos
+from . import exporters
 
 from ..accounts import models as account_models
 
@@ -299,3 +301,14 @@ class AttendSessionTest(TestCase):
         self.assertEqual(att_ids2, [])
 
         self.client.logout()
+
+
+class FrabExporterTest(TestCase):
+    def test_calculate_event_duration(self):
+        exporter = exporters.FrabExporter()
+        event = models.Session(
+            start=datetime.datetime(2014, 7, 1, 16, 0),
+            end=datetime.datetime(2014, 7, 1, 17, 30)
+        )
+        self.assertEqual(u'01:30', exporter._calculate_event_duration(event))
+    pass

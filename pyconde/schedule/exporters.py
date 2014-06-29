@@ -2,9 +2,11 @@
 from __future__ import unicode_literals
 
 import collections
+import datetime
 import logging
 import os
 import shutil
+import sys
 import tablib
 
 from itertools import chain, groupby
@@ -17,6 +19,8 @@ from django.core.urlresolvers import reverse
 from django.contrib.sites import models as site_models
 from django.utils.encoding import force_text
 from django.utils.timezone import now
+from django.utils import timezone
+from django.utils.text import slugify
 
 from . import models
 from pyconde.sponsorship import models as sponsorship_models
@@ -395,3 +399,136 @@ class XMLExporter(object):
                     filename, ext = os.path.splitext(profile.avatar.file.name)
                     dest = os.path.join(self.avatar_dir, str(user.id)) + ext
                     shutil.copy(profile.avatar.file.name, dest)
+
+
+class FrabExporter(object):
+    def __init__(self, output=None, conference=None):
+        self.output = output
+        self.conference = conference
+        if self.output is None:
+            self.output = sys.stdout
+        if self.conference is None:
+            self.conference = conference_models.current_conference()
+
+    def __call__(self):
+        doc = etree.Element('schedule')
+        doc.append(self._create_conference_information(self.conference))
+        self._add_days(doc)
+        self.output.write(etree.tostring(doc, encoding='unicode', xml_declaration=False, pretty_print=True))
+
+    def _create_conference_information(self, conference):
+        elem = etree.Element('conference')
+        etree.SubElement(elem, 'title').text = conference.title
+        if conference.slug:
+            etree.SubElement(elem, 'acronym').text = conference.slug
+        etree.SubElement(elem, 'start').text = self._format_date(conference.start_date)
+        etree.SubElement(elem, 'end').text = self._format_date(conference.end_date)
+        etree.SubElement(elem, 'days').text = unicode((conference.end_date - conference.start_date).days + 1)
+        etree.SubElement(elem, 'timeslot_duration').text = '00:15'
+        return elem
+
+    def _add_days(self, root_element):
+        day = self.conference.start_date
+        end_date = self.conference.end_date + datetime.timedelta(days=1)
+
+        locations = list(conference_models.Location.objects.filter(conference=self.conference).all()) + [conference_models.Location(pk='other', name="Other")]
+        day_index = 1
+
+        while day < end_date:
+            self._add_day(root_element, day, locations, day_index)
+            day = day + datetime.timedelta(days=1)
+            day_index += 1
+
+    def _add_day(self, root_element, day, locations, index):
+        conference = self.conference
+        elem = etree.SubElement(root_element, 'day', date=self._format_date(day), index=unicode(index))
+        sessions_in_location = collections.defaultdict(list)
+        sessions = models.Session.objects\
+            .select_related('kind', 'audience_level', 'track',
+                            'speaker__user__profile')\
+            .prefetch_related('additional_speakers__user__profile',
+                              'location')\
+            .filter(released=True, start__year=day.year, start__month=day.month, start__day=day.day, conference=conference)\
+            .order_by('start')\
+            .all()
+        side_events = models.SideEvent.objects\
+            .filter(start__year=day.year, start__month=day.month, start__day=day.day, conference=conference)\
+            .order_by('start')\
+            .all()
+        for session in (list(sessions) + list(side_events)):
+            for loc in session.location.all():
+                sessions_in_location[loc.pk].append(session)
+            else:
+                sessions_in_location['other'].append(session)
+        for location in locations:
+            room_element = etree.SubElement(elem, 'room', name=location.name)
+            for session in sessions_in_location[location.pk]:
+                event_elem = self._create_event(session, location)
+                if event_elem is not None:
+                    room_element.append(event_elem)
+
+    def _create_event(self, session, location):
+        if isinstance(session, models.Session):
+            return self._create_event_from_session(session, location)
+        elif isinstance(session, models.SideEvent):
+            return self._create_event_from_sideevent(session, location)
+
+    def _create_event_from_session(self, session, location):
+        element = etree.Element('event', id=unicode(session.id))
+        etree.SubElement(element, 'title').text = session.title
+        if session.track:
+            etree.SubElement(element, 'track').text = session.track.name
+        if session.start:
+            etree.SubElement(element, 'date').text = self._format_datetime(session.start)
+            etree.SubElement(element, 'start').text = self._format_time(session.start)
+            etree.SubElement(element, 'duration').text = self._calculate_event_duration(session)
+        recording_element = etree.SubElement(element, 'recording')
+        etree.SubElement(recording_element, 'license')
+        etree.SubElement(recording_element, 'optout').text = unicode(not session.accept_recording).lower()
+        etree.SubElement(element, 'room').text = location.name
+        etree.SubElement(element, 'language').text = session.language
+        etree.SubElement(element, 'abstract').text = session.abstract
+        etree.SubElement(element, 'description').text = session.description
+        if session.kind:
+            etree.SubElement(element, 'type').text = 'workshop' if session.kind.slug == 'training' else 'lecture'
+        persons_element = etree.SubElement(element, 'persons')
+        if session.speaker:
+            etree.SubElement(persons_element, 'person', id=unicode(session.speaker.user.pk)).text = get_display_name(session.speaker.user)
+        for speaker in session.additional_speakers.all():
+            etree.SubElement(persons_element, 'person', id=unicode(speaker.user.pk)).text = get_display_name(speaker.user)
+        return element
+
+    def _create_event_from_sideevent(self, sideevent, location):
+        # side events are not really supported by frab but they are part of our
+        # schedule. Since both are not part of the same model type, we leave
+        # place for 9999 sessions before counting side event IDs.
+        # TODO: Find better solution for exported side event ids
+        element = etree.Element('event', id='{0}'.format(sideevent.id + 10000))
+        etree.SubElement(element, 'title').text = sideevent.name
+        etree.SubElement(element, 'description').text = sideevent.description
+        if sideevent.start:
+            etree.SubElement(element, 'date').text = self._format_datetime(sideevent.start)
+            etree.SubElement(element, 'start').text = self._format_time(sideevent.start)
+            etree.SubElement(element, 'duration').text = self._calculate_event_duration(sideevent)
+        etree.SubElement(element, 'type').text = 'other'
+        recording_element = etree.SubElement(element, 'recording')
+        etree.SubElement(recording_element, 'license')
+        etree.SubElement(recording_element, 'optout').text = 'true'
+        etree.SubElement(element, 'room').text = location.name
+        return element
+
+    def _calculate_event_duration(self, event):
+        delta = event.end - event.start
+        minutes = delta.seconds / 60
+        hours = (minutes - minutes % 60) / 60
+        minutes = minutes % 60
+        return u'{0:02d}:{1:02d}'.format(hours, minutes)
+
+    def _format_time(self, dtime):
+        return dtime.strftime('%H:%M')
+
+    def _format_datetime(self, dtime):
+        return timezone.make_aware(dtime, timezone.get_current_timezone()).strftime('%Y-%m-%dT%H:%M:%S%z')
+
+    def _format_date(self, date):
+        return date.strftime('%Y-%m-%d')
