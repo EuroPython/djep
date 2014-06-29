@@ -2,10 +2,12 @@
 from __future__ import unicode_literals
 
 import collections
+import datetime
 import logging
 import os
 import shutil
 import tablib
+import StringIO
 
 from itertools import chain, groupby
 from operator import attrgetter
@@ -14,6 +16,7 @@ from lxml import etree
 
 from django.core.urlresolvers import reverse
 from django.contrib.sites import models as site_models
+from django.template.defaultfilters import slugify
 from django.utils.encoding import force_text
 from django.utils.timezone import now
 
@@ -487,3 +490,94 @@ class XMLExporter(object):
                     filename, ext = os.path.splitext(profile.avatar.file.name)
                     dest = os.path.join(self.avatar_dir, str(user.id)) + ext
                     shutil.copy(profile.avatar.file.name, dest)
+
+
+class XMLExporterPentabarf(object):
+
+    def __init__(self):
+        self.domain = site_models.Site.objects.get_current().domain
+        self.base_url = 'http://%s' % self.domain
+
+    def export(self):
+        output = StringIO.StringIO()
+        with etree.xmlfile(output) as xf:
+            sessions = models.Session.objects \
+                .select_related('kind', 'audience_level', 'track',
+                                'speaker__user__profile') \
+                .prefetch_related('additional_speakers__user__profile',
+                                  'location') \
+                .filter(released=True, start__isnull=False, end__isnull=False,
+                        kind__slug__in=('talk', 'keynote')) \
+                .order_by('start') \
+                .only('end', 'start', 'title', 'abstract', 'description', 'language',
+                      'kind__name',
+                      'audience_level__name',
+                      'track__name',
+                      'speaker__user__username',
+                      'speaker__user__profile__avatar',
+                      'speaker__user__profile__full_name',
+                      'speaker__user__profile__display_name',
+                      'speaker__user__profile__short_info',
+                      'speaker__user__profile__user') \
+                .all()
+            self.conference = force_text(conference_models.current_conference())
+            self._duration_base = datetime.datetime.combine(datetime.date.today(), datetime.time(0, 0, 0))
+            with xf.element('iCalendar'):
+                with xf.element('vcalendar'):
+                    with xf.element('version'):
+                        xf.write('2.0')
+                    with xf.element('prodid'):
+                        xf.write('-//Pentabarf//Schedule %s//EN' % self.conference)
+                    with xf.element('x-wr-caldesc'):
+                        xf.write(self.conference)
+                    with xf.element('x-wr-calname'):
+                        xf.write(self.conference)
+                    for session in sessions:
+                        self._export_session(xf, session)
+        return output
+
+    def _export_session(self, xf, session):
+        with xf.element('vevent'):
+            with xf.element('method'):
+                xf.write('PUBLISH')
+            with xf.element('uid'):
+                xf.write('%d@%s@%s' % (session.id, self.conference, self.domain))
+            with xf.element('{http://pentabarf.org}event-id'):
+                xf.write(force_text(session.id))
+            with xf.element('{http://pentabarf.org}event-slug'):
+                xf.write(slugify(session.title))
+            with xf.element('{http://pentabarf.org}title'):
+                xf.write(session.title)
+            with xf.element('{http://pentabarf.org}subtitle'):
+                xf.write('')
+            with xf.element('{http://pentabarf.org}language'):
+                xf.write(session.get_language_display())
+            with xf.element('{http://pentabarf.org}language-code'):
+                xf.write(session.language)
+            with xf.element('dtstart'):
+                xf.write(session.start.strftime('%Y%m%dT%H%M%S'))
+            with xf.element('dtend'):
+                xf.write(session.end.strftime('%Y%m%dT%H%M%S'))
+            with xf.element('dtend'):
+                duration = self._duration_base + (session.end - session.start)
+                xf.write(duration.strftime('%HH%MM%SS'))
+            with xf.element('summary'):
+                xf.write(session.title)
+            with xf.element('description'):
+                xf.write(session.abstract)
+            with xf.element('class'):
+                xf.write('PUBLIC')
+            with xf.element('status'):
+                xf.write('CONFIRMED')
+            with xf.element('category'):
+                xf.write(force_text(session.kind))
+            with xf.element('url'):
+                xf.write(session.get_absolute_url())
+            for location in session.location.all():
+                with xf.element('location'):
+                    xf.write(force_text(location))
+            with xf.element('attendee'):
+                xf.write(get_full_name(session.speaker.user))
+            for cospeaker in session.additional_speakers.all():
+                with xf.element('attendee'):
+                    xf.write(get_full_name(session.speaker.user))
