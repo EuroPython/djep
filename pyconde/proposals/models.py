@@ -3,6 +3,8 @@ from __future__ import unicode_literals
 
 from django.db import models
 from django.conf import settings
+from django.contrib.markup.templatetags.markup import markdown
+from django.utils.functional import cached_property
 from django.utils.timezone import now
 from django.utils.translation import ugettext_lazy as _
 from django.core.urlresolvers import reverse
@@ -103,6 +105,14 @@ class AbstractProposal(models.Model):
             return "{0} ({1})".format(self.title, self.conference)
         except:
             return self.title
+
+    @cached_property
+    def abstract_rendered(self):
+        return markdown(self.abstract, 'safe')
+
+    @cached_property
+    def description_rendered(self):
+        return markdown(self.description, 'safe')
 
 
 class Proposal(AbstractProposal):
