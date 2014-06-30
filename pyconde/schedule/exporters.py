@@ -136,14 +136,14 @@ class GuidebookExporterSessions(object):
                 session.end.time(),
                 session.location_guidebook or '',
                 session.track.name if session.track else '',
-                session.description_rendered.encode('utf-8'),
+                session.abstract_rendered.encode('utf-8'),
                 session.kind.name if session.kind else '',
                 session.audience_level.name if session.audience_level else '',
                 force_text(session.speaker),
                 '|'.join(cospeakers),
                 self.get_speaker_url(session.speaker),
                 ' '.join([self.get_speaker_url(s) for s in additional_speakers]),
-                session.abstract_rendered.encode('utf-8') if session.abstract else '',
+                session.description_rendered.encode('utf-8'),
                 ])
         side_events = models.SideEvent.objects \
             .prefetch_related('location') \
@@ -176,7 +176,7 @@ class GuidebookExporterSessions(object):
         data = tablib.Dataset(headers=['Session Title', 'Date', 'Time Start',
             'Time End', 'Room/Location', 'Schedule Track (Optional)',
             'Description (Optional)', 'type', 'audience', 'speaker',
-            'cospeakers', 'speaker_url', 'cospeaker_urls', 'abstract'])
+            'cospeakers', 'speaker_url', 'cospeaker_urls', 'description'])
         for evt in result:
             data.append(evt)
         return data
