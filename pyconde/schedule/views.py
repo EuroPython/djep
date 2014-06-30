@@ -225,7 +225,7 @@ def guidebook_export(request, kind):
     A simple export of all sections as it can be used for importing into
     Guidebook.
     """
-    if not request.user.has_perm('accounts_profile.export_guidebook'):
+    if not request.user.has_perm('accounts.export_guidebook'):
         raise PermissionDenied
 
     exporter_classes = {
@@ -238,7 +238,7 @@ def guidebook_export(request, kind):
 
     exporter_class = exporter_classes.get(kind, None)
     if exporter_class is None:
-        return HttpResponseBadRequest()
+        return HttpResponseBadRequest('Invalid exporter %s' % kind)
 
     cache_key = 'schedule:guidebook:%s' % kind
     data = cache.get(cache_key, None)
