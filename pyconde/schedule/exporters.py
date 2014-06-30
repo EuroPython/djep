@@ -136,14 +136,14 @@ class GuidebookExporterSessions(object):
                 session.end.time(),
                 session.location_guidebook or '',
                 session.track.name if session.track else '',
-                session.description,
+                session.description_rendered.encode('utf-8'),
                 session.kind.name if session.kind else '',
                 session.audience_level.name if session.audience_level else '',
                 force_text(session.speaker),
                 '|'.join(cospeakers),
                 self.get_speaker_url(session.speaker),
                 ' '.join([self.get_speaker_url(s) for s in additional_speakers]),
-                session.abstract if session.abstract else '',
+                session.abstract_rendered.encode('utf-8') if session.abstract else '',
                 ])
         side_events = models.SideEvent.objects \
             .prefetch_related('location') \
@@ -161,7 +161,7 @@ class GuidebookExporterSessions(object):
                 evt.end.time() if evt.end else '',
                 loc,
                 '',
-                evt.description,
+                evt.description_rendered.encode('utf-8'),
                 'Break' if evt.is_pause else '',  # kind
                 '',  # audience level
                 '',  # speaker
@@ -213,17 +213,17 @@ class GuidebookExporterSpeakers(object):
             .all()
         for session in sessions:
             user = session.speaker.user
-            speakers.add((get_full_name(user), user.profile.short_info))
+            speakers.add((get_full_name(user), user.profile.short_info_rendered))
             for speaker in session.additional_speakers.all():
                 user = speaker.user
-                speakers.add((get_full_name(user), user.profile.short_info))
+                speakers.add((get_full_name(user), user.profile.short_info_rendered))
 
         speakers = sorted(speakers)
         for speaker in speakers:
             data.append([
                 speaker[0],
                 '',
-                speaker[1],
+                speaker[1].encode('utf-8'),
                 ''
                 ])
         return data
@@ -272,7 +272,7 @@ class GuidebookExporterSponsors(object):
             data.append([
                 sponsor.name if sponsor.name else '',
                 sponsor.external_url if sponsor.external_url else '',
-                sponsor.description if sponsor.description else '',
+                sponsor.description_rendered if sponsor.description else '',
                 sponsor.level.slug if sponsor.level else '',
                 sponsor.level.name if sponsor.level else '',
                 ])
@@ -564,7 +564,7 @@ class XMLExporterPentabarf(object):
             with xf.element('summary'):
                 xf.write(session.title)
             with xf.element('description'):
-                xf.write(session.abstract)
+                xf.write(session.abstract_rendered)
             with xf.element('class'):
                 xf.write('PUBLIC')
             with xf.element('status'):
