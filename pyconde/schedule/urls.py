@@ -15,7 +15,5 @@ urlpatterns = patterns('',
     url(r'^events/(?P<pk>\d+)/$', views.view_sideevent, name='side_event'),
     url(r'^schedule/$', views.view_schedule, name='schedule'),
     url(r'^attendances/$', views.list_user_attendances, name='schedule-attendances'),
-    # url(r'^exports/guidebook/events.csv$', views.guidebook_events_export, name='guidebook-events-export'),
-    # url(r'^exports/guidebook/sponsors.csv$', views.guidebook_sponsors_export, name='guidebook-sponsors-export'),
-    # url(r'^exports/guidebook/sections.csv$', views.guidebook_sections_export, name='guidebook-sections-export'),
+    url(r'^export/guidebook/(?P<kind>[^/.]+)/$', views.guidebook_export, name='guidebook-export'),
 )

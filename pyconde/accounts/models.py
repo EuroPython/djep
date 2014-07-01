@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
 from django.conf import settings
-from django.contrib.auth.models import User
 from django.contrib import messages
+from django.contrib.auth.models import User
 from django.contrib.auth.signals import user_logged_in
-from django.utils.encoding import force_text
+from django.contrib.markup.templatetags.markup import markdown
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 from django.dispatch import receiver
 from django.db import models
@@ -106,11 +107,16 @@ class Profile(models.Model):
     class Meta:
         permissions = (
             ('send_user_mails', _('Allow sending mails to users through the website')),
+            ('export_guidebook', _('Allow export of guidebook data')),
         )
+
+    @cached_property
+    def short_info_rendered(self):
+        return markdown(self.short_info, 'safe')
 
 
 class UserListPlugin(CMSPlugin):
-    
+
     badge_status = models.ManyToManyField('BadgeStatus', blank=True,
         verbose_name=_('Status'))
     additional_names = models.TextField(_('Additional names'), blank=True,

@@ -1,11 +1,13 @@
 import logging
 
 from django.conf import settings
+from django.contrib.markup.templatetags.markup import markdown
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.db import models
 from django.db.models import Q, signals as model_signals
 from django.utils.encoding import force_text
+from django.utils.functional import cached_property
 from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
 
@@ -41,6 +43,11 @@ class LocationMixin(object):
     location_pretty.short_description = _('Locations')
 
     location_pretty = property(location_pretty)
+
+    def location_guidebook(self):
+        return ';'.join(map(force_text, self.location.all()))
+
+    location_guidebook = property(location_guidebook)
 
 
 class Session(LocationMixin, proposal_models.AbstractProposal):
@@ -191,6 +198,10 @@ class SideEvent(LocationMixin, models.Model):
 
     def get_absolute_url(self):
         return reverse('side_event', kwargs={'pk': self.pk})
+
+    @cached_property
+    def description_rendered(self):
+        return markdown(self.description, 'safe')
 
 
 class CompleteSchedulePlugin(CMSPlugin):
