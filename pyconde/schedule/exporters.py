@@ -27,6 +27,7 @@ from . import models
 from pyconde.sponsorship import models as sponsorship_models
 from pyconde.conference import models as conference_models
 from pyconde.accounts.utils import get_full_name
+from pyconde.accounts.utils import get_display_name
 
 
 LOG = logging.getLogger('pyconde.schedule.exporters')
