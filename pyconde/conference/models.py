@@ -39,6 +39,7 @@ class Conference(models.Model):
     """
 
     title = models.CharField(_("title"), max_length=100)
+    slug = models.SlugField(_("slug"), null=True, blank=True)
 
     # when the conference runs
     start_date = models.DateField(_("start date"), null=True, blank=True)
