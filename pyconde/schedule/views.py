@@ -155,7 +155,7 @@ def edit_session(request, session_pk):
     session = get_object_or_404(models.Session, pk=session_pk, released=True)
     if not utils.can_edit_session(request.user, session):
         return create_403()
-    if session.end < now():
+    if session.end is not None and session.end < now():
         form = forms.EditSessionCoverageForm
     else:
         form = forms.EditSessionForm
