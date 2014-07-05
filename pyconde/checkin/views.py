@@ -38,6 +38,10 @@ class SearchView(CheckinViewMixin, SearchFormMixin, ListView):
         'user__profile__display_name',
         'id',
         'purchase__id',
+        'purchase__company_name',
+        'purchase__first_name',
+        'purchase__last_name',
+        'purchase__email',
         'purchase__invoice_number',
         'purchase__user__id',
         'purchase__user__username',
@@ -59,13 +63,18 @@ class SearchView(CheckinViewMixin, SearchFormMixin, ListView):
         if 'query' in self.request.GET:
             queryset = self.model.objects.select_related(
                 'user',
-                'user_profile',
+                'user__profile',
                 'purchase',
                 'purchase__user',
                 'purchase__user__profile',
                 'simcardticket',
-                'venueticket'
-            ).all()
+                'venueticket',
+                'ticket_type',
+                'ticket_type__content_type',
+            ).filter(
+                models.Q(simcardticket__isnull=False) |
+                models.Q(venueticket__isnull=False)
+            )
             terms = self.request.GET['query'].split()
             for term in terms:
                 queries = [
@@ -85,25 +94,32 @@ class SearchView(CheckinViewMixin, SearchFormMixin, ListView):
         self.object_list = []
         for ticket in tickets:
             obj = {
-                'ticket_id': ticket.id,
-                'purchase_id': ticket.purchase_id,
-                'invoice_number': ticket.purchase.invoice_number,
+                'ticket': {
+                    'id': ticket.id,
+                }
             }
             if ticket.user is None:
-                obj['assigned'] = {
+                obj['ticket'].update({
                     'full_name': ticket.real_ticket.first_name + ' ' + ticket.real_ticket.last_name,
                     'organisation': getattr(ticket.real_ticket, 'organisation', None)
-                }
+                })
             else:
-                obj['assigned'] = {
+                obj['ticket'].update({
                     'user_id': ticket.user_id,
                     'username': ticket.user.username,
                     'email': ticket.user.email,
                     'full_name': ticket.user.profile.full_name,
                     'display_name': ticket.user.profile.display_name,
                     'organisation': ticket.user.profile.organisation
-                }
-            obj['owner'] = {
+                })
+            obj['purchase'] = {
+                'id': ticket.purchase.id,
+                'company_name': ticket.purchase.company_name,
+                'invoice_number': ticket.purchase.invoice_number,
+                'name': ticket.purchase.first_name + ' ' + ticket.purchase.last_name,
+                'email': ticket.purchase.email
+            }
+            obj['buyer'] = {
                 'user_id': ticket.purchase.user_id,
                 'username': ticket.purchase.user.username,
                 'email': ticket.purchase.user.email,

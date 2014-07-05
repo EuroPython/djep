@@ -4,7 +4,6 @@ from __future__ import unicode_literals
 from django import template
 from django.utils.html import format_html
 from django.utils.encoding import force_text
-from django.template.defaultfilters import stringfilter
 
 register = template.Library()
 

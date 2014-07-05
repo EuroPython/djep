@@ -10,9 +10,9 @@
       <table class="searchresults">
         <thead>
           <tr>
-            <th style="width: 15%"></th>
-            <th class="left-border">{% trans "Assigned" %}</th>
-            <th class="left-border">{% trans "Owner" %}</th>
+            <th>{% trans "Ticket" %}</th>
+            <th>{% trans "Purchase" %}</th>
+            <th>{% trans "Buyer" %}</th>
           </tr>
         </thead>
         <tbody>
@@ -21,39 +21,45 @@
               <td>
                 <dl>
                   <dt>{% trans "Ticket" %}: </dt>
-                  <dd>{% highlight result.ticket_id %}</dd>
+                  <dd>{% highlight result.ticket.id %}</dd>
+                  <dt>{% trans "User ID" %}: </dt>
+                  <dd>{% highlight result.ticket.user_id %}</dd>
+                  <dt>{% trans "Username" %}: </dt>
+                  <dd>{% highlight result.ticket.username %}</dd>
+                  <dt>{% trans "Email" %}: </dt>
+                  <dd>{% highlight result.ticket.email %}</dd>
+                  <dt>{% trans "Full name" %}: </dt>
+                  <dd>{% highlight result.ticket.full_name %}</dd>
+                  <dt>{% trans "Display name" %}: </dt>
+                  <dd>{% highlight result.ticket.display_name %}</dd>
+                </dl>
+              </td>
+              <td>
+                <dl>
                   <dt>{% trans "Purchase" %}: </dt>
-                  <dd>{% highlight result.purchase_id %}</dd>
+                  <dd>{% highlight result.purchase.id %}</dd>
                   <dt>{% trans "Invoice" %}: </dt>
-                  <dd>{% highlight result.invoice_number %}</dd>
+                  <dd>{% highlight result.purchase.invoice_number %}</dd>
+                  <dt>{% trans "Company" %}: </dt>
+                  <dd>{% highlight result.purchase.company_name %}</dd>
+                  <dt>{% trans "Name" %}: </dt>
+                  <dd>{% highlight result.purchase.name %}</dd>
+                  <dt>{% trans "Email" %}: </dt>
+                  <dd>{% highlight result.purchase.email %}</dd>
                 </dl>
               </td>
-              <td class="left-border">
+              <td>
                 <dl>
                   <dt>{% trans "User ID" %}: </dt>
-                  <dd>{% highlight result.assigned.user_id %}</dd>
+                  <dd>{% highlight result.buyer.user_id %}</dd>
                   <dt>{% trans "Username" %}: </dt>
-                  <dd>{% highlight result.assigned.username %}</dd>
+                  <dd>{% highlight result.buyer.username %}</dd>
                   <dt>{% trans "Email" %}: </dt>
-                  <dd>{% highlight result.assigned.email %}</dd>
+                  <dd>{% highlight result.buyer.email %}</dd>
                   <dt>{% trans "Full name" %}: </dt>
-                  <dd>{% highlight result.assigned.full_name %}</dd>
+                  <dd>{% highlight result.buyer.full_name %}</dd>
                   <dt>{% trans "Display name" %}: </dt>
-                  <dd>{% highlight result.assigned.display_name %}</dd>
-                </dl>
-              </td>
-              <td class="left-border">
-                <dl>
-                  <dt>{% trans "User ID" %}: </dt>
-                  <dd>{% highlight result.owner.user_id %}</dd>
-                  <dt>{% trans "Username" %}: </dt>
-                  <dd>{% highlight result.owner.username %}</dd>
-                  <dt>{% trans "Email" %}: </dt>
-                  <dd>{% highlight result.owner.email %}</dd>
-                  <dt>{% trans "Full name" %}: </dt>
-                  <dd>{% highlight result.owner.full_name %}</dd>
-                  <dt>{% trans "Display name" %}: </dt>
-                  <dd>{% highlight result.owner.display_name %}</dd>
+                  <dd>{% highlight result.buyer.display_name %}</dd>
                 </dl>
               </td>
             </tr>

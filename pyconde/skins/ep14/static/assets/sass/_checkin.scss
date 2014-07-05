@@ -1,6 +1,7 @@
 .checkin {
     .searchresults {
-        .left-border {
+        td + td,
+        th + th {
             border-left: 1px solid $table-border;
         }
         td {
@@ -13,7 +14,9 @@
                 float: left;
                 clear: left;
                 font-weight: bold;
-                margin-right: 0.5em;
+            }
+            dd:before {
+                content: "\00a0"
             }
         }
     }
