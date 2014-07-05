@@ -11,6 +11,6 @@ register = template.Library()
 
 @register.simple_tag(takes_context=True)
 def highlight(context, value):
-    if any(term in force_text(value) for term in context['search_terms']):
+    if any(term.lower() in force_text(value).lower() for term in context['search_terms']):
         value = format_html('<strong>{0}</strong>', value)
     return value
