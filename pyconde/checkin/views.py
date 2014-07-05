@@ -3,7 +3,6 @@ from __future__ import unicode_literals
 
 import operator
 from functools import reduce
-from collections import OrderedDict
 
 from django.db import models
 from django.views.generic import ListView
