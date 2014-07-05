@@ -1018,7 +1018,6 @@ msgstr "T-Shirt Größen"
 #: attendees/models.py:381
 #: attendees/templates/attendees/user_purchases.html:51
 #: attendees/templates/attendees/user_tickets.html:14
-#, fuzzy
 msgid "Canceled"
 msgstr "Zurückgezogen"
 
@@ -1676,7 +1675,7 @@ msgid "Resend invoice"
 msgstr "Rechnung zuschicken"
 
 #: attendees/templates/attendees/user_purchases.html:70
-#, fuzzy, python-format
+#, python-format
 msgid ""
 "This ticket has been assigned to %(username)s. Please contact the helpdesk "
 "if\n"
@@ -3826,21 +3825,18 @@ msgid "URL"
 msgstr ""
 
 #: sponsorship/models.py:104
-#, fuzzy
 msgid "Active"
 msgstr "Aktiv"
 
 #: sponsorship/models.py:110
-#, fuzzy
 msgid "Job offer"
-msgstr "Job-Angebot verschickt"
+msgstr "Job-Angebot"
 
 #: sponsorship/models.py:111
 #: sponsorship/templates/sponsorship/joboffer_list.html:3
 #: sponsorship/templates/sponsorship/joboffer_list.html:4
-#, fuzzy
 msgid "Job offers"
-msgstr "Job-Angebot verschickt"
+msgstr "Job-Angebote"
 
 #: sponsorship/views.py:20
 msgid "You do not have permission to send job offers."
@@ -3856,14 +3852,13 @@ msgstr ""
 
 #: sponsorship/templates/sponsorship/sponsor_list.html:3
 #: sponsorship/templates/sponsorship/sponsor_list.html:4
-#, fuzzy
 msgid "Our sponsors"
 msgstr "Sponsoren"
 
 #: sponsorship/templates/sponsorship/emails/job_offer.txt:1
-#, fuzzy, python-format
+#, python-format
 msgid "This is a job offer by \"%(sponsor_name)s\":"
-msgstr "Dies ist ein Job-Angebot von \"%(sponsor)s\":"
+msgstr "Dies ist ein Job-Angebot von \"%(sponsor_name)s\":"
 
 #: sponsorship/templates/sponsorship/emails/job_offer.txt:9
 #, python-format
@@ -3916,9 +3911,8 @@ msgstr "Beschreibung"
 #~ msgid "gluten-free"
 #~ msgstr "Guten-frei"
 
-#, fuzzy
 #~ msgid "Keynote"
-#~ msgstr "Anmerkungen"
+#~ msgstr "Keynote"
 
 #~ msgid "organisation"
 #~ msgstr "Organisation"
