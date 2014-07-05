@@ -57,7 +57,15 @@ class SearchView(CheckinViewMixin, SearchFormMixin, ListView):
 
     def get_queryset(self):
         if 'query' in self.request.GET:
-            queryset = self.model.objects.all()
+            queryset = self.model.objects.select_related(
+                'user',
+                'user_profile',
+                'purchase',
+                'purchase__user',
+                'purchase__user__profile',
+                'simcardticket',
+                'venueticket'
+            ).all()
             terms = self.request.GET['query'].split()
             for term in terms:
                 queries = [
