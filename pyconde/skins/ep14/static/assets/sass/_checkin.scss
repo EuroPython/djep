@@ -1,8 +1,20 @@
-.found {
-  color: $highlightColor;
-}
+.checkin {
+    .searchresults {
+        .left-border {
+            border-left: 1px solid $table-border;
+        }
+        td {
+            vertical-align: top;
+        }
+        dl {
+            margin: 0;
 
-th + th.begin-column-group,
-td + td.begin-column-group {
-  border-left: 1px solid $table-border;
+            dt {
+                float: left;
+                clear: left;
+                font-weight: bold;
+                margin-right: 0.5em;
+            }
+        }
+    }
 }
