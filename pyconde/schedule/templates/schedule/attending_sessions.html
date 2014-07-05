@@ -24,6 +24,7 @@
         </tbody>
     </table>
 {% else %}
-    <p class="empty">{% trans "You have not yet indicated your attendance to any specific session." %}</p>
+    {% url 'schedule' as schedule_url %}
+    <p class="empty">{% blocktrans with schedule_url=schedule_url %}You have not yet indicated your attendance to any specific session. You can do so by accessing a <em>training's page</em> through the <a href="{{ schedule_url }}">schedule</a> prior to its start and during the registration period and clicking the <strong>"Attend this session"</strong> button.{% endblocktrans %}</p>
 {% endif %}
 {% endblock %}
