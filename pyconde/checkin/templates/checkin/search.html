@@ -10,7 +10,7 @@
       <table class="searchresults">
         <thead>
           <tr>
-            <th></th>
+            <th style="width: 15%"></th>
             <th class="left-border">{% trans "Assigned" %}</th>
             <th class="left-border">{% trans "Owner" %}</th>
           </tr>
@@ -20,11 +20,11 @@
             <tr>
               <td>
                 <dl>
-                  <dt>{% trans "Ticket ID" %}: </dt>
+                  <dt>{% trans "Ticket" %}: </dt>
                   <dd>{% highlight result.ticket_id %}</dd>
-                  <dt>{% trans "Purchase ID" %}: </dt>
+                  <dt>{% trans "Purchase" %}: </dt>
                   <dd>{% highlight result.purchase_id %}</dd>
-                  <dt>{% trans "Invoice number" %}: </dt>
+                  <dt>{% trans "Invoice" %}: </dt>
                   <dd>{% highlight result.invoice_number %}</dd>
                 </dl>
               </td>
