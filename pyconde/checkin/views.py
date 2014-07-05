@@ -80,7 +80,7 @@ class SearchView(CheckinViewMixin, SearchFormMixin, ListView):
             if ticket.user is None:
                 obj['assigned'] = {
                     'full_name': ticket.real_ticket.first_name + ' ' + ticket.real_ticket.last_name,
-                    'organisation': ticket.real_ticket.organisation
+                    'organisation': getattr(ticket.real_ticket, 'organisation', None)
                 }
             else:
                 obj['assigned'] = {
