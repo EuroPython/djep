@@ -7,9 +7,17 @@ from collections import OrderedDict
 
 from django.db import models
 from django.views.generic import ListView
+from django.utils.decorators import method_decorator
+from django.contrib.auth.decorators import permission_required
 
 from ..attendees.models import Ticket
 from .forms import SearchForm
+
+
+class CheckinViewMixin(object):
+    @method_decorator(permission_required('accounts.see_checkin_info'))
+    def dispatch(self, *args, **kwargs):
+        return super(CheckinViewMixin, self).dispatch(*args, **kwargs)
 
 
 class SearchFormMixin(object):
@@ -19,7 +27,7 @@ class SearchFormMixin(object):
         return context
 
 
-class SearchView(SearchFormMixin, ListView):
+class SearchView(CheckinViewMixin, SearchFormMixin, ListView):
     template_name = 'checkin/search.html'
     model = Ticket
     context_object_name = 'results'
