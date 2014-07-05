@@ -51,6 +51,7 @@
                         <li class=""><a href="{% url "admin:index" %}">Django Admin</a></li>
                         {% if perms.accounts.send_user_mails %}<li class=""><a href="{% url "account_sendmail" %}">{% trans "Send mail" %}</a></li>{% endif %}
                         {% show_menu_below_id "sponsorship" %}
+                        {% if perms.accounts.see_checkin_info %}<li><a href="{% url "checkin_search" %}">{% trans "Handle check-in"%}</a></li>{% endif %}
                     </ul>
                     </div>
                     {% endif %}

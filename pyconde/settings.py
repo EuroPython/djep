@@ -131,6 +131,7 @@ class Base(Configuration):
         'pyconde.schedule',
         'pyconde.search',
         'pyconde.helpers',
+        'pyconde.checkin'
     ]
 
     MIDDLEWARE_CLASSES = [

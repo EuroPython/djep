@@ -1,0 +1,23 @@
+.checkin {
+    .searchresults {
+        td + td,
+        th + th {
+            border-left: 1px solid $table-border;
+        }
+        td {
+            vertical-align: top;
+        }
+        dl {
+            margin: 0;
+
+            dt {
+                float: left;
+                clear: left;
+                font-weight: bold;
+            }
+            dd:before {
+                content: "\00a0"
+            }
+        }
+    }
+}
