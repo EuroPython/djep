@@ -467,6 +467,10 @@ class Base(Configuration):
 
     PAYMENT_METHODS = values.ListValue(['invoice', 'creditcard'])
 
+    PAYMENT_REMINDER_DUE_DATE_OFFSET = values.Value(14)
+
+    PAYMENT_REMINDER_LATEST_DUE_DATE = values.Value('')
+
     PURCHASE_TERMS_OF_USE_URL = values.Value("https://ep2014.europython.eu/en/registration/terms-conditions/")
 
     PURCHASE_INVOICE_DISABLE_RENDERING = values.BooleanValue(True)

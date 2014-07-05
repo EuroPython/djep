@@ -164,8 +164,17 @@ class PurchaseAdmin(admin.ModelAdmin):
 
     def send_payment_reminder(self, request, queryset):
         due_date = now() + datetime.timedelta(days=app_settings.REMINDER_DUE_DATE_OFFSET)
-        for purchase in queryset.filter(state='invoice_created'):
 
+        # Remove everything not date related
+        due_date = datetime.datetime(due_date.year, due_date.month, due_date.day)
+
+        # Check that due date is not behind latest due date
+        if app_settings.REMINDER_LATEST_DUE_DATE:
+            latest_due_date = datetime.datetime.strptime(app_settings.REMINDER_LATEST_DUE_DATE, '%Y-%m-%d')
+            if due_date > latest_due_date:
+                due_date = latest_due_date
+
+        for purchase in queryset.filter(state='invoice_created'):
             send_mail(ugettext('%(conference)s payment reminder' % {
                     'conference': purchase.conference.title,
                 }),

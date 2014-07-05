@@ -63,3 +63,7 @@ HIDE_SINGLE_PAYMENT_METHOD = getattr(
 REMINDER_DUE_DATE_OFFSET = getattr(settings,
                                    'PAYMENT_REMINDER_DUE_DATE_OFFSET',
                                    14)
+
+REMINDER_LATEST_DUE_DATE = getattr(settings,
+                                   'PAYMENT_REMINDER_LATEST_DUE_DATE',
+                                   '')
