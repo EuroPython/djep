@@ -281,7 +281,7 @@ a {
 }
 
 header {
-    background: $background1;
+    background: $background-color-light;
     .inner {
         @media #{$topbar-media-query} {
             height: 170px;
@@ -359,8 +359,6 @@ a.btn {
         color: #FFF;
     }
 }
-
-
 
 header .inner {
     width: 890px;

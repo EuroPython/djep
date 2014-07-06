@@ -1,7 +1,7 @@
 $red: #ed6e48;
 $green: #e1e04a;
 $blue: #00b3e1;
-$blue2: #0095cc;
+$blue-light: #0095cc;
 $dark-grey: #6b7a81;
 $grey: #a8b1b5;
 $grey2: #839095;
@@ -13,40 +13,33 @@ $yellow: lighten(#E1E04A, 30);
 
 $background-color: #ffffff;
 $background-color-light: #f3f8f9;
+$background-nav: #004D6D;
 
 $link-color-light: $red-green;
 $link-color-nav: #82a6b7;
 $link-color-nav-active: #e1e239;
-$link-color-nav-hover: #e1e239;
-$link-color-subnav: #ffffff;
-$link-color-subnav-active: #e1e239;
-$link-color-subnav-hover: #e1e239;
+$link-color-nav-hover: $link-color-nav-active;
+$link-color-subnav: $background-color;
+$link-color-subnav-active: $link-color-nav-active;
+$link-color-subnav-hover: $link-color-nav-active;
 
 $highlightColor: #D65216;
 $baseColor: #648899;
-$infoColor: #00788C;
-$background1: $background-color-light;
+$infoColor: $red-green;
+
 $baseFont: 'ff-mark-web-pro', 'Verdana', sans-serif;
 $footerFont: 'dejarip', 'Verdana', sans-serif;
 
-
-
-$highlightColor: #D65216;
-$baseColor: #648899;
-$infoColor: #00788C;
-$orange: #d65216;
-$blue-light: #0095cc;
-$background1: #F3F8F9;
-$background-nav: #004D6D;
-$baseFont: 'ff-mark-web-pro', 'Verdana', sans-serif;
-$footerFont: 'dejarip', 'Verdana', sans-serif;
 $primaryBtnBg: #1082c0;
-$primaryBtnFg: #fff;
+$primaryBtnFg: $background-color;
+
 $inputBorder: #c1d0d2;
 $inputBorderHi: #58818a;
-$inputBorderErr: $orange;
+$inputBorderErr: $highlightColor;
+
 $schedule-secondary: #D6E7ED;
 $schedule-secondary-inv: #A8C0CC;
+
 $loginColor: #97afbb;
 
 $table-border: $inputBorder;
