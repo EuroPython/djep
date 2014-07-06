@@ -84,7 +84,7 @@
                     <a class="btn" href="edit/"><i class="fa fa-fw fa-pencil"></i>{% trans "Edit" %}</a>
                 {% endif %}
                 {% if can_admin %}
-                    <a class="btn danger" href="{% url "admin:schedule_session_change" session.id %}"><i class="fa fa-fw fa-lock"></i>{% trans "Admin" %}</a>
+                    <a class="btn btn-danger" href="{% url "admin:schedule_session_change" session.id %}"><i class="fa fa-fw fa-lock"></i>{% trans "Admin" %}</a>
                 {% endif %}
             </div>
         {% endif %}

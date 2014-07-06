@@ -181,20 +181,42 @@ label {
     }
 }
 
-.btn, .btn-primary {
+.btn {
+    background: $baseColor;
+    color: #fff;
     border-radius: 5px;
-    padding: 8px 20px 12px 20px;
-    font-size: 1.6rem;
     border: none;
-    text-decoration: none;
     display: inline-block;
+    font-size: 1.6rem;
+    padding: 8px 20px 12px 20px;
+    text-decoration: none;
     &:hover {
         background: $primaryBtnBg;
     }
-}
-.btn-primary {
-    background: $primaryBtnBg;
-    color: $primaryBtnFg;
+
+    &.btn-success {
+        background-color: $freshgreen;
+        color: #fff;
+        &:hover {
+            background-color: $freshgreen-dark;
+        }
+    }
+
+    &.btn-danger {
+        background-color: $red;
+        color: #fff;
+        &:hover {
+            background-color: $highlightColor;
+        }
+    }
+
+    &.btn-primary {
+        background: $primaryBtnBg;
+        color: $primaryBtnFg;
+        &:hover {
+            background: $primaryBtnBg;
+        }
+    }
 }
 
 .ui-menu-item a {

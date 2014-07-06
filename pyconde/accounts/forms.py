@@ -196,7 +196,7 @@ class PasswordResetForm(auth_forms.PasswordResetForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
             Div(Field('email', autofocus="autofocus")),
-            ButtonHolder(Submit('reset', _('Reset password'), css_class='btn-primary'))
+            ButtonHolder(Submit('reset', _('Reset password'), css_class='btn btn-primary'))
         )
 
 
@@ -211,7 +211,7 @@ class SetPasswordForm(auth_forms.SetPasswordForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
             Div(Field('new_password1', autofocus="autofocus"), 'new_password2'),
-            ButtonHolder(Submit('reset', _('Set password'), css_class='btn-primary'))
+            ButtonHolder(Submit('reset', _('Set password'), css_class='btn btn-primary'))
         )
 
 
@@ -226,7 +226,7 @@ class PasswordChangeForm(auth_forms.PasswordChangeForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
             Div(Field('old_password', autofocus="autofocus"), 'new_password1', 'new_password2'),
-            ButtonHolder(Submit('save', _('Change password'), css_class='btn-primary'))
+            ButtonHolder(Submit('save', _('Change password'), css_class='btn btn-primary'))
         )
 
 
@@ -279,7 +279,7 @@ class ProfileForm(BaseProfileForm):
              if settings.CHILDREN_DATA_DISABLED else
              Div(Field('num_accompanying_children'),
                  Field('age_accompanying_children'))),
-            ButtonHolder(Submit('save', _('Change'), css_class='btn-primary'))
+            ButtonHolder(Submit('save', _('Change'), css_class='btn btn-primary'))
         )
         if settings.ACCOUNTS_FALLBACK_TO_GRAVATAR:
             self.fields['avatar'].help_text = _("""Please upload an image with a side length of at least 300 pixels.<br />If you don't upload an avatar your Gravatar will be used instead.""")
@@ -367,5 +367,5 @@ class SendMailForm(forms.Form):
             'target',
             'subject',
             'text',
-            ButtonHolder(Submit('submit', _('Send mail'), css_class='btn-primary'))
+            ButtonHolder(Submit('submit', _('Send mail'), css_class='btn btn-primary'))
         )

@@ -8,16 +8,16 @@
 
     &.alert-error {
         background: $red;
-        color: #FFF;
+        color: $background-color;
     }
 
     &.alert-success {
         background: $green;
-        color: darken($green, 30);
+        color: $green-dark;
     }
 
     &.alert-warn, &.alert-warning {
-        background: lighten(#E1E04A, 10);
-        color: darken(#E1E04A, 30);
+        background: lighten($green, 10);
+        color: $green-dark;
     }
 }

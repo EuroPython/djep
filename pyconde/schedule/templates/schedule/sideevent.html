@@ -33,7 +33,7 @@
         </div>
         {% if can_admin %}
             <div class="actions">
-                <a class="btn danger" href="{% url "admin:schedule_sideevent_change" event.id %}"><i class="fa fa-fw fa-lock"></i>{% trans "Admin" %}</a>
+                <a class="btn btn-danger" href="{% url "admin:schedule_sideevent_change" event.id %}"><i class="fa fa-fw fa-lock"></i>{% trans "Admin" %}</a>
             </div>
         {% endif %}
     </article>

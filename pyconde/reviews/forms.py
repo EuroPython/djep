@@ -41,7 +41,7 @@ class UpdateProposalForm(forms.ModelForm):
                 Field('tags'),
                 Field('language'),
                 ),
-            ButtonHolder(Submit('save', _("Save"), css_class="btn-primary"))
+            ButtonHolder(Submit('save', _("Save"), css_class="btn btn-primary"))
             )
 
     def save(self, commit=True):
@@ -107,7 +107,7 @@ class UpdateTrainingProposalForm(UpdateProposalForm):
                 Field('tags'),
                 Field('notes'),
                 ),
-            ButtonHolder(Submit('save', _("Save"), css_class="btn-primary"))
+            ButtonHolder(Submit('save', _("Save"), css_class="btn btn-primary"))
             )
 
     def customize_save(self, instance):
@@ -142,7 +142,7 @@ class ReviewForm(forms.ModelForm):
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
             Field('rating'), Field('summary'),
-            ButtonHolder(Submit('save', _("Save review"), css_class='btn-primary btn save')))
+            ButtonHolder(Submit('save', _("Save review"), css_class='btn btn-primary save')))
 
 
 class UpdateReviewForm(ReviewForm):
@@ -155,7 +155,7 @@ class UpdateReviewForm(ReviewForm):
                     reverse('reviews-delete-review',
                         kwargs={'pk': kwargs.get('instance').proposal.pk}),
                     _("Delete"))),
-                Submit('save', _("Save changes"), css_class='btn-primary btn save', tabindex=3)
+                Submit('save', _("Save changes"), css_class='btn btn-primary save', tabindex=3)
                 )
             )
 

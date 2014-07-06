@@ -6,7 +6,7 @@ ep.ui = (function($) {
     function wrapFileUploads() {
         $('input[type=file]').each(function() {
             var statusLine = $('<span>').addClass('status');
-            var wrapper = $('<span>').addClass('input-wrapper').addClass('btn-primary').text(gettext('Choose a file'));
+            var wrapper = $('<span>').addClass('input-wrapper').addClass('btn btn-primary').text(gettext('Choose a file'));
             var outerWrapper = $('<span>').addClass('file-outer-wrapper');
             $(this).wrap(wrapper);
             $(this).parent('span').wrap(outerWrapper);

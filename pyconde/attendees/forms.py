@@ -45,7 +45,7 @@ class PurchaseForm(forms.ModelForm):
             Fieldset(_('Billing address'), 'first_name', 'last_name',
                 'company_name', 'email', 'street', 'zip_code', 'city',
                 'country', 'vat_id', 'comments'),
-            ButtonHolder(Submit('submit', _('Continue'), css_class='btn-primary'))
+            ButtonHolder(Submit('submit', _('Continue'), css_class='btn btn-primary'))
         )
 
     def save(self, *args, **kwargs):
@@ -236,7 +236,7 @@ class PurchaseOverviewForm(forms.Form):
             'payment_method',
             ButtonHolder(
                 Submit('submit', _('Complete purchase'),
-                       css_class='btn-primary'),
+                       css_class='btn btn-primary'),
                 HTML('{% load i18n %}<a class="back" href="{% url \'attendees_purchase_names\' %}">{% trans "Back" %}</a>')
             )
         )

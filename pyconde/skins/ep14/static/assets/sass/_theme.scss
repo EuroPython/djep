@@ -1,5 +1,9 @@
 $red: #ed6e48;
 $green: #e1e04a;
+$green-dark: darken($green, 30);
+$green-light: lighten($green, 30);
+$freshgreen: #1DB41D;
+$freshgreen-dark: darken($freshgreen, 15);
 $blue: #00b3e1;
 $blue-light: #0095cc;
 $dark-grey: #6b7a81;
@@ -9,7 +13,6 @@ $red-green: #00788c;
 $red-blue: #0085a2;
 $green-blue: #94d4f0;
 $red-green-blue: #d06824;
-$yellow: lighten(#E1E04A, 30);
 
 $background-color: #ffffff;
 $background-color-light: #f3f8f9;

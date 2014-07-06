@@ -335,15 +335,6 @@ header {
     }
 }
 
-a.btn {
-    background: $baseColor;
-    color: #ffffff;
-    &.danger {
-        color: #FFF !important;
-        background-color: $highlightColor !important;
-    }
-}
-
 .alert-block {
     margin-bottom: 1em;
     li {
