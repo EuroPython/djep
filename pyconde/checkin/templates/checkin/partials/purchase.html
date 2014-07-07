@@ -1,0 +1,41 @@
+{% load i18n account_tags %}
+<div class="purchase">
+    <h2>{% trans "Billing address" %}</h2>
+    <p>
+        {{ purchase.company_name }}</br>
+        {{ purchase.first_name }} {{ purchase.last_name }}</br>
+        {{ purchase.street }}</br>
+        {{ purchase.zip_code }} {{ purchase.city }}</br>
+        {{ purchase.country }}</br>
+    </p>
+</div>
+
+<div class="tickets">
+    <h2>{% trans "Order overview" %}</h2>
+    <table>
+        <thead>
+            <th>{% trans "Ticket" %}</th>
+            <th>{% trans "First name" %}</th>
+            <th>{% trans "Last name" %}</th>
+            <th>{% trans "User" %}</th>
+            <th>{% trans "Sponsor" %}</th>
+            <th>{% trans "Price" %}</th>
+        </thead>
+        {% for ticket in tickets %}
+            <tr>
+                <td>{{ ticket.ticket_type.name }}</td>
+                <td>{{ ticket.first_name }}</td>
+                <td>{{ ticket.last_name }}</td>
+                <td>{{ ticket.user|full_name|default:"" }}</td>
+                <td>{{ ticket.sponsor.name }}</td>
+                <td>{{ ticket.ticket_type.fee|floatformat:2 }} EUR</td>
+            </tr>
+        {% endfor %}
+        <tr style="font-weight: bold">
+            <td colspan="5" style="text-align:right">{% trans "Total:" %}</td>
+            <td>{{ purchase.payment_total|floatformat:2 }} EUR</td>
+        </tr>
+    </table>
+
+    <p>{% trans "All prices include 19% VAT." %}</p>
+</div>

@@ -106,6 +106,7 @@ class Voucher(models.Model):
 
 
 class TicketTypeManager(models.Manager):
+
     def available(self):
         return self.filter(date_valid_from__lte=now(),
                            date_valid_to__gte=now(), is_active=True)
@@ -117,6 +118,14 @@ class TicketTypeManager(models.Manager):
             return last['product_number__max'] + 1
         else:
             return settings.PRODUCT_NUMBER_START
+
+    def filter_ondesk(self):
+        vt_ct = content_models.ContentType.objects.get_for_model(VenueTicket)
+        return self.get_query_set().filter(is_on_desk_active=True,
+                                           content_type=vt_ct,
+                                           date_valid_from__lte=now(),
+                                           date_valid_to__gte=now(),
+                                           )
 
 
 class TicketType(models.Model):
@@ -135,6 +144,8 @@ class TicketType(models.Model):
         default=0, help_text=_('0 means no limit'))
 
     is_active = models.BooleanField(_('Is active'), default=False)
+    is_on_desk_active = models.BooleanField(_('Allow on desk purchase'), default=False)
+
     date_valid_from = models.DateTimeField(_('Date (valid from)'), blank=False)
     date_valid_to = models.DateTimeField(_('Date (valid to)'), blank=False)
 
@@ -231,9 +242,9 @@ class Purchase(models.Model):
 
     # Address in purchase because a user maybe wants to different invoices.
     company_name = models.CharField(_('Company'), max_length=100, blank=True)
-    first_name = models.CharField(_('First name'), max_length=250, blank=False)
-    last_name = models.CharField(_('Last name'), max_length=250, blank=False)
-    email = models.EmailField(_('E-mail'), blank=False)
+    first_name = models.CharField(_('First name'), max_length=250)
+    last_name = models.CharField(_('Last name'), max_length=250)
+    email = models.EmailField(_('E-mail'))
 
     street = models.CharField(_('Street and house number'), max_length=100)
     zip_code = models.CharField(_('Zip code'), max_length=20)

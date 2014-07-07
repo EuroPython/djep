@@ -2,15 +2,28 @@
 from __future__ import unicode_literals
 
 import operator
+import uuid
+
 from functools import reduce
 
-from django.db import models
-from django.views.generic import ListView
-from django.utils.decorators import method_decorator
+from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
+from django.core import signing
+from django.core.urlresolvers import reverse, reverse_lazy
+from django.db import models, transaction
+from django.forms.formsets import formset_factory
+from django.http import HttpResponseRedirect
+from django.views.generic import ListView, FormView, TemplateView
+from django.utils.decorators import method_decorator
+from django.utils.encoding import force_text
+from django.utils.translation import ugettext_lazy as _
 
-from ..attendees.models import Ticket
-from .forms import SearchForm
+from ..attendees.models import Purchase, Ticket, TicketType
+from ..attendees.tasks import render_invoice
+from ..attendees.utils import generate_invoice_number
+from ..conference.models import current_conference
+from .forms import (OnDeskPurchaseForm, OnDeskTicketForm,
+    BaseOnDeskTicketFormSet, SearchForm)
 
 
 class CheckinViewMixin(object):
@@ -134,3 +147,167 @@ class SearchView(CheckinViewMixin, SearchFormMixin, ListView):
             object_list=self.object_list
         )
         return self.render_to_response(context)
+
+
+class OnDeskPurchaseView(CheckinViewMixin, SearchFormMixin, FormView):
+    form_class = OnDeskPurchaseForm
+    salt = 'pyconde.checkin.purchase'
+    stage = 'form'
+    success_url = reverse_lazy('checkin_purchase_done')
+    template_name = 'checkin/ondesk_purchase_form.html'
+    template_name_preview = 'checkin/ondesk_purchase_form_preview.html'
+    ticket_formset_class = BaseOnDeskTicketFormSet
+    ticket_form_class = OnDeskTicketForm
+    timeout = 15*60  # seconds after which the preview timed out
+
+    def get(self, request, *args, **kwargs):
+        form_class = self.get_form_class()
+        form = self.get_form(form_class)
+        formset_class = formset_factory(self.ticket_form_class,
+                                        formset=self.ticket_formset_class,
+                                        extra=1)
+        formset = formset_class()
+        return self.render_to_response(self.get_context_data(form=form,
+                                                             formset=formset))
+
+    def post(self, request, *args, **kwargs):
+        if not self.request.POST.get('signed_data', None):
+            self.start_session()
+
+            # We perform the preview
+            form_class = self.get_form_class()
+            form = self.get_form(form_class)
+            formset_class = formset_factory(self.ticket_form_class,
+                                            formset=self.ticket_formset_class,
+                                            extra=1)
+            formset = formset_class(data=self.request.POST)
+            valid = (form.is_valid(), formset.is_valid(),)
+            if all(valid):
+                return self.form_valid(form, formset)
+            else:
+                return self.form_invalid(form, formset)
+        else:
+            # Verify existing session
+            if not self.verify_session():
+                messages.error(request, _('Purchase session timeout or purchase already processed'))
+                return HttpResponseRedirect(reverse('checkin_purchase'))
+
+            # We do the actual submit
+            return self.form_post()
+
+    def form_post(self):
+        # Do the actual booking process. We already verified the data in
+        # the preview step, and use the data from signed data package.
+        self.stage = 'post'
+
+        signed_data = self.request.POST.get('signed_data')
+        try:
+            data = signing.loads(signed_data, salt=self.salt, max_age=self.timeout)
+            with transaction.commit_manually():
+                # TODO:
+                #   set form.email to some value
+                try:
+                    purchase = Purchase(**data['purchase'])
+                    purchase.conference = current_conference()
+                    purchase.state = 'new'
+                    purchase.payment_method = 'invoice'
+                    purchase.save()
+
+                    for td in data['tickets']:
+                        ticket_type = TicketType.objects.select_related('content_type') \
+                                                        .get(id=td['ticket_type_id'])
+                        TicketClass = ticket_type.content_type.model_class()
+                        ticket = TicketClass(**td)
+                        ticket.purchase = purchase
+                        ticket.save()
+                    purchase.payment_total = purchase.calculate_payment_total()
+                    purchase.save(update_fields=['payment_total'])
+                    purchase.invoice_number = generate_invoice_number()
+                    purchase.save(update_fields=['invoice_number'])
+                except Exception as e:
+                    print(e)
+                    transaction.rollback()
+                    messages.error(self.request, _('An error occured while processing the purchase'))
+                    return HttpResponseRedirect(reverse('checkin_purchase'))
+                else:
+                    # Delete the purchase_key first in case a database error occurs
+                    del self.request.session['purchase_key']
+                    transaction.commit()
+                    render_invoice.delay(purchase_id=purchase.id,
+                                         send_purchaser=False)
+                    return super(OnDeskPurchaseView, self).form_valid(None)
+        except signing.SignatureExpired:
+            messages.error(self.request, _('Session timed out. Please restart the purchase process.'))
+        except signing.BadSignature:
+            messages.error(self.request, _('Invalid data. Please restart the purchase process.'))
+        return HttpResponseRedirect(reverse('checkin_purchase'))
+
+    def form_valid(self, form, formset):
+        # We allow users to preview their purchase.
+        # We serialize all form data into one json object that is then
+        # signed using django.core.signing
+        self.stage = 'preview'
+
+        serialized_data = self.serialize(form, formset)
+        signed_data = signing.dumps(serialized_data, salt=self.salt, compress=True)
+
+        purchase = form.cleaned_data
+        tickets = []
+        payment_total = 0.0
+        for tform in formset.changed_forms:
+            t = tform.cleaned_data
+            # Copy for template access
+            t['ticket_type'] = t['ticket_type_id']
+            t['user'] = t['user_id']
+            t['sponsor'] = t['sponsor_id']
+            payment_total += t['ticket_type_id'].fee
+            tickets.append(t)
+
+        purchase['payment_total'] = payment_total
+
+        ctx = self.get_context_data(signed_data=signed_data,
+                                    purchase=purchase,
+                                    tickets=tickets)
+        return self.render_to_response(ctx)
+
+    def form_invalid(self, form, formset):
+        ctx = self.get_context_data(form=form, formset=formset)
+        return self.render_to_response(ctx)
+
+    def get_context_data(self, **kwargs):
+        ctx = super(OnDeskPurchaseView, self).get_context_data(**kwargs)
+        ctx['purchase_key'] = self.request.session.get('purchase_key')
+        if self.stage == 'preview':
+            pass
+        else:
+            ctx['empty_form'] = ctx['formset'].empty_form
+        return ctx
+
+    def get_template_names(self):
+        if self.stage == 'preview':
+            return [self.template_name_preview]
+        return super(OnDeskPurchaseView, self).get_template_names()
+
+    def serialize(self, form, formset):
+        data = {}
+        data['purchase'] = {bf.name: bf.data for bf in form}
+        ticket_data = []
+        for tf in formset.changed_forms:
+            ticket_data.append({bf.name: bf.data for bf in tf})
+        data['tickets'] = ticket_data
+        return data
+
+    def start_session(self):
+        # Start new purchase session
+        self.request.session['purchase_key'] = force_text(uuid.uuid4())
+
+    def verify_session(self):
+        # A session is only valid if the key exists in the POST data and the
+        # session and the key is not None or ''
+        purchase_key_session = self.request.session.get('purchase_key', None)
+        purchase_key = self.request.POST.get('purchase_key', None)
+        return purchase_key and purchase_key_session == purchase_key
+
+
+class OnDeskPurchaseDoneView(CheckinViewMixin, SearchFormMixin, TemplateView):
+    template_name = 'checkin/ondesk_purchase_form_done.html'

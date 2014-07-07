@@ -1,0 +1,20 @@
+{% extends 'checkin/base.html' %}
+{% load i18n crispy_forms_tags checkin_tags %}
+
+{% block title %}{% trans "Preview new on-desk purchase" %}{% endblock %}
+{% block page_title %}{% trans "Preview new on-desk purchase" %}{% endblock %}
+
+{% block content %}
+  <div class="checkin">
+    {{ block.super }}
+    {% include 'checkin/partials/purchase.html' with purchase=purchase tickets=tickets %}
+    <form class="form-horizontal" method="post" >
+        {% csrf_token %}
+        <input type="hidden" name="signed_data" value="{{ signed_data }}">
+        <input type="hidden" name="purchase_key" value="{{ purchase_key }}">
+        <div class="form-actions">
+            <button class="btn btn-primary" type="submit">{% trans "Create Purchase" %}</button>
+        </div>
+    </form>
+  </div>
+{% endblock %}

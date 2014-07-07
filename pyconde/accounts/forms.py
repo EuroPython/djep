@@ -22,7 +22,7 @@ from ..forms import Submit
 from . import validators
 from .models import Profile
 from .widgets import AvatarWidget
-from .utils import SEND_MAIL_CHOICES
+from .utils import get_full_name, SEND_MAIL_CHOICES
 
 
 NUM_ACCOMPANYING_CHILDREN_CHOICES = (
@@ -33,6 +33,11 @@ NUM_ACCOMPANYING_CHILDREN_CHOICES = (
     (4, 4),
     (5, 5),
 )
+
+
+class UserModelChoiceField(forms.ModelChoiceField):
+    def label_from_instance(self, obj):
+        return get_full_name(obj)
 
 
 class ProfileRegistrationForm(RegistrationForm):
