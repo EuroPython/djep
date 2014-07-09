@@ -6,6 +6,7 @@ from django.core.urlresolvers import reverse
 from django.test import TestCase
 
 from ..accounts.models import Profile
+from ..attendees.models import Purchase
 
 
 def escape_redirect(s):
@@ -35,7 +36,9 @@ class ViewTests(TestCase):
         user.user_permissions.add(permission)
         self.client.login(username='user', password='password')
         url = reverse('checkin_search')
-        self.assertEqual(self.client.get(url, follow=True).status_code, 200)
+        self.assertEqual(
+            self.client.get(url, follow=True).status_code,
+            200)
 
     def test_purchase_required_login(self):
         url = reverse('checkin_purchase')
@@ -58,27 +61,37 @@ class ViewTests(TestCase):
         user.user_permissions.add(permission)
         self.client.login(username='user', password='password')
         url = reverse('checkin_purchase')
-        self.assertEqual(self.client.get(url, follow=True).status_code, 200)
+        self.assertEqual(
+            self.client.get(url, follow=True).status_code,
+            200)
 
-    def test_purchase_done_required_login(self):
-        url = reverse('checkin_purchase_done')
+    def test_purchase_detail_required_login(self):
+        purchase = Purchase.objects.create()
+        url = reverse('checkin_purchase_detail', kwargs={'pk': purchase.pk})
+
         self.assertRedirects(
             self.client.get(url, follow=True),
             '/en/accounts/login/?next=' + escape_redirect(url))
 
-    def test_purchase_done_no_permission(self):
+    def test_purchase_detail_no_permission(self):
         auth_models.User.objects.create_user(username='user', password='password')
         self.client.login(username='user', password='password')
-        url = reverse('checkin_purchase_done')
+        purchase = Purchase.objects.create()
+
+        url = reverse('checkin_purchase_detail', kwargs={'pk': purchase.pk})
         self.assertRedirects(
             self.client.get(url, follow=True),
             '/en/accounts/login/?next=' + escape_redirect(url))
 
-    def test_purchase_done(self):
+    def test_purchase_detail(self):
         user = auth_models.User.objects.create_user(username='user', password='password')
         Profile.objects.create(user=user)
         permission = auth_models.Permission.objects.get(codename='see_checkin_info')
         user.user_permissions.add(permission)
         self.client.login(username='user', password='password')
-        url = reverse('checkin_purchase_done')
-        self.assertEqual(self.client.get(url, follow=True).status_code, 200)
+
+        purchase = Purchase.objects.create()
+        url = reverse('checkin_purchase_detail', kwargs={'pk': purchase.pk})
+        self.assertEqual(
+            self.client.get(url, follow=True).status_code,
+            200)

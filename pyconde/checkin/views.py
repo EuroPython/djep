@@ -5,6 +5,7 @@ import operator
 import uuid
 
 from functools import reduce
+from itertools import chain
 
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
@@ -13,12 +14,13 @@ from django.core.urlresolvers import reverse, reverse_lazy
 from django.db import models, transaction
 from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
-from django.views.generic import ListView, FormView, TemplateView
+from django.views.generic import DetailView, FormView, ListView, TemplateView
 from django.utils.decorators import method_decorator
 from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
 
-from ..attendees.models import Purchase, Ticket, TicketType
+from ..attendees.models import (Purchase, Ticket, TicketType, SIMCardTicket,
+    SupportTicket, VenueTicket)
 from ..attendees.tasks import render_invoice
 from ..attendees.utils import generate_invoice_number
 from ..conference.models import current_conference
@@ -155,7 +157,6 @@ class OnDeskPurchaseView(CheckinViewMixin, SearchFormMixin, FormView):
     form_class = OnDeskPurchaseForm
     salt = 'pyconde.checkin.purchase'
     stage = 'form'
-    success_url = reverse_lazy('checkin_purchase_done')
     template_name = 'checkin/ondesk_purchase_form.html'
     template_name_preview = 'checkin/ondesk_purchase_form_preview.html'
     ticket_formset_class = BaseOnDeskTicketFormSet
@@ -226,6 +227,7 @@ class OnDeskPurchaseView(CheckinViewMixin, SearchFormMixin, FormView):
                     purchase.save(update_fields=['payment_total'])
                     purchase.invoice_number = generate_invoice_number()
                     purchase.save(update_fields=['invoice_number'])
+                    self.object = purchase
                 except Exception as e:
                     print(e)
                     transaction.rollback()
@@ -235,9 +237,10 @@ class OnDeskPurchaseView(CheckinViewMixin, SearchFormMixin, FormView):
                     # Delete the purchase_key first in case a database error occurs
                     del self.request.session['purchase_key']
                     transaction.commit()
+                    messages.success(self.request, _('Purchase successful!'))
                     render_invoice.delay(purchase_id=purchase.id,
                                          send_purchaser=False)
-                    return super(OnDeskPurchaseView, self).form_valid(None)
+                    return HttpResponseRedirect(self.get_success_url())
         except signing.SignatureExpired:
             messages.error(self.request, _('Session timed out. Please restart the purchase process.'))
         except signing.BadSignature:
@@ -285,6 +288,10 @@ class OnDeskPurchaseView(CheckinViewMixin, SearchFormMixin, FormView):
             ctx['empty_form'] = ctx['formset'].empty_form
         return ctx
 
+    def get_success_url(self):
+
+        return reverse('checkin_purchase_detail', kwargs={'pk': self.object.pk})
+
     def get_template_names(self):
         if self.stage == 'preview':
             return [self.template_name_preview]
@@ -310,10 +317,24 @@ class OnDeskPurchaseView(CheckinViewMixin, SearchFormMixin, FormView):
         purchase_key = self.request.POST.get('purchase_key', None)
         return purchase_key and purchase_key_session == purchase_key
 
-on_desk_purchase_view = OnDeskPurchaseView.as_view()
+purchase_view = OnDeskPurchaseView.as_view()
 
 
-class OnDeskPurchaseDoneView(CheckinViewMixin, SearchFormMixin, TemplateView):
-    template_name = 'checkin/ondesk_purchase_form_done.html'
+class OnDeskPurchaseDetailView(CheckinViewMixin, SearchFormMixin, DetailView):
+    model = Purchase
+    template_name = 'checkin/ondesk_purchase_detail.html'
 
-on_desk_purchase_done_view = OnDeskPurchaseDoneView.as_view()
+    def get_context_data(self, **kwargs):
+        ctx = super(OnDeskPurchaseDetailView, self).get_context_data(**kwargs)
+        venues = VenueTicket.objects.filter(purchase_id=self.object.id).all()
+        sims = SIMCardTicket.objects.filter(purchase_id=self.object.id).all()
+        sups = SupportTicket.objects.filter(purchase_id=self.object.id).all()
+        ctx['tickets'] = chain(venues, sims, sups)
+        return ctx
+
+    def get_queryset(self):
+        qs = super(OnDeskPurchaseDetailView, self).get_queryset()
+        qs = qs.select_related('ticket_set__ticket_type__content_type')
+        return qs
+
+purchase_detail_view = OnDeskPurchaseDetailView.as_view()

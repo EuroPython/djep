@@ -1,0 +1,12 @@
+{% extends 'checkin/base.html' %}
+{% load i18n crispy_forms_tags checkin_tags %}
+
+{% block title %}{% trans "Purchase" %}{% endblock %}
+{% block page_title %}{% trans "Purchase" %}{% endblock %}
+
+{% block content %}
+  <div class="checkin">
+    {{ block.super }}
+    {% include 'checkin/partials/purchase.html' with purchase=object tickets=tickets %}
+  </div>
+{% endblock %}

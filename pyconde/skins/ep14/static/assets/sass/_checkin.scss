@@ -23,4 +23,45 @@
     label.requiredField {
         font-weight: bold;
     }
+    tr.canceled {
+        border-left: 5px solid $red;
+        & > td {
+            padding-left: 5px;
+        }
+        td:not(:last-child) {
+            text-decoration: line-through;
+        }
+    }
+    .purchase-canceled {
+        @include label(
+            $padding: 0.5rem 1rem 1rem,
+            $text-size: 3rem,
+            $bg: $red,
+            $radius: $label-radius
+        );
+    }
+    .purchase-paid {
+        @include label(
+            $padding: 0.5rem 1rem 1rem,
+            $text-size: 3rem,
+            $bg: $freshgreen,
+            $radius: $label-radius
+        );
+    }
+    .purchase-unpaid {
+        @include label(
+            $padding: 0.5rem 1rem 1rem,
+            $text-size: 3rem,
+            $bg: $green,
+            $radius: $label-radius
+        );
+    }
+    .purchase-unknown {
+        @include label(
+            $padding: 0.5rem 1rem 1rem,
+            $text-size: 3rem,
+            $bg: $blue-light,
+            $radius: $label-radius
+        );
+    }
 }
