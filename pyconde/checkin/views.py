@@ -148,6 +148,8 @@ class SearchView(CheckinViewMixin, SearchFormMixin, ListView):
         )
         return self.render_to_response(context)
 
+search_view = SearchView.as_view()
+
 
 class OnDeskPurchaseView(CheckinViewMixin, SearchFormMixin, FormView):
     form_class = OnDeskPurchaseForm
@@ -308,6 +310,10 @@ class OnDeskPurchaseView(CheckinViewMixin, SearchFormMixin, FormView):
         purchase_key = self.request.POST.get('purchase_key', None)
         return purchase_key and purchase_key_session == purchase_key
 
+on_desk_purchase_view = OnDeskPurchaseView.as_view()
+
 
 class OnDeskPurchaseDoneView(CheckinViewMixin, SearchFormMixin, TemplateView):
     template_name = 'checkin/ondesk_purchase_form_done.html'
+
+on_desk_purchase_done_view = OnDeskPurchaseDoneView.as_view()
