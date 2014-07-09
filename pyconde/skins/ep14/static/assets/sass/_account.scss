@@ -11,7 +11,7 @@
     }
     .purchase {
         @include grid-row();
-        background: $background1;
+        background: $background-color-light;
         margin-bottom: 30px;
         .alert {
             border-radius: 0px;

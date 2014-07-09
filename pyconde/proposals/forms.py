@@ -80,7 +80,7 @@ class ProposalSubmissionForm(forms.ModelForm):
                 Field('additional_speakers', css_class='multiselect-user'),
                 Field('notes')),
             ButtonHolder(
-                Submit('submit', button_text, css_class="btn-primary"))
+                Submit('submit', button_text, css_class="btn btn-primary"))
         )
 
     def customize_fields(self, instance=None, form=None, tracks=None):
@@ -211,7 +211,7 @@ class TypedSubmissionForm(ProposalSubmissionForm):
                      Field('additional_speakers', css_class='multiselect-user'),
                      Field('notes')),
             ButtonHolder(
-                Submit('submit', button_text, css_class="btn-primary"))
+                Submit('submit', button_text, css_class="btn btn-primary"))
         )
 
     def customize_fields(self, instance=None, form=None, tracks=None):
@@ -272,7 +272,7 @@ class TrainingSubmissionForm(TypedSubmissionForm):
                 Field('additional_speakers', css_class='multiselect-user'),
                 Field('notes')),
             ButtonHolder(
-                Submit('submit', button_text, css_class="btn-primary")),
+                Submit('submit', button_text, css_class="btn btn-primary")),
         )
 
     def customize_fields(self, instance=None, form=None, tracks=None):

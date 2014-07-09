@@ -281,7 +281,7 @@ a {
 }
 
 header {
-    background: $background1;
+    background: $background-color-light;
     .inner {
         @media #{$topbar-media-query} {
             height: 170px;
@@ -335,15 +335,6 @@ header {
     }
 }
 
-a.btn {
-    background: $baseColor;
-    color: #ffffff;
-    &.danger {
-        color: #FFF !important;
-        background-color: $highlightColor !important;
-    }
-}
-
 .alert-block {
     margin-bottom: 1em;
     li {
@@ -359,8 +350,6 @@ a.btn {
         color: #FFF;
     }
 }
-
-
 
 header .inner {
     width: 890px;
