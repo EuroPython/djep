@@ -7,13 +7,14 @@ import uuid
 from functools import reduce
 from itertools import chain
 
+from django.conf import settings
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.core import signing
 from django.core.urlresolvers import reverse
 from django.db import models, transaction
 from django.forms.formsets import formset_factory
-from django.http import HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.utils.encoding import force_text
@@ -343,6 +344,24 @@ class OnDeskPurchaseDetailView(CheckinViewMixin, SearchFormMixin, DetailView):
 purchase_detail_view = OnDeskPurchaseDetailView.as_view()
 
 
+@permission_required('accounts.see_checkin_info')
+def purchase_invoice_view(request, pk):
+    purchase = get_object_or_404(Purchase, pk=pk)
+    if purchase.exported:
+        response = HttpResponse(content_type='application/pdf')
+
+        ext = '.json' if settings.PURCHASE_INVOICE_DISABLE_RENDERING else '.pdf'
+        filename = '%s%s' % (purchase.full_invoice_number, ext)
+        response['Content-Disposition'] = 'attachment; filename="%s"' % filename
+        with open(purchase.invoice_filepath, 'rb') as f:
+            response.write(f.read())
+        return response
+    else:
+        messages.error(request, _('Invoice not yet exported.'))
+        url = reverse('checkin_purchase_detail', kwargs={'pk': purchase.pk})
+        return HttpResponseRedirect(url)
+
+
 @require_POST
 @permission_required('accounts.see_checkin_info')
 def purchase_update_state(request, pk, new_state):
@@ -381,6 +400,7 @@ class OnDeskTicketUpdateView(CheckinViewMixin, SearchFormMixin, FormView):
         for k, v in form.cleaned_data.items():
             setattr(self.object, k, v)
         self.object.save(update_fields=form.cleaned_data.keys())
+        messages.success(self.request, _('Ticket sucessfully updated.'))
         return super(OnDeskTicketUpdateView, self).form_valid(form)
 
     def get_form_kwargs(self):

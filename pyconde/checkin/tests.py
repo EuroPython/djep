@@ -106,6 +106,34 @@ class ViewTests(TestCase):
             self.client.get(url, follow=True).status_code,
             200)
 
+    def test_purchase_invoice_required_login(self):
+        purchase = Purchase.objects.create()
+
+        url = reverse('checkin_purchase_invoice', kwargs={'pk': purchase.pk})
+        self.assertRedirects(
+            self.client.get(url, follow=True),
+            '/en/accounts/login/?next=' + escape_redirect(url))
+
+    def test_purchase_invoice_no_permission(self):
+        self._create_user()
+
+        purchase = Purchase.objects.create()
+
+        url = reverse('checkin_purchase_invoice', kwargs={'pk': purchase.pk})
+        self.assertRedirects(
+            self.client.get(url, follow=True),
+            '/en/accounts/login/?next=' + escape_redirect(url))
+
+    def test_purchase_invoice(self):
+        self._create_user(permissions=True)
+
+        purchase = Purchase.objects.create()
+
+        url = reverse('checkin_purchase_invoice', kwargs={'pk': purchase.pk})
+        self.assertEqual(
+            self.client.get(url, follow=True).status_code,
+            200)
+
     def test_checkin_purchase_state_GET(self):
         purchase = Purchase.objects.create()
 

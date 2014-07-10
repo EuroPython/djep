@@ -66,4 +66,10 @@
     </table>
 
     <p>{% trans "All prices include 19% VAT." %}</p>
+
+    {% if purchase.exported %}
+        <a href="{% url 'checkin_purchase_invoice' pk=purchase.pk %}">{% trans "Download the invoice" %}</a>
+    {% else %}
+        {% trans "Invoice not yet generated. Hang on." %}
+    {% endif %}
 </div>
