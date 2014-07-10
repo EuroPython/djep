@@ -64,4 +64,9 @@
             $radius: $label-radius
         );
     }
+    .state {
+        form {
+            display: inline-block;
+        }
+    }
 }

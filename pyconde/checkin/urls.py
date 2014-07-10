@@ -10,6 +10,8 @@ urlpatterns = patterns(
         name='checkin_purchase'),
     url(r'^purchase/(?P<pk>\d+)/$', 'purchase_detail_view',
         name='checkin_purchase_detail'),
+    url(r'^purchase/(?P<pk>\d+)/(?P<new_state>[^/]+)/$', 'purchase_update_state',
+        name='checkin_purchase_state'),
     url(r'^search/$', 'search_view',
         name='checkin_search'),
 )

@@ -8,23 +8,31 @@
         {{ purchase.zip_code }} {{ purchase.city }}</br>
         {{ purchase.country }}</br>
     </p>
+    <div class="state">
     {% if purchase.state == 'payment_received' %}
-        <div class="purchase-paid">
+        <span class="purchase-paid">
             {% trans "Paid!" %}
-        </div>
+        </span>
+        <form action="{% url 'checkin_purchase_state' pk=purchase.pk new_state='unpaid' %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-warning inverted" value="{% trans "Mark as unpaid" %}" /></form>
+        <form action="{% url 'checkin_purchase_state' pk=purchase.pk new_state='cancel' %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-danger inverted" value="{% trans "Cancel purchase" %}" /></form>
     {% elif purchase.state == 'canceled' %}
-        <div class="purchase-canceled">
+        <span class="purchase-canceled">
             {% trans "Canceled!" %}
-        </div>
+        </span>
+        <form action="{% url 'checkin_purchase_state' pk=purchase.pk new_state='paid' %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-success inverted" value="{% trans "Mark as paid" %}" /></form>
+        <form action="{% url 'checkin_purchase_state' pk=purchase.pk new_state='unpaid' %}"  method="POST">{% csrf_token %}<input type="submit" class="btn btn-warning inverted" value="{% trans "Mark as unpaid" %}" /></form>
     {% elif purchase.state == 'invoice_created' %}
-        <div class="purchase-unpaid">
+        <span class="purchase-unpaid">
             {% trans "Not Paid!" %}
-        </div>
+        </span>
+        <form action="{% url 'checkin_purchase_state' pk=purchase.pk new_state='paid' %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-success inverted" value="{% trans "Mark as paid" %}" /></form>
+        <form action="{% url 'checkin_purchase_state' pk=purchase.pk new_state='cancel' %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-danger inverted" value="{% trans "Cancel purchase" %}" /></form>
     {% elif purchase.state != None %}
-        <div class="purchase-unknown">
+        <span class="purchase-unknown">
             {{ purchase.get_state_display|title }}
-        </div>
+        </span>
     {% endif %}
+    </div>
 </div>
 
 <div class="tickets">

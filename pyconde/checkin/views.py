@@ -10,14 +10,16 @@ from itertools import chain
 from django.contrib import messages
 from django.contrib.auth.decorators import permission_required
 from django.core import signing
-from django.core.urlresolvers import reverse, reverse_lazy
+from django.core.urlresolvers import reverse
 from django.db import models, transaction
 from django.forms.formsets import formset_factory
 from django.http import HttpResponseRedirect
-from django.views.generic import DetailView, FormView, ListView, TemplateView
+from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.utils.encoding import force_text
 from django.utils.translation import ugettext_lazy as _
+from django.views.generic import DetailView, FormView, ListView
+from django.views.decorators.http import require_POST
 
 from ..attendees.models import (Purchase, Ticket, TicketType, SIMCardTicket,
     SupportTicket, VenueTicket)
@@ -338,3 +340,24 @@ class OnDeskPurchaseDetailView(CheckinViewMixin, SearchFormMixin, DetailView):
         return qs
 
 purchase_detail_view = OnDeskPurchaseDetailView.as_view()
+
+
+@require_POST
+@permission_required('accounts.see_checkin_info')
+def purchase_update_state(request, pk, new_state):
+    purchase = get_object_or_404(Purchase, pk=pk)
+    states = {
+        'paid': 'payment_received',
+        'unpaid': 'invoice_created',
+        'cancel': 'canceled',
+    }
+    state = states.get(new_state, None)
+    if state:
+        purchase.state = state
+        purchase.save(update_fields=['state'])
+        messages.success(request, _('Purchase marked as %(state)s.') % {
+                         'state': new_state})
+    else:
+        messages.warning(request, _('Invalid state.'))
+    url = reverse('checkin_purchase_detail', kwargs={'pk': purchase.pk})
+    return HttpResponseRedirect(url)
