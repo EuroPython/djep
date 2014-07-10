@@ -12,19 +12,19 @@ from . import models
 class EditSessionForm(forms.ModelForm):
     class Meta(object):
         model = models.Session
-        fields = ['description', 'abstract']
+        fields = ('abstract', 'description',)
 
     def __init__(self, *args, **kwargs):
         super(EditSessionForm, self).__init__(*args, **kwargs)
-        self.fields['description'].label = ugettext("Description")
         self.fields['abstract'].label = ugettext("Abstract")
+        self.fields['description'].label = ugettext("Description")
         self.fields['abstract'].help_text = ugettext("""This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> as input.""")
         self.fields['description'].help_text = ugettext("""This field supports <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank" rel="external">Markdown</a> as input.""")
         self.helper = FormHelper()
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
-            Field('description'),
             Field('abstract'),
+            Field('description'),
             ButtonHolder(Submit('save', _("Save"), css_class="btn btn-primary"))
             )
 
