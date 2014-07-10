@@ -3,6 +3,7 @@ from __future__ import unicode_literals
 
 from django import forms
 from django.contrib.auth.models import User
+from django.core.urlresolvers import reverse
 from django.forms import formsets
 from django.utils.translation import ugettext_lazy as _
 
@@ -15,6 +16,24 @@ from ..attendees.models import TicketType
 from ..sponsorship.models import Sponsor
 
 
+def get_ticket_types():
+    return TicketType.objects.filter_ondesk()
+
+
+def get_users():
+    return User.objects.select_related('profile') \
+                       .only('profile__full_name',
+                             'profile__display_name',
+                             'profile__user',  # for reverse lookup
+                             'username'  # fallback if no display_name
+                             ) \
+                       .all()
+
+
+def get_sponsors():
+    return Sponsor.objects.filter(active=True).all()
+
+
 class SearchForm(forms.Form):
     query = forms.CharField(required=False)
 
@@ -23,6 +42,7 @@ class SearchForm(forms.Form):
 
         self.helper = FormHelper()
         self.helper.form_show_labels = False
+        self.helper.form_action = reverse('checkin_search')
         self.helper.form_class = 'form-horizontal'
         self.helper.form_method = 'GET'
         self.helper.layout = Layout(
@@ -63,9 +83,8 @@ class OnDeskPurchaseForm(forms.Form):
         )
 
 
-class OnDeskTicketForm(forms.Form):
+class EditOnDeskTicketForm(forms.Form):
 
-    ticket_type_id = forms.ModelChoiceField(label=_('Ticket type'), queryset=None)
     first_name = forms.CharField(label=_('First name'), max_length=250)
     last_name = forms.CharField(label=_('Last name'), max_length=250)
 
@@ -73,16 +92,14 @@ class OnDeskTicketForm(forms.Form):
     user_id = UserModelChoiceField(label=_('User'), queryset=None, required=False)
     sponsor_id = forms.ModelChoiceField(label=_('Sponsor'), queryset=None, required=False)
 
-    def __init__(self, ticket_types, users, sponsors, *args, **kwargs):
-        super(OnDeskTicketForm, self).__init__(*args, **kwargs)
-        self.fields['ticket_type_id'].queryset = ticket_types
+    def __init__(self, users, sponsors, *args, **kwargs):
+        super(EditOnDeskTicketForm, self).__init__(*args, **kwargs)
         self.fields['user_id'].queryset = users
         self.fields['sponsor_id'].queryset = sponsors
 
         self.helper = FormHelper()
         ticket_fields = Fieldset(
             _('Ticket'),
-            'ticket_type_id',
             'first_name',
             'last_name',
             'organisation',
@@ -90,10 +107,22 @@ class OnDeskTicketForm(forms.Form):
             'sponsor_id',
         )
         self.helper.form_tag = False
-        self.helper.disable_csrf = True
         self.helper.layout = Layout(
             ticket_fields
         )
+
+
+class NewOnDeskTicketForm(EditOnDeskTicketForm):
+
+    ticket_type_id = forms.ModelChoiceField(label=_('Ticket type'), queryset=None)
+
+    def __init__(self, ticket_types, *args, **kwargs):
+        super(NewOnDeskTicketForm, self).__init__(*args, **kwargs)
+        self.fields['ticket_type_id'].queryset = ticket_types
+
+        self.helper.disable_csrf = True
+        self.helper.layout[0].fields.insert(0,
+            'ticket_type_id')
 
 
 class BaseOnDeskTicketFormSet(formsets.BaseFormSet):
@@ -103,15 +132,9 @@ class BaseOnDeskTicketFormSet(formsets.BaseFormSet):
         self.forms[0].empty_permitted = False
 
     def _construct_forms(self):
-        self.ticket_types = TicketType.objects.filter_ondesk()
-        self.users = User.objects.select_related('profile') \
-                                 .only('profile__full_name',
-                                       'profile__display_name',
-                                       'profile__user',  # for reverse lookup
-                                       'username'  # fallback if no display_name
-                                       ) \
-                                 .all()
-        self.sponsors = Sponsor.objects.filter(active=True).all()
+        self.ticket_types = get_ticket_types()
+        self.users = get_users()
+        self.sponsors = get_sponsors()
         return super(BaseOnDeskTicketFormSet, self)._construct_forms()
 
     def _construct_form(self, i, **kwargs):

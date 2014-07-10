@@ -26,8 +26,9 @@ from ..attendees.models import (Purchase, Ticket, TicketType, SIMCardTicket,
 from ..attendees.tasks import render_invoice
 from ..attendees.utils import generate_invoice_number
 from ..conference.models import current_conference
-from .forms import (OnDeskPurchaseForm, OnDeskTicketForm,
-    BaseOnDeskTicketFormSet, SearchForm)
+from .forms import (OnDeskPurchaseForm, EditOnDeskTicketForm,
+    NewOnDeskTicketForm, BaseOnDeskTicketFormSet, SearchForm, get_users,
+    get_sponsors)
 
 
 class CheckinViewMixin(object):
@@ -136,14 +137,15 @@ class SearchView(CheckinViewMixin, SearchFormMixin, ListView):
                 'name': ticket.purchase.first_name + ' ' + ticket.purchase.last_name,
                 'email': ticket.purchase.email
             }
-            obj['buyer'] = {
-                'user_id': ticket.purchase.user_id,
-                'username': ticket.purchase.user.username,
-                'email': ticket.purchase.user.email,
-                'full_name': ticket.purchase.user.profile.full_name,
-                'display_name': ticket.purchase.user.profile.display_name,
-                'organisation': ticket.purchase.user.profile.organisation
-            }
+            if ticket.purchase.user_id:
+                obj['buyer'] = {
+                    'user_id': ticket.purchase.user_id,
+                    'username': ticket.purchase.user.username,
+                    'email': ticket.purchase.user.email,
+                    'full_name': ticket.purchase.user.profile.full_name,
+                    'display_name': ticket.purchase.user.profile.display_name,
+                    'organisation': ticket.purchase.user.profile.organisation
+                }
 
             self.object_list.append(obj)
         context = self.get_context_data(
@@ -162,7 +164,7 @@ class OnDeskPurchaseView(CheckinViewMixin, SearchFormMixin, FormView):
     template_name = 'checkin/ondesk_purchase_form.html'
     template_name_preview = 'checkin/ondesk_purchase_form_preview.html'
     ticket_formset_class = BaseOnDeskTicketFormSet
-    ticket_form_class = OnDeskTicketForm
+    ticket_form_class = NewOnDeskTicketForm
     timeout = 15*60  # seconds after which the preview timed out
 
     def get(self, request, *args, **kwargs):
@@ -291,7 +293,6 @@ class OnDeskPurchaseView(CheckinViewMixin, SearchFormMixin, FormView):
         return ctx
 
     def get_success_url(self):
-
         return reverse('checkin_purchase_detail', kwargs={'pk': self.object.pk})
 
     def get_template_names(self):
@@ -361,3 +362,45 @@ def purchase_update_state(request, pk, new_state):
         messages.warning(request, _('Invalid state.'))
     url = reverse('checkin_purchase_detail', kwargs={'pk': purchase.pk})
     return HttpResponseRedirect(url)
+
+
+class OnDeskTicketUpdateView(CheckinViewMixin, SearchFormMixin, FormView):
+    form_class = EditOnDeskTicketForm
+    model = VenueTicket
+    template_name = 'checkin/ondesk_ticket_form.html'
+
+    def get(self, request, *args, **kwargs):
+        self.object = get_object_or_404(self.model, pk=kwargs.get('pk'))
+        return super(OnDeskTicketUpdateView, self).get(request, *args, **kwargs)
+
+    def post(self, request, *args, **kwargs):
+        self.object = get_object_or_404(self.model, pk=kwargs.get('pk'))
+        return super(OnDeskTicketUpdateView, self).post(request, *args, **kwargs)
+
+    def form_valid(self, form):
+        for k, v in form.cleaned_data.items():
+            setattr(self.object, k, v)
+        self.object.save(update_fields=form.cleaned_data.keys())
+        return super(OnDeskTicketUpdateView, self).form_valid(form)
+
+    def get_form_kwargs(self):
+        kwargs = super(OnDeskTicketUpdateView, self).get_form_kwargs()
+        kwargs.update({
+            'users': get_users(),
+            'sponsors': get_sponsors()
+        })
+        return kwargs
+
+    def get_initial(self):
+        return {
+            'first_name': self.object.first_name,
+            'last_name': self.object.last_name,
+            'organisation': self.object.organisation,
+            'user_id': self.object.user_id,
+            'sponsor_id': self.object.sponsor_id,
+        }
+
+    def get_success_url(self):
+        return reverse('checkin_purchase_detail', kwargs={'pk': self.object.purchase.pk})
+
+ticket_update_view = OnDeskTicketUpdateView.as_view()
