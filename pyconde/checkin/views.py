@@ -14,19 +14,22 @@ from django.core import signing
 from django.core.urlresolvers import reverse
 from django.db import models, transaction
 from django.forms.formsets import formset_factory
-from django.http import HttpResponse, HttpResponseRedirect
+from django.http import HttpResponse, HttpResponseRedirect, Http404
 from django.shortcuts import get_object_or_404
 from django.utils.decorators import method_decorator
 from django.utils.encoding import force_text
-from django.utils.translation import ugettext_lazy as _
+from django.utils.translation import ugettext_lazy as _, ungettext_lazy
 from django.views.generic import DetailView, FormView, ListView
 from django.views.decorators.http import require_POST
 
+from ..attendees.exporters import BadgeExporter
 from ..attendees.models import (Purchase, Ticket, TicketType, SIMCardTicket,
     SupportTicket, VenueTicket)
 from ..attendees.tasks import render_invoice
 from ..attendees.utils import generate_invoice_number
 from ..conference.models import current_conference
+
+from .exporters import generate_badge
 from .forms import (OnDeskPurchaseForm, EditOnDeskTicketForm,
     NewOnDeskTicketForm, BaseOnDeskTicketFormSet, SearchForm, get_users,
     get_sponsors)
@@ -362,6 +365,13 @@ def purchase_invoice_view(request, pk):
         return HttpResponseRedirect(url)
 
 
+@permission_required('accounts.see_checkin_info')
+def purchase_badges_view(request, pk):
+    purchase = get_object_or_404(Purchase, pk=pk)
+    tickets = VenueTicket.objects.filter(purchase_id=purchase.pk)
+    return ticket_badge_view(request, tickets)
+
+
 @require_POST
 @permission_required('accounts.see_checkin_info')
 def purchase_update_state(request, pk, new_state):
@@ -424,3 +434,31 @@ class OnDeskTicketUpdateView(CheckinViewMixin, SearchFormMixin, FormView):
         return reverse('checkin_purchase_detail', kwargs={'pk': self.object.purchase.pk})
 
 ticket_update_view = OnDeskTicketUpdateView.as_view()
+
+
+@permission_required('accounts.see_checkin_info')
+def ticket_badge_view(request, pk):
+    if isinstance(pk, models.query.QuerySet):
+        ticket = pk
+    else:
+        ticket = VenueTicket.objects.filter(pk=pk)
+
+    count = ticket.count()
+    if count == 0:
+        raise Http404
+
+    be = BadgeExporter(ticket, 'https://ep14.org/u{uid}', indent=False)
+    data = be.export()
+    pdf = generate_badge(data)
+    if pdf is not None:
+        response = HttpResponse(content_type='application/pdf')
+        response['Content-Disposition'] = 'attachment; filename="badge.pdf"'
+        response.write(pdf)
+        return response
+    else:
+        msg = ungettext_lazy('Error generating the badge',
+                             'Error generating the badges',
+                             count)
+        messages.error(request, msg)
+        url = reverse('checkin_purchase_detail', kwargs={'pk': ticket[0].purchase_id})
+        return HttpResponseRedirect(url)

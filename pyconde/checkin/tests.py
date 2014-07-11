@@ -33,6 +33,9 @@ class ViewTests(TestCase):
             user.user_permissions.add(permission)
         self.client.login(username='user', password='password')
 
+
+class SearchViewTests(ViewTests):
+
     def test_search_required_login(self):
         url = reverse('checkin_search')
         self.assertRedirects(
@@ -54,6 +57,14 @@ class ViewTests(TestCase):
         self.assertEqual(
             self.client.get(url, follow=True).status_code,
             200)
+
+
+class PurchaseViewTests(ViewTests):
+
+    def setUp(self):
+        super(PurchaseViewTests, self).setUp()
+
+        self.purchase = Purchase.objects.create()
 
     def test_purchase_required_login(self):
         url = reverse('checkin_purchase')
@@ -79,9 +90,7 @@ class ViewTests(TestCase):
             200)
 
     def test_purchase_detail_required_login(self):
-        purchase = Purchase.objects.create()
-
-        url = reverse('checkin_purchase_detail', kwargs={'pk': purchase.pk})
+        url = reverse('checkin_purchase_detail', kwargs={'pk': self.purchase.pk})
         self.assertRedirects(
             self.client.get(url, follow=True),
             '/en/accounts/login/?next=' + escape_redirect(url))
@@ -89,9 +98,7 @@ class ViewTests(TestCase):
     def test_purchase_detail_no_permission(self):
         self._create_user()
 
-        purchase = Purchase.objects.create()
-
-        url = reverse('checkin_purchase_detail', kwargs={'pk': purchase.pk})
+        url = reverse('checkin_purchase_detail', kwargs={'pk': self.purchase.pk})
         self.assertRedirects(
             self.client.get(url, follow=True),
             '/en/accounts/login/?next=' + escape_redirect(url))
@@ -99,17 +106,34 @@ class ViewTests(TestCase):
     def test_purchase_detail(self):
         self._create_user(permissions=True)
 
-        purchase = Purchase.objects.create()
-
-        url = reverse('checkin_purchase_detail', kwargs={'pk': purchase.pk})
+        url = reverse('checkin_purchase_detail', kwargs={'pk': self.purchase.pk})
         self.assertEqual(
             self.client.get(url, follow=True).status_code,
             200)
 
-    def test_purchase_invoice_required_login(self):
-        purchase = Purchase.objects.create()
+    def test_purchase_badges_required_login(self):
+        url = reverse('checkin_purchase_badges', kwargs={'pk': self.purchase.pk})
+        self.assertRedirects(
+            self.client.get(url, follow=True),
+            '/en/accounts/login/?next=' + escape_redirect(url))
 
-        url = reverse('checkin_purchase_invoice', kwargs={'pk': purchase.pk})
+    def test_purchase_badges_no_permission(self):
+        self._create_user()
+
+        url = reverse('checkin_purchase_badges', kwargs={'pk': self.purchase.pk})
+        self.assertRedirects(
+            self.client.get(url, follow=True),
+            '/en/accounts/login/?next=' + escape_redirect(url))
+
+    def test_purchase_badges(self):
+        self._create_user(permissions=True)
+
+        url = reverse('checkin_purchase_badges', kwargs={'pk': self.purchase.pk})
+        self.assertEqual(
+            self.client.get(url, follow=True).status_code, 404)  # no tickets
+
+    def test_purchase_invoice_required_login(self):
+        url = reverse('checkin_purchase_invoice', kwargs={'pk': self.purchase.pk})
         self.assertRedirects(
             self.client.get(url, follow=True),
             '/en/accounts/login/?next=' + escape_redirect(url))
@@ -117,9 +141,7 @@ class ViewTests(TestCase):
     def test_purchase_invoice_no_permission(self):
         self._create_user()
 
-        purchase = Purchase.objects.create()
-
-        url = reverse('checkin_purchase_invoice', kwargs={'pk': purchase.pk})
+        url = reverse('checkin_purchase_invoice', kwargs={'pk': self.purchase.pk})
         self.assertRedirects(
             self.client.get(url, follow=True),
             '/en/accounts/login/?next=' + escape_redirect(url))
@@ -127,65 +149,56 @@ class ViewTests(TestCase):
     def test_purchase_invoice(self):
         self._create_user(permissions=True)
 
-        purchase = Purchase.objects.create()
-
-        url = reverse('checkin_purchase_invoice', kwargs={'pk': purchase.pk})
+        url = reverse('checkin_purchase_invoice', kwargs={'pk': self.purchase.pk})
         self.assertEqual(
             self.client.get(url, follow=True).status_code,
             200)
 
-    def test_checkin_purchase_state_GET(self):
-        purchase = Purchase.objects.create()
-
-        url = reverse('checkin_purchase_state', kwargs={'pk': purchase.pk,
+    def test_purchase_state_GET(self):
+        url = reverse('checkin_purchase_state', kwargs={'pk': self.purchase.pk,
                                                         'new_state': 'foo'})
         self.assertEqual(
             self.client.get(url).status_code,
             405)
 
-    def test_checkin_purchase_state_required_login(self):
-        purchase = Purchase.objects.create()
-
-        url = reverse('checkin_purchase_state', kwargs={'pk': purchase.pk,
+    def test_purchase_state_required_login(self):
+        url = reverse('checkin_purchase_state', kwargs={'pk': self.purchase.pk,
                                                         'new_state': 'foo'})
         self.assertRedirects(
             self.client.post(url, follow=True),
             '/en/accounts/login/?next=' + escape_redirect(url))
 
-    def test_checkin_purchase_state_no_permission(self):
+    def test_purchase_state_no_permission(self):
         self._create_user()
 
-        purchase = Purchase.objects.create()
-
-        url = reverse('checkin_purchase_state', kwargs={'pk': purchase.pk,
+        url = reverse('checkin_purchase_state', kwargs={'pk': self.purchase.pk,
                                                         'new_state': 'foo'})
         self.assertRedirects(
             self.client.post(url, follow=True),
             '/en/accounts/login/?next=' + escape_redirect(url))
 
-    def test_checkin_purchase_state(self):
+    def test_purchase_state(self):
         self._create_user(permissions=True)
 
-        purchase = Purchase.objects.create()
-
-        url = reverse('checkin_purchase_state', kwargs={'pk': purchase.pk,
+        url = reverse('checkin_purchase_state', kwargs={'pk': self.purchase.pk,
                                                         'new_state': 'foo'})
         self.assertEqual(
             self.client.post(url, follow=True).status_code,
             200)
 
-    def test_checkin_purchase_state_mark_paid(self):
+    def test_purchase_state_mark_paid(self):
         self._create_user(permissions=True)
 
-        purchase = Purchase.objects.create(state='invoice_created')
+        self.purchase.state = 'invoice_created'
+        self.purchase.save(update_fields=['state'])
 
-        url = reverse('checkin_purchase_state', kwargs={'pk': purchase.pk,
+        url = reverse('checkin_purchase_state', kwargs={'pk': self.purchase.pk,
                                                         'new_state': 'foo'})
-        self.assertEqual(purchase.state, 'invoice_created')
+        self.assertEqual(self.purchase.state, 'invoice_created')
         self.assertContains(
             self.client.post(url, follow=True),
             'Invalid state.')
-        purchase = Purchase.objects.get(id=purchase.pk)
+        purchase = Purchase.objects.get(id=self.purchase.pk)
         self.assertEqual(purchase.state, 'invoice_created')
 
         url = reverse('checkin_purchase_state', kwargs={'pk': purchase.pk,
@@ -196,16 +209,44 @@ class ViewTests(TestCase):
         purchase = Purchase.objects.get(id=purchase.pk)
         self.assertEqual(purchase.state, 'payment_received')
 
-    def test_ticket_update_required_login(self):
-        purchase = Purchase.objects.create()
-        ticket_type = TicketType.objects.create(name='ticket_type',
+
+class TicketViewTests(ViewTests):
+
+    def setUp(self):
+        super(TicketViewTests, self).setUp()
+
+        self.purchase = Purchase.objects.create()
+        self.ticket_type = TicketType.objects.create(name='ticket_type',
             date_valid_from=now() - datetime.timedelta(days=1),
             date_valid_to=now() + datetime.timedelta(days=1),
             content_type=self.vt_ct)
-        ticket = VenueTicket.objects.create(purchase=purchase,
-            ticket_type=ticket_type)
+        self.ticket = VenueTicket.objects.create(purchase=self.purchase,
+            ticket_type=self.ticket_type, first_name='John', last_name='Doe')
 
-        url = reverse('checkin_ticket_update', kwargs={'pk': ticket.pk})
+    def test_ticket_badge_required_login(self):
+        url = reverse('checkin_ticket_badge', kwargs={'pk': self.ticket.pk})
+        self.assertRedirects(
+            self.client.get(url, follow=True),
+            '/en/accounts/login/?next=' + escape_redirect(url))
+
+    def test_ticket_badge_no_permission(self):
+        self._create_user()
+
+        url = reverse('checkin_ticket_badge', kwargs={'pk': self.ticket.pk})
+        self.assertRedirects(
+            self.client.get(url, follow=True),
+            '/en/accounts/login/?next=' + escape_redirect(url))
+
+    def test_ticket_badge(self):
+        self._create_user(permissions=True)
+
+        url = reverse('checkin_ticket_badge', kwargs={'pk': self.ticket.pk})
+        self.assertEqual(
+            self.client.get(url, follow=True).status_code,
+            200)
+
+    def test_ticket_update_required_login(self):
+        url = reverse('checkin_ticket_update', kwargs={'pk': self.ticket.pk})
         self.assertRedirects(
             self.client.get(url, follow=True),
             '/en/accounts/login/?next=' + escape_redirect(url))
@@ -213,15 +254,7 @@ class ViewTests(TestCase):
     def test_ticket_update_no_permission(self):
         self._create_user()
 
-        purchase = Purchase.objects.create()
-        ticket_type = TicketType.objects.create(name='ticket_type',
-            date_valid_from=now() - datetime.timedelta(days=1),
-            date_valid_to=now() + datetime.timedelta(days=1),
-            content_type=self.vt_ct)
-        ticket = VenueTicket.objects.create(purchase=purchase,
-            ticket_type=ticket_type)
-
-        url = reverse('checkin_ticket_update', kwargs={'pk': ticket.pk})
+        url = reverse('checkin_ticket_update', kwargs={'pk': self.ticket.pk})
         self.assertRedirects(
             self.client.get(url, follow=True),
             '/en/accounts/login/?next=' + escape_redirect(url))
@@ -229,25 +262,17 @@ class ViewTests(TestCase):
     def test_ticket_update(self):
         self._create_user(permissions=True)
 
-        purchase = Purchase.objects.create()
-        ticket_type = TicketType.objects.create(name='ticket_type',
-            date_valid_from=now() - datetime.timedelta(days=1),
-            date_valid_to=now() + datetime.timedelta(days=1),
-            content_type=self.vt_ct)
-        ticket = VenueTicket.objects.create(purchase=purchase,
-            ticket_type=ticket_type, first_name='John', last_name='Doe')
-
-        url = reverse('checkin_ticket_update', kwargs={'pk': ticket.pk})
+        url = reverse('checkin_ticket_update', kwargs={'pk': self.ticket.pk})
         self.assertEqual(
             self.client.get(url, follow=True).status_code,
             200)
-        ticket = VenueTicket.objects.get(id=ticket.pk)
+        ticket = VenueTicket.objects.get(id=self.ticket.pk)
         self.assertEqual(ticket.first_name, 'John')
 
         data = {'first_name': 'Jane', 'last_name': 'Smith'}
         self.assertRedirects(
             self.client.post(url, data=data, follow=True),
-            reverse('checkin_purchase_detail', kwargs={'pk': purchase.pk}))
+            reverse('checkin_purchase_detail', kwargs={'pk': self.purchase.pk}))
         ticket = VenueTicket.objects.get(id=ticket.pk)
         self.assertEqual(ticket.first_name, 'Jane')
         self.assertEqual(ticket.last_name, 'Smith')
