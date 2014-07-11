@@ -118,6 +118,7 @@ class GuidebookExporterSessions(object):
             .prefetch_related('additional_speakers__user__profile',
                               'location') \
             .filter(released=True, start__isnull=False, end__isnull=False) \
+            .exclude(kind__slug__in=('poster')) \
             .order_by('start') \
             .only('end', 'start', 'title', 'abstract', 'description', 'is_global',
                   'kind__name',
@@ -208,6 +209,7 @@ class GuidebookExporterSpeakers(object):
             .select_related('speaker__user__profile') \
             .prefetch_related('additional_speakers__user__profile') \
             .filter(released=True, start__isnull=False, end__isnull=False) \
+            .exclude(kind__slug__in=('poster')) \
             .only('speaker__user__username',
                   'speaker__user__profile__avatar',
                   'speaker__user__profile__full_name',
@@ -243,6 +245,7 @@ class GuidebookExporterSpeakerLinks(object):
             .select_related('speaker__user__profile') \
             .prefetch_related('additional_speakers__user__profile') \
             .filter(released=True, start__isnull=False, end__isnull=False) \
+            .exclude(kind__slug__in=('poster')) \
             .only('title',
                   'speaker__user__username',
                   'speaker__user__profile__avatar',
@@ -510,7 +513,7 @@ class XMLExporterPentabarf(object):
                 .prefetch_related('additional_speakers__user__profile',
                                   'location') \
                 .filter(released=True, start__isnull=False, end__isnull=False,
-                        kind__slug__in=('talk', 'keynote')) \
+                        kind__slug__in=('talk', 'keynote', 'sponsored')) \
                 .order_by('start') \
                 .only('end', 'start', 'title', 'abstract', 'description', 'language',
                       'kind__name',
