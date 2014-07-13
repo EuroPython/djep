@@ -304,6 +304,7 @@ class OnDeskPurchaseView(CheckinViewMixin, SearchFormMixin, FormView):
     def get_context_data(self, **kwargs):
         ctx = super(OnDeskPurchaseView, self).get_context_data(**kwargs)
         ctx['purchase_key'] = self.request.session.get('purchase_key')
+        ctx['stage'] = self.stage
         if self.stage == 'preview':
             pass
         else:
