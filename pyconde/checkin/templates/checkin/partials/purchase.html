@@ -45,7 +45,7 @@
             <th>{% trans "User" %}</th>
             <th>{% trans "Sponsor" %}</th>
             <th>{% trans "Price" %}</th>
-            {% if ticket.pk %}
+            {% if stage != "preview" %}
             <th></th>
             {% endif %}
         </thead>
@@ -57,7 +57,7 @@
                 <td>{{ ticket.user|full_name|default:"" }}</td>
                 <td>{{ ticket.sponsor.name }}</td>
                 <td>{{ ticket.ticket_type.fee|floatformat:2 }} EUR</td>
-                {% if ticket.pk %}
+                {% if stage != "preview" and ticket.pk %}
                 <td>
                     {% if ticket.canceled %}
                         <i class="fa fa-ban" title="{% trans "Canceled!" %}"></i>
@@ -72,7 +72,9 @@
         <tr style="font-weight: bold">
             <td colspan="5" style="text-align:right">{% trans "Total:" %}</td>
             <td>{{ purchase.payment_total|floatformat:2 }} EUR</td>
+            {% if stage != "preview" %}
             <td></td>
+            {% endif %}
         </tr>
     </table>
 
