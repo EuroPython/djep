@@ -12,11 +12,12 @@ from django.contrib.contenttypes import models as content_models
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db import models
 from django.db.models import Q
+from django.utils.encoding import force_text
 from django.utils.timezone import now
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 from . import settings
-from django.utils.encoding import force_text
+from .validators import during_conference
 
 
 PURCHASE_STATES = (
@@ -146,8 +147,11 @@ class TicketType(models.Model):
     is_active = models.BooleanField(_('Is active'), default=False)
     is_on_desk_active = models.BooleanField(_('Allow on desk purchase'), default=False)
 
-    date_valid_from = models.DateTimeField(_('Date (valid from)'), blank=False)
-    date_valid_to = models.DateTimeField(_('Date (valid to)'), blank=False)
+    date_valid_from = models.DateTimeField(_('Sale start'), blank=False)
+    date_valid_to = models.DateTimeField(_('Sale end'), blank=False)
+
+    valid_on = models.DateField(_('Valid on'), blank=True, null=True,
+        validators=[during_conference])
 
     vouchertype_needed = models.ForeignKey('VoucherType', null=True, blank=True,
         verbose_name=_('voucher type needed'))
