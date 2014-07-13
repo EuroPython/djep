@@ -443,6 +443,8 @@ def ticket_badge_view(request, pk):
     else:
         ticket = VenueTicket.objects.filter(pk=pk)
 
+    ticket = ticket.filter(canceled=False)
+
     count = ticket.count()
     if count == 0:
         raise Http404

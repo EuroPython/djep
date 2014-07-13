@@ -55,7 +55,14 @@
                 <td>{{ ticket.user|full_name|default:"" }}</td>
                 <td>{{ ticket.sponsor.name }}</td>
                 <td>{{ ticket.ticket_type.fee|floatformat:2 }} EUR</td>
-                <td>{% if ticket.canceled %}{% trans "Ticket canceled!" %}{% endif %}</td>
+                <td>
+                    {% if ticket.canceled %}
+                        <i class="fa fa-ban" title="{% trans "Canceled!" %}"></i>
+                    {% else %}
+                        <a href="{% url 'checkin_ticket_update' pk=ticket.pk %}"><i class="fa fa-pencil" title="{% trans "Edit" %}"></i></a>
+                        <a href="{% url 'checkin_ticket_badge' pk=ticket.pk %}"><i class="fa fa-print" title="{% trans "Print" %}"></i></a>
+                    {% endif %}
+                </td>
             </tr>
         {% endfor %}
         <tr style="font-weight: bold">
@@ -68,7 +75,8 @@
     <p>{% trans "All prices include 19% VAT." %}</p>
 
     {% if purchase.exported %}
-        <a href="{% url 'checkin_purchase_invoice' pk=purchase.pk %}">{% trans "Download the invoice" %}</a>
+        <a class="btn" href="{% url 'checkin_purchase_invoice' pk=purchase.pk %}"><i class="fa fa-print" title="{% trans "Print invoice" %}"></i> {% trans "Print invoice" %}</a>
+        <a class="btn" href="{% url 'checkin_purchase_badges' pk=purchase.pk %}"><i class="fa fa-ticket" title="{% trans "Print badges" %}"></i> {% trans "Print badges" %}</a>
     {% else %}
         {% trans "Invoice not yet generated. Hang on." %}
     {% endif %}
