@@ -9,6 +9,7 @@ from itertools import chain
 
 from django.conf import settings
 from django.contrib import messages
+from django.contrib.admin.models import ADDITION, CHANGE, LogEntry
 from django.contrib.auth.decorators import permission_required
 from django.core import signing
 from django.core.urlresolvers import reverse
@@ -33,6 +34,11 @@ from .exporters import generate_badge
 from .forms import (OnDeskPurchaseForm, EditOnDeskTicketForm,
     NewOnDeskTicketForm, BaseOnDeskTicketFormSet, SearchForm, get_users,
     get_sponsors)
+
+
+def ctype(obj):
+    from django.contrib.contenttypes.models import ContentType
+    return ContentType.objects.get_for_model(obj)
 
 
 class CheckinViewMixin(object):
@@ -235,6 +241,14 @@ class OnDeskPurchaseView(CheckinViewMixin, SearchFormMixin, FormView):
                     purchase.save(update_fields=['payment_total'])
                     purchase.invoice_number = generate_invoice_number()
                     purchase.save(update_fields=['invoice_number'])
+                    LogEntry.objects.log_action(
+                        user_id=self.request.user.pk,
+                        content_type_id=ctype(purchase).pk,
+                        object_id=purchase.pk,
+                        object_repr=force_text(purchase),
+                        action_flag=ADDITION,
+                        change_message='Checkin: Purchase created'
+                    )
                     self.object = purchase
                 except Exception as e:
                     print(e)
@@ -383,10 +397,19 @@ def purchase_update_state(request, pk, new_state):
     }
     state = states.get(new_state, None)
     if state:
+        old_state = purchase.state
         purchase.state = state
         purchase.save(update_fields=['state'])
         messages.success(request, _('Purchase marked as %(state)s.') % {
                          'state': new_state})
+        LogEntry.objects.log_action(
+            user_id=request.user.pk,
+            content_type_id=ctype(purchase).pk,
+            object_id=purchase.pk,
+            object_repr=force_text(purchase),
+            action_flag=CHANGE,
+            change_message='Checkin: state changed from %s to %s' % (old_state, state)
+        )
     else:
         messages.warning(request, _('Invalid state.'))
     url = reverse('checkin_purchase_detail', kwargs={'pk': purchase.pk})
@@ -410,6 +433,17 @@ class OnDeskTicketUpdateView(CheckinViewMixin, SearchFormMixin, FormView):
         for k, v in form.cleaned_data.items():
             setattr(self.object, k, v)
         self.object.save(update_fields=form.cleaned_data.keys())
+        LogEntry.objects.log_action(
+            user_id=self.request.user.pk,
+            content_type_id=ctype(self.object).pk,
+            object_id=self.object.pk,
+            object_repr=force_text(self.object),
+            action_flag=CHANGE,
+            change_message='Checkin: %s' % ', '. join(
+                '%s changed to %s' % (k, form.cleaned_data[k])
+                for k in form.changed_data
+            )
+        )
         messages.success(self.request, _('Ticket sucessfully updated.'))
         return super(OnDeskTicketUpdateView, self).form_valid(form)
 
