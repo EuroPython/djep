@@ -701,7 +701,7 @@ class FrabExporter(object):
         etree.SubElement(element, 'type').text = 'other'
         recording_element = etree.SubElement(element, 'recording')
         etree.SubElement(recording_element, 'license')
-        etree.SubElement(recording_element, 'optout').text = 'true'
+        etree.SubElement(recording_element, 'optout').text = unicode(not sideevent.is_recordable).lower()
         etree.SubElement(element, 'room').text = location.name
         return element
 
