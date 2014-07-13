@@ -12,7 +12,7 @@ def generate_badge(data):
 
     registerAdditionalFonts(settings.PURCHASE_INVOICE_FONT_ROOT)
     ps = PAGE_SIZE[0], PAGE_SIZE[1] * 2
-    bm = BadgeMaker(ps, 'dummy.pdf', rotate=True)
+    bm = BadgeMaker(ps, 'badge.pdf', rotate=True)
     d = []
     for t in data:
         d.extend([t, t])
