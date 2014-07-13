@@ -45,7 +45,9 @@
             <th>{% trans "User" %}</th>
             <th>{% trans "Sponsor" %}</th>
             <th>{% trans "Price" %}</th>
+            {% if ticket.pk %}
             <th></th>
+            {% endif %}
         </thead>
         {% for ticket in tickets %}
             <tr{% if ticket.canceled %} class="canceled" title="{% trans "This ticket has been canceled and is not valid anymore!" %}"{% endif %}>
@@ -55,6 +57,7 @@
                 <td>{{ ticket.user|full_name|default:"" }}</td>
                 <td>{{ ticket.sponsor.name }}</td>
                 <td>{{ ticket.ticket_type.fee|floatformat:2 }} EUR</td>
+                {% if ticket.pk %}
                 <td>
                     {% if ticket.canceled %}
                         <i class="fa fa-ban" title="{% trans "Canceled!" %}"></i>
@@ -63,6 +66,7 @@
                         <a href="{% url 'checkin_ticket_badge' pk=ticket.pk %}"><i class="fa fa-print" title="{% trans "Print" %}"></i></a>
                     {% endif %}
                 </td>
+                {% endif %}
             </tr>
         {% endfor %}
         <tr style="font-weight: bold">
