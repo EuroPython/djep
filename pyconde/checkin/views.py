@@ -476,13 +476,18 @@ def ticket_badge_view(request, pk):
     if isinstance(pk, models.query.QuerySet):
         ticket = pk
     else:
-        ticket = VenueTicket.objects.filter(pk=pk)
+        ticket = VenueTicket.objects.filter(pk=pk).select_related('purchase')
 
     ticket = ticket.filter(canceled=False)
 
     count = ticket.count()
     if count == 0:
         raise Http404
+
+    if ticket[0].purchase.state != 'payment_received':
+        messages.error(request, _('Invoice not yet paid.'))
+        url = reverse('checkin_purchase_detail', kwargs={'pk': ticket[0].purchase_id})
+        return HttpResponseRedirect(url)
 
     be = BadgeExporter(ticket, 'https://ep14.org/u{uid}', indent=False)
     data = be.export()
