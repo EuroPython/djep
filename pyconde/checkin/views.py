@@ -188,7 +188,15 @@ class OnDeskPurchaseView(CheckinViewMixin, SearchFormMixin, FormView):
                                                              formset=formset))
 
     def post(self, request, *args, **kwargs):
-        if not self.request.POST.get('signed_data', None):
+        if self.request.POST.get('signed_data', None) is not None:
+            # Verify existing session
+            if not self.verify_session():
+                messages.error(request, _('Purchase session timeout or purchase already processed'))
+                return HttpResponseRedirect(reverse('checkin_purchase'))
+
+            # We do the actual submit
+            return self.form_post()
+        else:
             self.start_session()
 
             # We perform the preview
@@ -203,14 +211,6 @@ class OnDeskPurchaseView(CheckinViewMixin, SearchFormMixin, FormView):
                 return self.form_valid(form, formset)
             else:
                 return self.form_invalid(form, formset)
-        else:
-            # Verify existing session
-            if not self.verify_session():
-                messages.error(request, _('Purchase session timeout or purchase already processed'))
-                return HttpResponseRedirect(reverse('checkin_purchase'))
-
-            # We do the actual submit
-            return self.form_post()
 
     def form_post(self):
         # Do the actual booking process. We already verified the data in
