@@ -6,6 +6,10 @@ import logging
 from django.conf import settings
 from django.core.urlresolvers import reverse
 
+from dateutil.rrule import DAILY, rrule
+
+from ..conference.models import current_conference
+
 
 LOG = logging.getLogger('pyconde.attendees')
 
@@ -124,12 +128,13 @@ class BadgeExporter(object):
                                              'sponsor',
                                              'user__profile__sponsor__level',
                                              'user__speaker_profile',
-                                             'shirtsize') \
+                                             'shirtsize',
+                                             'ticket_type') \
                              .prefetch_related('user__profile__tags',
                                                'user__profile__badge_status',
                                                'user__profile__sessions_attending') \
-                             .order_by('first_name',
-                                       'last_name'):
+                             .order_by('last_name',
+                                       'first_name'):
             if not isinstance(ticket, VenueTicket):
                 LOG.warn('Ticket %d is of type %s. Skipping' % (
                     ticket.pk, ticket.__class__.__name__))
@@ -154,6 +159,14 @@ class BadgeExporter(object):
                 'status': None,  # set below
                 'trainings': None,
             }
+            days = None
+            if ticket.ticket_type.valid_on:
+                days = [ticket.ticket_type.valid_on.isoformat()]
+            else:
+                dtstart = current_conference().start_date
+                until = current_conference().end_date
+                days = [d.date().isoformat() for d in rrule(DAILY, dtstart=dtstart, until=until)]
+            badge['days'] = days
             status_keys = set()
             if ticket.sponsor_id and ticket.sponsor.active:
                 sponsor = ticket.sponsor

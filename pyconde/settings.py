@@ -489,6 +489,9 @@ class Base(Configuration):
 
     PURCHASE_INVOICE_TEMPLATE_PATH = values.Value()  # absolute path to invoice template
 
+    # Mapping from logo name (key, e.g. 'logo' or 'vbb') to the image file path
+    ATTENDEES_BADGE_LOGOS = values.DictValue({})
+
     CACHES = values.DictValue({
         'default': {
             'BACKEND': 'redis_cache.cache.RedisCache',

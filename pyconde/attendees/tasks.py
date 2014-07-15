@@ -27,7 +27,7 @@ else:
 
 
 @app.task(ignore_result=True)
-def render_invoice(purchase_id):
+def render_invoice(purchase_id, send_purchaser=True, send_orga=True):
     from .exporters import PurchaseExporter
     from .models import Purchase
     from .utils import generate_invoice_filename
@@ -80,10 +80,11 @@ def render_invoice(purchase_id):
         purchase.save(update_fields=['exported', 'state'])
 
     # Send invoice to buyer
-    if purchase.send_invoice_to_user:
+    if send_purchaser and purchase.send_invoice_to_user:
         send_invoice.delay(purchase_id, (purchase.email_receiver,))
     # Send invoice to orga
-    send_invoice.delay(purchase_id, app_settings.INVOICE_EXPORT_RECIPIENTS)
+    if send_orga:
+        send_invoice.delay(purchase_id, app_settings.INVOICE_EXPORT_RECIPIENTS)
 
 
 @app.task(ignore_result=True)

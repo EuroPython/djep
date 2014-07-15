@@ -1,0 +1,25 @@
+{% extends 'checkin/base.html' %}
+{% load i18n crispy_forms_tags checkin_tags %}
+
+{% block title %}{% trans "Create new on-desk purchase" %}{% endblock %}
+{% block page_title %}{% trans "Create new on-desk purchase" %}{% endblock %}
+
+{% block content %}
+  <div class="checkin">
+    {{ block.super }}
+    <form class="form-horizontal" method="post">
+        {% crispy form %}
+        {{ formset.management_form }}
+        {% for fsform in formset %}
+            {% crispy fsform %}
+        {% endfor %}
+        <div style="display: none" id="extra-ticket">
+            {% crispy empty_form %}
+        </div>
+        <div class="form-actions">
+            <button class="btn btn-success" id="add-ticket" type="button">{% trans "Add Ticket" %}</button>
+            <button class="btn btn-primary" type="submit" name="preview">{% trans "Preview" %}</button>
+        </div>
+    </form>
+  </div>
+{% endblock %}

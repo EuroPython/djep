@@ -21,5 +21,5 @@ class JobOfferForm(forms.Form):
         self.helper.form_class = 'form-horizontal'
         self.helper.layout = Layout(
             'sponsor', 'reply_to', 'subject', 'text',
-            ButtonHolder(Submit('submit', _('Send job offer'), css_class='btn-primary'))
+            ButtonHolder(Submit('submit', _('Send job offer'), css_class='btn btn-primary'))
         )

@@ -181,42 +181,59 @@ label {
     }
 }
 
+@mixin btn($bg: $baseColor, $fg: #fff, $hbg: $primaryBtnBg){
+    background-color: $bg;
+    color: $fg;
+    &:hover {
+        background-color: $hbg;
+    }
+    &.inverted {
+        background-color: $fg;
+        color: $bg;
+        &:hover {
+            color: $hbg;
+        }
+    }
+}
+
 .btn {
-    background: $baseColor;
-    color: #fff;
-    border-radius: 5px;
+    border-radius: $global-radius;
     border: none;
     display: inline-block;
     font-size: 1.6rem;
     padding: 8px 20px 12px 20px;
     text-decoration: none;
-    &:hover {
-        background: $primaryBtnBg;
-    }
 
-    &.btn-success {
-        background-color: $freshgreen;
-        color: #fff;
-        &:hover {
-            background-color: $freshgreen-dark;
-        }
-    }
+    @include btn;
 
-    &.btn-danger {
-        background-color: $red;
-        color: #fff;
-        &:hover {
-            background-color: $highlightColor;
-        }
-    }
+}
+.btn-success {
+    @include btn(
+        $bg: $freshgreen,
+        $hbg: $freshgreen-dark
+    )
+}
 
-    &.btn-primary {
-        background: $primaryBtnBg;
-        color: $primaryBtnFg;
-        &:hover {
-            background: $primaryBtnBg;
-        }
-    }
+.btn-warning {
+    @include btn(
+        $bg: $green,
+        $hbg: $green-dark
+    )
+}
+
+.btn-danger {
+    @include btn(
+        $bg: $red,
+        $hbg: $highlightColor
+    )
+}
+
+.btn-primary {
+    @include btn(
+        $bg: $primaryBtnBg,
+        $fg: $primaryBtnFg,
+        $hbg: $highlightColor
+    )
 }
 
 .ui-menu-item a {

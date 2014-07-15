@@ -12,11 +12,12 @@ from django.contrib.contenttypes import models as content_models
 from django.core.exceptions import ObjectDoesNotExist, ValidationError
 from django.db import models
 from django.db.models import Q
+from django.utils.encoding import force_text
 from django.utils.timezone import now
 from django.utils.translation import ugettext, ugettext_lazy as _
 
 from . import settings
-from django.utils.encoding import force_text
+from .validators import during_conference
 
 
 PURCHASE_STATES = (
@@ -106,6 +107,7 @@ class Voucher(models.Model):
 
 
 class TicketTypeManager(models.Manager):
+
     def available(self):
         return self.filter(date_valid_from__lte=now(),
                            date_valid_to__gte=now(), is_active=True)
@@ -117,6 +119,14 @@ class TicketTypeManager(models.Manager):
             return last['product_number__max'] + 1
         else:
             return settings.PRODUCT_NUMBER_START
+
+    def filter_ondesk(self):
+        vt_ct = content_models.ContentType.objects.get_for_model(VenueTicket)
+        return self.get_query_set().filter(is_on_desk_active=True,
+                                           content_type=vt_ct,
+                                           date_valid_from__lte=now(),
+                                           date_valid_to__gte=now(),
+                                           )
 
 
 class TicketType(models.Model):
@@ -135,8 +145,13 @@ class TicketType(models.Model):
         default=0, help_text=_('0 means no limit'))
 
     is_active = models.BooleanField(_('Is active'), default=False)
-    date_valid_from = models.DateTimeField(_('Date (valid from)'), blank=False)
-    date_valid_to = models.DateTimeField(_('Date (valid to)'), blank=False)
+    is_on_desk_active = models.BooleanField(_('Allow on desk purchase'), default=False)
+
+    date_valid_from = models.DateTimeField(_('Sale start'), blank=False)
+    date_valid_to = models.DateTimeField(_('Sale end'), blank=False)
+
+    valid_on = models.DateField(_('Valid on'), blank=True, null=True,
+        validators=[during_conference])
 
     vouchertype_needed = models.ForeignKey('VoucherType', null=True, blank=True,
         verbose_name=_('voucher type needed'))
@@ -231,9 +246,9 @@ class Purchase(models.Model):
 
     # Address in purchase because a user maybe wants to different invoices.
     company_name = models.CharField(_('Company'), max_length=100, blank=True)
-    first_name = models.CharField(_('First name'), max_length=250, blank=False)
-    last_name = models.CharField(_('Last name'), max_length=250, blank=False)
-    email = models.EmailField(_('E-mail'), blank=False)
+    first_name = models.CharField(_('First name'), max_length=250)
+    last_name = models.CharField(_('Last name'), max_length=250)
+    email = models.EmailField(_('E-mail'))
 
     street = models.CharField(_('Street and house number'), max_length=100)
     zip_code = models.CharField(_('Zip code'), max_length=20)

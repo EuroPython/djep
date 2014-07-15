@@ -6,7 +6,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
 from django.core.exceptions import PermissionDenied
 from django.http import (HttpResponseRedirect, HttpResponse,
-    HttpResponseForbidden, HttpResponseBadRequest)
+    HttpResponseBadRequest)
 from django.shortcuts import get_object_or_404
 from django.template.response import TemplateResponse
 from django.utils.timezone import now

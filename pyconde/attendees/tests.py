@@ -321,6 +321,13 @@ class PurchaseProcessTest(TestCase):
             date_valid_to=self.purchase_end,
             vouchertype_needed=self.vt_fin_aid,
             content_type=self.ct_venueticket)
+        self.tt_conf_ondesk = models.TicketType.objects.create(
+            conference=self.conference, name='TT:OnDesk', fee=42,
+            is_active=False, is_on_desk_active=True,
+            date_valid_from=self.purchase_start,
+            date_valid_to=self.purchase_end,
+            vouchertype_needed=self.vt_fin_aid,
+            content_type=self.ct_venueticket)
         self.tt_sim = models.TicketType.objects.create(
             conference=self.conference, name='TT:SIM', fee=12.34,
             is_active=True, date_valid_from=self.purchase_start,
@@ -448,6 +455,7 @@ class PurchaseProcessTest(TestCase):
         self.assertContains(response, 'TT:SIM (12.34 EUR)')
         self.assertContains(response, 'TT:Support10 (10.00 EUR)')
         self.assertContains(response, 'TT:Support50 (50.00 EUR)')
+        self.assertNotContains(response, 'TT:OnDesk')
 
         self.assertQuantityForm(response, self.tt_conf_student, 1)
         self.assertQuantityForm(response, self.tt_conf_standard, 7)
@@ -455,6 +463,9 @@ class PurchaseProcessTest(TestCase):
         self.assertQuantityForm(response, self.tt_sim, 10)
         self.assertQuantityForm(response, self.tt_support10, 10)
         self.assertQuantityForm(response, self.tt_support50, 10)
+        self.assertNotContains(response,
+            '<select id="id_tq-%d-quantity" name="tq-%d-quantity">' % (
+                self.tt_conf_ondesk.pk, self.tt_conf_ondesk.pk))
 
         # TODO: Check for purchase form (billing address, etc.)
 
@@ -773,14 +784,12 @@ class TestPurchaseModel(TestCase):
 
 class TestTicketTypeModel(TestCase):
     def setUp(self):
-        now = datetime.datetime.now()
-        self.venue_ticket_type = models.TicketType(name="test", fee=100,
-               date_valid_from=now - datetime.timedelta(days=-1),
-               date_valid_to=now + datetime.timedelta(days=1),
-               editable_fields='shirtsize')
-        self.venue_ticket_type.content_type = ContentType.objects.get(
-            app_label='attendees', model='venueticket')
-        self.venue_ticket_type.save()
+        self.vt_ct = ContentType.objects.get(app_label='attendees', model='venueticket')
+        self.now = datetime.datetime.now()
+        self.venue_ticket_type = models.TicketType.objects.create(name="test", fee=100,
+            date_valid_from=self.now - datetime.timedelta(days=-1),
+            date_valid_to=self.now + datetime.timedelta(days=1),
+            editable_fields='shirtsize', content_type=self.vt_ct)
 
     def tearDown(self):
         self.venue_ticket_type.delete()
@@ -844,6 +853,52 @@ class TestTicketTypeModel(TestCase):
     def test_clean_editable_fields_with_valid_field(self):
         self.venue_ticket_type.editable_fields = 'first_name'
         self.venue_ticket_type.clean()
+
+    def test_querysets(self):
+        # too early (not yet on sale)
+        models.TicketType.objects.create(name="too early", fee=1,
+            date_valid_from=self.now + datetime.timedelta(days=1),
+            date_valid_to=self.now + datetime.timedelta(days=2),
+            editable_fields='shirtsize', is_active=True,
+            content_type=self.vt_ct)
+        # too late (not on sale anymore)
+        models.TicketType.objects.create(name="too late", fee=1,
+            date_valid_from=self.now - datetime.timedelta(days=2),
+            date_valid_to=self.now - datetime.timedelta(days=1),
+            editable_fields='shirtsize', is_active=True,
+            content_type=self.vt_ct)
+        # not active
+        models.TicketType.objects.create(name="not active", fee=1,
+            date_valid_from=self.now - datetime.timedelta(days=1),
+            date_valid_to=self.now + datetime.timedelta(days=1),
+            editable_fields='shirtsize', is_active=False,
+            content_type=self.vt_ct)
+        # active
+        active = models.TicketType.objects.create(name="active", fee=1,
+            date_valid_from=self.now - datetime.timedelta(days=1),
+            date_valid_to=self.now + datetime.timedelta(days=1),
+            editable_fields='shirtsize', is_active=True,
+            content_type=self.vt_ct)
+        # active and on-desk
+        active_ondesk = models.TicketType.objects.create(name="active / ondesk",
+            fee=1, date_valid_from=self.now - datetime.timedelta(days=1),
+            date_valid_to=self.now + datetime.timedelta(days=1),
+            editable_fields='shirtsize', is_active=True,
+            is_on_desk_active=True, content_type=self.vt_ct)
+        # on-desk
+        on_desk = models.TicketType.objects.create(name="ondesk", fee=1,
+            date_valid_from=self.now - datetime.timedelta(days=1),
+            date_valid_to=self.now + datetime.timedelta(days=1),
+            editable_fields='shirtsize', is_on_desk_active=True,
+            content_type=self.vt_ct)
+
+        # Test tickets for normal purchase process
+        self.assertEqual(list(models.TicketType.objects.available()),
+                         [active, active_ondesk])
+
+        # Test tickets for on-desk 'checkin' purchase process
+        self.assertEqual(list(models.TicketType.objects.filter_ondesk()),
+                         [active_ondesk, on_desk])
 
 
 class TestTicketModel(TestCase):

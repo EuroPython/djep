@@ -1,0 +1,89 @@
+{% load i18n account_tags %}
+<div class="purchase">
+    <h2>{% trans "Billing address" %}</h2>
+    <p>
+        {{ purchase.company_name }}</br>
+        {{ purchase.first_name }} {{ purchase.last_name }}</br>
+        {{ purchase.street }}</br>
+        {{ purchase.zip_code }} {{ purchase.city }}</br>
+        {{ purchase.country }}</br>
+    </p>
+    <div class="state">
+    {% if purchase.state == 'payment_received' %}
+        <span class="purchase-paid">
+            {% trans "Paid!" %}
+        </span>
+        <form action="{% url 'checkin_purchase_state' pk=purchase.pk new_state='unpaid' %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-warning inverted" value="{% trans "Mark as unpaid" %}" /></form>
+        <form action="{% url 'checkin_purchase_state' pk=purchase.pk new_state='cancel' %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-danger inverted" value="{% trans "Cancel purchase" %}" /></form>
+    {% elif purchase.state == 'canceled' %}
+        <span class="purchase-canceled">
+            {% trans "Canceled!" %}
+        </span>
+        <form action="{% url 'checkin_purchase_state' pk=purchase.pk new_state='paid' %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-success inverted" value="{% trans "Mark as paid" %}" /></form>
+        <form action="{% url 'checkin_purchase_state' pk=purchase.pk new_state='unpaid' %}"  method="POST">{% csrf_token %}<input type="submit" class="btn btn-warning inverted" value="{% trans "Mark as unpaid" %}" /></form>
+    {% elif purchase.state == 'invoice_created' %}
+        <span class="purchase-unpaid">
+            {% trans "Not Paid!" %}
+        </span>
+        <form action="{% url 'checkin_purchase_state' pk=purchase.pk new_state='paid' %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-success inverted" value="{% trans "Mark as paid" %}" /></form>
+        <form action="{% url 'checkin_purchase_state' pk=purchase.pk new_state='cancel' %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-danger inverted" value="{% trans "Cancel purchase" %}" /></form>
+    {% elif purchase.state != None %}
+        <span class="purchase-unknown">
+            {{ purchase.get_state_display|title }}
+        </span>
+    {% endif %}
+    </div>
+</div>
+
+<div class="tickets">
+    <h2>{% trans "Order overview" %}</h2>
+    <table>
+        <thead>
+            <th>{% trans "Ticket" %}</th>
+            <th>{% trans "Name" %}</th>
+            <th>{% trans "Organization" %}</th>
+            <th>{% trans "User" %}</th>
+            <th>{% trans "Sponsor" %}</th>
+            <th>{% trans "Price" %}</th>
+            {% if stage != "preview" %}
+            <th></th>
+            {% endif %}
+        </thead>
+        {% for ticket in tickets %}
+            <tr{% if ticket.canceled %} class="canceled" title="{% trans "This ticket has been canceled and is not valid anymore!" %}"{% endif %}>
+                <td>{{ ticket.ticket_type.name }}</td>
+                <td>{{ ticket.first_name }} {{ ticket.last_name }}</td>
+                <td>{{ ticket.organisation }}</td>
+                <td>{{ ticket.user|full_name|default:"" }}</td>
+                <td>{{ ticket.sponsor.name }}</td>
+                <td>{{ ticket.ticket_type.fee|floatformat:2 }} EUR</td>
+                {% if stage != "preview" and ticket.pk %}
+                <td>
+                    {% if ticket.canceled %}
+                        <i class="fa fa-ban" title="{% trans "Canceled!" %}"></i>
+                    {% else %}
+                        <a href="{% url 'checkin_ticket_update' pk=ticket.pk %}"><i class="fa fa-pencil" title="{% trans "Edit" %}"></i></a>
+                        <a href="{% url 'checkin_ticket_badge' pk=ticket.pk %}"><i class="fa fa-print" title="{% trans "Print" %}"></i></a>
+                    {% endif %}
+                </td>
+                {% endif %}
+            </tr>
+        {% endfor %}
+        <tr style="font-weight: bold">
+            <td colspan="5" style="text-align:right">{% trans "Total:" %}</td>
+            <td>{{ purchase.payment_total|floatformat:2 }} EUR</td>
+            {% if stage != "preview" %}
+            <td></td>
+            {% endif %}
+        </tr>
+    </table>
+
+    <p>{% trans "All prices include 19% VAT." %}</p>
+
+    {% if purchase.exported %}
+        <a class="btn" href="{% url 'checkin_purchase_invoice' pk=purchase.pk %}"><i class="fa fa-print" title="{% trans "Print invoice" %}"></i> {% trans "Print invoice" %}</a>
+        <a class="btn" href="{% url 'checkin_purchase_badges' pk=purchase.pk %}"><i class="fa fa-ticket" title="{% trans "Print badges" %}"></i> {% trans "Print badges" %}</a>
+    {% else %}
+        {% trans "Invoice not yet generated. Hang on." %}
+    {% endif %}
+</div>
