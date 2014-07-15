@@ -69,7 +69,7 @@ def syncdb():
     """
     Executes python manage.py syncdb on the server.
     """
-    manage_py('syncdb -v 0 --noinput')
+    manage_py('syncdb --noinput')
 
 
 @task
@@ -77,7 +77,7 @@ def migrate():
     """
     Executes python manage.py migrate on the server.
     """
-    manage_py('migrate -v 0 --noinput')
+    manage_py('migrate --noinput')
 
 
 @task
@@ -88,7 +88,7 @@ def update_requirements():
     pip = join(env.root, 'bin', 'pip')
     requirements = join(env.proj_root, 'requirements', '{0}.txt'.format(
         env.environment))
-    srv_run('%s install -q --use-mirrors -r %s' % (pip, requirements))
+    srv_run('%s install -r %s' % (pip, requirements))
 
 
 @task
