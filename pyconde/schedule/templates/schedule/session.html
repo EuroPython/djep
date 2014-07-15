@@ -55,15 +55,15 @@
             {% endif %}
         </div>
 
+        <div class="abstract">
+            {{ session.abstract|markdown:"safe" }}
+        </div>
+
         {% if session.kind.slug == "training" and session.description %}
             <div class="description">
                 {{ session.description|markdown:"safe" }}
             </div>
         {% endif %}
-
-        <div class="abstract">
-            {{ session.abstract|markdown:"safe" }}
-        </div>
 
         {% if session.slides_url %}
             <div class="slides">
