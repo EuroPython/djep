@@ -19,7 +19,7 @@ class SendJobOffer(generic_views.FormView):
         if not request.user.has_perm('sponsorship.add_joboffer'):
             messages.error(request, _('You do not have permission to send job offers.'))
             return HttpResponseRedirect('/')
-        return super(JobOffer, self).dispatch(request, *args, **kwargs)
+        return super(SendJobOffer, self).dispatch(request, *args, **kwargs)
 
     def form_valid(self, form):
         send_job_offer.delay(form.cleaned_data)
