@@ -44,36 +44,36 @@
                     <a href="/" class="logo">
                         <img class="big" src="{% static "assets/images/logo-big.png" %}" alt="EuroPython 2014" />
                     </a>
-                    {% if user.is_staff %}
-                    <div id="adminbox">
-                    <a href="">{% trans "Admin" %} <i class="fa fa-fw fa-angle-left"></i></a>
-                    <ul class="dropdown">
-                        <li class=""><a href="{% url "admin:index" %}">Django Admin</a></li>
-                        {% if perms.accounts.send_user_mails %}<li class=""><a href="{% url "account_sendmail" %}">{% trans "Send mail" %}</a></li>{% endif %}
-                        {% show_menu_below_id "sponsorship" %}
-                        {% if perms.accounts.see_checkin_info %}<li><a href="{% url "checkin_search" %}">{% trans "Handle check-in"%}</a></li>{% endif %}
-                    </ul>
-                    </div>
+                    {% if user.is_staff or perms.accounts.send_user_mails or perms.sponsorship.add_joboffer or perms.accounts.see_checkin_info %}
+                      <div id="adminbox">
+                        <a href="">{% trans "Admin" %} <i class="fa fa-fw fa-angle-left"></i></a>
+                        <ul class="dropdown">
+                          {% if user.is_staff %}<li><a href="{% url "admin:index" %}">Django Admin</a></li>{% endif %}
+                          {% if perms.accounts.send_user_mails %}<li><a href="{% url "account_sendmail" %}">{% trans "Send mail" %}</a></li>{% endif %}
+                          {% if perms.sponsorship.add_joboffer %}{% show_menu_below_id "sponsorship" %}{% endif %}
+                          {% if perms.accounts.see_checkin_info %}<li><a href="{% url "checkin_search" %}">{% trans "Handle check-in"%}</a></li>{% endif %}
+                        </ul>
+                      </div>
                     {% endif %}
                     {% if not user.is_authenticated %}
-                    <p id="login">
+                      <p id="login">
                         <a href="{% url 'auth_login' %}">{% trans "Login" %}</a> or <a href="{% url 'userprofiles_registration' %}">{% trans "Sign up" %}</a>
-                    </p>
+                      </p>
                     {% else %}
-                    <div id="accountbox">
-                    <a href="{% url 'account_profile' uid=user.pk %}">{% trans "Your profile" %} <i class="fa fa-fw fa-angle-left"></i></a>
-                    <ul class="dropdown">
-                        {% show_menu_below_id "accounts" %}
-                    </ul>
-                    </div>
+                      <div id="accountbox">
+                        <a href="{% url 'account_profile' uid=user.pk %}">{% trans "Your profile" %} <i class="fa fa-fw fa-angle-left"></i></a>
+                        <ul class="dropdown">
+                          {% show_menu_below_id "accounts" %}
+                        </ul>
+                      </div>
                     {% endif %}
                     {% if current_conference.get_reviews_active and user.is_authenticated or user.is_staff %}
-                    <div id="reviewbox">
-                    <a href="{% page_url "reviews" %}">{% page_attribute "menu_title" "reviews" %} <i class="fa fa-fw fa-angle-left"></i></a>
-                    <ul class="dropdown">
-                        {% show_menu_below_id "reviews" %}
-                    </ul>
-                    </div>
+                      <div id="reviewbox">
+                        <a href="{% page_url "reviews" %}">{% page_attribute "menu_title" "reviews" %} <i class="fa fa-fw fa-angle-left"></i></a>
+                        <ul class="dropdown">
+                          {% show_menu_below_id "reviews" %}
+                        </ul>
+                      </div>
                     {% endif %}
                 </div>
             </header>
