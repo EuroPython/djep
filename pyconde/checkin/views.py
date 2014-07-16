@@ -88,7 +88,7 @@ class SearchView(CheckinViewMixin, SearchFormMixin, ListView):
         return context
 
     def get_queryset(self):
-        if 'query' in self.request.GET:
+        if self.request.GET.get('query'):
             queryset = self.model.objects.select_related(
                 'user',
                 'user__profile',
