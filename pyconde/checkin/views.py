@@ -88,76 +88,73 @@ class SearchView(CheckinViewMixin, SearchFormMixin, ListView):
         return context
 
     def get_queryset(self):
-        if self.request.GET.get('query'):
-            queryset = self.model.objects.select_related(
-                'user',
-                'user__profile',
-                'purchase',
-                'purchase__user',
-                'purchase__user__profile',
-                'simcardticket',
-                'venueticket',
-                'ticket_type',
-                'ticket_type__content_type',
-            ).filter(
-                models.Q(simcardticket__isnull=False) |
-                models.Q(venueticket__isnull=False)
-            )
-            terms = self.request.GET['query'].split()
-            for term in terms:
-                queries = [
-                    models.Q(**{search_field + '__icontains': term})
-                    for search_field in self.search_fields
-                ]
-                queryset = queryset.filter(reduce(operator.or_, queries))
-            return queryset
-        return []
+        queryset = self.model.objects.select_related(
+            'user',
+            'user__profile',
+            'purchase',
+            'purchase__user',
+            'purchase__user__profile',
+            'simcardticket',
+            'venueticket',
+            'ticket_type',
+            'ticket_type__content_type',
+        ).filter(
+            models.Q(simcardticket__isnull=False) |
+            models.Q(venueticket__isnull=False)
+        )
+        for term in self.search_terms:
+            queries = [
+                models.Q(**{search_field + '__icontains': term})
+                for search_field in self.search_fields
+            ]
+            queryset = queryset.filter(reduce(operator.or_, queries))
+        return queryset
 
     def get(self, *args, **kwargs):
-        if 'query' in self.request.GET:
-            self.search_terms = self.request.GET['query'].split()
-        else:
-            self.search_terms = []
-        tickets = self.get_queryset()
         self.object_list = []
-        for ticket in tickets:
-            obj = {
-                'ticket': {
-                    'id': ticket.id,
-                }
-            }
-            if ticket.user is None:
-                obj['ticket'].update({
-                    'full_name': ticket.real_ticket.first_name + ' ' + ticket.real_ticket.last_name,
-                    'organisation': getattr(ticket.real_ticket, 'organisation', None)
-                })
-            else:
-                obj['ticket'].update({
-                    'user_id': ticket.user_id,
-                    'username': ticket.user.username,
-                    'email': ticket.user.email,
-                    'full_name': ticket.user.profile.full_name,
-                    'display_name': ticket.user.profile.display_name,
-                    'organisation': ticket.user.profile.organisation
-                })
-            obj['purchase'] = {
-                'id': ticket.purchase.id,
-                'company_name': ticket.purchase.company_name,
-                'invoice_number': ticket.purchase.invoice_number,
-                'name': ticket.purchase.first_name + ' ' + ticket.purchase.last_name,
-                'email': ticket.purchase.email
-            }
-            if ticket.purchase.user_id:
-                obj['buyer'] = {
-                    'user_id': ticket.purchase.user_id,
-                    'username': ticket.purchase.user.username,
-                    'email': ticket.purchase.user.email,
-                    'full_name': ticket.purchase.user.profile.full_name,
-                    'display_name': ticket.purchase.user.profile.display_name,
-                    'organisation': ticket.purchase.user.profile.organisation
-                }
+        self.search_terms = self.request.GET.get('query', '').split()
 
-            self.object_list.append(obj)
+        if self.search_terms:
+            tickets = self.get_queryset()
+            for ticket in tickets:
+                obj = {
+                    'ticket': {
+                        'id': ticket.id,
+                    }
+                }
+                if ticket.user is None:
+                    obj['ticket'].update({
+                        'full_name': ticket.real_ticket.first_name + ' ' + ticket.real_ticket.last_name,
+                        'organisation': getattr(ticket.real_ticket, 'organisation', None)
+                    })
+                else:
+                    obj['ticket'].update({
+                        'user_id': ticket.user_id,
+                        'username': ticket.user.username,
+                        'email': ticket.user.email,
+                        'full_name': ticket.user.profile.full_name,
+                        'display_name': ticket.user.profile.display_name,
+                        'organisation': ticket.user.profile.organisation
+                    })
+                obj['purchase'] = {
+                    'id': ticket.purchase.id,
+                    'company_name': ticket.purchase.company_name,
+                    'invoice_number': ticket.purchase.invoice_number,
+                    'name': ticket.purchase.first_name + ' ' + ticket.purchase.last_name,
+                    'email': ticket.purchase.email
+                }
+                if ticket.purchase.user_id:
+                    obj['buyer'] = {
+                        'user_id': ticket.purchase.user_id,
+                        'username': ticket.purchase.user.username,
+                        'email': ticket.purchase.user.email,
+                        'full_name': ticket.purchase.user.profile.full_name,
+                        'display_name': ticket.purchase.user.profile.display_name,
+                        'organisation': ticket.purchase.user.profile.organisation
+                    }
+
+                self.object_list.append(obj)
+
         context = self.get_context_data(
             search_terms=self.search_terms,
             object_list=self.object_list
