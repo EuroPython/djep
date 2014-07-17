@@ -232,7 +232,7 @@ label {
     @include btn(
         $bg: $primaryBtnBg,
         $fg: $primaryBtnFg,
-        $hbg: $highlightColor
+        $hbg: $baseColor
     )
 }
 
