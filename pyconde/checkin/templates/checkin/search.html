@@ -47,6 +47,7 @@
                   <dd>{% highlight result.purchase.name %}</dd>
                   <dt>{% trans "Email" %}: </dt>
                   <dd>{% highlight result.purchase.email %}</dd>
+                  <dt><a href="{% url 'checkin_purchase_detail' pk=result.purchase.id %}"><i class="fa fa-external-link"></i> {% trans "Open purchase" %}</a></dt>
                 </dl>
               </td>
               <td>
