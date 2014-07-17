@@ -8,7 +8,7 @@ from django.forms import formsets
 from django.utils.translation import ugettext_lazy as _
 
 from crispy_forms.helper import FormHelper
-from crispy_forms.layout import Fieldset, Layout, Submit
+from crispy_forms.layout import Field, Fieldset, Layout, Submit
 from crispy_forms.bootstrap import FieldWithButtons
 
 from ..accounts.forms import UserModelChoiceField
@@ -46,7 +46,10 @@ class SearchForm(forms.Form):
         self.helper.form_class = 'form-horizontal'
         self.helper.form_method = 'GET'
         self.helper.layout = Layout(
-            FieldWithButtons('query', Submit('', _('Search')))
+            FieldWithButtons(
+                Field('query', autofocus='autofocus'),
+                Submit('', _('Search'))
+            )
         )
 
 
