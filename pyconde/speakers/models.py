@@ -33,7 +33,7 @@ class Speaker(models.Model):
     objects = SpeakerManager()
 
     def __unicode__(self):
-        return account_utils.get_full_name(self.user)
+        return account_utils.get_display_name(self.user)
 
     def get_absolute_url(self):
         return reverse('account_profile', kwargs={'uid': self.user.id})

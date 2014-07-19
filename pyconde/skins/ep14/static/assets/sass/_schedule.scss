@@ -24,6 +24,8 @@
     }
     .speaker-box {
         margin-bottom: 5px;
+        width: 100%;
+        overflow: hidden;
         img {
             border-radius: 50%;
             float: left;
