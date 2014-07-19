@@ -121,8 +121,8 @@ class BadgeExporter(object):
         }
         for session in sessions:
             speaker_involvements[session.speaker_id].add(session.kind.slug)
-            additional_speakers = set(s.id for s in session.additional_speakers.all())
-            speaker_involvements[session.speaker_id] |= additional_speakers
+            for add_s in session.additional_speakers.all():
+                speaker_involvements[add_s.id].add(session.kind.slug)
 
         for ticket in tickets.select_related('purchase',
                                              'sponsor',
