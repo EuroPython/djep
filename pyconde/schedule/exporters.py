@@ -235,18 +235,19 @@ class GuidebookExporterSpeakers(object):
         return data
 
 
-class GuidebookExporterSpeakerLinks(object):
+class GuidebookExporterLinks(object):
     def __call__(self):
         data = tablib.Dataset(headers=['Session ID (Optional)',
             'Session Name (Optional)', 'Link To Session ID (Optional)',
             'Link To Session Name (Optional)', 'Link To Item ID (Optional)',
             'Link To Item Name (Optional)', 'Link To Form Name (Optional)'])
         sessions = models.Session.objects \
-            .select_related('speaker__user__profile') \
+            .select_related('kind', 'speaker__user__profile') \
             .prefetch_related('additional_speakers__user__profile') \
             .filter(released=True, start__isnull=False, end__isnull=False) \
             .exclude(kind__slug__in=('poster')) \
             .only('title',
+                  'kind__slug',
                   'speaker__user__username',
                   'speaker__user__profile__avatar',
                   'speaker__user__profile__full_name',
@@ -259,6 +260,7 @@ class GuidebookExporterSpeakerLinks(object):
             speakers = set([get_full_name(user)])
             for speaker in session.additional_speakers.all():
                 speakers.add(get_full_name(user))
+            form = 'Talk Feedback' if session.kind.slug in ('talk', 'keynote', 'sponsored') else ''
             data.append([
                 '',
                 session.title,
@@ -266,7 +268,7 @@ class GuidebookExporterSpeakerLinks(object):
                 '',
                 '',
                 ';'.join(speakers),
-                ''
+                form
                 ])
         return data
 

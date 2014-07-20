@@ -232,7 +232,7 @@ def guidebook_export(request, kind):
         # 'sections': exporters.GuidebookExporterSections,
         'sessions': exporters.GuidebookExporterSessions,
         'speakers': exporters.GuidebookExporterSpeakers,
-        'speaker-links': exporters.GuidebookExporterSpeakerLinks,
+        'links': exporters.GuidebookExporterLinks,
         # 'sponsors': exporters.GuidebookExporterSponsors,
     }
 
