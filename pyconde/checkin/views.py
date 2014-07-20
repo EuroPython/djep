@@ -174,6 +174,10 @@ class OnDeskPurchaseView(CheckinViewMixin, SearchFormMixin, FormView):
     ticket_form_class = NewOnDeskTicketForm
     timeout = 15*60  # seconds after which the preview timed out
 
+    @method_decorator(permission_required('accounts.perform_purchase'))
+    def dispatch(self, *args, **kwargs):
+        return super(OnDeskPurchaseView, self).dispatch(*args, **kwargs)
+
     def get(self, request, *args, **kwargs):
         form_class = self.get_form_class()
         form = self.get_form(form_class)
@@ -386,6 +390,7 @@ def purchase_badges_view(request, pk):
 
 @require_POST
 @permission_required('accounts.see_checkin_info')
+@permission_required('accounts.perform_purchase')
 def purchase_update_state(request, pk, new_state):
     purchase = get_object_or_404(Purchase, pk=pk)
     states = {

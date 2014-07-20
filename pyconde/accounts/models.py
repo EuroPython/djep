@@ -108,7 +108,8 @@ class Profile(models.Model):
         permissions = (
             ('send_user_mails', _('Allow sending mails to users through the website')),
             ('export_guidebook', _('Allow export of guidebook data')),
-            ('see_checkin_info', _('Allow seeing check-in information'))
+            ('see_checkin_info', _('Allow seeing check-in information')),
+            ('perform_purchase', _('Allow performing purchases'))
         )
 
     @cached_property

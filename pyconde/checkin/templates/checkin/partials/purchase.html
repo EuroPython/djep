@@ -13,20 +13,26 @@
         <span class="purchase-paid">
             {% trans "Paid!" %}
         </span>
-        <form action="{% url 'checkin_purchase_state' pk=purchase.pk new_state='unpaid' %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-warning inverted" value="{% trans "Mark as unpaid" %}" /></form>
-        <form action="{% url 'checkin_purchase_state' pk=purchase.pk new_state='cancel' %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-danger inverted" value="{% trans "Cancel purchase" %}" /></form>
+        {% if perms.accounts.perform_purchase %}
+          <form action="{% url 'checkin_purchase_state' pk=purchase.pk new_state='unpaid' %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-warning inverted" value="{% trans "Mark as unpaid" %}" /></form>
+          <form action="{% url 'checkin_purchase_state' pk=purchase.pk new_state='cancel' %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-danger inverted" value="{% trans "Cancel purchase" %}" /></form>
+        {% endif %}
     {% elif purchase.state == 'canceled' %}
         <span class="purchase-canceled">
             {% trans "Canceled!" %}
         </span>
-        <form action="{% url 'checkin_purchase_state' pk=purchase.pk new_state='paid' %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-success inverted" value="{% trans "Mark as paid" %}" /></form>
-        <form action="{% url 'checkin_purchase_state' pk=purchase.pk new_state='unpaid' %}"  method="POST">{% csrf_token %}<input type="submit" class="btn btn-warning inverted" value="{% trans "Mark as unpaid" %}" /></form>
+        {% if perms.accounts.perform_purchase %}
+          <form action="{% url 'checkin_purchase_state' pk=purchase.pk new_state='paid' %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-success inverted" value="{% trans "Mark as paid" %}" /></form>
+          <form action="{% url 'checkin_purchase_state' pk=purchase.pk new_state='unpaid' %}"  method="POST">{% csrf_token %}<input type="submit" class="btn btn-warning inverted" value="{% trans "Mark as unpaid" %}" /></form>
+        {% endif %}
     {% elif purchase.state == 'invoice_created' %}
         <span class="purchase-unpaid">
             {% trans "Not Paid!" %}
         </span>
-        <form action="{% url 'checkin_purchase_state' pk=purchase.pk new_state='paid' %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-success inverted" value="{% trans "Mark as paid" %}" /></form>
-        <form action="{% url 'checkin_purchase_state' pk=purchase.pk new_state='cancel' %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-danger inverted" value="{% trans "Cancel purchase" %}" /></form>
+        {% if perms.accounts.perform_purchase %}
+          <form action="{% url 'checkin_purchase_state' pk=purchase.pk new_state='paid' %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-success inverted" value="{% trans "Mark as paid" %}" /></form>
+          <form action="{% url 'checkin_purchase_state' pk=purchase.pk new_state='cancel' %}" method="POST">{% csrf_token %}<input type="submit" class="btn btn-danger inverted" value="{% trans "Cancel purchase" %}" /></form>
+        {% endif %}
     {% elif purchase.state != None %}
         <span class="purchase-unknown">
             {{ purchase.get_state_display|title }}
