@@ -98,7 +98,7 @@ class SponsorListPlugin(CMSPlugin):
 
 class JobOffer(models.Model):
     sponsor = models.ForeignKey(Sponsor, verbose_name=_("sponsor"))
-    title = models.CharField(_("Title"), max_length=50)
+    title = models.CharField(_("Title"), max_length=255)
     text = models.TextField(_("Text"))
     link = models.URLField(_("URL"))
     active = models.BooleanField(_('Active'), default=False)
