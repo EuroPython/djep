@@ -31,6 +31,8 @@ class ViewTests(TestCase):
             Profile.objects.create(user=user)
             permission = Permission.objects.get(codename='see_checkin_info')
             user.user_permissions.add(permission)
+            permission = Permission.objects.get(codename='perform_purchase')
+            user.user_permissions.add(permission)
         self.client.login(username='user', password='password')
 
 
