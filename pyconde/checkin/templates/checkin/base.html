@@ -2,5 +2,6 @@
 {% load crispy_forms_tags i18n %}
 
 {% block content %}
+    <a class="btn btn-primary checkin-purchase-button" href="{% url 'checkin_purchase' %}">{% trans "On-Desk Purchase" %}</a>
     {% crispy search_form %}
 {% endblock %}
