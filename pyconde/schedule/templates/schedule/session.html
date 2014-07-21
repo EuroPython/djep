@@ -30,7 +30,7 @@
             {% if session.start or session.end %}
                 <dl>
                     <dt>{% trans "Duration" %}:</dt>
-                    <dd>{{ session.start|date:"DATE_FORMAT" }} von {{ session.start|time:"H:i" }} - {{ session.end|time:"H:i" }}</dd>
+                    <dd>{{ session.start|date:"DATE_FORMAT" }} {{ session.start|time:"H:i" }} - {{ session.end|time:"H:i" }}</dd>
                 </dl>
             {% endif %}
             <dl>
