@@ -528,6 +528,13 @@ class XMLExporterPentabarf(object):
                       'speaker__user__profile__short_info',
                       'speaker__user__profile__user') \
                 .all()
+            side_events = models.SideEvent.objects \
+                .select_related() \
+                .prefetch_related('location') \
+                .filter(start__isnull=False, end__isnull=False, is_recordable=True) \
+                .order_by('start') \
+                .only('end', 'start', 'name') \
+                .all()
             self.conference = force_text(conference_models.current_conference())
             self._duration_base = datetime.datetime.combine(datetime.date.today(), datetime.time(0, 0, 0))
             with xf.element('iCalendar'):
@@ -542,6 +549,8 @@ class XMLExporterPentabarf(object):
                         xf.write(self.conference)
                     for session in sessions:
                         self._export_session(xf, session)
+                    for session in side_events:
+                        self._export_side_event(xf, session)
         return output
 
     def _export_session(self, xf, session):
@@ -589,6 +598,49 @@ class XMLExporterPentabarf(object):
             for cospeaker in session.additional_speakers.all():
                 with xf.element('attendee'):
                     xf.write(get_full_name(session.speaker.user))
+
+    def _export_side_event(self, xf, session):
+        with xf.element('vevent'):
+            with xf.element('method'):
+                xf.write('PUBLISH')
+            with xf.element('uid'):
+                xf.write('%d@%s@%s' % (10000 + session.id, self.conference, self.domain))
+            with xf.element('{http://pentabarf.org}event-id'):
+                xf.write(force_text(10000 + session.id))
+            with xf.element('{http://pentabarf.org}event-slug'):
+                xf.write(slugify(session.name))
+            with xf.element('{http://pentabarf.org}title'):
+                xf.write(session.name)
+            with xf.element('{http://pentabarf.org}subtitle'):
+                xf.write('')
+            with xf.element('{http://pentabarf.org}language'):
+                xf.write('')
+            with xf.element('{http://pentabarf.org}language-code'):
+                xf.write('')
+            with xf.element('dtstart'):
+                xf.write(session.start.strftime('%Y%m%dT%H%M%S'))
+            with xf.element('dtend'):
+                xf.write(session.end.strftime('%Y%m%dT%H%M%S'))
+            with xf.element('dtend'):
+                duration = self._duration_base + (session.end - session.start)
+                xf.write(duration.strftime('%HH%MM%SS'))
+            with xf.element('summary'):
+                xf.write(session.name)
+            with xf.element('description'):
+                xf.write('')
+            with xf.element('class'):
+                xf.write('PUBLIC')
+            with xf.element('status'):
+                xf.write('CONFIRMED')
+            with xf.element('category'):
+                xf.write('Side Event')
+            with xf.element('url'):
+                xf.write(session.get_absolute_url())
+            for location in session.location.all():
+                with xf.element('location'):
+                    xf.write(force_text(location))
+            with xf.element('attendee'):
+                xf.write('')
 
 
 class FrabExporter(object):
