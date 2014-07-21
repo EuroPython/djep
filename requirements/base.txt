@@ -26,7 +26,7 @@ django-sekizai==0.7
 django-social-auth==0.7.28
 django-taggit==0.11.2
 djangocms-admin-style==0.2.0
--e git+https://github.com/zerok/djangocms-text-ckeditor.git@445f6b557f0826aaaa169d86e0cbfbe3ce74e47e#egg=djangocms_text_ckeditor
+-e git+https://github.com/zerok/djangocms-text-ckeditor.git@5c8215068f7e5ea10e1515cc2593ea7e1624a358#egg=djangocms_text_ckeditor
 djangocms-style==1.0.6
 -e git+https://github.com/zerok/django-userprofiles.git@fe29d7feb2a1b0ca8a10be8032f235df5406267f#egg=django-userprofiles
 easy-thumbnails==1.4
