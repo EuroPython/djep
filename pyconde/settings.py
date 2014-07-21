@@ -18,6 +18,10 @@ class Base(Configuration):
     #
     # General settings
     #
+    TEXT_HTML_SANITIZE = True
+    TEXT_ADDITIONAL_TAGS = ['object', 'param']
+    TEXT_ADDITIONAL_PROTOCOLS = ['rtmp']
+
     PROJECT_NAME = 'pyconde'
 
     BASE_DIR = os.path.dirname(os.path.dirname(__file__))
