@@ -1,5 +1,5 @@
 {% extends "schedule/session_base.html" %}
-{% load i18n markup %}
+{% load i18n markup embed_tags %}
 
 {% block title %}{{ event.name }}{% endblock %}
 {% block page_title %}{{ event.name }}{% endblock %}
@@ -31,6 +31,12 @@
         <div class="description">
             {{ event.description|markdown:"safe" }}
         </div>
+        {% if event.video_url %}
+            <div class="video">
+                <h2>{% trans "Video" %}</h2>
+                {% embed_video event.video_url %}
+            </div>
+        {% endif %}
         {% if can_admin %}
             <div class="actions">
                 <a class="btn btn-danger" href="{% url "admin:schedule_sideevent_change" event.id %}"><i class="fa fa-fw fa-lock"></i>{% trans "Admin" %}</a>

@@ -189,6 +189,7 @@ class SideEvent(LocationMixin, models.Model):
         verbose_name=_("conference"))
     icon = models.CharField(max_length=50, blank=True, null=True,
         verbose_name=_("icon"), choices=EVENT_ICON_CHOICES)
+    video_url = models.URLField(_("Video URL"), blank=True, null=True)
 
     objects = models.Manager()
     current_conference = conference_models.CurrentConferenceManager()
