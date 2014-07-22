@@ -100,9 +100,13 @@ class SessionAdminForm(forms.ModelForm):
 
 class SessionAdmin(admin.ModelAdmin):
     list_display = ("title", "kind", "conference", "duration", "speaker",
-                    "track", "location_pretty", "list_available_timeslots")
+                    "track", "location_pretty", "start")
     list_filter = ("conference", "kind", "duration", "track", "location",
                    HasSelectedTimeslotsFilter)
+    date_hierarchy = 'start'
+    search_fields = ['title', 'speaker__user__profile__display_name',
+                     'speaker__user__profile__full_name', 'description',
+                     'abstract']
     actions = [create_simple_session_export, episodes_export]
     form = SessionAdminForm
 
@@ -152,6 +156,8 @@ class SessionAdmin(admin.ModelAdmin):
 class SideEventAdmin(admin.ModelAdmin):
     list_display = ['name', 'start', 'end', 'conference', 'location_pretty']
     list_filter = ['conference', 'location']
+    date_hierarchy = 'start'
+    search_fields = ['name', 'description']
 
 
 class ProposalAdmin(proposal_admin.ProposalAdmin):
