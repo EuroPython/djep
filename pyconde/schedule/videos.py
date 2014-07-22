@@ -47,7 +47,11 @@ class YouTubeService(OEmbedSupportingVideoService):
             'url': url,
             'format': 'json'
             })
-        return 'http://www.youtube.com/oembed?' + query
+        return 'https://www.youtube.com/oembed?' + query
+
+    def generate_embed_code(self, url):
+        data = super(YouTubeService, self).generate_embed_code(url)
+        return data.replace('src="http://', 'src="https://')
 
 
 class PyVideoService(VideoService):
