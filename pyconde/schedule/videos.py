@@ -34,7 +34,8 @@ class OEmbedSupportingVideoService(VideoService):
 
     def generate_embed_code(self, url):
         oembed_url = self.generate_oembed_url(url)
-        return requests.get(oembed_url).json['html']
+        resp = requests.get(oembed_url).json()
+        return resp['html']
 
 
 class YouTubeService(OEmbedSupportingVideoService):
@@ -83,5 +84,5 @@ def generate_embed_code(url):
             try:
                 return service.generate_embed_code(url)
             except Exception, e:
-                LOG.error(e)
+                LOG.exception(e)
     return None

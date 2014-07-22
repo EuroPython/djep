@@ -47,7 +47,7 @@ class AbstractOEmbedEnabledService(AbstractSlideService):
 
     def generate_embed_code(self, link):
         oembed_url = self.get_oembed_url(link)
-        return requests.get(oembed_url).json['html']
+        return requests.get(oembed_url).json()['html']
 
 
 class SlideShareService(AbstractOEmbedEnabledService):
