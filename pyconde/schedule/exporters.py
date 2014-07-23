@@ -621,7 +621,7 @@ class XMLExporterPentabarf(object):
                 xf.write(session.start.strftime('%Y%m%dT%H%M%S'))
             with xf.element('dtend'):
                 xf.write(session.end.strftime('%Y%m%dT%H%M%S'))
-            with xf.element('dtend'):
+            with xf.element('duration'):
                 duration = self._duration_base + (session.end - session.start)
                 xf.write(duration.strftime('%HH%MM%SS'))
             with xf.element('summary'):
