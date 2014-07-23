@@ -125,6 +125,8 @@ def view_session(request, session_pk):
         context={
             'session': session,
             'tags': tags,
+            'level': session.audience_level.level if session.audience_level else 0,
+            'level_name': session.audience_level.name if session.audience_level else None,
             'can_edit': utils.can_edit_session(request.user, session),
             'can_admin': request.user.has_perm('schedule.change_session'),
             'attending_possible': settings.SCHEDULE_ATTENDING_POSSIBLE,
