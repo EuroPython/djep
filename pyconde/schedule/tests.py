@@ -96,6 +96,11 @@ class SlideCodeGeneratorTests(unittest.TestCase):
         self.assertTrue(service.matches_link('http://www.slideshare.net/zeeg/pycon-2011-scaling-disqus-7251315'))
         assert not service.matches_link("https://speakerdeck.com/u/speakerdeck/p/introduction-to-speakerdeck")
 
+    def test_slideshare_https_match(self):
+        service = slides.SlideShareService()
+        self.assertTrue(service.matches_link('https://www.slideshare.net/zeeg/pycon-2011-scaling-disqus-7251315'))
+        assert not service.matches_link("https://speakerdeck.com/u/speakerdeck/p/introduction-to-speakerdeck")
+
     def test_speakerdeck_match(self):
         service = slides.SpeakerDeckService()
         self.assertTrue(service.matches_link("https://speakerdeck.com/u/speakerdeck/p/introduction-to-speakerdeck"))
@@ -110,7 +115,7 @@ class SlideCodeGeneratorTests(unittest.TestCase):
 
     def test_slideshare_oembed_link(self):
         service = slides.SlideShareService()
-        self.assertTrue(service.get_oembed_url('http://www.slideshare.net/zeeg/pycon-2011-scaling-disqus-7251315') == 'http://www.slideshare.net/api/oembed/2?format=json&url=http%3A%2F%2Fwww.slideshare.net%2Fzeeg%2Fpycon-2011-scaling-disqus-7251315')
+        self.assertTrue(service.get_oembed_url('http://www.slideshare.net/zeeg/pycon-2011-scaling-disqus-7251315') == 'https://www.slideshare.net/api/oembed/2?format=json&url=http%3A%2F%2Fwww.slideshare.net%2Fzeeg%2Fpycon-2011-scaling-disqus-7251315')
 
 
 class VideoServiceTests(unittest.TestCase):
