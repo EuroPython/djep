@@ -14,3 +14,9 @@ class LightningTalk(models.Model):
 
     def __unicode__(self):
         return self.title
+
+    def get_absolute_url(self):
+        side_events = list(self.sideevent_set.all())
+        if side_events:
+            return side_events[0].get_absolute_url()
+        return '/'
