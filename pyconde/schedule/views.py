@@ -142,10 +142,12 @@ def view_sideevent(request, pk):
     Shows details of a specific side event.
     """
     evt = get_object_or_404(models.SideEvent, pk=pk)
+    lightning_talks = evt.lightning_talks.all()
     return TemplateResponse(
         request=request,
         context={
             'event': evt,
+            'lightning_talks': lightning_talks,
             'can_admin': request.user.has_perm('schedule.change_sideevent'),
         },
         template='schedule/sideevent.html'
