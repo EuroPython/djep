@@ -44,7 +44,7 @@
                         {% for talk in lightning_talks %}
                         <tr>
                             <td>{% if talk.slides_url %}<a href="{{ talk.slides_url }}" rel="external">{{ talk.title }}</a>{% else %}{{ talk.title }}{% endif %}</td>
-                            <td>{% for speaker in talk.speakers.all %}{{ speaker.user|display_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</td>
+                            <td>{% for speaker in talk.speakers.all %}<a href="{% url 'account_profile' uid=speaker.user.pk %}">{{ speaker.user|display_name }}</a>{% if not forloop.last %}, {% endif %}{% endfor %}</td>
                         </tr>
                         {% endfor %}
                     </tbody>
