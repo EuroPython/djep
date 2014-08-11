@@ -4,6 +4,7 @@ node default {
 
   package {
     "python-dev": ensure => installed;
+    "libxslt1-dev": ensure => installed;
     "tmux": ensure => installed;
     "python-setuptools": ensure => installed;
     "postgresql": ensure => installed;
