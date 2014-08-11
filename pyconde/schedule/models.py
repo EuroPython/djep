@@ -12,6 +12,7 @@ from django.utils.translation import ugettext_lazy as _
 from django.utils.timezone import now
 
 from cms.models import CMSPlugin
+from sortedm2m.fields import SortedManyToManyField
 
 from ..proposals import models as proposal_models
 from ..reviews import models as review_models
@@ -190,6 +191,9 @@ class SideEvent(LocationMixin, models.Model):
     icon = models.CharField(max_length=50, blank=True, null=True,
         verbose_name=_("icon"), choices=EVENT_ICON_CHOICES)
     video_url = models.URLField(_("Video URL"), blank=True, null=True)
+
+    lightning_talks = SortedManyToManyField('lightningtalks.LightningTalk', null=True,
+                                            blank=True)
 
     objects = models.Manager()
     current_conference = conference_models.CurrentConferenceManager()

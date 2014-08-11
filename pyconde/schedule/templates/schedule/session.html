@@ -37,6 +37,12 @@
                 <dt>{% trans "Language" %}:</dt>
                 <dd>{{ session.get_language_display }}</dd>
             </dl>
+            {% if level %}
+            <dl>
+                <dt>{% trans "target-audience" as target_audience_label %}{{ target_audience_label|capfirst }}:</dt>
+                <dd>{% if level %} <span class="level-{{ level }}">{{ level_name }}</span>{% endif %}</dd>
+            </dl>
+            {% endif %}
              {% if request.user.is_authenticated and session.kind.slug in attending_possible %}
                 <dl>
                     <dt></dt>

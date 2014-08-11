@@ -96,6 +96,11 @@ class SlideCodeGeneratorTests(unittest.TestCase):
         self.assertTrue(service.matches_link('http://www.slideshare.net/zeeg/pycon-2011-scaling-disqus-7251315'))
         assert not service.matches_link("https://speakerdeck.com/u/speakerdeck/p/introduction-to-speakerdeck")
 
+    def test_slideshare_https_match(self):
+        service = slides.SlideShareService()
+        self.assertTrue(service.matches_link('https://www.slideshare.net/zeeg/pycon-2011-scaling-disqus-7251315'))
+        assert not service.matches_link("https://speakerdeck.com/u/speakerdeck/p/introduction-to-speakerdeck")
+
     def test_speakerdeck_match(self):
         service = slides.SpeakerDeckService()
         self.assertTrue(service.matches_link("https://speakerdeck.com/u/speakerdeck/p/introduction-to-speakerdeck"))
@@ -110,7 +115,7 @@ class SlideCodeGeneratorTests(unittest.TestCase):
 
     def test_slideshare_oembed_link(self):
         service = slides.SlideShareService()
-        self.assertTrue(service.get_oembed_url('http://www.slideshare.net/zeeg/pycon-2011-scaling-disqus-7251315') == 'http://www.slideshare.net/api/oembed/2?format=json&url=http%3A%2F%2Fwww.slideshare.net%2Fzeeg%2Fpycon-2011-scaling-disqus-7251315')
+        self.assertTrue(service.get_oembed_url('http://www.slideshare.net/zeeg/pycon-2011-scaling-disqus-7251315') == 'https://www.slideshare.net/api/oembed/2?format=json&url=http%3A%2F%2Fwww.slideshare.net%2Fzeeg%2Fpycon-2011-scaling-disqus-7251315')
 
 
 class VideoServiceTests(unittest.TestCase):
@@ -120,8 +125,8 @@ class VideoServiceTests(unittest.TestCase):
         """
         service = videos.YouTubeService()
         self.assertEquals(
-            r"http://www.youtube.com/oembed?url=http%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DcR2XilcGYOo&format=json",
-            service.generate_oembed_url('http://www.youtube.com/watch?v=cR2XilcGYOo')
+            r"https://www.youtube.com/oembed?url=https%3A%2F%2Fwww.youtube.com%2Fwatch%3Fv%3DcR2XilcGYOo&format=json",
+            service.generate_oembed_url('https://www.youtube.com/watch?v=cR2XilcGYOo')
             )
 
 
@@ -163,13 +168,40 @@ class AttendSessionTest(TestCase):
 
     fixtures = ['example/users.json', 'example/proposal-and-schedule.json']
 
+    def _temporary_shift_training(self, property_name, timedelta):
+        tomorrow = datetime.datetime.utcnow() + datetime.timedelta(days=1)
+        prop = getattr(self, property_name)
+        self._original_data['%s_start' % (property_name,)] = prop.start
+        self._original_data['%s_end' % (property_name,)] = prop.end
+        prop.start = prop.start.replace(tomorrow.year, tomorrow.month, tomorrow.day)
+        prop.end = prop.start.replace(tomorrow.year, tomorrow.month, tomorrow.day)
+        prop.save()
+
+    def _restore_training_time(self, property_name):
+        prop = getattr(self, property_name)
+        prop.start = self._original_data['%s_start' % (property_name,)]
+        prop.end = self._original_data['%s_end' % (property_name,)]
+        prop.save()
+
     def setUp(self):
+        self._original_data = {}
+        now = datetime.datetime.utcnow()
         self.attendees = [User.objects.create_user(username='att%d' % i, password='att%d' % i) for i in range(1, 4)]
         for i in range(3):
             account_models.Profile.objects.create(user=self.attendees[i])
+
         self.training = models.Session.objects.get(title='Training 15')
+        self.training2 = models.Session.objects.get(title='Training 16')
+
+        self._temporary_shift_training('training', datetime.timedelta(days=1))
+        self._temporary_shift_training('training2', datetime.timedelta(days=1))
+
         self.attend_url = reverse('session-attend', kwargs={'session_pk': self.training.pk})
         self.leave_url = reverse('session-leave', kwargs={'session_pk': self.training.pk})
+
+    def tearDown(self):
+        self._restore_training_time('training')
+        self._restore_training_time('training2')
 
     def test_attend_no_limit(self):
         self.client.login(username='att1', password='att1')
@@ -277,8 +309,7 @@ class AttendSessionTest(TestCase):
         self.assertEqual(response.status_code, 404)
 
     def test_cannot_attend_overlapping(self):
-        training2 = models.Session.objects.get(title='Training 16')
-        attend_url2 = reverse('session-attend', kwargs={'session_pk': training2.pk})
+        attend_url2 = reverse('session-attend', kwargs={'session_pk': self.training2.pk})
 
         self.client.login(username='att1', password='att1')
 
@@ -291,13 +322,13 @@ class AttendSessionTest(TestCase):
         att_ids = list(self.training.attendees.order_by('id').values_list('id', flat=True).all())
         self.assertEqual(att_ids, [self.attendees[0].pk])
 
-        response = self.client.get(training2.get_absolute_url())
+        response = self.client.get(self.training2.get_absolute_url())
         self.assertContains(response,
             '<input type="submit" class="btn btn-primary" value="Attend this session" />')
         response = self.client.post(attend_url2, follow=True)
         self.assertContains(response,
             'You cannot attend this session because you are already attending another one at that time.')
-        att_ids2 = list(training2.attendees.order_by('id').values_list('id', flat=True).all())
+        att_ids2 = list(self.training2.attendees.order_by('id').values_list('id', flat=True).all())
         self.assertEqual(att_ids2, [])
 
         self.client.logout()

@@ -1,6 +1,6 @@
 {% load helper_tags %}
 <a href="{{ event.url }}" class="evt">
-<span class="title">{% if event.icon %}<i class="fa fa-fw fa-{{ event.icon }}"></i>{% endif %}{% if event.session_kind == 'keynote'%}KEYNOTE: {% endif %}{{ event.name|safe_and_shy:15 }}</span>
+<span class="title">{% if event.icon %}<i class="fa fa-fw fa-{{ event.icon }}"></i>{% endif %}{% if event.session_kind == 'keynote'%}KEYNOTE: {% endif %}{{ event.name|safe_and_shy:15 }}{% if event.level %} <span class="level-{{ event.level }}">{{ event.level_name }}</span>{% endif %}</span>
 {% if event.type == 'session' %}
     {% if event.speakers %}<span class="speakers">{{ event.speakers|join:', ' }}</span>{% endif %}
 {% endif %}

@@ -85,6 +85,7 @@ class Base(Configuration):
         'django.contrib.sites',
         'django.contrib.staticfiles',
         'django.contrib.markup',
+        'sortedm2m',
         'crispy_forms',
         'south',
         'easy_thumbnails',
@@ -135,7 +136,8 @@ class Base(Configuration):
         'pyconde.schedule',
         'pyconde.search',
         'pyconde.helpers',
-        'pyconde.checkin'
+        'pyconde.checkin',
+        'pyconde.lightningtalks',
     ]
 
     MIDDLEWARE_CLASSES = [

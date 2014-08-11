@@ -1,5 +1,5 @@
 {% extends "schedule/session_base.html" %}
-{% load i18n markup embed_tags %}
+{% load i18n markup embed_tags account_tags %}
 
 {% block title %}{{ event.name }}{% endblock %}
 {% block page_title %}{{ event.name }}{% endblock %}
@@ -31,6 +31,26 @@
         <div class="description">
             {{ event.description|markdown:"safe" }}
         </div>
+        {% if lightning_talks %}
+            <div class="lightning_talks">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>{% trans "Title" %}</th>
+                            <th>{% trans "Speaker(s)" %}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for talk in lightning_talks %}
+                        <tr>
+                            <td>{% if talk.slides_url %}<a href="{{ talk.slides_url }}" rel="external">{{ talk.title }}</a>{% else %}{{ talk.title }}{% endif %}</td>
+                            <td>{% for speaker in talk.speakers.all %}{{ speaker.user|display_name }}{% if not forloop.last %}, {% endif %}{% endfor %}</td>
+                        </tr>
+                        {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        {% endif %}
         {% if event.video_url %}
             <div class="video">
                 <h2>{% trans "Video" %}</h2>

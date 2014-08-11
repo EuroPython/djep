@@ -6,7 +6,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-07-05 13:16+0200\n"
+"POT-Creation-Date: 2014-07-26 10:59+0200\n"
 "PO-Revision-Date: 2014-05-07 14:35+0200\n"
 "Last-Translator: Markus Holtermann <info@markusholtermann.eu>\n"
 "Language-Team: German <webmaster@ep14.org>\n"
@@ -18,23 +18,23 @@ msgstr ""
 "X-Generator: Lokalize 1.5\n"
 "X-Translated-Using: django-rosetta 0.7.4\n"
 
-#: settings.py:58 settings.py:296 settings.py:373 proposals/models.py:23
+#: settings.py:62 settings.py:303 settings.py:380 proposals/models.py:23
 msgid "German"
 msgstr "Deutsch"
 
-#: settings.py:59 settings.py:291 settings.py:374 proposals/models.py:24
+#: settings.py:63 settings.py:298 settings.py:381 proposals/models.py:24
 msgid "English"
 msgstr "Englisch"
 
-#: settings.py:281
+#: settings.py:288
 msgid "Default template"
 msgstr "Standardvorlage"
 
-#: settings.py:282
+#: settings.py:289
 msgid "Start page template"
 msgstr "Startseiten-Vorlage"
 
-#: settings.py:283
+#: settings.py:290
 msgid "Full page width (schedule, ...)"
 msgstr "Volle Seite"
 
@@ -62,40 +62,40 @@ msgstr "Accounts-Anwendung"
 msgid "User list"
 msgstr "Benutzerliste"
 
-#: accounts/forms.py:55 accounts/models.py:70
+#: accounts/forms.py:60 accounts/models.py:70
 msgid "short info"
 msgstr "Steckbrief"
 
-#: accounts/forms.py:56 accounts/forms.py:238 accounts/models.py:83
+#: accounts/forms.py:61 accounts/forms.py:243 accounts/models.py:83
 msgid "Organisation"
 msgstr "Organisation"
 
-#: accounts/forms.py:57 accounts/models.py:80
+#: accounts/forms.py:62 accounts/models.py:80
 msgid "Twitter"
 msgstr "Twitter"
 
-#: accounts/forms.py:58 accounts/models.py:82
+#: accounts/forms.py:63 accounts/models.py:82
 #: sponsorship/templates/sponsorship/sponsor_list.html:18
 msgid "Website"
 msgstr "Webseite"
 
-#: accounts/forms.py:60 accounts/forms.py:240 accounts/models.py:77
+#: accounts/forms.py:65 accounts/forms.py:245 accounts/models.py:77
 msgid "Number of accompanying children"
 msgstr "Voraussichtliche Anzahl mitkommender Kinder"
 
-#: accounts/forms.py:63 accounts/forms.py:242 accounts/models.py:79
+#: accounts/forms.py:68 accounts/forms.py:247 accounts/models.py:79
 msgid "Age of accompanying children"
 msgstr "Alter der mitkommenden Kinder"
 
-#: accounts/forms.py:66 accounts/models.py:86
+#: accounts/forms.py:71 accounts/models.py:86
 msgid "What name should be displayed to other people?"
 msgstr "Welchen Namen sollen wir anderen Anderen anzeigen"
 
-#: accounts/forms.py:67 accounts/models.py:88
+#: accounts/forms.py:72 accounts/models.py:88
 msgid "Address me as"
 msgstr "Anrede"
 
-#: accounts/forms.py:68
+#: accounts/forms.py:73
 msgid ""
 "How should we call you in mails and dialogs throughout the website? If you "
 "leave this field blank, we will fallback to your display name."
@@ -103,11 +103,11 @@ msgstr ""
 "Wie sollen wir dich in E-Mails und Dialogen auf der Webseite ansprechen? "
 "Wenn du dieses Feld leer lässt nutzen wir deinen Anzeigenamen"
 
-#: accounts/forms.py:71
+#: accounts/forms.py:76
 msgid "I hereby agree to the privacy policy."
 msgstr "Ich akzeptiere die Datenschutzerklärung"
 
-#: accounts/forms.py:73
+#: accounts/forms.py:78
 msgid ""
 "I hereby allow the Python Software Verband e.V. to re-use my profile "
 "information for upcoming conferences."
@@ -115,7 +115,7 @@ msgstr ""
 "Ich erlaube dem Python Software Verband e.V., meine Profildaten für "
 "zukünftige Konferenzen wiederzuverwenden."
 
-#: accounts/forms.py:75
+#: accounts/forms.py:80
 msgid ""
 "I hereby allow the EuroPython Society to re-use my profile information for "
 "upcoming conferences."
@@ -123,36 +123,36 @@ msgstr ""
 "Ich erlaube der EuroPython Society meine Profildaten für zukünftige "
 "Konferenzen wiederzuverwenden."
 
-#: accounts/forms.py:77
+#: accounts/forms.py:82
 msgid "I hereby allow EuroPython 2014 sponsors to send me job offers."
 msgstr ""
 "Ich erlaube den EuroPython 2014 Sponsoren, mir Job Angebote zu schicken."
 
-#: accounts/forms.py:79 accounts/forms.py:244
+#: accounts/forms.py:84 accounts/forms.py:249
 msgid "Interests"
 msgstr "Interessen"
 
-#: accounts/forms.py:79 accounts/forms.py:244
+#: accounts/forms.py:84 accounts/forms.py:249
 msgid "Please separate tags by comma."
 msgstr "Bitte trennen Sie Tags durch Kommas."
 
-#: accounts/forms.py:84
+#: accounts/forms.py:89
 msgid "Login information"
 msgstr "Logindaten"
 
-#: accounts/forms.py:91 accounts/forms.py:257
+#: accounts/forms.py:96 accounts/forms.py:262
 msgid "Personal information"
 msgstr "Persönliche Daten"
 
-#: accounts/forms.py:99 accounts/forms.py:264
+#: accounts/forms.py:104 accounts/forms.py:269
 msgid "Professional information"
 msgstr "Weitere Daten"
 
-#: accounts/forms.py:107 accounts/forms.py:272
+#: accounts/forms.py:112 accounts/forms.py:277
 msgid "Privacy Policy"
 msgstr "Datenschutzerklärung"
 
-#: accounts/forms.py:108
+#: accounts/forms.py:113
 msgid ""
 "{% load cms_tags %}<p class=\"control-group\">Due to data protection "
 "regulations you need to explicitly accept our <a href=\"{% page_url "
@@ -162,11 +162,11 @@ msgstr ""
 "benötigen wir dazu eine explizite Freigabe und eine Anerkennung unserer <a "
 "href=\"{% page_url \"privacy-policy\" %}\">Datenschutzerklärung</a>.</p>"
 
-#: accounts/forms.py:122
+#: accounts/forms.py:127
 msgid "Create account"
 msgstr "Konto anlegen"
 
-#: accounts/forms.py:125 accounts/forms.py:285
+#: accounts/forms.py:130 accounts/forms.py:290
 msgid ""
 "Please upload an image with a side length of at least 300 pixels.<br />If "
 "you don't upload an avatar your Gravatar will be used instead."
@@ -175,7 +175,7 @@ msgstr ""
 ">Falls Sie keinen Avatar hochladen, wird versucht, Ihren Gravatar zu "
 "verwenden."
 
-#: accounts/forms.py:178
+#: accounts/forms.py:183
 #, python-format
 msgid ""
 "<ul><li><a href=\"%(register_url)s\">Don't have an account yet?</a></"
@@ -184,11 +184,11 @@ msgstr ""
 "<ul><li><a href=\"%(register_url)s\">Noch kein Konto?</a></li><li><a href="
 "\"%(password_reset_url)s\">Passwort vergessen?</a></li></ul>"
 
-#: accounts/forms.py:183
+#: accounts/forms.py:188
 msgid "Log in"
 msgstr "Anmelden"
 
-#: accounts/forms.py:199
+#: accounts/forms.py:204
 #: skins/default/templates/userprofiles/password_reset.html:5
 #: skins/default/templates/userprofiles/password_reset.html:6
 #: skins/default/templates/userprofiles/password_reset_complete.html:4
@@ -200,11 +200,11 @@ msgstr "Anmelden"
 msgid "Reset password"
 msgstr "Passwort zurücksetzen"
 
-#: accounts/forms.py:214
+#: accounts/forms.py:219
 msgid "Set password"
 msgstr "Passwort zurücksetzen"
 
-#: accounts/forms.py:229
+#: accounts/forms.py:234
 #: skins/default/templates/userprofiles/password_change.html:4
 #: skins/default/templates/userprofiles/password_change.html:5
 #: skins/default/templates/userprofiles/password_change_done.html:4
@@ -212,22 +212,22 @@ msgstr "Passwort zurücksetzen"
 msgid "Change password"
 msgstr "Passwort ändern"
 
-#: accounts/forms.py:282
+#: accounts/forms.py:287
 msgid "Change"
 msgstr "Ändern"
 
-#: accounts/forms.py:296 accounts/forms.py:304
+#: accounts/forms.py:301 accounts/forms.py:309
 msgid "You previously agreed to this option which can no longer be revoked."
 msgstr ""
 "Sie haben zuvor dieser Bedingung zugestimmt. Dies kann nachträglich nicht "
 "mehr revidiert werden."
 
-#: accounts/forms.py:318 attendees/forms.py:48
+#: accounts/forms.py:323 attendees/forms.py:48
 #: attendees/templates/attendees/purchase_names.html:242
 msgid "Continue"
 msgstr "Weiter"
 
-#: accounts/forms.py:329
+#: accounts/forms.py:334
 #: skins/default/templates/userprofiles/email_change.html:4
 #: skins/default/templates/userprofiles/email_change.html:5
 #: skins/default/templates/userprofiles/email_change_requested.html:4
@@ -235,23 +235,23 @@ msgstr "Weiter"
 msgid "Change e-mail address"
 msgstr "E-Mail-Adresse ändern"
 
-#: accounts/forms.py:343
+#: accounts/forms.py:348
 msgid "Apply now!"
 msgstr "Jetzt bewerben!"
 
-#: accounts/forms.py:349
+#: accounts/forms.py:354
 msgid "Send mail to"
 msgstr "E-Mail versenden an"
 
-#: accounts/forms.py:350 sponsorship/forms.py:14
+#: accounts/forms.py:355 sponsorship/forms.py:14
 msgid "Subject"
 msgstr "Betreff"
 
-#: accounts/forms.py:351
+#: accounts/forms.py:356
 msgid "Message"
 msgstr "Mitteilung"
 
-#: accounts/forms.py:352
+#: accounts/forms.py:357
 msgid ""
 "The text may contain the following placeholders:<ul><li><code>$$RECEIVER$$</"
 "code></li><li><code>$$CONFERENCE$$</code></li><li><code>$$DOMAIN$$</code></"
@@ -261,14 +261,14 @@ msgstr ""
 "code></li><li><code>$$CONFERENCE$$</code></li><li><code>$$DOMAIN$$</code></"
 "li></ul>"
 
-#: accounts/forms.py:360
+#: accounts/forms.py:365
 #, python-format
 msgid "The subject will be prefixed by <code>[%(prefix)s] </code>"
 msgstr ""
 "Der tatsächliche Betreff wird mit folgendem Text beginnen: <code>"
 "[%(prefix)s] </code>"
 
-#: accounts/forms.py:370 accounts/templates/accounts/sendmail_done.html:4
+#: accounts/forms.py:375 accounts/templates/accounts/sendmail_done.html:4
 #: accounts/templates/accounts/sendmail_done.html:5
 #: accounts/templates/accounts/sendmail_form.html:4
 #: accounts/templates/accounts/sendmail_form.html:5
@@ -288,7 +288,7 @@ msgstr "Profil ändern"
 msgid "Change your password"
 msgstr "Passwort ändern"
 
-#: accounts/menu.py:23 attendees/models.py:272
+#: accounts/menu.py:23 attendees/models.py:287
 msgid "Purchases"
 msgstr "Einkäufe"
 
@@ -330,10 +330,12 @@ msgid ""
 msgstr ""
 "Bitte ein Bild mit einer Größe von höchsten %(max_w)dx%(max_h)d px hochladen."
 
-#: accounts/models.py:50 attendees/models.py:130
+#: accounts/models.py:50 attendees/models.py:140
 #: attendees/templates/attendees/payment_paymill.html:43
 #: attendees/templates/attendees/user_tickets.html:23
 #: attendees/templates/attendees/user_tickets.html:38
+#: checkin/templates/checkin/search.html:46
+#: checkin/templates/checkin/partials/purchase.html:49
 msgid "Name"
 msgstr "Name"
 
@@ -343,7 +345,7 @@ msgstr "Name"
 msgid "slug"
 msgstr "Slug"
 
-#: accounts/models.py:55 accounts/models.py:121 attendees/models.py:247
+#: accounts/models.py:55 accounts/models.py:123 attendees/models.py:262
 #: attendees/templates/attendees/user_purchases.html:18
 msgid "Status"
 msgstr "Status"
@@ -356,11 +358,13 @@ msgstr "Stati"
 msgid "avatar"
 msgstr "Profilbild"
 
-#: accounts/models.py:84
+#: accounts/models.py:84 checkin/templates/checkin/search.html:32
+#: checkin/templates/checkin/search.html:61
 msgid "Full name"
 msgstr "Name"
 
-#: accounts/models.py:85
+#: accounts/models.py:85 checkin/templates/checkin/search.html:34
+#: checkin/templates/checkin/search.html:63
 msgid "Display name"
 msgstr "Anzeigename"
 
@@ -397,15 +401,25 @@ msgstr "Erlaube das Versenden von Mails an Benutzer über die Website"
 msgid "Allow export of guidebook data"
 msgstr ""
 
-#: accounts/models.py:122
+#: accounts/models.py:111
+#, fuzzy
+msgid "Allow seeing check-in information"
+msgstr "Logindaten"
+
+#: accounts/models.py:112
+#, fuzzy
+msgid "Allow performing purchases"
+msgstr "Alle Benutzer mit abgeschlossenen Einkäufen"
+
+#: accounts/models.py:124
 msgid "Additional names"
 msgstr "Weitere Namen"
 
-#: accounts/models.py:123
+#: accounts/models.py:125
 msgid "Users without account. One name per line."
 msgstr "Benutzer ohne Konto. Ein Name pro Zeile."
 
-#: accounts/models.py:135
+#: accounts/models.py:137
 msgid "You've logged in successfully."
 msgstr "Sie haben sich erfolgreich angemeldet."
 
@@ -577,7 +591,7 @@ msgstr ""
 msgid "Export invoice and send"
 msgstr "Rechnung generieren und versenden"
 
-#: attendees/admin.py:117 attendees/admin.py:130 attendees/admin.py:185
+#: attendees/admin.py:117 attendees/admin.py:130 attendees/admin.py:194
 #, python-format
 msgid ""
 "Purchase %(invoice_number)s has not been exported yet. Use “Export invoice "
@@ -620,17 +634,17 @@ msgstr ""
 "Versende Zahlungsbest&auml;tigung f&uuml;r ausgew&auml;hlte "
 "%(verbose_name_plural)s"
 
-#: attendees/admin.py:169
+#: attendees/admin.py:178
 #, python-format
 msgid "%(conference)s payment reminder"
 msgstr "%(conference)s Zahlungsaufforderung"
 
-#: attendees/admin.py:192
+#: attendees/admin.py:201
 #, python-format
 msgid "Send payment reminders for selected %(verbose_name_plural)s"
 msgstr "Versende Mahnungen für ausgewählte %(verbose_name_plural)s"
 
-#: attendees/admin.py:202
+#: attendees/admin.py:211
 #, python-format
 msgid ""
 "Cancel purchase and send cancelation notice for selected "
@@ -643,19 +657,20 @@ msgstr ""
 msgid "Attendees App"
 msgstr "Teilnehmer App"
 
-#: attendees/forms.py:23 attendees/models.py:31
+#: attendees/forms.py:23 attendees/models.py:32 checkin/forms.py:73
+#: checkin/templates/checkin/search.html:42
 msgid "Invoice"
 msgstr "Rechnung"
 
-#: attendees/forms.py:24 attendees/models.py:32
+#: attendees/forms.py:24 attendees/models.py:33
 msgid "Credit card"
 msgstr "Kreditkarte"
 
-#: attendees/forms.py:25 attendees/models.py:33
+#: attendees/forms.py:25 attendees/models.py:34
 msgid "ELV"
 msgstr "ELV"
 
-#: attendees/forms.py:32 attendees/models.py:236 attendees/models.py:518
+#: attendees/forms.py:32 attendees/models.py:251 attendees/models.py:533
 msgid "E-mail"
 msgstr "E-Mail"
 
@@ -663,6 +678,7 @@ msgstr "E-Mail"
 #: attendees/templates/attendees/mail_purchase_completed.txt:15
 #: attendees/templates/attendees/purchase_confirm.html:44
 #: attendees/templates/attendees/user_purchases.html:29
+#: checkin/templates/checkin/partials/purchase.html:3
 msgid "Billing address"
 msgstr "Rechnungsadresse"
 
@@ -700,8 +716,8 @@ msgstr ""
 "a>, <a href=\"http://btn-shop.spreadshirt.de/shop/info/producttypedetails/"
 "Popup/Show/productType/812\" target=\"_blank\">Männer</a>"
 
-#: attendees/forms.py:176 attendees/models.py:96 attendees/models.py:100
-#: attendees/models.py:481
+#: attendees/forms.py:176 attendees/models.py:97 attendees/models.py:101
+#: attendees/models.py:496
 #: attendees/templates/attendees/purchase_names.html:80
 msgid "Voucher"
 msgstr "Gutschein"
@@ -727,7 +743,7 @@ msgstr ""
 msgid "You must accept the terms and conditions."
 msgstr "Sie müssen die allgemeinen Geschäftsbedingungen akzeptieren."
 
-#: attendees/forms.py:225 attendees/models.py:252
+#: attendees/forms.py:225 attendees/models.py:267
 #: attendees/templates/attendees/mail_purchase_completed.txt:13
 msgid "Payment method"
 msgstr "Zahlungsart"
@@ -759,7 +775,8 @@ msgstr ""
 "alt=\"MasterCard\">&nbsp;<img src=\"/static_media/assets/images/cc/visa-"
 "curved-32px.png\" alt=\"VISA\">"
 
-#: attendees/forms.py:298
+#: attendees/forms.py:298 checkin/templates/checkin/search.html:28
+#: checkin/templates/checkin/search.html:57
 msgid "Username"
 msgstr "Benutzername"
 
@@ -788,342 +805,362 @@ msgstr "Dieses Feld kann nicht mehr bearbeitet werden."
 msgid "Save changes"
 msgstr "Änderungen speichern"
 
-#: attendees/models.py:23
+#: attendees/models.py:24
 msgid "Purchase incomplete"
 msgstr "Kauf unvollständig"
 
-#: attendees/models.py:24
+#: attendees/models.py:25
 msgid "new"
 msgstr "neu"
 
-#: attendees/models.py:25
+#: attendees/models.py:26
 msgid "invoice created"
 msgstr "Rechnung erstellt"
 
-#: attendees/models.py:26
+#: attendees/models.py:27
 msgid "payment received"
 msgstr "Zahlung eingegangen"
 
-#: attendees/models.py:27
+#: attendees/models.py:28
 msgid "canceled"
 msgstr "Zurückgezogen"
 
-#: attendees/models.py:37
+#: attendees/models.py:38
 msgid "female"
 msgstr "weiblich"
 
-#: attendees/models.py:38
+#: attendees/models.py:39
 msgid "male"
 msgstr "männlich"
 
-#: attendees/models.py:64 attendees/models.py:72 attendees/models.py:90
+#: attendees/models.py:65 attendees/models.py:73 attendees/models.py:91
 msgid "voucher type"
 msgstr "Gutscheintyp"
 
-#: attendees/models.py:73
+#: attendees/models.py:74
 msgid "voucher types"
 msgstr "Gutscheintypen"
 
-#: attendees/models.py:83
+#: attendees/models.py:84
 msgid "Code"
 msgstr "Code"
 
-#: attendees/models.py:84
+#: attendees/models.py:85
 msgid "Can be left blank, code will be created when you save."
 msgstr "Kann leer gelassen werden. Code wird beim Speichern generiert."
 
-#: attendees/models.py:85 attendees/models.py:145
+#: attendees/models.py:86 attendees/models.py:160
 msgid "Remarks"
 msgstr "Bemerkungen"
 
-#: attendees/models.py:87
+#: attendees/models.py:88
 msgid "Date (valid)"
 msgstr "Gültigkeitsdatum"
 
-#: attendees/models.py:88
+#: attendees/models.py:89
 msgid "The voucher is valid until this date"
 msgstr "Der Gutschein ist bis zu diesem Datum gültig"
 
-#: attendees/models.py:89
+#: attendees/models.py:90
 msgid "Is used"
 msgstr "Wird verwendet"
 
-#: attendees/models.py:97
+#: attendees/models.py:98
 msgid "Vouchers"
 msgstr "Gutscheine"
 
-#: attendees/models.py:127
+#: attendees/models.py:137
 msgid "Product number"
 msgstr "Produktnummer"
 
-#: attendees/models.py:128
+#: attendees/models.py:138
 msgid "Will be created when you save the first time."
 msgstr "Wird bei erstmaliger Speicherung erstellt."
 
-#: attendees/models.py:131
+#: attendees/models.py:141
 msgid "Fee"
 msgstr "Gebühr"
 
-#: attendees/models.py:134
+#: attendees/models.py:144
 msgid "Max. purchases"
 msgstr "Max. Verfügbar"
 
-#: attendees/models.py:135
+#: attendees/models.py:145
 msgid "0 means no limit"
 msgstr "0 bedeutet kein Limit"
 
-#: attendees/models.py:137
+#: attendees/models.py:147
 msgid "Is active"
 msgstr "Aktiv"
 
-#: attendees/models.py:138
-msgid "Date (valid from)"
-msgstr "Gültig ab"
+#: attendees/models.py:148
+msgid "Allow on desk purchase"
+msgstr ""
 
-#: attendees/models.py:139
-msgid "Date (valid to)"
-msgstr "Gültig bis"
+#: attendees/models.py:150
+#, fuzzy
+msgid "Sale start"
+msgstr "Anfang"
 
-#: attendees/models.py:142
+#: attendees/models.py:151
+msgid "Sale end"
+msgstr ""
+
+#: attendees/models.py:153
+msgid "Valid on"
+msgstr ""
+
+#: attendees/models.py:157
 msgid "voucher type needed"
 msgstr "Erforderlicher Gutscheintyp"
 
-#: attendees/models.py:143
+#: attendees/models.py:158
 msgid "Tutorial ticket"
 msgstr "Tutorial-Ticket"
 
-#: attendees/models.py:148
+#: attendees/models.py:163
 msgid "Allow editing"
 msgstr "Editierbar"
 
-#: attendees/models.py:149
+#: attendees/models.py:164
 msgid "Editable fields"
 msgstr "Editierbare Felder"
 
-#: attendees/models.py:150
+#: attendees/models.py:165
 msgid "Editable until"
 msgstr "Editierbar bis"
 
-#: attendees/models.py:152
+#: attendees/models.py:167
 msgid "Conditionally prevent invoice to user"
 msgstr ""
 
-#: attendees/models.py:154
+#: attendees/models.py:169
 msgid ""
 "If checked, a purchase, that contains only tickets of ticket types where "
 "this is checked, will not be send to the user. This can be useful for e.g. "
 "sponsor tickets"
 msgstr ""
 
-#: attendees/models.py:161
+#: attendees/models.py:176
 msgid "Ticket to generate"
 msgstr "Zu erstellendes Ticket"
 
-#: attendees/models.py:167 attendees/models.py:168 attendees/models.py:373
+#: attendees/models.py:182 attendees/models.py:183 attendees/models.py:388
+#: checkin/forms.py:120
 msgid "Ticket type"
 msgstr "Tickettyp"
 
-#: attendees/models.py:217
+#: attendees/models.py:232
 #, python-format
 msgid "Invalid editable fields specified: %s"
 msgstr "Ungültige editierbare Felder: %s"
 
-#: attendees/models.py:230
+#: attendees/models.py:245 checkin/forms.py:95
+#: checkin/templates/checkin/partials/purchase.html:51
 msgid "User"
 msgstr "Benutzer"
 
-#: attendees/models.py:233
+#: attendees/models.py:248 checkin/forms.py:61
+#: checkin/templates/checkin/search.html:44
 msgid "Company"
 msgstr "Firma"
 
-#: attendees/models.py:234 attendees/models.py:468 attendees/models.py:509
-#: attendees/templates/attendees/purchase_confirm.html:24
+#: attendees/models.py:249 attendees/models.py:483 attendees/models.py:524
+#: attendees/templates/attendees/purchase_confirm.html:24 checkin/forms.py:58
+#: checkin/forms.py:91
 msgid "First name"
 msgstr "Vorname"
 
-#: attendees/models.py:235 attendees/models.py:469 attendees/models.py:510
-#: attendees/templates/attendees/purchase_confirm.html:25
+#: attendees/models.py:250 attendees/models.py:484 attendees/models.py:525
+#: attendees/templates/attendees/purchase_confirm.html:25 checkin/forms.py:59
+#: checkin/forms.py:92
 msgid "Last name"
 msgstr "Nachname"
 
-#: attendees/models.py:238
+#: attendees/models.py:253 checkin/forms.py:62
 msgid "Street and house number"
 msgstr "Straße und Hausnummer"
 
-#: attendees/models.py:239
+#: attendees/models.py:254 checkin/forms.py:63
 msgid "Zip code"
 msgstr "Postleitzahl"
 
-#: attendees/models.py:240
+#: attendees/models.py:255 checkin/forms.py:64
 msgid "City"
 msgstr "Ort"
 
-#: attendees/models.py:241
+#: attendees/models.py:256 checkin/forms.py:65
 msgid "Country"
 msgstr "Land"
 
-#: attendees/models.py:242
+#: attendees/models.py:257 checkin/forms.py:66
 msgid "VAT-ID"
 msgstr "Steuernummer"
 
-#: attendees/models.py:245 attendees/models.py:379
+#: attendees/models.py:260 attendees/models.py:394
 msgid "Date (added)"
 msgstr "Hinzugefügt am"
 
-#: attendees/models.py:250 reviews/templates/reviews/my_proposals.html:14
+#: attendees/models.py:265 reviews/templates/reviews/my_proposals.html:14
 msgid "Comments"
 msgstr "Kommentare"
 
-#: attendees/models.py:255
+#: attendees/models.py:270
 msgid "Transaction ID"
 msgstr "TransaktionsID"
 
-#: attendees/models.py:257
+#: attendees/models.py:272
 msgid "Payment total"
 msgstr "Gesamtsumme"
 
-#: attendees/models.py:260
+#: attendees/models.py:275
 msgid "Exported"
 msgstr "Exportiert"
 
-#: attendees/models.py:263
+#: attendees/models.py:278
 #: attendees/templates/attendees/user_purchases.html:11
 msgid "Invoice number"
 msgstr "Rechnungsnummer"
 
-#: attendees/models.py:265
+#: attendees/models.py:280
 msgid "Invoice filename"
 msgstr "Rechnungsdateiname"
 
-#: attendees/models.py:271
+#: attendees/models.py:286
+#: checkin/templates/checkin/ondesk_purchase_detail.html:4
+#: checkin/templates/checkin/ondesk_purchase_detail.html:5
+#: checkin/templates/checkin/search.html:15
+#: checkin/templates/checkin/search.html:40
 msgid "Purchase"
 msgstr "Kauf"
 
-#: attendees/models.py:337
+#: attendees/models.py:352
 msgid "Size"
 msgstr "Größe"
 
-#: attendees/models.py:338
+#: attendees/models.py:353
 msgid "Sort order"
 msgstr "Reihenfolge"
 
-#: attendees/models.py:341
+#: attendees/models.py:356
 msgid "T-Shirt size"
 msgstr "T-Shirt Größe"
 
-#: attendees/models.py:342
+#: attendees/models.py:357
 msgid "T-Shirt sizes"
 msgstr "T-Shirt Größen"
 
-#: attendees/models.py:381
+#: attendees/models.py:396
 #: attendees/templates/attendees/user_purchases.html:51
 #: attendees/templates/attendees/user_tickets.html:14
 msgid "Canceled"
 msgstr "Zurückgezogen"
 
-#: attendees/models.py:456
+#: attendees/models.py:471
 msgid "Support Ticket"
 msgstr "Support-Ticket"
 
-#: attendees/models.py:457
+#: attendees/models.py:472
 msgid "Support Tickets"
 msgstr "Support-Tickets"
 
-#: attendees/models.py:460
+#: attendees/models.py:475
 msgid "Support"
 msgstr ""
 
-#: attendees/models.py:471
+#: attendees/models.py:486 checkin/forms.py:94
+#: checkin/templates/checkin/partials/purchase.html:50
 msgid "Organization"
 msgstr "Organisation"
 
-#: attendees/models.py:474 attendees/templates/attendees/user_tickets.html:27
+#: attendees/models.py:489 attendees/templates/attendees/user_tickets.html:27
 msgid "Desired T-Shirt size"
 msgstr "Gewünschte T-Shirt Größe"
 
-#: attendees/models.py:476 attendees/templates/attendees/user_tickets.html:32
+#: attendees/models.py:491 attendees/templates/attendees/user_tickets.html:32
 msgid "Dietary preferences"
 msgstr "Ernährungsvorlieben"
 
-#: attendees/models.py:479 sponsorship/forms.py:12
+#: attendees/models.py:494 checkin/forms.py:96
+#: checkin/templates/checkin/partials/purchase.html:52 sponsorship/forms.py:12
 msgid "Sponsor"
 msgstr "Sponsor"
 
-#: attendees/models.py:488
+#: attendees/models.py:503
 msgid "Conference Ticket"
 msgstr "Konferenz-Ticket"
 
-#: attendees/models.py:489
+#: attendees/models.py:504
 msgid "Conference Tickets"
 msgstr "Konferenz-Tickets"
 
-#: attendees/models.py:512 attendees/templates/attendees/user_tickets.html:46
+#: attendees/models.py:527 attendees/templates/attendees/user_tickets.html:46
 msgid "Date of birth"
 msgstr "Geburtsdatum"
 
-#: attendees/models.py:513
+#: attendees/models.py:528
 msgid "Gender"
 msgstr "Geschlecht"
 
-#: attendees/models.py:516
+#: attendees/models.py:531
 msgid "Host"
 msgstr "Unterkunft"
 
-#: attendees/models.py:517
+#: attendees/models.py:532
 msgid "Name of your hotel or host for your stay."
 msgstr "Name Ihres Hotels oder Ihrer Unterkunft."
 
-#: attendees/models.py:520
+#: attendees/models.py:535
 msgid "Street and house number of host"
 msgstr "Straße und Hausnummer der Unterkunft"
 
-#: attendees/models.py:521
+#: attendees/models.py:536
 msgid "Zip code of host"
 msgstr "Postleitzahl der Unterkunft"
 
-#: attendees/models.py:522
+#: attendees/models.py:537
 msgid "City of host"
 msgstr "Stadt der Unterkunft"
 
-#: attendees/models.py:523
+#: attendees/models.py:538
 msgid "Country of host"
 msgstr "Land der Unterkunft"
 
-#: attendees/models.py:526
+#: attendees/models.py:541
 msgid "Host phone number"
 msgstr "Telefonnummer der Unterkunft"
 
-#: attendees/models.py:527
+#: attendees/models.py:542
 msgid "Please supply the phone number of your hotel or host."
 msgstr "Bitte geben Sie die Telefonnummer Ihrer Unterkunft an."
 
-#: attendees/models.py:530
+#: attendees/models.py:545
 msgid "IMSI"
 msgstr "IMSI"
 
-#: attendees/models.py:531
+#: attendees/models.py:546
 msgid "The IMSI of the SIM Card associated with this account."
 msgstr "Die IMSI Ihrer SIM-Karte."
 
-#: attendees/models.py:536
+#: attendees/models.py:551
 msgid "SIM Card"
 msgstr "SIM-Karte"
 
-#: attendees/models.py:537
+#: attendees/models.py:552
 msgid "SIM Cards"
 msgstr "SIM-Karten"
 
-#: attendees/tasks.py:107
+#: attendees/tasks.py:108
 #, python-format
 msgid "Your EuroPython 2014 Invoice %(full_invoice_number)s"
 msgstr "Deine EuroPython 2014 Rechnung %(full_invoice_number)s"
 
-#: attendees/tasks.py:147
+#: attendees/tasks.py:148
 #, python-format
 msgid "Your %(conference)s purchase has been canceled"
 msgstr "Ihre %(conference)s Buchung wurde storniert"
 
-#: attendees/tasks.py:165
+#: attendees/tasks.py:166
 #, python-format
 msgid "Your %(conference)s ticket %(ticketname)s has been invalidated"
 msgstr "Ihr %(conference)s Ticket %(ticketname)s wurde storniert"
@@ -1131,6 +1168,10 @@ msgstr "Ihr %(conference)s Ticket %(ticketname)s wurde storniert"
 #: attendees/utils.py:70
 msgid "Ticket successfully purchased"
 msgstr "Ticket erfolgreich gekauft"
+
+#: attendees/validators.py:16
+msgid "The ticket validation date is outside the conference time"
+msgstr ""
 
 #: attendees/views.py:172
 #, python-format
@@ -1509,22 +1550,31 @@ msgstr ""
 "nachfolgenden Übersicht"
 
 #: attendees/templates/attendees/purchase_confirm.html:20
+#: checkin/templates/checkin/partials/purchase.html:45
 msgid "Order overview"
 msgstr "Übersicht"
 
-#: attendees/templates/attendees/purchase_confirm.html:23
+#: attendees/templates/attendees/purchase_confirm.html:23 checkin/forms.py:105
+#: checkin/templates/checkin/ondesk_ticket_form.html:4
+#: checkin/templates/checkin/ondesk_ticket_form.html:5
+#: checkin/templates/checkin/search.html:14
+#: checkin/templates/checkin/search.html:24
+#: checkin/templates/checkin/partials/purchase.html:48
 msgid "Ticket"
 msgstr "Ticket"
 
 #: attendees/templates/attendees/purchase_confirm.html:26
+#: checkin/templates/checkin/partials/purchase.html:53
 msgid "Price"
 msgstr "Preis"
 
 #: attendees/templates/attendees/purchase_confirm.html:37
+#: checkin/templates/checkin/partials/purchase.html:79
 msgid "Total:"
 msgstr "Gesamt:"
 
 #: attendees/templates/attendees/purchase_confirm.html:42
+#: checkin/templates/checkin/partials/purchase.html:87
 #, python-format
 msgid "All prices include 19%% VAT."
 msgstr "Alle Preise inklusive 19%% MwSt."
@@ -1719,9 +1769,10 @@ msgid "Your tickets"
 msgstr "Ihre Tickets"
 
 #: attendees/templates/attendees/user_tickets.html:20
+#: checkin/templates/checkin/partials/purchase.html:71
 #: proposals/templates/proposals/proposal_detail.html:61
 #: proposals/templates/proposals/proposal_list_mine.html:25
-#: schedule/templates/schedule/session.html:84
+#: schedule/templates/schedule/session.html:90
 msgid "Edit"
 msgstr "Ändern"
 
@@ -1776,7 +1827,178 @@ msgstr ""
 "\n"
 " "
 
-#: conference/models.py:41 proposals/models.py:58 schedule/models.py:224
+#: checkin/forms.py:51
+msgid "Search"
+msgstr ""
+
+#: checkin/views.py:195
+msgid "Purchase session timeout or purchase already processed"
+msgstr ""
+
+#: checkin/views.py:257
+#, fuzzy
+msgid "An error occured while processing the purchase"
+msgstr "Beim Speichern des Formulars trat ein Fehler auf."
+
+#: checkin/views.py:263
+#, fuzzy
+msgid "Purchase successful!"
+msgstr "Tickets kaufen"
+
+#: checkin/views.py:268
+msgid "Session timed out. Please restart the purchase process."
+msgstr ""
+
+#: checkin/views.py:270
+msgid "Invalid data. Please restart the purchase process."
+msgstr ""
+
+#: checkin/views.py:379
+msgid "Invoice not yet exported."
+msgstr ""
+
+#: checkin/views.py:406
+#, fuzzy, python-format
+msgid "Purchase marked as %(state)s."
+msgstr "Bezahlung wurde bereits bearbeitet."
+
+#: checkin/views.py:417
+msgid "Invalid state."
+msgstr ""
+
+#: checkin/views.py:450
+#, fuzzy
+msgid "Ticket sucessfully updated."
+msgstr "Ticket erfolgreich gekauft"
+
+#: checkin/views.py:490
+msgid "Invoice not yet paid."
+msgstr ""
+
+#: checkin/views.py:503
+msgid "Error generating the badge"
+msgid_plural "Error generating the badges"
+msgstr[0] ""
+msgstr[1] ""
+
+#: checkin/templates/checkin/base.html:6
+#, fuzzy
+msgid "On-Desk Purchase"
+msgstr "Kauf"
+
+#: checkin/templates/checkin/ondesk_purchase_form.html:4
+#: checkin/templates/checkin/ondesk_purchase_form.html:5
+msgid "Create new on-desk purchase"
+msgstr ""
+
+#: checkin/templates/checkin/ondesk_purchase_form.html:20
+#, fuzzy
+msgid "Add Ticket"
+msgstr "Ticket"
+
+#: checkin/templates/checkin/ondesk_purchase_form.html:21
+#, fuzzy
+msgid "Preview"
+msgstr "Review"
+
+#: checkin/templates/checkin/ondesk_purchase_form_preview.html:4
+#: checkin/templates/checkin/ondesk_purchase_form_preview.html:5
+msgid "Preview new on-desk purchase"
+msgstr ""
+
+#: checkin/templates/checkin/ondesk_purchase_form_preview.html:16
+#, fuzzy
+msgid "Create Purchase"
+msgstr "Bestellung abschlie&szlig;en"
+
+#: checkin/templates/checkin/ondesk_ticket_form.html:13 reviews/forms.py:44
+#: reviews/forms.py:110 schedule/forms.py:28 schedule/forms.py:46
+msgid "Save"
+msgstr "Speichern"
+
+#: checkin/templates/checkin/search.html:4
+#: checkin/templates/checkin/search.html:5
+msgid "Check-in Search"
+msgstr ""
+
+#: checkin/templates/checkin/search.html:16
+msgid "Buyer"
+msgstr ""
+
+#: checkin/templates/checkin/search.html:26
+#: checkin/templates/checkin/search.html:55
+#, fuzzy
+msgid "User ID"
+msgstr "Benutzer"
+
+#: checkin/templates/checkin/search.html:30
+#: checkin/templates/checkin/search.html:48
+#: checkin/templates/checkin/search.html:59
+#, fuzzy
+msgid "Email"
+msgstr "E-Mail"
+
+#: checkin/templates/checkin/search.html:50
+#, fuzzy
+msgid "Open purchase"
+msgstr "Bestellung abschlie&szlig;en"
+
+#: checkin/templates/checkin/search.html:72
+msgid "No search results"
+msgstr ""
+
+#: checkin/templates/checkin/partials/purchase.html:14
+msgid "Paid!"
+msgstr ""
+
+#: checkin/templates/checkin/partials/purchase.html:17
+#: checkin/templates/checkin/partials/purchase.html:26
+msgid "Mark as unpaid"
+msgstr ""
+
+#: checkin/templates/checkin/partials/purchase.html:18
+#: checkin/templates/checkin/partials/purchase.html:34
+#, fuzzy
+msgid "Cancel purchase"
+msgstr "Max. Verfügbar"
+
+#: checkin/templates/checkin/partials/purchase.html:22
+#: checkin/templates/checkin/partials/purchase.html:69
+#, fuzzy
+msgid "Canceled!"
+msgstr "Zurückgezogen"
+
+#: checkin/templates/checkin/partials/purchase.html:25
+#: checkin/templates/checkin/partials/purchase.html:33
+msgid "Mark as paid"
+msgstr ""
+
+#: checkin/templates/checkin/partials/purchase.html:30
+msgid "Not Paid!"
+msgstr ""
+
+#: checkin/templates/checkin/partials/purchase.html:59
+msgid "This ticket has been canceled and is not valid anymore!"
+msgstr ""
+
+#: checkin/templates/checkin/partials/purchase.html:72
+msgid "Print"
+msgstr ""
+
+#: checkin/templates/checkin/partials/purchase.html:90
+#, fuzzy
+msgid "Print invoice"
+msgstr "Rechnung zuschicken"
+
+#: checkin/templates/checkin/partials/purchase.html:91
+msgid "Print badges"
+msgstr ""
+
+#: checkin/templates/checkin/partials/purchase.html:93
+msgid "Invoice not yet generated. Hang on."
+msgstr ""
+
+#: conference/models.py:41 proposals/models.py:58 schedule/models.py:229
 #: sponsorship/models.py:84
 msgid "title"
 msgstr "Titel"
@@ -1799,7 +2021,7 @@ msgstr "Vorschlag-Autor anonymisieren"
 
 #: conference/models.py:85 conference/models.py:105 conference/models.py:149
 #: conference/models.py:173 conference/models.py:199 conference/models.py:243
-#: conference/models.py:268 schedule/models.py:189 sponsorship/models.py:14
+#: conference/models.py:268 schedule/models.py:190 sponsorship/models.py:14
 msgid "conference"
 msgstr "Konferenz"
 
@@ -1808,7 +2030,7 @@ msgid "conferences"
 msgstr "Konferenzen"
 
 #: conference/models.py:108 conference/models.py:150 conference/models.py:200
-#: conference/models.py:244 conference/models.py:269 schedule/models.py:177
+#: conference/models.py:244 conference/models.py:269 schedule/models.py:178
 #: sponsorship/models.py:15 sponsorship/models.py:36
 msgid "name"
 msgstr "Name"
@@ -1818,17 +2040,18 @@ msgstr "Name"
 msgid "order"
 msgstr "Reihenfolge"
 
-#: conference/models.py:117 conference/models.py:246 proposals/models.py:59
-#: schedule/models.py:178 sponsorship/models.py:17 sponsorship/models.py:39
+#: conference/models.py:117 conference/models.py:246
+#: lightningtalks/models.py:12 proposals/models.py:59 schedule/models.py:179
+#: sponsorship/models.py:17 sponsorship/models.py:39
 msgid "description"
 msgstr "Beschreibung"
 
 #: conference/models.py:126 conference/models.py:205 proposals/models.py:36
-#: schedule/models.py:64 schedule/models.py:182
+#: schedule/models.py:65 schedule/models.py:183
 msgid "section"
 msgstr "Abschnitt"
 
-#: conference/models.py:127 schedule/models.py:226
+#: conference/models.py:127 schedule/models.py:231
 msgid "sections"
 msgstr "Abschnitte"
 
@@ -1837,6 +2060,7 @@ msgid "level"
 msgstr "Stufe"
 
 #: conference/models.py:158 proposals/models.py:74
+#: schedule/templates/schedule/session.html:42
 msgid "target-audience"
 msgstr "Zielgruppe"
 
@@ -1896,7 +2120,7 @@ msgstr "Tracks"
 msgid "used for sessions"
 msgstr "wird für Sessions verwendet"
 
-#: conference/models.py:282 schedule/models.py:68 schedule/models.py:184
+#: conference/models.py:282 schedule/models.py:69 schedule/models.py:185
 msgid "location"
 msgstr "Ort"
 
@@ -1908,7 +2132,8 @@ msgstr "Orte"
 msgid "Conference"
 msgstr "Konferenz"
 
-#: events/models.py:9 proposals/templates/proposals/proposal_list_mine.html:11
+#: events/models.py:9 lightningtalks/models.py:8
+#: proposals/templates/proposals/proposal_list_mine.html:11
 #: proposals/templates/proposals/proposal_list_mine.html:44
 #: reviews/templates/reviews/my_proposals.html:12
 #: reviews/templates/reviews/my_reviews.html:10
@@ -1916,7 +2141,7 @@ msgstr "Konferenz"
 #: reviews/templates/reviews/reviewable_proposals.html:23
 #: schedule/templates/schedule/attending_sessions.html:9
 #: schedule/templates/schedule/session_listing.html:9
-#: sponsorship/models.py:101
+#: schedule/templates/schedule/sideevent.html:39 sponsorship/models.py:101
 msgid "Title"
 msgstr "Titel"
 
@@ -1941,6 +2166,16 @@ msgstr "Events"
 #: events/templates/events/tags/list_events.html:26
 msgid "No upcoming events"
 msgstr "Keine geplanten Events"
+
+#: lightningtalks/models.py:11
+#, fuzzy
+msgid "speakers"
+msgstr "Vortragende(r)"
+
+#: lightningtalks/models.py:13
+#, fuzzy
+msgid "slides URL"
+msgstr "Folien-URL"
 
 #: proposals/admin.py:18
 msgid "The location is mandatory."
@@ -2079,7 +2314,7 @@ msgstr "Trainingsvorschlag einreichen"
 #: reviews/templates/reviews/proposal_details.html:35
 #: reviews/templates/reviews/proposalversion_detail.html:9
 #: reviews/templates/reviews/proposalversion_detail.html:24
-#: schedule/forms.py:19
+#: schedule/forms.py:20
 msgid "Description"
 msgstr "Kurzbeschreibung"
 
@@ -2222,7 +2457,7 @@ msgstr ""
 "Die Dauer muss mit derselben Konferenz wie der Vorschlag assoziiert sein"
 
 #: proposals/models.py:120 reviews/models.py:79 reviews/models.py:162
-#: reviews/models.py:185 schedule/models.py:66
+#: reviews/models.py:185 schedule/models.py:67
 msgid "proposal"
 msgstr "Session-Vorschlag"
 
@@ -2383,7 +2618,7 @@ msgstr "Schlagwörter"
 #: proposals/templates/proposals/proposal_detail.html:38
 #: reviews/templates/reviews/proposal_details.html:26
 #: reviews/templates/reviews/proposalversion_detail.html:19
-#: schedule/forms.py:20
+#: schedule/forms.py:19
 msgid "Abstract"
 msgstr "Abstract"
 
@@ -2532,11 +2767,6 @@ msgid "The review period has ended. Only staff members may access this page."
 msgstr ""
 "Die Review-Phase ist zu Ende. Sie müssen Redakteur sein, um auf diese Seite "
 "zugreifen zu können."
-
-#: reviews/forms.py:44 reviews/forms.py:110 schedule/forms.py:28
-#: schedule/forms.py:46
-msgid "Save"
-msgstr "Speichern"
 
 #: reviews/forms.py:130
 msgid "Send feedback"
@@ -3107,7 +3337,7 @@ msgstr "Auswahl als CSV exportieren"
 msgid "episodes export"
 msgstr "Als Episoden exportieren"
 
-#: schedule/admin.py:70 schedule/admin.py:149
+#: schedule/admin.py:70 schedule/admin.py:153
 msgid "Timeslot Preferences"
 msgstr "Bevorzugte Zeitfenster"
 
@@ -3119,7 +3349,7 @@ msgstr "Präferenzen"
 msgid "w/o preferences"
 msgstr "keine Präferenen"
 
-#: schedule/admin.py:164 schedule/admin.py:174
+#: schedule/admin.py:170 schedule/admin.py:180
 msgid "is scheduled"
 msgstr "Hat Session"
 
@@ -3148,79 +3378,79 @@ msgstr "Programm-Menü"
 msgid "Schedule"
 msgstr "Programm-App"
 
-#: schedule/models.py:27
+#: schedule/models.py:28
 msgid "Coffee cup"
 msgstr ""
 
-#: schedule/models.py:28
+#: schedule/models.py:29
 msgid "Glass"
 msgstr ""
 
-#: schedule/models.py:29
+#: schedule/models.py:30
 msgid "Lightbulb"
 msgstr ""
 
-#: schedule/models.py:30
+#: schedule/models.py:31
 msgid "Moon"
 msgstr ""
 
-#: schedule/models.py:31
+#: schedule/models.py:32
 msgid "Cutlery"
 msgstr ""
 
-#: schedule/models.py:43
+#: schedule/models.py:44
 msgid "Locations"
 msgstr "Orte"
 
-#: schedule/models.py:61 schedule/models.py:179
+#: schedule/models.py:62 schedule/models.py:180
 msgid "start time"
 msgstr "Start"
 
-#: schedule/models.py:62 schedule/models.py:180
+#: schedule/models.py:63 schedule/models.py:181
 msgid "end time"
 msgstr "Ende"
 
-#: schedule/models.py:69 schedule/models.py:185
+#: schedule/models.py:70 schedule/models.py:186
 msgid "is global"
 msgstr "Global"
 
-#: schedule/models.py:70
+#: schedule/models.py:71
 msgid "released"
 msgstr "veröffentlicht"
 
-#: schedule/models.py:71
+#: schedule/models.py:72
 msgid "Slides URL"
 msgstr "Folien-URL"
 
-#: schedule/models.py:72
+#: schedule/models.py:73 schedule/models.py:193
 msgid "Video URL"
 msgstr "Video-URL"
 
-#: schedule/models.py:74
+#: schedule/models.py:75
 msgid "Max attendees"
 msgstr "Max. Teilnehmer"
 
-#: schedule/models.py:136
+#: schedule/models.py:137
 #, python-format
 msgid "Attending a %(kind)s is not possible."
 msgstr ""
 
-#: schedule/models.py:142
+#: schedule/models.py:143
 msgid "You cannot attend this session anymore. The session already ended."
 msgstr ""
 "Die Session hat bereits stattgefunden. Sie können daher nicht mehr "
 "teilnehmen."
 
-#: schedule/models.py:144
+#: schedule/models.py:145
 msgid "You cannot attend this session anymore. The session already started."
 msgstr ""
 "Die Session hat bereits bekonnen. Sie können daher nicht mehr teilnehmen."
 
-#: schedule/models.py:146 schedule/templates/schedule/session.html:48
+#: schedule/models.py:147 schedule/templates/schedule/session.html:54
 msgid "You cannot attend right now. There are no free seats left."
 msgstr "Sie können derzeit nicht teilnehmen, da keine Plätze mehr frei sind."
 
-#: schedule/models.py:148
+#: schedule/models.py:149
 msgid ""
 "You cannot attend this session because you are already attending another one "
 "at that time."
@@ -3228,75 +3458,75 @@ msgstr ""
 "Sie können nicht teilnehmen, da sie zum selben Zeitpunkt bereits für eine "
 "andere Session eingetragen sind."
 
-#: schedule/models.py:156
+#: schedule/models.py:157
 msgid "You cannot leave this session anymore. The session already ended."
 msgstr ""
 "Sie können sich nicht mehr abmelden, da die Session bereits vorbei ist."
 
-#: schedule/models.py:158
+#: schedule/models.py:159
 msgid "You cannot leave this session anymore. The session already started."
 msgstr ""
 "Sie können sich nicht mehr abmelden, da die Session bereits begonnen hat."
 
-#: schedule/models.py:168
+#: schedule/models.py:169
 msgid "session"
 msgstr "Session"
 
-#: schedule/models.py:169
+#: schedule/models.py:170
 msgid "sessions"
 msgstr "Sessions"
 
-#: schedule/models.py:186
+#: schedule/models.py:187
 msgid "is break"
 msgstr "Pause"
 
-#: schedule/models.py:187
+#: schedule/models.py:188
 msgid "is recordable"
 msgstr "kann aufgenommen werden"
 
-#: schedule/models.py:191
+#: schedule/models.py:192
 msgid "icon"
 msgstr ""
 
-#: schedule/models.py:217
+#: schedule/models.py:222
 msgid "15 Minutes"
 msgstr "15 Minuten"
 
-#: schedule/models.py:218
+#: schedule/models.py:223
 msgid "30 Minutes"
 msgstr "30 Minuten"
 
-#: schedule/models.py:219
+#: schedule/models.py:224
 msgid "45 Minutes"
 msgstr "45 Minuten"
 
-#: schedule/models.py:220
+#: schedule/models.py:225
 msgid "60 Minutes"
 msgstr "60 Minuten"
 
-#: schedule/models.py:227
+#: schedule/models.py:232
 msgid "Duration of one row"
 msgstr ""
 
-#: schedule/models.py:229
+#: schedule/models.py:234
 msgid "Merge different section into same table"
 msgstr ""
 
-#: schedule/views.py:166
+#: schedule/views.py:170
 msgid "Changes saved"
 msgstr "Änderungen wurden gespeichert"
 
-#: schedule/views.py:188
+#: schedule/views.py:192
 #, python-format
 msgid "You are now attending %(session_title)s."
 msgstr ""
 
-#: schedule/views.py:193
+#: schedule/views.py:197
 #, python-format
 msgid "You are not attending %(session_title)s anymore."
 msgstr ""
 
-#: schedule/views.py:197
+#: schedule/views.py:201
 msgid "Invalid or no action specified."
 msgstr ""
 
@@ -3317,13 +3547,16 @@ msgstr "Nicht teilnehmen"
 msgid ""
 "You have not yet indicated your attendance to any specific session. You can "
 "do so by accessing a <em>training's page</em> through the <a href="
-"\"%(schedule_url)s\">schedule</a> prior to its start and during the registration period and clicking the "
-"<strong>\"Attend this session\"</strong> button."
+"\"%(schedule_url)s\">schedule</a> prior to its start and during the "
+"registration period and clicking the <strong>\"Attend this session\"</"
+"strong> button."
 msgstr ""
 "Sie haben noch bei keiner Session angedeutet, dass Sie teilnehmen möchten. "
-"Das können Sie über die <em>Infoseite eines Trainings</em> machen, bevor dieses begonnen hat bzw. während der Anmeldephase, "
-"indem Sie dort auf den <strong>\"An dieser Session teilnehmen\"</strong>-Knopf klicken. "
-"Die Trainingsseiten können Sie über die <a href=\"%(schedule_url)s\">Programm-Seite</a> erreichen."
+"Das können Sie über die <em>Infoseite eines Trainings</em> machen, bevor "
+"dieses begonnen hat bzw. während der Anmeldephase, indem Sie dort auf den "
+"<strong>\"An dieser Session teilnehmen\"</strong>-Knopf klicken. Die "
+"Trainingsseiten können Sie über die <a href=\"%(schedule_url)s\">Programm-"
+"Seite</a> erreichen."
 
 #: schedule/templates/schedule/session.html:4
 #: schedule/templates/schedule/session.html:5
@@ -3336,29 +3569,30 @@ msgstr "Session"
 msgid "Location"
 msgstr "Ort"
 
-#: schedule/templates/schedule/session.html:46
+#: schedule/templates/schedule/session.html:52
 msgid "Attend this session"
 msgstr "An dieser Session teilnehmen"
 
-#: schedule/templates/schedule/session.html:51
+#: schedule/templates/schedule/session.html:57
 msgid "Do not attend anymore"
 msgstr "Nicht teilnehmen"
 
-#: schedule/templates/schedule/session.html:70
+#: schedule/templates/schedule/session.html:76
 msgid "Slides"
 msgstr "Folien"
 
-#: schedule/templates/schedule/session.html:77
+#: schedule/templates/schedule/session.html:83
+#: schedule/templates/schedule/sideevent.html:56
 msgid "Video"
 msgstr "Video"
 
-#: schedule/templates/schedule/session.html:87
-#: schedule/templates/schedule/sideevent.html:36
+#: schedule/templates/schedule/session.html:93
+#: schedule/templates/schedule/sideevent.html:62
 #: skins/ep14/templates/base.html:49
 msgid "Admin"
 msgstr "Admin"
 
-#: schedule/templates/schedule/session.html:96
+#: schedule/templates/schedule/session.html:102
 msgid "Speakers:"
 msgstr "Vortragende(r):"
 
@@ -3422,6 +3656,10 @@ msgstr "Sessions in %(location)s"
 #, python-format
 msgid "Sessions tagged with \"%(tag)s\""
 msgstr "Sessions mit Tag \"%(tag)s\""
+
+#: schedule/templates/schedule/sideevent.html:40
+msgid "Speaker(s)"
+msgstr "Vortragende(r)"
 
 #: skins/default/templates/confirm.html:9
 msgid "Yes"
@@ -3500,7 +3738,7 @@ msgstr "Abgemeldet"
 
 #: skins/default/templates/userprofiles/login.html:4
 #: skins/default/templates/userprofiles/login.html:5
-#: skins/ep14/templates/base.html:59
+#: skins/ep14/templates/base.html:60
 msgid "Login"
 msgstr "Anmelden"
 
@@ -3526,7 +3764,7 @@ msgstr ""
 
 #: skins/default/templates/userprofiles/profile.html:4
 #: skins/default/templates/userprofiles/profile.html:5
-#: skins/ep14/templates/base.html:63
+#: skins/ep14/templates/base.html:64
 msgid "Your profile"
 msgstr "Dein Profil"
 
@@ -3676,27 +3914,31 @@ msgstr "Konto-Aktivierung"
 msgid "E-mail confirmation"
 msgstr "E-Mail-Bestätigung"
 
-#: skins/ep14/templates/base.html:59
+#: skins/ep14/templates/base.html:54
+msgid "Handle check-in"
+msgstr ""
+
+#: skins/ep14/templates/base.html:60
 msgid "Sign up"
 msgstr "Registrieren"
 
-#: skins/ep14/templates/base.html:106
+#: skins/ep14/templates/base.html:107
 msgid "Get in touch"
 msgstr "Hilfe und Support"
 
-#: skins/ep14/templates/base.html:116
+#: skins/ep14/templates/base.html:117
 msgid "Follow @europython"
 msgstr "@europython folgen"
 
-#: skins/ep14/templates/base.html:122
+#: skins/ep14/templates/base.html:123
 msgid "Like EuroPython"
 msgstr "Like EuroPython"
 
-#: skins/ep14/templates/base.html:128
+#: skins/ep14/templates/base.html:129
 msgid "+1 EuroPython"
 msgstr "+1 EuroPython"
 
-#: skins/ep14/templates/base.html:132
+#: skins/ep14/templates/base.html:133
 msgid ""
 "EuroPython 2014 is organized by the <a href=\"http://www.meetup.com/Python-"
 "Users-Berlin-PUB/\">Python User Group Berlin</a>, <a href=\"http://www."
@@ -3888,6 +4130,12 @@ msgstr "Webseite"
 #: testimonials/models.py:16
 msgid "author's description"
 msgstr "Beschreibung"
+
+#~ msgid "Date (valid from)"
+#~ msgstr "Gültig ab"
+
+#~ msgid "Date (valid to)"
+#~ msgstr "Gültig bis"
 
 #~ msgid "You have not yet indicated your attendance to any specific session."
 #~ msgstr ""

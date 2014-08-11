@@ -56,10 +56,10 @@ class SlideShareService(AbstractOEmbedEnabledService):
     """
 
     def matches_link(self, link):
-        return link.startswith("http://www.slideshare.net")
+        return link.startswith("http://www.slideshare.net") or link.startswith("https://www.slideshare.net")
 
     def get_oembed_url(self, link):
-        return '''http://www.slideshare.net/api/oembed/2?''' + urllib.urlencode((
+        return '''https://www.slideshare.net/api/oembed/2?''' + urllib.urlencode((
             ('format', 'json'),
             ('url', link)
             ))
