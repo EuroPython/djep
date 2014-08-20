@@ -1,5 +1,5 @@
 beautifulsoup4==4.3.2
-Django==1.5.8
+Django==1.5.9
 Markdown==2.2.0
 Pillow==2.1.0
 South==0.8.2
